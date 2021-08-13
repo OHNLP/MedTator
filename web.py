@@ -1,8 +1,7 @@
 '''
-The development server for
+The development server for MedTator
 '''
 import os
-import pathlib
 
 from flask import Flask, render_template
 from flask import send_from_directory
@@ -34,32 +33,12 @@ def favicon():
         'favicon.ico', mimetype='image/vnd.microsoft.icon'
     )
 
-def build(path):
+def build(path=None):
     '''
     Build the static annotator
     '''
-    import shutil
-
-    # create the folder
-    pathlib.Path(
-        os.path.join(path, 'static', 'data')
-    ).mkdir(
-        parents=True,
-        exist_ok=True
-    )
-
-    # copy the sample data
-    path_src = os.path.join(
-        pathlib.Path(__file__).parent.absolute(),
-        'docs', 'static', 'data',
-        'vpp_data_sample.json'
-    )
-    path_dst = os.path.join(
-        path, 'static', 'data', 
-        'vpp_data_sample.json'
-    )
-    shutil.copy(path_src, path_dst, )
-
+    if path is None:
+        path = app.config['STATIC_PAGE_ROOT_PATH']
     # download the page
     with app.test_client() as client:
         with app.app_context():
@@ -105,7 +84,7 @@ if __name__=='__main__':
     parser.add_argument("--mode", type=str, 
         choices=['build', 'run'], default='run',
         help="Which mode?")
-    parser.add_argument("--path", type=str, 
+    parser.add_argument("--path", type=str, default=None,
         help="Which path for the built page?")
 
     args = parser.parse_args()
@@ -113,7 +92,9 @@ if __name__=='__main__':
     if args.mode == 'run':
         app.run(
             host=app.config['DEV_LISTEN'],
-            port=app.config['DEV_PORT'])
+            port=app.config['DEV_PORT'],
+            # ssl_context='adhoc'
+        )
 
     elif args.mode == 'build':
         build(args.path)
