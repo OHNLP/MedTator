@@ -1,0 +1,72 @@
+<div v-show="section=='statistics'" id="main_ui" 
+    class="main-ui container-fluid">
+    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+
+        <div id="mui_stat_summary" class="d-flex h-100">
+            <div class="box w-100">
+                <div class="box-header">
+                    <h4>
+                        <i class="fa fa-list-ul"></i>
+                        Summary
+                    </h4>
+                </div>
+
+                <div class="box-body">
+                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                        <div>
+                            # of documents: 
+                        </div>
+                        <div class="mr-2">
+                            {{ anns.length }}
+                        </div>
+                    </div>
+
+                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                        <div>
+                            # of tags in DTD: 
+                        </div>
+                        <div v-if="dtd != null" class="mr-2">
+                            {{ dtd.etags.length }}
+                        </div>
+                        <div v-else class="mr-2">
+                            0
+                        </div>
+                    </div>
+
+                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                        <div>
+                            # of annotations: 
+                        </div>
+                        <div class="mr-2">
+                            {{ count_all_tags(anns) }}
+                        </div>
+                    </div>
+
+                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                        <div>
+                            # of annotations per tag: 
+                        </div>
+                        <div class="mr-2">
+                            {{ calc_avg_tags_per_def(anns, dtd) }}
+                        </div>
+                    </div>
+
+                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                        <div>
+                            # of annotations per document: 
+                        </div>
+                        <div class="mr-2">
+                            {{ calc_avg_tags_per_doc(anns) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+        <div class="h-splitter"></div>
+        <div id="mui_stat_charts" class="d-flex">
+
+    </div>
+
+    </div>
+</div>

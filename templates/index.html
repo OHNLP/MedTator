@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>MedTator</title>
+
+<link href="./static/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Metro UI style -->
+<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+
+<!-- jquery UI style -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
+<!-- code mirror style -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css" />
+
+<!-- for the metro UI -->
+<meta name="metro4:init" content="false">
+
+<style id="app_style">
+{% include 'css/box.css' %}
+{% include 'css/main.css' %}
+</style>
+
+</head>
+
+<body>
+
+<div id="start-screen">
+    <h1>
+        <i class="fa fa-highlighter"></i>
+        Annotator
+    </h1>
+    <div id="ss-msg">Loading data and initializing GUI ...</div>
+</div>
+
+<div id="app_hotpot">
+
+    <nav data-role="ribbonmenu">
+        <ul class="tabs-holder">
+            <li v-on:click="switch_mui('annotation')"
+                v-bind:class="{'active': section=='annotation'}">
+                <a id="tab_link_annotation" href="#section-1-1">
+                    <i class="fa fa-highlighter"></i>
+                    Annotation
+                </a>
+            </li>
+            <!-- <li v-on:click="switch_mui('statistics')"
+                v-bind:class="{'active': section=='statistics'}">
+                <a href="#section-1-5">
+                    <i class="fa fa-chart-bar"></i>
+                    Statistics
+                </a>
+            </li> -->
+            <li v-on:click="switch_mui('corpus')"
+                v-bind:class="{'active': section=='corpus'}">
+                <a href="#section-1-2">
+                    <i class="fa fa-cubes"></i>
+                    Txt Converter
+                </a>
+            </li>
+            <li v-on:click="switch_mui('ruleset')"
+                v-bind:class="{'active': section=='ruleset'}">
+                <a href="#section-1-4">
+                    <i class="fa fa-file-export"></i>
+                    Export
+                </a>
+            </li>
+            <li v-on:click="switch_mui('iaa')"
+                v-bind:class="{'active': section=='iaa'}">
+                <a href="#section-1-6">
+                    <i class="fa fa-people-arrows"></i>
+                    IAA
+                </a>
+            </li>
+        </ul>
+
+        <div class="content-holder">
+            <!-- the section for annotation -->
+            <div class="section" id="section-1-1" 
+                v-bind:class="{'active': section=='annotation'}">
+
+                <div class="group">
+
+                    <div id="dropzone_dtd" class="dropzone"
+                        v-on:click="open_dtd_file">
+                        <div v-if="dtd != null" class="zone-text">
+                            <b>{{ dtd.name }}</b><br>
+                            {{ dtd.etags.length }} Entity Tags<br>
+                            {{ dtd.ltags.length }} Link Tags
+                        </div>
+                        <div v-else>
+                            Drop a <b>Schema</b> File Here
+                        </div>
+                    </div>
+
+                    <!-- <button class="ribbon-button"
+                        v-on:click="open_dtd_file">
+                        <span class="icon">
+                            <i class="far fa-file"></i>
+                        </span>
+                        <span class="caption">Open DTD</span>
+                    </button> -->
+
+                    <span class="title">Schema DTD File (.dtd)</span>
+                </div>
+
+                <div class="group">
+
+                    <div id="dropzone_ann" 
+                        v-on:click="open_ann_files"
+                        v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
+                        <div v-if="ann_idx != null" class="zone-text">
+                            <b>{{ anns[ann_idx]._filename }}</b><br>
+                            {{ anns[ann_idx].text.length }} chars<br>
+                            {{ anns[ann_idx].tags.length }} tags
+                        </div>
+                        <div v-else-if="dtd != null">
+                            Drop <b>Annotation</b> File(s) Here
+                        </div>
+                        <div v-else>
+                            <i class="fa fa-arrow-left"></i>
+                            Load schema file first
+                        </div>
+                    </div>
+
+                    <!-- <button class="ribbon-button"
+                        v-on:click="open_ann_files">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">Open XMLs</span>
+                    </button> -->
+
+                    <span class="title">Annotation File (.xml)</span>
+                </div>
+
+                <div v-if="ann_idx != null"
+                    class="group">
+                    <button class="ribbon-button"
+                        v-on:click="save_xml">
+                        <span class="icon">
+                            <i class="far fa-save"></i>
+                        </span>
+                        <span class="caption">Save</span>
+                    </button>
+ 
+                    <button class="ribbon-button"
+                        v-on:click="save_as_xml">
+                        <span class="icon">
+                            <i class="far fa-copy"></i>
+                        </span>
+                        <span class="caption">Save as</span>
+                    </button>
+                    <a id="downloadAnchorElem" style="display:none"></a>
+
+                    <span class="title">Save</span>
+                </div>
+
+                <!-- <div class="group">
+                    <div>
+                        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
+                        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
+                    </div>
+                    <span class="title">Annotation Mode</span>
+                </div> -->
+
+                <div class="group">
+                    <div>
+                        <input type="radio" name="display_mode" value="document" 
+                            data-role="radio" 
+                            data-caption="<i class='far fa-file-alt'></i> Document" checked 
+                            v-model="cm.display_mode"
+                            @change="on_change_display_mode">
+                        <br>
+                        <input type="radio" name="display_mode" value="sentences" 
+                            data-role="radio" 
+                            data-caption="<i class='fa fa-list'></i> Sentences" 
+                            v-model="cm.display_mode"
+                            @change="on_change_display_mode">
+                    </div>
+
+                    <!-- <div class="ribbon-toggle-group">
+                        <button class="ribbon-icon-button active"
+                            v-on:click="on_change_display_mode('document')">
+                            <span class="icon">
+                                <i class='far fa-file-alt'></i>
+                            </span>
+                            <span class="caption">Document</span>
+                        </button>
+    
+                        <button class="ribbon-icon-button"
+                            v-on:click="on_change_display_mode('smart')">
+                            <span class="icon">
+                                <i class='fa fa-list'></i>
+                            </span>
+                            <span class="caption">Sentences</span>
+                        </button>
+                    </div> -->
+
+                    <span class="title">Display Mode</span>
+                </div>
+
+                <div class="group">
+                    <div>
+                        <input type="radio" name="mark_mode" value="node" 
+                            data-role="radio" 
+                            data-caption="<i class='fa fa-broom'></i> Rich Text" checked 
+                            v-model="cm.mark_mode"
+                            @change="on_change_mark_mode">
+                        <br>
+                        <input type="radio" name="mark_mode" value="span" 
+                            data-role="radio" 
+                            data-caption="<i class='fa fa-pen'></i> Simple" 
+                            v-model="cm.mark_mode"
+                            @change="on_change_mark_mode">
+                    </div>
+                    <span class="title">Mark Mode</span>
+                </div>
+
+                <div class="group">
+                    <div class="ribbon-toggle-group">
+                        <button class="ribbon-icon-button active"
+                            v-on:click="on_change_hint_mode('simple')">
+                            <span class="icon">
+                                <span class="mif-list"></span>
+                            </span>
+                            <span class="caption">Simple</span>
+                        </button>
+    
+                        <button class="ribbon-icon-button"
+                            v-on:click="on_change_hint_mode('smart')">
+                            <span class="icon">
+                                <span class="fa fa-magic"></span>
+                            </span>
+                            <span class="caption">Smart</span>
+                        </button>
+    
+                        <button class="ribbon-icon-button"
+                            v-on:click="on_change_hint_mode('off')">
+                            <span class="icon">
+                                <span class="fa fa-toggle-off"></span>
+                            </span>
+                            <span class="caption">Off</span>
+                        </button>
+                    </div>
+
+                    <div>
+
+                        <button class="ribbon-button" 
+                            v-on:click="accept_all_hints">
+                            <span class="icon">
+                                <i class="fa fa-check-double"></i>
+                            </span>
+                            <span class="caption">Accept All</span>
+                        </button>
+                        
+                    </div>
+    
+                    <span class="title">Hint Mode</span>
+                </div>
+                
+                <div class="group">
+                    <div>
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Show Links"
+                            v-model="cm.enabled_links"
+                            @change="on_change_link_settings">
+                        <br>
+                        
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Link Name"
+                            v-model="cm.enabled_link_name"
+                            @change="on_change_link_settings">
+                    </div>
+
+                    <div v-show="is_linking">
+                        <button class="ribbon-button"
+                            v-on:click="cancel_linking">
+                            <span class="icon">
+                                <span class="far fa-times-circle"></span>
+                            </span>
+                            <span class="caption">Cancel Linking</span>
+                        </button>
+                    </div>
+                    <span class="title">Link Marks</span>
+                </div>
+
+                <div class="group">
+
+                    <button id="btn_annotation_load_sample"
+                        class="ribbon-button" 
+                        title="Load a sample dataset"
+                        v-on:click="load_sample_ds">
+                        <span class="icon">
+                            <i class="far fa-edit"></i>
+                        </span>
+                        <span class="caption">Sample</span>
+                    </button>
+
+                    <button class="ribbon-button" 
+                        v-on:click="show_about">
+                        <span class="icon">
+                            <i class="fa fa-info"></i>
+                        </span>
+                        <span class="caption">About</span>
+                    </button>
+
+                    <span class="title">Help</span>
+                </div>
+
+            </div>
+
+            <!-- the section for corpus schema -->
+            <div class="section" id="section-1-2"
+                v-bind:class="{'active': section=='corpus'}">
+
+                <div class="group">
+                    <button class="ribbon-button"
+                        v-on:click="clear_corpus_all">
+                        <span class="icon">
+                            <i class="far fa-times-circle"></i>
+                        </span>
+                        <span class="caption">Clear All</span>
+                    </button>
+
+                    <span class="title">&nbsp;</span>
+                </div>
+
+                <div class="group">
+                    <div id="dropzone_txt" class="dropzone">
+                        <div v-if="txt_anns.length == 0" class="zone-text">
+                            Drop <b>Raw Text</b> File <br>
+                            Here
+                        </div>
+                        <div v-else>
+                            {{ txt_anns.length }} txt files
+                        </div>
+                    </div>
+
+                    <button class="ribbon-button"
+                        :disabled="dtd == null"
+                        v-on:click="open_txt_files">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">Open .txt Files</span>
+                    </button>
+
+                    <span class="title">Raw Text Files</span>
+                </div>
+                
+                <div class="group">
+                    
+                    <div class="d-flex flex-column ml-2">
+                        <div class="mt-1 mb-2">
+                            <label for="">Prefix for XML Files</label>
+                            <input type="text" class="ipt-md"
+                                v-model="txt_xml_prefix">
+                        </div>
+                        <div>
+                            <label for="">Suffix for XML Files</label>
+                            <input type="text" class="ipt-md"
+                                v-model="txt_xml_suffix">
+                        </div>
+                    </div>
+
+                    <button class="ribbon-button"
+                        :disabled="dtd == null || txt_anns.length == 0"
+                        v-on:click="convert_txt_anns_to_xmls">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">Convert to XMLs</span>
+                    </button>
+
+                    <span class="title">Annotation XML File</span>
+                </div>
+                
+                <div class="group">
+
+                    <button class="ribbon-button"
+                        :disabled="txt_xmls.length == 0 || txt_xmls.length != txt_anns.length"
+                        v-on:click="download_txt_xmls_as_zip">
+                        <span class="icon">
+                            <i class="fa fa-download"></i>
+                        </span>
+                        <span class="caption">All as a ZIP</span>
+                    </button>
+
+                    <span class="title">Download</span>
+                </div>
+
+            </div>
+
+            <!-- the section for adju operations -->
+            <!-- <div class="section" id="section-1-3"
+                v-bind:class="{'active': section=='adjudication'}">
+                <div v-if="dtd != null" 
+                    class="group">
+
+                    <button class="ribbon-button"
+                        v-for="etag in dtd.etags">
+                        <span class="icon">
+                            <i class="fa fa-cube"></i>
+                        </span>
+                        <span class="caption">{{ etag.name }}({{ etag.id_prefix }})</span>
+                    </button>
+
+                    <span class="title">Extend Tags</span>
+                </div>
+                
+
+                <div v-if="dtd != null && dtd.ltags.length > 0" 
+                    class="group">
+
+                    <button class="ribbon-button"
+                        v-for="ltag in dtd.ltags">
+                        <span class="icon">
+                            <i class="fa fa-link"></i>
+                        </span>
+                        <span class="caption">{{ ltag.name }}</span>
+                    </button>
+
+                    <span class="title">Link Tags</span>
+                </div>
+            </div> -->
+
+            <!-- the section for iaa -->
+            <div class="section" id="section-1-6"
+                v-bind:class="{'active': section=='iaa'}">
+
+                <div class="group">
+                    <button class="ribbon-button"
+                        v-on:click="clear_iaa_all">
+                        <span class="icon">
+                            <i class="far fa-times-circle"></i>
+                        </span>
+                        <span class="caption">Clear All</span>
+                    </button>
+
+                    <span class="title">&nbsp;</span>
+                </div>
+
+                <div class="group">
+
+                    <div id="dropzone_iaa_0" class="dropzone-iaa"
+                        iaa_id="0">
+                        <div v-if="dtd == null" class="zone-text">
+                            Load DTD file first<br>
+                            in Annotation Tab
+                        </div>
+                        <div v-else-if="iaa_ann_list[0].anns.length == 0" class="zone-text">
+                            Drop <b>Ann</b> File(s)<br>
+                            Annotator <b>A</b>
+                        </div>
+                        <div v-else class="zone-text">
+                            <b>Annotator A</b><br>
+                            Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
+                            <br>
+                            in {{ iaa_ann_list[0].anns.length }} Files
+                        </div>
+                    </div>
+
+                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+                    <div id="dropzone_iaa_1" class="dropzone-iaa"
+                        iaa_id="1">
+                        <div v-if="dtd == null" class="zone-text">
+                            Load DTD file first<br>
+                            in Annotation Tab
+                        </div>
+                        <div v-else-if="iaa_ann_list[1].anns.length == 0" class="zone-text">
+                            Drop <b>Ann</b> File(s)<br>
+                            Annotator <b>B</b>
+                        </div>
+                        <div v-else class="zone-text">
+                            <b>Annotator B</b><br>
+                            Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
+                            <br>
+                            in {{ iaa_ann_list[1].anns.length }} Files
+                        </div>
+                    </div>
+
+                    <span class="title">Annotation Files</span>
+                </div>
+
+                <div class="group">
+                    <div class="mr-1">
+                        <input type="radio" name="match_mode" 
+                            value="overlap" 
+                            data-role="radio" 
+                            data-caption="<i class='fa fa-align-center'></i> Overlap" checked 
+                            v-model="iaa_match_mode"
+                            @change="on_change_iaa_settings">
+                        <br>
+                        <input type="radio" name="match_mode" 
+                            value="exact" 
+                            data-role="radio" 
+                            data-caption="<i class='fa fa-align-justify'></i> Exact" 
+                            v-model="iaa_match_mode"
+                            @change="on_change_iaa_settings">
+                    </div>
+                    
+                    <div v-if="iaa_match_mode == 'overlap'"
+                        class="p-1 ml-1 mr-1 border bd-gray border-radius">
+
+                        <div class="mt-1 mb-1">
+                            <i class="fa fa-percentage"></i>
+                            Overlap Ratio
+                        </div>
+
+                        <div>        
+                            <input id="iaa_form_overlap_ratio" 
+                                name="iaa_form_overlap_ratio" 
+                                style="width: 36px"
+                                type="text" class="ipt-md" 
+                                v-model.number="iaa_overlap_ratio">
+                            <span class="mr-1">
+                                %
+                            </span>
+
+                            <button title="Reset the overlap ratio"
+                                v-on:click="iaa_overlap_ratio = iaa_overlap_ratio_default">
+                                <i class="fa fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="ribbon-button"
+                        v-on:click="calc_iaa">
+                        <span class="icon">
+                            <i class="fa fa-calculator"></i>
+                        </span>
+                        <span class="caption">Calculate All</span>
+                    </button>
+
+                    <span class="title">IAA</span>
+                </div>
+                
+                <div class="group">
+                    <div>
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Show Agreed Tags"
+                            v-model="iaa_display_tags_tp"
+                            @change="on_change_iaa_settings">
+                        <br>
+
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Show Context"
+                            v-model="iaa_display_tags_context"
+                            @change="on_change_iaa_settings">
+
+                    </div>
+                    <span class="title">Tag Display</span>
+                </div>
+
+                
+                <div class="group">
+                    <div>
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Adj. Panel"
+                            v-model="iaa_display_adj_panel"
+                            @change="on_change_iaa_settings">
+                        <br>
+
+                        <input type="checkbox" 
+                            class="check"
+                            data-role="switch" 
+                            data-caption="Tag Detail"
+                            v-model="iaa_display_adj_detail"
+                            @change="on_change_iaa_settings">
+
+                    </div>
+
+                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+                    <div>
+                        <button class="ribbon-button" 
+                            :disabled="dtd == null || iaa_dict == null"
+                            v-on:click="make_default_adj">
+                            <span class="icon">
+                                <i class="far fa-object-group"></i>
+                            </span>
+                            <span class="caption">Reset G.S.</span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <button class="ribbon-button" 
+                            :disabled="dtd == null"
+                            v-on:click="download_all_gs">
+                            <span class="icon">
+                                <i class="fa fa-file-download"></i>
+                            </span>
+                            <span class="caption">Download All</span>
+                        </button>
+                    </div>
+                    
+                    <span class="title">Adjudication</span>
+                </div>
+
+            </div>
+
+
+            <!-- the section for ruleset -->
+            <div class="section" id="section-1-4"
+                v-bind:class="{'active': section=='ruleset'}">
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="update_hint_dict">
+                        <span class="icon">
+                            <i class="fa fa-sync"></i>
+                        </span>
+                        <span class="caption">Refresh</span>
+                    </button>
+
+                    <span class="title">&nbsp;</span>    
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_tabular_tsv">
+                        <span class="icon">
+                            <i class="far fa-file-excel"></i>
+                        </span>
+                        <span class="caption">Tab-separated (.tsv)</span>
+                    </button>
+
+                    <span class="title">Texts</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_medtagger_zip">
+                        <span class="icon">
+                            <i class="far fa-file-archive"></i>
+                        </span>
+                        <span class="caption">MedTagger (.zip)</span>
+                    </button>
+
+                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_spacy_jsonl">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">spaCy (.jsonl)</span>
+                    </button>
+                    <span class="title">Ruleset</span>
+                </div>
+            </div>
+
+            <!-- the section for statistics -->
+            <div class="section" id="section-1-5"
+                v-bind:class="{'active': section=='statistics'}">
+                <button class="ribbon-button" 
+                    :disabled="dtd == null"
+                    v-on:click="show_about">
+                    <span class="icon">
+                        <i class="fa fa-list-ul"></i>
+                    </span>
+                    <span class="caption">Update All</span>
+                </button>
+                
+            </div>
+        </div>
+
+    </nav>
+
+    <!-- the ui for main annotation -->
+    {% include '_annotator_mui_annotation.html' %}
+
+    <!-- the ui for corpus -->
+    {% include '_annotator_mui_corpus.html' %}
+
+    <!-- the ui for ruleset / export -->
+    {% include '_annotator_mui_ruleset.html' %}
+
+    <!-- the ui for iaa -->
+    {% include '_annotator_mui_iaa.html' %}
+    
+    <!-- the ui for statistics -->
+    {% include '_annotator_mui_statistics.html' %}
+    
+
+    <!-- the context menu -->
+    <div v-if="dtd != null"
+        style="display: none;"
+        id="ctxmenu_sel">
+        <!-- <li class="ui-widget-header"
+            v-on:click="close_ctxmenu">Tags:</li> -->
+        <li class="ctxmenu-item"
+            v-for="etag, tag_idx in dtd.etags"
+            v-on:click="add_etag_by_ctxmenu(etag)">
+            <div v-bind:id="'ctxmenu-item-' + etag.name">
+                <i v-bind:class="'fa fa-tag fg-tag-' + etag.name"></i>
+                <span v-if="etag.hasOwnProperty('shortcut')"
+                    class="badge-shortcut mr-1">
+                    {{ etag.shortcut }}
+                </span>
+                <span>
+                    {{ etag.name }}
+                </span>
+            </div>
+        </li>
+    </div>
+    <div v-else
+        id="ctxmenu_sel">
+
+    </div>
+
+    <!-- the tag click menu -->
+    <div v-if="dtd != null"
+        style="display: none;"
+        id="popmenu_tag">
+        <li class="ui-widget-header"
+            v-on:click="close_popmenu">
+            TAG <i class="fa fa-tag"></i>
+            <b>{{ clicked_tag_id }}</b>
+        </li>
+
+        <div v-if="is_linking">
+            <li v-for="att, att_idx in linking_atts"
+                v-on:click="popmenu_set_linking(att_idx)"
+                class="ctxmenu-item">
+                <div>
+                    <i class="fa fa-link"
+                        v-bind:class="'fg-tag-' + linking_tag_def.name">
+                    </i>
+                    <b>{{ linking_tag_def.name }}</b>
+                    -
+                    <i>{{ att.name }}</i>
+                </div>
+            </li>
+
+            <li class="ctxmenu-divider"></li>
+            <li class="ctxmenu-item"
+                v-on:click="cancel_linking()">
+                <div>
+                    <i class="far fa-times-circle"></i>
+                    Cancel current linking
+                </div>
+            </li>
+        </div>
+
+        <div v-else>
+            <li class="ctxmenu-item"
+                v-for="ltag, ltag_idx in dtd.ltags"
+                v-on:click="popmenu_start_linking(ltag)">
+                <div>
+                    <i class="fa fa-link"
+                        v-bind:class="'fg-tag-' + ltag.name">
+                    </i>
+                    <b>{{ ltag.name }}</b>
+                    -
+                    <i>{{ get_idref_attlist_by_seq(ltag).name }}</i>
+                </div>
+            </li>
+        </div>
+
+        <li class="ctxmenu-divider"></li>
+        <li class="ctxmenu-item"
+            v-on:click="popmenu_del_tag()">
+            <div>
+                <i class="far fa-trash-alt"></i>
+                Delete this tag
+            </div>
+        </li>
+    </div>
+    <div v-else
+        id="popmenu_tag">
+
+    </div>
+    
+</div>
+
+<script>
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+var isCHROME = false;
+var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
+var CHROME_VERSION = null;
+var CHROME_VERSION_MAJOR = null;
+
+if (isIE) {
+    document.getElementById('ss-msg').innerHTML = 'The visualization used in this website require advanced web technologies, which are <b>NOT</b> supported by Internet Explorer.<br>Try using Google Chrome, Apple Safari, Mozilla Firefox or other modern browsers to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
+} else {
+    let user_agent = navigator.userAgent.toLowerCase();
+    let mgs = user_agent.match(/chrome\/([\d\.]+)/);
+    if (mgs == null) {
+
+    } else {
+        isCHROME = true;
+        CHROME_VERSION = mgs[1];
+        CHROME_VERSION_MAJOR = parseInt(CHROME_VERSION.split('.')[0]);
+    }
+}
+</script>
+
+<!-- metro ui -->
+<script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<!-- Vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+<!-- jszip -->
+<script src="https://stuk.github.io/jszip/dist/jszip.js"></script>
+<!-- filesaver -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+<!-- dayjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.36/dayjs.min.js"></script>
+<!-- js cookie -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+<!-- jquery-ui -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- code mirror -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+<!-- code mirror addon -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/selection/active-line.min.js"></script>
+<!-- numjs -->
+<script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
+<!-- compromise -->
+<script src="https://unpkg.com/compromise"></script>
+<!-- chart.js -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<!-- PapaParse -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+<!-- Shepherd -->
+<script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/css/shepherd.css">
+<script>
+
+// The file helper 
+{% include 'js/fs_helper.js' %}
+
+// The DTD parser
+{% include 'js/dtd_parser.js' %}
+
+// The Ann parser
+{% include 'js/ann_parser.js' %}
+
+// The Rulepack toolkit
+{% include 'js/erp_toolkit.js' %}
+
+// The spaCy toolkit
+{% include 'js/spacy_toolkit.js' %}
+
+// The IAA Calculator
+{% include 'js/iaa_calculator.js' %}
+
+// The NLP toolkit
+{% include 'js/nlp_toolkit.js' %}
+
+// The Vue APP
+{% include 'js/app_hotpot.js' %}
+
+// The Tag Info Vue Module
+{% include 'js/vpp_iaa_tag_info.js' %}
+
+// The Tag Info Vue Module for Gold Standard
+{% include 'js/vpp_iaa_tag_info_gs.js' %}
+
+var jarvis = {
+    init: function() {
+        // too bad ...
+        if (isIE) { return 0; }
+
+        if (!isCHROME) { 
+            this.ssmsg('Please use the latest Google Chrome browser');
+            return 0; 
+        }
+
+        if (!isFILE_API_OK) {
+            this.ssmsg('Latest Google Chrome and HTTPS are required');
+            return 0;
+        }
+
+        app_hotpot.init();
+
+        jarvis.ssmsg('Initializated')
+        setTimeout('jarvis.ssclose();', 500);
+
+        $(window).resize(function() {
+            app_hotpot.resize();
+        });
+
+        // get some settings here
+        var show_sample = this.get_url_paramter('ss');
+        if (show_sample == 'yes') {
+            app_hotpot.vpp.load_sample_ds();
+        }
+
+        // show the tour?
+        var show_tour = this.get_url_paramter('st');
+        if (show_tour == 'yes') {
+            setTimeout('app_hotpot.start_tour_annotation();', 550);
+        }
+    },
+
+    get_url_paramter: function(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    },
+
+    ssmsg: function(msg) {
+        $('#ss-msg').html(msg);
+    },
+
+    ssclose: function() {
+        $('#start-screen').hide();
+    },
+
+    save_json: function(obj, fn) {
+        var json_text = JSON.stringify(obj, null, 4);
+        var blob = new Blob([json_text], {type: "text/json;charset=utf-8"});
+        saveAs(blob, fn);
+    },
+
+    save_vpp: function() {
+        this.save_json(
+            app_hotpot.vpp.$data,
+            'vpp_data_sample.json'
+        );
+    }
+}
+
+$(document).ready(function () {
+    jarvis.init();
+})
+</script>
+
+    
+</body>
+</html>

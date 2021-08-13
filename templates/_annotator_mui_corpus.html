@@ -1,0 +1,57 @@
+<div v-show="section=='corpus'" id="main_ui" 
+    class="main-ui container-fluid">
+    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+
+        <div class="box w-100">
+            <div class="box-header">
+                <h4>
+                    <i class="fa fa-list-ul"></i>
+                    Corpus Files
+                </h4>
+            </div>
+
+            <div class="box-body" style="overflow-y: auto;">
+                <table class="table striped">
+                    <tr>
+                        <th>#</th>
+                        <th>TXT File Name</th>
+                        <th>&nbsp;</th>
+                        <th>XML File Name</th>
+                    </tr>
+                    <tr v-for="txt_ann, txt_ann_idx in txt_anns">
+                        <td>
+                            {{ txt_ann_idx + 1 }}
+                        </td>
+                        <td>
+                            <i class="far fa-file-alt"></i>
+                            {{ txt_ann._filename }}
+                        </td>
+                        <td>
+                            <span>
+                                <i class="fa fa-arrow-right"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span v-if="txt_xmls.length > txt_ann_idx">
+                                <i class="far fa-file-code"></i>
+                                {{ get_new_xml_filename(txt_xmls[txt_ann_idx].fn) }}
+
+                                <span>
+                                    <a href="javascript:void(0);"
+                                        v-on:click="download_txt_xml(txt_ann_idx)"
+                                        v-bind:title="'Download ' + get_new_xml_filename(txt_xmls[txt_ann_idx].fn)">
+                                        <i class="fa fa-download"></i>
+                                        Download
+                                    </a>
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- /.box -->
+        
+
+    </div>
+</div>

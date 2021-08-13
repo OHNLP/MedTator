@@ -1,0 +1,124 @@
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-header {
+    width: 100%;
+    padding: 3px 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.box-header a {
+    font-size: 1em;
+}
+
+.box-header h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 1.2em;
+    height: 1.6em;
+    line-height: 1.6em;
+    margin: 3px 0;
+}
+
+.box-header button,
+.box-body button,
+.box-footer button {
+    height: 1.6em;
+    line-height: 1em;
+    font-size: .9em;
+    margin: 4px;
+}
+
+.box-header input,
+.box-body input {
+    height: 1.2em;
+    line-height: 1.2em;
+    font-size: 1em;
+    margin: 4px 4px 0 4px;
+    padding-bottom: 2px;
+}
+
+.box-header select {
+    height: 1.6em;
+    line-height: 1.2em;
+    font-size: .9em;
+    margin: 4px;
+}
+
+.box-header span {
+    font-size: 1em;
+}
+
+.box-header-right {
+    font-size: 1em;
+    height: 1.6em;
+    line-height: 1.6em;
+    margin: 3px 0;
+    text-align: right;
+}
+
+.box-body {
+    width: 100%;
+}
+
+.box-body-item {
+    padding: 5px 0 2px 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px dotted #cccccc;
+}
+
+.box-body-item-left {
+    width: 73%;
+}
+
+.box-body-item-right {
+    width: 24%;
+    display: flex;
+    flex-direction: row;
+}
+
+.box-body-item-label {
+    width: 54%;
+    font-size: 1em;
+    line-height: 1.8em;
+}
+
+.box-body-item-value {
+    width: 45%;
+}
+
+.box-body-item select {
+    width: 100%;
+}
+
+.box-body h5 {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+    height: 1.6em;
+    line-height: 1.6em;
+    margin: 3px 0;
+}
+
+.box-p {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+
+.box-p-fixlen {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.box-footer {
+    width: 100%;
+    min-height: 20px;
+    padding: 5px 0 5px 0;
+}

@@ -1,0 +1,289 @@
+<div v-show="section=='annotation'" id="main_ui" 
+    class="main-ui container-fluid">
+    <div class="d-flex flex-row flex-justify-start flex-align-start w-100"
+        style="height: 60%;">
+        <div id="mui_filelist"
+            class="d-flex flex-column flex-justify-start flex-align-start h-100">
+            <div id="mui_filelist_toolbar"
+                class="d-flex flex-row flex-justify-between flex-align-center w-100">
+                <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
+                    <span class="mr-1">Filter: </span>
+                    <input type="text" class="ipt-xs mr-1"
+                        v-model="fn_pattern">
+                
+                    <span v-if="anns.length > 0">
+                        {{ anns.length }} files
+                    </span>
+                </div>
+
+                <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
+                    <button class="btn-xs"
+                        title="Remove all files"
+                        v-on:click="remove_all_ann_files">
+                        <i class="far fa-trash-alt"></i>
+                        All
+                    </button>
+                </div>
+            </div>
+            <div id="mui_filelist_list" 
+                class="d-flex flex-column flex-justify-start flex-align-start w-100 h-100">
+
+                <ul class="w-100 file-list">
+                    <li v-for="ann, idx in anns"
+                        v-show="idx == ann_idx || is_match_filename(ann._filename)"
+                        v-bind:class="{'file-selected':idx == ann_idx}"
+                        class="file-list-item">
+                        <div class="d-flex flex-row flex-justify-between">
+                            <div class="file-list-item-name"
+                                v-bind:title="ann._filename"
+                                v-bind:class="{'file-list-item-name-unsaved':!ann._has_saved}">
+
+                                <a href="javascript:void(0);"
+                                    v-show="!ann._has_saved" 
+                                    v-on:click="save_xml"
+                                    title="Save this annotation file"
+                                    class="icon-fg-unsaved mr-1">
+                                    <i class="fa fa-save"></i>
+                                </a>
+                                
+                                <span v-on:click="set_ann_idx(idx)">
+                                    {{ ann._filename }}
+                                </span>
+                            </div>
+
+                            <div class="d-flex flex-row">
+                                <div class="mr-2"
+                                    v-bind:title="ann.tags.length + ' tags'">
+                                    {{ ann.tags.length }}
+                                </div>
+
+                                <div v-bind:title="'Remove ' + ann._filename">
+                                    <a v-on:click="remove_ann_file(idx)"
+                                        class="btn btn-red btn-xs"
+                                        href="javascript:void(0);">
+                                        <i class="fa fa-minus-circle"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="h-100 h-splitter">
+        </div>
+
+        <div id="mui_texteditor">
+            <div id="cm_editor" class="w-100">
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="v-splitter"></div>
+    <div class="d-flex flex-row flex-justify-start flex-align-start w-100"
+        style="height: 40%;">
+        <div id="mui_dtdlist" 
+            class="d-flex h-100">
+            <ul v-if="dtd != null"
+                class="w-100 tag-list">
+
+                <li v-on:click="update_tag_table(null)"
+                    class="tag-list-row d-flex flex-row flex-justify-between"
+                    v-bind:class="{'tag-list-row-actived':display_tag_name == '__all__'}">
+                    <div class="tag-list-row-name"
+                        v-on:click="display_tag_name = '__all__'">
+                        <span class='mif-folder fg-red'></span>
+                        All Tags
+                    </div>
+                    <div class="mr-1">
+                        {{ count_n_tags(null) }}
+                    </div>
+                </li>
+
+                <!-- show all etags -->
+                <li v-for="etag in dtd.etags"
+                    v-on:click="update_tag_table(etag)"
+                    class="tag-list-row d-flex flex-row flex-justify-between"
+                    v-bind:class="{'tag-list-row-actived':display_tag_name == etag.name}">
+                    <div class="tag-list-row-name"
+                        v-on:click="display_tag_name = etag.name">
+                        <i class="fa fa-tag"
+                            v-bind:class="'fg-tag-' + etag.name">
+                        </i>
+                        <span v-if="etag.hasOwnProperty('shortcut')"
+                            class="badge-shortcut mr-1">
+                            {{ etag.shortcut }}
+                        </span>
+                        <span v-html="make_html_bold_tag_name(etag)">
+                            
+                        </span>
+                    </div>
+                    <div class="mr-1 d-flex flex-row">
+                        <div v-if="ann_idx != null && etag.is_non_consuming"
+                            class="mr-2">
+                            <button class="btn-xs"
+                                title="Add an empty entity tag"
+                                v-on:click="add_empty_etag(etag)">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(etag)">
+                            {{ count_n_tags(etag) }}
+                        </div>
+                    </div>
+                </li>
+
+                <!-- show all link tags -->
+                <li v-for="ltag in dtd.ltags"
+                    class="tag-list-row d-flex flex-row flex-justify-between"
+                    v-bind:class="{'tag-list-row-actived':display_tag_name == ltag.name}">
+                    <div class="tag-list-row-name"
+                        v-on:click="display_tag_name = ltag.name">
+                        <i class="fa fa-link"
+                            v-bind:class="'fg-tag-' + ltag.name">
+                        </i>
+                        <span v-if="ltag.hasOwnProperty('shortcut')"
+                            class="badge-shortcut mr-1">
+                            {{ ltag.shortcut }}
+                        </span>
+                        <span v-html="make_html_bold_tag_name(ltag)">
+                            
+                        </span>
+                    </div>
+                    <div class="mr-1 d-flex flex-row">
+                        <div v-if="ann_idx != null"
+                            class="mr-2">
+                            <button class="btn-xs"
+                                title="Add an empty link tag"
+                                v-on:click="add_empty_ltag(ltag)">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(ltag)">
+                            {{ count_n_tags(ltag) }}
+                        </div>
+                    </div>
+
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="h-100 h-splitter">
+        </div>
+
+        <div id="mui_annlist" 
+            class="d-flex flex-justify-start flex-align-start h-100">
+            <table v-if="dtd!=null && ann_idx != null" class="tag-table w-100 mt-0 mb-0">
+                <thead>
+                    <tr>
+                        <th class="tag-name">Tag</th>
+                        <th class="tag-id">ID</th>
+                        <th class="tag-span">Spans</th>
+                        <th class="tag-text">Text</th>
+                        <th class="tag-attr">Attributes</th>
+                    </tr>
+                </thead>
+                <tbody style="overflow-y: auto;">
+                    <tr v-for="tag, tag_idx in anns[ann_idx].tags"
+                        v-if="tag.tag == display_tag_name || display_tag_name == '__all__'">
+                        <td>
+                            <div class="d-flex flex-row flex-justify-between">
+                                <div>
+                                    <i v-if="get_tag_def(tag.tag).type == 'etag'" 
+                                        class="fa fa-tag"
+                                        v-bind:class="'fg-tag-' + tag.tag">
+                                    </i>
+                                    <i v-else class="fa fa-link"
+                                        class="fa fa-tag"
+                                        v-bind:class="'fg-tag-' + tag.tag">
+                                    </i>
+                                    {{ tag.tag }}
+                                </div>
+
+                                <div class="mr-2">
+                                    <button class="btn btn-xs btn-red"
+                                        title="Delete this tag"
+                                        v-on:click="del_tag(tag.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {{ tag.id }}
+                        </td>
+                        <td>
+                            {{ tag.spans }}
+                        </td>
+                        <td class="td-text">
+                            {{ tag.text }}
+                        </td>
+                        <td class="d-flex flex-row flex-justify-start flex-align-start flex-wrap">
+                            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                                v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                                class="tag-attr-box mr-1 d-flex flex-column">
+                                <div class="tag-attr-name">
+                                    {{ attlist.name }}
+                                    <span v-if="attlist.require == 'REQUIRED'"
+                                        class="clr-red">
+                                        *
+                                    </span>
+                                    <span v-else>
+                                        &nbsp;
+                                    </span>
+                                </div>
+                                
+                                <div v-if="attlist.vtype == 'list'">
+                                    <select class="tag-attr-select"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        @change="on_change_attr_value">
+                                        <option v-for="val in attlist.values"
+                                            v-bind:value="val">
+                                            {{ val }}
+                                        </option>
+                                        <option value="">&nbsp;</option>
+                                    </select>
+                                </div>
+                                <div v-else-if="attlist.vtype == 'text'">
+                                    <input type="text"
+                                        class="tag-attr-input"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        @input="on_input_attr_value">
+                                </div>
+                                <div v-else-if="attlist.vtype == 'idref'">
+                                    <select class="tag-attr-select"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        @change="on_change_idref_value">
+                                        <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
+                                            v-bind:value="s_etag.id">
+                                            {{ s_etag.id }}
+                                            |
+                                            {{ s_etag.tag }}
+                                            -
+                                            {{ s_etag.text }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div v-else>
+                                    <input type="text"
+                                        class="tag-attr-input"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        @input="on_input_attr_value">
+                                </div>
+                            </div>
+                            
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
