@@ -649,7 +649,20 @@
                         <span class="caption">Tab-separated (.tsv)</span>
                     </button>
 
-                    <span class="title">Texts</span>
+                    <span class="title">Text</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_dataset_iob2">
+                        <span class="icon">
+                            <i class="far fa-file"></i>
+                        </span>
+                        <span class="caption">IOB2/BIO (.iob2)</span>
+                    </button>
+
+                    <span class="title">Dataset</span>
                 </div>
 
                 <div class="group">
