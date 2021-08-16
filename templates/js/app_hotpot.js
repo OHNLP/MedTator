@@ -956,7 +956,11 @@ var app_hotpot = {
         },
 
         download_dataset_iob2: function() {
-
+            nlp_toolkit.download_dataset_bio(
+                this.anns,
+                this.dtd,
+                'dataset-' + this.get_ruleset_base_name() + '-BIO.zip'
+            );
         },
 
         /////////////////////////////////////////////////////////////////

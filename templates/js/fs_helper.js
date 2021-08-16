@@ -27,7 +27,7 @@ async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
 
     // bind the sentences
     if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
+        var result = nlp_toolkit.sent_tokenize(ann.text, 'wink_nlp');
         ann._sentences = result.sentences;
         ann._sentences_text = result.sentences_text;
     } else {

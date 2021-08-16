@@ -335,6 +335,10 @@ var ann_parser = {
             if (a[1] > b[0] && a[1] <= b[1]) {
                 return true;
             }
+            // the missing for contains
+            if (a[0] <= b[0] && a[1] >= b[1]) {
+                return true;
+            }
             return false;
         }
 
