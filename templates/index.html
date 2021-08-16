@@ -39,7 +39,7 @@
 <div id="start-screen">
     <h1>
         <i class="fa fa-highlighter"></i>
-        Annotator
+        MedTator
     </h1>
     <div id="ss-msg">Loading data and initializing GUI ...</div>
 </div>
@@ -823,9 +823,9 @@ var isCHROME = false;
 var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
 var CHROME_VERSION = null;
 var CHROME_VERSION_MAJOR = null;
-
+var _NON_CHROME_MSG = 'The visualization used in this website require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
 if (isIE) {
-    document.getElementById('ss-msg').innerHTML = 'The visualization used in this website require advanced web technologies, which are <b>NOT</b> supported by Internet Explorer.<br>Try using Google Chrome, Apple Safari, Mozilla Firefox or other modern browsers to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
+    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
 } else {
     let user_agent = navigator.userAgent.toLowerCase();
     let mgs = user_agent.match(/chrome\/([\d\.]+)/);
@@ -837,6 +837,14 @@ if (isIE) {
         CHROME_VERSION_MAJOR = parseInt(CHROME_VERSION.split('.')[0]);
     }
 }
+if (!isCHROME) {
+    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
+}
+console.log('* isIE: ' + isIE);
+console.log('* isCHROME: ' + isCHROME);
+console.log('* CHROME_VERSION_MAJOR: ' + CHROME_VERSION_MAJOR);
+console.log('* isFILE_API_OK: ' + isFILE_API_OK);
+
 </script>
 <!-- metro ui -->
 <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
@@ -913,12 +921,12 @@ var jarvis = {
         if (isIE) { return 0; }
 
         if (!isCHROME) { 
-            this.ssmsg('Please use the latest Google Chrome browser');
+            this.ssmsg(_NON_CHROME_MSG);
             return 0; 
         }
 
         if (!isFILE_API_OK) {
-            this.ssmsg('Latest Google Chrome and HTTPS are required');
+            this.ssmsg('Latest Google Chrome and HTTPs protocal are required');
             return 0;
         }
 
