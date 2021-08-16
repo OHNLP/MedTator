@@ -823,7 +823,7 @@ var isCHROME = false;
 var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
 var CHROME_VERSION = null;
 var CHROME_VERSION_MAJOR = null;
-var _NON_CHROME_MSG = 'The visualization used in this website require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
+var _NON_CHROME_MSG = 'The visualization and annotation features require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
 if (isIE) {
     document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
 } else {
