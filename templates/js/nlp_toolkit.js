@@ -386,13 +386,13 @@ var nlp_toolkit = {
         var folder_name = 'dataset-'+ dtd.name + '-BIO';
 
         // add the text dataset to zip
-        zip.file(folder_name + '/dataset.txt', txt_dataset);
+        zip.file(folder_name + '/dataset.tsv', txt_dataset);
         // add the label to zip
-        zip.file(folder_name + '/labels.txt', txt_labels);
+        zip.file(folder_name + '/labels.tsv', txt_labels);
         // add the splited to zip
-        zip.file(folder_name + '/train.txt', txt_train);
-        zip.file(folder_name + '/dev.txt', txt_dev);
-        zip.file(folder_name + '/test.txt', txt_test);
+        zip.file(folder_name + '/train.tsv', txt_train);
+        zip.file(folder_name + '/dev.tsv', txt_dev);
+        zip.file(folder_name + '/test.tsv', txt_test);
 
         // create zip file
         zip.generateAsync({ type: "blob" }).then((function(fn) {
