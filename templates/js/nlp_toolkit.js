@@ -280,6 +280,10 @@ var nlp_toolkit = {
                 const tag = ann.tags[j];
 
                 // now mapping the span to token index
+                if (!tag.hasOwnProperty('spans')) {
+                    // this is not an entity tag
+                    continue;
+                }
                 var spans = tag.spans.split(',');
                 for (let k = 0; k < spans.length; k++) {
                     const _span = spans[k];
