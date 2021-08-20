@@ -55,18 +55,18 @@
                     Annotation
                 </a>
             </li>
-            <!-- <li v-on:click="switch_mui('statistics')"
+            <li v-on:click="switch_mui('statistics')"
                 v-bind:class="{'active': section=='statistics'}">
                 <a href="#section-1-5">
                     <i class="fa fa-chart-bar"></i>
                     Statistics
                 </a>
-            </li> -->
+            </li>
             <li v-on:click="switch_mui('corpus')"
                 v-bind:class="{'active': section=='corpus'}">
                 <a href="#section-1-2">
                     <i class="fa fa-cubes"></i>
-                    Txt Converter
+                    Batch Convert
                 </a>
             </li>
             <li v-on:click="switch_mui('ruleset')"
@@ -626,17 +626,28 @@
             <!-- the section for ruleset -->
             <div class="section" id="section-1-4"
                 v-bind:class="{'active': section=='ruleset'}">
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="update_hint_dict">
-                        <span class="icon">
-                            <i class="fa fa-sync"></i>
-                        </span>
-                        <span class="caption">Refresh</span>
-                    </button>
 
-                    <span class="title">&nbsp;</span>    
+                <div v-if="dtd != null"
+                     class="group">
+                    <div>
+                        <p class="mb-1">
+                            <i class="fa fa-list"></i>
+                            Summary:
+                        </p>
+                        <p class="mb-1 mt-1">
+                            <b>
+                                {{ anns.length }}
+                            </b>
+                            Documents
+                            <br>
+                            <b>
+                                {{ count_tags_in_anns(anns)}}
+                            </b>
+                            Annotated Tags
+                        </p>
+                    </div>
+
+                    <span class="title">&nbsp;</span>
                 </div>
 
                 <div class="group">
@@ -693,20 +704,37 @@
             <!-- the section for statistics -->
             <div class="section" id="section-1-5"
                 v-bind:class="{'active': section=='statistics'}">
-                <button class="ribbon-button" 
-                    :disabled="dtd == null"
-                    v-on:click="show_about">
-                    <span class="icon">
-                        <i class="fa fa-list-ul"></i>
-                    </span>
-                    <span class="caption">Update All</span>
-                </button>
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="update_hint_dict">
+                        <span class="icon">
+                            <i class="fa fa-sync"></i>
+                        </span>
+                        <span class="caption">Refresh</span>
+                    </button>
+
+                    <span class="title">&nbsp;</span>    
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_stat_summary">
+                        <span class="icon">
+                            <i class="fa fa-download"></i>
+                        </span>
+                        <span class="caption">Summary (.csv)</span>
+                    </button>
+
+                    <span class="title">Download</span>    
+                </div>
                 
             </div>
         </div>
 
         <div id="app_info">
-            MedTator 0.5.0
+            MedTator 0.5.2
         </div>
     </nav>
 

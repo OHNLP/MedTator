@@ -10,6 +10,8 @@ var spacy_toolkit = {
         // download
         var blob = new Blob([str], {type: "text/txt;charset=utf-8"});
         saveAs(blob, fn);
+
+        return str;
     },
 
     anns2patterns: function(anns) {

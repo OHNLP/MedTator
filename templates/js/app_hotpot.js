@@ -91,7 +91,12 @@ var app_hotpot = {
 
             // for updating the codemirror instance
             is_expire: false
-        }
+        },
+
+        // for statistics
+
+        // for export
+        export_text: null
     },
 
     vpp_methods: {
@@ -604,6 +609,56 @@ var app_hotpot = {
                 tag_id, this.anns[this.ann_idx]
             );
         },
+
+
+        /////////////////////////////////////////////////////////////////
+        // Statistics related functions
+        /////////////////////////////////////////////////////////////////
+
+        update_hint_dict: function() {
+            app_hotpot.update_hint_dict_by_anns();
+        },
+
+        download_stat_summary: function() {
+            var json = [];
+
+            var stat_items = this.get_stat_items();
+
+            for (let i = 0; i < stat_items.length; i++) {
+                const stat_item = stat_items[i];
+                json.push({
+                    item: stat_item[0],
+                    result: stat_item[1]
+                });
+            }
+
+            // then convert the json to csv
+            var csv = Papa.unparse(json, {
+            });
+
+            // download this csv
+            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
+            var fn = this.get_ruleset_base_name() + '-statistics.csv';
+            saveAs(blob, fn);
+        },
+
+        get_stat_items: function() {
+            return [
+                ['# of documents', this.anns.length],
+                ['# of tags in schema', this.dtd.etags.length],
+                ['# of annotations', this.count_all_tags(this.anns)],
+                ['# of annotations per tag', this.calc_avg_tags_per_def(this.anns, this.dtd)],
+                ['# of annotations per document', this.calc_avg_tags_per_doc(this.anns)],
+                [
+                    '# of sentences',
+                    this.count_all_sentences(this.anns)
+                ],
+                [
+                    '# of sentences per document',
+                    this.calc_avg_sentences_per_doc(this.anns)
+                ],
+            ];
+        },
         
         /////////////////////////////////////////////////////////////////
         // Corpus menu related functions
@@ -884,35 +939,6 @@ var app_hotpot = {
             this.force_module_update = Math.random();
         },
 
-        /////////////////////////////////////////////////////////////////
-        // Ruleset Related
-        /////////////////////////////////////////////////////////////////
-
-        update_hint_dict: function() {
-            app_hotpot.update_hint_dict_by_anns();
-        },
-
-        get_ruleset_base_name: function() {
-            var fn = this.dtd.name + '-' + this.anns.length;
-            return fn;
-        },
-
-        download_ruleset_medtagger_zip: function() {
-            erp_toolkit.download_anns_as_zip(
-                this.anns,
-                this.dtd,
-                'ruleset-medtagger-' + this.get_ruleset_base_name() + '.zip'
-            );
-        },
-
-        download_ruleset_spacy_jsonl: function() {
-            spacy_toolkit.download_anns_as_jsonl(
-                this.anns,
-                this.dtd,
-                'ruleset-spacy-' + this.get_ruleset_base_name() + '.jsonl'
-            );
-        },
-
         count_tags_in_anns: function(anns) {
             var cnt = 0;
             for (let i = 0; i < anns.length; i++) {
@@ -920,6 +946,15 @@ var app_hotpot = {
                 cnt += ann.tags.length;
             }
             return cnt;
+        },
+
+        /////////////////////////////////////////////////////////////////
+        // Ruleset Related
+        /////////////////////////////////////////////////////////////////
+
+        get_ruleset_base_name: function() {
+            var fn = this.dtd.name + '-' + this.anns.length;
+            return fn;
         },
 
         download_tabular_tsv: function() {
@@ -949,6 +984,9 @@ var app_hotpot = {
                 delimiter: '\t'
             });
 
+            // update the text
+            this.export_text = csv;
+
             // download this csv
             var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
             var fn = this.get_ruleset_base_name() + '.tsv';
@@ -956,11 +994,36 @@ var app_hotpot = {
         },
 
         download_dataset_iob2: function() {
-            nlp_toolkit.download_dataset_bio(
+            var txt_dataset = nlp_toolkit.download_dataset_bio(
                 this.anns,
                 this.dtd,
                 'dataset-' + this.get_ruleset_base_name() + '-BIO.zip'
             );
+
+            // update the text
+            this.export_text = txt_dataset;
+        },
+
+        download_ruleset_medtagger_zip: function() {
+            var rulepack = erp_toolkit.download_anns_as_zip(
+                this.anns,
+                this.dtd,
+                'ruleset-medtagger-' + this.get_ruleset_base_name() + '.zip'
+            );
+
+            // update the text
+            this.export_text = "Please unzip the file and check details";
+        },
+
+        download_ruleset_spacy_jsonl: function() {
+            var text = spacy_toolkit.download_anns_as_jsonl(
+                this.anns,
+                this.dtd,
+                'ruleset-spacy-' + this.get_ruleset_base_name() + '.jsonl'
+            );
+
+            // update the text
+            this.export_text = text;
         },
 
         /////////////////////////////////////////////////////////////////
@@ -1124,6 +1187,25 @@ var app_hotpot = {
                 }
             }
             return n;
+        },
+
+        count_all_sentences: function(anns) {
+            var n = 0;
+            for (let i = 0; i < anns.length; i++) {
+                const ann = anns[i];
+                if (ann.hasOwnProperty('_sentences')) {
+                    n += ann._sentences.length;
+                }
+            }
+            return n;
+        },
+
+        calc_avg_sentences_per_doc: function(anns) {
+            if (anns == null || anns.length == 0) {
+                return '-';
+            }
+            var t = this.count_all_sentences(anns);
+            return (t/anns.length).toFixed(2);
         },
 
         calc_avg_tags_per_doc: function(anns) {

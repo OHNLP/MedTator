@@ -331,5 +331,7 @@ var erp_toolkit = {
 
         // last, save this zip
         this.download_zip(zip, fn);
+
+        return rulepack;
     }
 };

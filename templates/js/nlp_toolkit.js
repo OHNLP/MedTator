@@ -404,6 +404,8 @@ var nlp_toolkit = {
                 saveAs(content, fn);
             }
         })(fn));
+
+        return txt_dataset;
     },
 
     txt2span: function(txt) {

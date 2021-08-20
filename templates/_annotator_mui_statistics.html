@@ -11,62 +11,100 @@
                     </h4>
                 </div>
 
-                <div class="box-body">
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                <div v-if="dtd != null && anns.length != 0"
+                    class="box-body">
+
+                    <div v-for="stat_item in get_stat_items()"
+                        class="box-body-item d-flex flex-row flex-justify-between">
                         <div>
-                            # of documents: 
+                            {{ stat_item[0] }}: 
                         </div>
                         <div class="mr-2">
-                            {{ anns.length }}
+                            {{ stat_item[1] }}
                         </div>
                     </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of tags in DTD: 
-                        </div>
-                        <div v-if="dtd != null" class="mr-2">
-                            {{ dtd.etags.length }}
-                        </div>
-                        <div v-else class="mr-2">
-                            0
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations: 
-                        </div>
-                        <div class="mr-2">
-                            {{ count_all_tags(anns) }}
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations per tag: 
-                        </div>
-                        <div class="mr-2">
-                            {{ calc_avg_tags_per_def(anns, dtd) }}
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations per document: 
-                        </div>
-                        <div class="mr-2">
-                            {{ calc_avg_tags_per_doc(anns) }}
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- /.box -->
         </div>
-        <div class="h-splitter"></div>
-        <div id="mui_stat_charts" class="d-flex">
 
-    </div>
+
+        <div id="mui_stat_details" class="d-flex ml-2">
+
+            <div class="w-100 d-flex flex-row h-100">
+                <div class="box w-100">
+                    <div class="box-header">
+                        <h4>
+                            <i class="fa fa-list-ul"></i>
+                            Annotated Texts
+                        </h4>
+                    </div>
+                    <div v-if="dtd != null && anns.length > 0"
+                        class="box-body" style="overflow-y: auto;">
+                        <div class="d-flex flex-column w-100 h-100">
+        
+                            <div v-for="(tag_def, tag_def_idx) in dtd.etags"
+                                class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
+                                <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
+                                    v-bind:class="'border-tag-' + tag_def.name">
+                                    <div>
+                                        <i class="fa fa-tag"
+                                            v-bind:class="'fg-tag-' + tag_def.name">
+                                        </i>
+                                        {{ tag_def.name }}
+                                    </div>
+                                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                                        class="mr-2">
+                                        {{ hint_dict[tag_def.name].texts.length }}
+                                    </div>
+                                    <div v-else>
+                                        -
+                                    </div>
+                                </div>
+        
+                                <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                                    class="ruleset-tag-info d-flex flex-row flex-wrap">
+                                    <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
+                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
+                                        <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
+                                            <span class="ruleset-tag-text-count"
+                                                v-bind:title="'Annotated ' + text_info.count + ' times'">
+                                                <i v-if="text_info._is_shown"
+                                                    class="fa fa-caret-down"></i>
+                                                <i v-else
+                                                    class="fa fa-caret-right"></i>
+                                                {{ hint_dict[tag_def.name].text_dict[text].count }}
+                                            </span>
+                                            <span class="ruleset-tag-text-str">
+                                                {{ text }}
+                                            </span>
+                                        </div>
+                                        <div v-show="text_info._is_shown"
+                                            class="ruleset-tag-text-filelist">
+                                            <div v-for="(fn_v, fn) in text_info.ann_fn_dict"
+                                                v-on:click="show_ann_file(fn)"
+                                                class="ruleset-tag-text-filelist-item">
+                                                <span class="ruleset-tag-text-filelist-item-count">
+                                                    {{ fn_v }}
+                                                </span>
+                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                                <span>
+                                                    {{ fn }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
