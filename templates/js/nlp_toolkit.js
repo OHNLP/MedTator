@@ -284,11 +284,18 @@ var nlp_toolkit = {
                     // this is not an entity tag
                     continue;
                 }
+                
                 var spans = tag.spans.split(',');
                 for (let k = 0; k < spans.length; k++) {
                     const _span = spans[k];
-                    const span = this.txt2span(_span);
 
+                    const span = this.txt2span(_span);
+                    if (span[0] == -1 || spans[1] == -1) {
+                        // which means this tag is just a non-consuming tag
+                        // at present, we won't use this kind of tag when
+                        // exporting the BIO
+                        continue;
+                    }
                     // find the offset in a sentence
                     var loc0 = this.find_linech(span[0], ann._sentences);
                     if (loc0 == null) {
