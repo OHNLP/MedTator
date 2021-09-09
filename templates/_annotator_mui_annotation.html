@@ -7,8 +7,12 @@
             <div id="mui_filelist_toolbar"
                 class="d-flex flex-row flex-justify-between flex-align-center w-100">
                 <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
-                    <span class="mr-1">Filter: </span>
-                    <input type="text" class="ipt-xs mr-1"
+                    <span class="mr-1"
+                        title="Filter the files by file name">
+                        Filter: 
+                    </span>
+                    <input type="text" 
+                        class="ipt-xs mr-1"
                         v-model="fn_pattern">
                 
                     <span v-if="anns.length > 0">
@@ -53,7 +57,7 @@
 
                             <div class="d-flex flex-row">
                                 <div class="mr-2"
-                                    v-bind:title="ann.tags.length + ' tags'">
+                                    v-bind:title="'Annotated ' + ann.tags.length + ' tags'">
                                     {{ ann.tags.length }}
                                 </div>
 

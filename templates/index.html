@@ -653,11 +653,20 @@
                 <div class="group">
                     <button class="ribbon-button" 
                         :disabled="dtd == null"
-                        v-on:click="download_tabular_tsv">
+                        v-on:click="download_text_tsv">
                         <span class="icon">
                             <i class="far fa-file-excel"></i>
                         </span>
-                        <span class="caption">Tab-separated (.tsv)</span>
+                        <span class="caption">Tag Text</span>
+                    </button>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_sent_tsv">
+                        <span class="icon">
+                            <i class="far fa-file-excel"></i>
+                        </span>
+                        <span class="caption">Tag &amp; Sentence</span>
                     </button>
 
                     <span class="title">Text</span>
@@ -734,7 +743,7 @@
         </div>
 
         <div id="app_info">
-            MedTator 0.5.2
+            MedTator 0.5.3
         </div>
     </nav>
 
