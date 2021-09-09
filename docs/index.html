@@ -198,6 +198,12 @@ html,body {
     height: 5px;
     background-color: #e9e9e9;
 }
+#app_info {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    opacity: 0.5;
+}
 #mui_filelist {
     overflow-y: hidden;
     width: 250px;
@@ -225,8 +231,9 @@ html,body {
 }
 #mui_stat_summary {
     width: 250px;
+    border-right: 1px solid #e9e9e9;
 }
-#mui_stat_charts {
+#mui_stat_details {
     width: calc(100% - 250px);
 }
 #mui_iaa_summary {
@@ -245,6 +252,9 @@ html,body {
     padding-right: 5px;
     /* border-right: 1px solid #e9e9e9; */
     overflow-y: auto;
+}
+#mui_ruleset_result {
+    
 }
 #app_hotpot {
     margin-top: 2px;
@@ -899,7 +909,7 @@ input[type=text].ipt-spinner-xs {
 <div id="start-screen">
     <h1>
         <i class="fa fa-highlighter"></i>
-        Annotator
+        MedTator
     </h1>
     <div id="ss-msg">Loading data and initializing GUI ...</div>
 </div>
@@ -915,18 +925,18 @@ input[type=text].ipt-spinner-xs {
                     Annotation
                 </a>
             </li>
-            <!-- <li v-on:click="switch_mui('statistics')"
+            <li v-on:click="switch_mui('statistics')"
                 v-bind:class="{'active': section=='statistics'}">
                 <a href="#section-1-5">
                     <i class="fa fa-chart-bar"></i>
                     Statistics
                 </a>
-            </li> -->
+            </li>
             <li v-on:click="switch_mui('corpus')"
                 v-bind:class="{'active': section=='corpus'}">
                 <a href="#section-1-2">
                     <i class="fa fa-cubes"></i>
-                    Txt Converter
+                    Batch Convert
                 </a>
             </li>
             <li v-on:click="switch_mui('ruleset')"
@@ -1486,30 +1496,64 @@ input[type=text].ipt-spinner-xs {
             <!-- the section for ruleset -->
             <div class="section" id="section-1-4"
                 v-bind:class="{'active': section=='ruleset'}">
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="update_hint_dict">
-                        <span class="icon">
-                            <i class="fa fa-sync"></i>
-                        </span>
-                        <span class="caption">Refresh</span>
-                    </button>
 
-                    <span class="title">&nbsp;</span>    
+                <div v-if="dtd != null"
+                     class="group">
+                    <div>
+                        <p class="mb-1">
+                            <i class="fa fa-list"></i>
+                            Summary:
+                        </p>
+                        <p class="mb-1 mt-1">
+                            <b>
+                                {{ anns.length }}
+                            </b>
+                            Documents
+                            <br>
+                            <b>
+                                {{ count_tags_in_anns(anns)}}
+                            </b>
+                            Annotated Tags
+                        </p>
+                    </div>
+
+                    <span class="title">&nbsp;</span>
                 </div>
 
                 <div class="group">
                     <button class="ribbon-button" 
                         :disabled="dtd == null"
-                        v-on:click="download_tabular_tsv">
+                        v-on:click="download_text_tsv">
                         <span class="icon">
                             <i class="far fa-file-excel"></i>
                         </span>
-                        <span class="caption">Tab-separated (.tsv)</span>
+                        <span class="caption">Tag Text</span>
                     </button>
 
-                    <span class="title">Texts</span>
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_sent_tsv">
+                        <span class="icon">
+                            <i class="far fa-file-excel"></i>
+                        </span>
+                        <span class="caption">Tag &amp; Sentence</span>
+                    </button>
+
+                    <span class="title">Text</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download IOB2/BIO format"
+                        v-on:click="download_dataset_iob2">
+                        <span class="icon">
+                            <i class="far fa-file"></i>
+                        </span>
+                        <span class="caption">IOB2/BIO (.tsv)</span>
+                    </button>
+
+                    <span class="title">Dataset</span>
                 </div>
 
                 <div class="group">
@@ -1539,18 +1583,38 @@ input[type=text].ipt-spinner-xs {
             <!-- the section for statistics -->
             <div class="section" id="section-1-5"
                 v-bind:class="{'active': section=='statistics'}">
-                <button class="ribbon-button" 
-                    :disabled="dtd == null"
-                    v-on:click="show_about">
-                    <span class="icon">
-                        <i class="fa fa-list-ul"></i>
-                    </span>
-                    <span class="caption">Update All</span>
-                </button>
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="update_hint_dict">
+                        <span class="icon">
+                            <i class="fa fa-sync"></i>
+                        </span>
+                        <span class="caption">Refresh</span>
+                    </button>
+
+                    <span class="title">&nbsp;</span>    
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_stat_summary">
+                        <span class="icon">
+                            <i class="fa fa-download"></i>
+                        </span>
+                        <span class="caption">Summary (.csv)</span>
+                    </button>
+
+                    <span class="title">Download</span>    
+                </div>
                 
             </div>
         </div>
 
+        <div id="app_info">
+            MedTator 0.5.3
+        </div>
     </nav>
 
     <!-- the ui for main annotation -->
@@ -1563,8 +1627,12 @@ input[type=text].ipt-spinner-xs {
             <div id="mui_filelist_toolbar"
                 class="d-flex flex-row flex-justify-between flex-align-center w-100">
                 <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
-                    <span class="mr-1">Filter: </span>
-                    <input type="text" class="ipt-xs mr-1"
+                    <span class="mr-1"
+                        title="Filter the files by file name">
+                        Filter: 
+                    </span>
+                    <input type="text" 
+                        class="ipt-xs mr-1"
                         v-model="fn_pattern">
                 
                     <span v-if="anns.length > 0">
@@ -1609,7 +1677,7 @@ input[type=text].ipt-spinner-xs {
 
                             <div class="d-flex flex-row">
                                 <div class="mr-2"
-                                    v-bind:title="ann.tags.length + ' tags'">
+                                    v-bind:title="'Annotated ' + ann.tags.length + ' tags'">
                                     {{ ann.tags.length }}
                                 </div>
 
@@ -1907,75 +1975,23 @@ input[type=text].ipt-spinner-xs {
     <div v-show="section=='ruleset'" id="main_ui"
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
-        <div class="box w-100">
-            <div class="box-header">
-                <h4>
-                    <i class="fa fa-list-ul"></i>
-                    Annotated Texts
-                </h4>
-            </div>
-            <div v-if="dtd != null && anns.length > 0"
-                class="box-body" style="overflow-y: auto;">
-                <div class="d-flex flex-column w-100 h-100">
+        <div id="mui_ruleset_result" class="d-flex w-100 h-100">
+            <div class="box w-100">
+                <div class="box-header">
+                    <h4>
+                        <i class="far fa-file-alt"></i>
+                        Export Preview
+                    </h4>
+                </div>
 
-                    <div v-for="(tag_def, tag_def_idx) in dtd.etags"
-                        class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
-                        <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
-                            v-bind:class="'border-tag-' + tag_def.name">
-                            <div>
-                                <i class="fa fa-tag"
-                                    v-bind:class="'fg-tag-' + tag_def.name">
-                                </i>
-                                {{ tag_def.name }}
-                            </div>
-                            <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                                class="mr-2">
-                                {{ hint_dict[tag_def.name].texts.length }}
-                            </div>
-                            <div v-else>
-                                -
-                            </div>
-                        </div>
+                <div v-if="export_text != null"
+                    class="box-body h-100">
 
-                        <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                            class="ruleset-tag-info d-flex flex-row flex-wrap">
-                            <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
-                                class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
-                                <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
-                                    <span class="ruleset-tag-text-count"
-                                        v-bind:title="'Annotated ' + text_info.count + ' times'">
-                                        <i v-if="text_info._is_shown"
-                                            class="fa fa-caret-down"></i>
-                                        <i v-else
-                                            class="fa fa-caret-right"></i>
-                                        {{ hint_dict[tag_def.name].text_dict[text].count }}
-                                    </span>
-                                    <span class="ruleset-tag-text-str">
-                                        {{ text }}
-                                    </span>
-                                </div>
-                                <div v-show="text_info._is_shown"
-                                    class="ruleset-tag-text-filelist">
-                                    <div v-for="(fn_v, fn) in text_info.ann_fn_dict"
-                                        v-on:click="show_ann_file(fn)"
-                                        class="ruleset-tag-text-filelist-item">
-                                        <span class="ruleset-tag-text-filelist-item-count">
-                                            {{ fn_v }}
-                                        </span>
-                                        <i class="fa fa-angle-right ml-1 mr-1"></i>
-                                        <span>
-                                            {{ fn }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
+                    <textarea v-model="export_text" class="w-100 h-100" style="font-family: 'Courier New', Courier, monospace;"></textarea>
+                    
                 </div>
             </div>
+            <!-- /.box -->
         </div>
     </div>
 </div>
@@ -2417,62 +2433,100 @@ input[type=text].ipt-spinner-xs {
                     </h4>
                 </div>
 
-                <div class="box-body">
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
+                <div v-if="dtd != null && anns.length != 0"
+                    class="box-body">
+
+                    <div v-for="stat_item in get_stat_items()"
+                        class="box-body-item d-flex flex-row flex-justify-between">
                         <div>
-                            # of documents: 
+                            {{ stat_item[0] }}: 
                         </div>
                         <div class="mr-2">
-                            {{ anns.length }}
+                            {{ stat_item[1] }}
                         </div>
                     </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of tags in DTD: 
-                        </div>
-                        <div v-if="dtd != null" class="mr-2">
-                            {{ dtd.etags.length }}
-                        </div>
-                        <div v-else class="mr-2">
-                            0
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations: 
-                        </div>
-                        <div class="mr-2">
-                            {{ count_all_tags(anns) }}
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations per tag: 
-                        </div>
-                        <div class="mr-2">
-                            {{ calc_avg_tags_per_def(anns, dtd) }}
-                        </div>
-                    </div>
-
-                    <div class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            # of annotations per document: 
-                        </div>
-                        <div class="mr-2">
-                            {{ calc_avg_tags_per_doc(anns) }}
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- /.box -->
         </div>
-        <div class="h-splitter"></div>
-        <div id="mui_stat_charts" class="d-flex">
 
-    </div>
+
+        <div id="mui_stat_details" class="d-flex ml-2">
+
+            <div class="w-100 d-flex flex-row h-100">
+                <div class="box w-100">
+                    <div class="box-header">
+                        <h4>
+                            <i class="fa fa-list-ul"></i>
+                            Annotated Texts
+                        </h4>
+                    </div>
+                    <div v-if="dtd != null && anns.length > 0"
+                        class="box-body" style="overflow-y: auto;">
+                        <div class="d-flex flex-column w-100 h-100">
+        
+                            <div v-for="(tag_def, tag_def_idx) in dtd.etags"
+                                class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
+                                <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
+                                    v-bind:class="'border-tag-' + tag_def.name">
+                                    <div>
+                                        <i class="fa fa-tag"
+                                            v-bind:class="'fg-tag-' + tag_def.name">
+                                        </i>
+                                        {{ tag_def.name }}
+                                    </div>
+                                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                                        class="mr-2">
+                                        {{ hint_dict[tag_def.name].texts.length }}
+                                    </div>
+                                    <div v-else>
+                                        -
+                                    </div>
+                                </div>
+        
+                                <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                                    class="ruleset-tag-info d-flex flex-row flex-wrap">
+                                    <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
+                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
+                                        <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
+                                            <span class="ruleset-tag-text-count"
+                                                v-bind:title="'Annotated ' + text_info.count + ' times'">
+                                                <i v-if="text_info._is_shown"
+                                                    class="fa fa-caret-down"></i>
+                                                <i v-else
+                                                    class="fa fa-caret-right"></i>
+                                                {{ hint_dict[tag_def.name].text_dict[text].count }}
+                                            </span>
+                                            <span class="ruleset-tag-text-str">
+                                                {{ text }}
+                                            </span>
+                                        </div>
+                                        <div v-show="text_info._is_shown"
+                                            class="ruleset-tag-text-filelist">
+                                            <div v-for="(fn_v, fn) in text_info.ann_fn_dict"
+                                                v-on:click="show_ann_file(fn)"
+                                                class="ruleset-tag-text-filelist-item">
+                                                <span class="ruleset-tag-text-filelist-item-count">
+                                                    {{ fn_v }}
+                                                </span>
+                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                                <span>
+                                                    {{ fn }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
@@ -2575,9 +2629,9 @@ var isCHROME = false;
 var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
 var CHROME_VERSION = null;
 var CHROME_VERSION_MAJOR = null;
-
+var _NON_CHROME_MSG = 'The visualization and annotation features require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
 if (isIE) {
-    document.getElementById('ss-msg').innerHTML = 'The visualization used in this website require advanced web technologies, which are <b>NOT</b> supported by Internet Explorer.<br>Try using Google Chrome, Apple Safari, Mozilla Firefox or other modern browsers to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
+    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
 } else {
     let user_agent = navigator.userAgent.toLowerCase();
     let mgs = user_agent.match(/chrome\/([\d\.]+)/);
@@ -2589,8 +2643,15 @@ if (isIE) {
         CHROME_VERSION_MAJOR = parseInt(CHROME_VERSION.split('.')[0]);
     }
 }
-</script>
+if (!isCHROME) {
+    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
+}
+console.log('* isIE: ' + isIE);
+console.log('* isCHROME: ' + isCHROME);
+console.log('* CHROME_VERSION_MAJOR: ' + CHROME_VERSION_MAJOR);
+console.log('* isFILE_API_OK: ' + isFILE_API_OK);
 
+</script>
 <!-- metro ui -->
 <script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -2624,6 +2685,10 @@ if (isIE) {
 <!-- Shepherd -->
 <script src="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/js/shepherd.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js@8.3.1/dist/css/shepherd.css">
+<!-- wink-nlp customized bundle -->
+<script src="./static/lib/wink-nlp/bundle-1.8.0.min.js"></script>
+<!-- dataset spliter -->
+<script src="./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"></script>
 <script>
 
 // The file helper 
@@ -2656,7 +2721,7 @@ async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
 
     // bind the sentences
     if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
+        var result = nlp_toolkit.sent_tokenize(ann.text, 'wink_nlp');
         ann._sentences = result.sentences;
         ann._sentences_text = result.sentences_text;
     } else {
@@ -4130,6 +4195,8 @@ var erp_toolkit = {
 
         // last, save this zip
         this.download_zip(zip, fn);
+
+        return rulepack;
     }
 };
 
@@ -4146,6 +4213,8 @@ var spacy_toolkit = {
         // download
         var blob = new Blob([str], {type: "text/txt;charset=utf-8"});
         saveAs(blob, fn);
+
+        return str;
     },
 
     anns2patterns: function(anns) {
@@ -4879,15 +4948,164 @@ var nlp_toolkit = {
         if (typeof(backend) == 'undefined') {
             backend = 'compromise';
         }
+        console.log('* sentencizing text by ' + backend);
 
         if (backend == 'compromise') {
             return this.sent_tokenize_by_compromise(text);
+        }
+
+        if (backend == 'wink_nlp') {
+            return this.sent_tokenize_by_wink_nlp(text);
         }
 
         throw {
             name: 'Not found backend',
             message: "The backend is not valid."
         }
+    },
+
+    tokenize_by_wink_nlp: function(text) {
+
+    },
+
+    /**
+     * Convert the spans to the token index
+     * 
+     * The item in the list of tags need to contain the following:
+     * {
+     *     name: 'NAME', // the name this tags, e.g., LOC, PER, GEO
+     *     span: [1, 2], // the start and end this tag in this sentence
+     * }
+     * 
+     * So, the text of the tag is not required.
+     * After processing, this will return a list:
+     * [{
+     *     token: 'TOKEN TEXT', // the text of this token
+     *     span: [1, 2],        // the start and end of this token
+     *     label: 'B-LOC'       // the BIO label, e.g., B-X, I-X, O
+     * }, ...]
+     * 
+     * If any pre-processing is needed, please do it before calling.
+     * 
+     * @param {string} sentence just a sentence text
+     * @param {list} tags list of tags
+     * 
+     * @returns {list} the list of token position and labels
+     */
+    convert_span_to_bio_by_wink_nlp: function(sentence, tags) {
+        // first, convert the sentence to tokens
+        var doc = wink_nlp.readDoc(sentence);
+        var tokens = doc.tokens().out();
+        
+        // then search each token and get the position
+        var idx = 0; 
+        var pos = []; 
+        for (let i=0; i<tokens.length; i++) {
+            const token = tokens[i];
+            var ia = sentence.indexOf(token);
+            var tp = 1;
+            while(true) {
+                if (ia >= idx) {
+                    pos.push({
+                        token: token,
+                        span: [ia, ia + token.length],
+                        // the default label is just O
+                        label: 'O'
+                    })
+                    idx = ia + token.length;
+                    break;
+                } else {
+                    ia = sentence.indexOf(token, tp);
+                    tp += 1;
+                }
+            }
+        }
+        
+        // ok, let's check each token pos
+        // make a copy of tags
+        var tgs = JSON.parse(JSON.stringify(tags));
+        for (let i=0; i<pos.length; i++) {
+            // the simplest is just check all tags
+            for (let j=0; j<tgs.length; j++) {
+                if (i==4) {
+                    console.log("j=" +j + ': '+ tgs[j].span + ' vs ' + pos[i].span);
+                }
+                if (this.is_overlapped(tgs[j].span, pos[i].span)) {
+                    if (tgs[j].hasOwnProperty('_has_met')) {
+                        pos[i].label = 'I-' + tgs[j].name;
+                    } else {
+                        pos[i].label = 'B-' + tgs[j].name;
+                        tgs[j]._has_met = true;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        return pos;
+    },
+
+    sent_tokenize_by_wink_nlp: function(text) {
+        var doc = wink_nlp.readDoc(text);
+        var raw_sentences = doc.sentences().out();
+
+        // for get the spans correctly
+        // and the value is the last appearance
+        var sentences_dict = {};
+        // get all sentences and spans
+        var sentences = [];
+        // get all sentence trimed text
+        var sentences_text = [];
+
+        for (let idx=0; idx<raw_sentences.length; idx++) {
+            // get this sentence
+            var sentence = raw_sentences[idx];
+            var spans_start = text.indexOf(sentence);
+
+            // TODO fix the multiple same sentence bug
+            if (sentences_dict.hasOwnProperty(sentence)) {
+                // which means this is a duplicated 
+                var i = 1;
+                var cnt = 0;
+                while(true) {
+                    spans_start = text.indexOf(sentence, i);
+
+                    if (sentences_dict[sentence] == spans_start) {
+                        // which means this sentence appeared
+                        i += 1;
+                        cnt += 1;
+
+                    } else {
+                        // which means this span start is a new one
+                        sentences_dict[sentence] = spans_start;
+                        break;
+                    }
+                }
+
+            } else {
+                // ok, just add this new sentence
+                sentences_dict[sentence] = spans_start;
+            }
+            var spans_end = spans_start + sentence.length;
+
+            // sometimes the sentence has right blanks
+            // we need to remove it to avoid unexpected linebreaks
+            sentence = sentence.trimRight();
+
+            sentences.push({
+                text: sentence, 
+                spans: {
+                    start: spans_start, 
+                    end: spans_end
+                }
+            });
+            sentences_text.push(sentence);
+        };
+
+        return { 
+            sentences: sentences,
+            sentences_text: sentences_text.join('\n')
+        };
     },
 
     sent_tokenize_by_compromise: function(text) {
@@ -4967,7 +5185,188 @@ var nlp_toolkit = {
             }
         }
         return null;
+    },
+
+    is_overlapped: function(a, b) {
+        if (a[0] >= b[0] && a[0] < b[1]) {
+            return true;
+        }
+        if (a[1] > b[0] && a[1] <= b[1]) {
+            return true;
+        }
+        if (a[0] <= b[0] && a[1] >= b[1]) {
+            return true;
+        }
+        return false;
+    },
+
+    /**
+     * Download the BIO format dataset
+     * 
+     * @param {list} anns the list of ann object
+     * @param {object} dtd the dtd schema
+     */
+    download_dataset_bio: function(anns, dtd, fn, ratios, skip_non_tags_sentence) {
+        if (typeof(ratios)=='undefined') {
+            ratios = [0.8, 0.1, 0.1];
+        }
+        if (typeof(skip_non_tags_sentence)=='undefined') {
+            skip_non_tags_sentence = true;
+        }
+        // first, create the dataset itself
+        var ann_sentence_tags = {};
+
+        // check each tag
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            var sentence_tags = {};
+            for (let j = 0; j < ann.tags.length; j++) {
+                const tag = ann.tags[j];
+
+                // now mapping the span to token index
+                if (!tag.hasOwnProperty('spans')) {
+                    // this is not an entity tag
+                    continue;
+                }
+                
+                var spans = tag.spans.split(',');
+                for (let k = 0; k < spans.length; k++) {
+                    const _span = spans[k];
+
+                    const span = this.txt2span(_span);
+                    if (span[0] == -1 || spans[1] == -1) {
+                        // which means this tag is just a non-consuming tag
+                        // at present, we won't use this kind of tag when
+                        // exporting the BIO
+                        continue;
+                    }
+                    // find the offset in a sentence
+                    var loc0 = this.find_linech(span[0], ann._sentences);
+                    if (loc0 == null) {
+                        // something wrong?
+                        continue;
+                    }
+
+                    // find the location for the right part
+                    // var loc1 = this.find_linech(span[1], ann._sentences);
+                    var loc1 = Object.assign({}, loc0);
+                    loc1.ch += (span[1] - span[0]);
+
+                    if (!sentence_tags.hasOwnProperty(loc0.line)) {
+                        sentence_tags[loc0.line] = {
+                            sentence: ann._sentences[loc0.line],
+                            tags: []
+                        }
+                    }
+
+                    // put this tag for this line
+                    sentence_tags[loc0.line].tags.push({
+                        name: tag.tag,
+                        span: [
+                            loc0.ch,
+                            loc1.ch
+                        ],
+                        // if k>0, which means this span is a multi location tag
+                        force_label_i: k != 0
+                    });
+                }
+            }
+            ann_sentence_tags[i] = sentence_tags;
+        }
+
+        // now, we need to convert each sentence to 
+        // the BIO format
+        var bios_all = [];
+        for (const ann_idx in ann_sentence_tags) {
+            if (Object.hasOwnProperty.call(ann_sentence_tags, ann_idx)) {
+                const sentence_tags = ann_sentence_tags[ann_idx];
+                for (const sent_idx in sentence_tags) {
+                    if (Object.hasOwnProperty.call(sentence_tags, sent_idx)) {
+                        if (sentence_tags[sent_idx].tags.length == 0) {
+                            if (skip_non_tags_sentence) {
+                                continue;
+                            }
+                        };
+                        
+                        var labeled_tokens = this.convert_span_to_bio_by_wink_nlp(
+                            sentence_tags[sent_idx].sentence.text,
+                            sentence_tags[sent_idx].tags
+                        );
+        
+                        bios_all.push(labeled_tokens);
+                    }
+                }
+            }
+        }
+        // split into train, dev, test
+        var [bios_train, bios_dt] = ds_spliter(bios_all, ratios[0]);
+        var [bios_dev, bios_test] = ds_spliter(bios_dt, ratios[1] / (ratios[1] + ratios[2]));
+
+        // create a help function for converting
+        function bios2text(bios) {
+            var txt_ds = [];
+            var txt_lb = {};
+
+            for (let i = 0; i < bios.length; i++) {
+                const labeled_tokens = bios[i];
+                for (let j = 0; j < labeled_tokens.length; j++) {
+                    const item = labeled_tokens[j];
+                    txt_ds.push(
+                        item.token + '\t' + item.label
+                    );
+                    txt_lb[item.label] = 1;
+                }
+                // add a blank line after each sentence
+                txt_ds.push('');
+            }
+            return [txt_ds, txt_lb];
+        }
+
+        // merge into text
+        var [txt_dataset, txt_labels] = bios2text(bios_all);
+        var [txt_train, _] = bios2text(bios_train);
+        var [txt_dev, _] = bios2text(bios_dev);
+        var [txt_test, _] = bios2text(bios_test);
+        
+        // convert text arr to pure string
+        txt_dataset = txt_dataset.join('\n');
+        txt_train = txt_train.join('\n');
+        txt_dev = txt_dev.join('\n');
+        txt_test = txt_test.join('\n');
+        txt_labels = Object.keys(txt_labels).sort().join('\n');
+
+        // last, create a zip file, which contains
+        // create an empty zip pack
+        var zip = new JSZip();
+        var folder_name = 'dataset-'+ dtd.name + '-BIO';
+
+        // add the text dataset to zip
+        zip.file(folder_name + '/dataset.tsv', txt_dataset);
+        // add the label to zip
+        zip.file(folder_name + '/labels.tsv', txt_labels);
+        // add the splited to zip
+        zip.file(folder_name + '/train.tsv', txt_train);
+        zip.file(folder_name + '/dev.tsv', txt_dev);
+        zip.file(folder_name + '/test.tsv', txt_test);
+
+        // create zip file
+        zip.generateAsync({ type: "blob" }).then((function(fn) {
+            return function (content) {
+                saveAs(content, fn);
+            }
+        })(fn));
+
+        return txt_dataset;
+    },
+
+    txt2span: function(txt) {
+        var ps = txt.split('~');
+        return [
+            parseInt(ps[0]),
+            parseInt(ps[1])
+        ]
     }
+
 };
 
 // The Vue APP
@@ -5064,7 +5463,12 @@ var app_hotpot = {
 
             // for updating the codemirror instance
             is_expire: false
-        }
+        },
+
+        // for statistics
+
+        // for export
+        export_text: null
     },
 
     vpp_methods: {
@@ -5577,6 +5981,56 @@ var app_hotpot = {
                 tag_id, this.anns[this.ann_idx]
             );
         },
+
+
+        /////////////////////////////////////////////////////////////////
+        // Statistics related functions
+        /////////////////////////////////////////////////////////////////
+
+        update_hint_dict: function() {
+            app_hotpot.update_hint_dict_by_anns();
+        },
+
+        download_stat_summary: function() {
+            var json = [];
+
+            var stat_items = this.get_stat_items();
+
+            for (let i = 0; i < stat_items.length; i++) {
+                const stat_item = stat_items[i];
+                json.push({
+                    item: stat_item[0],
+                    result: stat_item[1]
+                });
+            }
+
+            // then convert the json to csv
+            var csv = Papa.unparse(json, {
+            });
+
+            // download this csv
+            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
+            var fn = this.get_ruleset_base_name() + '-statistics.csv';
+            saveAs(blob, fn);
+        },
+
+        get_stat_items: function() {
+            return [
+                ['# of documents', this.anns.length],
+                ['# of tags in schema', this.dtd.etags.length],
+                ['# of annotations', this.count_all_tags(this.anns)],
+                ['# of annotations per tag', this.calc_avg_tags_per_def(this.anns, this.dtd)],
+                ['# of annotations per document', this.calc_avg_tags_per_doc(this.anns)],
+                [
+                    '# of sentences',
+                    this.count_all_sentences(this.anns)
+                ],
+                [
+                    '# of sentences per document',
+                    this.calc_avg_sentences_per_doc(this.anns)
+                ],
+            ];
+        },
         
         /////////////////////////////////////////////////////////////////
         // Corpus menu related functions
@@ -5857,35 +6311,6 @@ var app_hotpot = {
             this.force_module_update = Math.random();
         },
 
-        /////////////////////////////////////////////////////////////////
-        // Ruleset Related
-        /////////////////////////////////////////////////////////////////
-
-        update_hint_dict: function() {
-            app_hotpot.update_hint_dict_by_anns();
-        },
-
-        get_ruleset_base_name: function() {
-            var fn = this.dtd.name + '-' + this.anns.length;
-            return fn;
-        },
-
-        download_ruleset_medtagger_zip: function() {
-            erp_toolkit.download_anns_as_zip(
-                this.anns,
-                this.dtd,
-                'ruleset-medtagger-' + this.get_ruleset_base_name() + '.zip'
-            );
-        },
-
-        download_ruleset_spacy_jsonl: function() {
-            spacy_toolkit.download_anns_as_jsonl(
-                this.anns,
-                this.dtd,
-                'ruleset-spacy-' + this.get_ruleset_base_name() + '.jsonl'
-            );
-        },
-
         count_tags_in_anns: function(anns) {
             var cnt = 0;
             for (let i = 0; i < anns.length; i++) {
@@ -5895,7 +6320,16 @@ var app_hotpot = {
             return cnt;
         },
 
-        download_tabular_tsv: function() {
+        /////////////////////////////////////////////////////////////////
+        // Ruleset Related
+        /////////////////////////////////////////////////////////////////
+
+        get_ruleset_base_name: function() {
+            var fn = this.dtd.name + '-' + this.anns.length;
+            return fn;
+        },
+
+        download_text_tsv: function() {
             // convert the hint dict to a json obj
             var json = [];
 
@@ -5922,10 +6356,114 @@ var app_hotpot = {
                 delimiter: '\t'
             });
 
+            // update the text
+            this.export_text = csv;
+
             // download this csv
             var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
             var fn = this.get_ruleset_base_name() + '.tsv';
             saveAs(blob, fn);
+        },
+
+        download_text_sent_tsv: function() {
+            // convert the hint dict to a json obj
+            var json = [];
+
+            for (let i = 0; i < this.anns.length; i++) {
+                const ann = this.anns[i];
+                for (let j = 0; j < ann.tags.length; j++) {
+                    const tag = ann.tags[j];
+                    // now mapping the span to token index
+                    if (!tag.hasOwnProperty('spans')) {
+                        // this is not an entity tag
+                        continue;
+                    }
+                    // there maybe multiple spans
+                    var spans = tag.spans.split(',');
+                    for (let k = 0; k < spans.length; k++) {
+                        const _span = spans[k];
+                        const span = nlp_toolkit.txt2span(_span);
+                        if (span[0] == -1 || spans[1] == -1) {
+                            // which means this tag is just a non-consuming tag
+                            // at present, we won't use this kind of tag 
+                            continue;
+                        }
+
+                        // find the offset in a sentence
+                        var loc0 = nlp_toolkit.find_linech(
+                            span[0], 
+                            ann._sentences
+                        );
+                        if (loc0 == null) {
+                            // something wrong?
+                            continue;
+                        }
+                        // find the location for the right part
+                        // var loc1 = this.find_linech(span[1], ann._sentences);
+                        var loc1 = Object.assign({}, loc0);
+                        loc1.ch += (span[1] - span[0]);
+
+                        // create a new row/item in the output data
+                        json.push({
+                            concept: tag.tag,
+                            text: tag.text,
+                            doc_span: span,
+                            sen_span: [
+                                loc0.ch,
+                                loc1.ch
+                            ],
+                            document: ann._filename,
+                            sentence: ann._sentences[loc0.line].text
+                        });
+                    }
+                }
+            }
+
+            // then convert the json to csv
+            var csv = Papa.unparse(json, {
+                delimiter: '\t'
+            });
+
+            // update the text
+            this.export_text = csv;
+
+            // download this csv
+            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
+            var fn = this.get_ruleset_base_name() + '_text_sent.tsv';
+            saveAs(blob, fn);
+        },
+
+        download_dataset_iob2: function() {
+            var txt_dataset = nlp_toolkit.download_dataset_bio(
+                this.anns,
+                this.dtd,
+                'dataset-' + this.get_ruleset_base_name() + '-BIO.zip'
+            );
+
+            // update the text
+            this.export_text = txt_dataset;
+        },
+
+        download_ruleset_medtagger_zip: function() {
+            var rulepack = erp_toolkit.download_anns_as_zip(
+                this.anns,
+                this.dtd,
+                'ruleset-medtagger-' + this.get_ruleset_base_name() + '.zip'
+            );
+
+            // update the text
+            this.export_text = "Please unzip the file and check details";
+        },
+
+        download_ruleset_spacy_jsonl: function() {
+            var text = spacy_toolkit.download_anns_as_jsonl(
+                this.anns,
+                this.dtd,
+                'ruleset-spacy-' + this.get_ruleset_base_name() + '.jsonl'
+            );
+
+            // update the text
+            this.export_text = text;
         },
 
         /////////////////////////////////////////////////////////////////
@@ -6089,6 +6627,25 @@ var app_hotpot = {
                 }
             }
             return n;
+        },
+
+        count_all_sentences: function(anns) {
+            var n = 0;
+            for (let i = 0; i < anns.length; i++) {
+                const ann = anns[i];
+                if (ann.hasOwnProperty('_sentences')) {
+                    n += ann._sentences.length;
+                }
+            }
+            return n;
+        },
+
+        calc_avg_sentences_per_doc: function(anns) {
+            if (anns == null || anns.length == 0) {
+                return '-';
+            }
+            var t = this.count_all_sentences(anns);
+            return (t/anns.length).toFixed(2);
         },
 
         calc_avg_tags_per_doc: function(anns) {
@@ -8073,12 +8630,12 @@ var jarvis = {
         if (isIE) { return 0; }
 
         if (!isCHROME) { 
-            this.ssmsg('Please use the latest Google Chrome browser');
+            this.ssmsg(_NON_CHROME_MSG);
             return 0; 
         }
 
         if (!isFILE_API_OK) {
-            this.ssmsg('Latest Google Chrome and HTTPS are required');
+            this.ssmsg('Latest Google Chrome and HTTPs protocal are required');
             return 0;
         }
 
