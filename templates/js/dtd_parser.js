@@ -2,7 +2,7 @@ var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
         element: /^\<\!ELEMENT\s+([a-zA-Z\-0-9\_]+)\s.+/gmi,
-        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
+        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
         attlist_values: /\(([a-zA-Z0-9\_\ \|]+)\)/gmi,
         attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
@@ -30,6 +30,7 @@ var dtd_parser = {
 
             if (ret == null) {
                 // nothing happens
+                console.log('* null dtd line: ', line);
                 continue;
 
             } else if (ret.type == 'entity') {
