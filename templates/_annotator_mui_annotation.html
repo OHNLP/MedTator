@@ -249,7 +249,7 @@
                                             v-bind:value="val">
                                             {{ val }}
                                         </option>
-                                        <option value="">&nbsp;</option>
+                                        <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
                                 <div v-else-if="attlist.vtype == 'text'">
@@ -272,7 +272,7 @@
                                             -
                                             {{ s_etag.text }}
                                         </option>
-                                        <option value="">&nbsp;</option>
+                                        <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
                                 <div v-else>
@@ -289,6 +289,80 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div v-if="is_linking"
+        ref="pan_working_tag_box"
+        id="pan_working_tag"
+        class="d-flex flex-column">
+        <div class="p-2 mb-1"
+            id="pan_working_tag_title"
+            @mousedown="dragMouseDown">
+            Creating a Link Tag
+            <b>{{ linking_tag.tag }}</b>
+        </div>
+        <div class="d-flex flex-row p-1 border-bottom">
+            <button class="btn-xs mr-1"
+                title="Using the following values to create a link tag"
+                v-on:click="done_linking();">
+                <i class="fa fa-check-circle"></i>
+                Done Linking
+            </button>
+            <button class="btn-xs"
+                title="Stop creating a link tag and drop the following values"
+                v-on:click="cancel_linking();">
+                <i class="far fa-times-circle"></i>
+                Cancel Linking
+            </button>
+        </div>
+        <div class="d-flex flex-column p-1 pr-2">
+            <div v-for="attlist in linking_tag_def.attlists"
+                class="d-flex flex-row ltag-attr-row p-1 mb-1">
+                <div class="d-flex ltag-attr-name pr-1">
+                    {{ attlist.name }}
+                </div>
+                <div class="d-flex ltag-attr-value">
+                    <div v-if="attlist.vtype == 'idref'"
+                        class="w-100">
+                        <select class="tag-attr-select"
+                            v-model="linking_tag[attlist.name]">
+                            <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
+                                v-bind:value="s_etag.id">
+                                {{ s_etag.id }}
+                                |
+                                {{ s_etag.tag }}
+                                -
+                                {{ s_etag.text }}
+                            </option>
+                            <option value="">-- EMPTY --</option>
+                        </select>
+                    </div>
+                    <div v-else-if="attlist.vtype == 'text'"
+                        class="w-100">
+                        <input type="text"
+                            class="tag-attr-input"
+                            v-model="linking_tag[attlist.name]">
+                    </div>
+                    <div v-else-if="attlist.vtype == 'list'"
+                        class="w-100">
+                        <select class="tag-attr-select"
+                            v-model="linking_tag[attlist.name]">
+                            <option v-for="val in attlist.values"
+                                v-bind:value="val">
+                                {{ val }}
+                            </option>
+                            <option value="">-- EMPTY --</option>
+                        </select>
+                    </div>
+                    <div v-else
+                        class="w-100">
+                        <input type="text"
+                            class="tag-attr-input"
+                            v-model="linking_tag[attlist.name]">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

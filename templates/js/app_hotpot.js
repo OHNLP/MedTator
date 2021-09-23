@@ -39,6 +39,16 @@ var app_hotpot = {
         linking_tag_def: null,
         linking_tag: null,
         linking_atts: [],
+        
+        // linking
+        pan_working_tag: {
+            pos: {
+                clientX: undefined,
+                clientY: undefined,
+                movementX: 0,
+                movementY: 0
+            }
+        },
 
         // for converting the txt to xmls
         txt_anns: [],
@@ -1241,6 +1251,30 @@ var app_hotpot = {
             this.linking_tag_def = null;
             this.linking_tag = null;
             this.linking_atts = [];
+        },
+
+        dragMouseDown: function(event) {
+            console.log('* drag start', event);
+            event.preventDefault()
+            // get the mouse cursor position at startup:
+            this.pan_working_tag.pos.clientX = event.clientX
+            this.pan_working_tag.pos.clientY = event.clientY
+            document.onmousemove = this.elementDrag
+            document.onmouseup = this.closeDragElement
+        },
+        elementDrag: function (event) {
+            event.preventDefault()
+            this.pan_working_tag.pos.movementX = this.pan_working_tag.pos.clientX - event.clientX
+            this.pan_working_tag.pos.movementY = this.pan_working_tag.pos.clientY - event.clientY
+            this.pan_working_tag.pos.clientX = event.clientX
+            this.pan_working_tag.pos.clientY = event.clientY
+            // set the element's new position:
+            this.$refs.pan_working_tag_box.style.top = (this.$refs.pan_working_tag_box.offsetTop - this.pan_working_tag.pos.movementY) + 'px'
+            this.$refs.pan_working_tag_box.style.left = (this.$refs.pan_working_tag_box.offsetLeft - this.pan_working_tag.pos.movementX) + 'px'
+        },
+        closeDragElement () {
+            document.onmouseup = null
+            document.onmousemove = null
         },
 
         /////////////////////////////////////////////////////////////////

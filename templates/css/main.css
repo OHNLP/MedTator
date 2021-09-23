@@ -746,3 +746,40 @@ input[type=text].ipt-spinner-xs {
 .ribbon-toggle-group .ribbon-icon-button {
     height: 18px;
 }
+/* for the linking panel */
+#pan_working_tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    max-width: 250px;
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #aaaaaa;
+    background: white;
+    box-shadow: 0 0 15px #828282;
+    z-index: 999;
+}
+#pan_working_tag_title {
+    cursor: grab;
+    background-color: whitesmoke;
+}
+#pan_working_tag_title:active {
+    cursor: grabbing;
+}
+.ltag-attr-name {
+    align-items: center;
+    width: 140px;
+}
+.ltag-attr-value {
+    max-width: 150px;
+}
+.ltag-attr-row:hover {
+    background-color: rgb(211, 211, 211) !important;
+}
+.ltag-attr-row:nth-child(even) {
+    background-color: white;
+}
+.ltag-attr-row:nth-child(odd) {
+    background-color: whitesmoke;
+}
