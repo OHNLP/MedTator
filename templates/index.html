@@ -290,6 +290,16 @@
 
                     <div v-show="is_linking">
                         <button class="ribbon-button"
+                            v-on:click="done_linking">
+                            <span class="icon">
+                                <span class="far fa-check-circle"></span>
+                            </span>
+                            <span class="caption">Done Linking</span>
+                        </button>
+                    </div>
+
+                    <div v-show="is_linking">
+                        <button class="ribbon-button"
                             v-on:click="cancel_linking">
                             <span class="icon">
                                 <span class="far fa-times-circle"></span>

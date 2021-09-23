@@ -1212,6 +1212,29 @@ var app_hotpot = {
             }
         },
 
+        done_linking: function() {
+            // no matter what decision, just done this linking,
+            // we could append this linking tag to ann
+            var tag_id = ann_parser.get_next_tag_id(
+                this.anns[this.ann_idx],
+                this.linking_tag_def
+            );
+            this.linking_tag.id = tag_id;
+            this.anns[this.ann_idx].tags.push(this.linking_tag);
+            // mark _has_saved
+            this.anns[this.ann_idx]._has_saved = false;
+
+            // then, we could show this new link in cm
+            app_hotpot.cm_draw_ltag(
+                this.linking_tag,
+                this.linking_tag_def,
+                this.anns[this.ann_idx]
+            );
+
+            // we could reset linking status
+            this.cancel_linking();
+        },
+
         cancel_linking: function() {
             // so, user doesn't want to continue current linking
             this.is_linking = false;
