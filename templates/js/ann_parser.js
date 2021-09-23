@@ -61,78 +61,83 @@ var ann_parser = {
         ann.text = textContent;
 
         // then check all of the tags
-        var elems = xmlDoc.getElementsByTagName('TAGS')[0].children;
+        if (xmlDoc.getElementsByTagName('TAGS').length == 0) {
+            // it's possible that there is no tags at all
+            // then we could skip
+        } else {
+            var elems = xmlDoc.getElementsByTagName('TAGS')[0].children;
 
-        for (let i = 0; i < elems.length; i++) {
-            var elem = elems[i];
+            for (let i = 0; i < elems.length; i++) {
+                var elem = elems[i];
 
-            // get the attributes
-            var tag_name = elem.tagName;
+                // get the attributes
+                var tag_name = elem.tagName;
 
-            // create a new empty tag
-            var tag = {
-                tag: tag_name
-            };
+                // create a new empty tag
+                var tag = {
+                    tag: tag_name
+                };
 
-            // get all attr names
-            var attrs = elem.getAttributeNames();
+                // get all attr names
+                var attrs = elem.getAttributeNames();
 
-            // get all attr values
-            for (let j = 0; j < attrs.length; j++) {
-                var attr = attrs[j];
-                var value = elem.getAttribute(attr);
+                // get all attr values
+                for (let j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    var value = elem.getAttribute(attr);
 
-                // there are exceptions
-                if (attr.endsWith('ID')) {
-                    // omg, this may be a link tag
-                    // let's check if there is a xxxText attr
-                    var attr_prefix_name = attr.substring(0, attr.length-2);
-                    var attrText_name = attr_prefix_name + 'Text';
-                    if (attrs.indexOf(attrText_name)>=0) {
-                        // ok, I'm sure this is a idref att
-                        // the value is the etag id
-                        // let's save it and goto next
-                        tag[attr_prefix_name] = value;
+                    // there are exceptions
+                    if (attr.endsWith('ID')) {
+                        // omg, this may be a link tag
+                        // let's check if there is a xxxText attr
+                        var attr_prefix_name = attr.substring(0, attr.length-2);
+                        var attrText_name = attr_prefix_name + 'Text';
+                        if (attrs.indexOf(attrText_name)>=0) {
+                            // ok, I'm sure this is a idref att
+                            // the value is the etag id
+                            // let's save it and goto next
+                            tag[attr_prefix_name] = value;
+                            continue;
+
+                        } else {
+                            // what??? ok, this is just a normal but weird attr
+                            // just save it later
+
+                        }
+                    } else if (attr.endsWith('Text')) {
+                        // I guess we could skip this one
                         continue;
 
                     } else {
-                        // what??? ok, this is just a normal but weird attr
-                        // just save it later
-
+                        // other special rule? maybe
                     }
-                } else if (attr.endsWith('Text')) {
-                    // I guess we could skip this one
-                    continue;
-
-                } else {
-                    // other special rule? maybe
+                    
+                    // put this value into tag
+                    tag[attr] = value;
                 }
-                
-                // put this value into tag
-                tag[attr] = value;
-            }
-            // one more step, need to check whether this tag belongs to dtd
-            // if not, skip the next step
-            if (dtd.tag_dict.hasOwnProperty(tag_name)) {
-                // one more step, sometimes the attr in XML doesn't contain
-                // what defined int dtd, so we need to give a value
-                for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
-                    const att = dtd.tag_dict[tag_name].attlists[k];
-                    if (tag.hasOwnProperty(att.name)) {
-                        // ok, that's what it should be
-                    } else {
-                        // also ok, that's what it actually is sometimes
-                        tag[att.name] = att.default_value;
-                        console.log('* fixed missing', att.name);
-                    }
-                }   
-            } else {
-                console.log('* undefined [' + tag_name + '] in dtd');
-            }
-            // console.log('* add tag', tag);
+                // one more step, need to check whether this tag belongs to dtd
+                // if not, skip the next step
+                if (dtd.tag_dict.hasOwnProperty(tag_name)) {
+                    // one more step, sometimes the attr in XML doesn't contain
+                    // what defined int dtd, so we need to give a value
+                    for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
+                        const att = dtd.tag_dict[tag_name].attlists[k];
+                        if (tag.hasOwnProperty(att.name)) {
+                            // ok, that's what it should be
+                        } else {
+                            // also ok, that's what it actually is sometimes
+                            tag[att.name] = att.default_value;
+                            console.log('* fixed missing', att.name);
+                        }
+                    }   
+                } else {
+                    console.log('* undefined [' + tag_name + '] in dtd');
+                }
+                // console.log('* add tag', tag);
 
-            // then, put this new tag to the ann tags list
-            ann.tags.push(tag);
+                // then, put this new tag to the ann tags list
+                ann.tags.push(tag);
+            }
         }
 
         return ann;
