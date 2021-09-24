@@ -769,7 +769,12 @@ input[type=text].ipt-spinner-xs {
 }
 .ltag-attr-name {
     align-items: center;
-    width: 140px;
+    min-width: 100px;
+    max-width: 200px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .ltag-attr-value {
     max-width: 150px;
