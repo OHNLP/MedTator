@@ -1022,10 +1022,13 @@ var app_hotpot = {
                         continue;
                     }
                     // there maybe multiple spans
-                    var spans = tag.spans.split(',');
-                    for (let k = 0; k < spans.length; k++) {
-                        const _span = spans[k];
-                        const span = nlp_toolkit.txt2span(_span);
+                    // var spans = tag.spans.split(',');
+                    var locs = ann_parser.spans2locs(tag.spans);
+
+                    for (let k = 0; k < locs.length; k++) {
+                        // const _span = spans[k];
+                        // const span = nlp_toolkit.txt2span(_span);
+                        const span = locs[k];
                         if (span[0] == -1 || spans[1] == -1) {
                             // which means this tag is just a non-consuming tag
                             // at present, we won't use this kind of tag 
@@ -2831,11 +2834,11 @@ var app_hotpot = {
         // next, get the values
         var etag_a_id = ltag[att_a.name];
         var etag_b_id = ltag[att_b.name];
-        console.log(
-            '* try to draw line ['+ltag.id+'] between', 
-            att_a.name, '['+etag_a_id+']-', 
-            att_b.name, '['+etag_b_id+']'
-        );
+        // console.log(
+        //     '* try to draw line ['+ltag.id+'] between', 
+        //     att_a.name, '['+etag_a_id+']-', 
+        //     att_b.name, '['+etag_b_id+']'
+        // );
 
         // if the value is null or empty, just skip
         if (etag_a_id == null || etag_a_id == '') { return; }

@@ -95,7 +95,16 @@ var ann_parser = {
                     } else if (attr.toLocaleLowerCase() == 'spans') {
                         // special rule for the text attr
                         // due to the bad convertion
-                        tag['spans'] = value;
+                        // tag['spans'] = value;
+
+                        // fix the wrong values
+                        var locs = this.spans2locs(value);
+                        var spans = this.locs2spans(locs);
+
+                        if (value != spans) {
+                            console.log('* fixed wrong format spans ' + value + ' -> ' + spans);
+                        }
+                        tag['spans'] = spans;
 
                     } else if (attr.endsWith('ID')) {
                         // omg, this may be a link tag
@@ -120,10 +129,9 @@ var ann_parser = {
 
                     } else {
                         // other special rule? maybe
+                        // put this value into tag
+                        tag[attr] = value;
                     }
-                    
-                    // put this value into tag
-                    tag[attr] = value;
                 }
 
                 // one more step, need to check whether this tag belongs to dtd
@@ -138,7 +146,7 @@ var ann_parser = {
                         } else {
                             // also ok, that's what it actually is sometimes
                             tag[att.name] = att.default_value;                            
-                            console.log('* fixed missing '+tag.id+' attr-', att.name);
+                            console.log('* fixed missing '+tag.id+' attr['+att.name+']');
                         }
                     }
 
@@ -257,7 +265,7 @@ var ann_parser = {
         return xmlDoc;
     },
 
-    xml2str: function(xmlDoc, pretty) {
+    xml2str_v1: function(xmlDoc, pretty) {
         const serializer = new XMLSerializer();
         var xmlStr = serializer.serializeToString(xmlDoc);
 
@@ -275,10 +283,67 @@ var ann_parser = {
         if (pretty) {
             // var pretty_xmlStr = vkbeautify.xml(xmlStr, 0);
             // return pretty_xmlStr;
-            
+            var format = require('xml-formatter');
+            formattedXml = format(xmlStr, {
+                indentation: ''
+            });
         }
 
         return xmlStr;
+    },
+
+    xml2str: function(xml_doc) {
+        const serializer = new XMLSerializer();
+        var xml_str_TEXT = serializer.serializeToString(xml_doc.getElementsByTagName('TEXT')[0]);
+        var xml_str_TAGS = serializer.serializeToString(xml_doc.getElementsByTagName('TAGS')[0]);
+
+        var format = require('xml-formatter');
+        var xml_str_TAGS_formatted = format(xml_str_TAGS, {
+            indentation: ''
+        });
+
+        var root_name = xml_doc.children[0].nodeName;
+
+        var xml_str = [
+            '<?xml version="1.0" encoding="UTF-8" ?>',
+            '<' + root_name + '>',
+            xml_str_TEXT,
+            xml_str_TAGS_formatted,
+            '</' + root_name + '>'
+        ].join('\n');
+
+        return xml_str;
+    },
+
+    pretty_xml_str: function(xml_str) {
+        var formatted = '';
+        var reg = /(>)(<)(\/*)/g;
+        xml = xml.replace(reg, '$1\r\n$2$3');
+        var pad = 0;
+        jQuery.each(xml.split('\r\n'), function(index, node) {
+            var indent = 0;
+            if (node.match( /.+<\/\w[^>]*>$/ )) {
+                indent = 0;
+            } else if (node.match( /^<\/\w/ )) {
+                if (pad != 0) {
+                    pad -= 1;
+                }
+            } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+                indent = 1;
+            } else {
+                indent = 0;
+            }
+
+            var padding = '';
+            for (var i = 0; i < pad; i++) {
+                padding += '  ';
+            }
+
+            formatted += padding + node + '\r\n';
+            pad += indent;
+        });
+
+        return formatted;
     },
 
     /**
@@ -397,12 +462,14 @@ var ann_parser = {
                 // which means it's a link tag
                 continue;
             }
-            var spans = tag.spans.split(',');
-            for (let j = 0; j < spans.length; j++) {
-                const span = spans[j];
-                var loc = this.span2loc(span);
-                loc_list.push(loc);
-            }
+            // var spans = tag.spans.split(',');
+            // for (let j = 0; j < spans.length; j++) {
+            //     const span = spans[j];
+            //     var loc = this.span2loc(span);
+            //     loc_list.push(loc);
+            // }
+            var _locs = this.spans2locs(tag.spans);
+            loc_list = loc_list.concat(_locs);
         }
         console.log('* created loc_list', loc_list);
         
@@ -494,12 +561,21 @@ var ann_parser = {
     },
 
     spans2locs: function(raw_spans) {
+        // fix for the special convert
+        raw_spans = raw_spans.replaceAll(';', ',');
+
+        // split by comma
         var span_arr = raw_spans.split(',');
         var locs = [];
         for (let i = 0; i < span_arr.length; i++) {
             const span = span_arr[i];
             var loc = this.span2loc(span);
-            locs.push(loc);
+
+            if (loc == null) {
+
+            } else {
+                locs.push(loc);
+            }
         }
 
         return locs;
@@ -509,6 +585,13 @@ var ann_parser = {
         var ps = span.split('~');
         var span_pos_0 = parseInt(ps[0]);
         var span_pos_1 = parseInt(ps[1]);
+
+        if (isNaN(span_pos_0)) {
+            return null;
+        }
+        if (isNaN(span_pos_1)) {
+            return null;
+        }
         return [
             span_pos_0,
             span_pos_1
@@ -519,7 +602,21 @@ var ann_parser = {
         return loc[0] + '~' + loc[1];
     },
 
-    hash: function(str, seed = 0) {
+    locs2spans: function(locs) {
+        var spans = [];
+        for (let i = 0; i < locs.length; i++) {
+            const loc = locs[i];
+            var span = this.loc2span(loc);
+            spans.push(span);
+        }
+        spans = spans.join(',');
+        return spans;
+    },
+
+    hash: function(str, seed) {
+        if (typeof(seed) == 'undefined') {
+            seed = 0;
+        }
         let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
         for (let i = 0, ch; i < str.length; i++) {
             ch = str.charCodeAt(i);
