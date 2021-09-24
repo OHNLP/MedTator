@@ -87,7 +87,12 @@ var ann_parser = {
                     var value = elem.getAttribute(attr);
 
                     // there are exceptions
-                    if (attr.endsWith('ID')) {
+                    if (attr.toLocaleLowerCase() == 'text') {
+                        // special rule for the text attr
+                        // due to the bad convertion
+                        tag['text'] = value;
+                        
+                    } else if (attr.endsWith('ID')) {
                         // omg, this may be a link tag
                         // let's check if there is a xxxText attr
                         var attr_prefix_name = attr.substring(0, attr.length-2);
