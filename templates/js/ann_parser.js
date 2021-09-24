@@ -532,23 +532,29 @@ var ann_parser = {
 
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
-        var regex = new RegExp('\\b' + str + '\\b', 'gmi');
+        try {
+            var regex = new RegExp('\\b' + str + '\\b', 'gmi');
+        
 
-        var m;
-        var locs = [];
-        while ((m = regex.exec(text)) !== null) {
-            // This is necessary to avoid infinite loops with zero-width matches
-            if (m.index === regex.lastIndex) {
-                regex.lastIndex++;
+            var m;
+            var locs = [];
+            while ((m = regex.exec(text)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+                
+                // The result can be accessed through the `m`-variable.
+                m.forEach((match, groupIndex) => {
+                    locs.push([ m.index, regex.lastIndex]);
+                });
             }
-            
-            // The result can be accessed through the `m`-variable.
-            m.forEach((match, groupIndex) => {
-                locs.push([ m.index, regex.lastIndex]);
-            });
-        }
 
-        return locs;
+            return locs;
+        } catch (error) {
+            console.log("* couldn't create regex by", str);
+            return [];
+        }
     },
 
     get_text_by_spans: function(spans, full_text) {

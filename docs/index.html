@@ -900,6 +900,44 @@ input[type=text].ipt-spinner-xs {
 .ribbon-toggle-group .ribbon-icon-button {
     height: 18px;
 }
+/* for the linking panel */
+#pan_working_tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    max-width: 300px;
+    max-height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 1px solid #aaaaaa;
+    background: white;
+    box-shadow: 0 0 15px #828282;
+    z-index: 999;
+}
+#pan_working_tag_title {
+    cursor: grab;
+    background-color: whitesmoke;
+}
+#pan_working_tag_title:active {
+    cursor: grabbing;
+}
+.ltag-attr-name {
+    align-items: center;
+    min-width: 100px;
+    max-width: 200px;
+}
+.ltag-attr-value {
+    max-width: 150px;
+}
+.ltag-attr-row:hover {
+    background-color: rgb(211, 211, 211) !important;
+}
+.ltag-attr-row:nth-child(even) {
+    background-color: white;
+}
+.ltag-attr-row:nth-child(odd) {
+    background-color: whitesmoke;
+}
 </style>
 
 </head>
@@ -1156,6 +1194,16 @@ input[type=text].ipt-spinner-xs {
                             data-caption="Link Name"
                             v-model="cm.enabled_link_name"
                             @change="on_change_link_settings">
+                    </div>
+
+                    <div v-show="is_linking">
+                        <button class="ribbon-button"
+                            v-on:click="done_linking">
+                            <span class="icon">
+                                <span class="fa fa-check-circle"></span>
+                            </span>
+                            <span class="caption">Done Linking</span>
+                        </button>
                     </div>
 
                     <div v-show="is_linking">
@@ -1613,7 +1661,7 @@ input[type=text].ipt-spinner-xs {
         </div>
 
         <div id="app_info">
-            MedTator 0.5.3
+            MedTator 0.5.7
         </div>
     </nav>
 
@@ -1659,6 +1707,8 @@ input[type=text].ipt-spinner-xs {
                         class="file-list-item">
                         <div class="d-flex flex-row flex-justify-between">
                             <div class="file-list-item-name"
+                                style="flex-grow: 1;"
+                                v-on:click="set_ann_idx(idx)"
                                 v-bind:title="ann._filename"
                                 v-bind:class="{'file-list-item-name-unsaved':!ann._has_saved}">
 
@@ -1670,7 +1720,7 @@ input[type=text].ipt-spinner-xs {
                                     <i class="fa fa-save"></i>
                                 </a>
                                 
-                                <span v-on:click="set_ann_idx(idx)">
+                                <span>
                                     {{ ann._filename }}
                                 </span>
                             </div>
@@ -1869,7 +1919,7 @@ input[type=text].ipt-spinner-xs {
                                             v-bind:value="val">
                                             {{ val }}
                                         </option>
-                                        <option value="">&nbsp;</option>
+                                        <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
                                 <div v-else-if="attlist.vtype == 'text'">
@@ -1892,6 +1942,7 @@ input[type=text].ipt-spinner-xs {
                                             -
                                             {{ s_etag.text }}
                                         </option>
+                                        <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
                                 <div v-else>
@@ -1908,6 +1959,81 @@ input[type=text].ipt-spinner-xs {
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div v-if="is_linking"
+        ref="pan_working_tag_box"
+        id="pan_working_tag"
+        class="d-flex flex-column">
+        <div class="p-2 mb-1"
+            id="pan_working_tag_title"
+            @mousedown="dragMouseDown">
+            Creating a Link Tag
+            <b>{{ linking_tag.tag }}</b>
+        </div>
+        <div class="d-flex flex-row p-1 border-bottom">
+            <button class="btn-xs mr-1"
+                title="Using the following values to create a link tag"
+                v-on:click="done_linking();">
+                <i class="fa fa-check-circle"></i>
+                Done Linking
+            </button>
+            <button class="btn-xs"
+                title="Stop creating a link tag and drop the following values"
+                v-on:click="cancel_linking();">
+                <i class="far fa-times-circle"></i>
+                Cancel Linking
+            </button>
+        </div>
+        <div class="d-flex flex-column p-1 pr-2">
+            <div v-for="attlist in linking_tag_def.attlists"
+                class="d-flex flex-row ltag-attr-row p-1 mb-1">
+                <div class="d-flex ltag-attr-name pr-1">
+                    &nbsp;- 
+                    {{ attlist.name }}
+                </div>
+                <div class="d-flex ltag-attr-value">
+                    <div v-if="attlist.vtype == 'idref'"
+                        class="w-100">
+                        <select class="tag-attr-select"
+                            v-model="linking_tag[attlist.name]">
+                            <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
+                                v-bind:value="s_etag.id">
+                                {{ s_etag.id }}
+                                |
+                                {{ s_etag.tag }}
+                                -
+                                {{ s_etag.text }}
+                            </option>
+                            <option value="">-- EMPTY --</option>
+                        </select>
+                    </div>
+                    <div v-else-if="attlist.vtype == 'text'"
+                        class="w-100">
+                        <input type="text"
+                            class="tag-attr-input"
+                            v-model="linking_tag[attlist.name]">
+                    </div>
+                    <div v-else-if="attlist.vtype == 'list'"
+                        class="w-100">
+                        <select class="tag-attr-select"
+                            v-model="linking_tag[attlist.name]">
+                            <option v-for="val in attlist.values"
+                                v-bind:value="val">
+                                {{ val }}
+                            </option>
+                            <option value="">-- EMPTY --</option>
+                        </select>
+                    </div>
+                    <div v-else
+                        class="w-100">
+                        <input type="text"
+                            class="tag-attr-input"
+                            v-model="linking_tag[attlist.name]">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -2689,6 +2815,8 @@ console.log('* isFILE_API_OK: ' + isFILE_API_OK);
 <script src="./static/lib/wink-nlp/bundle-1.8.0.min.js"></script>
 <!-- dataset spliter -->
 <script src="./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"></script>
+<!-- format xml -->
+<script src="https://cdn.jsdelivr.net/npm/xml-formatter@2.4.0/dist/browser/xml-formatter.js"></script>
 <script>
 
 // The file helper 
@@ -2842,8 +2970,8 @@ var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
         element: /^\<\!ELEMENT\s+([a-zA-Z\-0-9\_]+)\s.+/gmi,
-        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
-        attlist_values: /\(([a-zA-Z0-9\_\ \|]+)\)/gmi,
+        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
+        attlist_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
         attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
         attlist_cdata_default_value: /(?<=").*?(?=")/gm
@@ -2870,6 +2998,7 @@ var dtd_parser = {
 
             if (ret == null) {
                 // nothing happens
+                console.log('* null dtd line: ', line);
                 continue;
 
             } else if (ret.type == 'entity') {
@@ -3387,78 +3516,115 @@ var ann_parser = {
         ann.text = textContent;
 
         // then check all of the tags
-        var elems = xmlDoc.getElementsByTagName('TAGS')[0].children;
+        if (xmlDoc.getElementsByTagName('TAGS').length == 0) {
+            // it's possible that there is no tags at all
+            // then we could skip
+        } else {
+            var elems = xmlDoc.getElementsByTagName('TAGS')[0].children;
 
-        for (let i = 0; i < elems.length; i++) {
-            var elem = elems[i];
+            for (let i = 0; i < elems.length; i++) {
+                var elem = elems[i];
 
-            // get the attributes
-            var tag_name = elem.tagName;
+                // get the attributes
+                var tag_name = elem.tagName;
 
-            // create a new empty tag
-            var tag = {
-                tag: tag_name
-            };
+                // create a new empty tag
+                var tag = {
+                    tag: tag_name
+                };
 
-            // get all attr names
-            var attrs = elem.getAttributeNames();
+                // get all attr names
+                var attrs = elem.getAttributeNames();
 
-            // get all attr values
-            for (let j = 0; j < attrs.length; j++) {
-                var attr = attrs[j];
-                var value = elem.getAttribute(attr);
+                // get all attr values
+                for (let j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    var value = elem.getAttribute(attr);
 
-                // there are exceptions
-                if (attr.endsWith('ID')) {
-                    // omg, this may be a link tag
-                    // let's check if there is a xxxText attr
-                    var attr_prefix_name = attr.substring(0, attr.length-2);
-                    var attrText_name = attr_prefix_name + 'Text';
-                    if (attrs.indexOf(attrText_name)>=0) {
-                        // ok, I'm sure this is a idref att
-                        // the value is the etag id
-                        // let's save it and goto next
-                        tag[attr_prefix_name] = value;
+                    // there are exceptions
+                    if (attr.toLocaleLowerCase() == 'text') {
+                        // special rule for the text attr
+                        // due to the bad convertion
+                        tag['text'] = value;
+
+                    } else if (attr.toLocaleLowerCase() == 'spans') {
+                        // special rule for the text attr
+                        // due to the bad convertion
+                        // tag['spans'] = value;
+
+                        // fix the wrong values
+                        var locs = this.spans2locs(value);
+                        var spans = this.locs2spans(locs);
+
+                        if (value != spans) {
+                            console.log('* fixed wrong format spans ' + value + ' -> ' + spans);
+                        }
+                        tag['spans'] = spans;
+
+                    } else if (attr.endsWith('ID')) {
+                        // omg, this may be a link tag
+                        // let's check if there is a xxxText attr
+                        var attr_prefix_name = attr.substring(0, attr.length-2);
+                        var attrText_name = attr_prefix_name + 'Text';
+                        if (attrs.indexOf(attrText_name)>=0) {
+                            // ok, I'm sure this is a idref att
+                            // the value is the etag id
+                            // let's save it and goto next
+                            tag[attr_prefix_name] = value;
+                            continue;
+
+                        } else {
+                            // what??? ok, this is just a normal but weird attr
+                            // just save it later
+
+                        }
+                    } else if (attr.endsWith('Text')) {
+                        // I guess we could skip this one
                         continue;
 
                     } else {
-                        // what??? ok, this is just a normal but weird attr
-                        // just save it later
-
+                        // other special rule? maybe
+                        // put this value into tag
+                        tag[attr] = value;
                     }
-                } else if (attr.endsWith('Text')) {
-                    // I guess we could skip this one
-                    continue;
-
-                } else {
-                    // other special rule? maybe
                 }
-                
-                // put this value into tag
-                tag[attr] = value;
-            }
-            // one more step, need to check whether this tag belongs to dtd
-            // if not, skip the next step
-            if (dtd.tag_dict.hasOwnProperty(tag_name)) {
-                // one more step, sometimes the attr in XML doesn't contain
-                // what defined int dtd, so we need to give a value
-                for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
-                    const att = dtd.tag_dict[tag_name].attlists[k];
-                    if (tag.hasOwnProperty(att.name)) {
-                        // ok, that's what it should be
-                    } else {
-                        // also ok, that's what it actually is sometimes
-                        tag[att.name] = att.default_value;
-                        console.log('* fixed missing', att.name);
-                    }
-                }   
-            } else {
-                console.log('* undefined [' + tag_name + '] in dtd');
-            }
-            // console.log('* add tag', tag);
 
-            // then, put this new tag to the ann tags list
-            ann.tags.push(tag);
+                // one more step, need to check whether this tag belongs to dtd
+                // if not, skip the next step
+                if (dtd.tag_dict.hasOwnProperty(tag_name)) {
+                    // one more step, sometimes the attr in XML doesn't contain
+                    // what defined int dtd, so we need to give a value
+                    for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
+                        const att = dtd.tag_dict[tag_name].attlists[k];
+                        if (tag.hasOwnProperty(att.name)) {
+                            // ok, that's what it should be
+                        } else {
+                            // also ok, that's what it actually is sometimes
+                            tag[att.name] = att.default_value;                            
+                            console.log('* fixed missing '+tag.id+' attr['+att.name+']');
+                        }
+                    }
+
+                    // check the text attr for entity tags
+                    if (dtd.tag_dict[tag_name].type == 'etag') {
+                        if (tag.hasOwnProperty('text')) {
+
+                        } else {
+                            if (tag.spans == '-1~-1') {
+                                tag.text = '';
+                            } else {
+                                tag.text = this.get_text_by_spans(tag.spans, ann.text);
+                            }
+                        }
+                    }
+                } else {
+                    console.log('* undefined [' + tag_name + '] in dtd');
+                }
+                // console.log('* add tag', tag);
+
+                // then, put this new tag to the ann tags list
+                ann.tags.push(tag);
+            }
         }
 
         return ann;
@@ -3513,6 +3679,12 @@ var ann_parser = {
                     // for link tag, spans and text are not required
                     if (attr == 'spans') { continue; }
                     if (attr == 'text') { continue; }
+
+                    // due to schema version issue, 
+                    // the attribute may not exist in current schema
+                    if (!dtd.tag_dict[tag.tag].attlist_dict.hasOwnProperty(attr)) {
+                        continue;
+                    }
                 
                     // for those link tag, need to check 
                     if (dtd.tag_dict[tag.tag].attlist_dict[attr].vtype == 'idref') {
@@ -3554,7 +3726,7 @@ var ann_parser = {
         return xmlDoc;
     },
 
-    xml2str: function(xmlDoc, pretty) {
+    xml2str_v1: function(xmlDoc, pretty) {
         const serializer = new XMLSerializer();
         var xmlStr = serializer.serializeToString(xmlDoc);
 
@@ -3572,10 +3744,67 @@ var ann_parser = {
         if (pretty) {
             // var pretty_xmlStr = vkbeautify.xml(xmlStr, 0);
             // return pretty_xmlStr;
-            
+            var format = require('xml-formatter');
+            formattedXml = format(xmlStr, {
+                indentation: ''
+            });
         }
 
         return xmlStr;
+    },
+
+    xml2str: function(xml_doc) {
+        const serializer = new XMLSerializer();
+        var xml_str_TEXT = serializer.serializeToString(xml_doc.getElementsByTagName('TEXT')[0]);
+        var xml_str_TAGS = serializer.serializeToString(xml_doc.getElementsByTagName('TAGS')[0]);
+
+        var format = require('xml-formatter');
+        var xml_str_TAGS_formatted = format(xml_str_TAGS, {
+            indentation: ''
+        });
+
+        var root_name = xml_doc.children[0].nodeName;
+
+        var xml_str = [
+            '<?xml version="1.0" encoding="UTF-8" ?>',
+            '<' + root_name + '>',
+            xml_str_TEXT,
+            xml_str_TAGS_formatted,
+            '</' + root_name + '>'
+        ].join('\n');
+
+        return xml_str;
+    },
+
+    pretty_xml_str: function(xml_str) {
+        var formatted = '';
+        var reg = /(>)(<)(\/*)/g;
+        xml = xml.replace(reg, '$1\r\n$2$3');
+        var pad = 0;
+        jQuery.each(xml.split('\r\n'), function(index, node) {
+            var indent = 0;
+            if (node.match( /.+<\/\w[^>]*>$/ )) {
+                indent = 0;
+            } else if (node.match( /^<\/\w/ )) {
+                if (pad != 0) {
+                    pad -= 1;
+                }
+            } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+                indent = 1;
+            } else {
+                indent = 0;
+            }
+
+            var padding = '';
+            for (var i = 0; i < pad; i++) {
+                padding += '  ';
+            }
+
+            formatted += padding + node + '\r\n';
+            pad += indent;
+        });
+
+        return formatted;
     },
 
     /**
@@ -3694,12 +3923,14 @@ var ann_parser = {
                 // which means it's a link tag
                 continue;
             }
-            var spans = tag.spans.split(',');
-            for (let j = 0; j < spans.length; j++) {
-                const span = spans[j];
-                var loc = this.span2loc(span);
-                loc_list.push(loc);
-            }
+            // var spans = tag.spans.split(',');
+            // for (let j = 0; j < spans.length; j++) {
+            //     const span = spans[j];
+            //     var loc = this.span2loc(span);
+            //     loc_list.push(loc);
+            // }
+            var _locs = this.spans2locs(tag.spans);
+            loc_list = loc_list.concat(_locs);
         }
         console.log('* created loc_list', loc_list);
         
@@ -3756,20 +3987,62 @@ var ann_parser = {
 
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
-        var regex = new RegExp('\\b' + str + '\\b', 'gmi');
+        try {
+            var regex = new RegExp('\\b' + str + '\\b', 'gmi');
+        
 
-        var m;
-        var locs = [];
-        while ((m = regex.exec(text)) !== null) {
-            // This is necessary to avoid infinite loops with zero-width matches
-            if (m.index === regex.lastIndex) {
-                regex.lastIndex++;
+            var m;
+            var locs = [];
+            while ((m = regex.exec(text)) !== null) {
+                // This is necessary to avoid infinite loops with zero-width matches
+                if (m.index === regex.lastIndex) {
+                    regex.lastIndex++;
+                }
+                
+                // The result can be accessed through the `m`-variable.
+                m.forEach((match, groupIndex) => {
+                    locs.push([ m.index, regex.lastIndex]);
+                });
             }
-            
-            // The result can be accessed through the `m`-variable.
-            m.forEach((match, groupIndex) => {
-                locs.push([ m.index, regex.lastIndex]);
-            });
+
+            return locs;
+        } catch (error) {
+            console.log("* couldn't create regex by", str);
+            return [];
+        }
+    },
+
+    get_text_by_spans: function(spans, full_text) {
+        var locs = this.spans2locs(spans);
+        var text = [];
+        for (let i = 0; i < locs.length; i++) {
+            const loc = locs[i];
+            const _t = full_text.substring(
+                loc[0],
+                loc[1]
+            );
+            text.push(_t);
+        }
+
+        return text.join('...');
+    },
+
+    spans2locs: function(raw_spans) {
+        // fix for the special convert
+        raw_spans = raw_spans.replaceAll(';', ',');
+
+        // split by comma
+        var span_arr = raw_spans.split(',');
+        var locs = [];
+        for (let i = 0; i < span_arr.length; i++) {
+            const span = span_arr[i];
+            var loc = this.span2loc(span);
+
+            if (loc == null) {
+
+            } else {
+                locs.push(loc);
+            }
         }
 
         return locs;
@@ -3779,6 +4052,13 @@ var ann_parser = {
         var ps = span.split('~');
         var span_pos_0 = parseInt(ps[0]);
         var span_pos_1 = parseInt(ps[1]);
+
+        if (isNaN(span_pos_0)) {
+            return null;
+        }
+        if (isNaN(span_pos_1)) {
+            return null;
+        }
         return [
             span_pos_0,
             span_pos_1
@@ -3789,7 +4069,21 @@ var ann_parser = {
         return loc[0] + '~' + loc[1];
     },
 
-    hash: function(str, seed = 0) {
+    locs2spans: function(locs) {
+        var spans = [];
+        for (let i = 0; i < locs.length; i++) {
+            const loc = locs[i];
+            var span = this.loc2span(loc);
+            spans.push(span);
+        }
+        spans = spans.join(',');
+        return spans;
+    },
+
+    hash: function(str, seed) {
+        if (typeof(seed) == 'undefined') {
+            seed = 0;
+        }
         let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
         for (let i = 0, ch; i < str.length; i++) {
             ch = str.charCodeAt(i);
@@ -5411,6 +5705,16 @@ var app_hotpot = {
         linking_tag_def: null,
         linking_tag: null,
         linking_atts: [],
+        
+        // linking
+        pan_working_tag: {
+            pos: {
+                clientX: undefined,
+                clientY: undefined,
+                movementX: 0,
+                movementY: 0
+            }
+        },
 
         // for converting the txt to xmls
         txt_anns: [],
@@ -5720,10 +6024,15 @@ var app_hotpot = {
             this.anns.splice(idx, 1);
 
             // once the file is removed, update the hint_dict
-            app_hotpot.update_hint_dict_by_anns();
+            // app_hotpot.update_hint_dict_by_anns();
 
             if (idx == this.ann_idx) {
                 this.set_ann_idx(null);
+            }
+
+            // need to move the current ann_idx location
+            if (idx < this.ann_idx) {
+                this.ann_idx -= 1;
             }
         },
 
@@ -6379,10 +6688,13 @@ var app_hotpot = {
                         continue;
                     }
                     // there maybe multiple spans
-                    var spans = tag.spans.split(',');
-                    for (let k = 0; k < spans.length; k++) {
-                        const _span = spans[k];
-                        const span = nlp_toolkit.txt2span(_span);
+                    // var spans = tag.spans.split(',');
+                    var locs = ann_parser.spans2locs(tag.spans);
+
+                    for (let k = 0; k < locs.length; k++) {
+                        // const _span = spans[k];
+                        // const span = nlp_toolkit.txt2span(_span);
+                        const span = locs[k];
                         if (span[0] == -1 || spans[1] == -1) {
                             // which means this tag is just a non-consuming tag
                             // at present, we won't use this kind of tag 
@@ -6584,12 +6896,59 @@ var app_hotpot = {
             }
         },
 
+        done_linking: function() {
+            // no matter what decision, just done this linking,
+            // we could append this linking tag to ann
+            var tag_id = ann_parser.get_next_tag_id(
+                this.anns[this.ann_idx],
+                this.linking_tag_def
+            );
+            this.linking_tag.id = tag_id;
+            this.anns[this.ann_idx].tags.push(this.linking_tag);
+            // mark _has_saved
+            this.anns[this.ann_idx]._has_saved = false;
+
+            // then, we could show this new link in cm
+            app_hotpot.cm_draw_ltag(
+                this.linking_tag,
+                this.linking_tag_def,
+                this.anns[this.ann_idx]
+            );
+
+            // we could reset linking status
+            this.cancel_linking();
+        },
+
         cancel_linking: function() {
             // so, user doesn't want to continue current linking
             this.is_linking = false;
             this.linking_tag_def = null;
             this.linking_tag = null;
             this.linking_atts = [];
+        },
+
+        dragMouseDown: function(event) {
+            console.log('* drag start', event);
+            event.preventDefault()
+            // get the mouse cursor position at startup:
+            this.pan_working_tag.pos.clientX = event.clientX
+            this.pan_working_tag.pos.clientY = event.clientY
+            document.onmousemove = this.elementDrag
+            document.onmouseup = this.closeDragElement
+        },
+        elementDrag: function (event) {
+            event.preventDefault()
+            this.pan_working_tag.pos.movementX = this.pan_working_tag.pos.clientX - event.clientX
+            this.pan_working_tag.pos.movementY = this.pan_working_tag.pos.clientY - event.clientY
+            this.pan_working_tag.pos.clientX = event.clientX
+            this.pan_working_tag.pos.clientY = event.clientY
+            // set the element's new position:
+            this.$refs.pan_working_tag_box.style.top = (this.$refs.pan_working_tag_box.offsetTop - this.pan_working_tag.pos.movementY) + 'px'
+            this.$refs.pan_working_tag_box.style.left = (this.$refs.pan_working_tag_box.offsetLeft - this.pan_working_tag.pos.movementX) + 'px'
+        },
+        closeDragElement () {
+            document.onmouseup = null
+            document.onmousemove = null
         },
 
         /////////////////////////////////////////////////////////////////
@@ -7275,10 +7634,12 @@ var app_hotpot = {
         var p_ann = fs_read_ann_file_handle(fh, dtd);
         p_ann.then(function(ann) {
             app_hotpot.add_ann(ann);
-        }).catch(function(error) {
-            app_hotpot.msg("Couldn't read ann, " + error.name);
-            console.error(error);
-        });
+        }).catch(
+            function(fh){return function(error) {
+                app_hotpot.msg("Couldn't read annotation in ["+ fh.name +"], " + error.name);
+                console.error(error);
+            }}(fh)
+        );
     },
 
     read_file_async: function(fileEntry, callback) {
@@ -8139,11 +8500,11 @@ var app_hotpot = {
         // next, get the values
         var etag_a_id = ltag[att_a.name];
         var etag_b_id = ltag[att_b.name];
-        console.log(
-            '* try to draw line ['+ltag.id+'] between', 
-            att_a.name, '['+etag_a_id+']-', 
-            att_b.name, '['+etag_b_id+']'
-        );
+        // console.log(
+        //     '* try to draw line ['+ltag.id+'] between', 
+        //     att_a.name, '['+etag_a_id+']-', 
+        //     att_b.name, '['+etag_b_id+']'
+        // );
 
         // if the value is null or empty, just skip
         if (etag_a_id == null || etag_a_id == '') { return; }
