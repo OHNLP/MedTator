@@ -751,7 +751,7 @@ input[type=text].ipt-spinner-xs {
     position: absolute;
     top: 10px;
     left: 10px;
-    max-width: 250px;
+    max-width: 300px;
     max-height: 400px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -771,10 +771,6 @@ input[type=text].ipt-spinner-xs {
     align-items: center;
     min-width: 100px;
     max-width: 200px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .ltag-attr-value {
     max-width: 150px;
