@@ -358,10 +358,15 @@ var app_hotpot = {
             this.anns.splice(idx, 1);
 
             // once the file is removed, update the hint_dict
-            app_hotpot.update_hint_dict_by_anns();
+            // app_hotpot.update_hint_dict_by_anns();
 
             if (idx == this.ann_idx) {
                 this.set_ann_idx(null);
+            }
+
+            // need to move the current ann_idx location
+            if (idx < this.ann_idx) {
+                this.ann_idx -= 1;
             }
         },
 

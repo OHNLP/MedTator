@@ -91,7 +91,12 @@ var ann_parser = {
                         // special rule for the text attr
                         // due to the bad convertion
                         tag['text'] = value;
-                        
+
+                    } else if (attr.toLocaleLowerCase() == 'spans') {
+                        // special rule for the text attr
+                        // due to the bad convertion
+                        tag['spans'] = value;
+
                     } else if (attr.endsWith('ID')) {
                         // omg, this may be a link tag
                         // let's check if there is a xxxText attr
@@ -120,6 +125,7 @@ var ann_parser = {
                     // put this value into tag
                     tag[attr] = value;
                 }
+
                 // one more step, need to check whether this tag belongs to dtd
                 // if not, skip the next step
                 if (dtd.tag_dict.hasOwnProperty(tag_name)) {
@@ -134,7 +140,20 @@ var ann_parser = {
                             tag[att.name] = att.default_value;
                             console.log('* fixed missing', att.name);
                         }
-                    }   
+                    }
+
+                    // check the text attr for entity tags
+                    if (dtd.tag_dict[tag_name].type == 'etag') {
+                        if (tag.hasOwnProperty('text')) {
+
+                        } else {
+                            if (tag.spans == '-1~-1') {
+                                tag.text = '';
+                            } else {
+                                tag.text = this.get_text_by_spans(tag.spans);
+                            }
+                        }
+                    }
                 } else {
                     console.log('* undefined [' + tag_name + '] in dtd');
                 }
@@ -457,6 +476,31 @@ var ann_parser = {
         }
 
         return locs;
+    },
+
+    get_text_by_spans: function(spans, full_text) {
+        var locs = this.spans2locs(spans);
+        var text = [];
+        for (let i = 0; i < locs.length; i++) {
+            const loc = locs[i];
+            const _t = full_text.substring(
+                loc[0],
+                loc[1]
+            );
+            text.push(_t);
+        }
+
+        return text.join('...');
+    },
+
+    spans2locs: function(raw_spans) {
+        var span_arr = raw_spans.split(',');
+        var locs = [];
+        for (let i = 0; i < span_arr.length; i++) {
+            const span = span_arr[i];
+            var loc = this.span2loc(span);
+            locs.push(loc);
+        }
     },
 
     span2loc: function(span) {
