@@ -137,8 +137,8 @@ var ann_parser = {
                             // ok, that's what it should be
                         } else {
                             // also ok, that's what it actually is sometimes
-                            tag[att.name] = att.default_value;
-                            console.log('* fixed missing', att.name);
+                            tag[att.name] = att.default_value;                            
+                            console.log('* fixed missing '+tag.id+' attr-', att.name);
                         }
                     }
 
@@ -150,7 +150,7 @@ var ann_parser = {
                             if (tag.spans == '-1~-1') {
                                 tag.text = '';
                             } else {
-                                tag.text = this.get_text_by_spans(tag.spans);
+                                tag.text = this.get_text_by_spans(tag.spans, ann.text);
                             }
                         }
                     }
@@ -501,6 +501,8 @@ var ann_parser = {
             var loc = this.span2loc(span);
             locs.push(loc);
         }
+
+        return locs;
     },
 
     span2loc: function(span) {

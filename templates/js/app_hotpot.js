@@ -1965,10 +1965,12 @@ var app_hotpot = {
         var p_ann = fs_read_ann_file_handle(fh, dtd);
         p_ann.then(function(ann) {
             app_hotpot.add_ann(ann);
-        }).catch(function(error) {
-            app_hotpot.msg("Couldn't read ann, " + error.name);
-            console.error(error);
-        });
+        }).catch(
+            function(fh){return function(error) {
+                app_hotpot.msg("Couldn't read annotation in ["+ fh.name +"], " + error.name);
+                console.error(error);
+            }}(fh)
+        );
     },
 
     read_file_async: function(fileEntry, callback) {
