@@ -39,6 +39,8 @@
                         class="file-list-item">
                         <div class="d-flex flex-row flex-justify-between">
                             <div class="file-list-item-name"
+                                style="flex-grow: 1;"
+                                v-on:click="set_ann_idx(idx)"
                                 v-bind:title="ann._filename"
                                 v-bind:class="{'file-list-item-name-unsaved':!ann._has_saved}">
 
@@ -50,7 +52,7 @@
                                     <i class="fa fa-save"></i>
                                 </a>
                                 
-                                <span v-on:click="set_ann_idx(idx)">
+                                <span>
                                     {{ ann._filename }}
                                 </span>
                             </div>
