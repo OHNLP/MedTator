@@ -224,6 +224,12 @@ var ann_parser = {
                     // for link tag, spans and text are not required
                     if (attr == 'spans') { continue; }
                     if (attr == 'text') { continue; }
+
+                    // due to schema version issue, 
+                    // the attribute may not exist in current schema
+                    if (!dtd.tag_dict[tag.tag].attlist_dict.hasOwnProperty(attr)) {
+                        continue;
+                    }
                 
                     // for those link tag, need to check 
                     if (dtd.tag_dict[tag.tag].attlist_dict[attr].vtype == 'idref') {
