@@ -3035,7 +3035,7 @@ var app_hotpot = {
         svg_polyline.setAttribute('id', 'mark-link-line-id-' + ltag.id);
         svg_polyline.setAttribute('points', points);
         svg_polyline.setAttribute('class', "tag-polyline");
-        svg_polyline.setAttribute('marker-end', "url(#arrow)");
+        // svg_polyline.setAttribute('marker-end', "url(#arrow)");
 
         $('#cm_svg_plots').append(
             svg_polyline
