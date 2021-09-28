@@ -2822,45 +2822,154 @@ var app_hotpot = {
     },
 
     cm_draw_ltag: function(ltag, ltag_def, ann) {
-        // for showing the polyline, we need:
-        // 1. the att_a and att_b for accessing the ltag
+        // for showing the ltag, we need:
+        // 1. the atts for accessing the ltag
         // 2. the values of att_a and att_b, which are tag_id for etag
         // 3. get the tag, then call cm_draw_polyline
 
-        // so, get the att_a and att_b first
-        var att_a = this.vpp.get_idref_attlist_by_seq(ltag_def, 0);
-        var att_b = this.vpp.get_idref_attlist_by_seq(ltag_def, 1);
+        // so, get all attlists
+        var atts = this.vpp.get_idref_attlists(ltag_def);
 
-        // next, get the values
-        var etag_a_id = ltag[att_a.name];
-        var etag_b_id = ltag[att_b.name];
-        // console.log(
-        //     '* try to draw line ['+ltag.id+'] between', 
-        //     att_a.name, '['+etag_a_id+']-', 
-        //     att_b.name, '['+etag_b_id+']'
-        // );
+        // next, get the values fron this ltag
+        var etags = [];
+        for (let i = 0; i < atts.length; i++) {
+            var att = atts[i];
+            var etag_id = ltag[att.name];
 
-        // if the value is null or empty, just skip
-        if (etag_a_id == null || etag_a_id == '') { return; }
-        if (etag_b_id == null || etag_b_id == '') { return; }
+            if (typeof(etag_id) == 'undefined' || 
+                etag_id == null || 
+                etag_id == '') {
+                // this att is just empty
+                continue;
+            }
 
-        // convert the tag_id to tag
-        var tag_a = this.vpp.get_tag_by_tag_id(etag_a_id, ann);
-        var tag_b = this.vpp.get_tag_by_tag_id(etag_b_id, ann);
+            // check this etag
+            var etag = this.vpp.get_tag_by_tag_id(etag_id, ann);
+            if (etag == null) { 
+                continue; 
+            }
+            if (etag.spans == dtd_parser.NON_CONSUMING_SPANS) {
+                continue;
+            }
 
-        // if the tag is not available, just skip
-        if (tag_a == null || tag_b == null) { return; }
+            // ok, save this etag for later use
+            etags.push(etag);
+        }
+        // then, check if there are more than two etags
+        console.log('* found ' + etags.length + ' etags available for this link');
 
-        // if one of the tags is non-consuming tag, just skip
-        if (tag_a.spans == dtd_parser.NON_CONSUMING_SPANS ||
-            tag_b.spans == dtd_parser.NON_CONSUMING_SPANS) {
+        // first, draw dots
+        for (let i = 0; i < etags.length; i++) {
+            const etag = etags[i];
+            this.cm_draw_linkdot(ltag, etag, ann);
+        }
+
+        if (!this.vpp.$data.cm.enabled_link_complex) {
             return;
         }
+
+        // second, draw polyline
+        if (etags.length < 2) {
+            // which means not enough etag for drawing line
+            return;
+        }
+        var tag_a = etags[0];
+        var tag_b = etags[1];
+
+        console.log(
+            '* try to draw line ['+ltag.id+'] between', 
+            '['+tag_a.id+']-', 
+            '['+tag_a.id+']'
+        );
 
         // last, draw!
         this.cm_draw_polyline(
             ltag, tag_a, tag_b, ann
         );
+    },
+
+    // cm_draw_ltag_first_two: function(ltag, ltag_def, ann) {
+    //     // for showing the polyline, we need:
+    //     // 1. the att_a and att_b for accessing the ltag
+    //     // 2. the values of att_a and att_b, which are tag_id for etag
+    //     // 3. get the tag, then call cm_draw_polyline
+
+    //     // so, get the att_a and att_b first
+    //     var att_a = this.vpp.get_idref_attlist_by_seq(ltag_def, 0);
+    //     var att_b = this.vpp.get_idref_attlist_by_seq(ltag_def, 1);
+
+    //     // next, get the values
+    //     var etag_a_id = ltag[att_a.name];
+    //     var etag_b_id = ltag[att_b.name];
+    //     // console.log(
+    //     //     '* try to draw line ['+ltag.id+'] between', 
+    //     //     att_a.name, '['+etag_a_id+']-', 
+    //     //     att_b.name, '['+etag_b_id+']'
+    //     // );
+
+    //     // if the value is null or empty, just skip
+    //     if (etag_a_id == null || etag_a_id == '') { return; }
+    //     if (etag_b_id == null || etag_b_id == '') { return; }
+
+    //     // convert the tag_id to tag
+    //     var tag_a = this.vpp.get_tag_by_tag_id(etag_a_id, ann);
+    //     var tag_b = this.vpp.get_tag_by_tag_id(etag_b_id, ann);
+
+    //     // if the tag is not available, just skip
+    //     if (tag_a == null || tag_b == null) { return; }
+
+    //     // if one of the tags is non-consuming tag, just skip
+    //     if (tag_a.spans == dtd_parser.NON_CONSUMING_SPANS ||
+    //         tag_b.spans == dtd_parser.NON_CONSUMING_SPANS) {
+    //         return;
+    //     }
+
+    //     // last, draw!
+    //     this.cm_draw_polyline(
+    //         ltag, tag_a, tag_b, ann
+    //     );
+    // },
+
+    cm_draw_linkdot: function(ltag, tag, ann) {
+        // then get the coords
+        var coords = this.cm_spans2coords(tag.spans, ann);
+
+        var x = coords.l.left;
+        var y = coords.l.top + 2;
+
+        // find existing linkdot on this tag if there is
+        var linkdots = $('#cm_svg_plots .tag-linkdot-' + tag.id);
+
+        // add offset to x
+        for (let i = 0; i < linkdots.length; i++) {
+            const elem = linkdots[i];
+            var shape = this.get_elem_shape(elem);
+            x += shape.width + 1;
+        }
+
+        // make a text
+        var svg_text = document.createElementNS(
+            'http://www.w3.org/2000/svg', 'text'
+        );
+        svg_text.setAttribute('id', 'mark-link-dot-id-' + ltag.id + '-' + tag.id);
+        svg_text.setAttribute('text-anchor', 'left');
+        svg_text.setAttribute('alignment-baseline', 'middle');
+        svg_text.setAttribute('x', x);
+        svg_text.setAttribute('y', y);
+        svg_text.setAttribute('class', "tag-linkdot border-tag-" + tag.tag + " tag-linkdot-" + tag.id);
+
+        // put the text
+        var text_node_content = " ";
+        if (this.vpp.$data.cm.enabled_link_name) {
+            text_node_content = " " + ltag.id;
+        }
+        svg_text.append(document.createTextNode(text_node_content));
+
+        $('#cm_svg_plots').append(
+            svg_text
+        );
+
+        // this.make_svg_text_bg(svg_text, 'svgmark-tag-' + ltag.tag);
     },
 
     cm_draw_polyline: function(ltag, tag_a, tag_b, ann) {
@@ -2869,7 +2978,7 @@ var app_hotpot = {
         var coords_b = this.cm_spans2coords(tag_b.spans, ann);
 
         // the setting for the polyline
-        var delta_height = 0;
+        var delta_height = 2;
         var delta_width = 0;
 
         // get the upper coords, which is the lower one
@@ -2940,14 +3049,14 @@ var app_hotpot = {
         svg_text.setAttribute('text-anchor', 'middle');
         svg_text.setAttribute('alignment-baseline', 'middle');
         svg_text.setAttribute('x', (xys[0][0] + xys[3][0]) / 2);
-        svg_text.setAttribute('y', xys[1][1]);
+        svg_text.setAttribute('y', xys[1][1] + delta_height);
         svg_text.setAttribute('class', "tag-linktext");
 
         // put the text
         var text_node_content = ltag.id;
-        if (this.vpp.$data.cm.enabled_link_name) {
-            text_node_content = ltag.tag + ': ' + ltag.id;
-        }
+        // if (this.vpp.$data.cm.enabled_link_name) {
+        //     text_node_content = ltag.tag + ': ' + ltag.id;
+        // }
         svg_text.append(document.createTextNode(text_node_content));
 
         $('#cm_svg_plots').append(
@@ -3030,9 +3139,31 @@ var app_hotpot = {
         // });
     },
 
-    make_svg_text_bg: function(elem, cls) {
-        // get the bounding box for this text
+    get_elem_shape: function(elem) {
+        // get the bounding box for this element
         var bounds = elem.getBBox();
+
+        // get the extend style 
+        var style = getComputedStyle(elem);
+        var padding_top = parseInt(style["padding-top"])
+        var padding_left = parseInt(style["padding-left"])
+        var padding_right = parseInt(style["padding-right"])
+        var padding_bottom = parseInt(style["padding-bottom"])
+
+        // now, we could get the shape of this element
+        var shape = {
+            x: bounds.x - padding_left,
+            y: bounds.y - padding_top,
+            width: bounds.width + padding_left + padding_right,
+            height: bounds.height + padding_top + padding_bottom
+        }
+
+        return shape;
+    },
+
+    make_svg_text_bg: function(elem, cls) {
+        // get the shape
+        var shape = this.get_elem_shape(elem);
 
         // create a background
         var bg = document.createElementNS(
@@ -3040,17 +3171,11 @@ var app_hotpot = {
             "rect"
         );
 
-        var style = getComputedStyle(elem)
-        var padding_top = parseInt(style["padding-top"])
-        var padding_left = parseInt(style["padding-left"])
-        var padding_right = parseInt(style["padding-right"])
-        var padding_bottom = parseInt(style["padding-bottom"])
-
         // set the attributes of this bg
-        bg.setAttribute("x", bounds.x - parseInt(style["padding-left"]));
-        bg.setAttribute("y", bounds.y - parseInt(style["padding-top"]));
-        bg.setAttribute("width", bounds.width + padding_left + padding_right);
-        bg.setAttribute("height", bounds.height + padding_top + padding_bottom);
+        bg.setAttribute("x", shape.x);
+        bg.setAttribute("y", shape.y);
+        bg.setAttribute("width", shape.width);
+        bg.setAttribute("height", shape.height);
         bg.setAttribute("class", 'tag-linktext-bg ' + cls);
 
         elem.parentNode.insertBefore(bg, elem);

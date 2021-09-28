@@ -307,6 +307,11 @@ html,body {
 .tag-polyline:hover {
     opacity: .95;
 }
+.tag-linkdot {
+    font-size: 8px;
+    padding: 0 1px;
+    border-left: 1px solid;
+}
 .tag-linktext {
     font-size: 9px;
     padding: 0 3px;
