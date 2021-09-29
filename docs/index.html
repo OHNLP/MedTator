@@ -276,7 +276,7 @@ html,body {
     white-space: nowrap;
 }
 #dropzone_dtd {
-    width: 176px;
+    width: 150px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -285,7 +285,7 @@ html,body {
     border-radius: 4px;
 }
 #dropzone_ann {
-    width: 176px;
+    width: 150px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -1041,7 +1041,7 @@ input[type=text].ipt-spinner-xs {
                             {{ anns[ann_idx].tags.length }} tags
                         </div>
                         <div v-else-if="dtd != null">
-                            Drop <b>Annotation</b> File(s) Here
+                            Drop <b>Annotation</b> File(s)
                         </div>
                         <div v-else>
                             <i class="fa fa-arrow-left"></i>
@@ -1105,24 +1105,6 @@ input[type=text].ipt-spinner-xs {
                             @change="on_change_display_mode">
                     </div>
 
-                    <!-- <div class="ribbon-toggle-group">
-                        <button class="ribbon-icon-button active"
-                            v-on:click="on_change_display_mode('document')">
-                            <span class="icon">
-                                <i class='far fa-file-alt'></i>
-                            </span>
-                            <span class="caption">Document</span>
-                        </button>
-    
-                        <button class="ribbon-icon-button"
-                            v-on:click="on_change_display_mode('smart')">
-                            <span class="icon">
-                                <i class='fa fa-list'></i>
-                            </span>
-                            <span class="caption">Sentences</span>
-                        </button>
-                    </div> -->
-
                     <span class="title">Display Mode</span>
                 </div>
 
@@ -1130,59 +1112,17 @@ input[type=text].ipt-spinner-xs {
                     <div>
                         <input type="radio" name="mark_mode" value="node" 
                             data-role="radio" 
-                            data-caption="<i class='fa fa-broom'></i> Rich Text" checked 
+                            data-caption="Color + ID" checked 
                             v-model="cm.mark_mode"
                             @change="on_change_mark_mode">
                         <br>
                         <input type="radio" name="mark_mode" value="span" 
                             data-role="radio" 
-                            data-caption="<i class='fa fa-pen'></i> Simple" 
+                            data-caption="Color Only" 
                             v-model="cm.mark_mode"
                             @change="on_change_mark_mode">
                     </div>
-                    <span class="title">Mark Mode</span>
-                </div>
-
-                <div class="group">
-                    <div class="ribbon-toggle-group">
-                        <button class="ribbon-icon-button active"
-                            v-on:click="on_change_hint_mode('simple')">
-                            <span class="icon">
-                                <span class="mif-list"></span>
-                            </span>
-                            <span class="caption">Simple</span>
-                        </button>
-    
-                        <button class="ribbon-icon-button"
-                            v-on:click="on_change_hint_mode('smart')">
-                            <span class="icon">
-                                <span class="fa fa-magic"></span>
-                            </span>
-                            <span class="caption">Smart</span>
-                        </button>
-    
-                        <button class="ribbon-icon-button"
-                            v-on:click="on_change_hint_mode('off')">
-                            <span class="icon">
-                                <span class="fa fa-toggle-off"></span>
-                            </span>
-                            <span class="caption">Off</span>
-                        </button>
-                    </div>
-
-                    <div>
-
-                        <button class="ribbon-button" 
-                            v-on:click="accept_all_hints">
-                            <span class="icon">
-                                <i class="fa fa-check-double"></i>
-                            </span>
-                            <span class="caption">Accept All</span>
-                        </button>
-                        
-                    </div>
-    
-                    <span class="title">Hint Mode</span>
+                    <span class="title">Entity Marks</span>
                 </div>
                 
                 <div class="group">
@@ -1223,6 +1163,48 @@ input[type=text].ipt-spinner-xs {
                         </button>
                     </div>
                     <span class="title">Link Marks</span>
+                </div>
+
+                <div class="group">
+                    <div class="ribbon-toggle-group">
+                        <button class="ribbon-icon-button active"
+                            v-on:click="on_change_hint_mode('simple')">
+                            <span class="icon">
+                                <span class="mif-list"></span>
+                            </span>
+                            <span class="caption">Simple</span>
+                        </button>
+    
+                        <button class="ribbon-icon-button"
+                            v-on:click="on_change_hint_mode('smart')">
+                            <span class="icon">
+                                <span class="fa fa-magic"></span>
+                            </span>
+                            <span class="caption">Smart</span>
+                        </button>
+    
+                        <button class="ribbon-icon-button"
+                            v-on:click="on_change_hint_mode('off')">
+                            <span class="icon">
+                                <span class="fa fa-ban"></span>
+                            </span>
+                            <span class="caption">Off</span>
+                        </button>
+                    </div>
+
+                    <div>
+
+                        <button class="ribbon-button" 
+                            v-on:click="accept_all_hints">
+                            <span class="icon">
+                                <i class="fa fa-check-double"></i>
+                            </span>
+                            <span class="caption">Accept All</span>
+                        </button>
+                        
+                    </div>
+    
+                    <span class="title">Hint Marks</span>
                 </div>
 
                 <div class="group">
@@ -1668,7 +1650,7 @@ input[type=text].ipt-spinner-xs {
         </div>
 
         <div id="app_info">
-            MedTator 0.5.8
+            MedTator 0.5.9
         </div>
     </nav>
 
@@ -5756,8 +5738,18 @@ var app_hotpot = {
             // node / span
             mark_mode: 'node',
 
-            // simple / smart / off
+            // simple / smart
             hint_mode: 'simple',
+
+            // update the hint when delete
+            // but I found this is not doable.
+            // the deleted tag may be used in different place,
+            // so simplely deleting the token from hint dict 
+            // may cause issue.
+            enabled_auto_hint_update: true,
+
+            // display the hints or not
+            enabled_hints: true,
 
             // display the links
             enabled_links: true,
@@ -6080,9 +6072,12 @@ var app_hotpot = {
             app_hotpot.cm_update_marks();
         },
 
+        // on_change_hint_mode: function(event) {
+        //     console.log(event.target.value);
+        //     app_hotpot.cm_update_marks();
+        // },
         on_change_hint_mode: function(hint_mode) {
             this.cm.hint_mode = hint_mode;
-
             app_hotpot.cm_update_marks();
         },
 
@@ -8124,7 +8119,8 @@ var app_hotpot = {
             return;
         }
 
-        if (this.vpp.$data.cm.hint_mode == 'off') {
+        if (!this.vpp.$data.cm.enabled_hints ||
+            this.vpp.$data.cm.hint_mode == 'off') {
             // nothing to do when turn off hint
             return;
         }

@@ -87,8 +87,18 @@ var app_hotpot = {
             // node / span
             mark_mode: 'node',
 
-            // simple / smart / off
+            // simple / smart
             hint_mode: 'simple',
+
+            // update the hint when delete
+            // but I found this is not doable.
+            // the deleted tag may be used in different place,
+            // so simplely deleting the token from hint dict 
+            // may cause issue.
+            enabled_auto_hint_update: true,
+
+            // display the hints or not
+            enabled_hints: true,
 
             // display the links
             enabled_links: true,
@@ -411,9 +421,12 @@ var app_hotpot = {
             app_hotpot.cm_update_marks();
         },
 
+        // on_change_hint_mode: function(event) {
+        //     console.log(event.target.value);
+        //     app_hotpot.cm_update_marks();
+        // },
         on_change_hint_mode: function(hint_mode) {
             this.cm.hint_mode = hint_mode;
-
             app_hotpot.cm_update_marks();
         },
 
@@ -2455,7 +2468,8 @@ var app_hotpot = {
             return;
         }
 
-        if (this.vpp.$data.cm.hint_mode == 'off') {
+        if (!this.vpp.$data.cm.enabled_hints ||
+            this.vpp.$data.cm.hint_mode == 'off') {
             // nothing to do when turn off hint
             return;
         }
