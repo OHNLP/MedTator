@@ -24058,6 +24058,8 @@
         "display_mode": "document",
         "mark_mode": "node",
         "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
         "enabled_links": true,
         "enabled_link_name": true,
         "enabled_link_complex": true,
