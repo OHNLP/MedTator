@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID_VAX_SYMP>
+<TEXT><![CDATA[During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.]]></TEXT>
+<TAGS>
+<SYMP spans="110~116" text="Nausea" id="S0" certainty="positive" comment="NA"/>
+<SYMP spans="383~390" text="Fatigue" id="S1" certainty="positive" comment="NA"/>
+<SYMP spans="392~398" text="chills" id="S2" certainty="positive" comment="NA"/>
+<SYMP spans="405~413" text="diarrhea" id="S3" certainty="positive" comment="NA"/>
+<SYMP spans="418~429" text="dehydration" id="S4" certainty="positive" comment="NA"/>
+<SYMP spans="496~515" text="head and body aches" id="S5" certainty="positive" comment="NA"/>
+<SYMP spans="590~602" text="Night sweats" id="S6" certainty="positive" comment="NA"/>
+</TAGS>
+</COVID_VAX_SYMP>

@@ -1,0 +1,16 @@
+<!ENTITY name "COVID_VAX_AE">
+
+<!-- #PCDATA makes an entity concept -->
+<!ELEMENT AE ( #PCDATA ) >
+<!ATTLIST AE certainty ( positive | negated | possible ) #IMPLIED "positive" >
+<!ATTLIST AE comment CDATA "NA" >
+
+<!ELEMENT SVRT ( #PCDATA ) >
+<!ATTLIST SVRT severity ( mild | moderate | severe | NA ) #IMPLIED "NA" >
+<!ATTLIST SVRT comment CDATA "NA" >
+
+<!-- No #PCDATA makes a relation concept -->
+<!ELEMENT LK_AE_SVRT EMPTY >
+<!ATTLIST LK_AE_SVRT arg0 IDREF prefix="link_AE" #IMPLIED>
+<!ATTLIST LK_AE_SVRT arg1 IDREF prefix="link_SVRT" #IMPLIED>
+<!ATTLIST LK_AE_SVRT comment CDATA "NA" >
