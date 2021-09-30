@@ -202,7 +202,14 @@ html,body {
     position: absolute;
     top: 2px;
     right: 10px;
-    opacity: 0.5;
+    color: #777777;
+    z-index: 988;
+}
+#app_info a {
+    color: #777777;
+}
+#app_info a:hover {
+    color: black;
 }
 #mui_filelist {
     overflow-y: hidden;
@@ -1650,7 +1657,12 @@ input[type=text].ipt-spinner-xs {
         </div>
 
         <div id="app_info">
-            MedTator 1.0.0
+            MedTator 1.0.0 | 
+            <a target="_blank" 
+                title="MedTator Source Code at GitHub"
+                href="https://github.com/OHNLP/MedTator">
+                <i class="fab fa-github"></i>
+            </a>
         </div>
     </nav>
 

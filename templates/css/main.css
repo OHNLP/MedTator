@@ -48,7 +48,14 @@ html,body {
     position: absolute;
     top: 2px;
     right: 10px;
-    opacity: 0.5;
+    color: #777777;
+    z-index: 988;
+}
+#app_info a {
+    color: #777777;
+}
+#app_info a:hover {
+    color: black;
 }
 #mui_filelist {
     overflow-y: hidden;
