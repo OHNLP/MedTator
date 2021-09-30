@@ -5803,7 +5803,14 @@ var app_hotpot = {
                 app_hotpot.toast('Successfully saved ' + ann._filename);
             })
             .catch(function(error) {
+                console.log(error);
                 if (error.name == 'AbortError') {
+                    app_hotpot.toast('Cancelled file saving.');
+                    return;
+                }
+                if (error.name == 'NotAllowedError') {
+                    // which means user or system cancelled this saving
+                    app_hotpot.toast('Cancelled file saving.');
                     return;
                 }
                 app_hotpot.msg(
