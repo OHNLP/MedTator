@@ -10,6 +10,7 @@ No need to install any server or client runtime!
 * New to MedTator? Let's have a [Quick Start](https://github.com/OHNLP/MedTator/wiki/Quick-Start).
 * Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * Parse annotation data? Here is the [Annotation File Format](https://github.com/OHNLP/MedTator/wiki/Annotation-Data).
+* More details about MedTator? 
 * Other questions? We have a [FAQ](https://github.com/OHNLP/MedTator/wiki/FAQ)
 
 
@@ -44,3 +45,6 @@ Or you can specify where output folder is for the exported files:
 python web.py --mode build --path EXPORT_PATH
 ```
 
+## License
+
+Apache-2.0 License
