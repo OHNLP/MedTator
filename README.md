@@ -19,13 +19,14 @@ No need to install any server or client runtime!
 
 ## Development?
 
-For development, download the source code and install the requirements (just Flask):
+For development, a Python 3+ runtime environment is needed. 
+Then, download the source code and install the requirements (just Python Flask, that's all):
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Then, run the following command to start a local server binding port 8086:
+Then, run the following command to start a local server which is binding port 8086:
 
 ```bash
 python web.py
