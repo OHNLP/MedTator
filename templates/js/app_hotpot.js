@@ -1110,6 +1110,17 @@ var app_hotpot = {
             this.export_text = txt_dataset;
         },
 
+        download_dataset_bioc: function() {
+            var txt_dataset = bioc_parser.download_dataset_bioc(
+                this.anns,
+                this.dtd,
+                'dataset-' + this.get_ruleset_base_name() + '-BioC.xml'
+            );
+
+            // update the text
+            this.export_text = txt_dataset;
+        },
+
         download_ruleset_medtagger_zip: function() {
             var rulepack = erp_toolkit.download_anns_as_zip(
                 this.anns,

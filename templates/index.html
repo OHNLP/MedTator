@@ -675,6 +675,16 @@
                         <span class="caption">IOB2/BIO (.tsv)</span>
                     </button>
 
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download BioC format"
+                        v-on:click="download_dataset_bioc">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">BioC (.xml)</span>
+                    </button>
+
                     <span class="title">Dataset</span>
                 </div>
 
@@ -925,6 +935,9 @@ console.log('* isFILE_API_OK: ' + isFILE_API_OK);
 
 // The Ann parser
 {% include 'js/ann_parser.js' %}
+
+// The BioC parser
+{% include 'js/bioc_parser.js' %}
 
 // The Rulepack toolkit
 {% include 'js/erp_toolkit.js' %}
