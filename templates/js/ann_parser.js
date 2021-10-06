@@ -21,10 +21,10 @@
  */
 var ann_parser = {
 
-    txt2ann: function(txt, dtd_name) {
+    txt2ann: function(txt, dtd) {
         var ann = {
             text: txt,
-            dtd_name: dtd_name,
+            dtd_name: dtd.name,
             tags: []
         };
 

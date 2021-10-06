@@ -125,6 +125,14 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
 
         save_xml: function() {
+            // before checking, need to ensure the FSA API
+            if (this.has_FSA_API()) {
+                // OK, go go go
+            } else {
+                // well ... it's ok ...
+                app_hotpot.msg('The browser you are using does not support File System Access API. You can use "Download XML" function instead.', 'warning');
+                return;
+            }
             // before saving, need to check the _fh
             var p_ann = null;
             if (this.anns[this.ann_idx]._fh === null ||
@@ -210,9 +218,31 @@ var app_hotpot = {
                 console.log('* error when save as xml', error);
             });
         },
+        
+        download_as_xml: function() {
+            // convert to xml
+            var xmlDoc = ann_parser.ann2xml(
+                this.anns[this.ann_idx],
+                this.dtd
+            );
 
-        show_about: function() {
-            app_hotpot.start_tour_annotation();
+            // convert to text
+            var xmlStr = ann_parser.xml2str(xmlDoc, false);
+
+            // get the current file name
+            var fn = this.anns[this.ann_idx]._filename;
+
+            // download this csv
+            var blob = new Blob([xmlStr], {type: "text/xml;charset=utf-8"});
+            saveAs(blob, fn);
+        },
+
+        show_wiki: function() {
+            // app_hotpot.start_tour_annotation();
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki',
+                '_blank'
+            );
         },
 
         load_sample_ds: function() {
@@ -734,7 +764,10 @@ var app_hotpot = {
                     }
                     
                     // read the file
-                    var p_txt_ann = fs_read_txt_file_handle(fh);
+                    var p_txt_ann = fs_read_txt_file_handle(
+                        fh,
+                        app_hotpot.vpp.$data.dtd
+                    );
                     p_txt_ann.then(function(txt_ann) {
                         app_hotpot.vpp.add_txt(txt_ann);
                     });
@@ -1416,6 +1449,20 @@ var app_hotpot = {
             return this.has_included(fn, this.anns);
         },
 
+        get_new_ann_fn_by_txt_fn: function(txt_fn) {
+            var new_fn = txt_fn + '.xml';
+            var i = 1;
+            while (true) {
+                if (this.has_included_ann_file(new_fn)) {
+                    new_fn = txt_fn + '_' + i + '.xml';
+                    i += 1;
+                } else {
+                    break;
+                }
+            }
+            return new_fn;
+        },
+
         has_included_txt_ann_file: function(fn) {
             return this.has_included(fn, this.txt_anns);
         },
@@ -1501,6 +1548,10 @@ var app_hotpot = {
                 return 1;
             }
             return v * 100;
+        },
+
+        has_FSA_API: function() {
+            return isFSA_API_OK;
         }
     },
 
@@ -1764,7 +1815,7 @@ var app_hotpot = {
                     } else {
                         // should be a dtd file
                         // so item is a fileEntry
-                        app_hotpot.parse_drop_dtd(item);
+                        app_hotpot.parse_dtd_file_entry(item);
                     }
                 }
 
@@ -1788,74 +1839,83 @@ var app_hotpot = {
             
             let items = event.dataTransfer.items;
             for (let i=0; i<items.length; i++) {
-                // console.log(items[i]);
-                
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
+                if (isFSA_API_OK) {
+                    // get this item as a FileSystemHandle Object
+                    // this could be used for saving the content back
+                    // let item = items[i].webkitGetAsEntry();
+                    let item = items[i].getAsFileSystemHandle();
 
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        // if drop a txt!
-                        if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                            // create a new file name
-                            var new_fn = new_fn = fh.name + '.xml';
-                            var i = 1;
-                            while (true) {
-                                if (app_hotpot.vpp.has_included_ann_file(new_fn)) {
-                                    new_fn = fh.name + '_' + i + '.xml';
-                                    i += 1;
-                                } else {
-                                    break;
-                                }
+                    // read this handle
+                    item.then(function(fh) {
+                        if (fh.kind == 'file') {
+                            // if drop a txt!
+                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                                // create a new file name
+                                var new_fn = app_hotpot.get_new_ann_fn_by_txt_fn(fh.name);
+
+                                // create a empty ann
+                                var p_txt_ann = fs_read_txt_file_handle(
+                                    fh, 
+                                    app_hotpot.vpp.$data.dtd,
+                                    true
+                                );
+
+                                // load this ann
+                                p_txt_ann.then((function(new_fn){
+                                    return function(txt_ann) {
+                                        // modify the txt_ann _fh
+                                        // we couldn't save to an txt
+                                        txt_ann._fh = null;
+
+                                        // update the _filename
+                                        txt_ann._filename = new_fn;
+
+                                        // show some message
+                                        app_hotpot.msg("Created a new annotation file " + new_fn);
+
+                                        // add this ann
+                                        app_hotpot.add_ann(txt_ann);
+                                    }
+                                })(new_fn));
+
+                                return;
                             }
 
-                            // create a empty ann
-                            var p_txt_ann = fs_read_txt_file_handle(
-                                fh, app_hotpot.vpp.$data.dtd.name, true
+                            // show something or 
+                            // check if this file name exists
+                            if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                                // exists? skip this file
+                                app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                                return;
+                            }
+
+                            // should be a ann txt/xml file
+                            app_hotpot.parse_ann_file_fh(
+                                fh,
+                                app_hotpot.vpp.$data.dtd
                             );
 
-                            // load this ann
-                            p_txt_ann.then((function(new_fn){
-                                return function(txt_ann) {
-                                    // modify the txt_ann _fh
-                                    // we couldn't save to an txt
-                                    txt_ann._fh = null;
-
-                                    // update the _filename
-                                    txt_ann._filename = new_fn;
-
-                                    // show some message
-                                    app_hotpot.msg("Created a new annotation file " + new_fn);
-
-                                    // add this ann
-                                    app_hotpot.add_ann(txt_ann);
-                                }
-                            })(new_fn));
-
-                            return;
+                        } else {
+                            // so item is a directory?
                         }
-
-                        // show something or 
-                        // check if this file name exists
-                        if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                            // exists? skip this file
-                            app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                            return;
+                    });
+                } else {
+                    // just load the file 
+                    let item = items[i].webkitGetAsEntry();
+                    console.log(item);
+                    if (item) {
+                        // ok, user select a folder ???
+                        if (item.isDirectory) {
+                            // show something?
+    
+                        } else {
+                            // so item is a fileEntry
+                            app_hotpot.parse_ann_file_entry(item);
                         }
-
-                        // should be a ann txt/xml file
-                        app_hotpot.parse_ann_file_fh(
-                            fh,
-                            app_hotpot.vpp.$data.dtd
-                        );
-
-                    } else {
-                        // so item is a directory?
                     }
-                });
+                }
+                
+                
             }
 
         }, false);
@@ -1887,7 +1947,10 @@ var app_hotpot = {
                         }
 
                         // read the file
-                        var p_txt_ann = fs_read_txt_file_handle(fh);
+                        var p_txt_ann = fs_read_txt_file_handle(
+                            fh,
+                            app_hotpot.vpp.$data.dtd
+                        );
                         p_txt_ann.then(function(txt_ann) {
                             app_hotpot.vpp.add_txt(txt_ann);
                         });
@@ -1927,42 +1990,64 @@ var app_hotpot = {
                     let items = event.dataTransfer.items;
         
                     for (let i=0; i<items.length; i++) {
-                        // let item = items[i].webkitGetAsEntry();
-                        let item = items[i].getAsFileSystemHandle();
-                
-                        item.then((function(iaa_id) {
-                            return function(fh) {
-                                if (fh.kind == 'file') {
-                                    // check exists
-                                    if (app_hotpot.vpp.has_included(
-                                        fh.name, 
-                                        app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
-                                        // exists? skip this file
-                                        return;
-                                    }
-            
-                                    // read the file
-                                    var p_ann = fs_read_ann_file_handle(
-                                        fh,
-                                        app_hotpot.vpp.$data.dtd
-                                    );
-                                    p_ann.then((function(iaa_id) {
-                                        return function(ann) {
-                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                        // we have two ways of loading data
+                        // first using the basic entry
+                        // second using the fs handle
+                        // it depends the browser API
+                        if (isFSA_API_OK) {
+                            // just load in this way
+                            let item = items[i].getAsFileSystemHandle();
+                            item.then((function(iaa_id) {
+                                return function(fh) {
+                                    if (fh.kind == 'file') {
+                                        // check exists
+                                        if (app_hotpot.vpp.has_included(
+                                            fh.name, 
+                                            app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
+                                            // exists? skip this file
+                                            return;
                                         }
-                                    })(iaa_id)).catch(function(error) {
-                                        app_hotpot.msg("Couldn't read ann, " + error.name);
-                                        console.error(error);
-                                    });
-                                    
+                
+                                        // read the file
+                                        var p_ann = fs_read_ann_file_handle(
+                                            fh,
+                                            app_hotpot.vpp.$data.dtd
+                                        );
+                                        p_ann.then((function(iaa_id) {
+                                            return function(ann) {
+                                                app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                            }
+                                        })(iaa_id)).catch(function(error) {
+                                            app_hotpot.msg("Couldn't read ann, " + error.name);
+                                            console.error(error);
+                                        });
+                                        
+                                    } else {
+                                        // what to do with a directory
+                                    }
+                                }
+                            })(iaa_id))
+                            .catch(function(error) {
+                                console.log('* error when drop txt', error);
+                            });
+                        } else {
+                            // just load the file 
+                            let item = items[i].webkitGetAsEntry();
+                            if (item) {
+                                // ok, user select a folder ???
+                                if (item.isDirectory) {
+                                    // show something?
+            
                                 } else {
-                                    // what to do with a directory
+                                    // should be a dtd file
+                                    // so item is a fileEntry
+                                    app_hotpot.parse_dtd_file_entry(item);
                                 }
                             }
-                        })(iaa_id))
-                        .catch(function(error) {
-                            console.log('* error when drop txt', error);
-                        });
+                        }
+
+
+                        
                     }
         
                 }
@@ -1981,7 +2066,7 @@ var app_hotpot = {
         this.cm_update_ltag_marks();
     },
 
-    parse_drop_dtd: function(fileEntry) {
+    parse_dtd_file_entry: function(fileEntry) {
         app_hotpot.read_file_async(fileEntry, function(evt) {
             var text = evt.target.result;
             // console.log('* read dtd', text);
@@ -1991,6 +2076,86 @@ var app_hotpot = {
             
             // ok, set the dtd for annotator
             app_hotpot.set_dtd(dtd);
+        });
+    },
+
+    parse_ann_file_entry: function(fileEntry) {
+        // first, decide type
+        if (app_hotpot.is_file_ext(fileEntry.name, 'txt')) {
+            // so, just read this file and get the content
+            // to create new file name
+            var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fileEntry.name);
+
+            app_hotpot.read_file_async(fileEntry, (function(new_fn){
+                return function(evt) {
+                    var text = evt.target.result;
+    
+                    // try to parse this txt file
+                    var ann = ann_parser.txt2ann(
+                        text, 
+                        app_hotpot.vpp.$data.dtd
+                    );
+
+                    // post processing
+                    ann._fh = null;
+                    ann._filename = new_fn;
+                    ann._has_saved = true;
+                    var result = nlp_toolkit.sent_tokenize(ann.text);
+                    ann._sentences = result.sentences;
+                    ann._sentences_text = result.sentences_text;
+                    
+                    // ok, add this the dtd for annotator
+                    app_hotpot.add_ann(ann);
+                }
+            })(new_fn));
+
+        } else if (app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
+            // ok, this is an xml file, usually it's what we want
+            // check existance first
+            if (app_hotpot.vpp.has_included_ann_file(fileEntry.name)) {
+                // exists? skip this file
+                app_hotpot.msg('Skipped same name or duplicated ' + fileEntry.name);
+                return;
+            }
+
+            // then create 
+            var new_fn = fileEntry.name;
+            app_hotpot.read_file_async(fileEntry, (function(new_fn){
+                return function(evt) {
+                    var xml = evt.target.result;
+    
+                    // try to parse this xml file
+                    var ann = ann_parser.xml2ann(
+                        xml, 
+                        app_hotpot.vpp.$data.dtd
+                    );
+
+                    // post processing
+                    // we don't have fh due to using fileEntry
+                    ann._fh = null;
+                    ann._filename = new_fn;
+                    ann._has_saved = true;
+                    var result = nlp_toolkit.sent_tokenize(ann.text);
+                    ann._sentences = result.sentences;
+                    ann._sentences_text = result.sentences_text;
+                    
+                    // ok, add this the dtd for annotator
+                    app_hotpot.add_ann(ann);
+                }
+            })(new_fn));
+            
+        } else {
+            // what???
+            app_hotpot.msg('Skipped unknown format file ' + fileEntry.name);
+            return;
+        }
+    },
+
+    read_file_async: function(fileEntry, callback) {
+        fileEntry.file(function(file) {
+            let reader = new FileReader();
+            reader.onload = callback;
+            reader.readAsText(file)
         });
     },
 
@@ -2005,14 +2170,6 @@ var app_hotpot = {
                 console.error(error);
             }}(fh)
         );
-    },
-
-    read_file_async: function(fileEntry, callback) {
-        fileEntry.file(function(file) {
-            let reader = new FileReader();
-            reader.onload = callback;
-            reader.readAsText(file)
-        });
     },
 
     /////////////////////////////////////////////////////////////////

@@ -3,9 +3,9 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
-    if (typeof(dtd_name) == 'undefined') {
-        dtd_name = '';
+async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
+    if (typeof(dtd) == 'undefined') {
+        dtd = {name: ''};
     }
     if (typeof(enabled_sentences) == 'undefined') {
         enabled_sentences = false;
@@ -14,7 +14,7 @@ async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
     const text = await file.text();
 
     // create ann
-    var ann = ann_parser.txt2ann(text, dtd_name);
+    var ann = ann_parser.txt2ann(text, dtd);
 
     // bind the fh
     ann._fh = fh;

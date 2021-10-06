@@ -1070,6 +1070,7 @@ input[type=text].ipt-spinner-xs {
                 <div v-if="ann_idx != null"
                     class="group">
                     <button class="ribbon-button"
+                        v-if="has_FSA_API()"
                         v-on:click="save_xml">
                         <span class="icon">
                             <i class="far fa-save"></i>
@@ -1078,12 +1079,23 @@ input[type=text].ipt-spinner-xs {
                     </button>
  
                     <button class="ribbon-button"
+                        v-if="has_FSA_API()"
                         v-on:click="save_as_xml">
                         <span class="icon">
                             <i class="far fa-copy"></i>
                         </span>
                         <span class="caption">Save as</span>
                     </button>
+ 
+                    <button class="ribbon-button"
+                        v-if="!has_FSA_API()"
+                        v-on:click="download_as_xml">
+                        <span class="icon">
+                            <i class="fa fa-file-download"></i>
+                        </span>
+                        <span class="caption">Download XML</span>
+                    </button>
+                    
                     <a id="downloadAnchorElem" style="display:none"></a>
 
                     <span class="title">Save</span>
@@ -1227,11 +1239,11 @@ input[type=text].ipt-spinner-xs {
                     </button>
 
                     <button class="ribbon-button" 
-                        v-on:click="show_about">
+                        v-on:click="show_wiki">
                         <span class="icon">
                             <i class="fa fa-info"></i>
                         </span>
-                        <span class="caption">About</span>
+                        <span class="caption">Wiki</span>
                     </button>
 
                     <span class="title">Help</span>
@@ -1321,38 +1333,133 @@ input[type=text].ipt-spinner-xs {
 
             </div>
 
-            <!-- the section for adju operations -->
-            <!-- <div class="section" id="section-1-3"
-                v-bind:class="{'active': section=='adjudication'}">
-                <div v-if="dtd != null" 
-                    class="group">
-
-                    <button class="ribbon-button"
-                        v-for="etag in dtd.etags">
+            <!-- the section for statistics -->
+            <div class="section" id="section-1-5"
+                v-bind:class="{'active': section=='statistics'}">
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="update_hint_dict">
                         <span class="icon">
-                            <i class="fa fa-cube"></i>
+                            <i class="fa fa-sync"></i>
                         </span>
-                        <span class="caption">{{ etag.name }}({{ etag.id_prefix }})</span>
+                        <span class="caption">Refresh</span>
                     </button>
 
-                    <span class="title">Extend Tags</span>
+                    <span class="title">&nbsp;</span>    
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_stat_summary">
+                        <span class="icon">
+                            <i class="fa fa-download"></i>
+                        </span>
+                        <span class="caption">Summary (.csv)</span>
+                    </button>
+
+                    <span class="title">Download</span>    
                 </div>
                 
+            </div>
 
-                <div v-if="dtd != null && dtd.ltags.length > 0" 
-                    class="group">
+            <!-- the section for ruleset -->
+            <div class="section" id="section-1-4"
+                v-bind:class="{'active': section=='ruleset'}">
 
-                    <button class="ribbon-button"
-                        v-for="ltag in dtd.ltags">
+                <div v-if="dtd != null"
+                     class="group">
+                    <div>
+                        <p class="mb-1">
+                            <i class="fa fa-list"></i>
+                            Summary:
+                        </p>
+                        <p class="mb-1 mt-1">
+                            <b>
+                                {{ anns.length }}
+                            </b>
+                            Documents
+                            <br>
+                            <b>
+                                {{ count_tags_in_anns(anns)}}
+                            </b>
+                            Annotated Tags
+                        </p>
+                    </div>
+
+                    <span class="title">&nbsp;</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_tsv">
                         <span class="icon">
-                            <i class="fa fa-link"></i>
+                            <i class="far fa-file-excel"></i>
                         </span>
-                        <span class="caption">{{ ltag.name }}</span>
+                        <span class="caption">Tag Text</span>
                     </button>
 
-                    <span class="title">Link Tags</span>
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_sent_tsv">
+                        <span class="icon">
+                            <i class="far fa-file-excel"></i>
+                        </span>
+                        <span class="caption">Tag &amp; Sentence</span>
+                    </button>
+
+                    <span class="title">Text</span>
                 </div>
-            </div> -->
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download IOB2/BIO format"
+                        v-on:click="download_dataset_iob2">
+                        <span class="icon">
+                            <i class="far fa-file"></i>
+                        </span>
+                        <span class="caption">IOB2/BIO (.tsv)</span>
+                    </button>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download BioC format"
+                        v-on:click="download_dataset_bioc">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">BioC (.xml)</span>
+                    </button>
+
+                    <span class="title">Dataset</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_medtagger_zip">
+                        <span class="icon">
+                            <i class="far fa-file-archive"></i>
+                        </span>
+                        <span class="caption">MedTagger (.zip)</span>
+                    </button>
+
+                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_spacy_jsonl">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">spaCy (.jsonl)</span>
+                    </button>
+                    <span class="title">Ruleset</span>
+                </div>
+            </div>
 
             <!-- the section for iaa -->
             <div class="section" id="section-1-6"
@@ -1534,135 +1641,6 @@ input[type=text].ipt-spinner-xs {
                     <span class="title">Adjudication</span>
                 </div>
 
-            </div>
-
-
-            <!-- the section for ruleset -->
-            <div class="section" id="section-1-4"
-                v-bind:class="{'active': section=='ruleset'}">
-
-                <div v-if="dtd != null"
-                     class="group">
-                    <div>
-                        <p class="mb-1">
-                            <i class="fa fa-list"></i>
-                            Summary:
-                        </p>
-                        <p class="mb-1 mt-1">
-                            <b>
-                                {{ anns.length }}
-                            </b>
-                            Documents
-                            <br>
-                            <b>
-                                {{ count_tags_in_anns(anns)}}
-                            </b>
-                            Annotated Tags
-                        </p>
-                    </div>
-
-                    <span class="title">&nbsp;</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag Text</span>
-                    </button>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_sent_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag &amp; Sentence</span>
-                    </button>
-
-                    <span class="title">Text</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download IOB2/BIO format"
-                        v-on:click="download_dataset_iob2">
-                        <span class="icon">
-                            <i class="far fa-file"></i>
-                        </span>
-                        <span class="caption">IOB2/BIO (.tsv)</span>
-                    </button>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download BioC format"
-                        v-on:click="download_dataset_bioc">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">BioC (.xml)</span>
-                    </button>
-
-                    <span class="title">Dataset</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_medtagger_zip">
-                        <span class="icon">
-                            <i class="far fa-file-archive"></i>
-                        </span>
-                        <span class="caption">MedTagger (.zip)</span>
-                    </button>
-
-                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_spacy_jsonl">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">spaCy (.jsonl)</span>
-                    </button>
-                    <span class="title">Ruleset</span>
-                </div>
-            </div>
-
-            <!-- the section for statistics -->
-            <div class="section" id="section-1-5"
-                v-bind:class="{'active': section=='statistics'}">
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="update_hint_dict">
-                        <span class="icon">
-                            <i class="fa fa-sync"></i>
-                        </span>
-                        <span class="caption">Refresh</span>
-                    </button>
-
-                    <span class="title">&nbsp;</span>    
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_stat_summary">
-                        <span class="icon">
-                            <i class="fa fa-download"></i>
-                        </span>
-                        <span class="caption">Summary (.csv)</span>
-                    </button>
-
-                    <span class="title">Download</span>    
-                </div>
-                
             </div>
         </div>
 
@@ -2761,32 +2739,45 @@ input[type=text].ipt-spinner-xs {
 </div>
 
 <script>
-var isIE = /*@cc_on!@*/false || !!document.documentMode;
-var isCHROME = false;
-var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
-var CHROME_VERSION = null;
-var CHROME_VERSION_MAJOR = null;
-var _NON_CHROME_MSG = 'The visualization and annotation features require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
-if (isIE) {
-    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
-} else {
-    let user_agent = navigator.userAgent.toLowerCase();
-    let mgs = user_agent.match(/chrome\/([\d\.]+)/);
-    if (mgs == null) {
+function get_browser() {
+    var ua = navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+        return {name:'IE',version:(tem[1]||'')};
+        }   
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR|Edge\/(\d+)/)
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+        }   
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+      name: M[0],
+      version: M[1]
+    };
+}
+var _browser = get_browser();
 
-    } else {
-        isCHROME = true;
-        CHROME_VERSION = mgs[1];
-        CHROME_VERSION_MAJOR = parseInt(CHROME_VERSION.split('.')[0]);
-    }
-}
-if (!isCHROME) {
-    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
-}
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+var isCHROME = _browser.name == 'Chrome';
+var isSAFARI = _browser.name == 'Safari';
+var isFIREFOX = _browser.name == 'Firefox';
+
+// the file system access api
+var isFSA_API_OK = typeof(window.showOpenFilePicker) == 'function';
 console.log('* isIE: ' + isIE);
 console.log('* isCHROME: ' + isCHROME);
-console.log('* CHROME_VERSION_MAJOR: ' + CHROME_VERSION_MAJOR);
-console.log('* isFILE_API_OK: ' + isFILE_API_OK);
+console.log('* isSAFARI: ' + isSAFARI);
+console.log('* isFIREFOX: ' + isFIREFOX);
+console.log('* isFSA_API_OK: ' + isFSA_API_OK);
+
+var _NOT_SUPPORT_MSG = 'The visualization and annotation features require advanced web techniques, which are <b>NOT</b> supported by the web browser you are using.<br>'+
+'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.';
+
+var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> require latest HTML5 techniques, which are <b>NOT</b> supported by the web browser [' + _browser.name + '] you are using. <br>' +
+'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
+'Except that the file saving function does not work, you can continue to use most of the functions.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
 
 </script>
 <!-- metro ui -->
@@ -2832,9 +2823,9 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
-    if (typeof(dtd_name) == 'undefined') {
-        dtd_name = '';
+async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
+    if (typeof(dtd) == 'undefined') {
+        dtd = {name: ''};
     }
     if (typeof(enabled_sentences) == 'undefined') {
         enabled_sentences = false;
@@ -2843,7 +2834,7 @@ async function fs_read_txt_file_handle(fh, dtd_name, enabled_sentences) {
     const text = await file.text();
 
     // create ann
-    var ann = ann_parser.txt2ann(text, dtd_name);
+    var ann = ann_parser.txt2ann(text, dtd);
 
     // bind the fh
     ann._fh = fh;
@@ -2981,7 +2972,9 @@ var dtd_parser = {
         attlist_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
         attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
-        attlist_cdata_default_value: /(?<=").*?(?=")/gm
+        // attlist_cdata_default_value: /(?<=").*?(?=")/gm
+        attlist_cdata_default_value: /\s+\"(.*)\"/g
+
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -3396,7 +3389,7 @@ var dtd_parser = {
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                if (groupIndex == 0) {
+                if (groupIndex == 1) {
                     // which is the prefix text
                     p = match;
                 }
@@ -3483,10 +3476,10 @@ var dtd_parser = {
  */
 var ann_parser = {
 
-    txt2ann: function(txt, dtd_name) {
+    txt2ann: function(txt, dtd) {
         var ann = {
             text: txt,
-            dtd_name: dtd_name,
+            dtd_name: dtd.name,
             tags: []
         };
 
@@ -6021,6 +6014,14 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
 
         save_xml: function() {
+            // before checking, need to ensure the FSA API
+            if (this.has_FSA_API()) {
+                // OK, go go go
+            } else {
+                // well ... it's ok ...
+                app_hotpot.msg('The browser you are using does not support File System Access API. You can use "Download XML" function instead.', 'warning');
+                return;
+            }
             // before saving, need to check the _fh
             var p_ann = null;
             if (this.anns[this.ann_idx]._fh === null ||
@@ -6106,9 +6107,31 @@ var app_hotpot = {
                 console.log('* error when save as xml', error);
             });
         },
+        
+        download_as_xml: function() {
+            // convert to xml
+            var xmlDoc = ann_parser.ann2xml(
+                this.anns[this.ann_idx],
+                this.dtd
+            );
 
-        show_about: function() {
-            app_hotpot.start_tour_annotation();
+            // convert to text
+            var xmlStr = ann_parser.xml2str(xmlDoc, false);
+
+            // get the current file name
+            var fn = this.anns[this.ann_idx]._filename;
+
+            // download this csv
+            var blob = new Blob([xmlStr], {type: "text/xml;charset=utf-8"});
+            saveAs(blob, fn);
+        },
+
+        show_wiki: function() {
+            // app_hotpot.start_tour_annotation();
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki',
+                '_blank'
+            );
         },
 
         load_sample_ds: function() {
@@ -6630,7 +6653,10 @@ var app_hotpot = {
                     }
                     
                     // read the file
-                    var p_txt_ann = fs_read_txt_file_handle(fh);
+                    var p_txt_ann = fs_read_txt_file_handle(
+                        fh,
+                        app_hotpot.vpp.$data.dtd
+                    );
                     p_txt_ann.then(function(txt_ann) {
                         app_hotpot.vpp.add_txt(txt_ann);
                     });
@@ -7312,6 +7338,20 @@ var app_hotpot = {
             return this.has_included(fn, this.anns);
         },
 
+        get_new_ann_fn_by_txt_fn: function(txt_fn) {
+            var new_fn = txt_fn + '.xml';
+            var i = 1;
+            while (true) {
+                if (this.has_included_ann_file(new_fn)) {
+                    new_fn = txt_fn + '_' + i + '.xml';
+                    i += 1;
+                } else {
+                    break;
+                }
+            }
+            return new_fn;
+        },
+
         has_included_txt_ann_file: function(fn) {
             return this.has_included(fn, this.txt_anns);
         },
@@ -7397,6 +7437,10 @@ var app_hotpot = {
                 return 1;
             }
             return v * 100;
+        },
+
+        has_FSA_API: function() {
+            return isFSA_API_OK;
         }
     },
 
@@ -7660,7 +7704,7 @@ var app_hotpot = {
                     } else {
                         // should be a dtd file
                         // so item is a fileEntry
-                        app_hotpot.parse_drop_dtd(item);
+                        app_hotpot.parse_dtd_file_entry(item);
                     }
                 }
 
@@ -7684,74 +7728,83 @@ var app_hotpot = {
             
             let items = event.dataTransfer.items;
             for (let i=0; i<items.length; i++) {
-                // console.log(items[i]);
-                
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
+                if (isFSA_API_OK) {
+                    // get this item as a FileSystemHandle Object
+                    // this could be used for saving the content back
+                    // let item = items[i].webkitGetAsEntry();
+                    let item = items[i].getAsFileSystemHandle();
 
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        // if drop a txt!
-                        if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                            // create a new file name
-                            var new_fn = new_fn = fh.name + '.xml';
-                            var i = 1;
-                            while (true) {
-                                if (app_hotpot.vpp.has_included_ann_file(new_fn)) {
-                                    new_fn = fh.name + '_' + i + '.xml';
-                                    i += 1;
-                                } else {
-                                    break;
-                                }
+                    // read this handle
+                    item.then(function(fh) {
+                        if (fh.kind == 'file') {
+                            // if drop a txt!
+                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                                // create a new file name
+                                var new_fn = app_hotpot.get_new_ann_fn_by_txt_fn(fh.name);
+
+                                // create a empty ann
+                                var p_txt_ann = fs_read_txt_file_handle(
+                                    fh, 
+                                    app_hotpot.vpp.$data.dtd,
+                                    true
+                                );
+
+                                // load this ann
+                                p_txt_ann.then((function(new_fn){
+                                    return function(txt_ann) {
+                                        // modify the txt_ann _fh
+                                        // we couldn't save to an txt
+                                        txt_ann._fh = null;
+
+                                        // update the _filename
+                                        txt_ann._filename = new_fn;
+
+                                        // show some message
+                                        app_hotpot.msg("Created a new annotation file " + new_fn);
+
+                                        // add this ann
+                                        app_hotpot.add_ann(txt_ann);
+                                    }
+                                })(new_fn));
+
+                                return;
                             }
 
-                            // create a empty ann
-                            var p_txt_ann = fs_read_txt_file_handle(
-                                fh, app_hotpot.vpp.$data.dtd.name, true
+                            // show something or 
+                            // check if this file name exists
+                            if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                                // exists? skip this file
+                                app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                                return;
+                            }
+
+                            // should be a ann txt/xml file
+                            app_hotpot.parse_ann_file_fh(
+                                fh,
+                                app_hotpot.vpp.$data.dtd
                             );
 
-                            // load this ann
-                            p_txt_ann.then((function(new_fn){
-                                return function(txt_ann) {
-                                    // modify the txt_ann _fh
-                                    // we couldn't save to an txt
-                                    txt_ann._fh = null;
-
-                                    // update the _filename
-                                    txt_ann._filename = new_fn;
-
-                                    // show some message
-                                    app_hotpot.msg("Created a new annotation file " + new_fn);
-
-                                    // add this ann
-                                    app_hotpot.add_ann(txt_ann);
-                                }
-                            })(new_fn));
-
-                            return;
+                        } else {
+                            // so item is a directory?
                         }
-
-                        // show something or 
-                        // check if this file name exists
-                        if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                            // exists? skip this file
-                            app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                            return;
+                    });
+                } else {
+                    // just load the file 
+                    let item = items[i].webkitGetAsEntry();
+                    console.log(item);
+                    if (item) {
+                        // ok, user select a folder ???
+                        if (item.isDirectory) {
+                            // show something?
+    
+                        } else {
+                            // so item is a fileEntry
+                            app_hotpot.parse_ann_file_entry(item);
                         }
-
-                        // should be a ann txt/xml file
-                        app_hotpot.parse_ann_file_fh(
-                            fh,
-                            app_hotpot.vpp.$data.dtd
-                        );
-
-                    } else {
-                        // so item is a directory?
                     }
-                });
+                }
+                
+                
             }
 
         }, false);
@@ -7783,7 +7836,10 @@ var app_hotpot = {
                         }
 
                         // read the file
-                        var p_txt_ann = fs_read_txt_file_handle(fh);
+                        var p_txt_ann = fs_read_txt_file_handle(
+                            fh,
+                            app_hotpot.vpp.$data.dtd
+                        );
                         p_txt_ann.then(function(txt_ann) {
                             app_hotpot.vpp.add_txt(txt_ann);
                         });
@@ -7823,42 +7879,64 @@ var app_hotpot = {
                     let items = event.dataTransfer.items;
         
                     for (let i=0; i<items.length; i++) {
-                        // let item = items[i].webkitGetAsEntry();
-                        let item = items[i].getAsFileSystemHandle();
-                
-                        item.then((function(iaa_id) {
-                            return function(fh) {
-                                if (fh.kind == 'file') {
-                                    // check exists
-                                    if (app_hotpot.vpp.has_included(
-                                        fh.name, 
-                                        app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
-                                        // exists? skip this file
-                                        return;
-                                    }
-            
-                                    // read the file
-                                    var p_ann = fs_read_ann_file_handle(
-                                        fh,
-                                        app_hotpot.vpp.$data.dtd
-                                    );
-                                    p_ann.then((function(iaa_id) {
-                                        return function(ann) {
-                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                        // we have two ways of loading data
+                        // first using the basic entry
+                        // second using the fs handle
+                        // it depends the browser API
+                        if (isFSA_API_OK) {
+                            // just load in this way
+                            let item = items[i].getAsFileSystemHandle();
+                            item.then((function(iaa_id) {
+                                return function(fh) {
+                                    if (fh.kind == 'file') {
+                                        // check exists
+                                        if (app_hotpot.vpp.has_included(
+                                            fh.name, 
+                                            app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
+                                            // exists? skip this file
+                                            return;
                                         }
-                                    })(iaa_id)).catch(function(error) {
-                                        app_hotpot.msg("Couldn't read ann, " + error.name);
-                                        console.error(error);
-                                    });
-                                    
+                
+                                        // read the file
+                                        var p_ann = fs_read_ann_file_handle(
+                                            fh,
+                                            app_hotpot.vpp.$data.dtd
+                                        );
+                                        p_ann.then((function(iaa_id) {
+                                            return function(ann) {
+                                                app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                            }
+                                        })(iaa_id)).catch(function(error) {
+                                            app_hotpot.msg("Couldn't read ann, " + error.name);
+                                            console.error(error);
+                                        });
+                                        
+                                    } else {
+                                        // what to do with a directory
+                                    }
+                                }
+                            })(iaa_id))
+                            .catch(function(error) {
+                                console.log('* error when drop txt', error);
+                            });
+                        } else {
+                            // just load the file 
+                            let item = items[i].webkitGetAsEntry();
+                            if (item) {
+                                // ok, user select a folder ???
+                                if (item.isDirectory) {
+                                    // show something?
+            
                                 } else {
-                                    // what to do with a directory
+                                    // should be a dtd file
+                                    // so item is a fileEntry
+                                    app_hotpot.parse_dtd_file_entry(item);
                                 }
                             }
-                        })(iaa_id))
-                        .catch(function(error) {
-                            console.log('* error when drop txt', error);
-                        });
+                        }
+
+
+                        
                     }
         
                 }
@@ -7877,7 +7955,7 @@ var app_hotpot = {
         this.cm_update_ltag_marks();
     },
 
-    parse_drop_dtd: function(fileEntry) {
+    parse_dtd_file_entry: function(fileEntry) {
         app_hotpot.read_file_async(fileEntry, function(evt) {
             var text = evt.target.result;
             // console.log('* read dtd', text);
@@ -7887,6 +7965,86 @@ var app_hotpot = {
             
             // ok, set the dtd for annotator
             app_hotpot.set_dtd(dtd);
+        });
+    },
+
+    parse_ann_file_entry: function(fileEntry) {
+        // first, decide type
+        if (app_hotpot.is_file_ext(fileEntry.name, 'txt')) {
+            // so, just read this file and get the content
+            // to create new file name
+            var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fileEntry.name);
+
+            app_hotpot.read_file_async(fileEntry, (function(new_fn){
+                return function(evt) {
+                    var text = evt.target.result;
+    
+                    // try to parse this txt file
+                    var ann = ann_parser.txt2ann(
+                        text, 
+                        app_hotpot.vpp.$data.dtd
+                    );
+
+                    // post processing
+                    ann._fh = null;
+                    ann._filename = new_fn;
+                    ann._has_saved = true;
+                    var result = nlp_toolkit.sent_tokenize(ann.text);
+                    ann._sentences = result.sentences;
+                    ann._sentences_text = result.sentences_text;
+                    
+                    // ok, add this the dtd for annotator
+                    app_hotpot.add_ann(ann);
+                }
+            })(new_fn));
+
+        } else if (app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
+            // ok, this is an xml file, usually it's what we want
+            // check existance first
+            if (app_hotpot.vpp.has_included_ann_file(fileEntry.name)) {
+                // exists? skip this file
+                app_hotpot.msg('Skipped same name or duplicated ' + fileEntry.name);
+                return;
+            }
+
+            // then create 
+            var new_fn = fileEntry.name;
+            app_hotpot.read_file_async(fileEntry, (function(new_fn){
+                return function(evt) {
+                    var xml = evt.target.result;
+    
+                    // try to parse this xml file
+                    var ann = ann_parser.xml2ann(
+                        xml, 
+                        app_hotpot.vpp.$data.dtd
+                    );
+
+                    // post processing
+                    // we don't have fh due to using fileEntry
+                    ann._fh = null;
+                    ann._filename = new_fn;
+                    ann._has_saved = true;
+                    var result = nlp_toolkit.sent_tokenize(ann.text);
+                    ann._sentences = result.sentences;
+                    ann._sentences_text = result.sentences_text;
+                    
+                    // ok, add this the dtd for annotator
+                    app_hotpot.add_ann(ann);
+                }
+            })(new_fn));
+            
+        } else {
+            // what???
+            app_hotpot.msg('Skipped unknown format file ' + fileEntry.name);
+            return;
+        }
+    },
+
+    read_file_async: function(fileEntry, callback) {
+        fileEntry.file(function(file) {
+            let reader = new FileReader();
+            reader.onload = callback;
+            reader.readAsText(file)
         });
     },
 
@@ -7901,14 +8059,6 @@ var app_hotpot = {
                 console.error(error);
             }}(fh)
         );
-    },
-
-    read_file_async: function(fileEntry, callback) {
-        fileEntry.file(function(file) {
-            let reader = new FileReader();
-            reader.onload = callback;
-            reader.readAsText(file)
-        });
     },
 
     /////////////////////////////////////////////////////////////////
@@ -9375,22 +9525,33 @@ Vue.component('iaa-tag-info-gs', {
 var jarvis = {
     init: function() {
         // too bad ...
-        if (isIE) { return 0; }
-
-        if (!isCHROME) { 
-            this.ssmsg(_NON_CHROME_MSG);
+        if (isIE) { 
+            this.ssmsg(_NOT_SUPPORT_MSG);
             return 0; 
-        }
-
-        if (!isFILE_API_OK) {
-            this.ssmsg('Latest Google Chrome and HTTPs protocal are required');
-            return 0;
         }
 
         app_hotpot.init();
 
-        jarvis.ssmsg('Initializated')
-        setTimeout('jarvis.ssclose();', 500);
+        if (isCHROME) { 
+
+            if (isFSA_API_OK) {
+                jarvis.ssmsg('Initializated')
+                setTimeout('jarvis.ssclose();', 500);
+            } else {
+                // old version chrome or not http
+
+            }
+        } else {
+
+            if (isFSA_API_OK) {
+                jarvis.ssmsg('Initializated')
+                setTimeout('jarvis.ssclose();', 500);
+                
+            } else {
+                jarvis.ssmsg(_LMT_SUPPORT_MSG);
+            }
+
+        }
 
         $(window).resize(function() {
             app_hotpot.resize();

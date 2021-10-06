@@ -6,7 +6,9 @@ var dtd_parser = {
         attlist_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
         attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
-        attlist_cdata_default_value: /(?<=").*?(?=")/gm
+        // attlist_cdata_default_value: /(?<=").*?(?=")/gm
+        attlist_cdata_default_value: /\s+\"(.*)\"/g
+
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -421,7 +423,7 @@ var dtd_parser = {
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                if (groupIndex == 0) {
+                if (groupIndex == 1) {
                     // which is the prefix text
                     p = match;
                 }

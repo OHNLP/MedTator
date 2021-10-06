@@ -148,6 +148,7 @@
                 <div v-if="ann_idx != null"
                     class="group">
                     <button class="ribbon-button"
+                        v-if="has_FSA_API()"
                         v-on:click="save_xml">
                         <span class="icon">
                             <i class="far fa-save"></i>
@@ -156,12 +157,23 @@
                     </button>
  
                     <button class="ribbon-button"
+                        v-if="has_FSA_API()"
                         v-on:click="save_as_xml">
                         <span class="icon">
                             <i class="far fa-copy"></i>
                         </span>
                         <span class="caption">Save as</span>
                     </button>
+ 
+                    <button class="ribbon-button"
+                        v-if="!has_FSA_API()"
+                        v-on:click="download_as_xml">
+                        <span class="icon">
+                            <i class="fa fa-file-download"></i>
+                        </span>
+                        <span class="caption">Download XML</span>
+                    </button>
+                    
                     <a id="downloadAnchorElem" style="display:none"></a>
 
                     <span class="title">Save</span>
@@ -305,11 +317,11 @@
                     </button>
 
                     <button class="ribbon-button" 
-                        v-on:click="show_about">
+                        v-on:click="show_wiki">
                         <span class="icon">
                             <i class="fa fa-info"></i>
                         </span>
-                        <span class="caption">About</span>
+                        <span class="caption">Wiki</span>
                     </button>
 
                     <span class="title">Help</span>
@@ -399,38 +411,133 @@
 
             </div>
 
-            <!-- the section for adju operations -->
-            <!-- <div class="section" id="section-1-3"
-                v-bind:class="{'active': section=='adjudication'}">
-                <div v-if="dtd != null" 
-                    class="group">
-
-                    <button class="ribbon-button"
-                        v-for="etag in dtd.etags">
+            <!-- the section for statistics -->
+            <div class="section" id="section-1-5"
+                v-bind:class="{'active': section=='statistics'}">
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="update_hint_dict">
                         <span class="icon">
-                            <i class="fa fa-cube"></i>
+                            <i class="fa fa-sync"></i>
                         </span>
-                        <span class="caption">{{ etag.name }}({{ etag.id_prefix }})</span>
+                        <span class="caption">Refresh</span>
                     </button>
 
-                    <span class="title">Extend Tags</span>
+                    <span class="title">&nbsp;</span>    
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_stat_summary">
+                        <span class="icon">
+                            <i class="fa fa-download"></i>
+                        </span>
+                        <span class="caption">Summary (.csv)</span>
+                    </button>
+
+                    <span class="title">Download</span>    
                 </div>
                 
+            </div>
 
-                <div v-if="dtd != null && dtd.ltags.length > 0" 
-                    class="group">
+            <!-- the section for ruleset -->
+            <div class="section" id="section-1-4"
+                v-bind:class="{'active': section=='ruleset'}">
 
-                    <button class="ribbon-button"
-                        v-for="ltag in dtd.ltags">
+                <div v-if="dtd != null"
+                     class="group">
+                    <div>
+                        <p class="mb-1">
+                            <i class="fa fa-list"></i>
+                            Summary:
+                        </p>
+                        <p class="mb-1 mt-1">
+                            <b>
+                                {{ anns.length }}
+                            </b>
+                            Documents
+                            <br>
+                            <b>
+                                {{ count_tags_in_anns(anns)}}
+                            </b>
+                            Annotated Tags
+                        </p>
+                    </div>
+
+                    <span class="title">&nbsp;</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_tsv">
                         <span class="icon">
-                            <i class="fa fa-link"></i>
+                            <i class="far fa-file-excel"></i>
                         </span>
-                        <span class="caption">{{ ltag.name }}</span>
+                        <span class="caption">Tag Text</span>
                     </button>
 
-                    <span class="title">Link Tags</span>
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_text_sent_tsv">
+                        <span class="icon">
+                            <i class="far fa-file-excel"></i>
+                        </span>
+                        <span class="caption">Tag &amp; Sentence</span>
+                    </button>
+
+                    <span class="title">Text</span>
                 </div>
-            </div> -->
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download IOB2/BIO format"
+                        v-on:click="download_dataset_iob2">
+                        <span class="icon">
+                            <i class="far fa-file"></i>
+                        </span>
+                        <span class="caption">IOB2/BIO (.tsv)</span>
+                    </button>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        title="Download BioC format"
+                        v-on:click="download_dataset_bioc">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">BioC (.xml)</span>
+                    </button>
+
+                    <span class="title">Dataset</span>
+                </div>
+
+                <div class="group">
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_medtagger_zip">
+                        <span class="icon">
+                            <i class="far fa-file-archive"></i>
+                        </span>
+                        <span class="caption">MedTagger (.zip)</span>
+                    </button>
+
+                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+                    <button class="ribbon-button" 
+                        :disabled="dtd == null"
+                        v-on:click="download_ruleset_spacy_jsonl">
+                        <span class="icon">
+                            <i class="far fa-file-code"></i>
+                        </span>
+                        <span class="caption">spaCy (.jsonl)</span>
+                    </button>
+                    <span class="title">Ruleset</span>
+                </div>
+            </div>
 
             <!-- the section for iaa -->
             <div class="section" id="section-1-6"
@@ -613,135 +720,6 @@
                 </div>
 
             </div>
-
-
-            <!-- the section for ruleset -->
-            <div class="section" id="section-1-4"
-                v-bind:class="{'active': section=='ruleset'}">
-
-                <div v-if="dtd != null"
-                     class="group">
-                    <div>
-                        <p class="mb-1">
-                            <i class="fa fa-list"></i>
-                            Summary:
-                        </p>
-                        <p class="mb-1 mt-1">
-                            <b>
-                                {{ anns.length }}
-                            </b>
-                            Documents
-                            <br>
-                            <b>
-                                {{ count_tags_in_anns(anns)}}
-                            </b>
-                            Annotated Tags
-                        </p>
-                    </div>
-
-                    <span class="title">&nbsp;</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag Text</span>
-                    </button>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_sent_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag &amp; Sentence</span>
-                    </button>
-
-                    <span class="title">Text</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download IOB2/BIO format"
-                        v-on:click="download_dataset_iob2">
-                        <span class="icon">
-                            <i class="far fa-file"></i>
-                        </span>
-                        <span class="caption">IOB2/BIO (.tsv)</span>
-                    </button>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download BioC format"
-                        v-on:click="download_dataset_bioc">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">BioC (.xml)</span>
-                    </button>
-
-                    <span class="title">Dataset</span>
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_medtagger_zip">
-                        <span class="icon">
-                            <i class="far fa-file-archive"></i>
-                        </span>
-                        <span class="caption">MedTagger (.zip)</span>
-                    </button>
-
-                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
-
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_spacy_jsonl">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">spaCy (.jsonl)</span>
-                    </button>
-                    <span class="title">Ruleset</span>
-                </div>
-            </div>
-
-            <!-- the section for statistics -->
-            <div class="section" id="section-1-5"
-                v-bind:class="{'active': section=='statistics'}">
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="update_hint_dict">
-                        <span class="icon">
-                            <i class="fa fa-sync"></i>
-                        </span>
-                        <span class="caption">Refresh</span>
-                    </button>
-
-                    <span class="title">&nbsp;</span>    
-                </div>
-
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_stat_summary">
-                        <span class="icon">
-                            <i class="fa fa-download"></i>
-                        </span>
-                        <span class="caption">Summary (.csv)</span>
-                    </button>
-
-                    <span class="title">Download</span>    
-                </div>
-                
-            </div>
         </div>
 
         <div id="app_info">
@@ -862,32 +840,45 @@
 </div>
 
 <script>
-var isIE = /*@cc_on!@*/false || !!document.documentMode;
-var isCHROME = false;
-var isFILE_API_OK = typeof(window.showOpenFilePicker) == 'function';
-var CHROME_VERSION = null;
-var CHROME_VERSION_MAJOR = null;
-var _NON_CHROME_MSG = 'The visualization and annotation features require advanced web technologies, which are <b>NOT</b> supported by the web browser you are using.<br>Try using latest Google Chrome to access:<br><span style="font-size:1.2em;">' + location.href + '</span>';
-if (isIE) {
-    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
-} else {
-    let user_agent = navigator.userAgent.toLowerCase();
-    let mgs = user_agent.match(/chrome\/([\d\.]+)/);
-    if (mgs == null) {
+function get_browser() {
+    var ua = navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+        return {name:'IE',version:(tem[1]||'')};
+        }   
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR|Edge\/(\d+)/)
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+        }   
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+      name: M[0],
+      version: M[1]
+    };
+}
+var _browser = get_browser();
 
-    } else {
-        isCHROME = true;
-        CHROME_VERSION = mgs[1];
-        CHROME_VERSION_MAJOR = parseInt(CHROME_VERSION.split('.')[0]);
-    }
-}
-if (!isCHROME) {
-    document.getElementById('ss-msg').innerHTML = _NON_CHROME_MSG;
-}
+var isIE = /*@cc_on!@*/false || !!document.documentMode;
+var isCHROME = _browser.name == 'Chrome';
+var isSAFARI = _browser.name == 'Safari';
+var isFIREFOX = _browser.name == 'Firefox';
+
+// the file system access api
+var isFSA_API_OK = typeof(window.showOpenFilePicker) == 'function';
 console.log('* isIE: ' + isIE);
 console.log('* isCHROME: ' + isCHROME);
-console.log('* CHROME_VERSION_MAJOR: ' + CHROME_VERSION_MAJOR);
-console.log('* isFILE_API_OK: ' + isFILE_API_OK);
+console.log('* isSAFARI: ' + isSAFARI);
+console.log('* isFIREFOX: ' + isFIREFOX);
+console.log('* isFSA_API_OK: ' + isFSA_API_OK);
+
+var _NOT_SUPPORT_MSG = 'The visualization and annotation features require advanced web techniques, which are <b>NOT</b> supported by the web browser you are using.<br>'+
+'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.';
+
+var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> require latest HTML5 techniques, which are <b>NOT</b> supported by the web browser [' + _browser.name + '] you are using. <br>' +
+'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
+'Except that the file saving function does not work, you can continue to use most of the functions.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
 
 </script>
 <!-- metro ui -->
@@ -963,22 +954,33 @@ console.log('* isFILE_API_OK: ' + isFILE_API_OK);
 var jarvis = {
     init: function() {
         // too bad ...
-        if (isIE) { return 0; }
-
-        if (!isCHROME) { 
-            this.ssmsg(_NON_CHROME_MSG);
+        if (isIE) { 
+            this.ssmsg(_NOT_SUPPORT_MSG);
             return 0; 
-        }
-
-        if (!isFILE_API_OK) {
-            this.ssmsg('Latest Google Chrome and HTTPs protocal are required');
-            return 0;
         }
 
         app_hotpot.init();
 
-        jarvis.ssmsg('Initializated')
-        setTimeout('jarvis.ssclose();', 500);
+        if (isCHROME) { 
+
+            if (isFSA_API_OK) {
+                jarvis.ssmsg('Initializated')
+                setTimeout('jarvis.ssclose();', 500);
+            } else {
+                // old version chrome or not http
+
+            }
+        } else {
+
+            if (isFSA_API_OK) {
+                jarvis.ssmsg('Initializated')
+                setTimeout('jarvis.ssclose();', 500);
+                
+            } else {
+                jarvis.ssmsg(_LMT_SUPPORT_MSG);
+            }
+
+        }
 
         $(window).resize(function() {
             app_hotpot.resize();
