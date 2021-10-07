@@ -1851,7 +1851,7 @@ var app_hotpot = {
                             // if drop a txt!
                             if (app_hotpot.is_file_ext(fh.name, 'txt')) {
                                 // create a new file name
-                                var new_fn = app_hotpot.get_new_ann_fn_by_txt_fn(fh.name);
+                                var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
 
                                 // create a empty ann
                                 var p_txt_ann = fs_read_txt_file_handle(
