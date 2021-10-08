@@ -17,7 +17,7 @@ No need to install any server or client runtime!
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual).
 
 
-## Development?
+## Development
 
 For development, a Python 3+ runtime environment is needed. 
 Then, download the source code and install the requirements (just Python Flask, that's all):
