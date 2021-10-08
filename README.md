@@ -11,6 +11,7 @@ No need to install any server or client runtime!
 ## Documentation
 
 * New to MedTator? Let's have a [Quick Start](https://github.com/OHNLP/MedTator/wiki/Quick-Start).
+* More samples? Check our [Sample Datasets](https://github.com/OHNLP/MedTator/tree/main/sample).
 * Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * Parse annotation data? Here is the [Annotation File Format](https://github.com/OHNLP/MedTator/wiki/Annotation-Data).
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual)
