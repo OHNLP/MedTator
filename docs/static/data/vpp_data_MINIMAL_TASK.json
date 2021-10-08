@@ -1,0 +1,679 @@
+{
+    "section": "annotation",
+    "dtd": {
+        "id_prefixd": {
+            "S": {
+                "name": "SYMP",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    "comment": {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                },
+                "shortcut": "1"
+            }
+        },
+        "name": "COVID_VAX_SYMP",
+        "tag_dict": {
+            "SYMP": {
+                "name": "SYMP",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    "comment": {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                },
+                "shortcut": "1"
+            }
+        },
+        "etags": [
+            {
+                "name": "SYMP",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    "comment": {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                },
+                "shortcut": "1"
+            }
+        ],
+        "ltags": []
+    },
+    "ann_idx": 0,
+    "anns": [
+        {
+            "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.",
+            "dtd_name": "COVID_VAX_SYMP",
+            "tags": [
+                {
+                    "tag": "SYMP",
+                    "spans": "45~60",
+                    "text": "lightheadedness",
+                    "id": "S1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "81~89",
+                    "text": "headache",
+                    "id": "S2",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "116~125",
+                    "text": "headaches",
+                    "id": "S3",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "202~211",
+                    "text": "neck pain",
+                    "id": "S4",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "242~250",
+                    "text": "seizures",
+                    "id": "S5",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "307~331",
+                    "text": "no loss of consciousness",
+                    "id": "S6",
+                    "certainty": "negated",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "333~347",
+                    "text": "no convulsions",
+                    "id": "S7",
+                    "certainty": "negated",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "356~363",
+                    "text": "bladder",
+                    "id": "S8",
+                    "certainty": "negated",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "367~385",
+                    "text": "bowel incontinence",
+                    "id": "S9",
+                    "certainty": "negated",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "26~35",
+                    "text": "dizziness",
+                    "id": "S10",
+                    "certainty": "positive",
+                    "comment": "NA"
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_01.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "The patient also endorses dizziness and some lightheadedness.",
+                    "spans": {
+                        "start": 0,
+                        "end": 61
+                    }
+                },
+                {
+                    "text": "She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.",
+                    "spans": {
+                        "start": 62,
+                        "end": 171
+                    }
+                },
+                {
+                    "text": "She denies vision changes and neck pain.",
+                    "spans": {
+                        "start": 172,
+                        "end": 212
+                    }
+                },
+                {
+                    "text": "The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.",
+                    "spans": {
+                        "start": 213,
+                        "end": 386
+                    }
+                },
+                {
+                    "text": "Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.",
+                    "spans": {
+                        "start": 387,
+                        "end": 486
+                    }
+                },
+                {
+                    "text": "She reports having some difficulty remembering to take her home medications.",
+                    "spans": {
+                        "start": 487,
+                        "end": 563
+                    }
+                }
+            ],
+            "_sentences_text": "The patient also endorses dizziness and some lightheadedness.\nShe denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.\nShe denies vision changes and neck pain.\nThe patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.\nOf note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.\nShe reports having some difficulty remembering to take her home medications."
+        },
+        {
+            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.",
+            "dtd_name": "COVID_VAX_SYMP",
+            "tags": [
+                {
+                    "tag": "SYMP",
+                    "spans": "110~116",
+                    "text": "Nausea",
+                    "id": "S0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "383~390",
+                    "text": "Fatigue",
+                    "id": "S1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "392~398",
+                    "text": "chills",
+                    "id": "S2",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "405~413",
+                    "text": "diarrhea",
+                    "id": "S3",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "418~429",
+                    "text": "dehydration",
+                    "id": "S4",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "496~515",
+                    "text": "head and body aches",
+                    "id": "S5",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "590~602",
+                    "text": "Night sweats",
+                    "id": "S6",
+                    "certainty": "positive",
+                    "comment": "NA"
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_02.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+                    "spans": {
+                        "start": 0,
+                        "end": 299
+                    }
+                },
+                {
+                    "text": "Tried Advil, then tylenol - didn't tough headache.",
+                    "spans": {
+                        "start": 300,
+                        "end": 350
+                    }
+                },
+                {
+                    "text": "7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.",
+                    "spans": {
+                        "start": 352,
+                        "end": 449
+                    }
+                },
+                {
+                    "text": "Slept, finally that night.",
+                    "spans": {
+                        "start": 451,
+                        "end": 477
+                    }
+                },
+                {
+                    "text": "Advil helped the head and body aches finally.",
+                    "spans": {
+                        "start": 479,
+                        "end": 524
+                    }
+                },
+                {
+                    "text": "2/21/21 - Left with body fatigue, mild diarrhea, dehydration.",
+                    "spans": {
+                        "start": 527,
+                        "end": 588
+                    }
+                },
+                {
+                    "text": "Night sweats for most of that night.",
+                    "spans": {
+                        "start": 590,
+                        "end": 626
+                    }
+                },
+                {
+                    "text": "2/22/21 - energy back, mild diarrhea left.",
+                    "spans": {
+                        "start": 627,
+                        "end": 669
+                    }
+                }
+            ],
+            "_sentences_text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.\nTried Advil, then tylenol - didn't tough headache.\n7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.\nSlept, finally that night.\nAdvil helped the head and body aches finally.\n2/21/21 - Left with body fatigue, mild diarrhea, dehydration.\nNight sweats for most of that night.\n2/22/21 - energy back, mild diarrhea left."
+        },
+        {
+            "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)",
+            "dtd_name": "COVID_VAX_SYMP",
+            "tags": [],
+            "_fh": {},
+            "_filename": "doc_03.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).",
+                    "spans": {
+                        "start": 0,
+                        "end": 48
+                    }
+                },
+                {
+                    "text": "Fatigue began 4 hours after vaccine.",
+                    "spans": {
+                        "start": 49,
+                        "end": 85
+                    }
+                },
+                {
+                    "text": "(3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).",
+                    "spans": {
+                        "start": 86,
+                        "end": 218
+                    }
+                },
+                {
+                    "text": "Mild headache and mild fatigue all day (3/8)",
+                    "spans": {
+                        "start": 219,
+                        "end": 263
+                    }
+                }
+            ],
+            "_sentences_text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).\nFatigue began 4 hours after vaccine.\n(3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).\nMild headache and mild fatigue all day (3/8)"
+        }
+    ],
+    "display_tag_name": "__all__",
+    "hints": [],
+    "hint_dict": {
+        "SYMP": {
+            "text_dict": {
+                "lightheadedness": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "headache": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "headaches": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "neck pain": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "seizures": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "no loss of consciousness": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "no convulsions": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "bladder": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "bowel incontinence": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "dizziness": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Nausea": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Fatigue": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "chills": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "diarrhea": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "dehydration": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "head and body aches": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Night sweats": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "lightheadedness",
+                "headache",
+                "headaches",
+                "neck pain",
+                "seizures",
+                "no loss of consciousness",
+                "no convulsions",
+                "bladder",
+                "bowel incontinence",
+                "dizziness",
+                "Nausea",
+                "Fatigue",
+                "chills",
+                "diarrhea",
+                "dehydration",
+                "head and body aches",
+                "Night sweats"
+            ]
+        }
+    },
+    "clicked_tag_id": null,
+    "is_linking": false,
+    "linking_tag_def": null,
+    "linking_tag": null,
+    "linking_atts": [],
+    "pan_working_tag": {
+        "pos": {
+            "movementX": 0,
+            "movementY": 0
+        }
+    },
+    "txt_anns": [],
+    "txt_xmls": [],
+    "txt_xml_prefix": "",
+    "txt_xml_suffix": "",
+    "fn_pattern": "",
+    "iaa_ann_list": [
+        {
+            "anns": [],
+            "name": "A"
+        },
+        {
+            "anns": [],
+            "name": "B"
+        }
+    ],
+    "iaa_dict": null,
+    "iaa_display_tag_name": "__all__",
+    "iaa_match_mode": "overlap",
+    "iaa_overlap_ratio": 50,
+    "iaa_overlap_ratio_default": 50,
+    "iaa_display_hashcode": null,
+    "iaa_display_tags_context": true,
+    "iaa_display_tags_tp": false,
+    "iaa_display_adj_panel": true,
+    "iaa_display_adj_detail": false,
+    "force_module_update": 0.8982912601317696,
+    "iaa_gs_dict": null,
+    "cm": {
+        "display_mode": "document",
+        "mark_mode": "node",
+        "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
+        "enabled_links": true,
+        "enabled_link_name": true,
+        "enabled_link_complex": true,
+        "is_expire": false
+    },
+    "export_text": null
+}

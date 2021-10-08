@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_SYMPTOM>
+<TEXT><![CDATA[Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness]]></TEXT>
+<TAGS>
+<PYREXIA id="P0" spans="-1~-1" text="" comment=""/>
+<CHILL id="C0" spans="-1~-1" text="" comment=""/>
+<HEADACHE id="H0" spans="-1~-1" text="" comment=""/>
+<OTHER_SYMP id="O0" spans="-1~-1" text="" comment=""/>
+<DIZZINESS id="D0" spans="-1~-1" text="" comment=""/>
+</TAGS>
+</VAX_SYMPTOM>

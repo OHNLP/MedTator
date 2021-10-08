@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[running a fever; This is a spontaneous report from a contactable consumer (patient's mother). A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization. The patient's medical history and concomitant medications were not reported. The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021. The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning. The fever was mostly in the morning and at night around 7-8 pm. Fever in the morning lasts until 10 -11 am. The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM. The mother wanted to know if this was a typical response to the vaccine (i.e. the duration of the fever). The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol. The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine. The mother was responded per the interim guidelines, "Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate. However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time." The mother was told to discuss this with her healthcare provider. The outcome of the event was not recovered.  Information about the lot/batch number has been requested.]]></TEXT>
+<TAGS>
+<MEDICATION spans="1108~1115" text="Tylenol" id="M0" comment=""/>
+<PYREXIA spans="1058~1063" text="fever" id="PY0" comment=""/>
+<MEDICATION spans="1094~1103" text="ibuprofen" id="M1" comment=""/>
+<PYREXIA spans="837~842" text="fever" id="PY1" comment=""/>
+<PYREXIA spans="887~892" text="fever" id="PY2" comment=""/>
+<PYREXIA spans="743~748" text="fever" id="PY3" comment=""/>
+<PYREXIA spans="683~688" text="fever" id="PY4" comment=""/>
+<PYREXIA spans="595~600" text="fever" id="PY5" comment=""/>
+</TAGS>
+</VAX_AE_MED>

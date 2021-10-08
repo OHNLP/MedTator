@@ -20,6 +20,7 @@
  * the `_has_saved` is added outside
  */
 var ann_parser = {
+    NON_CONSUMING_SPANS: '-1~-1',
 
     txt2ann: function(txt, dtd) {
         var ann = {
@@ -374,20 +375,55 @@ var ann_parser = {
     add_tag_to_hint_dict: function(ann, tag, hint_dict) {
         if (!hint_dict.hasOwnProperty(tag.tag)) {
             hint_dict[tag.tag] = {
-                text_dict: {},
+                // text only
+                text_dict: {}, 
+
+                // non-consuming dict
+                nc_dict: {
+                    count: 0,
+                    ann_fn_dict: {},
+                    _is_shown: false,
+                }, 
+
                 texts: []
             }
         }
         // empty text should be removed
         if (!tag.hasOwnProperty('text')) {
             // which means it's a link tag
+            // we can do nothing to a link tag now
             return;
         }
+
+        // now get the text and trim it
         var text = tag.text;
         text = text.trim();
         if (text == '') {
-            // just return the given hint_dict if empty text
-            return hint_dict;
+            // need to check if is a NC etag
+            if (tag.spans == this.NON_CONSUMING_SPANS) {
+                // add this nc etag
+                if (hint_dict[tag.tag].nc_dict.ann_fn_dict.hasOwnProperty(ann._filename)) {
+                    // oh, this is NOT a new file
+                    // just increase the count for this concept and file
+                    hint_dict[tag.tag].nc_dict.count += 1;
+                    hint_dict[tag.tag].nc_dict.ann_fn_dict[ann._filename] += 1
+        
+                } else {
+                    // ok, this is a new file
+                    // count +1
+                    hint_dict[tag.tag].nc_dict.count += 1;
+        
+                    // save this ann file name
+                    hint_dict[tag.tag].nc_dict.ann_fn_dict[ann._filename] = 1;
+                }
+
+                // ok, we have add this file information to the hint dict
+                return hint_dict;
+
+            } else {
+                // ok, it's just a wrong hint I guess
+                return hint_dict;
+            }
         }
 
         // add this text

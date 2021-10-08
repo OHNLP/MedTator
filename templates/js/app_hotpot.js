@@ -123,6 +123,14 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
+        save_xml_by_idx: function(idx) {
+            // switch to this ann first
+            if (this.ann_idx != idx) {
+                this.ann_idx = idx;
+            }
+            // $this.$forceUpdate();
+            this.save_xml();
+        },
 
         save_xml: function() {
             // before checking, need to ensure the FSA API
@@ -245,9 +253,12 @@ var app_hotpot = {
             );
         },
 
-        load_sample_ds: function() {
+        load_sample_ds: function(ds_name) {
+            if (typeof(ds_name) == 'undefined') {
+                ds_name = 'MINIMAL_TASK';
+            }
             $.get(
-                './static/data/vpp_data_sample.json', 
+                './static/data/vpp_data_'+ds_name+'.json', 
                 {
                     rnd: Math.random()
                 }, 
@@ -560,6 +571,18 @@ var app_hotpot = {
             }
         },
 
+        add_nc_etag_by_ctxmenu: function(tag_def) {
+            this.add_nc_etag(tag_def);
+
+            // for ctxmenu, we need to remove the ctx after click
+            app_hotpot.ctxmenu_nce.hide();
+
+            // scroll the view
+            app_hotpot.scroll_annlist_to_bottom();
+
+            console.log('* added nc etag by right click, ' + tag_def.name);
+        },
+
         add_etag_by_ctxmenu: function(tag_def) {
 
             // get the basic tag
@@ -577,7 +600,7 @@ var app_hotpot = {
             // scroll the view
             app_hotpot.scroll_annlist_to_bottom();
 
-            console.log('* added tag by right click, ' + tag_def.name);
+            console.log('* added etag by right click, ' + tag_def.name);
         },
 
         add_etag_by_shortcut_key: function(key) {
@@ -616,7 +639,11 @@ var app_hotpot = {
 
         add_etag: function(basic_tag, tag_def) {
             // create a new tag
-            var tag = app_hotpot.make_etag(basic_tag, tag_def, this.anns[this.ann_idx]);
+            var tag = app_hotpot.make_etag(
+                basic_tag, 
+                tag_def, 
+                this.anns[this.ann_idx]
+            );
 
             // add this tag to ann
             this.anns[this.ann_idx].tags.push(tag);
@@ -629,6 +656,28 @@ var app_hotpot = {
 
             // update the cm
             app_hotpot.cm_update_marks();
+        },
+
+        add_nc_etag: function(etag_def) {
+            var etag = app_hotpot.make_empty_etag_by_tag_def(etag_def);
+
+            // set to nc 
+            etag.spans = dtd_parser.NON_CONSUMING_SPANS;
+
+            // create an tag_id
+            var tag_id = ann_parser.get_next_tag_id(
+                this.anns[this.ann_idx],
+                etag_def
+            );
+            etag.id = tag_id;
+            
+            // add to list
+            this.anns[this.ann_idx].tags.push(etag);
+
+            // mark _has_saved
+            this.anns[this.ann_idx]._has_saved = false;
+
+            // ok, that's all?
         },
 
         add_empty_etag: function(etag_def) {
@@ -1026,42 +1075,21 @@ var app_hotpot = {
         },
 
         download_text_tsv: function() {
-            // convert the hint dict to a json obj
-            var json = [];
-
-            for (const tag_name in this.hint_dict) {
-                if (Object.hasOwnProperty.call(this.hint_dict, tag_name)) {
-                    const tag_dict = this.hint_dict[tag_name];
-                    
-                    for (const tag_text in tag_dict.text_dict) {
-                        if (Object.hasOwnProperty.call(tag_dict.text_dict, tag_text)) {
-                            const tag = tag_dict.text_dict[tag_text];
-                            
-                            json.push({
-                                tag: tag_name,
-                                text: tag_text,
-                                count: tag.count
-                            });
-                        }
-                    }
-                }
-            }
-
-            // then convert the json to csv
-            var csv = Papa.unparse(json, {
-                delimiter: '\t'
-            });
+            var fn = this.get_ruleset_base_name() + '_text.tsv';
+            var txt_tsv = nlp_toolkit.download_text_tsv(
+                this.anns,
+                this.dtd,
+                this.hint_dict,
+                fn
+            );
 
             // update the text
-            this.export_text = csv;
-
-            // download this csv
-            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            var fn = this.get_ruleset_base_name() + '.tsv';
-            saveAs(blob, fn);
+            this.export_text = txt_tsv;
         },
 
         download_text_sent_tsv: function() {
+            var fn = this.get_ruleset_base_name() + '_text_sentence.tsv';
+            
             // convert the hint dict to a json obj
             var json = [];
 
@@ -1128,7 +1156,6 @@ var app_hotpot = {
 
             // download this csv
             var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            var fn = this.get_ruleset_base_name() + '_text_sent.tsv';
             saveAs(blob, fn);
         },
 
@@ -1179,6 +1206,21 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Menu Related
         /////////////////////////////////////////////////////////////////
+        get_nc_etags: function() {
+            var nc_etags = [];
+            // no dtd yet?
+            if (this.dtd == null) { return []; }
+            // no file selected yet?
+            if (this.ann_idx == null) { return []; }
+            for (let i = 0; i < this.dtd.etags.length; i++) {
+                const etag = this.dtd.etags[i];
+                if (etag.is_non_consuming) {
+                    nc_etags.push(etag);
+                }
+            }
+            return nc_etags;
+        },
+
         switch_mui: function(section) {
             console.log('* switch to section', section);
             this.section = section;
@@ -1193,6 +1235,7 @@ var app_hotpot = {
 
         close_ctxmenu: function() {
             app_hotpot.ctxmenu_sel.hide();
+            app_hotpot.ctxmenu_nce.hide();
         },
 
         close_popmenu: function() {
@@ -1565,6 +1608,9 @@ var app_hotpot = {
     // the context menu for selection
     ctxmenu_sel: null,
 
+    // the context menu for nc etags
+    ctxmenu_nce: null,
+
     // the popup menu for tag
     popmenu_tag: null,
 
@@ -1619,8 +1665,21 @@ var app_hotpot = {
             // update the selection texts
             var selection = app_hotpot.cm_get_selection(inst);
             if (selection.sel_txts == '') {
-                // nothing selected for tag, skip
-                return;
+                // if there is/are non-consuming tags
+                // which makes it a document-level annotation
+                // show the menu here
+                if (app_hotpot.vpp.get_nc_etags().length>0) {
+                    // show
+                    var mouseX = evt.clientX;
+                    var mouseY = evt.clientY;
+                    app_hotpot.show_nce_ctxmenu(mouseX, mouseY);
+                    return;
+
+                } else {
+                    // nothing selected and there is no NC etag
+                    return;
+                }
+
             }
             // show the menu
             var mouseX = evt.clientX;
@@ -1646,6 +1705,9 @@ var app_hotpot = {
 
         // update the context menu
         this.update_tag_ctxmenu();
+
+        // update the context menu
+        this.update_nce_ctxmenu();
 
         // update the pop menu
         this.update_tag_popmenu();
@@ -1740,6 +1802,9 @@ var app_hotpot = {
                 // close the right click menu
                 if (app_hotpot.ctxmenu_sel != null) {
                     app_hotpot.ctxmenu_sel.hide();
+                }
+                if (app_hotpot.ctxmenu_nce != null) {
+                    app_hotpot.ctxmenu_nce.hide();
                 }
                 if (app_hotpot.popmenu_tag != null) {
                     app_hotpot.popmenu_tag.hide();
@@ -1990,6 +2055,12 @@ var app_hotpot = {
                     let items = event.dataTransfer.items;
         
                     for (let i=0; i<items.length; i++) {
+                        // check ext first
+                        let fileEntry = items[i].webkitGetAsEntry();
+                        if (!app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
+                            app_hotpot.msg('Skipped non-XML file ' + fileEntry.name, 'warning');
+                            continue;
+                        }
                         // we have two ways of loading data
                         // first using the basic entry
                         // second using the fs handle
@@ -2041,7 +2112,30 @@ var app_hotpot = {
                                 } else {
                                     // should be a dtd file
                                     // so item is a fileEntry
-                                    app_hotpot.parse_dtd_file_entry(item);
+                                    var new_fn = item.name;
+                                    app_hotpot.read_file_async(item, (function(new_fn, iaa_id){
+                                        return function(evt) {
+                                            var xml = evt.target.result;
+                            
+                                            // try to parse this xml file
+                                            var ann = ann_parser.xml2ann(
+                                                xml, 
+                                                app_hotpot.vpp.$data.dtd
+                                            );
+                        
+                                            // post processing
+                                            // we don't have fh due to using fileEntry
+                                            ann._fh = null;
+                                            ann._filename = new_fn;
+                                            ann._has_saved = true;
+                                            var result = nlp_toolkit.sent_tokenize(ann.text);
+                                            ann._sentences = result.sentences;
+                                            ann._sentences_text = result.sentences_text;
+                                            
+                                            // ok, add this the dtd for annotator
+                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                        }
+                                    })(new_fn, iaa_id));
                                 }
                             }
                         }
@@ -2292,14 +2386,21 @@ var app_hotpot = {
     },
 
     show_tag_ctxmenu: function(x, y) {
-        console.log("* show ctx menu on ", x, y);
+        console.log("* show tag ctx menu on ", x, y);
         this.ctxmenu_sel.css('left', (x + 10) + 'px')
             .css('top', y + 'px')
             .show('drop', {}, 200, null);
     },
 
+    show_nce_ctxmenu: function(x, y) {
+        console.log("* show nce ctx menu on ", x, y);
+        this.ctxmenu_nce.css('left', (x + 10) + 'px')
+            .css('top', y + 'px')
+            .show('drop', {}, 200, null);
+    },
+
     show_tag_popmenu: function(x, y) {
-        console.log("* show pop menu on ", x, y);
+        console.log("* show tag pop menu on ", x, y);
         this.popmenu_tag.css('left', (x + 10) + 'px')
             .css('top', y + 'px')
             .show('drop', {}, 200, null);
@@ -2308,6 +2409,13 @@ var app_hotpot = {
     update_tag_ctxmenu: function() {
         // update the context menu
         this.ctxmenu_sel = $('#ctxmenu_sel').menu({
+            items: "> :not(.ui-widget-header)"
+        });
+    },
+
+    update_nce_ctxmenu: function() {
+        // update the context menu
+        this.ctxmenu_nce = $('#ctxmenu_nce').menu({
             items: "> :not(.ui-widget-header)"
         });
     },

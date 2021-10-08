@@ -5,6 +5,12 @@
 <TAGS>
 <SVRT spans="691~695" text="mild" id="S2" severity="NA" comment="NA"/>
 <AE spans="696~700" text="pain" id="A0" certainty="positive" comment="NA"/>
-<LK_AE_SVRT id="L0" comment="NA"/>
+<AE spans="1102~1110" text="headache" id="A1" certainty="positive" comment="NA"/>
+<AE spans="1115~1120" text="fever" id="A2" certainty="positive" comment="NA"/>
+<AE spans="1432~1440" text="sore arm" id="A3" certainty="positive" comment="NA"/>
+<SVRT spans="1784~1788" text="mild" id="S3" severity="NA" comment="NA"/>
+<AE spans="1789~1793" text="pain" id="A4" certainty="positive" comment="NA"/>
+<LK_AE_SVRT id="L0" link_AEID="A4" link_AEText="pain" link_SVRTID="S3" link_SVRTText="mild" comment="NA"/>
+<LK_AE_SVRT id="L1" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="mild" comment="NA"/>
 </TAGS>
 </COVID_VAX_AE>

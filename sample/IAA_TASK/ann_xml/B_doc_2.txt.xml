@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[Soreness in arm; Body aches; This is a spontaneous report received from a contactable (patient) via a Pfizer-sponsored program. A female patient of an unspecified age received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date not reported), via an unspecified route of administration, on 15Jan2021, at single dose, for COVID-19 immunization. The patient medical history and concomitant medications were not reported. The patient experienced soreness in arm and body aches on 15Jan2021. The patient took ibuprofen. The outcome of the events was unknown.  Information on the batch/lot number has been requested.]]></TEXT>
+<TAGS>
+<OTHER_AE spans="462~477" text="Soreness in arm" id="O0" comment=""/>
+<MEDICATION spans="524~533" text="ibuprofen" id="M0" comment=""/>
+<PAIN spans="482~492" text="Body aches" id="P0" comment=""/>
+<VAX spans="176~184" text="BNT162B2" id="V0" comment=""/>
+</TAGS>
+</VAX_AE_MED>

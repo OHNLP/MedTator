@@ -46,7 +46,7 @@
 
                                 <a href="javascript:void(0);"
                                     v-show="!ann._has_saved" 
-                                    v-on:click="save_xml"
+                                    v-on:click="save_xml_by_idx(idx)"
                                     title="Save this annotation file"
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
@@ -222,7 +222,12 @@
                             {{ tag.id }}
                         </td>
                         <td>
-                            {{ tag.spans }}
+                            <span v-if="tag.spans=='-1~-1'">
+                                DOCUMENT
+                            </span>
+                            <span v-else>
+                                {{ tag.spans }}
+                            </span>
                         </td>
                         <td class="td-text">
                             {{ tag.text }}

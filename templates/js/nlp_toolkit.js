@@ -256,6 +256,53 @@ var nlp_toolkit = {
         return false;
     },
 
+    download_text_tsv: function(anns, dtd, hint_dict, fn) {
+        // convert the hint dict to a json obj
+        var json = [];
+
+        for (const tag_name in hint_dict) {
+            if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                const tag_dict = hint_dict[tag_name];
+                
+                for (const tag_text in tag_dict.text_dict) {
+                    if (Object.hasOwnProperty.call(tag_dict.text_dict, tag_text)) {
+                        const tag = tag_dict.text_dict[tag_text];
+                        
+                        json.push({
+                            tag: tag_name,
+                            text: tag_text,
+                            count: tag.count
+                        });
+                    }
+                }
+
+                // the nc tag
+                for (const fn in tag_dict.nc_dict.ann_fn_dict) {
+                    if (Object.hasOwnProperty.call(tag_dict.nc_dict.ann_fn_dict, fn)) {
+                        const count = tag_dict.nc_dict.ann_fn_dict[fn];
+                        
+                        json.push({
+                            tag: tag_name,
+                            text: fn,
+                            count: count
+                        });
+                    }
+                }
+            }
+        }
+
+        // then convert the json to csv
+        var tsv = Papa.unparse(json, {
+            delimiter: '\t'
+        });
+
+        // download this tsv
+        var blob = new Blob([tsv], {type: "text/tsv;charset=utf-8"});
+        saveAs(blob, fn);
+
+        return tsv;
+    },
+
     /**
      * Download the BIO format dataset
      * 

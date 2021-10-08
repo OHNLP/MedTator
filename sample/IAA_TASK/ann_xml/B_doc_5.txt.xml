@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.]]></TEXT>
+<TAGS>
+<VAX spans="423~431" text="BNT162B2" id="V0" comment=""/>
+<VAX spans="196~204" text="BNT162B2" id="V1" comment=""/>
+<PYREXIA spans="1087~1095" text="feverish" id="PY0" comment=""/>
+<OTHER_AE spans="1119~1127" text="Soreness" id="O0" comment=""/>
+<OTHER_AE spans="1132~1142" text="tenderness" id="O1" comment=""/>
+<MEDICATION spans="1201~1207" text="Motrin" id="M0" comment=""/>
+<MEDICATION spans="1222~1233" text="Therapeutic" id="M1" comment=""/>
+<PYREXIA spans="1276~1284" text="feverish" id="PY1" comment=""/>
+<OTHER_AE spans="1308~1316" text="Soreness" id="O2" comment=""/>
+<OTHER_AE spans="1321~1331" text="tenderness" id="O3" comment=""/>
+<MEDICATION spans="758~765" text="tamiflu" id="M2" comment=""/>
+<PYREXIA spans="7~15" text="feverish" id="PY2" comment=""/>
+<OTHER_AE spans="39~47" text="Soreness" id="O4" comment=""/>
+<OTHER_AE spans="52~62" text="tenderness" id="O5" comment=""/>
+</TAGS>
+</VAX_AE_MED>

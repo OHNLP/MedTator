@@ -37,7 +37,7 @@
                     <div class="box-header">
                         <h4>
                             <i class="fa fa-list-ul"></i>
-                            Annotated Texts
+                            Annotated Tags
                         </h4>
                     </div>
                     <div v-if="dtd != null && anns.length > 0"
@@ -65,6 +65,41 @@
         
                                 <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
                                     class="ruleset-tag-info d-flex flex-row flex-wrap">
+
+                                    <!-- for the NC etags -->
+                                    <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
+                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
+                                        <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
+                                            <span class="ruleset-tag-text-count"
+                                                v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
+                                                <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
+                                                    class="fa fa-caret-down"></i>
+                                                <i v-else
+                                                    class="fa fa-caret-right"></i>
+                                                {{ hint_dict[tag_def.name].nc_dict.count }}
+                                            </span>
+                                            <span class="ruleset-tag-text-str">
+                                                <i class="far fa-file"></i>
+                                                DOC-LEVEL
+                                            </span>
+                                        </div>
+                                        <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
+                                            class="ruleset-tag-text-filelist">
+                                            <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
+                                                v-on:click="show_ann_file(fn)"
+                                                class="ruleset-tag-text-filelist-item">
+                                                <span class="ruleset-tag-text-filelist-item-count">
+                                                    {{ fn_v }}
+                                                </span>
+                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                                <span>
+                                                    {{ fn }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- for general etags -->
                                     <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
                                         class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
                                         <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
@@ -95,8 +130,8 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
-        
         
                             </div>
         

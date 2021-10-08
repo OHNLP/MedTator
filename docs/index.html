@@ -497,6 +497,12 @@ html,body {
     padding: 1px 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+#ctxmenu_nce {
+    z-index: 998;
+    position: absolute;
+    padding: 1px 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .ctxmenu-item {
     padding: 1px;
     cursor: pointer;
@@ -1228,15 +1234,39 @@ input[type=text].ipt-spinner-xs {
 
                 <div class="group">
 
-                    <button id="btn_annotation_load_sample"
-                        class="ribbon-button" 
-                        title="Load a sample dataset"
-                        v-on:click="load_sample_ds">
-                        <span class="icon">
-                            <i class="far fa-edit"></i>
-                        </span>
-                        <span class="caption">Sample</span>
-                    </button>
+                    <div class="ribbon-split-button"
+                        id="btn_annotation_load_sample">
+                        <button class="ribbon-main"
+                            title="Load a minimal task"
+                            v-on:click="load_sample_ds('MINIMAL_TASK')">
+                            <span class="icon">
+                                <i class="far fa-edit"></i>
+                            </span>
+                        </button>
+                        <span class="ribbon-split dropdown-toggle">Sample</span>
+                        <ul class="ribbon-dropdown text-left" 
+                            data-role="dropdown" 
+                            data-duration="100">
+                            <li title="A minimal annotation task"
+                                v-on:click="load_sample_ds('MINIMAL_TASK')">
+                                <a href="javascript:void(0);">Minimal Annotation Task</a>
+                            </li>
+                            <li title="A sample for entity and relation annotation"
+                                v-on:click="load_sample_ds('ENTITY_RELATION_TASK')">
+                                <a href="javascript:void(0);">Entity and Relation Annotation</a>
+                            </li>
+                            <li title=""
+                                v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK')">
+                                <a href="javascript:void(0);">Document-Level Annotation</a>
+                            </li>
+                            <li title="A sample for entity and relation annotation"
+                                v-on:click="load_sample_ds('IAA_TASK')">
+                                <a href="javascript:void(0);">IAA Calculation</a>
+                            </li>
+                            <!-- <li class="divider"></li>
+                            <li><a href="#">Columns...</a></li> -->
+                        </ul>
+                    </div>
 
                     <button class="ribbon-button" 
                         v-on:click="show_wiki">
@@ -1703,7 +1733,7 @@ input[type=text].ipt-spinner-xs {
 
                                 <a href="javascript:void(0);"
                                     v-show="!ann._has_saved" 
-                                    v-on:click="save_xml"
+                                    v-on:click="save_xml_by_idx(idx)"
                                     title="Save this annotation file"
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
@@ -1879,7 +1909,12 @@ input[type=text].ipt-spinner-xs {
                             {{ tag.id }}
                         </td>
                         <td>
-                            {{ tag.spans }}
+                            <span v-if="tag.spans=='-1~-1'">
+                                DOCUMENT
+                            </span>
+                            <span v-else>
+                                {{ tag.spans }}
+                            </span>
                         </td>
                         <td class="td-text">
                             {{ tag.text }}
@@ -2574,7 +2609,7 @@ input[type=text].ipt-spinner-xs {
                     <div class="box-header">
                         <h4>
                             <i class="fa fa-list-ul"></i>
-                            Annotated Texts
+                            Annotated Tags
                         </h4>
                     </div>
                     <div v-if="dtd != null && anns.length > 0"
@@ -2602,6 +2637,41 @@ input[type=text].ipt-spinner-xs {
         
                                 <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
                                     class="ruleset-tag-info d-flex flex-row flex-wrap">
+
+                                    <!-- for the NC etags -->
+                                    <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
+                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
+                                        <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
+                                            <span class="ruleset-tag-text-count"
+                                                v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
+                                                <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
+                                                    class="fa fa-caret-down"></i>
+                                                <i v-else
+                                                    class="fa fa-caret-right"></i>
+                                                {{ hint_dict[tag_def.name].nc_dict.count }}
+                                            </span>
+                                            <span class="ruleset-tag-text-str">
+                                                <i class="far fa-file"></i>
+                                                DOC-LEVEL
+                                            </span>
+                                        </div>
+                                        <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
+                                            class="ruleset-tag-text-filelist">
+                                            <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
+                                                v-on:click="show_ann_file(fn)"
+                                                class="ruleset-tag-text-filelist-item">
+                                                <span class="ruleset-tag-text-filelist-item-count">
+                                                    {{ fn_v }}
+                                                </span>
+                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                                <span>
+                                                    {{ fn }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- for general etags -->
                                     <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
                                         class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
                                         <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
@@ -2632,8 +2702,8 @@ input[type=text].ipt-spinner-xs {
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
-        
         
                             </div>
         
@@ -2651,8 +2721,8 @@ input[type=text].ipt-spinner-xs {
     <div v-if="dtd != null"
         style="display: none;"
         id="ctxmenu_sel">
-        <!-- <li class="ui-widget-header"
-            v-on:click="close_ctxmenu">Tags:</li> -->
+        <li class="ui-widget-header"
+            v-on:click="close_ctxmenu">Entity Tags:</li>
         <li class="ctxmenu-item"
             v-for="etag, tag_idx in dtd.etags"
             v-on:click="add_etag_by_ctxmenu(etag)">
@@ -2670,6 +2740,33 @@ input[type=text].ipt-spinner-xs {
     </div>
     <div v-else
         id="ctxmenu_sel">
+
+    </div>
+
+    <!-- the context menu for non-consuming tags -->
+    <div v-if="dtd != null && get_nc_etags().length > 0"
+        style="display: none;"
+        id="ctxmenu_nce">
+        <li class="ui-widget-header"
+            style="padding-right: 5px;"
+            v-on:click="close_ctxmenu">Document-Level Tag</li>
+        <li class="ctxmenu-item"
+            v-for="etag, tag_idx in get_nc_etags()"
+            v-on:click="add_nc_etag_by_ctxmenu(etag)">
+            <div v-bind:id="'ctxmenu-item-' + etag.name">
+                <i v-bind:class="'fa fa-tag fg-tag-' + etag.name"></i>
+                <span v-if="etag.hasOwnProperty('shortcut')"
+                    class="badge-shortcut mr-1">
+                    {{ etag.shortcut }}
+                </span>
+                <span>
+                    {{ etag.name }}
+                </span>
+            </div>
+        </li>
+    </div>
+    <div v-else
+        id="ctxmenu_nce">
 
     </div>
 
@@ -3475,6 +3572,7 @@ var dtd_parser = {
  * the `_has_saved` is added outside
  */
 var ann_parser = {
+    NON_CONSUMING_SPANS: '-1~-1',
 
     txt2ann: function(txt, dtd) {
         var ann = {
@@ -3829,20 +3927,55 @@ var ann_parser = {
     add_tag_to_hint_dict: function(ann, tag, hint_dict) {
         if (!hint_dict.hasOwnProperty(tag.tag)) {
             hint_dict[tag.tag] = {
-                text_dict: {},
+                // text only
+                text_dict: {}, 
+
+                // non-consuming dict
+                nc_dict: {
+                    count: 0,
+                    ann_fn_dict: {},
+                    _is_shown: false,
+                }, 
+
                 texts: []
             }
         }
         // empty text should be removed
         if (!tag.hasOwnProperty('text')) {
             // which means it's a link tag
+            // we can do nothing to a link tag now
             return;
         }
+
+        // now get the text and trim it
         var text = tag.text;
         text = text.trim();
         if (text == '') {
-            // just return the given hint_dict if empty text
-            return hint_dict;
+            // need to check if is a NC etag
+            if (tag.spans == this.NON_CONSUMING_SPANS) {
+                // add this nc etag
+                if (hint_dict[tag.tag].nc_dict.ann_fn_dict.hasOwnProperty(ann._filename)) {
+                    // oh, this is NOT a new file
+                    // just increase the count for this concept and file
+                    hint_dict[tag.tag].nc_dict.count += 1;
+                    hint_dict[tag.tag].nc_dict.ann_fn_dict[ann._filename] += 1
+        
+                } else {
+                    // ok, this is a new file
+                    // count +1
+                    hint_dict[tag.tag].nc_dict.count += 1;
+        
+                    // save this ann file name
+                    hint_dict[tag.tag].nc_dict.ann_fn_dict[ann._filename] = 1;
+                }
+
+                // ok, we have add this file information to the hint dict
+                return hint_dict;
+
+            } else {
+                // ok, it's just a wrong hint I guess
+                return hint_dict;
+            }
         }
 
         // add this text
@@ -5717,6 +5850,53 @@ var nlp_toolkit = {
         return false;
     },
 
+    download_text_tsv: function(anns, dtd, hint_dict, fn) {
+        // convert the hint dict to a json obj
+        var json = [];
+
+        for (const tag_name in hint_dict) {
+            if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                const tag_dict = hint_dict[tag_name];
+                
+                for (const tag_text in tag_dict.text_dict) {
+                    if (Object.hasOwnProperty.call(tag_dict.text_dict, tag_text)) {
+                        const tag = tag_dict.text_dict[tag_text];
+                        
+                        json.push({
+                            tag: tag_name,
+                            text: tag_text,
+                            count: tag.count
+                        });
+                    }
+                }
+
+                // the nc tag
+                for (const fn in tag_dict.nc_dict.ann_fn_dict) {
+                    if (Object.hasOwnProperty.call(tag_dict.nc_dict.ann_fn_dict, fn)) {
+                        const count = tag_dict.nc_dict.ann_fn_dict[fn];
+                        
+                        json.push({
+                            tag: tag_name,
+                            text: fn,
+                            count: count
+                        });
+                    }
+                }
+            }
+        }
+
+        // then convert the json to csv
+        var tsv = Papa.unparse(json, {
+            delimiter: '\t'
+        });
+
+        // download this tsv
+        var blob = new Blob([tsv], {type: "text/tsv;charset=utf-8"});
+        saveAs(blob, fn);
+
+        return tsv;
+    },
+
     /**
      * Download the BIO format dataset
      * 
@@ -6012,6 +6192,14 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
+        save_xml_by_idx: function(idx) {
+            // switch to this ann first
+            if (this.ann_idx != idx) {
+                this.ann_idx = idx;
+            }
+            // $this.$forceUpdate();
+            this.save_xml();
+        },
 
         save_xml: function() {
             // before checking, need to ensure the FSA API
@@ -6134,9 +6322,12 @@ var app_hotpot = {
             );
         },
 
-        load_sample_ds: function() {
+        load_sample_ds: function(ds_name) {
+            if (typeof(ds_name) == 'undefined') {
+                ds_name = 'MINIMAL_TASK';
+            }
             $.get(
-                './static/data/vpp_data_sample.json', 
+                './static/data/vpp_data_'+ds_name+'.json', 
                 {
                     rnd: Math.random()
                 }, 
@@ -6449,6 +6640,18 @@ var app_hotpot = {
             }
         },
 
+        add_nc_etag_by_ctxmenu: function(tag_def) {
+            this.add_nc_etag(tag_def);
+
+            // for ctxmenu, we need to remove the ctx after click
+            app_hotpot.ctxmenu_nce.hide();
+
+            // scroll the view
+            app_hotpot.scroll_annlist_to_bottom();
+
+            console.log('* added nc etag by right click, ' + tag_def.name);
+        },
+
         add_etag_by_ctxmenu: function(tag_def) {
 
             // get the basic tag
@@ -6466,7 +6669,7 @@ var app_hotpot = {
             // scroll the view
             app_hotpot.scroll_annlist_to_bottom();
 
-            console.log('* added tag by right click, ' + tag_def.name);
+            console.log('* added etag by right click, ' + tag_def.name);
         },
 
         add_etag_by_shortcut_key: function(key) {
@@ -6505,7 +6708,11 @@ var app_hotpot = {
 
         add_etag: function(basic_tag, tag_def) {
             // create a new tag
-            var tag = app_hotpot.make_etag(basic_tag, tag_def, this.anns[this.ann_idx]);
+            var tag = app_hotpot.make_etag(
+                basic_tag, 
+                tag_def, 
+                this.anns[this.ann_idx]
+            );
 
             // add this tag to ann
             this.anns[this.ann_idx].tags.push(tag);
@@ -6518,6 +6725,28 @@ var app_hotpot = {
 
             // update the cm
             app_hotpot.cm_update_marks();
+        },
+
+        add_nc_etag: function(etag_def) {
+            var etag = app_hotpot.make_empty_etag_by_tag_def(etag_def);
+
+            // set to nc 
+            etag.spans = dtd_parser.NON_CONSUMING_SPANS;
+
+            // create an tag_id
+            var tag_id = ann_parser.get_next_tag_id(
+                this.anns[this.ann_idx],
+                etag_def
+            );
+            etag.id = tag_id;
+            
+            // add to list
+            this.anns[this.ann_idx].tags.push(etag);
+
+            // mark _has_saved
+            this.anns[this.ann_idx]._has_saved = false;
+
+            // ok, that's all?
         },
 
         add_empty_etag: function(etag_def) {
@@ -6915,42 +7144,21 @@ var app_hotpot = {
         },
 
         download_text_tsv: function() {
-            // convert the hint dict to a json obj
-            var json = [];
-
-            for (const tag_name in this.hint_dict) {
-                if (Object.hasOwnProperty.call(this.hint_dict, tag_name)) {
-                    const tag_dict = this.hint_dict[tag_name];
-                    
-                    for (const tag_text in tag_dict.text_dict) {
-                        if (Object.hasOwnProperty.call(tag_dict.text_dict, tag_text)) {
-                            const tag = tag_dict.text_dict[tag_text];
-                            
-                            json.push({
-                                tag: tag_name,
-                                text: tag_text,
-                                count: tag.count
-                            });
-                        }
-                    }
-                }
-            }
-
-            // then convert the json to csv
-            var csv = Papa.unparse(json, {
-                delimiter: '\t'
-            });
+            var fn = this.get_ruleset_base_name() + '_text.tsv';
+            var txt_tsv = nlp_toolkit.download_text_tsv(
+                this.anns,
+                this.dtd,
+                this.hint_dict,
+                fn
+            );
 
             // update the text
-            this.export_text = csv;
-
-            // download this csv
-            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            var fn = this.get_ruleset_base_name() + '.tsv';
-            saveAs(blob, fn);
+            this.export_text = txt_tsv;
         },
 
         download_text_sent_tsv: function() {
+            var fn = this.get_ruleset_base_name() + '_text_sentence.tsv';
+            
             // convert the hint dict to a json obj
             var json = [];
 
@@ -7017,7 +7225,6 @@ var app_hotpot = {
 
             // download this csv
             var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            var fn = this.get_ruleset_base_name() + '_text_sent.tsv';
             saveAs(blob, fn);
         },
 
@@ -7068,6 +7275,21 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Menu Related
         /////////////////////////////////////////////////////////////////
+        get_nc_etags: function() {
+            var nc_etags = [];
+            // no dtd yet?
+            if (this.dtd == null) { return []; }
+            // no file selected yet?
+            if (this.ann_idx == null) { return []; }
+            for (let i = 0; i < this.dtd.etags.length; i++) {
+                const etag = this.dtd.etags[i];
+                if (etag.is_non_consuming) {
+                    nc_etags.push(etag);
+                }
+            }
+            return nc_etags;
+        },
+
         switch_mui: function(section) {
             console.log('* switch to section', section);
             this.section = section;
@@ -7082,6 +7304,7 @@ var app_hotpot = {
 
         close_ctxmenu: function() {
             app_hotpot.ctxmenu_sel.hide();
+            app_hotpot.ctxmenu_nce.hide();
         },
 
         close_popmenu: function() {
@@ -7454,6 +7677,9 @@ var app_hotpot = {
     // the context menu for selection
     ctxmenu_sel: null,
 
+    // the context menu for nc etags
+    ctxmenu_nce: null,
+
     // the popup menu for tag
     popmenu_tag: null,
 
@@ -7508,8 +7734,21 @@ var app_hotpot = {
             // update the selection texts
             var selection = app_hotpot.cm_get_selection(inst);
             if (selection.sel_txts == '') {
-                // nothing selected for tag, skip
-                return;
+                // if there is/are non-consuming tags
+                // which makes it a document-level annotation
+                // show the menu here
+                if (app_hotpot.vpp.get_nc_etags().length>0) {
+                    // show
+                    var mouseX = evt.clientX;
+                    var mouseY = evt.clientY;
+                    app_hotpot.show_nce_ctxmenu(mouseX, mouseY);
+                    return;
+
+                } else {
+                    // nothing selected and there is no NC etag
+                    return;
+                }
+
             }
             // show the menu
             var mouseX = evt.clientX;
@@ -7535,6 +7774,9 @@ var app_hotpot = {
 
         // update the context menu
         this.update_tag_ctxmenu();
+
+        // update the context menu
+        this.update_nce_ctxmenu();
 
         // update the pop menu
         this.update_tag_popmenu();
@@ -7629,6 +7871,9 @@ var app_hotpot = {
                 // close the right click menu
                 if (app_hotpot.ctxmenu_sel != null) {
                     app_hotpot.ctxmenu_sel.hide();
+                }
+                if (app_hotpot.ctxmenu_nce != null) {
+                    app_hotpot.ctxmenu_nce.hide();
                 }
                 if (app_hotpot.popmenu_tag != null) {
                     app_hotpot.popmenu_tag.hide();
@@ -7879,6 +8124,12 @@ var app_hotpot = {
                     let items = event.dataTransfer.items;
         
                     for (let i=0; i<items.length; i++) {
+                        // check ext first
+                        let fileEntry = items[i].webkitGetAsEntry();
+                        if (!app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
+                            app_hotpot.msg('Skipped non-XML file ' + fileEntry.name, 'warning');
+                            continue;
+                        }
                         // we have two ways of loading data
                         // first using the basic entry
                         // second using the fs handle
@@ -7930,7 +8181,30 @@ var app_hotpot = {
                                 } else {
                                     // should be a dtd file
                                     // so item is a fileEntry
-                                    app_hotpot.parse_dtd_file_entry(item);
+                                    var new_fn = item.name;
+                                    app_hotpot.read_file_async(item, (function(new_fn, iaa_id){
+                                        return function(evt) {
+                                            var xml = evt.target.result;
+                            
+                                            // try to parse this xml file
+                                            var ann = ann_parser.xml2ann(
+                                                xml, 
+                                                app_hotpot.vpp.$data.dtd
+                                            );
+                        
+                                            // post processing
+                                            // we don't have fh due to using fileEntry
+                                            ann._fh = null;
+                                            ann._filename = new_fn;
+                                            ann._has_saved = true;
+                                            var result = nlp_toolkit.sent_tokenize(ann.text);
+                                            ann._sentences = result.sentences;
+                                            ann._sentences_text = result.sentences_text;
+                                            
+                                            // ok, add this the dtd for annotator
+                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                        }
+                                    })(new_fn, iaa_id));
                                 }
                             }
                         }
@@ -8181,14 +8455,21 @@ var app_hotpot = {
     },
 
     show_tag_ctxmenu: function(x, y) {
-        console.log("* show ctx menu on ", x, y);
+        console.log("* show tag ctx menu on ", x, y);
         this.ctxmenu_sel.css('left', (x + 10) + 'px')
             .css('top', y + 'px')
             .show('drop', {}, 200, null);
     },
 
+    show_nce_ctxmenu: function(x, y) {
+        console.log("* show nce ctx menu on ", x, y);
+        this.ctxmenu_nce.css('left', (x + 10) + 'px')
+            .css('top', y + 'px')
+            .show('drop', {}, 200, null);
+    },
+
     show_tag_popmenu: function(x, y) {
-        console.log("* show pop menu on ", x, y);
+        console.log("* show tag pop menu on ", x, y);
         this.popmenu_tag.css('left', (x + 10) + 'px')
             .css('top', y + 'px')
             .show('drop', {}, 200, null);
@@ -8197,6 +8478,13 @@ var app_hotpot = {
     update_tag_ctxmenu: function() {
         // update the context menu
         this.ctxmenu_sel = $('#ctxmenu_sel').menu({
+            items: "> :not(.ui-widget-header)"
+        });
+    },
+
+    update_nce_ctxmenu: function() {
+        // update the context menu
+        this.ctxmenu_nce = $('#ctxmenu_nce').menu({
             items: "> :not(.ui-widget-header)"
         });
     },
@@ -9591,10 +9879,23 @@ var jarvis = {
         saveAs(blob, fn);
     },
 
-    save_vpp: function() {
+    save_vpp_as: function(name) {
+        if (app_hotpot.vpp.$data.dtd == null) {
+            console.log('* no dtd yet');
+        }
+        var dtd_name = app_hotpot.vpp.$data.dtd.name;
+
+        if (typeof(name) == 'undefined') {
+            name = dtd_name;
+        }
+
+        // change to upper case for better looking
+        name = name.toLocaleUpperCase();
+
+        // save it!
         this.save_json(
             app_hotpot.vpp.$data,
-            'vpp_data_sample.json'
+            'vpp_data_'+name+'.json'
         );
     }
 }

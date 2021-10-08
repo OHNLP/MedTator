@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_SYMPTOM>
+<TEXT><![CDATA[Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.]]></TEXT>
+<TAGS>
+<DIZZINESS id="D0" spans="-1~-1" text="" comment=""/>
+</TAGS>
+</VAX_SYMPTOM>

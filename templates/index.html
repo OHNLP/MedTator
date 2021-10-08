@@ -306,15 +306,39 @@
 
                 <div class="group">
 
-                    <button id="btn_annotation_load_sample"
-                        class="ribbon-button" 
-                        title="Load a sample dataset"
-                        v-on:click="load_sample_ds">
-                        <span class="icon">
-                            <i class="far fa-edit"></i>
-                        </span>
-                        <span class="caption">Sample</span>
-                    </button>
+                    <div class="ribbon-split-button"
+                        id="btn_annotation_load_sample">
+                        <button class="ribbon-main"
+                            title="Load a minimal task"
+                            v-on:click="load_sample_ds('MINIMAL_TASK')">
+                            <span class="icon">
+                                <i class="far fa-edit"></i>
+                            </span>
+                        </button>
+                        <span class="ribbon-split dropdown-toggle">Sample</span>
+                        <ul class="ribbon-dropdown text-left" 
+                            data-role="dropdown" 
+                            data-duration="100">
+                            <li title="A minimal annotation task"
+                                v-on:click="load_sample_ds('MINIMAL_TASK')">
+                                <a href="javascript:void(0);">Minimal Annotation Task</a>
+                            </li>
+                            <li title="A sample for entity and relation annotation"
+                                v-on:click="load_sample_ds('ENTITY_RELATION_TASK')">
+                                <a href="javascript:void(0);">Entity and Relation Annotation</a>
+                            </li>
+                            <li title=""
+                                v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK')">
+                                <a href="javascript:void(0);">Document-Level Annotation</a>
+                            </li>
+                            <li title="A sample for entity and relation annotation"
+                                v-on:click="load_sample_ds('IAA_TASK')">
+                                <a href="javascript:void(0);">IAA Calculation</a>
+                            </li>
+                            <!-- <li class="divider"></li>
+                            <li><a href="#">Columns...</a></li> -->
+                        </ul>
+                    </div>
 
                     <button class="ribbon-button" 
                         v-on:click="show_wiki">
@@ -752,8 +776,8 @@
     <div v-if="dtd != null"
         style="display: none;"
         id="ctxmenu_sel">
-        <!-- <li class="ui-widget-header"
-            v-on:click="close_ctxmenu">Tags:</li> -->
+        <li class="ui-widget-header"
+            v-on:click="close_ctxmenu">Entity Tags:</li>
         <li class="ctxmenu-item"
             v-for="etag, tag_idx in dtd.etags"
             v-on:click="add_etag_by_ctxmenu(etag)">
@@ -771,6 +795,33 @@
     </div>
     <div v-else
         id="ctxmenu_sel">
+
+    </div>
+
+    <!-- the context menu for non-consuming tags -->
+    <div v-if="dtd != null && get_nc_etags().length > 0"
+        style="display: none;"
+        id="ctxmenu_nce">
+        <li class="ui-widget-header"
+            style="padding-right: 5px;"
+            v-on:click="close_ctxmenu">Document-Level Tag</li>
+        <li class="ctxmenu-item"
+            v-for="etag, tag_idx in get_nc_etags()"
+            v-on:click="add_nc_etag_by_ctxmenu(etag)">
+            <div v-bind:id="'ctxmenu-item-' + etag.name">
+                <i v-bind:class="'fa fa-tag fg-tag-' + etag.name"></i>
+                <span v-if="etag.hasOwnProperty('shortcut')"
+                    class="badge-shortcut mr-1">
+                    {{ etag.shortcut }}
+                </span>
+                <span>
+                    {{ etag.name }}
+                </span>
+            </div>
+        </li>
+    </div>
+    <div v-else
+        id="ctxmenu_nce">
 
     </div>
 
@@ -1020,10 +1071,23 @@ var jarvis = {
         saveAs(blob, fn);
     },
 
-    save_vpp: function() {
+    save_vpp_as: function(name) {
+        if (app_hotpot.vpp.$data.dtd == null) {
+            console.log('* no dtd yet');
+        }
+        var dtd_name = app_hotpot.vpp.$data.dtd.name;
+
+        if (typeof(name) == 'undefined') {
+            name = dtd_name;
+        }
+
+        // change to upper case for better looking
+        name = name.toLocaleUpperCase();
+
+        // save it!
         this.save_json(
             app_hotpot.vpp.$data,
-            'vpp_data_sample.json'
+            'vpp_data_'+name+'.json'
         );
     }
 }
