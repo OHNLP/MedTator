@@ -2299,8 +2299,13 @@ var app_hotpot = {
     ],
 
     update_tag_styles: function() {
-        // get my style
-        var style = document.getElementById('app_style').sheet;
+        var elem_style = document.getElementById ("dtd_style");
+        var style = elem_style.sheet ? elem_style.sheet : elem_style.styleSheet;
+
+        // clear all rules first
+        while(style.cssRules.length>0) {
+            style.deleteRule(0);
+        }
 
         // check each tag
         var i = 0;
