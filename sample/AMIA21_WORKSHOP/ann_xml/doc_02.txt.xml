@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID_AES_AMIA>
+<TEXT><![CDATA[I woke up at 1:30 and my entire body was aching, but like each spot had its own ache -- not a general overall ache.  Very hard to describe.  I don't mean a little ache here or there.  I mean I couldn't turn on either side or flip over.  Even the backs of my hands separately ached.  I'd never felt like this before.    After 15 minutes of trying to figure out what was going on, I got up and took 2 Advils.  About 20 minutes later, the aching had subsided.]]></TEXT>
+<TAGS>
+<Pain spans="25~47" text="entire body was aching" id="P0" certainty="Positive" comment=""/>
+</TAGS>
+</COVID_AES_AMIA>

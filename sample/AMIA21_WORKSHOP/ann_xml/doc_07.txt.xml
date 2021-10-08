@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID_AES_AMIA>
+<TEXT><![CDATA[Temperature of 99 by 11:00 PM on 1/8, had a fever of 101.1 by 5:00 AM on 1/9, fever of 100 continued until 8:00 PM on 1/9]]></TEXT>
+<TAGS>
+<Pain spans="44~49" text="fever" id="P0" certainty="Positive" comment=""/>
+</TAGS>
+</COVID_AES_AMIA>

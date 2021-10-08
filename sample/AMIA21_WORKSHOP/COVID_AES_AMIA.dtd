@@ -1,0 +1,21 @@
+<!ENTITY name "COVID_AES_AMIA">
+
+<!ELEMENT Fever ( #PCDATA ) >
+<!ATTLIST Fever certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST Fever comment CDATA "">
+ 
+ 
+<!ELEMENT Pain ( #PCDATA ) >
+<!ATTLIST Pain certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST Pain comment CDATA "">
+
+
+<!ELEMENT Severity ( #PCDATA ) >
+<!ATTLIST Severity  type ( Mild | Moderate | Severe | NA ) #IMPLIED "NA" >
+<!ATTLIST Severity comment CDATA "">
+
+
+<!ELEMENT AES_lk EMPTY >
+<!ATTLIST AES_lk arg0 IDREF prefix="link_AE" #IMPLIED>
+<!ATTLIST AES_lk arg1 IDREF prefix="link_Severity" #IMPLIED>
+<!ATTLIST AES_lk comment CDATA "">

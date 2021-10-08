@@ -1,0 +1,1484 @@
+{
+    "section": "annotation",
+    "dtd": {
+        "id_prefixd": {
+            "F": {
+                "name": "Fever",
+                "type": "etag",
+                "id_prefix": "F",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "1"
+            },
+            "P": {
+                "name": "Pain",
+                "type": "etag",
+                "id_prefix": "P",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "2"
+            },
+            "S": {
+                "name": "Severity",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "type": {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    "comment": {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "3"
+            },
+            "A": {
+                "name": "AES_lk",
+                "type": "ltag",
+                "id_prefix": "A",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "link_AE": {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "link_Severity": {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "comment": {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                }
+            }
+        },
+        "name": "COVID_AES_AMIA",
+        "tag_dict": {
+            "Fever": {
+                "name": "Fever",
+                "type": "etag",
+                "id_prefix": "F",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "1"
+            },
+            "Pain": {
+                "name": "Pain",
+                "type": "etag",
+                "id_prefix": "P",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "2"
+            },
+            "Severity": {
+                "name": "Severity",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "type": {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    "comment": {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "3"
+            },
+            "AES_lk": {
+                "name": "AES_lk",
+                "type": "ltag",
+                "id_prefix": "A",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "link_AE": {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "link_Severity": {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "comment": {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                }
+            }
+        },
+        "etags": [
+            {
+                "name": "Fever",
+                "type": "etag",
+                "id_prefix": "F",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Fever",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Fever",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "1"
+            },
+            {
+                "name": "Pain",
+                "type": "etag",
+                "id_prefix": "P",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "Pain",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    "comment": {
+                        "element": "Pain",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "2"
+            },
+            {
+                "name": "Severity",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "type": {
+                        "element": "Severity",
+                        "name": "type",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Mild",
+                            "Moderate",
+                            "Severe",
+                            "NA"
+                        ],
+                        "default_value": "NA"
+                    },
+                    "comment": {
+                        "element": "Severity",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                },
+                "shortcut": "3"
+            }
+        ],
+        "ltags": [
+            {
+                "name": "AES_lk",
+                "type": "ltag",
+                "id_prefix": "A",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                ],
+                "attlist_dict": {
+                    "link_AE": {
+                        "element": "AES_lk",
+                        "name": "link_AE",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "link_Severity": {
+                        "element": "AES_lk",
+                        "name": "link_Severity",
+                        "type": "attr",
+                        "vtype": "idref",
+                        "require": "IMPLIED",
+                        "values": [],
+                        "default_value": ""
+                    },
+                    "comment": {
+                        "element": "AES_lk",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": ""
+                    }
+                }
+            }
+        ]
+    },
+    "ann_idx": 0,
+    "anns": [
+        {
+            "text": "Received shot in left arm. About one hour after receiving the shot, I started getting very severe pain in my upper right arm that slowly spread to the right side of my neck. My right ear began to feel slightly funny, but no pain. Was going to the hospital but the all the pain went away after about 15 to 20 minutes. No problems after that so I didn't go to the hospital. I did not take any medication.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "98~102",
+                    "text": "pain",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Severity",
+                    "spans": "91~97",
+                    "text": "severe",
+                    "id": "S0",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "AES_lk",
+                    "id": "A0",
+                    "link_AE": "P0",
+                    "link_Severity": "S0",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_01.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Received shot in left arm.",
+                    "spans": {
+                        "start": 0,
+                        "end": 26
+                    }
+                },
+                {
+                    "text": "About one hour after receiving the shot, I started getting very severe pain in my upper right arm that slowly spread to the right side of my neck.",
+                    "spans": {
+                        "start": 27,
+                        "end": 173
+                    }
+                },
+                {
+                    "text": "My right ear began to feel slightly funny, but no pain.",
+                    "spans": {
+                        "start": 174,
+                        "end": 229
+                    }
+                },
+                {
+                    "text": "Was going to the hospital but the all the pain went away after about 15 to 20 minutes.",
+                    "spans": {
+                        "start": 230,
+                        "end": 316
+                    }
+                },
+                {
+                    "text": "No problems after that so I didn't go to the hospital.",
+                    "spans": {
+                        "start": 317,
+                        "end": 371
+                    }
+                },
+                {
+                    "text": "I did not take any medication.",
+                    "spans": {
+                        "start": 372,
+                        "end": 402
+                    }
+                }
+            ],
+            "_sentences_text": "Received shot in left arm.\nAbout one hour after receiving the shot, I started getting very severe pain in my upper right arm that slowly spread to the right side of my neck.\nMy right ear began to feel slightly funny, but no pain.\nWas going to the hospital but the all the pain went away after about 15 to 20 minutes.\nNo problems after that so I didn't go to the hospital.\nI did not take any medication."
+        },
+        {
+            "text": "I woke up at 1:30 and my entire body was aching, but like each spot had its own ache -- not a general overall ache.  Very hard to describe.  I don't mean a little ache here or there.  I mean I couldn't turn on either side or flip over.  Even the backs of my hands separately ached.  I'd never felt like this before.    After 15 minutes of trying to figure out what was going on, I got up and took 2 Advils.  About 20 minutes later, the aching had subsided.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "25~47",
+                    "text": "entire body was aching",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_02.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "I woke up at 1:30 and my entire body was aching, but like each spot had its own ache -- not a general overall ache.",
+                    "spans": {
+                        "start": 0,
+                        "end": 115
+                    }
+                },
+                {
+                    "text": "Very hard to describe.",
+                    "spans": {
+                        "start": 117,
+                        "end": 139
+                    }
+                },
+                {
+                    "text": "I don't mean a little ache here or there.",
+                    "spans": {
+                        "start": 141,
+                        "end": 182
+                    }
+                },
+                {
+                    "text": "I mean I couldn't turn on either side or flip over.",
+                    "spans": {
+                        "start": 184,
+                        "end": 235
+                    }
+                },
+                {
+                    "text": "Even the backs of my hands separately ached.",
+                    "spans": {
+                        "start": 237,
+                        "end": 281
+                    }
+                },
+                {
+                    "text": "I'd never felt like this before",
+                    "spans": {
+                        "start": 283,
+                        "end": 314
+                    }
+                },
+                {
+                    "text": "After 15 minutes of trying to figure out what was going on, I got up and took 2 Advils.",
+                    "spans": {
+                        "start": 319,
+                        "end": 406
+                    }
+                },
+                {
+                    "text": "About 20 minutes later, the aching had subsided.",
+                    "spans": {
+                        "start": 408,
+                        "end": 456
+                    }
+                }
+            ],
+            "_sentences_text": "I woke up at 1:30 and my entire body was aching, but like each spot had its own ache -- not a general overall ache.\nVery hard to describe.\nI don't mean a little ache here or there.\nI mean I couldn't turn on either side or flip over.\nEven the backs of my hands separately ached.\nI'd never felt like this before\nAfter 15 minutes of trying to figure out what was going on, I got up and took 2 Advils.\nAbout 20 minutes later, the aching had subsided."
+        },
+        {
+            "text": "Body aches, fever 101.1. No treatment. outcome mild improvement repeat temp 100.4",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "0~10",
+                    "text": "Body aches",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "12~17",
+                    "text": "fever",
+                    "id": "P1",
+                    "certainty": "Positive",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_03.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Body aches, fever 101.1.",
+                    "spans": {
+                        "start": 0,
+                        "end": 24
+                    }
+                },
+                {
+                    "text": "No treatment.",
+                    "spans": {
+                        "start": 25,
+                        "end": 38
+                    }
+                },
+                {
+                    "text": "outcome mild improvement repeat temp 100.4",
+                    "spans": {
+                        "start": 39,
+                        "end": 81
+                    }
+                }
+            ],
+            "_sentences_text": "Body aches, fever 101.1.\nNo treatment.\noutcome mild improvement repeat temp 100.4"
+        },
+        {
+            "text": "Severe body aches 24 hours after the vaccine was administered.  These aches lasted throughout the day.  I took three doses of 800mg Ibuprofen and tow doses of 1000mg Tylenol to get through the day.  They were gone by the next morning (48 hours after administration) and no additional pain medicine was needed.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Severity",
+                    "spans": "0~6",
+                    "text": "severe",
+                    "id": "S0",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "7~17",
+                    "text": "Body aches",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "AES_lk",
+                    "id": "A0",
+                    "link_AE": "P0",
+                    "link_Severity": "S0",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_04.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Severe body aches 24 hours after the vaccine was administered.",
+                    "spans": {
+                        "start": 0,
+                        "end": 62
+                    }
+                },
+                {
+                    "text": "These aches lasted throughout the day.",
+                    "spans": {
+                        "start": 64,
+                        "end": 102
+                    }
+                },
+                {
+                    "text": "I took three doses of 800mg Ibuprofen and tow doses of 1000mg Tylenol to get through the day.",
+                    "spans": {
+                        "start": 104,
+                        "end": 197
+                    }
+                },
+                {
+                    "text": "They were gone by the next morning (48 hours after administration) and no additional pain medicine was needed.",
+                    "spans": {
+                        "start": 199,
+                        "end": 309
+                    }
+                }
+            ],
+            "_sentences_text": "Severe body aches 24 hours after the vaccine was administered.\nThese aches lasted throughout the day.\nI took three doses of 800mg Ibuprofen and tow doses of 1000mg Tylenol to get through the day.\nThey were gone by the next morning (48 hours after administration) and no additional pain medicine was needed."
+        },
+        {
+            "text": "Sciatica nerve pain throbbing constantly from left butt down left leg to my calf.  Started February 16th, strong pain (just bearable).  Starting February 20th, pain slightly subsided and just painful during walking.  Starting February 22nd (today), slightly less painful. I am hoping this is not permanent...",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "9~19",
+                    "text": "nerve pain",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "113~117",
+                    "text": "pain",
+                    "id": "P1",
+                    "certainty": "Positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Severity",
+                    "spans": "106~112",
+                    "text": "strong",
+                    "id": "S0",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "AES_lk",
+                    "id": "A0",
+                    "link_AE": "P1",
+                    "link_Severity": "S0",
+                    "comment": ""
+                },
+                {
+                    "tag": "Severity",
+                    "spans": "263~270",
+                    "text": "painful",
+                    "id": "S1",
+                    "type": "NA",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_05.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Sciatica nerve pain throbbing constantly from left butt down left leg to my calf.",
+                    "spans": {
+                        "start": 0,
+                        "end": 81
+                    }
+                },
+                {
+                    "text": "Started February 16th, strong pain (just bearable).",
+                    "spans": {
+                        "start": 83,
+                        "end": 134
+                    }
+                },
+                {
+                    "text": "Starting February 20th, pain slightly subsided and just painful during walking.",
+                    "spans": {
+                        "start": 136,
+                        "end": 215
+                    }
+                },
+                {
+                    "text": "Starting February 22nd (today), slightly less painful.",
+                    "spans": {
+                        "start": 217,
+                        "end": 271
+                    }
+                },
+                {
+                    "text": "I am hoping this is not permanent...",
+                    "spans": {
+                        "start": 272,
+                        "end": 308
+                    }
+                }
+            ],
+            "_sentences_text": "Sciatica nerve pain throbbing constantly from left butt down left leg to my calf.\nStarted February 16th, strong pain (just bearable).\nStarting February 20th, pain slightly subsided and just painful during walking.\nStarting February 22nd (today), slightly less painful.\nI am hoping this is not permanent..."
+        },
+        {
+            "text": "Last Friday low grade 100.5 fever about 10 hours after vaccination. Fever went away over night. Broke out in hives all over body about 24 hours after vaccination. Have taken Benadryl twice, hives are going away. Woke up on Monday night with muscle pain in left shoulder, neck. Continues through Tuesday off and on.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Severity",
+                    "spans": "22~27",
+                    "text": "100.5",
+                    "id": "S0",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "Severity",
+                    "spans": "12~21",
+                    "text": "low grade",
+                    "id": "S1",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "Severity",
+                    "spans": "241~252",
+                    "text": "muscle pain",
+                    "id": "S2",
+                    "type": "NA",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "28~33",
+                    "text": "fever",
+                    "id": "F0",
+                    "certainty": "Positive",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_06.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Last Friday low grade 100.5 fever about 10 hours after vaccination.",
+                    "spans": {
+                        "start": 0,
+                        "end": 67
+                    }
+                },
+                {
+                    "text": "Fever went away over night.",
+                    "spans": {
+                        "start": 68,
+                        "end": 95
+                    }
+                },
+                {
+                    "text": "Broke out in hives all over body about 24 hours after vaccination.",
+                    "spans": {
+                        "start": 96,
+                        "end": 162
+                    }
+                },
+                {
+                    "text": "Have taken Benadryl twice, hives are going away.",
+                    "spans": {
+                        "start": 163,
+                        "end": 211
+                    }
+                },
+                {
+                    "text": "Woke up on Monday night with muscle pain in left shoulder, neck.",
+                    "spans": {
+                        "start": 212,
+                        "end": 276
+                    }
+                },
+                {
+                    "text": "Continues through Tuesday off and on.",
+                    "spans": {
+                        "start": 277,
+                        "end": 314
+                    }
+                }
+            ],
+            "_sentences_text": "Last Friday low grade 100.5 fever about 10 hours after vaccination.\nFever went away over night.\nBroke out in hives all over body about 24 hours after vaccination.\nHave taken Benadryl twice, hives are going away.\nWoke up on Monday night with muscle pain in left shoulder, neck.\nContinues through Tuesday off and on."
+        },
+        {
+            "text": "Temperature of 99 by 11:00 PM on 1/8, had a fever of 101.1 by 5:00 AM on 1/9, fever of 100 continued until 8:00 PM on 1/9",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "44~49",
+                    "text": "fever",
+                    "id": "P0",
+                    "certainty": "Positive",
+                    "comment": ""
+                }
+            ],
+            "_fh": {},
+            "_filename": "doc_07.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Temperature of 99 by 11:00 PM on 1/8, had a fever of 101.1 by 5:00 AM on 1/9, fever of 100 continued until 8:00 PM on 1/9",
+                    "spans": {
+                        "start": 0,
+                        "end": 121
+                    }
+                }
+            ],
+            "_sentences_text": "Temperature of 99 by 11:00 PM on 1/8, had a fever of 101.1 by 5:00 AM on 1/9, fever of 100 continued until 8:00 PM on 1/9"
+        },
+        {
+            "text": "Fever onset approx 4 hours and have had high grade and low grade fevers since.  Taking tylenol every 4-6 hours.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [],
+            "_fh": {},
+            "_filename": "doc_08.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Fever onset approx 4 hours and have had high grade and low grade fevers since.",
+                    "spans": {
+                        "start": 0,
+                        "end": 78
+                    }
+                },
+                {
+                    "text": "Taking tylenol every 4-6 hours.",
+                    "spans": {
+                        "start": 80,
+                        "end": 111
+                    }
+                }
+            ],
+            "_sentences_text": "Fever onset approx 4 hours and have had high grade and low grade fevers since.\nTaking tylenol every 4-6 hours."
+        },
+        {
+            "text": "High high high fever. exceeded 105 while i was sleeping. I've been taking advil and Tylenol to try to get it under control. I'm also eating ice cream and using an ice pack.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [],
+            "_fh": {},
+            "_filename": "doc_09.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "High high high fever.",
+                    "spans": {
+                        "start": 0,
+                        "end": 21
+                    }
+                },
+                {
+                    "text": "exceeded 105 while i was sleeping.",
+                    "spans": {
+                        "start": 22,
+                        "end": 56
+                    }
+                },
+                {
+                    "text": "I've been taking advil and Tylenol to try to get it under control",
+                    "spans": {
+                        "start": 57,
+                        "end": 122
+                    }
+                },
+                {
+                    "text": "I'm also eating ice cream and using an ice pack",
+                    "spans": {
+                        "start": 124,
+                        "end": 171
+                    }
+                }
+            ],
+            "_sentences_text": "High high high fever.\nexceeded 105 while i was sleeping.\nI've been taking advil and Tylenol to try to get it under control\nI'm also eating ice cream and using an ice pack"
+        },
+        {
+            "text": "I developed a fever of 102 the evening after getting the vaccine. I went to bed with fluids and advil and woke with not further issues.",
+            "dtd_name": "COVID_AES_AMIA",
+            "tags": [],
+            "_fh": {},
+            "_filename": "doc_10.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "I developed a fever of 102 the evening after getting the vaccine.",
+                    "spans": {
+                        "start": 0,
+                        "end": 65
+                    }
+                },
+                {
+                    "text": "I went to bed with fluids and advil and woke with not further issues.",
+                    "spans": {
+                        "start": 66,
+                        "end": 135
+                    }
+                }
+            ],
+            "_sentences_text": "I developed a fever of 102 the evening after getting the vaccine.\nI went to bed with fluids and advil and woke with not further issues."
+        }
+    ],
+    "display_tag_name": "__all__",
+    "hints": [
+        {
+            "id": "hint-Pain-0-1",
+            "tag": "Pain",
+            "text": "pain",
+            "spans": "224~228"
+        },
+        {
+            "id": "hint-Pain-0-2",
+            "tag": "Pain",
+            "text": "pain",
+            "spans": "272~276"
+        }
+    ],
+    "hint_dict": {
+        "Pain": {
+            "text_dict": {
+                "pain": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1,
+                        "doc_05.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "entire body was aching": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Body aches": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_03.txt.xml": 1,
+                        "doc_04.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "fever": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_03.txt.xml": 1,
+                        "doc_07.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "nerve pain": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_05.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "pain",
+                "entire body was aching",
+                "Body aches",
+                "fever",
+                "nerve pain"
+            ]
+        },
+        "Severity": {
+            "text_dict": {
+                "severe": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_01.txt.xml": 1,
+                        "doc_04.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "strong": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_05.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "painful": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_05.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "100.5": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_06.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "low grade": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_06.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "muscle pain": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_06.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "severe",
+                "strong",
+                "painful",
+                "100.5",
+                "low grade",
+                "muscle pain"
+            ]
+        },
+        "AES_lk": {
+            "text_dict": {},
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": []
+        },
+        "Fever": {
+            "text_dict": {
+                "fever": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_06.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "fever"
+            ]
+        }
+    },
+    "clicked_tag_id": null,
+    "is_linking": false,
+    "linking_tag_def": null,
+    "linking_tag": null,
+    "linking_atts": [],
+    "pan_working_tag": {
+        "pos": {
+            "movementX": 0,
+            "movementY": 0
+        }
+    },
+    "txt_anns": [],
+    "txt_xmls": [],
+    "txt_xml_prefix": "",
+    "txt_xml_suffix": "",
+    "fn_pattern": "",
+    "iaa_ann_list": [
+        {
+            "anns": [],
+            "name": "A"
+        },
+        {
+            "anns": [],
+            "name": "B"
+        }
+    ],
+    "iaa_dict": null,
+    "iaa_display_tag_name": "__all__",
+    "iaa_match_mode": "overlap",
+    "iaa_overlap_ratio": 50,
+    "iaa_overlap_ratio_default": 50,
+    "iaa_display_hashcode": null,
+    "iaa_display_tags_context": true,
+    "iaa_display_tags_tp": false,
+    "iaa_display_adj_panel": true,
+    "iaa_display_adj_detail": false,
+    "force_module_update": 0.23441040806366242,
+    "iaa_gs_dict": null,
+    "cm": {
+        "display_mode": "document",
+        "mark_mode": "node",
+        "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
+        "enabled_links": true,
+        "enabled_link_name": true,
+        "enabled_link_complex": true,
+        "is_expire": false
+    },
+    "export_text": null
+}
