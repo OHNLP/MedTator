@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<COVID_AES_AMIA>
+<COVID_AE_AMIA>
 <TEXT><![CDATA[High high high fever. exceeded 105 while i was sleeping. I've been taking advil and Tylenol to try to get it under control. I'm also eating ice cream and using an ice pack.]]></TEXT>
-<TAGS/>
-</COVID_AES_AMIA>
+<TAGS>
+<Fever spans="15~20" text="fever" id="F0" certainty="Positive"/>
+</TAGS>
+</COVID_AE_AMIA>

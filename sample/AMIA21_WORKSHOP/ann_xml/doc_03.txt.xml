@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<COVID_AES_AMIA>
+<COVID_AE_AMIA>
 <TEXT><![CDATA[Body aches, fever 101.1. No treatment. outcome mild improvement repeat temp 100.4]]></TEXT>
 <TAGS>
-<Pain spans="0~10" text="Body aches" id="P0" certainty="Positive" comment=""/>
-<Pain spans="12~17" text="fever" id="P1" certainty="Positive" comment=""/>
+<Fever spans="12~17" text="fever" id="F0" certainty="Positive"/>
 </TAGS>
-</COVID_AES_AMIA>
+</COVID_AE_AMIA>

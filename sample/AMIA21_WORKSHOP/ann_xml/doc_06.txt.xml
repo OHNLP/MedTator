@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<COVID_AES_AMIA>
+<COVID_AE_AMIA>
 <TEXT><![CDATA[Last Friday low grade 100.5 fever about 10 hours after vaccination. Fever went away over night. Broke out in hives all over body about 24 hours after vaccination. Have taken Benadryl twice, hives are going away. Woke up on Monday night with muscle pain in left shoulder, neck. Continues through Tuesday off and on.]]></TEXT>
 <TAGS>
-<Severity spans="22~27" text="100.5" id="S0" type="NA" comment=""/>
-<Severity spans="12~21" text="low grade" id="S1" type="NA" comment=""/>
-<Severity spans="241~252" text="muscle pain" id="S2" type="NA" comment=""/>
-<Fever spans="28~33" text="fever" id="F0" certainty="Positive" comment=""/>
+<Fever spans="28~33" text="fever" id="F0" certainty="Positive"/>
+<Pain spans="241~252" text="muscle pain" id="P0" certainty="Positive"/>
 </TAGS>
-</COVID_AES_AMIA>
+</COVID_AE_AMIA>

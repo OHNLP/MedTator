@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<COVID_AES_AMIA>
+<COVID_AE_AMIA>
 <TEXT><![CDATA[Received shot in left arm. About one hour after receiving the shot, I started getting very severe pain in my upper right arm that slowly spread to the right side of my neck. My right ear began to feel slightly funny, but no pain. Was going to the hospital but the all the pain went away after about 15 to 20 minutes. No problems after that so I didn't go to the hospital. I did not take any medication.]]></TEXT>
 <TAGS>
-<Pain spans="98~102" text="pain" id="P0" certainty="Positive" comment=""/>
-<Severity spans="91~97" text="severe" id="S0" type="NA" comment=""/>
-<AES_lk id="A0" link_AEID="P0" link_AEText="pain" link_SeverityID="S0" link_SeverityText="severe" comment=""/>
+<Severity spans="91~97" text="severe" id="S0" type="NA"/>
+<Pain spans="98~102" text="pain" id="P0" certainty="Positive"/>
+<AE_lk id="A0" PainID="P0" PainText="pain" Pain_SeverityID="S0" Pain_SeverityText="severe"/>
 </TAGS>
-</COVID_AES_AMIA>
+</COVID_AE_AMIA>

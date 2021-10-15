@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<COVID_AES_AMIA>
+<COVID_AE_AMIA>
 <TEXT><![CDATA[Fever onset approx 4 hours and have had high grade and low grade fevers since.  Taking tylenol every 4-6 hours.]]></TEXT>
-<TAGS/>
-</COVID_AES_AMIA>
+<TAGS>
+<Fever spans="0~5" text="fever" id="F0" certainty="Positive"/>
+</TAGS>
+</COVID_AE_AMIA>

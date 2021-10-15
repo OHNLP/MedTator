@@ -1,21 +1,18 @@
-<!ENTITY name "COVID_AES_AMIA">
+<!ENTITY name "COVID_AE_AMIA">
 
-<!ELEMENT Fever ( #PCDATA ) >
+<!-- Entity Tag -->
+<!ELEMENT Fever      ( #PCDATA ) >
 <!ATTLIST Fever certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
-<!ATTLIST Fever comment CDATA "">
- 
- 
-<!ELEMENT Pain ( #PCDATA ) >
-<!ATTLIST Pain certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
-<!ATTLIST Pain comment CDATA "">
 
+<!-- Entity Tag -->
+<!ELEMENT Pain       ( #PCDATA ) >
+<!ATTLIST Pain  certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
 
-<!ELEMENT Severity ( #PCDATA ) >
-<!ATTLIST Severity  type ( Mild | Moderate | Severe | NA ) #IMPLIED "NA" >
-<!ATTLIST Severity comment CDATA "">
+<!-- Entity Tag -->
+<!ELEMENT Severity   ( #PCDATA ) >
+<!ATTLIST Severity  type ( Not bothersome | Mild | Moderate | Severe | NA ) #IMPLIED "NA" >
 
-
-<!ELEMENT AES_lk EMPTY >
-<!ATTLIST AES_lk arg0 IDREF prefix="link_AE" #IMPLIED>
-<!ATTLIST AES_lk arg1 IDREF prefix="link_Severity" #IMPLIED>
-<!ATTLIST AES_lk comment CDATA "">
+<!-- Relation Tag -->
+<!ELEMENT AE_lk      EMPTY >
+<!ATTLIST AE_lk arg0 IDREF prefix="Pain" #IMPLIED>
+<!ATTLIST AE_lk arg1 IDREF prefix="Pain_Severity" #IMPLIED>
