@@ -1654,7 +1654,8 @@ var app_hotpot = {
             document.getElementById('cm_editor'), {
                 lineNumbers: true,
                 lineWrapping: true,
-                readOnly: true,
+                // readOnly: true,
+                readOnly: 'nocursor',
                 // styleActiveLine: true
             }
         );
@@ -2392,22 +2393,25 @@ var app_hotpot = {
 
     show_tag_ctxmenu: function(x, y) {
         console.log("* show tag ctx menu on ", x, y);
-        this.ctxmenu_sel.css('left', (x + 10) + 'px')
-            .css('top', y + 'px')
+        var w = this.ctxmenu_sel.width();
+        this.ctxmenu_sel.css('left', (x - 10 - w) + 'px')
+            .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
     show_nce_ctxmenu: function(x, y) {
         console.log("* show nce ctx menu on ", x, y);
-        this.ctxmenu_nce.css('left', (x + 10) + 'px')
-            .css('top', y + 'px')
+        var w = this.ctxmenu_nce.width();
+        this.ctxmenu_nce.css('left', (x - 10 - w) + 'px')
+            .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
     show_tag_popmenu: function(x, y) {
         console.log("* show tag pop menu on ", x, y);
-        this.popmenu_tag.css('left', (x + 10) + 'px')
-            .css('top', y + 'px')
+        var w = this.popmenu_tag.width();
+        this.popmenu_tag.css('left', (x - 10 - w) + 'px')
+            .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
