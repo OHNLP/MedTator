@@ -53,7 +53,7 @@ var ann_parser = {
         if (dtd.name != ann.dtd_name) {
             throw {
                 name: 'Not match given DTD',
-                message: 'The dtd (' + ann.dtd_name + ') does NOT match the given DTD (' + dtd.name + ')'
+                message: 'The task name in XML (' + ann.dtd_name + ') does NOT match the given DTD (' + dtd.name + ')'
             };
         }
 
