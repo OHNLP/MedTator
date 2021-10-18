@@ -9055,7 +9055,11 @@ var app_hotpot = {
             app_hotpot.add_ann(ann);
         }).catch(
             function(fh){return function(error) {
-                app_hotpot.msg("Couldn't read annotation in ["+ fh.name +"], " + error.name);
+                app_hotpot.msg(
+                    "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
+                    error.name + 
+                    ": " + error.message + "",
+                    'warning');
                 console.error(error);
             }}(fh)
         );

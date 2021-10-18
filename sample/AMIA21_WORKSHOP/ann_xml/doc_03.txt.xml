@@ -3,5 +3,8 @@
 <TEXT><![CDATA[Body aches, fever 101.1. No treatment. outcome mild improvement repeat temp 100.4]]></TEXT>
 <TAGS>
 <Fever spans="12~17" text="fever" id="F0" certainty="Positive"/>
+<Pain spans="0~10" text="Body aches" id="P0" certainty="Positive"/>
+<Fever spans="71~81" text="temp 100.4" id="F1" certainty="Positive"/>
+<Fever spans="18~23" text="101.1" id="F2" certainty="Positive"/>
 </TAGS>
 </COVID_AE_AMIA>

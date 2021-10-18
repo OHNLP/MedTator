@@ -5,5 +5,7 @@
 <Severity spans="91~97" text="severe" id="S0" type="NA"/>
 <Pain spans="98~102" text="pain" id="P0" certainty="Positive"/>
 <AE_lk id="A0" PainID="P0" PainText="pain" Pain_SeverityID="S0" Pain_SeverityText="severe"/>
+<Pain spans="224~228" text="pain" id="P1" certainty="Positive"/>
+<Pain spans="272~276" text="pain" id="P2" certainty="Positive"/>
 </TAGS>
 </COVID_AE_AMIA>
