@@ -242,8 +242,19 @@ html,body {
 .mark-tag:hover{
     border-color: red;
 }
-.mark-tag-hover {    
-    border: 2px dotted red;
+.mark-tag-active {    
+    /* border: 2px dotted red; */
+    animation: glow 500ms ease-out infinite alternate;
+}
+@keyframes glow {
+    0% {
+        border-color: rgb(247, 247, 247);
+        box-shadow: 0 0 5px rgba(255, 231, 231, 0.815);
+    }
+    100% {
+        border-color: rgb(255, 125, 125);
+        box-shadow: 0 0 10px rgba(255, 125, 125, 0.5);
+    }
 }
 .mark-tag-info {
     font-size: .75em;

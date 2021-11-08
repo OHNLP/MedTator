@@ -218,20 +218,25 @@
                                 </div>
                             </div>
                         </td>
+
                         <td>
                             {{ tag.id }}
                         </td>
+
                         <td>
                             <span v-if="tag.spans=='-1~-1'">
                                 DOCUMENT
                             </span>
-                            <span v-else>
+                            <span v-else
+                                v-on:click="highlight_tag(tag.id)">
                                 {{ tag.spans }}
                             </span>
                         </td>
+
                         <td class="td-text">
                             {{ tag.text }}
                         </td>
+
                         <td class="d-flex flex-row flex-justify-start flex-align-start flex-wrap">
                             <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
                                 v-if="!['id','spans','text','tag'].contains(attlist.name)"

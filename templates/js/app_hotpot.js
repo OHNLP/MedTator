@@ -460,6 +460,17 @@ var app_hotpot = {
             }
         },
 
+        highlight_tag: function(tag_id) {
+            console.log('* highlight tag: ' + tag_id);
+            var dom_id = 'mark-etag-id-' + tag_id;
+
+            // remove class
+            $('.mark-tag-active').removeClass('mark-tag-active');
+
+            // add a class to this dom
+            $('#'+dom_id).addClass('mark-tag-active');
+        },
+
         on_change_attr_value: function(event) {
             // just mark current ann as unsaved
             this.anns[this.ann_idx]._has_saved = false;
@@ -3031,6 +3042,7 @@ var app_hotpot = {
                     {
                         className: 'mark-tag mark-tag-' + tag.tag,
                         attributes: {
+                            id: 'mark-etag-id-' + tag.id,
                             tag_id: tag.id,
                             onclick: 'app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')'
                         }
