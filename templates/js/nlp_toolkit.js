@@ -2,9 +2,13 @@ var nlp_toolkit = {
 
     sent_tokenize: function(text, backend) {
         if (typeof(backend) == 'undefined') {
-            backend = 'compromise';
+            backend = 'simpledot';
         }
         console.log('* sentencizing text by ' + backend);
+
+        if (backend == 'simpledot') {
+            return this.sent_tokenize_by_simpledot(text);
+        }
 
         if (backend == 'compromise') {
             return this.sent_tokenize_by_compromise(text);
@@ -157,6 +161,102 @@ var nlp_toolkit = {
             });
             sentences_text.push(sentence);
         };
+
+        return { 
+            sentences: sentences,
+            sentences_text: sentences_text.join('\n')
+        };
+    },
+
+    sent_tokenize_by_simpledot: function(text) {
+        // get all sentences and spans
+        var sentences = [];
+
+        // get all sentence trimed text
+        var sentences_text = [];
+
+        // a temp sentence
+        var sentence = [];
+        // locate the sentence start
+        var spans_start = 0;
+        // locate the sentence end
+        var spans_end = 0;
+        // flag for a sentence end
+        var flag_sent = false;
+
+        for (let i = 0; i < text.length; i++) {
+            // get the current char
+            const c = text[i];
+
+            // set the end to current char
+            spans_end = i;
+            
+            // before checking, set the flag to false
+            flag_sent = false;
+
+            // detect if this is a sentence break
+            if (c == '.') {
+                // but there are some corner cases
+                flag_sent = true;
+                // collect the char
+                sentence.push(c);
+                
+            } else if ( c == '?' || c == '!' || c == ';') {
+                flag_sent = true;
+                // collect the char
+                sentence.push(c);
+    
+            } else if ( c == '\n') {
+                flag_sent = true;
+                // no need to collect
+                // sentence.push(c);
+
+            } else {
+                // collect the char
+                sentence.push(c);
+            }
+
+            if (flag_sent) {
+                // ok, this is a sentence.
+                var _sentence = sentence.join('');
+
+                // clear the collection
+                sentence = [];
+
+                // create a new sentence obj
+                sentences.push({
+                    text: _sentence, 
+                    spans: {
+                        start: spans_start, 
+                        end: spans_end
+                    }
+                });
+
+                // put the text
+                sentences_text.push(_sentence);
+
+                // move the spans_start to spans_end
+                spans_start = spans_end + 1;
+            }
+        }
+
+        // ok, let's check if the sentence collection is empty
+        if (sentence.length > 0) {
+            // there is a last sentence
+            var _sentence = sentence.join('');
+
+            // create a new sentence obj
+            sentences.push({
+                text: _sentence, 
+                spans: {
+                    start: spans_start, 
+                    end: spans_end
+                }
+            });
+
+            // put the text
+            sentences_text.push(_sentence);
+        }
 
         return { 
             sentences: sentences,
