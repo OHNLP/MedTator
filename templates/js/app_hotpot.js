@@ -113,13 +113,37 @@ var app_hotpot = {
             is_expire: false
         },
 
+        // general cfg
+        cfg: {
+            // display the setting panel or not
+            is_show_settings: false,
+
+            // active tab
+            active_setting_tab: 'import',
+
+            // which algorithm to use as default
+            sentence_splitting_algorithm: 'simpledot',
+        },
+
         // for statistics
 
         // for export
-        export_text: null
+        export_text: null,
+
+        // for texts
+        // this variable would be replaced by the 
+        // app_hotpot_ext_texts.js module
+        texts: {}
     },
 
     vpp_methods: {
+        /////////////////////////////////////////////////////////////////
+        // Settings related functions
+        /////////////////////////////////////////////////////////////////
+        switch_setting_tab: function(tab) {
+            this.cfg.active_setting_tab = tab;
+        },
+
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
@@ -1595,6 +1619,33 @@ var app_hotpot = {
 
         has_FSA_API: function() {
             return isFSA_API_OK;
+        },
+
+        show_help: function(token) {
+            if (typeof(token) == 'undefined') {
+                // ?
+                return;
+            }
+
+            // find this token
+            if (this.texts.hasOwnProperty(token)) {
+                var html_content = '';
+
+                // add the title
+                html_content += 
+                    "<h4>" + 
+                    this.texts[token].title + 
+                    "</h4>";
+                
+                // add the content
+                html_content += this.texts[token].html;
+
+                // show the html content
+                Metro.infobox.create(html_content);
+
+            } else {
+                // ???
+            }
         }
     },
 

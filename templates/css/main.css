@@ -804,3 +804,24 @@ input[type=text].ipt-spinner-xs {
 .ltag-attr-row:nth-child(odd) {
     background-color: whitesmoke;
 }
+
+/* app_settings */
+#app_settings {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    width: 280px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #828282;
+    z-index: 10;
+}
+.setting-tab {
+    border-bottom: 1px solid #aaaaaa;
+    cursor: pointer;
+}
+.active-setting-tab {
+    font-weight: bold;
+    border: 1px solid #aaaaaa;
+    border-bottom: 0;
+}
