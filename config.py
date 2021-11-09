@@ -8,3 +8,6 @@ DEV_PORT=8086
 
 # static page
 STATIC_PAGE_ROOT_PATH='docs'
+
+# the MedTator version
+MEDTATOR_VERSION='1.0.2'

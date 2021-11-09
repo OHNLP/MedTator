@@ -755,7 +755,7 @@
         </div>
 
         <div id="app_info">
-            MedTator 1.0.1 | 
+            MedTator [[ config.MEDTATOR_VERSION ]] | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -794,12 +794,12 @@
                     Import
                 </div>
 
-                <div class="px-2 setting-tab"
+                <!-- <div class="px-2 setting-tab"
                     v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='external_data'}"
                     v-on:click="switch_setting_tab('external_data')">
                     <i class="fa fa-table"></i>
                     Data
-                </div>
+                </div> -->
             </div>
 
             <!-- import setting tab -->

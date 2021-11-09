@@ -48,8 +48,8 @@
     padding: 0;
     margin: 0;
     font-size: 1.2em;
-    height: 1.6em;
-    line-height: 1.6em;
+    height: 1.5em;
+    line-height: 1.5em;
     margin: 3px 0;
 }
 
@@ -99,6 +99,20 @@
     display: flex;
     flex-direction: column;
     border-bottom: 1px dotted #cccccc;
+}
+
+.box-body-item ul {
+    margin: 0;
+}
+
+.box-body-item ul input {
+    vertical-align:middle;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.box-body-item ul label {
+    vertical-align:middle;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .box-body-item-left {
@@ -396,8 +410,19 @@ html,body {
 .mark-tag:hover{
     border-color: red;
 }
-.mark-tag-hover {    
-    border: 2px dotted red;
+.mark-tag-active {    
+    /* border: 2px dotted red; */
+    animation: glow 500ms ease-out infinite alternate;
+}
+@keyframes glow {
+    0% {
+        border-color: rgb(247, 247, 247);
+        box-shadow: 0 0 5px rgba(255, 231, 231, 0.815);
+    }
+    100% {
+        border-color: rgb(255, 125, 125);
+        box-shadow: 0 0 10px rgba(255, 125, 125, 0.5);
+    }
 }
 .mark-tag-info {
     font-size: .75em;
@@ -957,6 +982,27 @@ input[type=text].ipt-spinner-xs {
 }
 .ltag-attr-row:nth-child(odd) {
     background-color: whitesmoke;
+}
+
+/* app_settings */
+#app_settings {
+    position: absolute;
+    top: 20px;
+    right: 5px;
+    width: 280px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #828282;
+    z-index: 10;
+}
+.setting-tab {
+    border-bottom: 1px solid #aaaaaa;
+    cursor: pointer;
+}
+.active-setting-tab {
+    font-weight: bold;
+    border: 1px solid #aaaaaa;
+    border-bottom: 0;
 }
 </style>
 
@@ -1683,14 +1729,102 @@ input[type=text].ipt-spinner-xs {
         </div>
 
         <div id="app_info">
-            MedTator 1.0.1 | 
+            MedTator 1.0.2 | 
+            <a title="MedTator Settings"
+                href="javascript:void(0);"
+                v-on:click="cfg.is_show_settings = true">
+                <i class="fa fa-cog"></i>
+                Settings
+            </a> | 
             <a target="_blank" 
                 title="MedTator Source Code at GitHub"
                 href="https://github.com/OHNLP/MedTator">
                 <i class="fab fa-github"></i>
             </a>
         </div>
+
     </nav>
+
+    <div id="app_settings"
+        v-show="cfg.is_show_settings"
+        class="box">
+        <div class="box-header d-flex flex-justify-between">
+            <h4>
+                <i class="fa fa-cog"></i>
+                MedTator Settings
+            </h4>
+            <div>
+                <button v-on:click="cfg.is_show_settings = false">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="d-flex flex-row">
+                <div class="px-2 setting-tab"
+                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
+                    v-on:click="switch_setting_tab('import')">
+                    <i class="far fa-file"></i>
+                    Import
+                </div>
+
+                <!-- <div class="px-2 setting-tab"
+                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='external_data'}"
+                    v-on:click="switch_setting_tab('external_data')">
+                    <i class="fa fa-table"></i>
+                    Data
+                </div> -->
+            </div>
+
+            <!-- import setting tab -->
+            <div v-if="cfg.active_setting_tab == 'import'">
+                <div class="box-body-item">
+                    <p>
+                        Sentence Splitting Algorithm
+                        <a href="javascript:void(0);"
+                            v-on:click="show_help('sentence_splitting_algorithm')">
+                            <i class="far fa-question-circle"></i>
+                        </a>:
+                    </p>
+                    <ul class="box">
+                        <li>
+                            <input type="radio" id="cfg_ssa_v1" 
+                                value="simpledot" 
+                                v-model="cfg.sentence_splitting_algorithm">
+                            <label for="cfg_ssa_v1">Simple Method (Default)</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="cfg_ssa_v2" 
+                                value="compromise" 
+                                v-model="cfg.sentence_splitting_algorithm">
+                            <label for="cfg_ssa_v2">Compromise NLP</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="cfg_ssa_v3" 
+                                value="wink_nlp" 
+                                v-model="cfg.sentence_splitting_algorithm">
+                            <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- data setting tab -->
+            <div v-else-if="cfg.active_setting_tab == 'external_data'">
+                <div class="box-body-item">
+                    <p>
+                        TBD
+                    </p>
+                    
+                </div>
+            </div>
+
+            <div v-else>
+                &nbsp;
+            </div>
+
+        </div>
+    </div>
 
     <!-- the ui for main annotation -->
     <div v-show="section=='annotation'" id="main_ui" 
@@ -1913,20 +2047,34 @@ input[type=text].ipt-spinner-xs {
                                 </div>
                             </div>
                         </td>
+
                         <td>
-                            {{ tag.id }}
+                            <span class="c-pointer">
+                                {{ tag.id }}
+                            </span>
                         </td>
+
                         <td>
                             <span v-if="tag.spans=='-1~-1'">
                                 DOCUMENT
                             </span>
-                            <span v-else>
+                            <span v-else
+                                v-on:click="highlight_tag(tag)"
+                                class="c-pointer">
                                 {{ tag.spans }}
                             </span>
                         </td>
+
                         <td class="td-text">
-                            {{ tag.text }}
+                            <span v-if="is_etag(tag)"
+                                class="c-pointer"
+                                v-on:click="highlight_tag(tag)">
+                                {{ tag.text }}
+                            </span>
+                            <span v-else>
+                            </span>
                         </td>
+
                         <td class="d-flex flex-row flex-justify-start flex-align-start flex-wrap">
                             <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
                                 v-if="!['id','spans','text','tag'].contains(attlist.name)"
@@ -2903,6 +3051,8 @@ var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.o
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
 <!-- code mirror addon -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/selection/active-line.min.js"></script>
+<!-- code mirror addon for line jump -->
+
 <!-- numjs -->
 <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
 <!-- compromise -->
@@ -6321,9 +6471,13 @@ var nlp_toolkit = {
 
     sent_tokenize: function(text, backend) {
         if (typeof(backend) == 'undefined') {
-            backend = 'compromise';
+            backend = 'simpledot';
         }
         console.log('* sentencizing text by ' + backend);
+
+        if (backend == 'simpledot') {
+            return this.sent_tokenize_by_simpledot(text);
+        }
 
         if (backend == 'compromise') {
             return this.sent_tokenize_by_compromise(text);
@@ -6476,6 +6630,102 @@ var nlp_toolkit = {
             });
             sentences_text.push(sentence);
         };
+
+        return { 
+            sentences: sentences,
+            sentences_text: sentences_text.join('\n')
+        };
+    },
+
+    sent_tokenize_by_simpledot: function(text) {
+        // get all sentences and spans
+        var sentences = [];
+
+        // get all sentence trimed text
+        var sentences_text = [];
+
+        // a temp sentence
+        var sentence = [];
+        // locate the sentence start
+        var spans_start = 0;
+        // locate the sentence end
+        var spans_end = 0;
+        // flag for a sentence end
+        var flag_sent = false;
+
+        for (let i = 0; i < text.length; i++) {
+            // get the current char
+            const c = text[i];
+
+            // set the end to current char
+            spans_end = i;
+            
+            // before checking, set the flag to false
+            flag_sent = false;
+
+            // detect if this is a sentence break
+            if (c == '.') {
+                // but there are some corner cases
+                flag_sent = true;
+                // collect the char
+                sentence.push(c);
+                
+            } else if ( c == '?' || c == '!' || c == ';') {
+                flag_sent = true;
+                // collect the char
+                sentence.push(c);
+    
+            } else if ( c == '\n') {
+                flag_sent = true;
+                // no need to collect
+                // sentence.push(c);
+
+            } else {
+                // collect the char
+                sentence.push(c);
+            }
+
+            if (flag_sent) {
+                // ok, this is a sentence.
+                var _sentence = sentence.join('');
+
+                // clear the collection
+                sentence = [];
+
+                // create a new sentence obj
+                sentences.push({
+                    text: _sentence, 
+                    spans: {
+                        start: spans_start, 
+                        end: spans_end
+                    }
+                });
+
+                // put the text
+                sentences_text.push(_sentence);
+
+                // move the spans_start to spans_end
+                spans_start = spans_end + 1;
+            }
+        }
+
+        // ok, let's check if the sentence collection is empty
+        if (sentence.length > 0) {
+            // there is a last sentence
+            var _sentence = sentence.join('');
+
+            // create a new sentence obj
+            sentences.push({
+                text: _sentence, 
+                spans: {
+                    start: spans_start, 
+                    end: spans_end
+                }
+            });
+
+            // put the text
+            sentences_text.push(_sentence);
+        }
 
         return { 
             sentences: sentences,
@@ -6907,13 +7157,37 @@ var app_hotpot = {
             is_expire: false
         },
 
+        // general cfg
+        cfg: {
+            // display the setting panel or not
+            is_show_settings: false,
+
+            // active tab
+            active_setting_tab: 'import',
+
+            // which algorithm to use as default
+            sentence_splitting_algorithm: 'simpledot',
+        },
+
         // for statistics
 
         // for export
-        export_text: null
+        export_text: null,
+
+        // for texts
+        // this variable would be replaced by the 
+        // app_hotpot_ext_texts.js module
+        texts: {}
     },
 
     vpp_methods: {
+        /////////////////////////////////////////////////////////////////
+        // Settings related functions
+        /////////////////////////////////////////////////////////////////
+        switch_setting_tab: function(tab) {
+            this.cfg.active_setting_tab = tab;
+        },
+
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
@@ -7228,6 +7502,26 @@ var app_hotpot = {
                 this.set_ann_idx(null);
                 this.anns = [];
             }
+        },
+
+        highlight_tag: function(tag) {
+            var dom_id = 'mark-etag-id-' + tag.id;
+            console.log('* highlight tag: ' + dom_id);
+
+            // remove class
+            $('.mark-tag-active').removeClass('mark-tag-active');
+
+            // jump to this tag for display
+            app_hotpot.cm_jump2tag(
+                tag, 
+                this.anns[this.ann_idx]
+            );
+
+            // remove class
+            $('.mark-tag-active').removeClass('mark-tag-active');
+
+            // add a class to this dom
+            $('#'+dom_id).addClass('mark-tag-active');
         },
 
         on_change_attr_value: function(event) {
@@ -8389,6 +8683,47 @@ var app_hotpot = {
 
         has_FSA_API: function() {
             return isFSA_API_OK;
+        },
+
+        show_help: function(token) {
+            if (typeof(token) == 'undefined') {
+                // ?
+                return;
+            }
+
+            // find this token
+            if (this.texts.hasOwnProperty(token)) {
+                var html_content = '';
+
+                // add the title
+                html_content += 
+                    "<h4>" + 
+                    this.texts[token].title + 
+                    "</h4>";
+                
+                // add the content
+                html_content += this.texts[token].html;
+
+                // show the html content
+                Metro.infobox.create(html_content);
+
+            } else {
+                // ???
+            }
+        },
+
+        is_etag_doc_level: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return true;
+            }
+            return false;
+        },
+        
+        is_etag: function(tag) {
+            if (tag.hasOwnProperty('spans')) {
+                return true;
+            }
+            return false;
         }
     },
 
@@ -9774,6 +10109,7 @@ var app_hotpot = {
                     {
                         className: 'mark-tag mark-tag-' + tag.tag,
                         attributes: {
+                            id: 'mark-etag-id-' + tag.id,
                             tag_id: tag.id,
                             onclick: 'app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')'
                         }
@@ -9782,6 +10118,18 @@ var app_hotpot = {
             }
         }
 
+    },
+
+    cm_jump2tag: function(tag, ann) {
+        // first, get the anchor location
+        var range = this.cm_spans2range(
+            tag.spans, ann
+        );
+
+        // set the anchor
+        this.codemirror.doc.setCursor(
+            range.anchor
+        );
     },
 
     cm_spans2range: function(spans, ann) {
@@ -9873,6 +10221,7 @@ var app_hotpot = {
 
     cm_doc_spans2range: function(spans, ann) {
         var full_text = ann.text;
+
         // console.log('* calc doc spans2range: ');
         var span_pos_0 = parseInt(spans.split('~')[0]);
         var span_pos_1 = parseInt(spans.split('~')[1]);
@@ -10358,6 +10707,29 @@ var app_hotpot = {
         this.tour.annotation.start();
     }
 };
+
+// extend the App
+/**
+ * This is an extension for app_hotpot text contents
+ */
+
+Object.assign(app_hotpot.vpp_data, {
+texts: {
+    "sentence_splitting_algorithm": {
+        title: 'Sentence Splitting Algorithm',
+        html: `MedTator can display text content in different ways, which include a sentence-mode display.
+To display the split sentences correctly, the original content must be tokenized in sentence level.
+There are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.
+MedTator provides some options for selecting different methods.
+
+<ul>
+    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>
+    <li>The <b>Compromise NLP</b> method is implemented based on <a target="_blank" href="https://github.com/spencermountain/compromise">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target="_blank" href="https://observablehq.com/@spencermountain/compromise-sentences"></a> provides more technical details.</li>
+    <li>The <b>Wink NLP</b> method is based on <a target="_blank" href="https://winkjs.org/">WinkJS NLP library</a>.</li>
+</ul>
+`
+    }
+}});
 
 // The Tag Info Vue Module
 Vue.component('iaa-tag-info', {

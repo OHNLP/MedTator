@@ -460,9 +460,18 @@ var app_hotpot = {
             }
         },
 
-        highlight_tag: function(tag_id) {
-            console.log('* highlight tag: ' + tag_id);
-            var dom_id = 'mark-etag-id-' + tag_id;
+        highlight_tag: function(tag) {
+            var dom_id = 'mark-etag-id-' + tag.id;
+            console.log('* highlight tag: ' + dom_id);
+
+            // remove class
+            $('.mark-tag-active').removeClass('mark-tag-active');
+
+            // jump to this tag for display
+            app_hotpot.cm_jump2tag(
+                tag, 
+                this.anns[this.ann_idx]
+            );
 
             // remove class
             $('.mark-tag-active').removeClass('mark-tag-active');
@@ -1657,6 +1666,20 @@ var app_hotpot = {
             } else {
                 // ???
             }
+        },
+
+        is_etag_doc_level: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return true;
+            }
+            return false;
+        },
+        
+        is_etag: function(tag) {
+            if (tag.hasOwnProperty('spans')) {
+                return true;
+            }
+            return false;
         }
     },
 
@@ -3053,6 +3076,18 @@ var app_hotpot = {
 
     },
 
+    cm_jump2tag: function(tag, ann) {
+        // first, get the anchor location
+        var range = this.cm_spans2range(
+            tag.spans, ann
+        );
+
+        // set the anchor
+        this.codemirror.doc.setCursor(
+            range.anchor
+        );
+    },
+
     cm_spans2range: function(spans, ann) {
         // if the current mode is 
         if (this.vpp.$data.cm.display_mode == 'document') {
@@ -3142,6 +3177,7 @@ var app_hotpot = {
 
     cm_doc_spans2range: function(spans, ann) {
         var full_text = ann.text;
+
         // console.log('* calc doc spans2range: ');
         var span_pos_0 = parseInt(spans.split('~')[0]);
         var span_pos_1 = parseInt(spans.split('~')[1]);

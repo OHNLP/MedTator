@@ -49,6 +49,34 @@ Or you can specify where output folder is for the exported files:
 python web.py --mode build --path EXPORT_PATH
 ```
 
+## Change log
+
+### 1.0.2 (2021-11-08)
+
+- Added a sentence splitting / tokenization method for fast splitting.
+- Added a side bar for managing settings.
+- Added entity tag locating. Users could click on the `spans` to locate the entity tag in the editor. The editor will jump to the line where the clicked tag is and highlight that tag.
+
+### 1.0.1 (2021-10-15)
+
+- Added sample data for AMIA 2021 workshop.
+- Fixed typos.
+
+### 1.0.0
+
+Release Highlights
+
+- Serverless design. NO runtime installation is required.
+- Four tabs for core steps in annotation.
+- Visualized entity and relation annotation.
+- Annotation hint based on existed tags.
+- Visualized annotation results.
+- Interactive adjudication and Inter-Annotator Agreement (IAA) calculation.
+- Customizable annotation schema.
+- Multi-format export.
+- Multi-file annotation.
+
+
 ## License
 
 Apache-2.0 License
