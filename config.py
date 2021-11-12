@@ -38,6 +38,12 @@ THIRD_PARTY_LIB_URL={
     'JSZIP': {
         'JS': './static/lib/jszip/jszip.min.js'
     },
+    'FILESAVER': {
+        'JS': "./static/lib/filesaver/FileSaver.min.js"
+    },
+    'DAYJS': {
+        'JS': "https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.36/dayjs.min.js"
+    },
 },
 'cdn': {
     'METRO_UI': {
