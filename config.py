@@ -36,7 +36,7 @@ THIRD_PARTY_LIB_URL={
         'JS': "./static/lib/vue/vue.min.js"
     },
     'JSZIP': {
-        'JS': './static/lib/jszip/jszip.js'
+        'JS': './static/lib/jszip/jszip.min.js'
     },
 },
 'cdn': {
