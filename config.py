@@ -58,6 +58,19 @@ THIRD_PARTY_LIB_URL={
     'PAPAPARSE': {
         'JS': "./static/lib/papaparse/papaparse.min.js"
     },
+    'SHEPHERD': {
+        'CSS': "./static/lib/shepherd/shepherd.css",
+        'JS': "./static/lib/shepherd/shepherd.min.js"
+    },
+    'WINK_NLP': {
+        'JS': "./static/lib/wink-nlp/bundle-1.8.0.min.js"
+    },
+    'DS_SPLITER': {
+        'JS': "./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"
+    },
+    'XML_FORMATTER': {
+        'JS': "./static/lib/xml-formatter/xml-formatter.js"
+    },
 },
 'cdn': {
     'METRO_UI': {
