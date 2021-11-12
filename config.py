@@ -42,7 +42,15 @@ THIRD_PARTY_LIB_URL={
         'JS': "./static/lib/filesaver/FileSaver.min.js"
     },
     'DAYJS': {
-        'JS': "https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.8.36/dayjs.min.js"
+        'JS': "./static/lib/dayjs/dayjs.min.js"
+    },
+    'CODE_MIRROR': {
+        'CSS': "./static/lib/codemirror/codemirror.css",
+        'JS': "./static/lib/codemirror/codemirror.js",
+        'JS_ADDON_ACTIVE_LINE': "/static/lib/codemirror/addon/selection/active-line.js"
+    },
+    'NUMJS': {
+        'JS': "./static/lib/numjs/numjs.min.js"
     },
 },
 'cdn': {
