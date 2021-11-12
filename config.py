@@ -52,6 +52,12 @@ THIRD_PARTY_LIB_URL={
     'NUMJS': {
         'JS': "./static/lib/numjs/numjs.min.js"
     },
+    'COMPROMISE': {
+        'JS': "./static/lib/compromise/compromise-13.11.4.min.js"
+    },
+    'PAPAPARSE': {
+        'JS': "./static/lib/papaparse/papaparse.min.js"
+    },
 },
 'cdn': {
     'METRO_UI': {
