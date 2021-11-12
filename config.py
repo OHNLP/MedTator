@@ -25,6 +25,13 @@ THIRD_PARTY_LIB_URL={
     'FONT_AWESOME': {
         'CSS': "./static/lib/font-awesome/css/all.min.css"
     },
+    'JQUERY': {
+        'JS': "./static/lib/jquery/jquery-3.4.1.min.js"
+    },
+    'JQUERY_UI': {
+        'CSS': "./static/lib/jqueryui/jquery-ui.min.css",
+        'JS': "./static/lib/jqueryui/jquery-ui.min.js"
+    },
 },
 'cdn': {
     'METRO_UI': {
