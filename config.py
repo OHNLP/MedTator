@@ -32,6 +32,12 @@ THIRD_PARTY_LIB_URL={
         'CSS': "./static/lib/jqueryui/jquery-ui.min.css",
         'JS': "./static/lib/jqueryui/jquery-ui.min.js"
     },
+    'VUE': {
+        'JS': "./static/lib/vue/vue.min.js"
+    },
+    'JSZIP': {
+        'JS': './static/lib/jszip/jszip.js'
+    },
 },
 'cdn': {
     'METRO_UI': {
