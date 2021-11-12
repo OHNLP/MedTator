@@ -86,10 +86,16 @@ if __name__=='__main__':
     parser.add_argument("--mode", type=str, 
         choices=['build', 'run'], default='run',
         help="Which mode?")
+    parser.add_argument("--lib", type=str, 
+        choices=['local', 'cdn'], default='cdn',
+        help="Where to get third party libs?")
     parser.add_argument("--path", type=str, default=None,
         help="Which path for the built page?")
 
     args = parser.parse_args()
+
+    # update the lib_base by the given
+    app.config['LIB_BASE'] = args.lib
 
     if args.mode == 'run':
         app.run(
