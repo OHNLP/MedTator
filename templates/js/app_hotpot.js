@@ -281,6 +281,10 @@ var app_hotpot = {
             if (typeof(ds_name) == 'undefined') {
                 ds_name = 'MINIMAL_TASK';
             }
+            // for local version, load JSON data through binding
+            
+
+            // for web version, load JSON data through AJAX
             $.get(
                 './static/data/vpp_data_'+ds_name+'.json', 
                 {

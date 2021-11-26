@@ -322,29 +322,16 @@
                         <ul class="ribbon-dropdown text-left" 
                             data-role="dropdown" 
                             data-duration="100">
-                            <li title="A minimal annotation task"
-                                v-on:click="load_sample_ds('MINIMAL_TASK')">
-                                <a href="javascript:void(0);">Minimal Annotation Task</a>
-                            </li>
-                            <li title="A sample for entity and relation annotation"
-                                v-on:click="load_sample_ds('ENTITY_RELATION_TASK')">
-                                <a href="javascript:void(0);">Entity and Relation Annotation</a>
-                            </li>
-                            <li title=""
-                                v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK')">
-                                <a href="javascript:void(0);">Document-Level Annotation</a>
-                            </li>
-                            <li title="A sample for entity and relation annotation"
-                                v-on:click="load_sample_ds('IAA_TASK')">
-                                <a href="javascript:void(0);">IAA Calculation</a>
-                            </li>
+                            {% for item in config['TASK_SAMPLES'] %}
+                            {% if item is none %}
                             <li class="divider"></li>
-                            
-                            <li title="A minimal annotation task"
-                                v-on:click="load_sample_ds('AMIA21_WORKSHOP')">
-                                <a href="javascript:void(0);">AMIA 2021 Workshop</a>
+                            {% else %}
+                            <li title="[[ item[2] ]]"
+                                v-on:click="load_sample_ds('[[ item[0] ]]');">
+                                <a href="javascript:void(0);">[[ item[1] ]]</a>
                             </li>
-
+                            {% endif %}
+                            {% endfor %}
                         </ul>
                     </div>
 
