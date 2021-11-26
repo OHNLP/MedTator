@@ -1945,18 +1945,44 @@ var app_hotpot = {
         }, false);
 
         dropzone.addEventListener("drop", function(event) {
-            let items = event.dataTransfer.items;
-        
+            // prevent the default download event
             event.preventDefault();
+            let items = event.dataTransfer.items;
         
             // user should only upload one folder or a file
             if (items.length>1) {
                 console.log('* selected more than 1 item!');
                 return;
             }
+            // console.log('* found dropped items', items);
 
-            for (let i=0; i<items.length; i++) {
-                let item = items[i].webkitGetAsEntry();
+            if (isFSA_API_OK) {
+                // use FSA API to access
+                let item = items[0].getAsFileSystemHandle();
+                console.log('* using FSA API to load item as dtd', item);
+
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind != 'file') { return null; }
+
+                    // get the text content
+                    var p_dtd = fs_read_dtd_file_handle(fh);
+
+                    // handle the response
+                    // we just create a function agent
+                    // for support other parameters in future if possible
+                    p_dtd.then((function(){
+                        return function(dtd) {
+                            // just set the dtd
+                            app_hotpot.set_dtd(dtd);
+                        }
+                    })());
+                });
+
+            } else {
+                // if there is not FSA_API, just use default API
+                let item = items[0].webkitGetAsEntry();
+                console.log('* using webkit Entry API to load item as dtd', item);
         
                 if (item) {
                     // ok, user select a folder ???
@@ -1968,11 +1994,29 @@ var app_hotpot = {
                         // so item is a fileEntry
                         app_hotpot.parse_dtd_file_entry(item);
                     }
+                } else {
+                    console.log('* something wrong with dtd item', item);
                 }
-
-                // just detect one item, folder or zip
-                break;
             }
+
+            // for (let i=0; i<items.length; i++) {
+            //     let item = items[i].webkitGetAsEntry();
+        
+            //     if (item) {
+            //         // ok, user select a folder ???
+            //         if (item.isDirectory) {
+            //             // show something?
+
+            //         } else {
+            //             // should be a dtd file
+            //             // so item is a fileEntry
+            //             app_hotpot.parse_dtd_file_entry(item);
+            //         }
+            //     }
+
+            //     // just detect one item, folder or zip
+            //     break;
+            // }
 
         }, false);
     },
@@ -2283,6 +2327,9 @@ var app_hotpot = {
                     var result = nlp_toolkit.sent_tokenize(ann.text);
                     ann._sentences = result.sentences;
                     ann._sentences_text = result.sentences_text;
+
+                    // show some message
+                    app_hotpot.msg("Created a new annotation file " + new_fn);
                     
                     // ok, add this the dtd for annotator
                     app_hotpot.add_ann(ann);
