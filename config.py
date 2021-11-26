@@ -47,7 +47,7 @@ THIRD_PARTY_LIB_URL={
     'CODE_MIRROR': {
         'CSS': "./static/lib/codemirror/codemirror.css",
         'JS': "./static/lib/codemirror/codemirror.js",
-        'JS_ADDON_ACTIVE_LINE': "/static/lib/codemirror/addon/selection/active-line.js"
+        'JS_ADDON_ACTIVE_LINE': "./static/lib/codemirror/addon/selection/active-line.js"
     },
     'NUMJS': {
         'JS': "./static/lib/numjs/numjs.min.js"

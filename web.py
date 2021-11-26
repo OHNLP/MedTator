@@ -35,23 +35,36 @@ def favicon():
     )
 
 
-def build(path=None):
+def build(path=None, filename='index.html', lib_base='cdn'):
     '''
-    Build the static annotator
+    Build the static MedTator
     '''
+    # reset the output path to static page
     if path is None:
         path = app.config['STATIC_PAGE_ROOT_PATH']
+
+    print('* building static MedTator ...')
+    print('*   path: %s' % (path))
+    print('*   filename: %s' % (filename))
+    print('*   lib_base: %s' % (lib_base))
+
     # download the page
+    # and for MedTator, this is only one HTML page
+    # so we can pass the file name to this function
     with app.test_client() as client:
         with app.app_context():
+            # set the LIB_BASE varible for third party libraries
+            app.config['LIB_BASE'] = lib_base
+
+            # make the page
             make_page(
                 client, 
                 "/index.html", 
                 path,
-                "index.html"
+                filename
             )
 
-    print('* done building static annotator')
+    print('* done building static MedTator!')
 
 
 def make_page(client, url, path, new_fn=None, param=None):
@@ -71,31 +84,37 @@ def make_page(client, url, path, new_fn=None, param=None):
             new_fn
         )
 
+    # just check if the file exsits
+    if os.path.exists(fn):
+        print('* overwrite the existed %s' % fn)
+
     with open(fn, 'w') as f:
         f.write(rv.data.decode('utf8'))
     
-    print('* made static page %s' % (fn))
+    print('* made %s -> %s' % (url, fn))
 
 
 if __name__=='__main__':
     import argparse
 
-    parser = argparse.ArgumentParser(description='MedTator Development Server')
+    parser = argparse.ArgumentParser(description='MedTator Development Server and Toolkit')
 
     # add paramters
     parser.add_argument("--mode", type=str, 
         choices=['build', 'run'], default='run',
-        help="Which mode?")
+        help="What do you want to do? `run` for starting the development server. `build` for generating a static HTML page for public release or local release.")
+
     parser.add_argument("--lib", type=str, 
         choices=['local', 'cdn'], default='cdn',
-        help="Where to get third party libs?")
+        help="Where to get third party libs in the HTML page? If choose local, please make sure to copy the `static` folder after generated the HTML file.")
+
     parser.add_argument("--path", type=str, default=None,
-        help="Which path for the built page?")
+        help="Which folder to be used for the output page? The default folder is the docs/ folder for public release.")
+
+    parser.add_argument('--fn', type=str, default='index.html',
+        help="What file name to be used for the output page? The default file name is the `index.html` which could be accessed directly by browser.")
 
     args = parser.parse_args()
-
-    # update the lib_base by the given
-    app.config['LIB_BASE'] = args.lib
 
     if args.mode == 'run':
         app.run(
@@ -105,7 +124,7 @@ if __name__=='__main__':
         )
 
     elif args.mode == 'build':
-        build(args.path)
+        build(args.path, args.fn, args.lib)
 
     else:
         parser.print_usage()
