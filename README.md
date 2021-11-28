@@ -51,6 +51,17 @@ python web.py --mode build --path EXPORT_PATH
 
 ## Change log
 
+### 1.1.0 (2021-11-28)
+
+- Added a new standalone version for local usage without internet access
+- Added build parameters for building standalone version
+- Added local cache of all libraries for local standalone version
+- Updated references configuration for standalone version
+- Updated embedded sample data for standalone version
+- Updated building output information
+- Fixed drag & drop bug when reading local dtd file
+- Fixed embedded sample JSON encoding bug
+
 ### 1.0.2 (2021-11-08)
 
 - Added a sentence splitting / tokenization method for fast splitting.

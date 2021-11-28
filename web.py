@@ -2,6 +2,7 @@
 The development server for MedTator
 '''
 import os
+import json
 
 from flask import Flask, render_template
 from flask import send_from_directory
@@ -18,13 +19,49 @@ app.config.from_pyfile('config.py')
 # set for jinja template engine
 app.jinja_env.variable_start_string = '[['
 app.jinja_env.variable_end_string = ']]'
+app.jinja_env.filters['jsonify'] = json.dumps
 
 
 # routers
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('index.html')
+    # the extra data for rendering page
+    data = {}
+
+    # get the lib_base to decide what to do
+    lib_base = app.config['LIB_BASE']
+    print('* lib_base=%s' % lib_base)
+
+    if lib_base == 'cdn':
+        # ok, nothing to do when using cdn
+        pass
+    else:
+        # we can prepare some local data 
+        # first, we want to get the samples
+        data['sample_dict'] = {}
+        sample_path = os.path.join(
+            app.config['STATIC_PAGE_ROOT_PATH'],
+            'static',
+            'data'
+        )
+        for r in app.config['TASK_SAMPLES']:
+            if r is None: continue
+            # read the content from local
+            fn = 'vpp_data_%s.json' % r[0]
+            full_fn = os.path.join(
+                app.root_path,
+                sample_path, 
+                fn
+            )
+            j = json.load(open(full_fn))
+            data['sample_dict'][r[0]] = j
+
+    # now let's render the page
+    return render_template(
+        'index.html',
+        data=data
+    )
 
 
 @app.route('/favicon.ico')

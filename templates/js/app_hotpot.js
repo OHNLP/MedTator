@@ -282,7 +282,18 @@ var app_hotpot = {
                 ds_name = 'MINIMAL_TASK';
             }
             // for local version, load JSON data through binding
-            
+            if (jarvis.hasOwnProperty('sample_dict')) {
+                var sample_data = jarvis.sample_dict[ds_name];
+
+                // copy the sample to overwrite app_hotpot
+                Object.assign(app_hotpot.vpp.$data, sample_data);
+                app_hotpot.set_dtd(
+                    app_hotpot.vpp.$data.dtd
+                );
+                app_hotpot.vpp.set_ann_idx(0);
+
+                return;
+            }
 
             // for web version, load JSON data through AJAX
             $.get(

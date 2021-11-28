@@ -1077,7 +1077,7 @@ var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.o
 // The NLP toolkit
 {% include 'js/nlp_toolkit.js' %}
 
-// The Vue APP
+// The Vue App
 {% include 'js/app_hotpot.js' %}
 
 // extend the App
@@ -1179,6 +1179,18 @@ var jarvis = {
     }
 }
 
+// extend the App with data if needed
+{% if config.LIB_BASE == 'local' %}
+// define the local samples
+jarvis.sample_dict = {};
+
+{% for key in data['sample_dict'] %}
+// add the sample data [[ key ]]
+jarvis.sample_dict['[[ key ]]'] = [[ data['sample_dict'][key]|jsonify|safe ]];
+
+{% endfor %}
+{% endif %}
+// init the whole document
 $(document).ready(function () {
     jarvis.init();
 })
