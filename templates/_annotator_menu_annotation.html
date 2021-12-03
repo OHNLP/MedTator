@@ -1,0 +1,258 @@
+<!-- the section for annotation -->
+<div class="section" id="section-1-1" 
+v-bind:class="{'active': section=='annotation'}">
+
+<div class="group">
+
+    <div id="dropzone_dtd" class="dropzone"
+        v-on:click="open_dtd_file">
+        <div v-if="dtd != null" class="zone-text">
+            <b>{{ dtd.name }}</b><br>
+            {{ dtd.etags.length }} Entity Tags<br>
+            {{ dtd.ltags.length }} Link Tags
+        </div>
+        <div v-else>
+            Drop a <b>Schema</b> File Here
+        </div>
+    </div>
+
+    <!-- <button class="ribbon-button"
+        v-on:click="open_dtd_file">
+        <span class="icon">
+            <i class="far fa-file"></i>
+        </span>
+        <span class="caption">Open DTD</span>
+    </button> -->
+
+    <span class="title">Schema DTD File (.dtd)</span>
+</div>
+
+<div class="group">
+
+    <div id="dropzone_ann" 
+        v-on:click="open_ann_files"
+        v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
+        <div v-if="ann_idx != null" class="zone-text">
+            <b>{{ anns[ann_idx]._filename }}</b><br>
+            {{ anns[ann_idx].text.length }} chars<br>
+            {{ anns[ann_idx].tags.length }} tags
+        </div>
+        <div v-else-if="dtd != null">
+            Drop <b>Annotation</b> File(s)
+        </div>
+        <div v-else>
+            <i class="fa fa-arrow-left"></i>
+            Load schema file first
+        </div>
+    </div>
+
+    <!-- <button class="ribbon-button"
+        v-on:click="open_ann_files">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Open XMLs</span>
+    </button> -->
+
+    <span class="title">Annotation File (.xml)</span>
+</div>
+
+<div v-if="ann_idx != null"
+    class="group">
+    <button class="ribbon-button"
+        v-if="has_FSA_API()"
+        v-on:click="save_xml">
+        <span class="icon">
+            <i class="far fa-save"></i>
+        </span>
+        <span class="caption">Save</span>
+    </button>
+
+    <button class="ribbon-button"
+        v-if="has_FSA_API()"
+        v-on:click="save_as_xml">
+        <span class="icon">
+            <i class="far fa-copy"></i>
+        </span>
+        <span class="caption">Save as</span>
+    </button>
+
+    <button class="ribbon-button"
+        v-if="!has_FSA_API()"
+        v-on:click="download_as_xml">
+        <span class="icon">
+            <i class="fa fa-file-download"></i>
+        </span>
+        <span class="caption">Download XML</span>
+    </button>
+    
+    <a id="downloadAnchorElem" style="display:none"></a>
+
+    <span class="title">Save</span>
+</div>
+
+<!-- <div class="group">
+    <div>
+        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
+        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
+    </div>
+    <span class="title">Annotation Mode</span>
+</div> -->
+
+<div class="group">
+    <div>
+        <input type="radio" name="display_mode" value="document" 
+            data-role="radio" 
+            data-caption="<i class='far fa-file-alt'></i> Document" checked 
+            v-model="cm.display_mode"
+            @change="on_change_display_mode">
+        <br>
+        <input type="radio" name="display_mode" value="sentences" 
+            data-role="radio" 
+            data-caption="<i class='fa fa-list'></i> Sentences" 
+            v-model="cm.display_mode"
+            @change="on_change_display_mode">
+    </div>
+
+    <span class="title">Display Mode</span>
+</div>
+
+<div class="group">
+    <div>
+        <input type="radio" name="mark_mode" value="node" 
+            data-role="radio" 
+            data-caption="Color + ID" checked 
+            v-model="cm.mark_mode"
+            @change="on_change_mark_mode">
+        <br>
+        <input type="radio" name="mark_mode" value="span" 
+            data-role="radio" 
+            data-caption="Color Only" 
+            v-model="cm.mark_mode"
+            @change="on_change_mark_mode">
+    </div>
+    <span class="title">Entity Marks</span>
+</div>
+
+<div class="group">
+    <div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Links"
+            v-model="cm.enabled_links"
+            @change="on_change_link_settings">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Lines"
+            v-model="cm.enabled_link_complex"
+            @change="on_change_link_settings">
+    </div>
+
+    <div v-show="is_linking">
+        <button class="ribbon-button"
+            v-on:click="done_linking">
+            <span class="icon">
+                <span class="fa fa-check-circle"></span>
+            </span>
+            <span class="caption">Done Linking</span>
+        </button>
+    </div>
+
+    <div v-show="is_linking">
+        <button class="ribbon-button"
+            v-on:click="cancel_linking">
+            <span class="icon">
+                <span class="far fa-times-circle"></span>
+            </span>
+            <span class="caption">Cancel Linking</span>
+        </button>
+    </div>
+    <span class="title">Link Marks</span>
+</div>
+
+<div class="group">
+    <div class="ribbon-toggle-group">
+        <button class="ribbon-icon-button active"
+            v-on:click="on_change_hint_mode('simple')">
+            <span class="icon">
+                <span class="mif-list"></span>
+            </span>
+            <span class="caption">Simple Hint</span>
+        </button>
+
+        <!-- <button class="ribbon-icon-button"
+            v-on:click="on_change_hint_mode('smart')">
+            <span class="icon">
+                <span class="fa fa-magic"></span>
+            </span>
+            <span class="caption">Smart</span>
+        </button> -->
+
+        <button class="ribbon-icon-button"
+            v-on:click="on_change_hint_mode('off')">
+            <span class="icon">
+                <span class="fa fa-ban"></span>
+            </span>
+            <span class="caption">No Hint</span>
+        </button>
+    </div>
+
+    <div>
+
+        <button class="ribbon-button" 
+            v-on:click="accept_all_hints">
+            <span class="icon">
+                <i class="fa fa-check-double"></i>
+            </span>
+            <span class="caption">Accept All</span>
+        </button>
+        
+    </div>
+
+    <span class="title">Hint Marks</span>
+</div>
+
+<div class="group">
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_load_sample">
+        <button class="ribbon-main"
+            title="Load a minimal task"
+            v-on:click="load_sample_ds('MINIMAL_TASK')">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Sample</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            {% for item in config['TASK_SAMPLES'] %}
+            {% if item is none %}
+            <li class="divider"></li>
+            {% else %}
+            <li title="[[ item[2] ]]"
+                v-on:click="load_sample_ds('[[ item[0] ]]');">
+                <a href="javascript:void(0);">[[ item[1] ]]</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <button class="ribbon-button" 
+        v-on:click="show_wiki">
+        <span class="icon">
+            <i class="fa fa-info"></i>
+        </span>
+        <span class="caption">Wiki</span>
+    </button>
+
+    <span class="title">Help</span>
+</div>
+
+</div>

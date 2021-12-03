@@ -1,0 +1,30 @@
+<!-- the section for statistics -->
+<div class="section" id="section-1-5"
+v-bind:class="{'active': section=='statistics'}">
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="update_hint_dict">
+        <span class="icon">
+            <i class="fa fa-sync"></i>
+        </span>
+        <span class="caption">Refresh</span>
+    </button>
+
+    <span class="title">&nbsp;</span>    
+</div>
+
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_stat_summary">
+        <span class="icon">
+            <i class="fa fa-download"></i>
+        </span>
+        <span class="caption">Summary (.csv)</span>
+    </button>
+
+    <span class="title">Download</span>    
+</div>
+
+</div>

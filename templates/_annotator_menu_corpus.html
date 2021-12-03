@@ -1,0 +1,81 @@
+<!-- the section for corpus schema -->
+<div class="section" id="section-1-2"
+v-bind:class="{'active': section=='corpus'}">
+
+<div class="group">
+    <button class="ribbon-button"
+        v-on:click="clear_corpus_all">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
+
+    <span class="title">&nbsp;</span>
+</div>
+
+<div class="group">
+    <div id="dropzone_txt" class="dropzone">
+        <div v-if="txt_anns.length == 0" class="zone-text">
+            Drop <b>Raw Text</b> File <br>
+            Here
+        </div>
+        <div v-else>
+            {{ txt_anns.length }} txt files
+        </div>
+    </div>
+
+    <button class="ribbon-button"
+        :disabled="dtd == null"
+        v-on:click="open_txt_files">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Open .txt Files</span>
+    </button>
+
+    <span class="title">Raw Text Files</span>
+</div>
+
+<div class="group">
+    
+    <div class="d-flex flex-column ml-2">
+        <div class="mt-1 mb-2">
+            <label for="">Prefix for XML Files</label>
+            <input type="text" class="ipt-md"
+                v-model="txt_xml_prefix">
+        </div>
+        <div>
+            <label for="">Suffix for XML Files</label>
+            <input type="text" class="ipt-md"
+                v-model="txt_xml_suffix">
+        </div>
+    </div>
+
+    <button class="ribbon-button"
+        :disabled="dtd == null || txt_anns.length == 0"
+        v-on:click="convert_txt_anns_to_xmls">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Convert to XMLs</span>
+    </button>
+
+    <span class="title">Annotation XML File</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        :disabled="txt_xmls.length == 0 || txt_xmls.length != txt_anns.length"
+        v-on:click="download_txt_xmls_as_zip">
+        <span class="icon">
+            <i class="fa fa-download"></i>
+        </span>
+        <span class="caption">All as a ZIP</span>
+    </button>
+
+    <span class="title">Download</span>
+</div>
+
+</div>

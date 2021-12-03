@@ -1,0 +1,113 @@
+<!-- the section for ruleset -->
+<div class="section" id="section-1-4"
+v-bind:class="{'active': section=='ruleset'}">
+
+<div v-if="dtd != null"
+     class="group">
+    <div>
+        <p class="mb-1">
+            <i class="fa fa-list"></i>
+            Summary:
+        </p>
+        <p class="mb-1 mt-1">
+            <b>
+                {{ anns.length }}
+            </b>
+            Documents
+            <br>
+            <b>
+                {{ count_tags_in_anns(anns)}}
+            </b>
+            Annotated Tags
+        </p>
+    </div>
+
+    <span class="title">&nbsp;</span>
+</div>
+
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_text_tsv">
+        <span class="icon">
+            <i class="far fa-file-excel"></i>
+        </span>
+        <span class="caption">Tag Text</span>
+    </button>
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_text_sent_tsv">
+        <span class="icon">
+            <i class="far fa-file-excel"></i>
+        </span>
+        <span class="caption">Tag &amp; Sentence</span>
+    </button>
+
+    <span class="title">Text</span>
+</div>
+
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        title="Download IOB2/BIO format"
+        v-on:click="download_dataset_iob2">
+        <span class="icon">
+            <i class="far fa-file"></i>
+        </span>
+        <span class="caption">IOB2/BIO (.tsv)</span>
+    </button>
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        title="Download BioC format"
+        v-on:click="download_dataset_bioc">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">BioC (.xml)</span>
+    </button>
+
+    <span class="title">Dataset</span>
+</div>
+
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_ruleset_medtagger_zip">
+        <span class="icon">
+            <i class="far fa-file-archive"></i>
+        </span>
+        <span class="caption">MedTagger (.zip)</span>
+    </button>
+
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_ruleset_spacy_jsonl">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">spaCy (.jsonl)</span>
+    </button>
+    <span class="title">Ruleset</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button" 
+        data-role="popover"
+        data-popover-position="right"
+        data-popover-text="Examples of how to use the exported ruleset files."
+        v-on:click="show_howtouse">
+        <span class="icon">
+            <i class="fa fa-terminal"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">Help</span>
+</div>
+
+</div>

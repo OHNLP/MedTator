@@ -277,6 +277,13 @@ var app_hotpot = {
             );
         },
 
+        show_howtouse: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki/Manual#export-tab',
+                '_blank'
+            );
+        },
+
         load_sample_ds: function(ds_name) {
             if (typeof(ds_name) == 'undefined') {
                 ds_name = 'MINIMAL_TASK';
