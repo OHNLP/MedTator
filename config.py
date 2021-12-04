@@ -101,8 +101,16 @@ THIRD_PARTY_LIB_URL={
     },
     'CODE_MIRROR': {
         'CSS': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css",
+        'CSS_ADDON_DIALOG': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.css',
+        'CSS_ADDON_MATCHESONSCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.css',
         'JS': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js",
-        'JS_ADDON_ACTIVE_LINE': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/selection/active-line.min.js"
+        'JS_ADDON_ACTIVE_LINE': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/selection/active-line.min.js",
+        'JS_ADDON_DIALOG': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.js",
+        'JS_ADDON_SEARCH': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/search.min.js",
+        'JS_ADDON_SEARCHCURSOR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/searchcursor.min.js',
+        'JS_ADDON_MATCHESONSCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.js',
+        'JS_ADDON_ANNOTATESCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/scroll/annotatescrollbar.min.js',
+        'JS_ADDON_JUMP_TO_LINE': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/jump-to-line.min.js',
     },
     'NUMJS': {
         'JS': "https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"

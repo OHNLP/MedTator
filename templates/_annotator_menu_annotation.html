@@ -140,6 +140,7 @@ v-bind:class="{'active': section=='annotation'}">
             class="check"
             data-role="switch" 
             data-caption="Show Links"
+            title="Visualize link tags in the current document"
             v-model="cm.enabled_links"
             @change="on_change_link_settings">
         <br>
@@ -148,12 +149,14 @@ v-bind:class="{'active': section=='annotation'}">
             class="check"
             data-role="switch" 
             data-caption="Show Lines"
+            title="Visualize the line drawing of link tag"
             v-model="cm.enabled_link_complex"
             @change="on_change_link_settings">
     </div>
 
     <div v-show="is_linking">
         <button class="ribbon-button"
+            title="Create a new link tag with selected tags"
             v-on:click="done_linking">
             <span class="icon">
                 <span class="fa fa-check-circle"></span>
@@ -164,6 +167,7 @@ v-bind:class="{'active': section=='annotation'}">
 
     <div v-show="is_linking">
         <button class="ribbon-button"
+            title="Stop linking tags and discard selected tags"
             v-on:click="cancel_linking">
             <span class="icon">
                 <span class="far fa-times-circle"></span>
@@ -177,6 +181,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div class="group">
     <div class="ribbon-toggle-group">
         <button class="ribbon-icon-button active"
+            title="Show simple hints based on annotated tags"
             v-on:click="on_change_hint_mode('simple')">
             <span class="icon">
                 <span class="mif-list"></span>
@@ -193,6 +198,7 @@ v-bind:class="{'active': section=='annotation'}">
         </button> -->
 
         <button class="ribbon-icon-button"
+            title="Turn off hint display"
             v-on:click="on_change_hint_mode('off')">
             <span class="icon">
                 <span class="fa fa-ban"></span>
@@ -204,6 +210,7 @@ v-bind:class="{'active': section=='annotation'}">
     <div>
 
         <button class="ribbon-button" 
+            title="Accept all hints in the current annotation"
             v-on:click="accept_all_hints">
             <span class="icon">
                 <i class="fa fa-check-double"></i>
@@ -245,6 +252,9 @@ v-bind:class="{'active': section=='annotation'}">
     </div>
 
     <button class="ribbon-button" 
+        data-role="popover"
+        data-popover-position="right"
+        data-popover-text="MedTator wiki that includes quick start, <br>manual, and technical details."
         v-on:click="show_wiki">
         <span class="icon">
             <i class="fa fa-info"></i>

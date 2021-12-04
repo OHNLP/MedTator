@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID_VAX_AE>
+<TEXT><![CDATA[4/10/21 Patient presented to Urgent Care with Arm Pain (left arm painful and tingly since COVID shot 4/8; now pain is different and there is a lump on her forearm she can feel).  
+
+4/13/21 Contacted the office to schedule an appointment regarding worsening symptoms.  Scheduled appointment. 
+
+4/14/21 cont. Seen in office by PA for: 1. Left arm pain - tender nodule L forearm, will get US due to recent birth, Johnson and Johnson vaccine, FH of DVT, to r/o DVT causing the lump, await results.  Symptomatic care in the interim, may use warm compresses. - USV VENOUS UPPER EXTREMITY DUPLEX LEFT; Future   2. Paresthesia of left arm - site of reported injection and superficial induration 1.5cm from acromion process, suspect SIRVA due to sit of administration of vaccine, recommend symptomatic care with warm compresses, gentle massage if benefit noted, pt is breastfeeding so recommend local care at this time, consider PT, pt declines at this time as she will be on vacation next week.  Discussed possible cortisone injection but deferred due to recent COVID vaccine 6 days ago, pt agrees as there is some recommendation to avoid steroids in close proximity to vaccinations to avoid blunting the immune response   3. Family history of DVT - see #1 
+
+4/15/21 After speaking with the DVT clinic Dr contacted the patient and recommended she take an 81mg low dose daily aspirin, until symptoms resolve, around one month.  And repeating venus duplex in 7-10 days.  Determined she would go prior to her leaving for her trip as she planned to be out-of-town during that time frame.  (Per provider result notes.)  
+
+4/16/21 Patient was seen in emergency department for: Patient presents for evaluation of multiple concerns.  Following the Johnson & Johnson COVID-19 vaccine she was recently diagnosed with superficial thrombophlebitis in the left forearm by ultrasound, has been taking aspirin and symptoms have not worsened.  Left upper extremity exam is quite reassuring today, I see no clinical evidence for DVT and she is neurovascular intact.  I did not feel that repeat ultrasound was necessary at this time, but she does have this scheduled next week so I advised her to keep that appointment.     
+She has a very slight headache which has been present since the day she received the vaccine, currently 2/10 without vision or other neurologic concerns.  No abdominal pain.  I have low clinical suspicion for CVST or PVT at this time.  Advised return if she develops worsening headache or new neurologic symptoms.   
+
+Patient complained of new onset left lower lateral breast pain and lump starting today.  She is currently breastfeeding and notes decreased milk production today.  She does have a tender fullness on exam but no redness or visible swelling, she is nontoxic and well-appearing without fever.  She has history of mastitis in the past, but she states her PCP recommended she be evaluated for possible blood clot in the breast.  
+
+Advised the patient that I have very little concern for that at this time, if anything it would be superficial and not amenable to anticoagulation but I did not feel that imaging was necessary at this time.  I will cover her with antibiotics for lactational mastitis, she has cephalosporin allergy but states she had formal testing for penicillin allergy and tolerated this well so I prescribed Augmentin.  She will use a warm compress and continue nursing, I did recommend she start on the right side to initiate let down on the left.    
+
+4/20/21 patient was seen in the office for: Patient presents for follow up of recent ED visit.   She was seen here last week for left arm pain/nodule/paresthesa following her Johnson & Johnson vaccine. She also reported a slight headache that was present since day of vaccine. An US was performed and showed a left cephalic vein thrombus of LUE. She was advised to start ASA 81mg daily for the next month and get repeat US in 7-10 days. She then called in with left breast pain/swelling and was directed to the ED for evaluation of possible blood clot. She does have hx of mastitis several weeks ago. The ED did not pursue additional imagining of breast, they told her it was likely lactational mastitis and they did prescribe augmentin and warm compresses for this.   
+
+Today, patient presents states he feels "a lot better". Regarding the left breast lump, redness, swelling she states this has completely resolved. She did not start the augmentin as she was worried about this potentially causing thrush for her daughter; she explains she had mastitis 7-8 weeks ago and was on antibiotics and then her and her daughter continually passed thrush back/forth to eachother 3x so she was hoping to avoid this. She did treat with frequent feeding/pupming, and warm compresses and symptoms resolved.    
+
+She was told to see us for elevated blood pressure in the ER, per review of EMR and her DC papers, her blood pressure in the ED was 130/75. Today her blood pressure is 122/78.   Regarding her left arm symptoms, she states the numbness/tingling has nearly resolved; she will occasionally get a very mild tingling in her 4th/5th fingers that resolves after a few seconds. She denies pain or swelling of the arm. She no longer can palpate the clot and thinks that it is gone. She no longer feels swelling or tenderness in her left axilla. She stopped the ASA and started motrin/warm compresses as was advised by the ED.    
+
+Her mild headache continues since the vaccine but is somewhat improved. She denies worsening or severe headache; denies vision changes, dizziness, lightheadedness, speech difficulty, etc.   
+
+Phone encounter also from 4/20/21:  Phone call placed to DVT clinic to get their guidance as Dr had talked with them last week.   Reached RN, who reviewed with Dr. After review of patient's history/chart/growth of superficial clot, Dr recommended that patient not travel as planned and continue on 81mg ASA daily. They would like us to place a referral so they can see her later this week or early next week. They also want us to place order for repeat US either this coming Friday or Monday and they will coordinate to get this done at their office/same time as appointment.   
+
+I did place phone call to patient to discuss and give their advice. They had just left this morning by car. I reviewed Dr advice to not travel and she will discuss with her husband if they are going to run around or not. She was agreeable to continuing on the 81mg ASA  Daily and repeat US/visit with DVT clinic in 5-7 days as recommended.]]></TEXT>
+<TAGS>
+<AE spans="46~54" text="Arm Pain" id="A0" certainty="positive" comment="NA"/>
+<AE spans="56~72" text="left arm painful" id="A1" certainty="positive" comment="NA"/>
+<AE spans="352~365" text="tender nodule" id="A2" certainty="positive" comment="NA"/>
+<AE spans="607~618" text="Paresthesia" id="A3" certainty="positive" comment="NA"/>
+</TAGS>
+</COVID_VAX_AE>

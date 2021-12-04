@@ -836,3 +836,10 @@ input[type=text].ipt-spinner-xs {
     border: 1px solid #aaaaaa;
     border-bottom: 0;
 }
+/* fix for code mirror dialog style within metro */
+.CodeMirror-dialog input,
+.CodeMirror-dialog-top input {
+    display: inline;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}

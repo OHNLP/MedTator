@@ -1763,7 +1763,8 @@ var app_hotpot = {
                 lineWrapping: true,
                 readOnly: true,
                 // readOnly: 'nocursor',
-                // styleActiveLine: true
+                // styleActiveLine: true,
+                extraKeys: {"Alt-F": "find"}
             }
         );
 
