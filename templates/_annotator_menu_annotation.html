@@ -223,6 +223,35 @@ v-bind:class="{'active': section=='annotation'}">
     <span class="title">Hint Marks</span>
 </div>
 
+
+<div class="group">
+    <div>
+
+        <button class="ribbon-button" 
+            title="Show "
+            v-on:click="show_search_bar">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="caption">Search</span>
+        </button>
+        
+
+        <button class="ribbon-button" 
+            title="Accept all hints in the current annotation"
+            v-on:click="clear_search_result">
+            <span class="icon">
+                <i class="fa fa-eraser"></i>
+            </span>
+            <span class="caption">Clear</span>
+        </button>
+        
+    </div>
+
+    <span class="title">Search</span>
+</div>
+
+
 <div class="group">
 
     <div class="ribbon-split-button"

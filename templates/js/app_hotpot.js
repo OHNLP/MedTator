@@ -269,6 +269,14 @@ var app_hotpot = {
             saveAs(blob, fn);
         },
 
+        show_search_bar: function() {
+            app_hotpot.codemirror.execCommand('find');
+        },
+
+        clear_search_result: function() {
+            app_hotpot.codemirror.execCommand('clearSearch');
+        },
+
         show_wiki: function() {
             // app_hotpot.start_tour_annotation();
             window.open(
