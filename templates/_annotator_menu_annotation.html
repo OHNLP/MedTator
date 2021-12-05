@@ -4,7 +4,9 @@ v-bind:class="{'active': section=='annotation'}">
 
 <div class="group">
 
-    <div id="dropzone_dtd" class="dropzone"
+    <div id="dropzone_dtd" 
+        class="dropzone"
+        title="Drop a schema file (.dtd) that contains the annotation task"
         v-on:click="open_dtd_file">
         <div v-if="dtd != null" class="zone-text">
             <b>{{ dtd.name }}</b><br>
@@ -30,6 +32,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div class="group">
 
     <div id="dropzone_ann" 
+        title="Drop the file(s) for annotation (.xml or .txt)"
         v-on:click="open_ann_files"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
         <div v-if="ann_idx != null" class="zone-text">
@@ -60,6 +63,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div v-if="ann_idx != null"
     class="group">
     <button class="ribbon-button"
+        title="Save the current editing annotation file"
         v-if="has_FSA_API()"
         v-on:click="save_xml">
         <span class="icon">
@@ -69,6 +73,7 @@ v-bind:class="{'active': section=='annotation'}">
     </button>
 
     <button class="ribbon-button"
+        title="Save a copy of the current editing annotation file"
         v-if="has_FSA_API()"
         v-on:click="save_as_xml">
         <span class="icon">
@@ -78,6 +83,7 @@ v-bind:class="{'active': section=='annotation'}">
     </button>
 
     <button class="ribbon-button"
+        title="Due to limited browser support, the current annotation file could only be downloaded."
         v-if="!has_FSA_API()"
         v-on:click="download_as_xml">
         <span class="icon">
@@ -100,16 +106,23 @@ v-bind:class="{'active': section=='annotation'}">
 </div> -->
 
 <div class="group">
-    <div>
-        <input type="radio" name="display_mode" value="document" 
+    <div title="Display the current annotation file in its original format or sentence by sentence">
+        <input type="radio" 
+            name="display_mode" 
+            value="document" 
             data-role="radio" 
-            data-caption="<i class='far fa-file-alt'></i> Document" checked 
+            data-caption="<i class='far fa-file-alt'></i> Document" 
+            checked 
+            title="Display the current annotation file in its original format"
             v-model="cm.display_mode"
             @change="on_change_display_mode">
         <br>
-        <input type="radio" name="display_mode" value="sentences" 
+        <input type="radio" 
+            name="display_mode" 
+            value="sentences" 
             data-role="radio" 
             data-caption="<i class='fa fa-list'></i> Sentences" 
+            title="Display the current annotation file sentence by sentence. The sentence tokenization algorithm could be changed in settings."
             v-model="cm.display_mode"
             @change="on_change_display_mode">
     </div>
@@ -129,7 +142,6 @@ v-bind:class="{'active': section=='annotation'}">
             <span class="caption">Search</span>
         </button>
         
-
         <button class="ribbon-button" 
             title="Clear highlights of the search results"
             v-on:click="clear_search_result">
@@ -146,15 +158,22 @@ v-bind:class="{'active': section=='annotation'}">
 
 <div class="group">
     <div>
-        <input type="radio" name="mark_mode" value="node" 
+        <input type="radio" 
+            name="mark_mode" 
+            value="node" 
             data-role="radio" 
-            data-caption="Color + ID" checked 
+            data-caption="Color + ID" 
+            checked 
+            title="Display the entity tags on a background color with the tag ID"
             v-model="cm.mark_mode"
             @change="on_change_mark_mode">
         <br>
-        <input type="radio" name="mark_mode" value="span" 
+        <input type="radio" 
+            name="mark_mode" 
+            value="span" 
             data-role="radio" 
             data-caption="Color Only" 
+            title="Display the entity tags on the corresponding background color only"
             v-model="cm.mark_mode"
             @change="on_change_mark_mode">
     </div>
@@ -162,7 +181,7 @@ v-bind:class="{'active': section=='annotation'}">
 </div>
 
 <div class="group">
-    <div>
+    <div title="Display the link tags and lines">
         <input type="checkbox" 
             class="check"
             data-role="switch" 
