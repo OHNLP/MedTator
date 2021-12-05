@@ -192,9 +192,11 @@
                         <th class="tag-attr">Attributes</th>
                     </tr>
                 </thead>
+
                 <tbody style="overflow-y: auto;">
                     <tr v-for="tag, tag_idx in anns[ann_idx].tags"
-                        v-if="tag.tag == display_tag_name || display_tag_name == '__all__'">
+                        v-if="tag.tag == display_tag_name || display_tag_name == '__all__'"
+                        v-bind:id="'ann-row-tag-' + tag.id">
                         <td>
                             <div class="d-flex flex-row flex-justify-between">
                                 <div>
