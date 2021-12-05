@@ -119,6 +119,33 @@ v-bind:class="{'active': section=='annotation'}">
 
 <div class="group">
     <div>
+
+        <button class="ribbon-button" 
+            title="Show search bar"
+            v-on:click="show_search_bar">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="caption">Search</span>
+        </button>
+        
+
+        <button class="ribbon-button" 
+            title="Clear highlights of the search results"
+            v-on:click="clear_search_result">
+            <span class="icon">
+                <i class="fa fa-eraser"></i>
+            </span>
+            <span class="caption">Clear</span>
+        </button>
+        
+    </div>
+
+    <span class="title">Search</span>
+</div>
+
+<div class="group">
+    <div>
         <input type="radio" name="mark_mode" value="node" 
             data-role="radio" 
             data-caption="Color + ID" checked 
@@ -221,34 +248,6 @@ v-bind:class="{'active': section=='annotation'}">
     </div>
 
     <span class="title">Hint Marks</span>
-</div>
-
-
-<div class="group">
-    <div>
-
-        <button class="ribbon-button" 
-            title="Show "
-            v-on:click="show_search_bar">
-            <span class="icon">
-                <i class="fa fa-search"></i>
-            </span>
-            <span class="caption">Search</span>
-        </button>
-        
-
-        <button class="ribbon-button" 
-            title="Accept all hints in the current annotation"
-            v-on:click="clear_search_result">
-            <span class="icon">
-                <i class="fa fa-eraser"></i>
-            </span>
-            <span class="caption">Clear</span>
-        </button>
-        
-    </div>
-
-    <span class="title">Search</span>
 </div>
 
 
