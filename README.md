@@ -34,6 +34,28 @@ python web.py
 ```
 
 Then you can open web browser and check the http://localhost:8086/. 
+For more details of the parameters, run `python web.py -h` and it will show the following details.
+
+```
+usage: web.py [-h] [--mode {build,run}] [--lib {local,cdn}] [--path PATH]
+              [--fn FN]
+
+MedTator Development Server and Toolkit
+
+optional arguments:
+  -h, --help          show this help message and exit
+  --mode {build,run}  What do you want to do? `run` for starting the
+                      development server. `build` for generating a static HTML
+                      page for public release or local release.
+  --lib {local,cdn}   Where to get third party libs in the HTML page? If
+                      choose local, please make sure to copy the `static`
+                      folder after generated the HTML file.
+  --path PATH         Which folder to be used for the output page? The default
+                      folder is the docs/ folder for public release.
+  --fn FN             What file name to be used for the output page? The
+                      default file name is the `index.html` which could be
+                      accessed directly by browser.
+```
 
 
 ## Build the static version
@@ -50,7 +72,22 @@ Or you can specify where output folder is for the exported files:
 python web.py --mode build --path EXPORT_PATH
 ```
 
+Or you can build a standalone version for local use, run the following command:
+
+```bash
+python web.py --mode build --lib local --fn standalone.html
+```
+
 ## Change log
+
+### 1.1.3 (2021-12-13)
+
+- Added search and clear search results in editor
+- Added highlight in tag list
+- Added script for standalone version export
+- Updated menu item for exported rulesets
+- Updated tool tips
+- Updated samples for entity and relation annotation
 
 ### 1.1.0 (2021-11-28)
 

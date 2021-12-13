@@ -101,8 +101,52 @@ def build(path=None, filename='index.html', lib_base='cdn'):
                 filename
             )
 
-    print('* done building static MedTator!')
+    print('* done building static MedTator %s!' % (
+        app.config['MEDTATOR_VERSION']
+    ))
 
+
+def create_release():
+    '''
+    Create a release zip file that contains public and standalone
+    '''
+    import shutil
+
+    # the final zip file name
+    fn_release = 'MedTator-%s' % (
+        app.config['MEDTATOR_VERSION']
+    )
+
+    # create the path for output
+    p_src = 'docs'
+    p_dst = 'tmp/%s' % fn_release
+
+    # copy files
+    destination = shutil.copytree(
+        p_src, 
+        p_dst,
+        # skip the public version
+        ignore=shutil.ignore_patterns('index.html')
+    )
+    print('* copied files to %s' % p_dst)
+
+    # create zip
+    shutil.make_archive(
+        fn_release,
+        'zip',
+        p_dst
+    )
+    print('* made archive %s' % fn_release)
+
+    # delete tmp
+    shutil.rmtree('tmp')
+    print('* removed temp files in %s' % p_dst)
+
+    # done!
+    print('* created release %s.zip!' % (
+        fn_release
+    ))
+    
 
 def make_page(client, url, path, new_fn=None, param=None):
     '''
@@ -138,7 +182,7 @@ if __name__=='__main__':
 
     # add paramters
     parser.add_argument("--mode", type=str, 
-        choices=['build', 'run'], default='run',
+        choices=['build', 'run', 'release'], default='run',
         help="What do you want to do? `run` for starting the development server. `build` for generating a static HTML page for public release or local release.")
 
     parser.add_argument("--lib", type=str, 
@@ -162,6 +206,9 @@ if __name__=='__main__':
 
     elif args.mode == 'build':
         build(args.path, args.fn, args.lib)
+
+    elif args.mode == 'release':
+        create_release()
 
     else:
         parser.print_usage()

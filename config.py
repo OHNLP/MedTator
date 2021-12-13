@@ -10,7 +10,7 @@ DEV_PORT=8086
 STATIC_PAGE_ROOT_PATH='docs'
 
 # the MedTator version
-MEDTATOR_VERSION='1.1.0'
+MEDTATOR_VERSION='1.1.3'
 
 # library base
 LIB_BASE='cdn'
@@ -46,8 +46,16 @@ THIRD_PARTY_LIB_URL={
     },
     'CODE_MIRROR': {
         'CSS': "./static/lib/codemirror/codemirror.css",
+        'CSS_ADDON_DIALOG': './static/lib/codemirror/addon/dialog/dialog.min.css',
+        'CSS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.css',
         'JS': "./static/lib/codemirror/codemirror.js",
-        'JS_ADDON_ACTIVE_LINE': "./static/lib/codemirror/addon/selection/active-line.js"
+        'JS_ADDON_ACTIVE_LINE': "./static/lib/codemirror/addon/selection/active-line.js",
+        'JS_ADDON_DIALOG': "./static/lib/codemirror/addon/dialog/dialog.min.js",
+        'JS_ADDON_SEARCH': "./static/lib/codemirror/addon/search/search.min.js",
+        'JS_ADDON_SEARCHCURSOR': './static/lib/codemirror/addon/search/searchcursor.min.js',
+        'JS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.js',
+        'JS_ADDON_JUMP_TO_LINE': './static/lib/codemirror/addon/search/jump-to-line.min.js',
+        'JS_ADDON_ANNOTATESCROLLBAR': './static/lib/codemirror/addon/scroll/annotatescrollbar.min.js',
     },
     'NUMJS': {
         'JS': "./static/lib/numjs/numjs.min.js"
@@ -109,8 +117,8 @@ THIRD_PARTY_LIB_URL={
         'JS_ADDON_SEARCH': "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/search.min.js",
         'JS_ADDON_SEARCHCURSOR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/searchcursor.min.js',
         'JS_ADDON_MATCHESONSCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.js',
-        'JS_ADDON_ANNOTATESCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/scroll/annotatescrollbar.min.js',
         'JS_ADDON_JUMP_TO_LINE': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/jump-to-line.min.js',
+        'JS_ADDON_ANNOTATESCROLLBAR': 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/scroll/annotatescrollbar.min.js',
     },
     'NUMJS': {
         'JS': "https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"
