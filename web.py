@@ -121,14 +121,28 @@ def create_release():
     p_src = 'docs'
     p_dst = 'tmp/%s' % fn_release
 
-    # copy files
+    # clear the tmp folder if exists
+    if os.path.exists('tmp'):
+        shutil.rmtree('tmp')
+        print('* cleared the tmp folder if exists')
+
+    # copy the main code files
     destination = shutil.copytree(
         p_src, 
         p_dst,
         # skip the public version
         ignore=shutil.ignore_patterns('index.html')
     )
-    print('* copied files to %s' % p_dst)
+    print('* copied code files to %s' % p_dst)
+
+    # copy the sample data files
+    destination = shutil.copytree(
+        'sample', 
+        os.path.join(p_dst, 'sample'),
+        # skip the public version
+        ignore=shutil.ignore_patterns('index.html')
+    )
+    print('* copied sample files to %s' % p_dst)
 
     # create zip
     shutil.make_archive(
