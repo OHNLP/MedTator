@@ -1004,6 +1004,13 @@ input[type=text].ipt-spinner-xs {
     border: 1px solid #aaaaaa;
     border-bottom: 0;
 }
+/* fix for code mirror dialog style within metro */
+.CodeMirror-dialog input,
+.CodeMirror-dialog-top input {
+    display: inline;
+    height: 1.5rem;
+    line-height: 1.5rem;
+}
 </style>
 
 <style id="dtd_style">
@@ -1063,690 +1070,766 @@ input[type=text].ipt-spinner-xs {
         </ul>
 
         <div class="content-holder">
+            
             <!-- the section for annotation -->
-            <div class="section" id="section-1-1" 
-                v-bind:class="{'active': section=='annotation'}">
+<div class="section" id="section-1-1" 
+v-bind:class="{'active': section=='annotation'}">
 
-                <div class="group">
+<div class="group">
 
-                    <div id="dropzone_dtd" class="dropzone"
-                        v-on:click="open_dtd_file">
-                        <div v-if="dtd != null" class="zone-text">
-                            <b>{{ dtd.name }}</b><br>
-                            {{ dtd.etags.length }} Entity Tags<br>
-                            {{ dtd.ltags.length }} Link Tags
-                        </div>
-                        <div v-else>
-                            Drop a <b>Schema</b> File Here
-                        </div>
-                    </div>
+    <div id="dropzone_dtd" 
+        class="dropzone"
+        title="Drop a schema file (.dtd) that contains the annotation task"
+        v-on:click="open_dtd_file">
+        <div v-if="dtd != null" class="zone-text">
+            <b>{{ dtd.name }}</b><br>
+            {{ dtd.etags.length }} Entity Tags<br>
+            {{ dtd.ltags.length }} Link Tags
+        </div>
+        <div v-else>
+            Drop a <b>Schema</b> File Here
+        </div>
+    </div>
 
-                    <!-- <button class="ribbon-button"
-                        v-on:click="open_dtd_file">
-                        <span class="icon">
-                            <i class="far fa-file"></i>
-                        </span>
-                        <span class="caption">Open DTD</span>
-                    </button> -->
+    <!-- <button class="ribbon-button"
+        v-on:click="open_dtd_file">
+        <span class="icon">
+            <i class="far fa-file"></i>
+        </span>
+        <span class="caption">Open DTD</span>
+    </button> -->
 
-                    <span class="title">Schema DTD File (.dtd)</span>
-                </div>
+    <span class="title">Schema DTD File (.dtd)</span>
+</div>
 
-                <div class="group">
+<div class="group">
 
-                    <div id="dropzone_ann" 
-                        v-on:click="open_ann_files"
-                        v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
-                        <div v-if="ann_idx != null" class="zone-text">
-                            <b>{{ anns[ann_idx]._filename }}</b><br>
-                            {{ anns[ann_idx].text.length }} chars<br>
-                            {{ anns[ann_idx].tags.length }} tags
-                        </div>
-                        <div v-else-if="dtd != null">
-                            Drop <b>Annotation</b> File(s)
-                        </div>
-                        <div v-else>
-                            <i class="fa fa-arrow-left"></i>
-                            Load schema file first
-                        </div>
-                    </div>
+    <div id="dropzone_ann" 
+        title="Drop the file(s) for annotation (.xml or .txt)"
+        v-on:click="open_ann_files"
+        v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
+        <div v-if="ann_idx != null" class="zone-text">
+            <b>{{ anns[ann_idx]._filename }}</b><br>
+            {{ anns[ann_idx].text.length }} chars<br>
+            {{ anns[ann_idx].tags.length }} tags
+        </div>
+        <div v-else-if="dtd != null">
+            Drop <b>Annotation</b> File(s)
+        </div>
+        <div v-else>
+            <i class="fa fa-arrow-left"></i>
+            Load schema file first
+        </div>
+    </div>
 
-                    <!-- <button class="ribbon-button"
-                        v-on:click="open_ann_files">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">Open XMLs</span>
-                    </button> -->
+    <!-- <button class="ribbon-button"
+        v-on:click="open_ann_files">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Open XMLs</span>
+    </button> -->
 
-                    <span class="title">Annotation File (.xml)</span>
-                </div>
+    <span class="title">Annotation File (.xml)</span>
+</div>
 
-                <div v-if="ann_idx != null"
-                    class="group">
-                    <button class="ribbon-button"
-                        v-if="has_FSA_API()"
-                        v-on:click="save_xml">
-                        <span class="icon">
-                            <i class="far fa-save"></i>
-                        </span>
-                        <span class="caption">Save</span>
-                    </button>
- 
-                    <button class="ribbon-button"
-                        v-if="has_FSA_API()"
-                        v-on:click="save_as_xml">
-                        <span class="icon">
-                            <i class="far fa-copy"></i>
-                        </span>
-                        <span class="caption">Save as</span>
-                    </button>
- 
-                    <button class="ribbon-button"
-                        v-if="!has_FSA_API()"
-                        v-on:click="download_as_xml">
-                        <span class="icon">
-                            <i class="fa fa-file-download"></i>
-                        </span>
-                        <span class="caption">Download XML</span>
-                    </button>
-                    
-                    <a id="downloadAnchorElem" style="display:none"></a>
+<div v-if="ann_idx != null"
+    class="group">
+    <button class="ribbon-button"
+        title="Save the current editing annotation file"
+        v-if="has_FSA_API()"
+        v-on:click="save_xml">
+        <span class="icon">
+            <i class="far fa-save"></i>
+        </span>
+        <span class="caption">Save</span>
+    </button>
 
-                    <span class="title">Save</span>
-                </div>
+    <button class="ribbon-button"
+        title="Save a copy of the current editing annotation file"
+        v-if="has_FSA_API()"
+        v-on:click="save_as_xml">
+        <span class="icon">
+            <i class="far fa-copy"></i>
+        </span>
+        <span class="caption">Save as</span>
+    </button>
 
-                <!-- <div class="group">
-                    <div>
-                        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
-                        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
-                    </div>
-                    <span class="title">Annotation Mode</span>
-                </div> -->
-
-                <div class="group">
-                    <div>
-                        <input type="radio" name="display_mode" value="document" 
-                            data-role="radio" 
-                            data-caption="<i class='far fa-file-alt'></i> Document" checked 
-                            v-model="cm.display_mode"
-                            @change="on_change_display_mode">
-                        <br>
-                        <input type="radio" name="display_mode" value="sentences" 
-                            data-role="radio" 
-                            data-caption="<i class='fa fa-list'></i> Sentences" 
-                            v-model="cm.display_mode"
-                            @change="on_change_display_mode">
-                    </div>
-
-                    <span class="title">Display Mode</span>
-                </div>
-
-                <div class="group">
-                    <div>
-                        <input type="radio" name="mark_mode" value="node" 
-                            data-role="radio" 
-                            data-caption="Color + ID" checked 
-                            v-model="cm.mark_mode"
-                            @change="on_change_mark_mode">
-                        <br>
-                        <input type="radio" name="mark_mode" value="span" 
-                            data-role="radio" 
-                            data-caption="Color Only" 
-                            v-model="cm.mark_mode"
-                            @change="on_change_mark_mode">
-                    </div>
-                    <span class="title">Entity Marks</span>
-                </div>
-                
-                <div class="group">
-                    <div>
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Show Links"
-                            v-model="cm.enabled_links"
-                            @change="on_change_link_settings">
-                        <br>
-                        
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Show Lines"
-                            v-model="cm.enabled_link_complex"
-                            @change="on_change_link_settings">
-                    </div>
-
-                    <div v-show="is_linking">
-                        <button class="ribbon-button"
-                            v-on:click="done_linking">
-                            <span class="icon">
-                                <span class="fa fa-check-circle"></span>
-                            </span>
-                            <span class="caption">Done Linking</span>
-                        </button>
-                    </div>
-
-                    <div v-show="is_linking">
-                        <button class="ribbon-button"
-                            v-on:click="cancel_linking">
-                            <span class="icon">
-                                <span class="far fa-times-circle"></span>
-                            </span>
-                            <span class="caption">Cancel Linking</span>
-                        </button>
-                    </div>
-                    <span class="title">Link Marks</span>
-                </div>
-
-                <div class="group">
-                    <div class="ribbon-toggle-group">
-                        <button class="ribbon-icon-button active"
-                            v-on:click="on_change_hint_mode('simple')">
-                            <span class="icon">
-                                <span class="mif-list"></span>
-                            </span>
-                            <span class="caption">Simple Hint</span>
-                        </button>
+    <button class="ribbon-button"
+        title="Due to limited browser support, the current annotation file could only be downloaded."
+        v-if="!has_FSA_API()"
+        v-on:click="download_as_xml">
+        <span class="icon">
+            <i class="fa fa-file-download"></i>
+        </span>
+        <span class="caption">Download XML</span>
+    </button>
     
-                        <!-- <button class="ribbon-icon-button"
-                            v-on:click="on_change_hint_mode('smart')">
-                            <span class="icon">
-                                <span class="fa fa-magic"></span>
-                            </span>
-                            <span class="caption">Smart</span>
-                        </button> -->
-    
-                        <button class="ribbon-icon-button"
-                            v-on:click="on_change_hint_mode('off')">
-                            <span class="icon">
-                                <span class="fa fa-ban"></span>
-                            </span>
-                            <span class="caption">No Hint</span>
-                        </button>
-                    </div>
+    <a id="downloadAnchorElem" style="display:none"></a>
 
-                    <div>
+    <span class="title">Save</span>
+</div>
 
-                        <button class="ribbon-button" 
-                            v-on:click="accept_all_hints">
-                            <span class="icon">
-                                <i class="fa fa-check-double"></i>
-                            </span>
-                            <span class="caption">Accept All</span>
-                        </button>
-                        
-                    </div>
-    
-                    <span class="title">Hint Marks</span>
-                </div>
+<!-- <div class="group">
+    <div>
+        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
+        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
+    </div>
+    <span class="title">Annotation Mode</span>
+</div> -->
 
-                <div class="group">
+<div class="group">
+    <div title="Display the current annotation file in its original format or sentence by sentence">
+        <input type="radio" 
+            name="display_mode" 
+            value="document" 
+            data-role="radio" 
+            data-caption="<i class='far fa-file-alt'></i> Document" 
+            checked 
+            title="Display the current annotation file in its original format"
+            v-model="cm.display_mode"
+            @change="on_change_display_mode">
+        <br>
+        <input type="radio" 
+            name="display_mode" 
+            value="sentences" 
+            data-role="radio" 
+            data-caption="<i class='fa fa-list'></i> Sentences" 
+            title="Display the current annotation file sentence by sentence. The sentence tokenization algorithm could be changed in settings."
+            v-model="cm.display_mode"
+            @change="on_change_display_mode">
+    </div>
 
-                    <div class="ribbon-split-button"
-                        id="btn_annotation_load_sample">
-                        <button class="ribbon-main"
-                            title="Load a minimal task"
-                            v-on:click="load_sample_ds('MINIMAL_TASK')">
-                            <span class="icon">
-                                <i class="far fa-edit"></i>
-                            </span>
-                        </button>
-                        <span class="ribbon-split dropdown-toggle">Sample</span>
-                        <ul class="ribbon-dropdown text-left" 
-                            data-role="dropdown" 
-                            data-duration="100">
-                            
-                            
-                            <li title="A minimal annotation task"
-                                v-on:click="load_sample_ds('MINIMAL_TASK');">
-                                <a href="javascript:void(0);">Minimal Annotation Task</a>
-                            </li>
-                            
-                            
-                            
-                            <li title="A sample for entity and relation annotation"
-                                v-on:click="load_sample_ds('ENTITY_RELATION_TASK');">
-                                <a href="javascript:void(0);">Entity and Relation Annotation</a>
-                            </li>
-                            
-                            
-                            
-                            <li title="A sample for document level annotation samples"
-                                v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK');">
-                                <a href="javascript:void(0);">Document-Level Annotation</a>
-                            </li>
-                            
-                            
-                            
-                            <li title="A sample for IAA calculation"
-                                v-on:click="load_sample_ds('IAA_TASK');">
-                                <a href="javascript:void(0);">IAA Calculation</a>
-                            </li>
-                            
-                            
-                            
-                            <li class="divider"></li>
-                            
-                            
-                            
-                            <li title="A sample task for AMIA 2021 workshop annotation presentation"
-                                v-on:click="load_sample_ds('AMIA21_WORKSHOP');">
-                                <a href="javascript:void(0);">AMIA 2021 Workshop</a>
-                            </li>
-                            
-                            
-                        </ul>
-                    </div>
+    <span class="title">Display Mode</span>
+</div>
 
-                    <button class="ribbon-button" 
-                        v-on:click="show_wiki">
-                        <span class="icon">
-                            <i class="fa fa-info"></i>
-                        </span>
-                        <span class="caption">Wiki</span>
-                    </button>
+<div class="group">
+    <div>
 
-                    <span class="title">Help</span>
-                </div>
+        <button class="ribbon-button" 
+            title="Show search bar"
+            v-on:click="show_search_bar">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="caption">Search</span>
+        </button>
+        
+        <button class="ribbon-button" 
+            title="Clear highlights of the search results"
+            v-on:click="clear_search_result">
+            <span class="icon">
+                <i class="fa fa-eraser"></i>
+            </span>
+            <span class="caption">Clear</span>
+        </button>
+        
+    </div>
 
-            </div>
+    <span class="title">Search</span>
+</div>
+
+<div class="group">
+    <div>
+        <input type="radio" 
+            name="mark_mode" 
+            value="node" 
+            data-role="radio" 
+            data-caption="Color + ID" 
+            checked 
+            title="Display the entity tags on a background color with the tag ID"
+            v-model="cm.mark_mode"
+            @change="on_change_mark_mode">
+        <br>
+        <input type="radio" 
+            name="mark_mode" 
+            value="span" 
+            data-role="radio" 
+            data-caption="Color Only" 
+            title="Display the entity tags on the corresponding background color only"
+            v-model="cm.mark_mode"
+            @change="on_change_mark_mode">
+    </div>
+    <span class="title">Entity Marks</span>
+</div>
+
+<div class="group">
+    <div title="Display the link tags and lines">
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Links"
+            title="Visualize link tags in the current document"
+            v-model="cm.enabled_links"
+            @change="on_change_link_settings">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Lines"
+            title="Visualize the line drawing of link tag"
+            v-model="cm.enabled_link_complex"
+            @change="on_change_link_settings">
+    </div>
+
+    <div v-show="is_linking">
+        <button class="ribbon-button"
+            title="Create a new link tag with selected tags"
+            v-on:click="done_linking">
+            <span class="icon">
+                <span class="fa fa-check-circle"></span>
+            </span>
+            <span class="caption">Done Linking</span>
+        </button>
+    </div>
+
+    <div v-show="is_linking">
+        <button class="ribbon-button"
+            title="Stop linking tags and discard selected tags"
+            v-on:click="cancel_linking">
+            <span class="icon">
+                <span class="far fa-times-circle"></span>
+            </span>
+            <span class="caption">Cancel Linking</span>
+        </button>
+    </div>
+    <span class="title">Link Marks</span>
+</div>
+
+<div class="group">
+    <div class="ribbon-toggle-group">
+        <button class="ribbon-icon-button active"
+            title="Show simple hints based on annotated tags"
+            v-on:click="on_change_hint_mode('simple')">
+            <span class="icon">
+                <span class="mif-list"></span>
+            </span>
+            <span class="caption">Simple Hint</span>
+        </button>
+
+        <!-- <button class="ribbon-icon-button"
+            v-on:click="on_change_hint_mode('smart')">
+            <span class="icon">
+                <span class="fa fa-magic"></span>
+            </span>
+            <span class="caption">Smart</span>
+        </button> -->
+
+        <button class="ribbon-icon-button"
+            title="Turn off hint display"
+            v-on:click="on_change_hint_mode('off')">
+            <span class="icon">
+                <span class="fa fa-ban"></span>
+            </span>
+            <span class="caption">No Hint</span>
+        </button>
+    </div>
+
+    <div>
+
+        <button class="ribbon-button" 
+            title="Accept all hints in the current annotation"
+            v-on:click="accept_all_hints">
+            <span class="icon">
+                <i class="fa fa-check-double"></i>
+            </span>
+            <span class="caption">Accept All</span>
+        </button>
+        
+    </div>
+
+    <span class="title">Hint Marks</span>
+</div>
+
+
+<div class="group">
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_load_sample">
+        <button class="ribbon-main"
+            title="Load a minimal task"
+            v-on:click="load_sample_ds('MINIMAL_TASK')">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Sample</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            
+            
+            <li title="A minimal annotation task"
+                v-on:click="load_sample_ds('MINIMAL_TASK');">
+                <a href="javascript:void(0);">Minimal Annotation Task</a>
+            </li>
+            
+            
+            
+            <li title="A sample for entity and relation annotation"
+                v-on:click="load_sample_ds('ENTITY_RELATION_TASK');">
+                <a href="javascript:void(0);">Entity and Relation Annotation</a>
+            </li>
+            
+            
+            
+            <li title="A sample for document level annotation samples"
+                v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK');">
+                <a href="javascript:void(0);">Document-Level Annotation</a>
+            </li>
+            
+            
+            
+            <li title="A sample for IAA calculation"
+                v-on:click="load_sample_ds('IAA_TASK');">
+                <a href="javascript:void(0);">IAA Calculation</a>
+            </li>
+            
+            
+            
+            <li class="divider"></li>
+            
+            
+            
+            <li title="A sample task for AMIA 2021 workshop annotation presentation"
+                v-on:click="load_sample_ds('AMIA21_WORKSHOP');">
+                <a href="javascript:void(0);">AMIA 2021 Workshop</a>
+            </li>
+            
+            
+        </ul>
+    </div>
+
+    <button class="ribbon-button" 
+        data-role="popover"
+        data-popover-position="right"
+        data-popover-text="MedTator wiki that includes quick start, <br>manual, and technical details."
+        v-on:click="show_wiki">
+        <span class="icon">
+            <i class="fa fa-info"></i>
+        </span>
+        <span class="caption">Wiki</span>
+    </button>
+
+    <span class="title">Help</span>
+</div>
+
+</div>
 
             <!-- the section for corpus schema -->
-            <div class="section" id="section-1-2"
-                v-bind:class="{'active': section=='corpus'}">
+<div class="section" id="section-1-2"
+v-bind:class="{'active': section=='corpus'}">
 
-                <div class="group">
-                    <button class="ribbon-button"
-                        v-on:click="clear_corpus_all">
-                        <span class="icon">
-                            <i class="far fa-times-circle"></i>
-                        </span>
-                        <span class="caption">Clear All</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button"
+        v-on:click="clear_corpus_all">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
 
-                    <span class="title">&nbsp;</span>
-                </div>
+    <span class="title">&nbsp;</span>
+</div>
 
-                <div class="group">
-                    <div id="dropzone_txt" class="dropzone">
-                        <div v-if="txt_anns.length == 0" class="zone-text">
-                            Drop <b>Raw Text</b> File <br>
-                            Here
-                        </div>
-                        <div v-else>
-                            {{ txt_anns.length }} txt files
-                        </div>
-                    </div>
+<div class="group">
+    <div id="dropzone_txt" class="dropzone">
+        <div v-if="txt_anns.length == 0" class="zone-text">
+            Drop <b>Raw Text</b> File <br>
+            Here
+        </div>
+        <div v-else>
+            {{ txt_anns.length }} txt files
+        </div>
+    </div>
 
-                    <button class="ribbon-button"
-                        :disabled="dtd == null"
-                        v-on:click="open_txt_files">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">Open .txt Files</span>
-                    </button>
+    <button class="ribbon-button"
+        :disabled="dtd == null"
+        v-on:click="open_txt_files">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Open .txt Files</span>
+    </button>
 
-                    <span class="title">Raw Text Files</span>
-                </div>
-                
-                <div class="group">
-                    
-                    <div class="d-flex flex-column ml-2">
-                        <div class="mt-1 mb-2">
-                            <label for="">Prefix for XML Files</label>
-                            <input type="text" class="ipt-md"
-                                v-model="txt_xml_prefix">
-                        </div>
-                        <div>
-                            <label for="">Suffix for XML Files</label>
-                            <input type="text" class="ipt-md"
-                                v-model="txt_xml_suffix">
-                        </div>
-                    </div>
+    <span class="title">Raw Text Files</span>
+</div>
 
-                    <button class="ribbon-button"
-                        :disabled="dtd == null || txt_anns.length == 0"
-                        v-on:click="convert_txt_anns_to_xmls">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">Convert to XMLs</span>
-                    </button>
+<div class="group">
+    
+    <div class="d-flex flex-column ml-2">
+        <div class="mt-1 mb-2">
+            <label for="">Prefix for XML Files</label>
+            <input type="text" class="ipt-md"
+                v-model="txt_xml_prefix">
+        </div>
+        <div>
+            <label for="">Suffix for XML Files</label>
+            <input type="text" class="ipt-md"
+                v-model="txt_xml_suffix">
+        </div>
+    </div>
 
-                    <span class="title">Annotation XML File</span>
-                </div>
-                
-                <div class="group">
+    <button class="ribbon-button"
+        :disabled="dtd == null || txt_anns.length == 0"
+        v-on:click="convert_txt_anns_to_xmls">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Convert to XMLs</span>
+    </button>
 
-                    <button class="ribbon-button"
-                        :disabled="txt_xmls.length == 0 || txt_xmls.length != txt_anns.length"
-                        v-on:click="download_txt_xmls_as_zip">
-                        <span class="icon">
-                            <i class="fa fa-download"></i>
-                        </span>
-                        <span class="caption">All as a ZIP</span>
-                    </button>
+    <span class="title">Annotation XML File</span>
+</div>
 
-                    <span class="title">Download</span>
-                </div>
+<div class="group">
 
-            </div>
+    <button class="ribbon-button"
+        :disabled="txt_xmls.length == 0 || txt_xmls.length != txt_anns.length"
+        v-on:click="download_txt_xmls_as_zip">
+        <span class="icon">
+            <i class="fa fa-download"></i>
+        </span>
+        <span class="caption">All as a ZIP</span>
+    </button>
+
+    <span class="title">Download</span>
+</div>
+
+</div>
 
             <!-- the section for statistics -->
-            <div class="section" id="section-1-5"
-                v-bind:class="{'active': section=='statistics'}">
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="update_hint_dict">
-                        <span class="icon">
-                            <i class="fa fa-sync"></i>
-                        </span>
-                        <span class="caption">Refresh</span>
-                    </button>
+<div class="section" id="section-1-5"
+v-bind:class="{'active': section=='statistics'}">
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="update_hint_dict">
+        <span class="icon">
+            <i class="fa fa-sync"></i>
+        </span>
+        <span class="caption">Refresh</span>
+    </button>
 
-                    <span class="title">&nbsp;</span>    
-                </div>
+    <span class="title">&nbsp;</span>    
+</div>
 
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_stat_summary">
-                        <span class="icon">
-                            <i class="fa fa-download"></i>
-                        </span>
-                        <span class="caption">Summary (.csv)</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_stat_summary">
+        <span class="icon">
+            <i class="fa fa-download"></i>
+        </span>
+        <span class="caption">Summary (.csv)</span>
+    </button>
 
-                    <span class="title">Download</span>    
-                </div>
-                
-            </div>
+    <span class="title">Download</span>    
+</div>
+
+</div>
 
             <!-- the section for ruleset -->
-            <div class="section" id="section-1-4"
-                v-bind:class="{'active': section=='ruleset'}">
+<div class="section" id="section-1-4"
+v-bind:class="{'active': section=='ruleset'}">
 
-                <div v-if="dtd != null"
-                     class="group">
-                    <div>
-                        <p class="mb-1">
-                            <i class="fa fa-list"></i>
-                            Summary:
-                        </p>
-                        <p class="mb-1 mt-1">
-                            <b>
-                                {{ anns.length }}
-                            </b>
-                            Documents
-                            <br>
-                            <b>
-                                {{ count_tags_in_anns(anns)}}
-                            </b>
-                            Annotated Tags
-                        </p>
-                    </div>
+<div v-if="dtd != null"
+     class="group">
+    <div>
+        <p class="mb-1">
+            <i class="fa fa-list"></i>
+            Summary:
+        </p>
+        <p class="mb-1 mt-1">
+            <b>
+                {{ anns.length }}
+            </b>
+            Documents
+            <br>
+            <b>
+                {{ count_tags_in_anns(anns)}}
+            </b>
+            Annotated Tags
+        </p>
+    </div>
 
-                    <span class="title">&nbsp;</span>
-                </div>
+    <span class="title">&nbsp;</span>
+</div>
 
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag Text</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_text_tsv">
+        <span class="icon">
+            <i class="far fa-file-excel"></i>
+        </span>
+        <span class="caption">Tag Text</span>
+    </button>
 
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_text_sent_tsv">
-                        <span class="icon">
-                            <i class="far fa-file-excel"></i>
-                        </span>
-                        <span class="caption">Tag &amp; Sentence</span>
-                    </button>
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_text_sent_tsv">
+        <span class="icon">
+            <i class="far fa-file-excel"></i>
+        </span>
+        <span class="caption">Tag &amp; Sentence</span>
+    </button>
 
-                    <span class="title">Text</span>
-                </div>
+    <span class="title">Text</span>
+</div>
 
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download IOB2/BIO format"
-                        v-on:click="download_dataset_iob2">
-                        <span class="icon">
-                            <i class="far fa-file"></i>
-                        </span>
-                        <span class="caption">IOB2/BIO (.tsv)</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        title="Download IOB2/BIO format"
+        v-on:click="download_dataset_iob2">
+        <span class="icon">
+            <i class="far fa-file"></i>
+        </span>
+        <span class="caption">IOB2/BIO (.tsv)</span>
+    </button>
 
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        title="Download BioC format"
-                        v-on:click="download_dataset_bioc">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">BioC (.xml)</span>
-                    </button>
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        title="Download BioC format"
+        v-on:click="download_dataset_bioc">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">BioC (.xml)</span>
+    </button>
 
-                    <span class="title">Dataset</span>
-                </div>
+    <span class="title">Dataset</span>
+</div>
 
-                <div class="group">
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_medtagger_zip">
-                        <span class="icon">
-                            <i class="far fa-file-archive"></i>
-                        </span>
-                        <span class="caption">MedTagger (.zip)</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_ruleset_medtagger_zip">
+        <span class="icon">
+            <i class="far fa-file-archive"></i>
+        </span>
+        <span class="caption">MedTagger (.zip)</span>
+    </button>
 
-                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
 
-                    <button class="ribbon-button" 
-                        :disabled="dtd == null"
-                        v-on:click="download_ruleset_spacy_jsonl">
-                        <span class="icon">
-                            <i class="far fa-file-code"></i>
-                        </span>
-                        <span class="caption">spaCy (.jsonl)</span>
-                    </button>
-                    <span class="title">Ruleset</span>
-                </div>
-            </div>
+    <button class="ribbon-button" 
+        :disabled="dtd == null"
+        v-on:click="download_ruleset_spacy_jsonl">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">spaCy (.jsonl)</span>
+    </button>
+    <span class="title">Ruleset</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button" 
+        data-role="popover"
+        data-popover-position="right"
+        data-popover-text="Examples of how to use the exported ruleset files."
+        v-on:click="show_howtouse">
+        <span class="icon">
+            <i class="fa fa-terminal"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">Help</span>
+</div>
+
+</div>
 
             <!-- the section for iaa -->
-            <div class="section" id="section-1-6"
-                v-bind:class="{'active': section=='iaa'}">
+<div class="section" id="section-1-6"
+v-bind:class="{'active': section=='iaa'}">
 
-                <div class="group">
-                    <button class="ribbon-button"
-                        v-on:click="clear_iaa_all">
-                        <span class="icon">
-                            <i class="far fa-times-circle"></i>
-                        </span>
-                        <span class="caption">Clear All</span>
-                    </button>
+<div class="group">
+    <button class="ribbon-button"
+        v-on:click="clear_iaa_all">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
 
-                    <span class="title">&nbsp;</span>
-                </div>
+    <span class="title">&nbsp;</span>
+</div>
 
-                <div class="group">
+<div class="group">
 
-                    <div id="dropzone_iaa_0" class="dropzone-iaa"
-                        iaa_id="0">
-                        <div v-if="dtd == null" class="zone-text">
-                            Load DTD file first<br>
-                            in Annotation Tab
-                        </div>
-                        <div v-else-if="iaa_ann_list[0].anns.length == 0" class="zone-text">
-                            Drop <b>Ann</b> File(s)<br>
-                            Annotator <b>A</b>
-                        </div>
-                        <div v-else class="zone-text">
-                            <b>Annotator A</b><br>
-                            Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
-                            <br>
-                            in {{ iaa_ann_list[0].anns.length }} Files
-                        </div>
-                    </div>
+    <div id="dropzone_iaa_0" class="dropzone-iaa"
+        iaa_id="0">
+        <div v-if="dtd == null" class="zone-text">
+            Load DTD file first<br>
+            in Annotation Tab
+        </div>
+        <div v-else-if="iaa_ann_list[0].anns.length == 0" class="zone-text">
+            Drop <b>Ann</b> File(s)<br>
+            Annotator <b>A</b>
+        </div>
+        <div v-else class="zone-text">
+            <b>Annotator A</b><br>
+            Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
+            <br>
+            in {{ iaa_ann_list[0].anns.length }} Files
+        </div>
+    </div>
 
-                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
 
-                    <div id="dropzone_iaa_1" class="dropzone-iaa"
-                        iaa_id="1">
-                        <div v-if="dtd == null" class="zone-text">
-                            Load DTD file first<br>
-                            in Annotation Tab
-                        </div>
-                        <div v-else-if="iaa_ann_list[1].anns.length == 0" class="zone-text">
-                            Drop <b>Ann</b> File(s)<br>
-                            Annotator <b>B</b>
-                        </div>
-                        <div v-else class="zone-text">
-                            <b>Annotator B</b><br>
-                            Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
-                            <br>
-                            in {{ iaa_ann_list[1].anns.length }} Files
-                        </div>
-                    </div>
+    <div id="dropzone_iaa_1" class="dropzone-iaa"
+        iaa_id="1">
+        <div v-if="dtd == null" class="zone-text">
+            Load DTD file first<br>
+            in Annotation Tab
+        </div>
+        <div v-else-if="iaa_ann_list[1].anns.length == 0" class="zone-text">
+            Drop <b>Ann</b> File(s)<br>
+            Annotator <b>B</b>
+        </div>
+        <div v-else class="zone-text">
+            <b>Annotator B</b><br>
+            Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
+            <br>
+            in {{ iaa_ann_list[1].anns.length }} Files
+        </div>
+    </div>
 
-                    <span class="title">Annotation Files</span>
-                </div>
+    <span class="title">Annotation Files</span>
+</div>
 
-                <div class="group">
-                    <div class="mr-1">
-                        <input type="radio" name="match_mode" 
-                            value="overlap" 
-                            data-role="radio" 
-                            data-caption="<i class='fa fa-align-center'></i> Overlap" checked 
-                            v-model="iaa_match_mode"
-                            @change="on_change_iaa_settings">
-                        <br>
-                        <input type="radio" name="match_mode" 
-                            value="exact" 
-                            data-role="radio" 
-                            data-caption="<i class='fa fa-align-justify'></i> Exact" 
-                            v-model="iaa_match_mode"
-                            @change="on_change_iaa_settings">
-                    </div>
-                    
-                    <div v-if="iaa_match_mode == 'overlap'"
-                        class="p-1 ml-1 mr-1 border bd-gray border-radius">
+<div class="group">
+    <div class="mr-1">
+        <input type="radio" name="match_mode" 
+            value="overlap" 
+            data-role="radio" 
+            data-caption="<i class='fa fa-align-center'></i> Overlap" checked 
+            v-model="iaa_match_mode"
+            @change="on_change_iaa_settings">
+        <br>
+        <input type="radio" name="match_mode" 
+            value="exact" 
+            data-role="radio" 
+            data-caption="<i class='fa fa-align-justify'></i> Exact" 
+            v-model="iaa_match_mode"
+            @change="on_change_iaa_settings">
+    </div>
+    
+    <div v-if="iaa_match_mode == 'overlap'"
+        class="p-1 ml-1 mr-1 border bd-gray border-radius">
 
-                        <div class="mt-1 mb-1">
-                            <i class="fa fa-percentage"></i>
-                            Overlap Ratio
-                        </div>
+        <div class="mt-1 mb-1">
+            <i class="fa fa-percentage"></i>
+            Overlap Ratio
+        </div>
 
-                        <div>        
-                            <input id="iaa_form_overlap_ratio" 
-                                name="iaa_form_overlap_ratio" 
-                                style="width: 36px"
-                                type="text" class="ipt-md" 
-                                v-model.number="iaa_overlap_ratio">
-                            <span class="mr-1">
-                                %
-                            </span>
+        <div>        
+            <input id="iaa_form_overlap_ratio" 
+                name="iaa_form_overlap_ratio" 
+                style="width: 36px"
+                type="text" class="ipt-md" 
+                v-model.number="iaa_overlap_ratio">
+            <span class="mr-1">
+                %
+            </span>
 
-                            <button title="Reset the overlap ratio"
-                                v-on:click="iaa_overlap_ratio = iaa_overlap_ratio_default">
-                                <i class="fa fa-undo"></i>
-                            </button>
-                        </div>
-                    </div>
+            <button title="Reset the overlap ratio"
+                v-on:click="iaa_overlap_ratio = iaa_overlap_ratio_default">
+                <i class="fa fa-undo"></i>
+            </button>
+        </div>
+    </div>
 
-                    <button class="ribbon-button"
-                        v-on:click="calc_iaa">
-                        <span class="icon">
-                            <i class="fa fa-calculator"></i>
-                        </span>
-                        <span class="caption">Calculate All</span>
-                    </button>
+    <button class="ribbon-button"
+        v-on:click="calc_iaa">
+        <span class="icon">
+            <i class="fa fa-calculator"></i>
+        </span>
+        <span class="caption">Calculate All</span>
+    </button>
 
-                    <span class="title">IAA</span>
-                </div>
-                
-                <div class="group">
-                    <div>
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Show Agreed Tags"
-                            v-model="iaa_display_tags_tp"
-                            @change="on_change_iaa_settings">
-                        <br>
+    <span class="title">IAA</span>
+</div>
 
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Show Context"
-                            v-model="iaa_display_tags_context"
-                            @change="on_change_iaa_settings">
+<div class="group">
+    <div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Agreed Tags"
+            v-model="iaa_display_tags_tp"
+            @change="on_change_iaa_settings">
+        <br>
 
-                    </div>
-                    <span class="title">Tag Display</span>
-                </div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Context"
+            v-model="iaa_display_tags_context"
+            @change="on_change_iaa_settings">
 
-                
-                <div class="group">
-                    <div>
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Adj. Panel"
-                            v-model="iaa_display_adj_panel"
-                            @change="on_change_iaa_settings">
-                        <br>
+    </div>
+    <span class="title">Tag Display</span>
+</div>
 
-                        <input type="checkbox" 
-                            class="check"
-                            data-role="switch" 
-                            data-caption="Tag Detail"
-                            v-model="iaa_display_adj_detail"
-                            @change="on_change_iaa_settings">
 
-                    </div>
+<div class="group">
+    <div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Adj. Panel"
+            v-model="iaa_display_adj_panel"
+            @change="on_change_iaa_settings">
+        <br>
 
-                    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Tag Detail"
+            v-model="iaa_display_adj_detail"
+            @change="on_change_iaa_settings">
 
-                    <div>
-                        <button class="ribbon-button" 
-                            :disabled="dtd == null || iaa_dict == null"
-                            v-on:click="make_default_adj">
-                            <span class="icon">
-                                <i class="far fa-object-group"></i>
-                            </span>
-                            <span class="caption">Reset G.S.</span>
-                        </button>
-                    </div>
+    </div>
 
-                    <div>
-                        <button class="ribbon-button" 
-                            :disabled="dtd == null"
-                            v-on:click="download_all_gs">
-                            <span class="icon">
-                                <i class="fa fa-file-download"></i>
-                            </span>
-                            <span class="caption">Download All</span>
-                        </button>
-                    </div>
-                    
-                    <span class="title">Adjudication</span>
-                </div>
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
 
-            </div>
+    <div>
+        <button class="ribbon-button" 
+            :disabled="dtd == null || iaa_dict == null"
+            v-on:click="make_default_adj">
+            <span class="icon">
+                <i class="far fa-object-group"></i>
+            </span>
+            <span class="caption">Reset G.S.</span>
+        </button>
+    </div>
+
+    <div>
+        <button class="ribbon-button" 
+            :disabled="dtd == null"
+            v-on:click="download_all_gs">
+            <span class="icon">
+                <i class="fa fa-file-download"></i>
+            </span>
+            <span class="caption">Download All</span>
+        </button>
+    </div>
+    
+    <span class="title">Adjudication</span>
+</div>
+
+</div>
+
         </div>
 
         <div id="app_info">
-            MedTator 1.1.0 | 
+            MedTator 1.1.3 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2038,9 +2121,11 @@ input[type=text].ipt-spinner-xs {
                         <th class="tag-attr">Attributes</th>
                     </tr>
                 </thead>
+
                 <tbody style="overflow-y: auto;">
                     <tr v-for="tag, tag_idx in anns[ann_idx].tags"
-                        v-if="tag.tag == display_tag_name || display_tag_name == '__all__'">
+                        v-if="tag.tag == display_tag_name || display_tag_name == '__all__'"
+                        v-bind:id="'ann-row-tag-' + tag.id">
                         <td>
                             <div class="d-flex flex-row flex-justify-between">
                                 <div>
@@ -3067,8 +3152,18 @@ var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.o
 <!-- code mirror -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
 <!-- code mirror addon -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/selection/active-line.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/selection/active-line.min.js"></script>
 <!-- code mirror addon for line jump -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.js"></script>
+<!-- code mirror addon for dialog display -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/search.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/searchcursor.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/scroll/annotatescrollbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/jump-to-line.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.css">
 <!-- numjs -->
 <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
 <!-- compromise -->
@@ -7329,10 +7424,25 @@ var app_hotpot = {
             saveAs(blob, fn);
         },
 
+        show_search_bar: function() {
+            app_hotpot.codemirror.execCommand('find');
+        },
+
+        clear_search_result: function() {
+            app_hotpot.codemirror.execCommand('clearSearch');
+        },
+
         show_wiki: function() {
             // app_hotpot.start_tour_annotation();
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki',
+                '_blank'
+            );
+        },
+
+        show_howtouse: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki/Manual#export-tab',
                 '_blank'
             );
         },
@@ -8370,6 +8480,12 @@ var app_hotpot = {
 
             // then show the popmenu
             app_hotpot.show_tag_popmenu(mouseX, mouseY);
+
+            // then show the item in the list
+            app_hotpot.scroll_annlist_to(tag_id);
+
+            // then highlight this item
+            app_hotpot.highlight_annlist_row(tag_id);
         },
 
         popmenu_del_tag: function() {
@@ -8816,7 +8932,8 @@ var app_hotpot = {
                 lineWrapping: true,
                 readOnly: true,
                 // readOnly: 'nocursor',
-                // styleActiveLine: true
+                // styleActiveLine: true,
+                extraKeys: {"Alt-F": "find"}
             }
         );
 
@@ -10350,6 +10467,39 @@ var app_hotpot = {
     scroll_annlist_to_bottom: function() {
         var objDiv = document.getElementById("mui_annlist");
         objDiv.scrollTop = objDiv.scrollHeight;
+    },
+
+    scroll_annlist_to: function(tag_id) {
+        // get the annlist height
+        var h = $('#mui_annlist').height();
+        
+        // get the offset of this tag
+        var tr = $('#ann-row-tag-' + tag_id);
+        if (tr.length != 1) {
+            // which means no such element
+            return; 
+        }
+        var offset_y = tr[0].offsetTop;
+
+        // scroll to the view
+        // when scrolling to the offset
+        $('#mui_annlist')[0].scrollTo(
+            0, // the x-axis should be no scroll
+            offset_y - h / 2
+        );
+    },
+
+    highlight_annlist_row: function(tag_id) {
+        // get the row of this tag
+        var tagr = $('#ann-row-tag-' + tag_id);
+        if (tagr.length != 1) {
+            // which means no such element
+            return; 
+        }
+
+        // show animation
+        tagr.animate({backgroundColor: 'yellow'}, 300)
+            .animate({backgroundColor: 'white'}, 700);
     },
 
     cm_draw_ltag: function(ltag, ltag_def, ann) {
