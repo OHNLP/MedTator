@@ -80,10 +80,11 @@ python web.py --mode build --lib local --fn standalone.html
 
 ## Change log
 
-### 1.1.4
+### 1.1. (2021-12-)
 
 - Updated the export message link
-- Updated drop dtd file hint message
+- Updated messages related to annotation file import
+- Updated messages related to dtd file import
 - Fixed IAA calculation click not binding bug
 - Fixed sentencizer setting not working bug
 - Fixed document-level tag rendering bug

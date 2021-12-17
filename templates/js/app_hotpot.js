@@ -328,47 +328,68 @@ var app_hotpot = {
         },
 
         open_dtd_file: function() {
-            // the settings for dtd file
-            var pickerOpts = {
-                types: [
-                    {
-                        description: 'DTD File',
-                        accept: {
-                            'text/dtd': ['.dtd']
+            if (isFSA_API_OK) {
+                // the settings for dtd file
+                var pickerOpts = {
+                    types: [
+                        {
+                            description: 'DTD File',
+                            accept: {
+                                'text/dtd': ['.dtd']
+                            }
+                        },
+                    ],
+                    excludeAcceptAllOption: true,
+                    multiple: false
+                };
+
+                // get the file handles
+                var promise_fileHandles = fs_open_files(pickerOpts);
+
+                promise_fileHandles.then(function(fileHandles) {
+                    // read the fh and set dtd
+                    // in fact, there is only one file for this dtd
+                    for (let i = 0; i < fileHandles.length; i++) {
+                        const fh = fileHandles[i];
+                        if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                            app_hotpot.msg('Please select a .dtd file', 'warning');
+                            return;
                         }
-                    },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: false
-            };
 
-            // get the file handles
-            var promise_fileHandles = fs_open_files(pickerOpts);
+                        // read the file
+                        var p_dtd = fs_read_dtd_file_handle(fh);
 
-            promise_fileHandles.then(function(fileHandles) {
-                // read the fh and set dtd
-                // in fact, there is only one file for this dtd
-                for (let i = 0; i < fileHandles.length; i++) {
-                    const fh = fileHandles[i];
+                        p_dtd.then((function(){
+                            return function(dtd) {
+                                // just set the dtd
+                                app_hotpot.set_dtd(dtd);
+                            }
+                        })());
+                        
+                        // just one file
+                        break;
+                    }
+                });
 
-                    // read the file
-                    var p_dtd = fs_read_dtd_file_handle(fh);
-
-                    p_dtd.then(function(dtd) {
-                        app_hotpot.set_dtd(dtd);
-                    });
-                }
-            });
+            } else {
+                console.log('* Not support FileSystemAccess API');
+            }
+            
         },
         
         open_ann_files: function() {
+            if (!isFSA_API_OK) {
+                console.log('* Not support FileSystemAccess API');
+                return;
+            }
+
             // the settings for annotation file
             var pickerOpts = {
                 types: [
                     {
                         description: 'Annotation File',
                         accept: {
-                            'text/xml': ['.xml']
+                            'text/xml': ['.xml', '.txt']
                         }
                     },
                 ],
@@ -384,11 +405,25 @@ var app_hotpot = {
                 for (let i = 0; i < fileHandles.length; i++) {
                     const fh = fileHandles[i];
 
+                    if (fh.kind != 'file') {
+                        // skip directory or others
+                        continue;
+                    }
+
                     // check exists
                     if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
                         // exists? skip this file
                         app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                        return;
+                        continue;
+                    }
+
+                    if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                        // parse this txt file
+                        app_hotpot.parse_ann_txt_file_fh(
+                            fh,
+                            app_hotpot.vpp.$data.dtd
+                        );
+                        continue;
                     }
                     
                     // parse this ann fh
@@ -2044,6 +2079,8 @@ var app_hotpot = {
 
                     } else {
                         // should be a dtd file
+                        console.log('* dropped a dtd file', item);
+
                         // so item is a fileEntry
                         app_hotpot.parse_dtd_file_entry(item);
                     }
