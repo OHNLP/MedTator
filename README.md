@@ -85,6 +85,7 @@ python web.py --mode build --lib local --fn standalone.html
 - Updated the export message link
 - Updated messages related to annotation file import
 - Updated messages related to dtd file import
+- Updated simple sentencize algorithm
 - Fixed IAA calculation click not binding bug
 - Fixed sentencizer setting not working bug
 - Fixed document-level tag rendering bug

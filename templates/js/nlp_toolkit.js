@@ -177,10 +177,13 @@ var nlp_toolkit = {
 
         // a temp sentence
         var sentence = [];
+
         // locate the sentence start
         var spans_start = 0;
+
         // locate the sentence end
         var spans_end = 0;
+        
         // flag for a sentence end
         var flag_sent = false;
 
@@ -197,9 +200,17 @@ var nlp_toolkit = {
             // detect if this is a sentence break
             if (c == '.') {
                 // but there are some corner cases
-                flag_sent = true;
-                // collect the char
-                sentence.push(c);
+                if (i+1 < text.length && text[i+1].trim() != '') {
+                    // which means next char is not empty
+                    // this dot is not for a sentence
+                    sentence.push(c);
+
+                } else {
+                    // this is an end of sentence
+                    flag_sent = true;
+                    // collect the char
+                    sentence.push(c);
+                }
                 
             } else if ( c == '?' || c == '!' || c == ';') {
                 flag_sent = true;
