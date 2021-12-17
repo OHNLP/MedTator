@@ -1999,6 +1999,7 @@ var app_hotpot = {
             // user should only upload one folder or a file
             if (items.length>1) {
                 console.log('* selected more than 1 item!');
+                app_hotpot.msg('Please just drop only one .dtd file', 'warning');
                 return;
             }
             // console.log('* found dropped items', items);
@@ -2011,6 +2012,11 @@ var app_hotpot = {
                 // read this handle
                 item.then(function(fh) {
                     if (fh.kind != 'file') { return null; }
+
+                    if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                        app_hotpot.msg('Please drop a .dtd file', 'warning');
+                        return;
+                    }
 
                     // get the text content
                     var p_dtd = fs_read_dtd_file_handle(fh);

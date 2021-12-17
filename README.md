@@ -83,6 +83,7 @@ python web.py --mode build --lib local --fn standalone.html
 ### 1.1.4
 
 - Updated the export message link
+- Updated drop dtd file hint message
 - Fixed IAA calculation click not binding bug
 - Fixed sentencizer setting not working bug
 - Fixed document-level tag rendering bug
