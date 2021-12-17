@@ -287,7 +287,7 @@ var app_hotpot = {
 
         show_howtouse: function() {
             window.open(
-                'https://github.com/OHNLP/MedTator/wiki/Manual#export-tab',
+                'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
                 '_blank'
             );
         },
@@ -392,7 +392,7 @@ var app_hotpot = {
                     }
                     
                     // parse this ann fh
-                    app_hotpot.parse_ann_file_fh(
+                    app_hotpot.parse_ann_xml_file_fh(
                         fh,
                         app_hotpot.vpp.$data.dtd
                     );
@@ -892,6 +892,16 @@ var app_hotpot = {
                         app_hotpot.vpp.$data.dtd
                     );
                     p_txt_ann.then(function(txt_ann) {
+                        // now check the sentence split
+                        // just use the simplest
+                        var r = nlp_toolkit.sent_tokenize(
+                            txt_ann.text,
+                            app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                        );
+                        txt_ann._sentences = r.sentences;
+                        txt_ann._sentences_text = r.sentences_text;
+
+                        // add this ann
                         app_hotpot.vpp.add_txt(txt_ann);
                     });
                     
@@ -1890,10 +1900,10 @@ var app_hotpot = {
         // bind drop zone for dtd
         this.bind_dropzone_dtd();
 
-        // bind drop zone for anns
+        // bind drop zone for annotation xml/txt files
         this.bind_dropzone_ann();
 
-        // bind drop zone for anns
+        // bind drop zone for batch import text file
         this.bind_dropzone_txt();
 
         // bind drop zone for anns
@@ -2080,40 +2090,8 @@ var app_hotpot = {
                     // read this handle
                     item.then(function(fh) {
                         if (fh.kind == 'file') {
-                            // if drop a txt!
-                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                                // create a new file name
-                                var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
 
-                                // create a empty ann
-                                var p_txt_ann = fs_read_txt_file_handle(
-                                    fh, 
-                                    app_hotpot.vpp.$data.dtd,
-                                    true
-                                );
-
-                                // load this ann
-                                p_txt_ann.then((function(new_fn){
-                                    return function(txt_ann) {
-                                        // modify the txt_ann _fh
-                                        // we couldn't save to an txt
-                                        txt_ann._fh = null;
-
-                                        // update the _filename
-                                        txt_ann._filename = new_fn;
-
-                                        // show some message
-                                        app_hotpot.msg("Created a new annotation file " + new_fn);
-
-                                        // add this ann
-                                        app_hotpot.add_ann(txt_ann);
-                                    }
-                                })(new_fn));
-
-                                return;
-                            }
-
-                            // show something or 
+                            // show something if this file exists
                             // check if this file name exists
                             if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
                                 // exists? skip this file
@@ -2121,8 +2099,18 @@ var app_hotpot = {
                                 return;
                             }
 
+                            // if drop a txt!
+                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                                // parse this txt file
+                                app_hotpot.parse_ann_txt_file_fh(
+                                    fh,
+                                    app_hotpot.vpp.$data.dtd
+                                );
+                                return;
+                            }
+
                             // should be a ann txt/xml file
-                            app_hotpot.parse_ann_file_fh(
+                            app_hotpot.parse_ann_xml_file_fh(
                                 fh,
                                 app_hotpot.vpp.$data.dtd
                             );
@@ -2184,6 +2172,15 @@ var app_hotpot = {
                             app_hotpot.vpp.$data.dtd
                         );
                         p_txt_ann.then(function(txt_ann) {
+                            // split the sentence
+                            // just use the simplest
+                            var r = nlp_toolkit.sent_tokenize(
+                                txt_ann.text,
+                                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                            );
+                            txt_ann._sentences = r.sentences;
+                            txt_ann._sentences_text = r.sentences_text;
+                            
                             app_hotpot.vpp.add_txt(txt_ann);
                         });
                         
@@ -2423,11 +2420,64 @@ var app_hotpot = {
         });
     },
 
-    parse_ann_file_fh: function(fh, dtd) {
+    parse_ann_txt_file_fh: function(fh, dtd) {
+        // create a new file name
+        var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
+
+        // create a empty ann
+        var p_txt_ann = fs_read_txt_file_handle(
+            fh, 
+            dtd
+        );
+
+        // load this ann
+        p_txt_ann.then((function(new_fn){
+            return function(txt_ann) {
+                // now check the sentence detection
+                // just use the simplest
+                var r = nlp_toolkit.sent_tokenize(
+                    txt_ann.text,
+                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                );
+                txt_ann._sentences = r.sentences;
+                txt_ann._sentences_text = r.sentences_text;
+                
+                // modify the txt_ann _fh
+                // we couldn't save to an txt
+                txt_ann._fh = null;
+
+                // update the _filename
+                txt_ann._filename = new_fn;
+
+                // show some message
+                app_hotpot.msg("Created a new annotation file " + new_fn);
+
+                // add this ann
+                app_hotpot.add_ann(txt_ann);
+            }
+        })(new_fn));
+    },
+
+    parse_ann_xml_file_fh: function(fh, dtd) {
         // get the ann file
-        var p_ann = fs_read_ann_file_handle(fh, dtd);
+        var p_ann = fs_read_ann_file_handle(
+            fh, 
+            dtd
+        );
+
+        // the callback function
         p_ann.then(function(ann) {
+            // add the sentences
+            var r = nlp_toolkit.sent_tokenize(
+                ann.text,
+                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+            );
+            ann._sentences = r.sentences;
+            ann._sentences_text = r.sentences_text;
+
+            // add this ann to vpp
             app_hotpot.add_ann(ann);
+
         }).catch(
             function(fh){return function(error) {
                 app_hotpot.msg(
@@ -3089,8 +3139,15 @@ var app_hotpot = {
 
     cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
         var raw_spans = tag['spans'];
+
+        // something wrong with the spans information?
         if (raw_spans == '' || raw_spans == null) { 
             return [-1]; 
+        }
+
+        // document-level tag, nothing to do
+        if (raw_spans == dtd_parser.NON_CONSUMING_SPANS) {
+            return [0];
         }
 
         // the spans may contains multiple parts

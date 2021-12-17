@@ -3,13 +3,13 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
+async function fs_read_txt_file_handle(fh, dtd) {
     if (typeof(dtd) == 'undefined') {
         dtd = {name: ''};
     }
-    if (typeof(enabled_sentences) == 'undefined') {
-        enabled_sentences = false;
-    }
+    // if (typeof(enabled_sentences) == 'undefined') {
+    //     enabled_sentences = false;
+    // }
     const file = await fh.getFile();
     const text = await file.text();
 
@@ -25,23 +25,25 @@ async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
     // bind a status
     ann._has_saved = true;
 
-    // bind the sentences
-    if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
-        ann._sentences = result.sentences;
-        ann._sentences_text = result.sentences_text;
-    } else {
-        ann._sentences = null;
-        ann._sentences_text = null;
-    }
+    // bind the sentences variable
+    ann._sentences = null;
+    ann._sentences_text = null;
+    // if (enabled_sentences) {
+    //     var result = nlp_toolkit.sent_tokenize(ann.text);
+    //     ann._sentences = result.sentences;
+    //     ann._sentences_text = result.sentences_text;
+    // } else {
+    //     ann._sentences = null;
+    //     ann._sentences_text = null;
+    // }
 
     return ann;
 }
 
-async function fs_read_ann_file_handle(fh, dtd, enabled_sentences) {
-    if (typeof(enabled_sentences) == 'undefined') {
-        enabled_sentences = true;
-    }
+async function fs_read_ann_file_handle(fh, dtd) {
+    // if (typeof(enabled_sentences) == 'undefined') {
+    //     enabled_sentences = true;
+    // }
     const file = await fh.getFile();
     const text = await file.text();
 
@@ -58,14 +60,16 @@ async function fs_read_ann_file_handle(fh, dtd, enabled_sentences) {
     ann._has_saved = true;
 
     // bind the sentences
-    if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
-        ann._sentences = result.sentences;
-        ann._sentences_text = result.sentences_text;
-    } else {
-        ann._sentences = null;
-        ann._sentences_text = null;
-    }
+    ann._sentences = null;
+    ann._sentences_text = null;
+    // if (enabled_sentences) {
+    //     var result = nlp_toolkit.sent_tokenize(ann.text);
+    //     ann._sentences = result.sentences;
+    //     ann._sentences_text = result.sentences_text;
+    // } else {
+    //     ann._sentences = null;
+    //     ann._sentences_text = null;
+    // }
 
     return ann;
 }

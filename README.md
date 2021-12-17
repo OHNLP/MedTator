@@ -80,6 +80,13 @@ python web.py --mode build --lib local --fn standalone.html
 
 ## Change log
 
+### 1.1.4
+
+- Updated the export message link
+- Fixed IAA calculation click not binding bug
+- Fixed sentencizer setting not working bug
+- Fixed document-level tag rendering bug
+
 ### 1.1.3 (2021-12-13)
 
 - Added search and clear search results in editor
