@@ -168,6 +168,11 @@ var nlp_toolkit = {
         };
     },
 
+    /**
+     * Sentencize a given text by a simple method
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
     sent_tokenize_by_simpledot: function(text) {
         // get all sentences and spans
         var sentences = [];
@@ -275,6 +280,12 @@ var nlp_toolkit = {
         };
     },
 
+
+    /**
+     * Sentencize a given text by a compromise.cool NLP
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
     sent_tokenize_by_compromise: function(text) {
         // first, convert the raw text to a doc object
         var doc = nlp(text);
@@ -289,41 +300,29 @@ var nlp_toolkit = {
         // get all sentence trimed text
         var sentences_text = [];
 
-        doc.sentences().forEach(function(d) {
-            // get this sentence
-            var sentence = d.text();
-            var spans_start = text.indexOf(sentence);
+        var doc_sentences = doc.sentences().json({
+            offset: true
+        });
 
-            // TODO fix the multiple same sentence bug
-            if (sentences_dict.hasOwnProperty(sentence)) {
-                // which means this is a duplicated 
-                var i = 1;
-                var cnt = 0;
-                while(true) {
-                    spans_start = text.indexOf(sentence, i);
+        for (let i = 0; i < doc_sentences.length; i++) {
+            const d = doc_sentences[i];
+            
+            // get this sentence text
+            var sentence = d.text;
 
-                    if (sentences_dict[sentence] == spans_start) {
-                        // which means this sentence appeared
-                        i += 1;
-                        cnt += 1;
+            // get the offset by compromise.cool NLP
+            // thanks to spencer kelly (spencermountain@gmail.com)
+            var spans_start = d.offset.start;
+            var spans_end = d.offset.start + d.offset.length - 1;
 
-                    } else {
-                        // which means this span start is a new one
-                        sentences_dict[sentence] = spans_start;
-                        break;
-                    }
-                }
-
-            } else {
-                // ok, just add this new sentence
-                sentences_dict[sentence] = spans_start;
-            }
-            var spans_end = spans_start + sentence.length;
-
-            // sometimes the sentence has right blanks
-            // we need to remove it to avoid unexpected linebreaks
+            // to avoid right new line
             sentence = sentence.trimRight();
 
+            // to avoid inline new line
+            sentence = sentence.replaceAll('\n', ' ');
+            sentence = sentence.replaceAll('\r', ' ');
+
+            // save this sentence
             sentences.push({
                 text: sentence, 
                 spans: {
@@ -332,7 +331,52 @@ var nlp_toolkit = {
                 }
             });
             sentences_text.push(sentence);
-        });
+        }
+
+        // doc.sentences().forEach(function(d) {
+        //     // get this sentence
+        //     var sentence = d.text();
+        //     var spans_start = text.indexOf(sentence);
+
+        //     // TODO fix the multiple same sentence bug
+        //     if (sentences_dict.hasOwnProperty(sentence)) {
+        //         // which means this is a duplicated 
+        //         var i = 1;
+        //         var cnt = 0;
+        //         while(true) {
+        //             spans_start = text.indexOf(sentence, i);
+
+        //             if (sentences_dict[sentence] == spans_start) {
+        //                 // which means this sentence appeared
+        //                 i += 1;
+        //                 cnt += 1;
+
+        //             } else {
+        //                 // which means this span start is a new one
+        //                 sentences_dict[sentence] = spans_start;
+        //                 break;
+        //             }
+        //         }
+
+        //     } else {
+        //         // ok, just add this new sentence
+        //         sentences_dict[sentence] = spans_start;
+        //     }
+        //     var spans_end = spans_start + sentence.length;
+
+        //     // sometimes the sentence has right blanks
+        //     // we need to remove it to avoid unexpected linebreaks
+        //     sentence = sentence.trimRight();
+
+        //     sentences.push({
+        //         text: sentence, 
+        //         spans: {
+        //             start: spans_start, 
+        //             end: spans_end
+        //         }
+        //     });
+        //     sentences_text.push(sentence);
+        // });
 
         return { 
             sentences: sentences,

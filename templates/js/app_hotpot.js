@@ -3049,6 +3049,7 @@ var app_hotpot = {
 
         for (let i = 0; i < hints.length; i++) {
             const hint = hints[i];
+            console.log('* rendering hint', hint);
             this.cm_mark_hint_in_text(
                 hint,
                 this.vpp.$data.anns[this.vpp.$data.ann_idx]
