@@ -197,6 +197,9 @@ html,body {
     padding: 10px 0;
     text-align: center;
 }
+.link-btn {
+    color: #555555;
+}
 .h-splitter {
     width: 5px;
     height: 100%;
@@ -324,7 +327,7 @@ html,body {
     border-radius: 4px;
 }
 .dropzone-iaa {
-    width: 176px;
+    width: 150px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -332,11 +335,19 @@ html,body {
     border: 1px dotted rgb(17, 61, 110);
     border-radius: 4px;
 }
+.pos-corner-br {
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+}
 .tag-list-row {
     
 }
 .tag-list-row-actived {
-    background-color: #efefef;
+    background-color: #fffee8;
+    border-bottom: 1px solid #999999;
+    border-left: 5px solid #d3d3d3;
+    padding-left: 5px !important;
 }
 .badge-shortcut {
     padding: 1px 1px 1px 2px;
@@ -351,12 +362,14 @@ html,body {
 .mark-hint {
     cursor: pointer;
     border: 2px dotted #999999;
+    border-left: 0;
+    border-right: 0;
     position: relative;
     /* display: inline-block; */
 }
 .mark-hint:hover {
     font-weight: bold;
-    border: 2px dotted #333333;
+    border-color: #333333;
 }
 .mark-hint-info {
     margin: 0 5px 0 0;
@@ -402,31 +415,35 @@ html,body {
 }
 .mark-tag {
     border-radius: 3px;
-    padding: 1px 3px;
+    /* padding: 1px 3px; */
+    padding: 1px 0;
     margin-right: 0;
     cursor: pointer;
     border: 1px solid white;
+    border-left: 0;
+    border-right: 0;
 }
 .mark-tag:hover{
     border-color: red;
 }
-.mark-tag-active {    
-    /* border: 2px dotted red; */
-    animation: glow 500ms ease-out infinite alternate;
-}
 @keyframes glow {
     0% {
-        border-color: rgb(247, 247, 247);
-        box-shadow: 0 0 5px rgba(255, 231, 231, 0.815);
+        border-color: #efefef;
+        box-shadow: 0 0 5px #efefef;
     }
     100% {
-        border-color: rgb(255, 125, 125);
-        box-shadow: 0 0 10px rgba(255, 125, 125, 0.5);
+        border-color: #333333;
+        box-shadow: 0 0 10px #555555;
     }
+}
+.mark-tag-active {    
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    animation: glow 500ms ease-out infinite alternate;
 }
 .mark-tag-info {
     font-size: .75em;
-    margin: 0 5px 0 0;
+    margin: 0 2px;
     padding: 0px 2px;
     background: white;
     border-radius: 4px;
@@ -508,9 +525,73 @@ html,body {
     rx: 3px;
     opacity: 1;
 }
+.tag-cap {
+    font-size: 9px;
+    font-family: 'Courier New', Courier, monospace;
+    /* font-weight: bold; */
+}
+.tag-cap-AB,
+.tag-cap-ab {
+    fill: green;
+}
+.tag-cap-A,
+.tag-cap-a {
+    fill: orangered;
+}
+.tag-cap-B,
+.tag-cap-b {
+    fill: royalblue;
+}
+.tag-cap-G,
+.tag-cap-g {
+    fill: goldenrod;
+}
+/* span[data-descr] {
+    position: relative;
+    cursor: help;
+}
+span[data-descr]:hover::after,
+span[data-descr]:focus::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0;
+    top: 20px;
+    min-width: 150px;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    background-color: rgba(218, 218, 218, 0.959);
+    padding: 4px;
+    color: #000000;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    z-index: 999;
+} */
+.tag-desc-item {
+    padding: 0 0 0 3px;
+    border-left: 1px solid #bdbdbd;
+    margin-bottom: 1px;
+}
+.tag-desc-attr {
+    font-style: italic;
+}
+.tag-desc-value {
+    
+}
+#hoverbox_etag {
+    position: absolute;
+    background-color: #efefefee;
+    color: black;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    z-index: 888;
+    max-width: 300px;
+}
+
 /* for the pop menu */
 #popmenu_tag {
     z-index: 998;
+    min-width: 100px;
     position: absolute;
     padding: 1px 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -605,14 +686,24 @@ html,body {
 }
 .tag-table {
     font-size: .9em;
+    position: relative;
 }
 .tag-table th, 
 .tag-table td {
     padding: 2px;
 }
 .tag-table th {
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #aaaaaa;
     text-align: left;
+    position: sticky;
+    top: 0;
+    background-color: #efefef;
+    z-index: 5;
+    padding: 4px 0;
+}
+tr.tag-table-tr-actived {
+    /* border-left: 5px solid #d3d3d3; */
+    background-color: #fffee8; 
 }
 .tag-table th.tag-name {
     max-width: 200px;
@@ -779,6 +870,22 @@ input[type=text].ipt-spinner-xs {
 .ruleset-tag-text-filelist-item-count {
     padding: 0px 2px;
     background-color: #eaeaea;
+}
+.iaa-annotator-AB,
+.iaa-annotator-ab {
+    color: green;
+}
+.iaa-annotator-A,
+.iaa-annotator-a {
+    color: orangered;
+}
+.iaa-annotator-B,
+.iaa-annotator-b {
+    color: royalblue;
+}
+.iaa-annotator-G,
+.iaa-annotator-g {
+    color: goldenrod;
 }
 .iaa-row-header {
     font-weight: bold;
@@ -1064,7 +1171,7 @@ input[type=text].ipt-spinner-xs {
                 v-bind:class="{'active': section=='iaa'}">
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
-                    IAA
+                    Adjudication
                 </a>
             </li>
         </ul>
@@ -1099,7 +1206,19 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Open DTD</span>
     </button> -->
 
-    <span class="title">Schema DTD File (.dtd)</span>
+    <span class="title">
+
+        Schema File (.dtd)
+
+        <span v-if="dtd != null">
+            <a href="javascript:void(0);"
+                title="Download the current schema file"
+                class="link-btn"
+                v-on:click="download_schema_as_dtd">
+                <i class="fa fa-download"></i>
+            </a>
+        </span>
+    </span>
 </div>
 
 <div class="group">
@@ -1130,13 +1249,13 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Open XMLs</span>
     </button> -->
 
-    <span class="title">Annotation File (.xml)</span>
+    <span class="title">Annotation File (.xml/.txt)</span>
 </div>
 
 <div v-if="ann_idx != null"
     class="group">
     <button class="ribbon-button"
-        title="Save the current editing annotation file"
+        title="Save the current editing annotation file to local disk"
         v-if="has_FSA_API()"
         v-on:click="save_xml">
         <span class="icon">
@@ -1145,6 +1264,7 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Save</span>
     </button>
 
+    <!-- 
     <button class="ribbon-button"
         title="Save a copy of the current editing annotation file"
         v-if="has_FSA_API()"
@@ -1153,16 +1273,54 @@ v-bind:class="{'active': section=='annotation'}">
             <i class="far fa-copy"></i>
         </span>
         <span class="caption">Save as</span>
-    </button>
+    </button> 
+    -->
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            title="Save a copy of the current editing annotation file"
+            v-on:click="save_as_xml">
+            <span class="icon">
+                <i class="far fa-copy"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Save as</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Download a copy of the current annotation as MedTator XML format"
+                v-on:click="download_copy_as_xml">
+                <a href="javascript:void(0);">Download a copy</a>
+            </li>
+
+            <li title="Download a copy of the current annotation as BioC XML format"
+                v-on:click="download_copy_as_bioc">
+                <a href="javascript:void(0);">Download a copy as BioC format</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li title="Download all annotation files as a ZIP file"
+                v-on:click="download_all_as_zip(true)">
+                <a href="javascript:void(0);">Download all as a ZIP file</a>
+            </li>
+
+            <li title="Download all annotation files and the schema file as a ZIP file"
+                v-on:click="download_all_as_zip(false)">
+                <a href="javascript:void(0);">Download all with schema as a ZIP file</a>
+            </li>
+        </ul>
+    </div>
 
     <button class="ribbon-button"
         title="Due to limited browser support, the current annotation file could only be downloaded."
         v-if="!has_FSA_API()"
-        v-on:click="download_as_xml">
+        v-on:click="download_copy_as_xml">
         <span class="icon">
             <i class="fa fa-file-download"></i>
         </span>
-        <span class="caption">Download XML</span>
+        <span class="caption">Download</span>
     </button>
     
     <a id="downloadAnchorElem" style="display:none"></a>
@@ -1658,7 +1816,8 @@ v-bind:class="{'active': section=='iaa'}">
     </button>
 
     <span class="title">&nbsp;</span>
-</div>
+</div> 
+
 
 <div class="group">
 
@@ -1668,19 +1827,37 @@ v-bind:class="{'active': section=='iaa'}">
             Load DTD file first<br>
             in Annotation Tab
         </div>
-        <div v-else-if="iaa_ann_list[0].anns.length == 0" class="zone-text">
-            Drop <b>Ann</b> File(s)<br>
-            Annotator <b>A</b>
+        <div v-else-if="iaa_ann_list[0].anns.length == 0" 
+            class="zone-text">
+            Drop Annotation <br>
+            File(s)
         </div>
         <div v-else class="zone-text">
-            <b>Annotator A</b><br>
             Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
             <br>
             in {{ iaa_ann_list[0].anns.length }} Files
         </div>
+
+        <button class="ribbon-tool-button pos-corner-br"
+            title="Clear all annotations from annotator A"
+            v-if="iaa_ann_list[0].anns.length != 0"
+            v-on:click="clear_iaa_all(0)">
+            <span class="icon">
+                <i class="far fa-times-circle"></i>
+            </span>
+        </button>
+
     </div>
 
-    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+    <span class="title">
+        Annotator A
+    </span>
+
+</div>
+
+<div class="group">
+
+    <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> -->
 
     <div id="dropzone_iaa_1" class="dropzone-iaa"
         iaa_id="1">
@@ -1688,19 +1865,30 @@ v-bind:class="{'active': section=='iaa'}">
             Load DTD file first<br>
             in Annotation Tab
         </div>
-        <div v-else-if="iaa_ann_list[1].anns.length == 0" class="zone-text">
-            Drop <b>Ann</b> File(s)<br>
-            Annotator <b>B</b>
+        <div v-else-if="iaa_ann_list[1].anns.length == 0" 
+            class="zone-text">
+            Drop Annotation <br>
+            File(s)
         </div>
         <div v-else class="zone-text">
-            <b>Annotator B</b><br>
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
             <br>
             in {{ iaa_ann_list[1].anns.length }} Files
         </div>
+
+        <button class="ribbon-tool-button pos-corner-br"
+            title="Clear all annotations from annotator B"
+            v-if="iaa_ann_list[1].anns.length != 0"
+            v-on:click="clear_iaa_all(1)">
+            <span class="icon">
+                <i class="far fa-times-circle"></i>
+            </span>
+        </button>
     </div>
 
-    <span class="title">Annotation Files</span>
+    <span class="title">
+        Annotator B
+    </span>
 </div>
 
 <div class="group">
@@ -1746,14 +1934,15 @@ v-bind:class="{'active': section=='iaa'}">
     </div>
 
     <button class="ribbon-button"
+        :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
         v-on:click="calc_iaa">
         <span class="icon">
             <i class="fa fa-calculator"></i>
         </span>
-        <span class="caption">Calculate All</span>
+        <span class="caption">Calculate F1</span>
     </button>
 
-    <span class="title">IAA</span>
+    <span class="title">Inter-Annotator Agreement (IAA)</span>
 </div>
 
 <div class="group">
@@ -1761,7 +1950,7 @@ v-bind:class="{'active': section=='iaa'}">
         <input type="checkbox" 
             class="check"
             data-role="switch" 
-            data-caption="Show Agreed Tags"
+            data-caption="Agreed Tags"
             v-model="iaa_display_tags_tp"
             @change="on_change_iaa_settings">
         <br>
@@ -1769,7 +1958,7 @@ v-bind:class="{'active': section=='iaa'}">
         <input type="checkbox" 
             class="check"
             data-role="switch" 
-            data-caption="Show Context"
+            data-caption="Tag Context"
             v-model="iaa_display_tags_context"
             @change="on_change_iaa_settings">
 
@@ -1779,45 +1968,63 @@ v-bind:class="{'active': section=='iaa'}">
 
 
 <div class="group">
-    <div>
-        <input type="checkbox" 
-            class="check"
-            data-role="switch" 
-            data-caption="Adj. Panel"
-            v-model="iaa_display_adj_panel"
-            @change="on_change_iaa_settings">
-        <br>
+    <!-- <div>
+        <div>
+            <input type="checkbox" 
+                class="check"
+                data-role="switch" 
+                data-caption="Adj. Panel"
+                v-model="iaa_display_adj_panel"
+                @change="on_change_iaa_settings">
+        </div>
 
-        <input type="checkbox" 
-            class="check"
-            data-role="switch" 
-            data-caption="Tag Detail"
-            v-model="iaa_display_adj_detail"
-            @change="on_change_iaa_settings">
-
-    </div>
-
-    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
-
-    <div>
-        <button class="ribbon-button" 
+        <button class="ribbon-icon-button"
             :disabled="dtd == null || iaa_dict == null"
+            title="Reset current adjudication result to default status"
             v-on:click="make_default_adj">
             <span class="icon">
                 <i class="far fa-object-group"></i>
             </span>
-            <span class="caption">Reset G.S.</span>
+            <span class="caption">Reset Adjudication</span>
         </button>
     </div>
 
+-->
+
+    <div>
+        <button class="ribbon-button"
+            :disabled="dtd == null || iaa_dict == null"
+            title="Reset current adjudication result to default status"
+            v-on:click="make_default_adj">
+            <span class="icon">
+                <i class="far fa-object-group"></i>
+            </span>
+            <span class="caption">Reset</span>
+        </button>
+
+        <button class="ribbon-button" 
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Edit adjudication result in annotation tab"
+            v-on:click="transfer_to_annotation_tab">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+            <span class="caption">Edit</span>
+        </button>
+
+    </div>
+
+        <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
+
     <div>
         <button class="ribbon-button" 
-            :disabled="dtd == null"
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Download current adjudication result"
             v-on:click="download_all_gs">
             <span class="icon">
                 <i class="fa fa-file-download"></i>
             </span>
-            <span class="caption">Download All</span>
+            <span class="caption">Download</span>
         </button>
     </div>
     
@@ -1829,7 +2036,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.1.3 | 
+            MedTator 1.2.0 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2024,11 +2231,10 @@ v-bind:class="{'active': section=='iaa'}">
             <ul v-if="dtd != null"
                 class="w-100 tag-list">
 
-                <li v-on:click="update_tag_table(null)"
+                <li v-on:click="update_tag_table()"
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == '__all__'}">
-                    <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = '__all__'">
+                    <div class="tag-list-row-name">
                         <span class='mif-folder fg-red'></span>
                         All Tags
                     </div>
@@ -2039,11 +2245,10 @@ v-bind:class="{'active': section=='iaa'}">
 
                 <!-- show all etags -->
                 <li v-for="etag in dtd.etags"
-                    v-on:click="update_tag_table(etag)"
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == etag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = etag.name">
+                        v-on:click="update_tag_table(etag)">
                         <i class="fa fa-tag"
                             v-bind:class="'fg-tag-' + etag.name">
                         </i>
@@ -2075,7 +2280,7 @@ v-bind:class="{'active': section=='iaa'}">
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == ltag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = ltag.name">
+                        v-on:click="update_tag_table(ltag)">
                         <i class="fa fa-link"
                             v-bind:class="'fg-tag-' + ltag.name">
                         </i>
@@ -2125,8 +2330,9 @@ v-bind:class="{'active': section=='iaa'}">
                 <tbody style="overflow-y: auto;">
                     <tr v-for="tag, tag_idx in anns[ann_idx].tags"
                         v-if="tag.tag == display_tag_name || display_tag_name == '__all__'"
-                        v-bind:id="'ann-row-tag-' + tag.id">
-                        <td>
+                        v-bind:id="'tag-table-row-' + tag.id"
+                        class="tag-table-row">
+                        <td v-on:click="on_click_tag_table_row(tag)">
                             <div class="d-flex flex-row flex-justify-between">
                                 <div>
                                     <i v-if="get_tag_def(tag.tag).type == 'etag'" 
@@ -2150,27 +2356,39 @@ v-bind:class="{'active': section=='iaa'}">
                             </div>
                         </td>
 
-                        <td>
-                            <span class="c-pointer">
+                        <td class="c-pointer"
+                            v-on:click="on_click_tag_table_row(tag)">
+                            <span>
                                 {{ tag.id }}
                             </span>
                         </td>
 
-                        <td>
-                            <span v-if="tag.spans=='-1~-1'">
+                        <td v-bind:class="{'c-pointer': !is_etag_doc_level(tag)}"
+                            v-on:click="on_click_tag_table_row(tag)">
+                            <span v-if="tag.hasOwnProperty('_annotator')"
+                                class="mr-2"
+                                v-bind:class="'iaa-annotator-' + tag._annotator">
+                                <i v-if="tag._annotator != 'G'" class="fa fa-user-edit"></i>
+                                <i v-else class="fa fa-user-plus"></i>
+                                {{ tag._annotator }}
+                            </span>
+                            <span v-else
+                                class="mr-2">
+                                &nbsp;
+                            </span>
+                                    
+                            <span v-if="is_etag_doc_level(tag)">
                                 DOCUMENT
                             </span>
                             <span v-else
-                                v-on:click="highlight_tag(tag)"
                                 class="c-pointer">
                                 {{ tag.spans }}
                             </span>
                         </td>
 
-                        <td class="td-text">
-                            <span v-if="is_etag(tag)"
-                                class="c-pointer"
-                                v-on:click="highlight_tag(tag)">
+                        <td class="td-text c-pointer"
+                            v-on:click="on_click_tag_table_row(tag)">
+                            <span v-if="is_etag(tag)">
                                 {{ tag.text }}
                             </span>
                             <span v-else>
@@ -2691,7 +2909,7 @@ v-bind:class="{'active': section=='iaa'}">
                                     <iaa-tag-info
                                         v-bind:hashcode="iaa_display_hashcode"
                                         v-bind:cm="'tp'"
-                                        v-bind:from="'a'"
+                                        v-bind:from="'A'"
                                         v-bind:tag="tags_tp[0]"
                                         v-bind:tag_idx="tag_idx"
                                         v-bind:ann="iaa_dict.ann[iaa_display_hashcode].anns[0]"
@@ -2705,7 +2923,7 @@ v-bind:class="{'active': section=='iaa'}">
                                     <iaa-tag-info
                                         v-bind:hashcode="iaa_display_hashcode"
                                         v-bind:cm="'tp'"
-                                        v-bind:from="'b'"
+                                        v-bind:from="'B'"
                                         v-bind:tag="tags_tp[1]"
                                         v-bind:tag_idx="tag_idx"
                                         v-bind:ann="iaa_dict.ann[iaa_display_hashcode].anns[1]"
@@ -2741,7 +2959,7 @@ v-bind:class="{'active': section=='iaa'}">
                                     <iaa-tag-info
                                         v-bind:hashcode="iaa_display_hashcode"
                                         v-bind:cm="'fp'"
-                                        v-bind:from="'a'"
+                                        v-bind:from="'A'"
                                         v-bind:tag="tags_fp[0]"
                                         v-bind:tag_idx="tag_idx"
                                         v-bind:ann="iaa_dict.ann[iaa_display_hashcode].anns[0]"
@@ -2757,7 +2975,7 @@ v-bind:class="{'active': section=='iaa'}">
                                         v-if="tags_fp[1] != null"
                                         v-bind:hashcode="iaa_display_hashcode"
                                         v-bind:cm="'fp'"
-                                        v-bind:from="'b'"
+                                        v-bind:from="'B'"
                                         v-bind:tag="tags_fp[1]"
                                         v-bind:tag_idx="tag_idx"
                                         v-bind:ann="iaa_dict.ann[iaa_display_hashcode].anns[1]"
@@ -2795,7 +3013,7 @@ v-bind:class="{'active': section=='iaa'}">
                                     <iaa-tag-info
                                         v-bind:hashcode="iaa_display_hashcode"
                                         v-bind:cm="'fn'"
-                                        v-bind:from="'b'"
+                                        v-bind:from="'B'"
                                         v-bind:tag="tags_fn[1]"
                                         v-bind:tag_idx="tag_idx"
                                         v-bind:ann="iaa_dict.ann[iaa_display_hashcode].anns[1]"
@@ -3029,13 +3247,18 @@ v-bind:class="{'active': section=='iaa'}">
     </div>
 
     <!-- the tag click menu -->
-    <div v-if="dtd != null"
+    <div v-if="dtd != null && get_clicked_tag()!=null"
         style="display: none;"
         id="popmenu_tag">
         <li class="ui-widget-header"
             v-on:click="close_popmenu">
-            TAG <i class="fa fa-tag"></i>
-            <b>{{ clicked_tag_id }}</b>
+            <i class="fa fa-tag"></i>
+            <span>
+                {{ get_clicked_tag()['tag'] }}
+            </span>
+            <span>
+                <b>{{ clicked_tag_id }}</b>
+            </span>
         </li>
 
         <div v-if="is_linking">
@@ -3089,6 +3312,26 @@ v-bind:class="{'active': section=='iaa'}">
     <div v-else
         id="popmenu_tag">
 
+    </div>
+
+    <div id="hoverbox_etag"
+        v-show="hovered_tag != null">
+
+        <div v-if="hovered_tag != null">
+            <div>
+                <span v-if="hovered_tag.hasOwnProperty('_annotator')"
+                    v-bind:class="'iaa-annotator-' + hovered_tag._annotator">
+                    <i class="fa fa-user"></i>
+                    {{ hovered_tag._annotator }}
+                </span>
+                
+                <i class="fa fa-tag" v-bind:class="'fg-tag-' + hovered_tag.tag"></i>
+                {{ hovered_tag.tag }}.{{ hovered_tag.id }} {{ hovered_tag.spans }} 
+            </div>
+            
+            <div v-html="get_tag_desc_html(hovered_tag)">
+            </div>
+        </div>
     </div>
     
 </div>
@@ -3189,13 +3432,13 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
+async function fs_read_txt_file_handle(fh, dtd) {
     if (typeof(dtd) == 'undefined') {
         dtd = {name: ''};
     }
-    if (typeof(enabled_sentences) == 'undefined') {
-        enabled_sentences = false;
-    }
+    // if (typeof(enabled_sentences) == 'undefined') {
+    //     enabled_sentences = false;
+    // }
     const file = await fh.getFile();
     const text = await file.text();
 
@@ -3211,23 +3454,25 @@ async function fs_read_txt_file_handle(fh, dtd, enabled_sentences) {
     // bind a status
     ann._has_saved = true;
 
-    // bind the sentences
-    if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
-        ann._sentences = result.sentences;
-        ann._sentences_text = result.sentences_text;
-    } else {
-        ann._sentences = null;
-        ann._sentences_text = null;
-    }
+    // bind the sentences variable
+    ann._sentences = null;
+    ann._sentences_text = null;
+    // if (enabled_sentences) {
+    //     var result = nlp_toolkit.sent_tokenize(ann.text);
+    //     ann._sentences = result.sentences;
+    //     ann._sentences_text = result.sentences_text;
+    // } else {
+    //     ann._sentences = null;
+    //     ann._sentences_text = null;
+    // }
 
     return ann;
 }
 
-async function fs_read_ann_file_handle(fh, dtd, enabled_sentences) {
-    if (typeof(enabled_sentences) == 'undefined') {
-        enabled_sentences = true;
-    }
+async function fs_read_ann_file_handle(fh, dtd) {
+    // if (typeof(enabled_sentences) == 'undefined') {
+    //     enabled_sentences = true;
+    // }
     const file = await fh.getFile();
     const text = await file.text();
 
@@ -3244,14 +3489,16 @@ async function fs_read_ann_file_handle(fh, dtd, enabled_sentences) {
     ann._has_saved = true;
 
     // bind the sentences
-    if (enabled_sentences) {
-        var result = nlp_toolkit.sent_tokenize(ann.text);
-        ann._sentences = result.sentences;
-        ann._sentences_text = result.sentences_text;
-    } else {
-        ann._sentences = null;
-        ann._sentences_text = null;
-    }
+    ann._sentences = null;
+    ann._sentences_text = null;
+    // if (enabled_sentences) {
+    //     var result = nlp_toolkit.sent_tokenize(ann.text);
+    //     ann._sentences = result.sentences;
+    //     ann._sentences_text = result.sentences_text;
+    // } else {
+    //     ann._sentences = null;
+    //     ann._sentences_text = null;
+    // }
 
     return ann;
 }
@@ -3330,6 +3577,9 @@ async function fs_save_ann_file(ann, dtd) {
 }
 
 // The DTD parser
+/**
+ * DTD schema file parser
+ */
 var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
@@ -3340,7 +3590,6 @@ var dtd_parser = {
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
         // attlist_cdata_default_value: /(?<=").*?(?=")/gm
         attlist_cdata_default_value: /\s+\"(.*)\"/g
-
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -3353,7 +3602,10 @@ var dtd_parser = {
             name: '',
             tag_dict: {},
             etags: [],
-            ltags: []
+            ltags: [],
+
+            // the raw dtd text
+            text: text
         };
 
         for (let l = 0; l < lines.length; l++) {
@@ -3864,7 +4116,8 @@ var ann_parser = {
         var ann = {
             text: '',
             dtd_name: '',
-            tags: []
+            tags: [],
+            meta: {},  // the meta data of this annotation
         };
 
         // first, get the dtd name
@@ -3894,6 +4147,15 @@ var ann_parser = {
 
                 // get the attributes
                 var tag_name = elem.tagName;
+
+                // first, need to if this tag_name is supported in current dtd
+                if (dtd.tag_dict.hasOwnProperty(tag_name)) {
+                    // OK, there it is
+                } else {
+                    // no such tag??
+                    console.log("* not found", tag_name, 'in current dtd');
+                    continue;
+                }
 
                 // create a new empty tag
                 var tag = {
@@ -3994,6 +4256,14 @@ var ann_parser = {
             }
         }
 
+        // then check all of the meta data
+        if (xmlDoc.getElementsByTagName('META').length == 0) {
+            // it's very very possible that no meta data
+            // then just skip
+        } else {
+
+        }
+
         return ann;
     },
 
@@ -4022,6 +4292,14 @@ var ann_parser = {
 
             // create all attributes
             for (const attr in tag) {
+                // skip special tags
+                if (attr.startsWith('_')) {
+                    // internal attributes
+                    // _annotator
+                    // _
+                    // continue;
+                }
+
                 if (attr == 'tag') {
                     // skip the tag name itself
                     continue;
@@ -4089,6 +4367,8 @@ var ann_parser = {
             node_TAGS.appendChild(node_tag);
         }
         root.appendChild(node_TAGS);
+
+        // create the meta
         
         return xmlDoc;
     },
@@ -4283,8 +4563,12 @@ var ann_parser = {
      * 
      * @param {object} hints The hints object contains all hint texts
      * @param {object} ann The annotation object which contains text and tags
+     * @param {list} focus_tags The focused tags for searching
      */
-    search_hints_in_ann: function(hint_dict, ann) {
+    search_hints_in_ann: function(hint_dict, ann, focus_tags) {
+        if (typeof(focus_tags) == 'undefined') {
+            focus_tags = null;
+        }
         var is_overlapped = function(a, b) {
             if (a[0] >= b[0] && a[0] < b[1]) {
                 return true;
@@ -4339,6 +4623,16 @@ var ann_parser = {
         // check each tag in the hint
         for (const tag_name in hint_dict) {
             if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                // focus on specifed tag hint
+                if (focus_tags == null) {
+                    // ok, search all
+                } else if (focus_tags.indexOf(tag_name)>=0) {
+                    // ok, this tag need to search
+                } else {
+                    // wow, no need to search this tag
+                    continue;
+                }
+
                 // check each str in this hint tag
                 for (let i = 0; i < hint_dict[tag_name].texts.length; i++) {
                     const str = hint_dict[tag_name].texts[i];
@@ -4554,12 +4848,14 @@ var ann_parser = {
             }
         }
         return tags;
-    }
+    },
+
+
 };
 
 // The BioC parser
 /**
- * BioC Format Annotation file parser
+ * BioC format annotation file parser
  */
 var bioc_parser = {
 
@@ -6018,11 +6314,13 @@ var iaa_calculator = {
                     ann: ann_rst.anns[0],
                     rst: {}
                 }
+
                 // rename the gs
-                var fn_gs = "GS_" + this.find_lcs(
+                var fn_gs = "G_" + this.find_lcs(
                     ann_rst.anns[0]._filename,
                     ann_rst.anns[1]._filename
                 ) + '_' + cnt + '.xml';
+                
                 gs_dict[hashcode].ann._filename = fn_gs;
 
                 // remove the _fh
@@ -6049,7 +6347,7 @@ var iaa_calculator = {
                             // use ann_a's result
                             gs_dict[hashcode].rst[tag_name].tp.push({
                                 tag: tags[0],
-                                from: 'a'
+                                from: 'A'
                             });
                         }
 
@@ -6059,7 +6357,7 @@ var iaa_calculator = {
                             // use ann_a's result
                             gs_dict[hashcode].rst[tag_name].fp.push({
                                 tag: tags[0],
-                                from: 'a'
+                                from: 'A'
                             });
                         }
                         
@@ -6069,7 +6367,7 @@ var iaa_calculator = {
                             // use ann_b's result
                             gs_dict[hashcode].rst[tag_name].fn.push({
                                 tag: tags[1],
-                                from: 'b'
+                                from: 'B'
                             });
                         }
                     }
@@ -6080,7 +6378,24 @@ var iaa_calculator = {
         return gs_dict;
     },
 
-    evaluate_anns_on_dtd: function(dtd, anns_a, anns_b, match_mode, overlap_ratio) {
+    /**
+     * Evaluate the IAA based on given schema and 
+     * two list of annotations from two annotators
+     * 
+     * @param {Object} dtd the annotation schema
+     * @param {Object} anns_a the annotations by A
+     * @param {Object} anns_b the annotations by B
+     * @param {string} match_mode overlap or exact match
+     * @param {float} overlap_ratio overlap ratio
+     * @returns Object of IAA result
+     */
+    evaluate_anns_on_dtd: function(
+        dtd, 
+        anns_a, 
+        anns_b, 
+        match_mode, 
+        overlap_ratio
+    ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
         }
@@ -6246,6 +6561,17 @@ var iaa_calculator = {
         return iaa_dict;
     },
 
+    /**
+     * Evaluate the IAA based on given schema and 
+     * two annotation from two annotators
+     * 
+     * @param {Object} dtd the annotation schema
+     * @param {Object} ann_a an annotation by A
+     * @param {Object} ann_b an annotation by B
+     * @param {string} match_mode overlap or exact match
+     * @param {float} overlap_ratio overlap ratio
+     * @returns Object of IAA result
+     */
     evaluate_ann_on_dtd: function(dtd, ann_a, ann_b, match_mode, overlap_ratio) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
@@ -6584,7 +6910,7 @@ var nlp_toolkit = {
         if (typeof(backend) == 'undefined') {
             backend = 'simpledot';
         }
-        console.log('* sentencizing text by ' + backend);
+        // console.log('* sentencizing text by ' + backend);
 
         if (backend == 'simpledot') {
             return this.sent_tokenize_by_simpledot(text);
@@ -6748,6 +7074,11 @@ var nlp_toolkit = {
         };
     },
 
+    /**
+     * Sentencize a given text by a simple method
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
     sent_tokenize_by_simpledot: function(text) {
         // get all sentences and spans
         var sentences = [];
@@ -6757,10 +7088,13 @@ var nlp_toolkit = {
 
         // a temp sentence
         var sentence = [];
+
         // locate the sentence start
         var spans_start = 0;
+
         // locate the sentence end
         var spans_end = 0;
+        
         // flag for a sentence end
         var flag_sent = false;
 
@@ -6777,9 +7111,17 @@ var nlp_toolkit = {
             // detect if this is a sentence break
             if (c == '.') {
                 // but there are some corner cases
-                flag_sent = true;
-                // collect the char
-                sentence.push(c);
+                if (i+1 < text.length && text[i+1].trim() != '') {
+                    // which means next char is not empty
+                    // this dot is not for a sentence
+                    sentence.push(c);
+
+                } else {
+                    // this is an end of sentence
+                    flag_sent = true;
+                    // collect the char
+                    sentence.push(c);
+                }
                 
             } else if ( c == '?' || c == '!' || c == ';') {
                 flag_sent = true;
@@ -6844,6 +7186,12 @@ var nlp_toolkit = {
         };
     },
 
+
+    /**
+     * Sentencize a given text by a compromise.cool NLP
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
     sent_tokenize_by_compromise: function(text) {
         // first, convert the raw text to a doc object
         var doc = nlp(text);
@@ -6858,41 +7206,29 @@ var nlp_toolkit = {
         // get all sentence trimed text
         var sentences_text = [];
 
-        doc.sentences().forEach(function(d) {
-            // get this sentence
-            var sentence = d.text();
-            var spans_start = text.indexOf(sentence);
+        var doc_sentences = doc.sentences().json({
+            offset: true
+        });
 
-            // TODO fix the multiple same sentence bug
-            if (sentences_dict.hasOwnProperty(sentence)) {
-                // which means this is a duplicated 
-                var i = 1;
-                var cnt = 0;
-                while(true) {
-                    spans_start = text.indexOf(sentence, i);
+        for (let i = 0; i < doc_sentences.length; i++) {
+            const d = doc_sentences[i];
+            
+            // get this sentence text
+            var sentence = d.text;
 
-                    if (sentences_dict[sentence] == spans_start) {
-                        // which means this sentence appeared
-                        i += 1;
-                        cnt += 1;
+            // get the offset by compromise.cool NLP
+            // thanks to spencer kelly (spencermountain@gmail.com)
+            var spans_start = d.offset.start;
+            var spans_end = d.offset.start + d.offset.length - 1;
 
-                    } else {
-                        // which means this span start is a new one
-                        sentences_dict[sentence] = spans_start;
-                        break;
-                    }
-                }
-
-            } else {
-                // ok, just add this new sentence
-                sentences_dict[sentence] = spans_start;
-            }
-            var spans_end = spans_start + sentence.length;
-
-            // sometimes the sentence has right blanks
-            // we need to remove it to avoid unexpected linebreaks
+            // to avoid right new line
             sentence = sentence.trimRight();
 
+            // to avoid inline new line
+            sentence = sentence.replaceAll('\n', ' ');
+            sentence = sentence.replaceAll('\r', ' ');
+
+            // save this sentence
             sentences.push({
                 text: sentence, 
                 spans: {
@@ -6901,7 +7237,52 @@ var nlp_toolkit = {
                 }
             });
             sentences_text.push(sentence);
-        });
+        }
+
+        // doc.sentences().forEach(function(d) {
+        //     // get this sentence
+        //     var sentence = d.text();
+        //     var spans_start = text.indexOf(sentence);
+
+        //     // TODO fix the multiple same sentence bug
+        //     if (sentences_dict.hasOwnProperty(sentence)) {
+        //         // which means this is a duplicated 
+        //         var i = 1;
+        //         var cnt = 0;
+        //         while(true) {
+        //             spans_start = text.indexOf(sentence, i);
+
+        //             if (sentences_dict[sentence] == spans_start) {
+        //                 // which means this sentence appeared
+        //                 i += 1;
+        //                 cnt += 1;
+
+        //             } else {
+        //                 // which means this span start is a new one
+        //                 sentences_dict[sentence] = spans_start;
+        //                 break;
+        //             }
+        //         }
+
+        //     } else {
+        //         // ok, just add this new sentence
+        //         sentences_dict[sentence] = spans_start;
+        //     }
+        //     var spans_end = spans_start + sentence.length;
+
+        //     // sometimes the sentence has right blanks
+        //     // we need to remove it to avoid unexpected linebreaks
+        //     sentence = sentence.trimRight();
+
+        //     sentences.push({
+        //         text: sentence, 
+        //         spans: {
+        //             start: spans_start, 
+        //             end: spans_end
+        //         }
+        //     });
+        //     sentences_text.push(sentence);
+        // });
 
         return { 
             sentences: sentences,
@@ -6981,6 +7362,67 @@ var nlp_toolkit = {
         saveAs(blob, fn);
 
         return tsv;
+    },
+
+    /**
+     * Download the anns as raw XML format
+     * @param {list} anns the list of ann objects
+     * @param {object} dtd the dtd schema
+     * @param {string} fn the download filename
+     */
+    download_dataset_raw: function(anns, dtd, fn, skip_dtd) {
+        if (typeof(skip_dtd)=='undefined') {
+            // by default, we don't need the dtd file to be included
+            skip_dtd = true;
+        }
+
+        // create an empty zip pack
+        var zip = new JSZip();
+        var file_list = [];
+
+        // put the dtd
+        if (skip_dtd) {
+
+        } else {
+            // add the dtd content if exists
+            if (dtd.hasOwnProperty('text')) {
+                var dtd_fn = dtd.name + '.dtd';
+                zip.file(dtd_fn, dtd.text);
+                file_list.push(dtd.name + '.dtd');
+            }
+        }
+
+        // create a folder in this zip file
+        var folder_name = 'annotation-'+ dtd.name + '';
+
+        // check each ann file
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            
+            // convert to xml first
+            var xmlDoc = ann_parser.ann2xml(ann, dtd);
+
+            // convert xml to string
+            var xmlStr = ann_parser.xml2str(xmlDoc, false);
+
+            // get the filename of this annotation
+            var ann_fn = ann._filename;
+
+            // get the file
+            // add the text dataset to zip
+            var full_fn = folder_name + '/' + ann_fn;
+            zip.file(full_fn, xmlStr);
+            file_list.push(full_fn);
+        }
+
+        // create zip file
+        zip.generateAsync({ type: "blob" }).then((function(fn) {
+            return function (content) {
+                saveAs(content, fn);
+            }
+        })(fn));
+
+        return file_list.join('\n');
     },
 
     /**
@@ -7173,9 +7615,19 @@ var app_hotpot = {
         // for the dtd
         dtd: null,
 
-        // for the ann files
+        // decide which ann file is working on.
+        // null indicates that currently it is not editing
         ann_idx: null,
+
+        // for the ann files in the file list
         anns: [],
+
+        // for annotation tab working mode
+        // there will be the following mode:
+        // 1. annotation, which is the usually mode, and it is default
+        // 2. adjudication, which is for adjudication from adj.tab
+        // the UI logic will be different in each mode
+        annotation_tab_working_mode: 'annotation',
 
         // for showing the tag by tag_name,
         display_tag_name: '__all__',
@@ -7188,6 +7640,9 @@ var app_hotpot = {
 
         // for popmenu
         clicked_tag_id: null,
+
+        // hover
+        hovered_tag: null,
 
         // a flag for showing which mode we are working
         is_linking: false,
@@ -7214,7 +7669,7 @@ var app_hotpot = {
         // for file name filter
         fn_pattern: '',
 
-        // for iaa comp
+        // for iaa
         iaa_ann_list: [
             {anns: [], name: 'A'}, // for annotator A
             {anns: [], name: 'B'}, // for annotator B
@@ -7299,6 +7754,10 @@ var app_hotpot = {
             this.cfg.active_setting_tab = tab;
         },
 
+        is_adjudication_working_mode: function() {
+            return this.annotation_tab_working_mode == 'adjudication';
+        },
+
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
@@ -7322,7 +7781,8 @@ var app_hotpot = {
             }
             // before saving, need to check the _fh
             var p_ann = null;
-            if (this.anns[this.ann_idx]._fh === null ||
+            if (!this.anns[this.ann_idx].hasOwnProperty('_fh') || 
+                this.anns[this.ann_idx]._fh === null ||
                 typeof(this.anns[this.ann_idx]._fh.createWritable)==='undefined') {
                 // which means this ann's original file is not available
                 // or it is a txt-converted ann
@@ -7405,8 +7865,22 @@ var app_hotpot = {
                 console.log('* error when save as xml', error);
             });
         },
+
+        download_schema_as_dtd: function() {
+            if (this.dtd.hasOwnProperty('text')) {
+                // get the current file name
+                var fn = this.dtd.name + '.dtd';
+
+                // download this dtd text
+                var blob = new Blob([this.dtd.text], {type: "text/txt;charset=utf-8"});
+                saveAs(blob, fn);
+            } else {
+                // what???
+                return;
+            }
+        },
         
-        download_as_xml: function() {
+        download_copy_as_xml: function() {
             // convert to xml
             var xmlDoc = ann_parser.ann2xml(
                 this.anns[this.ann_idx],
@@ -7422,6 +7896,31 @@ var app_hotpot = {
             // download this csv
             var blob = new Blob([xmlStr], {type: "text/xml;charset=utf-8"});
             saveAs(blob, fn);
+        },
+
+        download_copy_as_bioc: function() {
+            // create a new file name for this format
+            var fn = 'BioC-' + this.anns[this.ann_idx]._filename;
+            bioc_parser.download_dataset_bioc(
+                [this.anns[this.ann_idx]],
+                this.dtd,
+                fn
+            );
+        },
+
+        download_all_as_zip: function(skip_dtd) {
+            if (typeof(skip_dtd) == 'undefined') {
+                skip_dtd = true;
+            }
+            var file_list = nlp_toolkit.download_dataset_raw(
+                this.anns,
+                this.dtd,
+                'annotation-' + this.get_ruleset_base_name() + '.zip',
+                skip_dtd
+            );
+            
+            console.log('* downloaded zip file:', file_list);
+            // update the UI?
         },
 
         show_search_bar: function() {
@@ -7442,7 +7941,7 @@ var app_hotpot = {
 
         show_howtouse: function() {
             window.open(
-                'https://github.com/OHNLP/MedTator/wiki/Manual#export-tab',
+                'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
                 '_blank'
             );
         },
@@ -7483,47 +7982,68 @@ var app_hotpot = {
         },
 
         open_dtd_file: function() {
-            // the settings for dtd file
-            var pickerOpts = {
-                types: [
-                    {
-                        description: 'DTD File',
-                        accept: {
-                            'text/dtd': ['.dtd']
+            if (isFSA_API_OK) {
+                // the settings for dtd file
+                var pickerOpts = {
+                    types: [
+                        {
+                            description: 'DTD File',
+                            accept: {
+                                'text/dtd': ['.dtd']
+                            }
+                        },
+                    ],
+                    excludeAcceptAllOption: true,
+                    multiple: false
+                };
+
+                // get the file handles
+                var promise_fileHandles = fs_open_files(pickerOpts);
+
+                promise_fileHandles.then(function(fileHandles) {
+                    // read the fh and set dtd
+                    // in fact, there is only one file for this dtd
+                    for (let i = 0; i < fileHandles.length; i++) {
+                        const fh = fileHandles[i];
+                        if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                            app_hotpot.msg('Please select a .dtd file', 'warning');
+                            return;
                         }
-                    },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: false
-            };
 
-            // get the file handles
-            var promise_fileHandles = fs_open_files(pickerOpts);
+                        // read the file
+                        var p_dtd = fs_read_dtd_file_handle(fh);
 
-            promise_fileHandles.then(function(fileHandles) {
-                // read the fh and set dtd
-                // in fact, there is only one file for this dtd
-                for (let i = 0; i < fileHandles.length; i++) {
-                    const fh = fileHandles[i];
+                        p_dtd.then((function(){
+                            return function(dtd) {
+                                // just set the dtd
+                                app_hotpot.set_dtd(dtd);
+                            }
+                        })());
+                        
+                        // just one file
+                        break;
+                    }
+                });
 
-                    // read the file
-                    var p_dtd = fs_read_dtd_file_handle(fh);
-
-                    p_dtd.then(function(dtd) {
-                        app_hotpot.set_dtd(dtd);
-                    });
-                }
-            });
+            } else {
+                console.log('* Not support FileSystemAccess API');
+            }
+            
         },
         
         open_ann_files: function() {
+            if (!isFSA_API_OK) {
+                console.log('* Not support FileSystemAccess API');
+                return;
+            }
+
             // the settings for annotation file
             var pickerOpts = {
                 types: [
                     {
                         description: 'Annotation File',
                         accept: {
-                            'text/xml': ['.xml']
+                            'text/xml': ['.xml', '.txt']
                         }
                     },
                 ],
@@ -7539,15 +8059,29 @@ var app_hotpot = {
                 for (let i = 0; i < fileHandles.length; i++) {
                     const fh = fileHandles[i];
 
+                    if (fh.kind != 'file') {
+                        // skip directory or others
+                        continue;
+                    }
+
                     // check exists
                     if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
                         // exists? skip this file
                         app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                        return;
+                        continue;
+                    }
+
+                    if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                        // parse this txt file
+                        app_hotpot.parse_ann_txt_file_fh(
+                            fh,
+                            app_hotpot.vpp.$data.dtd
+                        );
+                        continue;
                     }
                     
                     // parse this ann fh
-                    app_hotpot.parse_ann_file_fh(
+                    app_hotpot.parse_ann_xml_file_fh(
                         fh,
                         app_hotpot.vpp.$data.dtd
                     );
@@ -7556,7 +8090,18 @@ var app_hotpot = {
         },
 
         update_tag_table: function(tag) {
-            console.log('* update tag table', tag);
+            // update the display tag
+            if (typeof(tag) == 'undefined') {
+                // set to all 
+                this.display_tag_name = '__all__';
+
+            } else {
+                // set to specific tag
+                this.display_tag_name = tag.name;
+            }
+
+            // need to re-render the code-mirror accordingly
+            app_hotpot.cm_update_marks();
         },
 
         set_current_ann: function(ann) {
@@ -7645,24 +8190,28 @@ var app_hotpot = {
             }
         },
 
-        highlight_tag: function(tag) {
-            var dom_id = 'mark-etag-id-' + tag.id;
-            console.log('* highlight tag: ' + dom_id);
+        on_click_tag_table_row: function(tag) {
+            if (!this.is_etag(tag)) {
+                // no need to highlight other tag
+                return;
+            }
 
-            // remove class
-            $('.mark-tag-active').removeClass('mark-tag-active');
+            if (this.is_etag_doc_level(tag)) {
+                // no need to highlight doc-level tag
+                return;
+            }
 
-            // jump to this tag for display
+            // in the editor
+            // 1. jump to this tag for display
             app_hotpot.cm_jump2tag(
                 tag, 
                 this.anns[this.ann_idx]
             );
+            // 2. highlight the tag
+            app_hotpot.highlight_editor_tag(tag.id);
 
-            // remove class
-            $('.mark-tag-active').removeClass('mark-tag-active');
-
-            // add a class to this dom
-            $('#'+dom_id).addClass('mark-tag-active');
+            // in the tag table, highlight
+            app_hotpot.highlight_tag_table_row(tag.id);
         },
 
         on_change_attr_value: function(event) {
@@ -7709,8 +8258,10 @@ var app_hotpot = {
 
         on_change_link_settings: function(event) {
             console.log(event.target.value);
-            app_hotpot.cm_clear_ltag_marks();
-            app_hotpot.cm_update_ltag_marks();
+            // app_hotpot.cm_clear_ltag_marks();
+
+            // have to update all marks ...
+            app_hotpot.cm_update_marks();
         },
 
         accept_all_hints: function() {
@@ -7777,7 +8328,11 @@ var app_hotpot = {
             var tag_def = this.dtd.tag_dict[tag_name];
             
             // create a new tag
-            var tag = app_hotpot.make_etag(_tag, tag_def, this.anns[this.ann_idx]);
+            var tag = app_hotpot.make_etag(
+                _tag, 
+                tag_def, 
+                this.anns[this.ann_idx]
+            );
 
             // add this tag to ann
             this.anns[this.ann_idx].tags.push(tag);
@@ -7813,9 +8368,8 @@ var app_hotpot = {
         },
 
         add_etag_by_ctxmenu: function(tag_def) {
-
             // get the basic tag
-            var _tag = app_hotpot.cm_make_basic_tag_from_selection();
+            var _tag = app_hotpot.cm_make_basic_etag_from_selection();
 
             // then call the general add_etag process
             this.add_etag(_tag, tag_def);
@@ -7855,7 +8409,7 @@ var app_hotpot = {
             }
 
             // get a basic tag
-            var _tag = app_hotpot.cm_make_basic_tag_from_selection();
+            var _tag = app_hotpot.cm_make_basic_etag_from_selection();
 
             // then call the general add_etag process
             this.add_etag(_tag, tag_def);
@@ -8047,6 +8601,16 @@ var app_hotpot = {
                         app_hotpot.vpp.$data.dtd
                     );
                     p_txt_ann.then(function(txt_ann) {
+                        // now check the sentence split
+                        // just use the simplest
+                        var r = nlp_toolkit.sent_tokenize(
+                            txt_ann.text,
+                            app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                        );
+                        txt_ann._sentences = r.sentences;
+                        txt_ann._sentences_text = r.sentences_text;
+
+                        // add this ann
                         app_hotpot.vpp.add_txt(txt_ann);
                     });
                     
@@ -8148,12 +8712,22 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // IAA Related
         /////////////////////////////////////////////////////////////////
-        clear_iaa_all: function() {
+        clear_iaa_all: function(which) {
+            if (typeof(which) == 'undefined') {
+                which = null;
+            }
             // clear everything related to iaa
-            this.iaa_ann_list[0].anns = [];
-            this.iaa_ann_list[1].anns = [];
+            if (which == null || which == 0) {
+                // just clear a
+                this.iaa_ann_list[0].anns = [];
+            }
+            if (which == null || which == 1) {
+                // just clear b
+                this.iaa_ann_list[1].anns = [];
+            }
 
             this.iaa_dict = null;
+            this.iaa_gs_dict = null;
 
             this.iaa_display_tag_name = '__all__';
             this.iaa_display_hashcode = null;
@@ -8190,14 +8764,119 @@ var app_hotpot = {
             console.log('* changed attr in', event.target);
         },
 
+        transfer_to_annotation_tab: function() {
+            // confirm first if there are annotations
+            var len = app_hotpot.vpp.$data.anns.length;
+            if (len > 0) {
+                var msg = 'There are ' + len + ' documents in your annotation tab. Editing adjudication copy needs to remove those documents. Are you sure to continue?';
+                var ret = app_hotpot.confirm(msg);
+                if (ret) {
+
+                } else {
+                    // ok, let's stop
+                    return;
+                }
+            }
+
+            // check iaa_gs_dict status
+            if (this.iaa_gs_dict == null) {
+                // OK, nothing to do with an empty iaa_gs_dict
+
+                // maybe say something?
+                app_hotpot.msg('Adjudication copy is not found', 'warning');
+                return;
+            }
+
+            // convert the current gs dict
+            var gs_list = Object.values(
+                this.iaa_gs_dict
+            );
+
+            // then create ann list for update
+            var anns = [];
+
+            // check each item in this iaa_gs
+            for (let i = 0; i < gs_list.length; i++) {
+                const gs = gs_list[i];
+
+                // create a new ann
+                var ann = gs.ann;
+
+                // copy the rst of initial 
+                for (const tag_name in gs.rst) {
+                    if (Object.hasOwnProperty.call(gs.rst, tag_name)) {
+                        const r = gs.rst[tag_name];
+                        // check each cm, fn, fp, and tp
+                        for (const cm in r) {
+                            if (Object.hasOwnProperty.call(r, cm)) {
+                                const ds = r[cm];
+                                for (let j = 0; j < ds.length; j++) {
+                                    const d = ds[j];
+
+                                    // it's possible that this decision have been removed
+                                    if (d == null) {
+                                        continue;
+                                    }
+                                    // there are two attributes:
+                                    // from: a or b
+                                    // tag: the tag itself
+                                    // copy a new one
+                                    var tag = JSON.parse(JSON.stringify(d.tag));
+
+                                    // then need to update the id?
+                                    var etag_def = this.get_tag_def(tag_name);
+                                    if (etag_def == null) {
+                                        // what????
+                                    } else {
+                                        var new_tag_id = ann_parser.get_next_tag_id(
+                                            ann,
+                                            etag_def
+                                        );
+                                        tag.id = new_tag_id;
+                                    }
+
+                                    // update the tag info for annotator
+                                    if (cm == 'tp') {
+                                        // which means this tag is agreed by both
+                                        tag._annotator = 'AB';
+                                    } else {
+                                        // which means this tag is added by A or B
+                                        // or they don't have an agreement
+                                        tag._annotator = d.from;
+                                    }
+
+                                    // save this tag
+                                    ann.tags.push(tag);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                anns.push(ann);
+            }
+
+            // replace 
+            this.set_ann_idx(null);
+            this.anns = [];
+
+            // set to span tag mode
+            this.cm.mark_mode = 'span';
+
+            // bind the ann
+            this.anns = anns;
+
+            // update the UI
+            this.ann_idx = 0;
+
+            // switch to ann tab
+            this.switch_mui('annotation');
+        },
+
         make_default_adj: function() {
             this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
                 this.dtd, this.iaa_dict
             );
-        },
-
-        get_gs_zipfile_folder_name: function() {
-            return this.dtd.name + '-goldstandards';
         },
 
         download_all_gs: function() {
@@ -8229,6 +8908,10 @@ var app_hotpot = {
             zip.generateAsync({ type: "blob" }).then(function (content) {
                 saveAs(content, app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + '.zip');
             });
+        },
+
+        get_gs_zipfile_folder_name: function() {
+            return this.dtd.name + '-goldstandards';
         },
 
         count_gs_tags: function(ann_hashcode) {
@@ -8457,6 +9140,9 @@ var app_hotpot = {
             if (section == 'annotation') {
                 // refresh the code mirror
                 this.set_ann_idx(this.ann_idx);
+
+                // trick for cm late update
+                this.cm.is_expire = true;
             }
 
             app_hotpot.resize();
@@ -8471,21 +9157,51 @@ var app_hotpot = {
             app_hotpot.popmenu_tag.hide();
         },
 
-        on_click_tag: function(event, tag_id) {
+        on_click_editor_tag: function(event, tag_id) {
+            // console.log('* clicked on editor etag', tag_id);
+
             // set the clicked tag_id
             this.clicked_tag_id = tag_id;
 
-            var mouseX = event.clientX;
-            var mouseY = event.clientY;
+            // get the position of user pointer
+            // var mouseX = event.clientX;
+            // var mouseY = event.clientY;
+
+            // get the position of the tag it self
+            var elm = $(event.target);
+            var x = elm.offset().left;
+            var y = elm.offset().top;
 
             // then show the popmenu
-            app_hotpot.show_tag_popmenu(mouseX, mouseY);
+            app_hotpot.show_tag_popmenu_at(x, y);
 
             // then show the item in the list
-            app_hotpot.scroll_annlist_to(tag_id);
+            app_hotpot.scroll_tag_table_to(tag_id);
 
-            // then highlight this item
-            app_hotpot.highlight_annlist_row(tag_id);
+            // then highlight this item in table
+            app_hotpot.highlight_tag_table_row(tag_id);
+
+            // then highlight this item in editor
+            app_hotpot.highlight_editor_tag(tag_id);
+        },
+
+        on_enter_tag: function(event) {
+            // console.log('* enter etag', event.target);
+            var elm = $(event.target);
+            var tag_id = elm.attr('tag_id');
+            this.hovered_tag = this.get_tag_by_tag_id(
+                tag_id,
+                this.anns[this.ann_idx]
+            );
+
+            // set location
+            $('#hoverbox_etag').css('top', elm.offset().top + 20);
+            $('#hoverbox_etag').css('left', elm.offset().left);
+        },
+
+        on_leave_tag: function(event) {
+            // console.log('* leave etag', event.target);
+            this.hovered_tag = null;
         },
 
         popmenu_del_tag: function() {
@@ -8768,7 +9484,47 @@ var app_hotpot = {
             return tags;
         },
 
+        get_tag_desc_html: function(tag) {
+            var html = [];
+
+            for (const attr in tag) {
+                if (Object.hasOwnProperty.call(tag, attr)) {
+                    const val = tag[attr];
+                    if (['id', 'tag', 'spans', 'text', '_annotator'].indexOf(attr)>=0) {
+                        continue;
+                    }
+
+                    html.push(
+                        "<span class='tag-desc-item'>" +
+                        "<span class='tag-desc-attr'>" + attr + ": </span>" +
+                        "<span class='tag-desc-value'>" + val + "</span>" +
+                        "</span>"
+                    );
+                }
+            }
+
+            html = html.join('<br>');
+
+            return html;
+        },
+
+        get_clicked_tag: function() {
+            if (this.clicked_tag_id == null) {
+                return null;
+            }
+            if (this.ann_idx == null) {
+                return null;
+            }
+            return this.get_tag_by_tag_id(
+                this.clicked_tag_id, 
+                this.anns[this.ann_idx]
+            )
+        },
+
         get_tag_by_tag_id: function(tag_id, ann) {
+            if (ann == null) {
+                return null;
+            }
             for (let i = 0; i < ann.tags.length; i++) {
                 if (ann.tags[i].id == tag_id) {
                     return ann.tags[i];
@@ -8857,6 +9613,43 @@ var app_hotpot = {
             } else {
                 // ???
             }
+        },
+
+        is_display_tag_name: function(tag_name) {
+            if (this.display_tag_name == '__all__') {
+                return true;
+            }
+
+            if (this.display_tag_name == tag_name) {
+                return true;
+            }
+
+            return false;
+        },
+
+        /**
+         * Check if a tag is related to a certain tag type
+         * 
+         * @param {object} tag a tag object
+         * @param {list} tag_name tag names to be checked
+         * @param {object} ann annotation
+         */
+        is_tag_related_to_tag_name: function(tag, tag_names, ann) {
+            // find the 
+            var related_tags = ann_parser.get_linked_ltags(
+                tag.id,
+                ann
+            );
+
+            // check each related tag, which is usually a link tag
+            for (let i = 0; i < related_tags.length; i++) {
+                const related_tag = related_tags[i];
+                if (tag_names.indexOf(related_tag.tag)>=0) {
+                    return true;
+                }
+            }
+
+            return false;
         },
 
         is_etag_doc_level: function(tag) {
@@ -9045,10 +9838,10 @@ var app_hotpot = {
         // bind drop zone for dtd
         this.bind_dropzone_dtd();
 
-        // bind drop zone for anns
+        // bind drop zone for annotation xml/txt files
         this.bind_dropzone_ann();
 
-        // bind drop zone for anns
+        // bind drop zone for batch import text file
         this.bind_dropzone_txt();
 
         // bind drop zone for anns
@@ -9070,10 +9863,21 @@ var app_hotpot = {
             function(event) {
                 console.log('* clicked on', event.target);
 
-                // var dom = event.target;
-                // var obj = $(dom);
+                var dom = event.target;
+                var obj = $(dom);
 
-                // // show the menu
+                if (obj.hasClass('mark-tag') ||
+                    obj.hasClass('mark-tag-text')) {
+                    // which means clicks on a tag.
+                    // so don't touch the popmenu
+                } else {
+                    // 
+                    if (app_hotpot.popmenu_tag != null) {
+                        app_hotpot.popmenu_tag.hide();
+                    }
+                }
+
+                // show the menu
                 // var mouseX = event.clientX;
                 // var mouseY = event.clientY;
 
@@ -9084,9 +9888,6 @@ var app_hotpot = {
                 if (app_hotpot.ctxmenu_nce != null) {
                     app_hotpot.ctxmenu_nce.hide();
                 }
-                if (app_hotpot.popmenu_tag != null) {
-                    app_hotpot.popmenu_tag.hide();
-                }
 
                 // if (obj.hasClass('mark-tag-text')) {
                 //     // this is a mark in code mirror
@@ -9096,7 +9897,7 @@ var app_hotpot = {
                 //     app_hotpot.vpp.$data.clicked_tag_id = tag_id;
 
                 //     // show the menu
-                //     app_hotpot.show_tag_popmenu(mouseX, mouseY);
+                //     app_hotpot.show_tag_popmenu_at(mouseX, mouseY);
                 // } else {
                 //     // what to do?
                 // }
@@ -9144,6 +9945,7 @@ var app_hotpot = {
             // user should only upload one folder or a file
             if (items.length>1) {
                 console.log('* selected more than 1 item!');
+                app_hotpot.msg('Please just drop only one .dtd file', 'warning');
                 return;
             }
             // console.log('* found dropped items', items);
@@ -9156,6 +9958,11 @@ var app_hotpot = {
                 // read this handle
                 item.then(function(fh) {
                     if (fh.kind != 'file') { return null; }
+
+                    if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                        app_hotpot.msg('Please drop a .dtd file', 'warning');
+                        return;
+                    }
 
                     // get the text content
                     var p_dtd = fs_read_dtd_file_handle(fh);
@@ -9183,6 +9990,8 @@ var app_hotpot = {
 
                     } else {
                         // should be a dtd file
+                        console.log('* dropped a dtd file', item);
+
                         // so item is a fileEntry
                         app_hotpot.parse_dtd_file_entry(item);
                     }
@@ -9235,40 +10044,8 @@ var app_hotpot = {
                     // read this handle
                     item.then(function(fh) {
                         if (fh.kind == 'file') {
-                            // if drop a txt!
-                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                                // create a new file name
-                                var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
 
-                                // create a empty ann
-                                var p_txt_ann = fs_read_txt_file_handle(
-                                    fh, 
-                                    app_hotpot.vpp.$data.dtd,
-                                    true
-                                );
-
-                                // load this ann
-                                p_txt_ann.then((function(new_fn){
-                                    return function(txt_ann) {
-                                        // modify the txt_ann _fh
-                                        // we couldn't save to an txt
-                                        txt_ann._fh = null;
-
-                                        // update the _filename
-                                        txt_ann._filename = new_fn;
-
-                                        // show some message
-                                        app_hotpot.msg("Created a new annotation file " + new_fn);
-
-                                        // add this ann
-                                        app_hotpot.add_ann(txt_ann);
-                                    }
-                                })(new_fn));
-
-                                return;
-                            }
-
-                            // show something or 
+                            // show something if this file exists
                             // check if this file name exists
                             if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
                                 // exists? skip this file
@@ -9276,8 +10053,18 @@ var app_hotpot = {
                                 return;
                             }
 
+                            // if drop a txt!
+                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                                // parse this txt file
+                                app_hotpot.parse_ann_txt_file_fh(
+                                    fh,
+                                    app_hotpot.vpp.$data.dtd
+                                );
+                                return;
+                            }
+
                             // should be a ann txt/xml file
-                            app_hotpot.parse_ann_file_fh(
+                            app_hotpot.parse_ann_xml_file_fh(
                                 fh,
                                 app_hotpot.vpp.$data.dtd
                             );
@@ -9339,6 +10126,15 @@ var app_hotpot = {
                             app_hotpot.vpp.$data.dtd
                         );
                         p_txt_ann.then(function(txt_ann) {
+                            // split the sentence
+                            // just use the simplest
+                            var r = nlp_toolkit.sent_tokenize(
+                                txt_ann.text,
+                                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                            );
+                            txt_ann._sentences = r.sentences;
+                            txt_ann._sentences_text = r.sentences_text;
+                            
                             app_hotpot.vpp.add_txt(txt_ann);
                         });
                         
@@ -9406,8 +10202,19 @@ var app_hotpot = {
                                             fh,
                                             app_hotpot.vpp.$data.dtd
                                         );
+
+                                        // the the call back
                                         p_ann.then((function(iaa_id) {
                                             return function(ann) {
+                                                // add the sentences
+                                                var r = nlp_toolkit.sent_tokenize(
+                                                    ann.text,
+                                                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                                                );
+                                                ann._sentences = r.sentences;
+                                                ann._sentences_text = r.sentences_text;
+
+                                                // add this ann to iaa list
                                                 app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
                                             }
                                         })(iaa_id)).catch(function(error) {
@@ -9479,7 +10286,9 @@ var app_hotpot = {
         // due the svg issue, when resizing the window,
         // redraw all ltag marks
         this.cm_clear_ltag_marks();
-        this.cm_update_ltag_marks();
+
+        // redraw all marks
+        this.cm_update_tag_marks();
     },
 
     parse_dtd_file_entry: function(fileEntry) {
@@ -9578,11 +10387,64 @@ var app_hotpot = {
         });
     },
 
-    parse_ann_file_fh: function(fh, dtd) {
+    parse_ann_txt_file_fh: function(fh, dtd) {
+        // create a new file name
+        var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
+
+        // create a empty ann
+        var p_txt_ann = fs_read_txt_file_handle(
+            fh, 
+            dtd
+        );
+
+        // load this ann
+        p_txt_ann.then((function(new_fn){
+            return function(txt_ann) {
+                // now check the sentence detection
+                // just use the simplest
+                var r = nlp_toolkit.sent_tokenize(
+                    txt_ann.text,
+                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                );
+                txt_ann._sentences = r.sentences;
+                txt_ann._sentences_text = r.sentences_text;
+                
+                // modify the txt_ann _fh
+                // we couldn't save to an txt
+                txt_ann._fh = null;
+
+                // update the _filename
+                txt_ann._filename = new_fn;
+
+                // show some message
+                app_hotpot.msg("Created a new annotation file " + new_fn);
+
+                // add this ann
+                app_hotpot.add_ann(txt_ann);
+            }
+        })(new_fn));
+    },
+
+    parse_ann_xml_file_fh: function(fh, dtd) {
         // get the ann file
-        var p_ann = fs_read_ann_file_handle(fh, dtd);
+        var p_ann = fs_read_ann_file_handle(
+            fh, 
+            dtd
+        );
+
+        // the callback function
         p_ann.then(function(ann) {
+            // add the sentences
+            var r = nlp_toolkit.sent_tokenize(
+                ann.text,
+                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+            );
+            ann._sentences = r.sentences;
+            ann._sentences_text = r.sentences_text;
+
+            // add this ann to vpp
             app_hotpot.add_ann(ann);
+
         }).catch(
             function(fh){return function(error) {
                 app_hotpot.msg(
@@ -9735,9 +10597,11 @@ var app_hotpot = {
             .show('drop', {}, 200, null);
     },
 
-    show_tag_popmenu: function(x, y) {
-        console.log("* show tag pop menu on ", x, y);
+    show_tag_popmenu_at: function(x, y) {
         var w = this.popmenu_tag.width();
+        console.log("* show tag pop menu ("+w+") on ", x, y);
+        // fix for not rendering
+        if (w < 150) { w = 150;}
         this.popmenu_tag.css('left', (x - 10 - w) + 'px')
             .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
@@ -9864,12 +10728,13 @@ var app_hotpot = {
         // basic_tag['id'] = tag_def.id_prefix + n;
         basic_tag['id'] = ann_parser.get_next_tag_id(ann, tag_def);
 
-        // add other attr
+        // add other attr defined in the tag_dee from schema (.dtd)
         for (let i = 0; i < tag_def.attlists.length; i++) {
             const att = tag_def.attlists[i];
 
             if (att.name == 'spans') {
                 // special rule for spans attr
+                // which means it could be a non-consuming tag?
             } else {
                 // set the default value
                 basic_tag[att.name] = att.default_value;
@@ -10003,7 +10868,7 @@ var app_hotpot = {
         this.codemirror.setSelection(new_anchor);
     },
 
-    cm_make_basic_tag_from_selection: function() {
+    cm_make_basic_etag_from_selection: function() {
         var locs = [];
         var txts = [];
 
@@ -10099,10 +10964,19 @@ var app_hotpot = {
             return;
         }
 
+        var focus_tags = null;
+        if (this.vpp.$data.display_tag_name == '__all__') {
+            // search all tag
+        } else {
+            // ok, only search this tag
+            focus_tags = [ this.vpp.$data.display_tag_name ];
+        }
+
         // find markable hints for this ann
         var hints = ann_parser.search_hints_in_ann(
             this.vpp.hint_dict,
-            this.vpp.$data.anns[this.vpp.$data.ann_idx]
+            this.vpp.$data.anns[this.vpp.$data.ann_idx],
+            focus_tags
         );
         console.log('* found hints', hints);
 
@@ -10111,6 +10985,7 @@ var app_hotpot = {
 
         for (let i = 0; i < hints.length; i++) {
             const hint = hints[i];
+            // console.log('* rendering hint', hint);
             this.cm_mark_hint_in_text(
                 hint,
                 this.vpp.$data.anns[this.vpp.$data.ann_idx]
@@ -10144,7 +11019,8 @@ var app_hotpot = {
             var tag = working_ann.tags[i];
             var tag_def = this.vpp.get_tag_def(tag.tag);
             if (tag_def.type == 'etag') {
-                this.cm_mark_ann_etag_in_text(tag, tag_def, working_ann);
+                var ret = this.cm_mark_ann_etag_in_text(tag, tag_def, working_ann);
+                // console.log('* finished rendering', ret, tag);
             }
         }
     },
@@ -10179,6 +11055,11 @@ var app_hotpot = {
     cm_mark_hint_in_text: function(hint, ann) {
         var range = this.cm_spans2range(hint.spans, ann);
         // console.log("* marking hint", hint, 'on', range);
+
+        // a hover message
+        var descr = [
+            "" + hint.tag
+        ].join('\n');
         
         if (this.vpp.$data.cm.mark_mode == 'node') {
             var hint_tag_id_prefix = dtd_parser.get_id_prefix(
@@ -10186,15 +11067,12 @@ var app_hotpot = {
                 this.vpp.$data.dtd
             );
             var markHTML = [
-                '<span class="mark-hint mark-hint-'+hint.tag+'" id="mark-id-'+hint.id+'" onclick="app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')" title="Click to add this to tags">',
+                '<span class="mark-hint mark-hint-'+hint.tag+'" id="mark-id-'+hint.id+'" onclick="app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')" title="Click to add this to tags" data-descr="'+descr+'">',
                 '<span class="mark-hint-info mark-tag-'+hint.tag+'">',
                     hint_tag_id_prefix,
                 '</span>',
                 '<span class="mark-hint-text" hint_id="'+hint.id+'">',
                     hint.text,
-                '</span>',
-                '<span class="mark-hint-tooltip">',
-                    hint.tag,
                 '</span>',
                 '</span>'
             ].join('');
@@ -10204,18 +11082,28 @@ var app_hotpot = {
             placeholder.innerHTML = markHTML;
             var markNode = placeholder.firstElementChild;
 
-            this.codemirror.markText(
-                range.anchor,
-                range.head,
-                {
-                    className: 'mark-hint mark-hint-' + hint.tag,
-                    replacedWith: markNode,
-                    attributes: {
-                        hint_id: hint.id
+            try {
+                this.codemirror.markText(
+                    range.anchor,
+                    range.head,
+                    {
+                        className: 'mark-hint mark-hint-' + hint.tag,
+                        replacedWith: markNode,
+                        attributes: {
+                            hint_id: hint.id,
+    
+                        }
                     }
-                }
-            );
+                );
+            } catch (error) {
+                // sometimes, replacing DOM node may fail due to
+                // Error: Inserting collapsed marker partially overlapping an existing one
+                // so, just skip this for now
+                console.error("! can't mark conflict hint", hint)
+            }
+            
         } else if (this.vpp.$data.cm.mark_mode == 'span') {
+            
             this.codemirror.markText(
                 range.anchor,
                 range.head,
@@ -10223,7 +11111,8 @@ var app_hotpot = {
                     className: 'mark-hint mark-hint-' + hint.tag,
                     attributes: {
                         hint_id: hint.id,
-                        onclick: 'app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')'
+                        onclick: 'app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')',
+                        'data-descr': descr
                     }
                 }
             );
@@ -10232,26 +11121,76 @@ var app_hotpot = {
 
     cm_mark_ann_tag_in_text: function(tag, tag_def, ann) {
         if (tag_def.type == 'etag') {
-            this.cm_mark_ann_etag_in_text(tag, tag_def, ann);
+            return this.cm_mark_ann_etag_in_text(tag, tag_def, ann);
         } else {
-            this.cm_mark_ann_ltag_in_text(tag, tag_def, ann);
+            return this.cm_mark_ann_ltag_in_text(tag, tag_def, ann);
         }
     },
 
     cm_mark_ann_ltag_in_text: function(tag, tag_def, ann) {
+        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+            // ok
+        } else {
+            return [-1];
+        }
+
         this.cm_draw_ltag(tag, tag_def, ann);
     },
 
     cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
         var raw_spans = tag['spans'];
+
+        // something wrong with the spans information?
         if (raw_spans == '' || raw_spans == null) { 
             return [-1]; 
+        }
+
+        // document-level tag, nothing to do
+        if (raw_spans == dtd_parser.NON_CONSUMING_SPANS) {
+            return [-2];
+        }
+
+        // is display this tag by the tag list filter?
+        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+            // ok
+        } else {
+            // the second case is quite complex.
+            // to render the link tags,
+            // the related entity tags are also needed to render
+            // so the question is, is this tag belong to current link tag?
+            if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
+                // only check this for only showing link tag.
+                // otherwise it will cost unnecessary computation
+                if (app_hotpot.vpp.is_tag_related_to_tag_name(
+                    tag, 
+                    [app_hotpot.vpp.$data.display_tag_name],
+                    app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
+                )) {
+                    // ok, I don't which one, but it does belong to which link
+                    // just goto render
+
+                } else {
+                    // great, no need to render
+                    return [-3];
+                }
+            } else {
+                // great, no need to render
+                return [-4];
+            }
         }
 
         // the spans may contains multiple parts
         // split them first
         var spans_arr = raw_spans.split(',');
         var text_arr = tag.text.split('...');
+
+        // hover message
+        var descr = [
+            "" + tag.tag + ' - ' + tag.id,
+            "spans: " + tag.spans
+        ];
+
+        descr = descr.join('\n');
         
         for (let i = 0; i < spans_arr.length; i++) {
             const spans = spans_arr[i];
@@ -10261,8 +11200,13 @@ var app_hotpot = {
             if (this.vpp.$data.cm.mark_mode == 'node') {
                 // the second step is to enhance the mark tag with more info
                 var markHTML = [
-                    '<span class="mark-tag mark-tag-'+tag.tag+'" id="mark-etag-id-'+tag.id+'">',
-                    '<span onclick="app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')">',
+                    '<span class="mark-tag mark-tag-'+tag.tag+'" '+
+                        'id="mark-etag-id-'+tag.id+'" '+
+                        'tag_id="'+tag.id+'" '+
+                        'data-descr="'+descr+'" '+
+                        'onmouseenter="app_hotpot.vpp.on_enter_tag(event)" '+
+                        'onmouseleave="app_hotpot.vpp.on_leave_tag(event)">',
+                    '<span onclick="app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')">',
                     '<span class="mark-tag-info">',
                         '<span class="mark-tag-info-inline fg-tag-'+tag.tag+'">',
                         tag.id,
@@ -10284,35 +11228,50 @@ var app_hotpot = {
                 var markNode = placeholder.firstElementChild;
 
                 // add mark to text
-                this.codemirror.markText(
-                    range.anchor,
-                    range.head,
-                    {
-                        className: 'mark-tag mark-tag-' + tag.tag,
-                        replacedWith: markNode,
-                        attributes: {
-                            tag_id: tag.id,
-                            onclick: ''
+                try {
+                    this.codemirror.markText(
+                        range.anchor,
+                        range.head,
+                        {
+                            className: 'mark-tag mark-tag-' + tag.tag,
+                            replacedWith: markNode,
+                            attributes: {
+                                tag_id: tag.id
+                            }
                         }
-                    }
-                );
+                    );
+                } catch (error) {
+                    console.error("! can't mark conflict tag", tag)
+                }
 
             } else if (this.vpp.$data.cm.mark_mode == 'span') {
                 this.codemirror.markText(
                     range.anchor,
                     range.head,
                     {
-                        className: 'mark-tag mark-tag-' + tag.tag,
+                        className: 'mark-tag mark-tag-' + tag.tag + '',
                         attributes: {
                             id: 'mark-etag-id-' + tag.id,
                             tag_id: tag.id,
-                            onclick: 'app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')'
+                            onclick: 'app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')',
+                            'data-descr': descr,
+                            onmouseenter: 'app_hotpot.vpp.on_enter_tag(event)',
+                            onmouseleave: 'app_hotpot.vpp.on_leave_tag(event)',
                         }
                     }
                 );
+                // add a cap of annotator for adjudication
+                if (tag.hasOwnProperty('_annotator')) {
+                    this.cm_draw_etag_cap(
+                        tag, 
+                        ann, 
+                        tag._annotator.toLocaleUpperCase()
+                    );
+                }
             }
         }
 
+        return [0];
     },
 
     cm_jump2tag: function(tag, ann) {
@@ -10469,12 +11428,12 @@ var app_hotpot = {
         objDiv.scrollTop = objDiv.scrollHeight;
     },
 
-    scroll_annlist_to: function(tag_id) {
+    scroll_tag_table_to: function(tag_id) {
         // get the annlist height
         var h = $('#mui_annlist').height();
         
         // get the offset of this tag
-        var tr = $('#ann-row-tag-' + tag_id);
+        var tr = $('#tag-table-row-' + tag_id);
         if (tr.length != 1) {
             // which means no such element
             return; 
@@ -10489,17 +11448,48 @@ var app_hotpot = {
         );
     },
 
-    highlight_annlist_row: function(tag_id) {
+    highlight_tag_table_row: function(tag_id) {
+
         // get the row of this tag
-        var tagr = $('#ann-row-tag-' + tag_id);
+        var tagr = $('#tag-table-row-' + tag_id);
         if (tagr.length != 1) {
             // which means no such element
             return; 
         }
+        var flag_actived = tagr.hasClass('tag-table-tr-actived');
 
+        // remove other style
+        $('.tag-table-row').removeClass('tag-table-tr-actived');
+
+        // add a class to this dom
+        if (flag_actived) {
+
+        } else {
+            tagr.addClass('tag-table-tr-actived');
+        }
         // show animation
-        tagr.animate({backgroundColor: 'yellow'}, 300)
-            .animate({backgroundColor: 'white'}, 700);
+        // tagr.animate({backgroundColor: 'yellow'}, 300)
+        // .animate({backgroundColor: 'white'}, 700);
+    },
+
+    highlight_editor_tag: function(tag_id) {
+        // get this tag in editor
+        var elm = $('#mark-etag-id-' + tag_id);
+        if (elm.length != 1) {
+            // which means no such element
+            return; 
+        }
+        var flag_actived = elm.hasClass('mark-tag-active');
+
+        // remove other class
+        $('.mark-tag-active').removeClass('mark-tag-active');
+
+        // add a class to this dom
+        if (flag_actived) {
+
+        } else {
+            elm.addClass('mark-tag-active');
+        }
     },
 
     cm_draw_ltag: function(ltag, ltag_def, ann) {
@@ -10542,7 +11532,7 @@ var app_hotpot = {
         // first, draw dots
         for (let i = 0; i < etags.length; i++) {
             const etag = etags[i];
-            this.cm_draw_linkdot(ltag, etag, ann);
+            this.cm_draw_ltag_id(ltag, etag, ann);
         }
 
         if (!this.vpp.$data.cm.enabled_link_complex) {
@@ -10611,11 +11601,61 @@ var app_hotpot = {
     //     );
     // },
 
-    cm_draw_linkdot: function(ltag, tag, ann) {
+    cm_draw_etag_cap: function(etag, ann, cap) {
+        // then get the coords
+        var coords = this.cm_spans2coords(etag.spans, ann);
+        // console.log('* found etag coords:', coords);
+
+        // the basic x is just the tag left position
+        var x = coords.l.left;
+        // the basic y is a little higher
+        var y = coords.l.top + 2.5;
+
+        // find existing cap on this tag if there is
+        // var tagcaps = $('#cm_svg_plots .tag-cap-' + etag.id);
+        // for (let i = 0; i < tagcaps.length; i++) {
+        //     const elem = tagcaps[i];
+        //     var shape = this.get_elem_shape(elem);
+        //     x += shape.width + 1;
+        // }
+        // find the relative x
+        // var el = document.querySelector('#mark-etag-id-' + etag.id);
+        // x = el.offsetLeft;
+
+        // make a cap for this etag
+        var svg_text = document.createElementNS(
+            'http://www.w3.org/2000/svg', 'text'
+        );
+        svg_text.setAttribute('id', 'mark-tag-cap-id-' + etag.id);
+        svg_text.setAttribute('text-anchor', 'left');
+        svg_text.setAttribute('alignment-baseline', 'middle');
+        svg_text.setAttribute('x', x);
+        svg_text.setAttribute('y', y);
+        svg_text.setAttribute('class', 
+            "tag-cap border-tag-" + etag.tag + 
+            " tag-cap-id-" + etag.id +
+            " tag-cap-" + cap
+        );
+        // put the text in this cap
+        var text_node_content = cap;
+        svg_text.append(document.createTextNode(text_node_content));
+
+        $('#cm_svg_plots').append(
+            svg_text
+        );
+    },
+
+    cm_draw_ltag_id: function(ltag, tag, ann) {
         // then get the coords
         var coords = this.cm_spans2coords(tag.spans, ann);
+        // console.log('* found etag coords:', coords);
 
+        // the basic x is just the tag left position
         var x = coords.l.left;
+        // move to middle
+        x += (coords.l.right - coords.l.left) / 2 + 1;
+
+        // the basic y is a little higher
         var y = coords.l.top + 2;
 
         // find existing linkdot on this tag if there is
@@ -11118,9 +12158,9 @@ Vue.component('iaa-tag-info-gs', {
     
         <div class="iaa-tag-detail-oper">
             <button class="btn btn-xs"
-                :title="'Reject this [' + tag_obj.tag.text + '] from goldstandard'"
+                :title="'Remove this [' + tag_obj.tag.text + ']'"
                 v-on:click="reject_tag(hashcode, tag_obj.tag.tag, cm, tag_idx)">
-                Reject
+                Remove
             </button>
         </div>
 
