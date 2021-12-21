@@ -98,6 +98,7 @@ python web.py --mode build --lib local --fn standalone.html
 - Updated adjudication tab design
 - Updated mark style in editor
 - Updated hover text style for tag and hint
+- Updated animated tag style in tagging view
 - Updated active style for tag list
 - Updated conditions for saving annotation file
 - Updated sample datasets

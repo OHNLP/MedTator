@@ -603,8 +603,6 @@ var app_hotpot = {
                 // no need to highlight doc-level tag
                 return;
             }
-            // in the tag table, highlight
-            app_hotpot.highlight_tag_table_row(tag.id);
 
             // in the editor
             // 1. jump to this tag for display
@@ -614,6 +612,9 @@ var app_hotpot = {
             );
             // 2. highlight the tag
             app_hotpot.highlight_editor_tag(tag.id);
+
+            // in the tag table, highlight
+            app_hotpot.highlight_tag_table_row(tag.id);
         },
 
         on_change_attr_value: function(event) {
@@ -1580,8 +1581,11 @@ var app_hotpot = {
             // then show the item in the list
             app_hotpot.scroll_tag_table_to(tag_id);
 
-            // then highlight this item
+            // then highlight this item in table
             app_hotpot.highlight_tag_table_row(tag_id);
+
+            // then highlight this item in editor
+            app_hotpot.highlight_editor_tag(tag_id);
         },
 
         on_enter_tag: function(event) {
@@ -3848,29 +3852,47 @@ var app_hotpot = {
     },
 
     highlight_tag_table_row: function(tag_id) {
+
         // get the row of this tag
         var tagr = $('#tag-table-row-' + tag_id);
         if (tagr.length != 1) {
             // which means no such element
             return; 
         }
+        var flag_actived = tagr.hasClass('tag-table-tr-actived');
+
         // remove other style
         $('.tag-table-row').removeClass('tag-table-tr-actived');
-        // add a class to this dom
-        $('#tag-table-row-' + tag_id).addClass('tag-table-tr-actived');
 
+        // add a class to this dom
+        if (flag_actived) {
+
+        } else {
+            tagr.addClass('tag-table-tr-actived');
+        }
         // show animation
         // tagr.animate({backgroundColor: 'yellow'}, 300)
         // .animate({backgroundColor: 'white'}, 700);
     },
 
     highlight_editor_tag: function(tag_id) {
-        console.log('* highlight editor tag: ' + tag_id);
+        // get this tag in editor
+        var elm = $('#mark-etag-id-' + tag_id);
+        if (elm.length != 1) {
+            // which means no such element
+            return; 
+        }
+        var flag_actived = elm.hasClass('mark-tag-active');
 
         // remove other class
         $('.mark-tag-active').removeClass('mark-tag-active');
+
         // add a class to this dom
-        $('#mark-etag-id-' + tag_id).addClass('mark-tag-active');
+        if (flag_actived) {
+
+        } else {
+            elm.addClass('mark-tag-active');
+        }
     },
 
     cm_draw_ltag: function(ltag, ltag_def, ann) {
