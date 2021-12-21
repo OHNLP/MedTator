@@ -12,7 +12,8 @@ v-bind:class="{'active': section=='iaa'}">
     </button>
 
     <span class="title">&nbsp;</span>
-</div>
+</div> 
+
 
 <div class="group">
 
@@ -22,19 +23,37 @@ v-bind:class="{'active': section=='iaa'}">
             Load DTD file first<br>
             in Annotation Tab
         </div>
-        <div v-else-if="iaa_ann_list[0].anns.length == 0" class="zone-text">
-            Drop <b>Ann</b> File(s)<br>
-            Annotator <b>A</b>
+        <div v-else-if="iaa_ann_list[0].anns.length == 0" 
+            class="zone-text">
+            Drop Annotation <br>
+            File(s)
         </div>
         <div v-else class="zone-text">
-            <b>Annotator A</b><br>
             Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
             <br>
             in {{ iaa_ann_list[0].anns.length }} Files
         </div>
+
+        <button class="ribbon-tool-button pos-corner-br"
+            title="Clear all annotations from annotator A"
+            v-if="iaa_ann_list[0].anns.length != 0"
+            v-on:click="clear_iaa_all(0)">
+            <span class="icon">
+                <i class="far fa-times-circle"></i>
+            </span>
+        </button>
+
     </div>
 
-    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+    <span class="title">
+        Annotator A
+    </span>
+
+</div>
+
+<div class="group">
+
+    <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> -->
 
     <div id="dropzone_iaa_1" class="dropzone-iaa"
         iaa_id="1">
@@ -42,19 +61,30 @@ v-bind:class="{'active': section=='iaa'}">
             Load DTD file first<br>
             in Annotation Tab
         </div>
-        <div v-else-if="iaa_ann_list[1].anns.length == 0" class="zone-text">
-            Drop <b>Ann</b> File(s)<br>
-            Annotator <b>B</b>
+        <div v-else-if="iaa_ann_list[1].anns.length == 0" 
+            class="zone-text">
+            Drop Annotation <br>
+            File(s)
         </div>
         <div v-else class="zone-text">
-            <b>Annotator B</b><br>
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
             <br>
             in {{ iaa_ann_list[1].anns.length }} Files
         </div>
+
+        <button class="ribbon-tool-button pos-corner-br"
+            title="Clear all annotations from annotator B"
+            v-if="iaa_ann_list[1].anns.length != 0"
+            v-on:click="clear_iaa_all(1)">
+            <span class="icon">
+                <i class="far fa-times-circle"></i>
+            </span>
+        </button>
     </div>
 
-    <span class="title">Annotation Files</span>
+    <span class="title">
+        Annotator B
+    </span>
 </div>
 
 <div class="group">
@@ -105,10 +135,10 @@ v-bind:class="{'active': section=='iaa'}">
         <span class="icon">
             <i class="fa fa-calculator"></i>
         </span>
-        <span class="caption">Calculate All</span>
+        <span class="caption">Calculate F1</span>
     </button>
 
-    <span class="title">IAA</span>
+    <span class="title">Inter-Annotator Agreement (IAA)</span>
 </div>
 
 <div class="group">

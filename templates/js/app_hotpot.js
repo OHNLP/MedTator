@@ -593,7 +593,7 @@ var app_hotpot = {
             }
         },
 
-        highlight_tag: function(tag) {
+        on_click_tag_table_row: function(tag) {
             if (!this.is_etag(tag)) {
                 // no need to highlight other tag
                 return;
@@ -603,23 +603,17 @@ var app_hotpot = {
                 // no need to highlight doc-level tag
                 return;
             }
-            var dom_id = 'mark-etag-id-' + tag.id;
-            console.log('* highlight tag: ' + dom_id);
+            // in the tag table, highlight
+            app_hotpot.highlight_tag_table_row(tag.id);
 
-            // remove class
-            $('.mark-tag-active').removeClass('mark-tag-active');
-
-            // jump to this tag for display
+            // in the editor
+            // 1. jump to this tag for display
             app_hotpot.cm_jump2tag(
                 tag, 
                 this.anns[this.ann_idx]
             );
-
-            // remove class
-            $('.mark-tag-active').removeClass('mark-tag-active');
-
-            // add a class to this dom
-            $('#'+dom_id).addClass('mark-tag-active');
+            // 2. highlight the tag
+            app_hotpot.highlight_editor_tag(tag.id);
         },
 
         on_change_attr_value: function(event) {
@@ -1120,10 +1114,19 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // IAA Related
         /////////////////////////////////////////////////////////////////
-        clear_iaa_all: function() {
+        clear_iaa_all: function(which) {
+            if (typeof(which) == 'undefined') {
+                which = null;
+            }
             // clear everything related to iaa
-            this.iaa_ann_list[0].anns = [];
-            this.iaa_ann_list[1].anns = [];
+            if (which == null || which == 0) {
+                // just clear a
+                this.iaa_ann_list[0].anns = [];
+            }
+            if (which == null || which == 1) {
+                // just clear b
+                this.iaa_ann_list[1].anns = [];
+            }
 
             this.iaa_dict = null;
             this.iaa_gs_dict = null;
@@ -1166,7 +1169,7 @@ var app_hotpot = {
         transfer_to_annotation_tab: function() {
             // confirm first if there are annotations
             var len = app_hotpot.vpp.$data.anns.length;
-            if (len >= 0) {
+            if (len > 0) {
                 var msg = 'There are ' + len + ' documents in your annotation tab. Editing adjudication copy needs to remove those documents. Are you sure to continue?';
                 var ret = app_hotpot.confirm(msg);
                 if (ret) {
@@ -1235,7 +1238,14 @@ var app_hotpot = {
                                     }
 
                                     // update the tag info for annotator
-                                    tag._annotator = d.from;
+                                    if (cm == 'tp') {
+                                        // which means this tag is agreed by both
+                                        tag._annotator = 'AB';
+                                    } else {
+                                        // which means this tag is added by A or B
+                                        // or they don't have an agreement
+                                        tag._annotator = d.from;
+                                    }
 
                                     // save this tag
                                     ann.tags.push(tag);
@@ -1549,15 +1559,17 @@ var app_hotpot = {
             app_hotpot.popmenu_tag.hide();
         },
 
-        on_click_tag: function(event, tag_id) {
-            // console.log('* clicked on etag', tag_id);
+        on_click_editor_tag: function(event, tag_id) {
+            // console.log('* clicked on editor etag', tag_id);
 
             // set the clicked tag_id
             this.clicked_tag_id = tag_id;
 
+            // get the position of user pointer
             // var mouseX = event.clientX;
             // var mouseY = event.clientY;
 
+            // get the position of the tag it self
             var elm = $(event.target);
             var x = elm.offset().left;
             var y = elm.offset().top;
@@ -1566,10 +1578,10 @@ var app_hotpot = {
             app_hotpot.show_tag_popmenu_at(x, y);
 
             // then show the item in the list
-            app_hotpot.scroll_annlist_to(tag_id);
+            app_hotpot.scroll_tag_table_to(tag_id);
 
             // then highlight this item
-            app_hotpot.highlight_annlist_row(tag_id);
+            app_hotpot.highlight_tag_table_row(tag_id);
         },
 
         on_enter_tag: function(event) {
@@ -2985,8 +2997,10 @@ var app_hotpot = {
     },
 
     show_tag_popmenu_at: function(x, y) {
-        console.log("* show tag pop menu on ", x, y);
         var w = this.popmenu_tag.width();
+        console.log("* show tag pop menu ("+w+") on ", x, y);
+        // fix for not rendering
+        if (w < 150) { w = 150;}
         this.popmenu_tag.css('left', (x - 10 - w) + 'px')
             .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
@@ -3467,18 +3481,26 @@ var app_hotpot = {
             placeholder.innerHTML = markHTML;
             var markNode = placeholder.firstElementChild;
 
-            this.codemirror.markText(
-                range.anchor,
-                range.head,
-                {
-                    className: 'mark-hint mark-hint-' + hint.tag,
-                    replacedWith: markNode,
-                    attributes: {
-                        hint_id: hint.id,
-
+            try {
+                this.codemirror.markText(
+                    range.anchor,
+                    range.head,
+                    {
+                        className: 'mark-hint mark-hint-' + hint.tag,
+                        replacedWith: markNode,
+                        attributes: {
+                            hint_id: hint.id,
+    
+                        }
                     }
-                }
-            );
+                );
+            } catch (error) {
+                // sometimes, replacing DOM node may fail due to
+                // Error: Inserting collapsed marker partially overlapping an existing one
+                // so, just skip this for now
+                console.error("! can't mark conflict hint", hint)
+            }
+            
         } else if (this.vpp.$data.cm.mark_mode == 'span') {
             
             this.codemirror.markText(
@@ -3583,7 +3605,7 @@ var app_hotpot = {
                         'data-descr="'+descr+'" '+
                         'onmouseenter="app_hotpot.vpp.on_enter_tag(event)" '+
                         'onmouseleave="app_hotpot.vpp.on_leave_tag(event)">',
-                    '<span onclick="app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')">',
+                    '<span onclick="app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')">',
                     '<span class="mark-tag-info">',
                         '<span class="mark-tag-info-inline fg-tag-'+tag.tag+'">',
                         tag.id,
@@ -3605,17 +3627,21 @@ var app_hotpot = {
                 var markNode = placeholder.firstElementChild;
 
                 // add mark to text
-                this.codemirror.markText(
-                    range.anchor,
-                    range.head,
-                    {
-                        className: 'mark-tag mark-tag-' + tag.tag,
-                        replacedWith: markNode,
-                        attributes: {
-                            tag_id: tag.id
+                try {
+                    this.codemirror.markText(
+                        range.anchor,
+                        range.head,
+                        {
+                            className: 'mark-tag mark-tag-' + tag.tag,
+                            replacedWith: markNode,
+                            attributes: {
+                                tag_id: tag.id
+                            }
                         }
-                    }
-                );
+                    );
+                } catch (error) {
+                    console.error("! can't mark conflict tag", tag)
+                }
 
             } else if (this.vpp.$data.cm.mark_mode == 'span') {
                 this.codemirror.markText(
@@ -3626,7 +3652,7 @@ var app_hotpot = {
                         attributes: {
                             id: 'mark-etag-id-' + tag.id,
                             tag_id: tag.id,
-                            onclick: 'app_hotpot.vpp.on_click_tag(event, \''+tag.id+'\')',
+                            onclick: 'app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')',
                             'data-descr': descr,
                             onmouseenter: 'app_hotpot.vpp.on_enter_tag(event)',
                             onmouseleave: 'app_hotpot.vpp.on_leave_tag(event)',
@@ -3801,12 +3827,12 @@ var app_hotpot = {
         objDiv.scrollTop = objDiv.scrollHeight;
     },
 
-    scroll_annlist_to: function(tag_id) {
+    scroll_tag_table_to: function(tag_id) {
         // get the annlist height
         var h = $('#mui_annlist').height();
         
         // get the offset of this tag
-        var tr = $('#ann-row-tag-' + tag_id);
+        var tr = $('#tag-table-row-' + tag_id);
         if (tr.length != 1) {
             // which means no such element
             return; 
@@ -3821,17 +3847,30 @@ var app_hotpot = {
         );
     },
 
-    highlight_annlist_row: function(tag_id) {
+    highlight_tag_table_row: function(tag_id) {
         // get the row of this tag
-        var tagr = $('#ann-row-tag-' + tag_id);
+        var tagr = $('#tag-table-row-' + tag_id);
         if (tagr.length != 1) {
             // which means no such element
             return; 
         }
+        // remove other style
+        $('.tag-table-row').removeClass('tag-table-tr-actived');
+        // add a class to this dom
+        $('#tag-table-row-' + tag_id).addClass('tag-table-tr-actived');
 
         // show animation
-        tagr.animate({backgroundColor: 'yellow'}, 300)
-            .animate({backgroundColor: 'white'}, 700);
+        // tagr.animate({backgroundColor: 'yellow'}, 300)
+        // .animate({backgroundColor: 'white'}, 700);
+    },
+
+    highlight_editor_tag: function(tag_id) {
+        console.log('* highlight editor tag: ' + tag_id);
+
+        // remove other class
+        $('.mark-tag-active').removeClass('mark-tag-active');
+        // add a class to this dom
+        $('#mark-etag-id-' + tag_id).addClass('mark-tag-active');
     },
 
     cm_draw_ltag: function(ltag, ltag_def, ann) {

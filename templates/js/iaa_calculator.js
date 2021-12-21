@@ -113,7 +113,7 @@ var iaa_calculator = {
                             // use ann_a's result
                             gs_dict[hashcode].rst[tag_name].fp.push({
                                 tag: tags[0],
-                                from: 'B'
+                                from: 'A'
                             });
                         }
                         

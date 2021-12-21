@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[The fever broke this morning (1/10/21) so a rough estimate of the time course is 32 h. The fever was also reduced with acetaminophen. The headache still persists, albeit milder. The muscle aches resolved with the fever, so a time course for that would also be 32 h.  I recently had a COVID19 infection (symptom onset was 12/25/20), but had cleared my isolation date of 1/4/21. The symptoms from my COVID19 infection (headache, muscle aches, chills) had virtually resolved by 1/8/21 before I received the vaccine.]]></TEXT>
+<TAGS>
+<PYREXIA spans="4~9" text="fever" id="PY0" comment=""/>
+<PYREXIA spans="91~96" text="fever" id="PY1" comment=""/>
+</TAGS>
+</VAX_AE_MED>

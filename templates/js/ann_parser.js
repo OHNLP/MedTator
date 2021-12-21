@@ -75,6 +75,15 @@ var ann_parser = {
                 // get the attributes
                 var tag_name = elem.tagName;
 
+                // first, need to if this tag_name is supported in current dtd
+                if (dtd.tag_dict.hasOwnProperty(tag_name)) {
+                    // OK, there it is
+                } else {
+                    // no such tag??
+                    console.log("* not found", tag_name, 'in current dtd');
+                    continue;
+                }
+
                 // create a new empty tag
                 var tag = {
                     tag: tag_name
@@ -768,5 +777,5 @@ var ann_parser = {
         return tags;
     },
 
-    
+
 };

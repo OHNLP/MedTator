@@ -194,8 +194,9 @@
                 <tbody style="overflow-y: auto;">
                     <tr v-for="tag, tag_idx in anns[ann_idx].tags"
                         v-if="tag.tag == display_tag_name || display_tag_name == '__all__'"
-                        v-bind:id="'ann-row-tag-' + tag.id">
-                        <td>
+                        v-bind:id="'tag-table-row-' + tag.id"
+                        class="tag-table-row">
+                        <td v-on:click="on_click_tag_table_row(tag)">
                             <div class="d-flex flex-row flex-justify-between">
                                 <div>
                                     <i v-if="get_tag_def(tag.tag).type == 'etag'" 
@@ -220,14 +221,14 @@
                         </td>
 
                         <td class="c-pointer"
-                            v-on:click="highlight_tag(tag)">
+                            v-on:click="on_click_tag_table_row(tag)">
                             <span>
                                 {{ tag.id }}
                             </span>
                         </td>
 
                         <td v-bind:class="{'c-pointer': !is_etag_doc_level(tag)}"
-                            v-on:click="highlight_tag(tag)">
+                            v-on:click="on_click_tag_table_row(tag)">
                             <span v-if="tag.hasOwnProperty('_annotator')"
                                 class="mr-2"
                                 v-bind:class="'iaa-annotator-' + tag._annotator">
@@ -250,7 +251,7 @@
                         </td>
 
                         <td class="td-text c-pointer"
-                            v-on:click="highlight_tag(tag)">
+                            v-on:click="on_click_tag_table_row(tag)">
                             <span v-if="is_etag(tag)">
                                 {{ tag.text }}
                             </span>

@@ -167,12 +167,19 @@ html,body {
     border: 1px dotted rgb(17, 61, 110);
     border-radius: 4px;
 }
+.pos-corner-br {
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+}
 .tag-list-row {
     
 }
 .tag-list-row-actived {
-    background-color: #efefef;
+    background-color: #fffee8;
     border-bottom: 1px solid #999999;
+    border-left: 5px solid #d3d3d3;
+    padding-left: 5px !important;
 }
 .badge-shortcut {
     padding: 1px 1px 1px 2px;
@@ -354,6 +361,10 @@ html,body {
     font-family: 'Courier New', Courier, monospace;
     /* font-weight: bold; */
 }
+.tag-cap-AB,
+.tag-cap-ab {
+    fill: green;
+}
 .tag-cap-A,
 .tag-cap-a {
     fill: orangered;
@@ -411,6 +422,7 @@ span[data-descr]:focus::after {
 /* for the pop menu */
 #popmenu_tag {
     z-index: 998;
+    min-width: 100px;
     position: absolute;
     padding: 1px 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -519,6 +531,10 @@ span[data-descr]:focus::after {
     background-color: #efefef;
     z-index: 5;
     padding: 4px 0;
+}
+tr.tag-table-tr-actived {
+    /* border-left: 5px solid #d3d3d3; */
+    background-color: #fffee8; 
 }
 .tag-table th.tag-name {
     max-width: 200px;
@@ -685,6 +701,10 @@ input[type=text].ipt-spinner-xs {
 .ruleset-tag-text-filelist-item-count {
     padding: 0px 2px;
     background-color: #eaeaea;
+}
+.iaa-annotator-AB,
+.iaa-annotator-ab {
+    color: green;
 }
 .iaa-annotator-A,
 .iaa-annotator-a {

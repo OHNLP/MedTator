@@ -25,6 +25,10 @@
 <!ATTLIST DIZZINESS comment CDATA "" >
 
 
+<!ELEMENT NAUSEA ( #PCDATA ) >
+<!ATTLIST NAUSEA comment CDATA "" >
+
+
 <!ELEMENT OTHER_AE ( #PCDATA ) >
 <!ATTLIST OTHER_AE comment CDATA "" >
 

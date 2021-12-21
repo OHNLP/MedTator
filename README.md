@@ -89,6 +89,7 @@ python web.py --mode build --lib local --fn standalone.html
 - Added download schema dtd file
 - Added dynamic tag rendering based on selected tag
 - Added filter hinter based on selected tag
+- Added clear seperate adjudication
 - Updated the export message link
 - Updated messages related to annotation file import
 - Updated messages related to dtd file import
@@ -97,6 +98,7 @@ python web.py --mode build --lib local --fn standalone.html
 - Updated adjudication tab design
 - Updated mark style in editor
 - Updated hover text style for tag and hint
+- Updated active style for tag list
 - Updated conditions for saving annotation file
 - Updated sample datasets
 - Fixed rendering glitch when switching tab
@@ -105,6 +107,7 @@ python web.py --mode build --lib local --fn standalone.html
 - Fixed document-level tag rendering bug
 - Fixed tag attribute toggle in adjudication
 - Fixed popup menu dobule click 
+- Fixed popup menu initial position
 - Fixed hover tag text shaking bug
 
 ### 1.1.3 (2021-12-13)

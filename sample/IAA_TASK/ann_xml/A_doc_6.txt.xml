@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[This is a spontaneous report from a contactable consumer (patient's brother). A 57-years-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE), via an unspecified route of administration on 11Jan2021 at left arm at SINGLE DOSE for COVID-19 vaccination. The patient's medical history and concomitant medications were not reported. historical vaccine included first dose bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE) on 21Dec2020 at left arm for COVID-19 vaccination. The patient felt feverish and a little achy. No treatment received for the events. No COVID prior vaccination, no COVID tested post vaccination. The outcome of the events was recovering. Information on the lot/ batch number has been requested.]]></TEXT>
+<TAGS>
+<PAIN spans="519~523" text="achy" id="P0" comment=""/>
+<PYREXIA spans="497~505" text="feverish" id="PY0" comment=""/>
+</TAGS>
+</VAX_AE_MED>
