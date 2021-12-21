@@ -900,7 +900,7 @@
         ],
         "text": "<!ENTITY name \"VAX_AE_MED\">\n\n<!-- entity tag -->\n<!ELEMENT VAX ( #PCDATA ) >\n<!ATTLIST VAX comment CDATA \"\" >\n\n\n<!ELEMENT HEADACHE ( #PCDATA ) >\n<!ATTLIST HEADACHE comment CDATA \"\" >\n\n\n<!ELEMENT PAIN ( #PCDATA ) >\n<!ATTLIST PAIN comment CDATA \"\" >\n\n\n<!ELEMENT PYREXIA ( #PCDATA ) >\n<!ATTLIST PYREXIA comment CDATA \"\" >\n\n\n<!ELEMENT FATIGUE ( #PCDATA ) >\n<!ATTLIST FATIGUE comment CDATA \"\" >\n\n\n<!ELEMENT DIZZINESS ( #PCDATA ) >\n<!ATTLIST DIZZINESS comment CDATA \"\" >\n\n\n<!ELEMENT OTHER_AE ( #PCDATA ) >\n<!ATTLIST OTHER_AE comment CDATA \"\" >\n\n\n<!ELEMENT MEDICATION ( #PCDATA ) >\n<!ATTLIST MEDICATION comment CDATA \"\" >\n\n\n<!-- no #PCDATA makes a link tag-->\n<!ELEMENT TREATMENT EMPTY >\n<!ATTLIST TREATMENT arg0 IDREF prefix=\"link_AE\" #IMPLIED>\n<!ATTLIST TREATMENT arg1 IDREF prefix=\"link_MED\" #IMPLIED>\n<!ATTLIST TREATMENT comment CDATA \"\" >\n"
     },
-    "ann_idx": 4,
+    "ann_idx": 0,
     "anns": [
         {
             "text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine. Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded. The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well. I went to go check on her and she stated that she felt as though she was going to faint. I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety). I brought her the ice pack, she held it on her chest and head and said it felt nice. After about a minute I stepped out again to ask a technician to get a water for her. When I came back, the patient was still seated but had a blank stare and her mouth was slightly open. I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely. I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation). I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy. I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to. I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\". EMS arrived extremely fast and was there a few minutes after using the EpiPen. She was then taken by ambulance to the hospital. Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise. Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up. That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.",
@@ -1757,11 +1757,974 @@
                 }
             ],
             "_sentences_text": "Mildly feverish evening after vaccine;\n Soreness and tenderness at left arm injection site;\n This is a spontaneous report from a contactable physician (patient).\n A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE;\n second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization.\n Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization.\n Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.\n  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine.\n The patient previously took tamiflu and experienced allergies.\n  Facility type vaccine was hospital.\n The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine.\n Prior to vaccination, the patient was not diagnosed with COVID-19.\n Since the vaccination, the patient has not been tested for COVID-19.\n The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021.\n The patient took Motrin as treatment.\n Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site.\n The outcome of the events was recovered on an unspecified date.\n The events were reported as non-serious."
+        },
+        {
+            "text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine. Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded. The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well. I went to go check on her and she stated that she felt as though she was going to faint. I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety). I brought her the ice pack, she held it on her chest and head and said it felt nice. After about a minute I stepped out again to ask a technician to get a water for her. When I came back, the patient was still seated but had a blank stare and her mouth was slightly open. I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely. I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation). I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy. I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to. I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\". EMS arrived extremely fast and was there a few minutes after using the EpiPen. She was then taken by ambulance to the hospital. Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise. Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up. That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1143~1149",
+                    "text": "EpiPen",
+                    "id": "M0",
+                    "comment": ""
+                },
+                {
+                    "tag": "DIZZINESS",
+                    "spans": "199~204",
+                    "text": "dizzy",
+                    "id": "D0",
+                    "comment": ""
+                },
+                {
+                    "tag": "DIZZINESS",
+                    "spans": "209~220",
+                    "text": "lightheaded",
+                    "id": "D1",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1407~1424",
+                    "text": "face was very red",
+                    "id": "O0",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1430~1456",
+                    "text": "eyes were bulging slightly",
+                    "id": "O1",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1568~1574",
+                    "text": "EpiPen",
+                    "id": "M1",
+                    "comment": ""
+                },
+                {
+                    "tag": "TREATMENT",
+                    "id": "T0",
+                    "link_AE": "O0",
+                    "link_MED": "M1",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "470~488",
+                    "text": "ice pack and water",
+                    "id": "M2",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "643~651",
+                    "text": "ice pack",
+                    "id": "M3",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_1.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine.",
+                    "spans": {
+                        "start": 0,
+                        "end": 123
+                    }
+                },
+                {
+                    "text": " Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded.",
+                    "spans": {
+                        "start": 124,
+                        "end": 220
+                    }
+                },
+                {
+                    "text": " The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well.",
+                    "spans": {
+                        "start": 221,
+                        "end": 322
+                    }
+                },
+                {
+                    "text": " I went to go check on her and she stated that she felt as though she was going to faint.",
+                    "spans": {
+                        "start": 323,
+                        "end": 411
+                    }
+                },
+                {
+                    "text": " I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety).",
+                    "spans": {
+                        "start": 412,
+                        "end": 623
+                    }
+                },
+                {
+                    "text": " I brought her the ice pack, she held it on her chest and head and said it felt nice.",
+                    "spans": {
+                        "start": 624,
+                        "end": 708
+                    }
+                },
+                {
+                    "text": " After about a minute I stepped out again to ask a technician to get a water for her.",
+                    "spans": {
+                        "start": 709,
+                        "end": 793
+                    }
+                },
+                {
+                    "text": " When I came back, the patient was still seated but had a blank stare and her mouth was slightly open.",
+                    "spans": {
+                        "start": 794,
+                        "end": 895
+                    }
+                },
+                {
+                    "text": " I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely.",
+                    "spans": {
+                        "start": 896,
+                        "end": 1012
+                    }
+                },
+                {
+                    "text": " I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation).",
+                    "spans": {
+                        "start": 1013,
+                        "end": 1245
+                    }
+                },
+                {
+                    "text": " I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy.",
+                    "spans": {
+                        "start": 1246,
+                        "end": 1362
+                    }
+                },
+                {
+                    "text": " I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to.",
+                    "spans": {
+                        "start": 1363,
+                        "end": 1542
+                    }
+                },
+                {
+                    "text": " I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\".",
+                    "spans": {
+                        "start": 1543,
+                        "end": 1685
+                    }
+                },
+                {
+                    "text": " EMS arrived extremely fast and was there a few minutes after using the EpiPen.",
+                    "spans": {
+                        "start": 1686,
+                        "end": 1764
+                    }
+                },
+                {
+                    "text": " She was then taken by ambulance to the hospital.",
+                    "spans": {
+                        "start": 1765,
+                        "end": 1813
+                    }
+                },
+                {
+                    "text": " Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise.",
+                    "spans": {
+                        "start": 1814,
+                        "end": 1953
+                    }
+                },
+                {
+                    "text": " Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up.",
+                    "spans": {
+                        "start": 1954,
+                        "end": 2155
+                    }
+                },
+                {
+                    "text": " That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.",
+                    "spans": {
+                        "start": 2156,
+                        "end": 2326
+                    }
+                }
+            ],
+            "_sentences_text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine.\n Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded.\n The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well.\n I went to go check on her and she stated that she felt as though she was going to faint.\n I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety).\n I brought her the ice pack, she held it on her chest and head and said it felt nice.\n After about a minute I stepped out again to ask a technician to get a water for her.\n When I came back, the patient was still seated but had a blank stare and her mouth was slightly open.\n I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely.\n I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation).\n I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy.\n I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to.\n I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\".\n EMS arrived extremely fast and was there a few minutes after using the EpiPen.\n She was then taken by ambulance to the hospital.\n Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise.\n Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up.\n That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay."
+        },
+        {
+            "text": "Soreness in arm; Body aches; This is a spontaneous report received from a contactable (patient) via a Pfizer-sponsored program. A female patient of an unspecified age received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date not reported), via an unspecified route of administration, on 15Jan2021, at single dose, for COVID-19 immunization. The patient medical history and concomitant medications were not reported. The patient experienced soreness in arm and body aches on 15Jan2021. The patient took ibuprofen. The outcome of the events was unknown.  Information on the batch/lot number has been requested.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "462~477",
+                    "text": "Soreness in arm",
+                    "id": "O0",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "524~533",
+                    "text": "ibuprofen",
+                    "id": "M0",
+                    "comment": ""
+                },
+                {
+                    "tag": "PAIN",
+                    "spans": "482~492",
+                    "text": "Body aches",
+                    "id": "P0",
+                    "comment": ""
+                },
+                {
+                    "tag": "VAX",
+                    "spans": "176~184",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_2.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Soreness in arm;",
+                    "spans": {
+                        "start": 0,
+                        "end": 15
+                    }
+                },
+                {
+                    "text": " Body aches;",
+                    "spans": {
+                        "start": 16,
+                        "end": 27
+                    }
+                },
+                {
+                    "text": " This is a spontaneous report received from a contactable (patient) via a Pfizer-sponsored program.",
+                    "spans": {
+                        "start": 28,
+                        "end": 126
+                    }
+                },
+                {
+                    "text": " A female patient of an unspecified age received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date not reported), via an unspecified route of administration, on 15Jan2021, at single dose, for COVID-19 immunization.",
+                    "spans": {
+                        "start": 127,
+                        "end": 361
+                    }
+                },
+                {
+                    "text": " The patient medical history and concomitant medications were not reported.",
+                    "spans": {
+                        "start": 362,
+                        "end": 436
+                    }
+                },
+                {
+                    "text": " The patient experienced soreness in arm and body aches on 15Jan2021.",
+                    "spans": {
+                        "start": 437,
+                        "end": 505
+                    }
+                },
+                {
+                    "text": " The patient took ibuprofen.",
+                    "spans": {
+                        "start": 506,
+                        "end": 533
+                    }
+                },
+                {
+                    "text": " The outcome of the events was unknown.",
+                    "spans": {
+                        "start": 534,
+                        "end": 572
+                    }
+                },
+                {
+                    "text": "  Information on the batch/lot number has been requested.",
+                    "spans": {
+                        "start": 573,
+                        "end": 629
+                    }
+                }
+            ],
+            "_sentences_text": "Soreness in arm;\n Body aches;\n This is a spontaneous report received from a contactable (patient) via a Pfizer-sponsored program.\n A female patient of an unspecified age received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date not reported), via an unspecified route of administration, on 15Jan2021, at single dose, for COVID-19 immunization.\n The patient medical history and concomitant medications were not reported.\n The patient experienced soreness in arm and body aches on 15Jan2021.\n The patient took ibuprofen.\n The outcome of the events was unknown.\n  Information on the batch/lot number has been requested."
+        },
+        {
+            "text": "running a fever; This is a spontaneous report from a contactable consumer (patient's mother). A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization. The patient's medical history and concomitant medications were not reported. The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021. The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning. The fever was mostly in the morning and at night around 7-8 pm. Fever in the morning lasts until 10 -11 am. The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM. The mother wanted to know if this was a typical response to the vaccine (i.e. the duration of the fever). The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol. The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine. The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate. However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider. The outcome of the event was not recovered.  Information about the lot/batch number has been requested.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1108~1115",
+                    "text": "Tylenol",
+                    "id": "M0",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "1058~1063",
+                    "text": "fever",
+                    "id": "PY0",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1094~1103",
+                    "text": "ibuprofen",
+                    "id": "M1",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "837~842",
+                    "text": "fever",
+                    "id": "PY1",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "887~892",
+                    "text": "fever",
+                    "id": "PY2",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "743~748",
+                    "text": "fever",
+                    "id": "PY3",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "683~688",
+                    "text": "fever",
+                    "id": "PY4",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "595~600",
+                    "text": "fever",
+                    "id": "PY5",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_3.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "running a fever;",
+                    "spans": {
+                        "start": 0,
+                        "end": 15
+                    }
+                },
+                {
+                    "text": " This is a spontaneous report from a contactable consumer (patient's mother).",
+                    "spans": {
+                        "start": 16,
+                        "end": 92
+                    }
+                },
+                {
+                    "text": " A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization.",
+                    "spans": {
+                        "start": 93,
+                        "end": 372
+                    }
+                },
+                {
+                    "text": " The patient's medical history and concomitant medications were not reported.",
+                    "spans": {
+                        "start": 373,
+                        "end": 449
+                    }
+                },
+                {
+                    "text": " The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021.",
+                    "spans": {
+                        "start": 450,
+                        "end": 562
+                    }
+                },
+                {
+                    "text": " The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning.",
+                    "spans": {
+                        "start": 563,
+                        "end": 677
+                    }
+                },
+                {
+                    "text": " The fever was mostly in the morning and at night around 7-8 pm.",
+                    "spans": {
+                        "start": 678,
+                        "end": 741
+                    }
+                },
+                {
+                    "text": " Fever in the morning lasts until 10 -11 am.",
+                    "spans": {
+                        "start": 742,
+                        "end": 785
+                    }
+                },
+                {
+                    "text": " The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM.",
+                    "spans": {
+                        "start": 786,
+                        "end": 899
+                    }
+                },
+                {
+                    "text": " The mother wanted to know if this was a typical response to the vaccine (i.e.",
+                    "spans": {
+                        "start": 900,
+                        "end": 977
+                    }
+                },
+                {
+                    "text": " the duration of the fever).",
+                    "spans": {
+                        "start": 978,
+                        "end": 1005
+                    }
+                },
+                {
+                    "text": " The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol.",
+                    "spans": {
+                        "start": 1006,
+                        "end": 1115
+                    }
+                },
+                {
+                    "text": " The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine.",
+                    "spans": {
+                        "start": 1116,
+                        "end": 1243
+                    }
+                },
+                {
+                    "text": " The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate.",
+                    "spans": {
+                        "start": 1244,
+                        "end": 1500
+                    }
+                },
+                {
+                    "text": " However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider.",
+                    "spans": {
+                        "start": 1501,
+                        "end": 1854
+                    }
+                },
+                {
+                    "text": " The outcome of the event was not recovered.",
+                    "spans": {
+                        "start": 1855,
+                        "end": 1898
+                    }
+                },
+                {
+                    "text": "  Information about the lot/batch number has been requested.",
+                    "spans": {
+                        "start": 1899,
+                        "end": 1958
+                    }
+                }
+            ],
+            "_sentences_text": "running a fever;\n This is a spontaneous report from a contactable consumer (patient's mother).\n A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization.\n The patient's medical history and concomitant medications were not reported.\n The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021.\n The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning.\n The fever was mostly in the morning and at night around 7-8 pm.\n Fever in the morning lasts until 10 -11 am.\n The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM.\n The mother wanted to know if this was a typical response to the vaccine (i.e.\n the duration of the fever).\n The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol.\n The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine.\n The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate.\n However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider.\n The outcome of the event was not recovered.\n  Information about the lot/batch number has been requested."
+        },
+        {
+            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "HEADACHE",
+                    "spans": "361~369",
+                    "text": "headache",
+                    "id": "H0",
+                    "comment": ""
+                },
+                {
+                    "tag": "PAIN",
+                    "spans": "371~381",
+                    "text": "Body aches",
+                    "id": "P0",
+                    "comment": ""
+                },
+                {
+                    "tag": "FATIGUE",
+                    "spans": "383~390",
+                    "text": "fatigue",
+                    "id": "F0",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "405~413",
+                    "text": "diarrhea",
+                    "id": "O0",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "418~429",
+                    "text": "dehydration",
+                    "id": "O1",
+                    "comment": ""
+                },
+                {
+                    "tag": "PAIN",
+                    "spans": "505~515",
+                    "text": "Body aches",
+                    "id": "P1",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "708~716",
+                    "text": "diarrhea",
+                    "id": "O2",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "655~663",
+                    "text": "diarrhea",
+                    "id": "O3",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "751~759",
+                    "text": "diarrhea",
+                    "id": "O4",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "566~574",
+                    "text": "diarrhea",
+                    "id": "O5",
+                    "comment": ""
+                },
+                {
+                    "tag": "FATIGUE",
+                    "spans": "552~559",
+                    "text": "fatigue",
+                    "id": "F1",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "576~587",
+                    "text": "dehydration",
+                    "id": "O6",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "318~325",
+                    "text": "Tylenol",
+                    "id": "M0",
+                    "comment": ""
+                },
+                {
+                    "tag": "HEADACHE",
+                    "spans": "341~349",
+                    "text": "headache",
+                    "id": "H1",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "306~311",
+                    "text": "Advil",
+                    "id": "M1",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "479~484",
+                    "text": "Advil",
+                    "id": "M2",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_4.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+                    "spans": {
+                        "start": 0,
+                        "end": 298
+                    }
+                },
+                {
+                    "text": " Tried Advil, then tylenol - didn't tough headache.",
+                    "spans": {
+                        "start": 299,
+                        "end": 349
+                    }
+                },
+                {
+                    "text": "  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.",
+                    "spans": {
+                        "start": 350,
+                        "end": 448
+                    }
+                },
+                {
+                    "text": "  Slept, finally that night.",
+                    "spans": {
+                        "start": 449,
+                        "end": 476
+                    }
+                },
+                {
+                    "text": "  Advil helped the head and body aches finally.",
+                    "spans": {
+                        "start": 477,
+                        "end": 523
+                    }
+                },
+                {
+                    "text": "   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.",
+                    "spans": {
+                        "start": 524,
+                        "end": 587
+                    }
+                },
+                {
+                    "text": "  Night sweats for most of that night.",
+                    "spans": {
+                        "start": 588,
+                        "end": 625
+                    }
+                },
+                {
+                    "text": " 2/22/21 - energy back, mild diarrhea left.",
+                    "spans": {
+                        "start": 626,
+                        "end": 668
+                    }
+                },
+                {
+                    "text": " 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.",
+                    "spans": {
+                        "start": 669,
+                        "end": 782
+                    }
+                },
+                {
+                    "text": "  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
+                    "spans": {
+                        "start": 783,
+                        "end": 879
+                    }
+                }
+            ],
+            "_sentences_text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.\n Tried Advil, then tylenol - didn't tough headache.\n  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.\n  Slept, finally that night.\n  Advil helped the head and body aches finally.\n   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.\n  Night sweats for most of that night.\n 2/22/21 - energy back, mild diarrhea left.\n 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.\n  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst."
+        },
+        {
+            "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "VAX",
+                    "spans": "423~431",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "comment": ""
+                },
+                {
+                    "tag": "VAX",
+                    "spans": "196~204",
+                    "text": "BNT162B2",
+                    "id": "V1",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "1087~1095",
+                    "text": "feverish",
+                    "id": "PY0",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1119~1127",
+                    "text": "Soreness",
+                    "id": "O0",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1132~1142",
+                    "text": "tenderness",
+                    "id": "O1",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1201~1207",
+                    "text": "Motrin",
+                    "id": "M0",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "1222~1233",
+                    "text": "Therapeutic",
+                    "id": "M1",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "1276~1284",
+                    "text": "feverish",
+                    "id": "PY1",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1308~1316",
+                    "text": "Soreness",
+                    "id": "O2",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1321~1331",
+                    "text": "tenderness",
+                    "id": "O3",
+                    "comment": ""
+                },
+                {
+                    "tag": "MEDICATION",
+                    "spans": "758~765",
+                    "text": "tamiflu",
+                    "id": "M2",
+                    "comment": ""
+                },
+                {
+                    "tag": "PYREXIA",
+                    "spans": "7~15",
+                    "text": "feverish",
+                    "id": "PY2",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "39~47",
+                    "text": "Soreness",
+                    "id": "O4",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "52~62",
+                    "text": "tenderness",
+                    "id": "O5",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_5.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Mildly feverish evening after vaccine;",
+                    "spans": {
+                        "start": 0,
+                        "end": 37
+                    }
+                },
+                {
+                    "text": " Soreness and tenderness at left arm injection site;",
+                    "spans": {
+                        "start": 38,
+                        "end": 89
+                    }
+                },
+                {
+                    "text": " This is a spontaneous report from a contactable physician (patient).",
+                    "spans": {
+                        "start": 90,
+                        "end": 158
+                    }
+                },
+                {
+                    "text": " A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE;",
+                    "spans": {
+                        "start": 159,
+                        "end": 238
+                    }
+                },
+                {
+                    "text": " second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization.",
+                    "spans": {
+                        "start": 239,
+                        "end": 408
+                    }
+                },
+                {
+                    "text": " Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization.",
+                    "spans": {
+                        "start": 409,
+                        "end": 545
+                    }
+                },
+                {
+                    "text": " Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.",
+                    "spans": {
+                        "start": 546,
+                        "end": 631
+                    }
+                },
+                {
+                    "text": "  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine.",
+                    "spans": {
+                        "start": 632,
+                        "end": 728
+                    }
+                },
+                {
+                    "text": " The patient previously took tamiflu and experienced allergies.",
+                    "spans": {
+                        "start": 729,
+                        "end": 791
+                    }
+                },
+                {
+                    "text": "  Facility type vaccine was hospital.",
+                    "spans": {
+                        "start": 792,
+                        "end": 828
+                    }
+                },
+                {
+                    "text": " The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine.",
+                    "spans": {
+                        "start": 829,
+                        "end": 918
+                    }
+                },
+                {
+                    "text": " Prior to vaccination, the patient was not diagnosed with COVID-19.",
+                    "spans": {
+                        "start": 919,
+                        "end": 985
+                    }
+                },
+                {
+                    "text": " Since the vaccination, the patient has not been tested for COVID-19.",
+                    "spans": {
+                        "start": 986,
+                        "end": 1054
+                    }
+                },
+                {
+                    "text": " The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021.",
+                    "spans": {
+                        "start": 1055,
+                        "end": 1182
+                    }
+                },
+                {
+                    "text": " The patient took Motrin as treatment.",
+                    "spans": {
+                        "start": 1183,
+                        "end": 1220
+                    }
+                },
+                {
+                    "text": " Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site.",
+                    "spans": {
+                        "start": 1221,
+                        "end": 1358
+                    }
+                },
+                {
+                    "text": " The outcome of the events was recovered on an unspecified date.",
+                    "spans": {
+                        "start": 1359,
+                        "end": 1422
+                    }
+                },
+                {
+                    "text": " The events were reported as non-serious.",
+                    "spans": {
+                        "start": 1423,
+                        "end": 1463
+                    }
+                }
+            ],
+            "_sentences_text": "Mildly feverish evening after vaccine;\n Soreness and tenderness at left arm injection site;\n This is a spontaneous report from a contactable physician (patient).\n A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE;\n second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization.\n Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization.\n Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.\n  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine.\n The patient previously took tamiflu and experienced allergies.\n  Facility type vaccine was hospital.\n The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine.\n Prior to vaccination, the patient was not diagnosed with COVID-19.\n Since the vaccination, the patient has not been tested for COVID-19.\n The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021.\n The patient took Motrin as treatment.\n Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site.\n The outcome of the events was recovered on an unspecified date.\n The events were reported as non-serious."
         }
     ],
     "annotation_tab_working_mode": "annotation",
-    "display_tag_name": "TREATMENT",
-    "hints": [],
+    "display_tag_name": "__all__",
+    "hints": [
+        {
+            "id": "hint-OTHER_AE-11-0",
+            "tag": "OTHER_AE",
+            "text": "face was very red",
+            "spans": "1407~1424"
+        },
+        {
+            "id": "hint-OTHER_AE-12-0",
+            "tag": "OTHER_AE",
+            "text": "eyes were bulging slightly",
+            "spans": "1430~1456"
+        },
+        {
+            "id": "hint-MEDICATION-0-0",
+            "tag": "MEDICATION",
+            "text": "EpiPen",
+            "spans": "1143~1149"
+        },
+        {
+            "id": "hint-MEDICATION-0-1",
+            "tag": "MEDICATION",
+            "text": "EpiPen",
+            "spans": "1326~1332"
+        },
+        {
+            "id": "hint-MEDICATION-0-3",
+            "tag": "MEDICATION",
+            "text": "EpiPen",
+            "spans": "1758~1764"
+        },
+        {
+            "id": "hint-MEDICATION-1-1",
+            "tag": "MEDICATION",
+            "text": "ice pack",
+            "spans": "643~651"
+        }
+    ],
     "hint_dict": {
         "OTHER_AE": {
             "text_dict": {
@@ -1801,9 +2764,10 @@
                     "_is_shown": false
                 },
                 "Soreness in arm": {
-                    "count": 2,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 2
+                        "A_doc_2.txt.xml": 2,
+                        "B_doc_2.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1815,30 +2779,48 @@
                     "_is_shown": false
                 },
                 "diarrhea": {
-                    "count": 1,
+                    "count": 6,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 1,
+                        "B_doc_4.txt.xml": 5
                     },
                     "_is_shown": false
                 },
                 "dehydration": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 1,
+                        "B_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "Soreness": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_5.txt.xml": 3
                     },
                     "_is_shown": false
                 },
                 "tenderness": {
+                    "count": 4,
+                    "ann_fn_dict": {
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_5.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "face was very red": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "B_doc_1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "eyes were bulging slightly": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "B_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -1859,22 +2841,26 @@
                 "diarrhea",
                 "dehydration",
                 "Soreness",
-                "tenderness"
+                "tenderness",
+                "face was very red",
+                "eyes were bulging slightly"
             ]
         },
         "DIZZINESS": {
             "text_dict": {
                 "dizzy": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 1,
+                        "B_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "lightheaded": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 1,
+                        "B_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -1892,31 +2878,37 @@
         "MEDICATION": {
             "text_dict": {
                 "EpiPen": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 1,
+                        "B_doc_1.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "ice pack": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 1,
+                        "B_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "ibuprofen": {
-                    "count": 2,
+                    "count": 4,
                     "ann_fn_dict": {
                         "A_doc_2.txt.xml": 1,
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 1,
+                        "B_doc_2.txt.xml": 1,
+                        "B_doc_3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Tylenol": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 1,
+                        "B_doc_3.txt.xml": 1,
+                        "B_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1956,23 +2948,40 @@
                     "_is_shown": false
                 },
                 "tamiflu": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_5.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Motrin": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_5.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Therapeutic": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "ice pack and water": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "B_doc_1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Advil": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "B_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -1994,15 +3003,19 @@
                 "levothyroxine",
                 "tamiflu",
                 "Motrin",
-                "Therapeutic"
+                "Therapeutic",
+                "ice pack and water",
+                "Advil"
             ]
         },
         "PAIN": {
             "text_dict": {
                 "Body aches": {
-                    "count": 2,
+                    "count": 5,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 2
+                        "A_doc_2.txt.xml": 2,
+                        "B_doc_2.txt.xml": 1,
+                        "B_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
@@ -2027,11 +3040,13 @@
         "VAX": {
             "text_dict": {
                 "BNT162B2": {
-                    "count": 3,
+                    "count": 6,
                     "ann_fn_dict": {
                         "A_doc_2.txt.xml": 1,
                         "A_doc_3.txt.xml": 1,
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 1,
+                        "B_doc_2.txt.xml": 1,
+                        "B_doc_5.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -2048,16 +3063,18 @@
         "PYREXIA": {
             "text_dict": {
                 "fever": {
-                    "count": 2,
+                    "count": 8,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 2
+                        "A_doc_3.txt.xml": 2,
+                        "B_doc_3.txt.xml": 6
                     },
                     "_is_shown": false
                 },
                 "feverish": {
-                    "count": 2,
+                    "count": 5,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 2
+                        "A_doc_5.txt.xml": 2,
+                        "B_doc_5.txt.xml": 3
                     },
                     "_is_shown": false
                 }
@@ -2084,9 +3101,10 @@
         "HEADACHE": {
             "text_dict": {
                 "headache": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 1,
+                        "B_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -2103,9 +3121,10 @@
         "FATIGUE": {
             "text_dict": {
                 "fatigue": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 1,
+                        "B_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -7367,7 +8386,7 @@
     "iaa_display_tags_tp": true,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.30721672746549555,
+    "force_module_update": 0.09969567542919089,
     "iaa_gs_dict": {
         "2195438294481648": {
             "ann": {
@@ -8871,7 +9890,7 @@
         }
     },
     "cm": {
-        "display_mode": "sentences",
+        "display_mode": "document",
         "mark_mode": "node",
         "hint_mode": "simple",
         "enabled_auto_hint_update": true,
