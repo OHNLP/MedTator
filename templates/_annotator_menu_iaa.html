@@ -100,6 +100,7 @@ v-bind:class="{'active': section=='iaa'}">
     </div>
 
     <button class="ribbon-button"
+        :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
         v-on:click="calc_iaa">
         <span class="icon">
             <i class="fa fa-calculator"></i>
@@ -123,7 +124,7 @@ v-bind:class="{'active': section=='iaa'}">
         <input type="checkbox" 
             class="check"
             data-role="switch" 
-            data-caption="Context"
+            data-caption="Tag Context"
             v-model="iaa_display_tags_context"
             @change="on_change_iaa_settings">
 
@@ -133,45 +134,63 @@ v-bind:class="{'active': section=='iaa'}">
 
 
 <div class="group">
-    <div>
-        <input type="checkbox" 
-            class="check"
-            data-role="switch" 
-            data-caption="Adj. Panel"
-            v-model="iaa_display_adj_panel"
-            @change="on_change_iaa_settings">
-        <br>
+    <!-- <div>
+        <div>
+            <input type="checkbox" 
+                class="check"
+                data-role="switch" 
+                data-caption="Adj. Panel"
+                v-model="iaa_display_adj_panel"
+                @change="on_change_iaa_settings">
+        </div>
 
-        <input type="checkbox" 
-            class="check"
-            data-role="switch" 
-            data-caption="Tag Detail"
-            v-model="iaa_display_adj_detail"
-            @change="on_change_iaa_settings">
-
-    </div>
-
-    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
-
-    <div>
-        <button class="ribbon-button" 
+        <button class="ribbon-icon-button"
             :disabled="dtd == null || iaa_dict == null"
+            title="Reset current adjudication result to default status"
             v-on:click="make_default_adj">
             <span class="icon">
                 <i class="far fa-object-group"></i>
             </span>
-            <span class="caption">Reset G.S.</span>
+            <span class="caption">Reset Adjudication</span>
         </button>
     </div>
 
+-->
+
+    <div>
+        <button class="ribbon-button"
+            :disabled="dtd == null || iaa_dict == null"
+            title="Reset current adjudication result to default status"
+            v-on:click="make_default_adj">
+            <span class="icon">
+                <i class="far fa-object-group"></i>
+            </span>
+            <span class="caption">Reset</span>
+        </button>
+
+        <button class="ribbon-button" 
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Edit adjudication result in annotation tab"
+            v-on:click="transfer_to_annotation_tab">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+            <span class="caption">Edit</span>
+        </button>
+
+    </div>
+
+        <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
+
     <div>
         <button class="ribbon-button" 
-            :disabled="dtd == null"
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Download current adjudication result"
             v-on:click="download_all_gs">
             <span class="icon">
                 <i class="fa fa-file-download"></i>
             </span>
-            <span class="caption">Download All</span>
+            <span class="caption">Download</span>
         </button>
     </div>
     

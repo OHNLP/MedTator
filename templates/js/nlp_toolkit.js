@@ -4,7 +4,7 @@ var nlp_toolkit = {
         if (typeof(backend) == 'undefined') {
             backend = 'simpledot';
         }
-        console.log('* sentencizing text by ' + backend);
+        // console.log('* sentencizing text by ' + backend);
 
         if (backend == 'simpledot') {
             return this.sent_tokenize_by_simpledot(text);
@@ -456,6 +456,67 @@ var nlp_toolkit = {
         saveAs(blob, fn);
 
         return tsv;
+    },
+
+    /**
+     * Download the anns as raw XML format
+     * @param {list} anns the list of ann objects
+     * @param {object} dtd the dtd schema
+     * @param {string} fn the download filename
+     */
+    download_dataset_raw: function(anns, dtd, fn, skip_dtd) {
+        if (typeof(skip_dtd)=='undefined') {
+            // by default, we don't need the dtd file to be included
+            skip_dtd = true;
+        }
+
+        // create an empty zip pack
+        var zip = new JSZip();
+        var file_list = [];
+
+        // put the dtd
+        if (skip_dtd) {
+
+        } else {
+            // add the dtd content if exists
+            if (dtd.hasOwnProperty('text')) {
+                var dtd_fn = dtd.name + '.dtd';
+                zip.file(dtd_fn, dtd.text);
+                file_list.push(dtd.name + '.dtd');
+            }
+        }
+
+        // create a folder in this zip file
+        var folder_name = 'annotation-'+ dtd.name + '';
+
+        // check each ann file
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            
+            // convert to xml first
+            var xmlDoc = ann_parser.ann2xml(ann, dtd);
+
+            // convert xml to string
+            var xmlStr = ann_parser.xml2str(xmlDoc, false);
+
+            // get the filename of this annotation
+            var ann_fn = ann._filename;
+
+            // get the file
+            // add the text dataset to zip
+            var full_fn = folder_name + '/' + ann_fn;
+            zip.file(full_fn, xmlStr);
+            file_list.push(full_fn);
+        }
+
+        // create zip file
+        zip.generateAsync({ type: "blob" }).then((function(fn) {
+            return function (content) {
+                saveAs(content, fn);
+            }
+        })(fn));
+
+        return file_list.join('\n');
     },
 
     /**

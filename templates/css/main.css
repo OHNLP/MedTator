@@ -29,6 +29,9 @@ html,body {
     padding: 10px 0;
     text-align: center;
 }
+.link-btn {
+    color: #555555;
+}
 .h-splitter {
     width: 5px;
     height: 100%;
@@ -156,7 +159,7 @@ html,body {
     border-radius: 4px;
 }
 .dropzone-iaa {
-    width: 176px;
+    width: 150px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -169,6 +172,7 @@ html,body {
 }
 .tag-list-row-actived {
     background-color: #efefef;
+    border-bottom: 1px solid #999999;
 }
 .badge-shortcut {
     padding: 1px 1px 1px 2px;
@@ -183,12 +187,14 @@ html,body {
 .mark-hint {
     cursor: pointer;
     border: 2px dotted #999999;
+    border-left: 0;
+    border-right: 0;
     position: relative;
     /* display: inline-block; */
 }
 .mark-hint:hover {
     font-weight: bold;
-    border: 2px dotted #333333;
+    border-color: #333333;
 }
 .mark-hint-info {
     margin: 0 5px 0 0;
@@ -234,10 +240,13 @@ html,body {
 }
 .mark-tag {
     border-radius: 3px;
-    padding: 1px 3px;
+    /* padding: 1px 3px; */
+    padding: 1px 0;
     margin-right: 0;
     cursor: pointer;
     border: 1px solid white;
+    border-left: 0;
+    border-right: 0;
 }
 .mark-tag:hover{
     border-color: red;
@@ -258,7 +267,7 @@ html,body {
 }
 .mark-tag-info {
     font-size: .75em;
-    margin: 0 5px 0 0;
+    margin: 0 2px;
     padding: 0px 2px;
     background: white;
     border-radius: 4px;
@@ -340,6 +349,65 @@ html,body {
     rx: 3px;
     opacity: 1;
 }
+.tag-cap {
+    font-size: 9px;
+    font-family: 'Courier New', Courier, monospace;
+    /* font-weight: bold; */
+}
+.tag-cap-A,
+.tag-cap-a {
+    fill: orangered;
+}
+.tag-cap-B,
+.tag-cap-b {
+    fill: royalblue;
+}
+.tag-cap-G,
+.tag-cap-g {
+    fill: goldenrod;
+}
+/* span[data-descr] {
+    position: relative;
+    cursor: help;
+}
+span[data-descr]:hover::after,
+span[data-descr]:focus::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0;
+    top: 20px;
+    min-width: 150px;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    background-color: rgba(218, 218, 218, 0.959);
+    padding: 4px;
+    color: #000000;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    z-index: 999;
+} */
+.tag-desc-item {
+    padding: 0 0 0 3px;
+    border-left: 1px solid #bdbdbd;
+    margin-bottom: 1px;
+}
+.tag-desc-attr {
+    font-style: italic;
+}
+.tag-desc-value {
+    
+}
+#hoverbox_etag {
+    position: absolute;
+    background-color: #efefefee;
+    color: black;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    z-index: 888;
+    max-width: 300px;
+}
+
 /* for the pop menu */
 #popmenu_tag {
     z-index: 998;
@@ -437,14 +505,20 @@ html,body {
 }
 .tag-table {
     font-size: .9em;
+    position: relative;
 }
 .tag-table th, 
 .tag-table td {
     padding: 2px;
 }
 .tag-table th {
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #aaaaaa;
     text-align: left;
+    position: sticky;
+    top: 0;
+    background-color: #efefef;
+    z-index: 5;
+    padding: 4px 0;
 }
 .tag-table th.tag-name {
     max-width: 200px;
@@ -611,6 +685,18 @@ input[type=text].ipt-spinner-xs {
 .ruleset-tag-text-filelist-item-count {
     padding: 0px 2px;
     background-color: #eaeaea;
+}
+.iaa-annotator-A,
+.iaa-annotator-a {
+    color: orangered;
+}
+.iaa-annotator-B,
+.iaa-annotator-b {
+    color: royalblue;
+}
+.iaa-annotator-G,
+.iaa-annotator-g {
+    color: goldenrod;
 }
 .iaa-row-header {
     font-weight: bold;

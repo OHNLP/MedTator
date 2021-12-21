@@ -1559,7 +1559,8 @@
                 "shortcut": "a"
             }
         ],
-        "ltags": []
+        "ltags": [],
+        "text": "<!ENTITY name \"VAX_SYMPTOM\">\n\n<!-- document-level annotation -->\n<!ELEMENT PYREXIA ( #PCDATA ) >\n<!ATTLIST PYREXIA spans #IMPLIED >\n<!ATTLIST PYREXIA comment CDATA \"\" >\n\n\n<!ELEMENT CHILL ( #PCDATA ) >\n<!ATTLIST CHILL spans #IMPLIED >\n<!ATTLIST CHILL comment CDATA \"\" >\n\n\n<!ELEMENT FATIGUE ( #PCDATA ) >\n<!ATTLIST FATIGUE spans #IMPLIED >\n<!ATTLIST FATIGUE comment CDATA \"\" >\n\n\n<!ELEMENT PAIN ( #PCDATA ) >\n<!ATTLIST PAIN spans #IMPLIED >\n<!ATTLIST PAIN comment CDATA \"\" >\n\n\n<!ELEMENT HEADACHE ( #PCDATA ) >\n<!ATTLIST HEADACHE spans #IMPLIED >\n<!ATTLIST HEADACHE comment CDATA \"\" >\n\n\n<!ELEMENT COUGH ( #PCDATA ) >\n<!ATTLIST COUGH spans #IMPLIED >\n<!ATTLIST COUGH comment CDATA \"\" >\n\n\n<!ELEMENT DIZZINESS ( #PCDATA ) >\n<!ATTLIST DIZZINESS spans #IMPLIED >\n<!ATTLIST DIZZINESS comment CDATA \"\" >\n\n\n<!ELEMENT SORENESS ( #PCDATA ) >\n<!ATTLIST SORENESS spans #IMPLIED >\n<!ATTLIST SORENESS comment CDATA \"\" >\n\n\n<!ELEMENT NAUSEA ( #PCDATA ) >\n<!ATTLIST NAUSEA spans #IMPLIED >\n<!ATTLIST NAUSEA comment CDATA \"\" >\n\n\n<!ELEMENT DIARRHEA ( #PCDATA ) >\n<!ATTLIST DIARRHEA spans #IMPLIED >\n<!ATTLIST DIARRHEA comment CDATA \"\" >\n\n\n<!ELEMENT OTHER_SYMP ( #PCDATA ) >\n<!ATTLIST OTHER_SYMP spans #IMPLIED >\n<!ATTLIST OTHER_SYMP comment CDATA \"\" >\n"
     },
     "ann_idx": 0,
     "anns": [
@@ -1603,6 +1604,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_01.txt.xml",
             "_has_saved": true,
@@ -1611,7 +1613,7 @@
                     "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
                     "spans": {
                         "start": 0,
-                        "end": 86
+                        "end": 85
                     }
                 }
             ],
@@ -1629,6 +1631,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_02.txt.xml",
             "_has_saved": true,
@@ -1637,18 +1640,18 @@
                     "text": "Patient felt dizzy and sat on the floor.",
                     "spans": {
                         "start": 0,
-                        "end": 40
+                        "end": 39
                     }
                 },
                 {
-                    "text": "She did not fall or lose consciousness.",
+                    "text": "  She did not fall or lose consciousness.",
                     "spans": {
-                        "start": 42,
-                        "end": 81
+                        "start": 40,
+                        "end": 80
                     }
                 }
             ],
-            "_sentences_text": "Patient felt dizzy and sat on the floor.\nShe did not fall or lose consciousness."
+            "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
         },
         {
             "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
@@ -1662,6 +1665,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_03.txt.xml",
             "_has_saved": true,
@@ -1670,7 +1674,7 @@
                     "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
                     "spans": {
                         "start": 0,
-                        "end": 88
+                        "end": 87
                     }
                 }
             ],
@@ -1695,6 +1699,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_04.txt.xml",
             "_has_saved": true,
@@ -1703,18 +1708,18 @@
                     "text": "Skin rash and irritation, itching on forearms.",
                     "spans": {
                         "start": 0,
-                        "end": 46
+                        "end": 45
                     }
                 },
                 {
-                    "text": "Fatigue/malaise lasting three days",
+                    "text": "  Fatigue/malaise lasting three days",
                     "spans": {
-                        "start": 48,
-                        "end": 82
+                        "start": 46,
+                        "end": 81
                     }
                 }
             ],
-            "_sentences_text": "Skin rash and irritation, itching on forearms.\nFatigue/malaise lasting three days"
+            "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
         },
         {
             "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
@@ -1742,6 +1747,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_05.txt.xml",
             "_has_saved": true,
@@ -1750,7 +1756,7 @@
                     "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
                     "spans": {
                         "start": 0,
-                        "end": 82
+                        "end": 81
                     }
                 }
             ],
@@ -1782,19 +1788,34 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_06.txt.xml",
             "_has_saved": true,
             "_sentences": [
                 {
-                    "text": "PAIN AT INJECTION SITE- MODERATE PAIN FOR 24 HRS; HEADACHE-MODERATE 24 HRS; FATIGUE 24 HRS",
+                    "text": "PAIN AT INJECTION SITE- MODERATE PAIN FOR 24 HRS;",
                     "spans": {
                         "start": 0,
-                        "end": 90
+                        "end": 48
+                    }
+                },
+                {
+                    "text": " HEADACHE-MODERATE 24 HRS;",
+                    "spans": {
+                        "start": 49,
+                        "end": 74
+                    }
+                },
+                {
+                    "text": " FATIGUE 24 HRS",
+                    "spans": {
+                        "start": 75,
+                        "end": 89
                     }
                 }
             ],
-            "_sentences_text": "PAIN AT INJECTION SITE- MODERATE PAIN FOR 24 HRS; HEADACHE-MODERATE 24 HRS; FATIGUE 24 HRS"
+            "_sentences_text": "PAIN AT INJECTION SITE- MODERATE PAIN FOR 24 HRS;\n HEADACHE-MODERATE 24 HRS;\n FATIGUE 24 HRS"
         },
         {
             "text": "Severe headache that will not go away.   Have tried Sinus pressure OTC, tylenol, etc.",
@@ -1808,6 +1829,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_07.txt.xml",
             "_has_saved": true,
@@ -1816,18 +1838,18 @@
                     "text": "Severe headache that will not go away.",
                     "spans": {
                         "start": 0,
-                        "end": 38
+                        "end": 37
                     }
                 },
                 {
-                    "text": "Have tried Sinus pressure OTC, tylenol, etc.",
+                    "text": "   Have tried Sinus pressure OTC, tylenol, etc.",
                     "spans": {
-                        "start": 41,
-                        "end": 85
+                        "start": 38,
+                        "end": 84
                     }
                 }
             ],
-            "_sentences_text": "Severe headache that will not go away.\nHave tried Sinus pressure OTC, tylenol, etc."
+            "_sentences_text": "Severe headache that will not go away.\n   Have tried Sinus pressure OTC, tylenol, etc."
         },
         {
             "text": "Right arm swelling and pain. Taking Tylenol PRN Severe headaches - Taking Tylenol PRN",
@@ -1841,6 +1863,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_08.txt.xml",
             "_has_saved": true,
@@ -1849,18 +1872,18 @@
                     "text": "Right arm swelling and pain.",
                     "spans": {
                         "start": 0,
-                        "end": 28
+                        "end": 27
                     }
                 },
                 {
-                    "text": "Taking Tylenol PRN Severe headaches - Taking Tylenol PRN",
+                    "text": " Taking Tylenol PRN Severe headaches - Taking Tylenol PRN",
                     "spans": {
-                        "start": 29,
-                        "end": 85
+                        "start": 28,
+                        "end": 84
                     }
                 }
             ],
-            "_sentences_text": "Right arm swelling and pain.\nTaking Tylenol PRN Severe headaches - Taking Tylenol PRN"
+            "_sentences_text": "Right arm swelling and pain.\n Taking Tylenol PRN Severe headaches - Taking Tylenol PRN"
         },
         {
             "text": "almost 2 weeks later.  rash, swelling, itching, soreness, pain at injection site,",
@@ -1874,6 +1897,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_09.txt.xml",
             "_has_saved": true,
@@ -1882,18 +1906,18 @@
                     "text": "almost 2 weeks later.",
                     "spans": {
                         "start": 0,
-                        "end": 21
+                        "end": 20
                     }
                 },
                 {
-                    "text": "rash, swelling, itching, soreness, pain at injection site,",
+                    "text": "  rash, swelling, itching, soreness, pain at injection site,",
                     "spans": {
-                        "start": 23,
-                        "end": 81
+                        "start": 21,
+                        "end": 80
                     }
                 }
             ],
-            "_sentences_text": "almost 2 weeks later.\nrash, swelling, itching, soreness, pain at injection site,"
+            "_sentences_text": "almost 2 weeks later.\n  rash, swelling, itching, soreness, pain at injection site,"
         },
         {
             "text": "Site: Pain at Injection Site-Mild, Systemic: Neurological Disorder (diagnosed by MD)-Severe",
@@ -1907,6 +1931,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_10.txt.xml",
             "_has_saved": true,
@@ -1915,7 +1940,7 @@
                     "text": "Site: Pain at Injection Site-Mild, Systemic: Neurological Disorder (diagnosed by MD)-Severe",
                     "spans": {
                         "start": 0,
-                        "end": 91
+                        "end": 90
                     }
                 }
             ],
@@ -1933,6 +1958,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_11.txt.xml",
             "_has_saved": true,
@@ -1941,18 +1967,18 @@
                     "text": "Woke up on Monday night with muscle pain in left shoulder, neck.",
                     "spans": {
                         "start": 0,
-                        "end": 64
+                        "end": 63
                     }
                 },
                 {
-                    "text": "Continues through Tuesday off and on.",
+                    "text": " Continues through Tuesday off and on.",
                     "spans": {
-                        "start": 65,
-                        "end": 102
+                        "start": 64,
+                        "end": 101
                     }
                 }
             ],
-            "_sentences_text": "Woke up on Monday night with muscle pain in left shoulder, neck.\nContinues through Tuesday off and on."
+            "_sentences_text": "Woke up on Monday night with muscle pain in left shoulder, neck.\n Continues through Tuesday off and on."
         },
         {
             "text": "Instant intense pain and burning. 3 days later continued soreness at injection site.",
@@ -1966,6 +1992,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_12.txt.xml",
             "_has_saved": true,
@@ -1974,18 +2001,18 @@
                     "text": "Instant intense pain and burning.",
                     "spans": {
                         "start": 0,
-                        "end": 33
+                        "end": 32
                     }
                 },
                 {
-                    "text": "3 days later continued soreness at injection site.",
+                    "text": " 3 days later continued soreness at injection site.",
                     "spans": {
-                        "start": 34,
-                        "end": 84
+                        "start": 33,
+                        "end": 83
                     }
                 }
             ],
-            "_sentences_text": "Instant intense pain and burning.\n3 days later continued soreness at injection site."
+            "_sentences_text": "Instant intense pain and burning.\n 3 days later continued soreness at injection site."
         },
         {
             "text": "Res c/o mild nausea this AM. Res declined breakfast, et any interventions by staff.",
@@ -1999,6 +2026,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_13.txt.xml",
             "_has_saved": true,
@@ -2007,18 +2035,18 @@
                     "text": "Res c/o mild nausea this AM.",
                     "spans": {
                         "start": 0,
-                        "end": 28
+                        "end": 27
                     }
                 },
                 {
-                    "text": "Res declined breakfast, et any interventions by staff.",
+                    "text": " Res declined breakfast, et any interventions by staff.",
                     "spans": {
-                        "start": 29,
-                        "end": 83
+                        "start": 28,
+                        "end": 82
                     }
                 }
             ],
-            "_sentences_text": "Res c/o mild nausea this AM.\nRes declined breakfast, et any interventions by staff."
+            "_sentences_text": "Res c/o mild nausea this AM.\n Res declined breakfast, et any interventions by staff."
         },
         {
             "text": "Body aches, fever 101.1. No treatment. outcome mild improvement repeat temp 100.4",
@@ -2039,6 +2067,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_14.txt.xml",
             "_has_saved": true,
@@ -2047,25 +2076,25 @@
                     "text": "Body aches, fever 101.1.",
                     "spans": {
                         "start": 0,
-                        "end": 24
+                        "end": 23
                     }
                 },
                 {
-                    "text": "No treatment.",
+                    "text": " No treatment.",
                     "spans": {
-                        "start": 25,
-                        "end": 38
+                        "start": 24,
+                        "end": 37
                     }
                 },
                 {
-                    "text": "outcome mild improvement repeat temp 100.4",
+                    "text": " outcome mild improvement repeat temp 100.4",
                     "spans": {
-                        "start": 39,
-                        "end": 81
+                        "start": 38,
+                        "end": 80
                     }
                 }
             ],
-            "_sentences_text": "Body aches, fever 101.1.\nNo treatment.\noutcome mild improvement repeat temp 100.4"
+            "_sentences_text": "Body aches, fever 101.1.\n No treatment.\n outcome mild improvement repeat temp 100.4"
         },
         {
             "text": "extreme body aches and fever aprox 24 hours after vaccine, lasting aprox 24 hours",
@@ -2079,6 +2108,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_15.txt.xml",
             "_has_saved": true,
@@ -2087,7 +2117,7 @@
                     "text": "extreme body aches and fever aprox 24 hours after vaccine, lasting aprox 24 hours",
                     "spans": {
                         "start": 0,
-                        "end": 81
+                        "end": 80
                     }
                 }
             ],
@@ -2105,6 +2135,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_16.txt.xml",
             "_has_saved": true,
@@ -2113,7 +2144,7 @@
                     "text": "Increased heart rate, tingling in head & arms, lightheaded, slight rash on upper torso, swollen lymph node.",
                     "spans": {
                         "start": 0,
-                        "end": 107
+                        "end": 106
                     }
                 }
             ],
@@ -2131,6 +2162,7 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_17.txt.xml",
             "_has_saved": true,
@@ -2139,7 +2171,7 @@
                     "text": "moderna covid-19 vaccine eua  ..fever of 100 deg when waking up..normal for me is 97.9..",
                     "spans": {
                         "start": 0,
-                        "end": 88
+                        "end": 87
                     }
                 }
             ],
@@ -2157,24 +2189,33 @@
                     "comment": ""
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_18.txt.xml",
             "_has_saved": true,
             "_sentences": [
                 {
-                    "text": "high fever (exact number not determined), rapid heartbeat between 11:00 p.m. and 3:00 a.m.",
+                    "text": "high fever (exact number not determined), rapid heartbeat between 11:00 p.m.",
                     "spans": {
                         "start": 0,
-                        "end": 90
+                        "end": 75
+                    }
+                },
+                {
+                    "text": " and 3:00 a.m.",
+                    "spans": {
+                        "start": 76,
+                        "end": 89
                     }
                 }
             ],
-            "_sentences_text": "high fever (exact number not determined), rapid heartbeat between 11:00 p.m. and 3:00 a.m."
+            "_sentences_text": "high fever (exact number not determined), rapid heartbeat between 11:00 p.m.\n and 3:00 a.m."
         },
         {
             "text": "Shortness of breath, cough, fever, chills, headache, ringing ears, extreme exhaustion",
             "dtd_name": "VAX_SYMPTOM",
             "tags": [],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_19.txt.xml",
             "_has_saved": true,
@@ -2183,7 +2224,7 @@
                     "text": "Shortness of breath, cough, fever, chills, headache, ringing ears, extreme exhaustion",
                     "spans": {
                         "start": 0,
-                        "end": 85
+                        "end": 84
                     }
                 }
             ],
@@ -2193,6 +2234,7 @@
             "text": "Dizziness shortly after receiving the shot. Dizziness resolved after a few minutes.",
             "dtd_name": "VAX_SYMPTOM",
             "tags": [],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_20.txt.xml",
             "_has_saved": true,
@@ -2201,20 +2243,21 @@
                     "text": "Dizziness shortly after receiving the shot.",
                     "spans": {
                         "start": 0,
-                        "end": 43
+                        "end": 42
                     }
                 },
                 {
-                    "text": "Dizziness resolved after a few minutes.",
+                    "text": " Dizziness resolved after a few minutes.",
                     "spans": {
-                        "start": 44,
-                        "end": 83
+                        "start": 43,
+                        "end": 82
                     }
                 }
             ],
-            "_sentences_text": "Dizziness shortly after receiving the shot.\nDizziness resolved after a few minutes."
+            "_sentences_text": "Dizziness shortly after receiving the shot.\n Dizziness resolved after a few minutes."
         }
     ],
+    "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
     "hints": [],
     "hint_dict": {
@@ -2338,6 +2381,7 @@
         }
     },
     "clicked_tag_id": null,
+    "hovered_tag": null,
     "is_linking": false,
     "linking_tag_def": null,
     "linking_tag": null,
@@ -2373,7 +2417,7 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.6140601109554398,
+    "force_module_update": 0.5139285747164515,
     "iaa_gs_dict": null,
     "cm": {
         "display_mode": "document",
@@ -2386,5 +2430,16 @@
         "enabled_link_complex": true,
         "is_expire": false
     },
-    "export_text": ""
+    "cfg": {
+        "is_show_settings": false,
+        "active_setting_tab": "import",
+        "sentence_splitting_algorithm": "simpledot"
+    },
+    "export_text": null,
+    "texts": {
+        "sentence_splitting_algorithm": {
+            "title": "Sentence Splitting Algorithm",
+            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        }
+    }
 }

@@ -26,7 +26,19 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Open DTD</span>
     </button> -->
 
-    <span class="title">Schema DTD File (.dtd)</span>
+    <span class="title">
+
+        Schema File (.dtd)
+
+        <span v-if="dtd != null">
+            <a href="javascript:void(0);"
+                title="Download the current schema file"
+                class="link-btn"
+                v-on:click="download_schema_as_dtd">
+                <i class="fa fa-download"></i>
+            </a>
+        </span>
+    </span>
 </div>
 
 <div class="group">
@@ -57,13 +69,13 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Open XMLs</span>
     </button> -->
 
-    <span class="title">Annotation File (.xml)</span>
+    <span class="title">Annotation File (.xml/.txt)</span>
 </div>
 
 <div v-if="ann_idx != null"
     class="group">
     <button class="ribbon-button"
-        title="Save the current editing annotation file"
+        title="Save the current editing annotation file to local disk"
         v-if="has_FSA_API()"
         v-on:click="save_xml">
         <span class="icon">
@@ -72,6 +84,7 @@ v-bind:class="{'active': section=='annotation'}">
         <span class="caption">Save</span>
     </button>
 
+    <!-- 
     <button class="ribbon-button"
         title="Save a copy of the current editing annotation file"
         v-if="has_FSA_API()"
@@ -80,16 +93,54 @@ v-bind:class="{'active': section=='annotation'}">
             <i class="far fa-copy"></i>
         </span>
         <span class="caption">Save as</span>
-    </button>
+    </button> 
+    -->
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            title="Save a copy of the current editing annotation file"
+            v-on:click="save_as_xml">
+            <span class="icon">
+                <i class="far fa-copy"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Save as</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Download a copy of the current annotation as MedTator XML format"
+                v-on:click="download_copy_as_xml">
+                <a href="javascript:void(0);">Download a copy</a>
+            </li>
+
+            <li title="Download a copy of the current annotation as BioC XML format"
+                v-on:click="download_copy_as_bioc">
+                <a href="javascript:void(0);">Download a copy as BioC format</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li title="Download all annotation files as a ZIP file"
+                v-on:click="download_all_as_zip(true)">
+                <a href="javascript:void(0);">Download all as a ZIP file</a>
+            </li>
+
+            <li title="Download all annotation files and the schema file as a ZIP file"
+                v-on:click="download_all_as_zip(false)">
+                <a href="javascript:void(0);">Download all with schema as a ZIP file</a>
+            </li>
+        </ul>
+    </div>
 
     <button class="ribbon-button"
         title="Due to limited browser support, the current annotation file could only be downloaded."
         v-if="!has_FSA_API()"
-        v-on:click="download_as_xml">
+        v-on:click="download_copy_as_xml">
         <span class="icon">
             <i class="fa fa-file-download"></i>
         </span>
-        <span class="caption">Download XML</span>
+        <span class="caption">Download</span>
     </button>
     
     <a id="downloadAnchorElem" style="display:none"></a>

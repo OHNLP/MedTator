@@ -70,11 +70,13 @@ var iaa_calculator = {
                     ann: ann_rst.anns[0],
                     rst: {}
                 }
+
                 // rename the gs
-                var fn_gs = "GS_" + this.find_lcs(
+                var fn_gs = "G_" + this.find_lcs(
                     ann_rst.anns[0]._filename,
                     ann_rst.anns[1]._filename
                 ) + '_' + cnt + '.xml';
+                
                 gs_dict[hashcode].ann._filename = fn_gs;
 
                 // remove the _fh
@@ -101,7 +103,7 @@ var iaa_calculator = {
                             // use ann_a's result
                             gs_dict[hashcode].rst[tag_name].tp.push({
                                 tag: tags[0],
-                                from: 'a'
+                                from: 'A'
                             });
                         }
 
@@ -111,7 +113,7 @@ var iaa_calculator = {
                             // use ann_a's result
                             gs_dict[hashcode].rst[tag_name].fp.push({
                                 tag: tags[0],
-                                from: 'a'
+                                from: 'B'
                             });
                         }
                         
@@ -121,7 +123,7 @@ var iaa_calculator = {
                             // use ann_b's result
                             gs_dict[hashcode].rst[tag_name].fn.push({
                                 tag: tags[1],
-                                from: 'b'
+                                from: 'B'
                             });
                         }
                     }
@@ -132,7 +134,24 @@ var iaa_calculator = {
         return gs_dict;
     },
 
-    evaluate_anns_on_dtd: function(dtd, anns_a, anns_b, match_mode, overlap_ratio) {
+    /**
+     * Evaluate the IAA based on given schema and 
+     * two list of annotations from two annotators
+     * 
+     * @param {Object} dtd the annotation schema
+     * @param {Object} anns_a the annotations by A
+     * @param {Object} anns_b the annotations by B
+     * @param {string} match_mode overlap or exact match
+     * @param {float} overlap_ratio overlap ratio
+     * @returns Object of IAA result
+     */
+    evaluate_anns_on_dtd: function(
+        dtd, 
+        anns_a, 
+        anns_b, 
+        match_mode, 
+        overlap_ratio
+    ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
         }
@@ -298,6 +317,17 @@ var iaa_calculator = {
         return iaa_dict;
     },
 
+    /**
+     * Evaluate the IAA based on given schema and 
+     * two annotation from two annotators
+     * 
+     * @param {Object} dtd the annotation schema
+     * @param {Object} ann_a an annotation by A
+     * @param {Object} ann_b an annotation by B
+     * @param {string} match_mode overlap or exact match
+     * @param {float} overlap_ratio overlap ratio
+     * @returns Object of IAA result
+     */
     evaluate_ann_on_dtd: function(dtd, ann_a, ann_b, match_mode, overlap_ratio) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';

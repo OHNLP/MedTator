@@ -1,3 +1,6 @@
+/**
+ * DTD schema file parser
+ */
 var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
@@ -8,7 +11,6 @@ var dtd_parser = {
         attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
         // attlist_cdata_default_value: /(?<=").*?(?=")/gm
         attlist_cdata_default_value: /\s+\"(.*)\"/g
-
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -21,7 +23,10 @@ var dtd_parser = {
             name: '',
             tag_dict: {},
             etags: [],
-            ltags: []
+            ltags: [],
+
+            // the raw dtd text
+            text: text
         };
 
         for (let l = 0; l < lines.length; l++) {

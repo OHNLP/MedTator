@@ -173,7 +173,8 @@
                 "shortcut": "1"
             }
         ],
-        "ltags": []
+        "ltags": [],
+        "text": "<!ENTITY name \"COVID_VAX_SYMP\">\n\n<!-- #PCDATA makes an entity concept -->\n<!ELEMENT SYMP ( #PCDATA ) >\n<!ATTLIST SYMP certainty ( positive | negated | possible ) #IMPLIED \"positive\" >\n<!ATTLIST SYMP comment CDATA \"NA\" >\n"
     },
     "ann_idx": 0,
     "anns": [
@@ -262,6 +263,7 @@
                     "comment": "NA"
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_01.txt.xml",
             "_has_saved": true,
@@ -270,46 +272,46 @@
                     "text": "The patient also endorses dizziness and some lightheadedness.",
                     "spans": {
                         "start": 0,
-                        "end": 61
+                        "end": 60
                     }
                 },
                 {
-                    "text": "She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.",
+                    "text": " She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.",
                     "spans": {
-                        "start": 62,
-                        "end": 171
+                        "start": 61,
+                        "end": 170
                     }
                 },
                 {
-                    "text": "She denies vision changes and neck pain.",
+                    "text": " She denies vision changes and neck pain.",
                     "spans": {
-                        "start": 172,
-                        "end": 212
+                        "start": 171,
+                        "end": 211
                     }
                 },
                 {
-                    "text": "The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.",
+                    "text": " The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.",
                     "spans": {
-                        "start": 213,
-                        "end": 386
+                        "start": 212,
+                        "end": 385
                     }
                 },
                 {
-                    "text": "Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.",
+                    "text": " Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.",
                     "spans": {
-                        "start": 387,
-                        "end": 486
+                        "start": 386,
+                        "end": 485
                     }
                 },
                 {
-                    "text": "She reports having some difficulty remembering to take her home medications.",
+                    "text": " She reports having some difficulty remembering to take her home medications.",
                     "spans": {
-                        "start": 487,
-                        "end": 563
+                        "start": 486,
+                        "end": 562
                     }
                 }
             ],
-            "_sentences_text": "The patient also endorses dizziness and some lightheadedness.\nShe denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.\nShe denies vision changes and neck pain.\nThe patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.\nOf note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.\nShe reports having some difficulty remembering to take her home medications."
+            "_sentences_text": "The patient also endorses dizziness and some lightheadedness.\n She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia.\n She denies vision changes and neck pain.\n The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence.\n Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission.\n She reports having some difficulty remembering to take her home medications."
         },
         {
             "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.",
@@ -372,6 +374,7 @@
                     "comment": "NA"
                 }
             ],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_02.txt.xml",
             "_has_saved": true,
@@ -380,65 +383,66 @@
                     "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
                     "spans": {
                         "start": 0,
-                        "end": 299
+                        "end": 298
                     }
                 },
                 {
-                    "text": "Tried Advil, then tylenol - didn't tough headache.",
+                    "text": " Tried Advil, then tylenol - didn't tough headache.",
                     "spans": {
-                        "start": 300,
-                        "end": 350
+                        "start": 299,
+                        "end": 349
                     }
                 },
                 {
-                    "text": "7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.",
+                    "text": "  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.",
                     "spans": {
-                        "start": 352,
-                        "end": 449
+                        "start": 350,
+                        "end": 448
                     }
                 },
                 {
-                    "text": "Slept, finally that night.",
+                    "text": "  Slept, finally that night.",
                     "spans": {
-                        "start": 451,
-                        "end": 477
+                        "start": 449,
+                        "end": 476
                     }
                 },
                 {
-                    "text": "Advil helped the head and body aches finally.",
+                    "text": "  Advil helped the head and body aches finally.",
                     "spans": {
-                        "start": 479,
-                        "end": 524
+                        "start": 477,
+                        "end": 523
                     }
                 },
                 {
-                    "text": "2/21/21 - Left with body fatigue, mild diarrhea, dehydration.",
+                    "text": "   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.",
                     "spans": {
-                        "start": 527,
-                        "end": 588
+                        "start": 524,
+                        "end": 587
                     }
                 },
                 {
-                    "text": "Night sweats for most of that night.",
+                    "text": "  Night sweats for most of that night.",
                     "spans": {
-                        "start": 590,
-                        "end": 626
+                        "start": 588,
+                        "end": 625
                     }
                 },
                 {
-                    "text": "2/22/21 - energy back, mild diarrhea left.",
+                    "text": " 2/22/21 - energy back, mild diarrhea left.",
                     "spans": {
-                        "start": 627,
-                        "end": 669
+                        "start": 626,
+                        "end": 668
                     }
                 }
             ],
-            "_sentences_text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.\nTried Advil, then tylenol - didn't tough headache.\n7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.\nSlept, finally that night.\nAdvil helped the head and body aches finally.\n2/21/21 - Left with body fatigue, mild diarrhea, dehydration.\nNight sweats for most of that night.\n2/22/21 - energy back, mild diarrhea left."
+            "_sentences_text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.\n Tried Advil, then tylenol - didn't tough headache.\n  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.\n  Slept, finally that night.\n  Advil helped the head and body aches finally.\n   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.\n  Night sweats for most of that night.\n 2/22/21 - energy back, mild diarrhea left."
         },
         {
             "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)",
             "dtd_name": "COVID_VAX_SYMP",
             "tags": [],
+            "meta": {},
             "_fh": {},
             "_filename": "doc_03.txt.xml",
             "_has_saved": true,
@@ -447,34 +451,35 @@
                     "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).",
                     "spans": {
                         "start": 0,
-                        "end": 48
+                        "end": 47
                     }
                 },
                 {
-                    "text": "Fatigue began 4 hours after vaccine.",
+                    "text": " Fatigue began 4 hours after vaccine.",
                     "spans": {
-                        "start": 49,
-                        "end": 85
+                        "start": 48,
+                        "end": 84
                     }
                 },
                 {
-                    "text": "(3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).",
+                    "text": " (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).",
                     "spans": {
-                        "start": 86,
-                        "end": 218
+                        "start": 85,
+                        "end": 217
                     }
                 },
                 {
-                    "text": "Mild headache and mild fatigue all day (3/8)",
+                    "text": " Mild headache and mild fatigue all day (3/8)",
                     "spans": {
-                        "start": 219,
-                        "end": 263
+                        "start": 218,
+                        "end": 262
                     }
                 }
             ],
-            "_sentences_text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).\nFatigue began 4 hours after vaccine.\n(3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).\nMild headache and mild fatigue all day (3/8)"
+            "_sentences_text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).\n Fatigue began 4 hours after vaccine.\n (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).\n Mild headache and mild fatigue all day (3/8)"
         }
     ],
+    "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
     "hints": [],
     "hint_dict": {
@@ -627,6 +632,7 @@
         }
     },
     "clicked_tag_id": null,
+    "hovered_tag": null,
     "is_linking": false,
     "linking_tag_def": null,
     "linking_tag": null,
@@ -662,7 +668,7 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.8982912601317696,
+    "force_module_update": 0.5487621298213043,
     "iaa_gs_dict": null,
     "cm": {
         "display_mode": "document",
@@ -675,5 +681,16 @@
         "enabled_link_complex": true,
         "is_expire": false
     },
-    "export_text": null
+    "cfg": {
+        "is_show_settings": false,
+        "active_setting_tab": "import",
+        "sentence_splitting_algorithm": "simpledot"
+    },
+    "export_text": null,
+    "texts": {
+        "sentence_splitting_algorithm": {
+            "title": "Sentence Splitting Algorithm",
+            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        }
+    }
 }

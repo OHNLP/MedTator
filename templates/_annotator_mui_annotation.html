@@ -95,11 +95,10 @@
             <ul v-if="dtd != null"
                 class="w-100 tag-list">
 
-                <li v-on:click="update_tag_table(null)"
+                <li v-on:click="update_tag_table()"
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == '__all__'}">
-                    <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = '__all__'">
+                    <div class="tag-list-row-name">
                         <span class='mif-folder fg-red'></span>
                         All Tags
                     </div>
@@ -110,11 +109,10 @@
 
                 <!-- show all etags -->
                 <li v-for="etag in dtd.etags"
-                    v-on:click="update_tag_table(etag)"
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == etag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = etag.name">
+                        v-on:click="update_tag_table(etag)">
                         <i class="fa fa-tag"
                             v-bind:class="'fg-tag-' + etag.name">
                         </i>
@@ -146,7 +144,7 @@
                     class="tag-list-row d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == ltag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="display_tag_name = ltag.name">
+                        v-on:click="update_tag_table(ltag)">
                         <i class="fa fa-link"
                             v-bind:class="'fg-tag-' + ltag.name">
                         </i>
@@ -221,27 +219,39 @@
                             </div>
                         </td>
 
-                        <td>
-                            <span class="c-pointer">
+                        <td class="c-pointer"
+                            v-on:click="highlight_tag(tag)">
+                            <span>
                                 {{ tag.id }}
                             </span>
                         </td>
 
-                        <td>
-                            <span v-if="tag.spans=='-1~-1'">
+                        <td v-bind:class="{'c-pointer': !is_etag_doc_level(tag)}"
+                            v-on:click="highlight_tag(tag)">
+                            <span v-if="tag.hasOwnProperty('_annotator')"
+                                class="mr-2"
+                                v-bind:class="'iaa-annotator-' + tag._annotator">
+                                <i v-if="tag._annotator != 'G'" class="fa fa-user-edit"></i>
+                                <i v-else class="fa fa-user-plus"></i>
+                                {{ tag._annotator }}
+                            </span>
+                            <span v-else
+                                class="mr-2">
+                                &nbsp;
+                            </span>
+                                    
+                            <span v-if="is_etag_doc_level(tag)">
                                 DOCUMENT
                             </span>
                             <span v-else
-                                v-on:click="highlight_tag(tag)"
                                 class="c-pointer">
                                 {{ tag.spans }}
                             </span>
                         </td>
 
-                        <td class="td-text">
-                            <span v-if="is_etag(tag)"
-                                class="c-pointer"
-                                v-on:click="highlight_tag(tag)">
+                        <td class="td-text c-pointer"
+                            v-on:click="highlight_tag(tag)">
+                            <span v-if="is_etag(tag)">
                                 {{ tag.text }}
                             </span>
                             <span v-else>

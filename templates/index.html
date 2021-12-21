@@ -83,7 +83,7 @@
                 v-bind:class="{'active': section=='iaa'}">
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
-                    IAA
+                    Adjudication
                 </a>
             </li>
         </ul>
@@ -270,13 +270,18 @@
     </div>
 
     <!-- the tag click menu -->
-    <div v-if="dtd != null"
+    <div v-if="dtd != null && get_clicked_tag()!=null"
         style="display: none;"
         id="popmenu_tag">
         <li class="ui-widget-header"
             v-on:click="close_popmenu">
-            TAG <i class="fa fa-tag"></i>
-            <b>{{ clicked_tag_id }}</b>
+            <i class="fa fa-tag"></i>
+            <span>
+                {{ get_clicked_tag()['tag'] }}
+            </span>
+            <span>
+                <b>{{ clicked_tag_id }}</b>
+            </span>
         </li>
 
         <div v-if="is_linking">
@@ -330,6 +335,26 @@
     <div v-else
         id="popmenu_tag">
 
+    </div>
+
+    <div id="hoverbox_etag"
+        v-show="hovered_tag != null">
+
+        <div v-if="hovered_tag != null">
+            <div>
+                <span v-if="hovered_tag.hasOwnProperty('_annotator')"
+                    v-bind:class="'iaa-annotator-' + hovered_tag._annotator">
+                    <i class="fa fa-user"></i>
+                    {{ hovered_tag._annotator }}
+                </span>
+                
+                <i class="fa fa-tag" v-bind:class="'fg-tag-' + hovered_tag.tag"></i>
+                {{ hovered_tag.tag }}.{{ hovered_tag.id }} {{ hovered_tag.spans }} 
+            </div>
+            
+            <div v-html="get_tag_desc_html(hovered_tag)">
+            </div>
+        </div>
     </div>
     
 </div>

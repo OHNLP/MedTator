@@ -43,7 +43,8 @@ var ann_parser = {
         var ann = {
             text: '',
             dtd_name: '',
-            tags: []
+            tags: [],
+            meta: {},  // the meta data of this annotation
         };
 
         // first, get the dtd name
@@ -173,6 +174,14 @@ var ann_parser = {
             }
         }
 
+        // then check all of the meta data
+        if (xmlDoc.getElementsByTagName('META').length == 0) {
+            // it's very very possible that no meta data
+            // then just skip
+        } else {
+
+        }
+
         return ann;
     },
 
@@ -201,6 +210,14 @@ var ann_parser = {
 
             // create all attributes
             for (const attr in tag) {
+                // skip special tags
+                if (attr.startsWith('_')) {
+                    // internal attributes
+                    // _annotator
+                    // _
+                    // continue;
+                }
+
                 if (attr == 'tag') {
                     // skip the tag name itself
                     continue;
@@ -268,6 +285,8 @@ var ann_parser = {
             node_TAGS.appendChild(node_tag);
         }
         root.appendChild(node_TAGS);
+
+        // create the meta
         
         return xmlDoc;
     },
@@ -462,8 +481,12 @@ var ann_parser = {
      * 
      * @param {object} hints The hints object contains all hint texts
      * @param {object} ann The annotation object which contains text and tags
+     * @param {list} focus_tags The focused tags for searching
      */
-    search_hints_in_ann: function(hint_dict, ann) {
+    search_hints_in_ann: function(hint_dict, ann, focus_tags) {
+        if (typeof(focus_tags) == 'undefined') {
+            focus_tags = null;
+        }
         var is_overlapped = function(a, b) {
             if (a[0] >= b[0] && a[0] < b[1]) {
                 return true;
@@ -518,6 +541,16 @@ var ann_parser = {
         // check each tag in the hint
         for (const tag_name in hint_dict) {
             if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                // focus on specifed tag hint
+                if (focus_tags == null) {
+                    // ok, search all
+                } else if (focus_tags.indexOf(tag_name)>=0) {
+                    // ok, this tag need to search
+                } else {
+                    // wow, no need to search this tag
+                    continue;
+                }
+
                 // check each str in this hint tag
                 for (let i = 0; i < hint_dict[tag_name].texts.length; i++) {
                     const str = hint_dict[tag_name].texts[i];
@@ -733,5 +766,7 @@ var ann_parser = {
             }
         }
         return tags;
-    }
+    },
+
+    
 };

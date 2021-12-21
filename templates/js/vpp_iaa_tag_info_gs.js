@@ -41,9 +41,9 @@ Vue.component('iaa-tag-info-gs', {
     
         <div class="iaa-tag-detail-oper">
             <button class="btn btn-xs"
-                :title="'Reject this [' + tag_obj.tag.text + '] from goldstandard'"
+                :title="'Remove this [' + tag_obj.tag.text + ']'"
                 v-on:click="reject_tag(hashcode, tag_obj.tag.tag, cm, tag_idx)">
-                Reject
+                Remove
             </button>
         </div>
 

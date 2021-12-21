@@ -80,16 +80,32 @@ python web.py --mode build --lib local --fn standalone.html
 
 ## Change log
 
-### 1.1. (2021-12-)
+### 1.2.0 (2021-12-20)
 
+- Added hover box to entity tag for details
+- Added show adjudication in annotation tab with 
+- Added download all annotation as a zip file
+- Added fixed tag list header scrolling
+- Added download schema dtd file
+- Added dynamic tag rendering based on selected tag
+- Added filter hinter based on selected tag
 - Updated the export message link
 - Updated messages related to annotation file import
 - Updated messages related to dtd file import
 - Updated simple sentencize algorithm
 - Updated sentencizer algorithm
+- Updated adjudication tab design
+- Updated mark style in editor
+- Updated hover text style for tag and hint
+- Updated conditions for saving annotation file
+- Updated sample datasets
+- Fixed rendering glitch when switching tab
 - Fixed IAA calculation click not binding bug
 - Fixed sentencizer setting not working bug
 - Fixed document-level tag rendering bug
+- Fixed tag attribute toggle in adjudication
+- Fixed popup menu dobule click 
+- Fixed hover tag text shaking bug
 
 ### 1.1.3 (2021-12-13)
 

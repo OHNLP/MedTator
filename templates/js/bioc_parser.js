@@ -1,5 +1,5 @@
 /**
- * BioC Format Annotation file parser
+ * BioC format annotation file parser
  */
 var bioc_parser = {
 
