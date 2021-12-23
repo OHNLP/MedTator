@@ -81,6 +81,8 @@ python web.py --mode release
 
 ## Change log
 
+- Fixed IAA accept button bug
+
 ### 1.2.0 (2021-12-20)
 
 - Added hover box to entity tag for details

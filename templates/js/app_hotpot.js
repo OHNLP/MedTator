@@ -1358,7 +1358,7 @@ var app_hotpot = {
             console.log('* accept', hashcode, tag_name, cm, tag_idx, from);
             this.iaa_gs_dict[hashcode].rst[tag_name][cm][tag_idx] = {
                 tag: this.iaa_dict.ann[hashcode].rst.tag[tag_name].cm.tags[cm][tag_idx][
-                    {'a':0, 'b':1}[from]
+                    {'A':0, 'B':1}[from]
                 ],
                 from: from
             };
