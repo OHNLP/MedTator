@@ -18,10 +18,10 @@ No need to install any server or client runtime!
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual).
 
 
-## Development
+## MedTator Development
 
-For development, a Python 3+ runtime environment is needed. 
-Then, download the source code and install the requirements (just Python Flask, that's all):
+If you are interested in the MedTator development or run a development version, a Python 3+ runtime environment is needed to run a debugging server(MedTator doesn't require Python runtime environment to run).
+Then, download the source code and install the requirements (just Python [Flask](https://github.com/pallets/flask/), that's all):
 
 ```bash
 pip install -r requirements.txt
@@ -34,7 +34,7 @@ python web.py
 ```
 
 Then you can open web browser and check the http://localhost:8086/. 
-For more details of the parameters, run `python web.py -h` and it will show the following details.
+For more details of the parameters for `web.py`, run `python web.py -h` and it will show the details as follows.
 
 ```
 usage: web.py [-h] [--mode {build,run,release}] [--lib {local,cdn}]
