@@ -81,8 +81,6 @@ python web.py --mode release
 
 ## Change log
 
-- Fixed IAA accept button bug
-
 ### 1.2.0 (2021-12-20)
 
 - Added hover box to entity tag for details
@@ -113,6 +111,7 @@ python web.py --mode release
 - Fixed popup menu dobule click 
 - Fixed popup menu initial position
 - Fixed hover tag text shaking bug
+- Fixed IAA accept button bug
 
 ### 1.1.3 (2021-12-13)
 
