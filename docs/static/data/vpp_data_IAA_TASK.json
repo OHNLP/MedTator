@@ -12958,10 +12958,10 @@
     "iaa_overlap_ratio_default": 50,
     "iaa_display_hashcode": "2195438294481648",
     "iaa_display_tags_context": true,
-    "iaa_display_tags_tp": false,
+    "iaa_display_tags_tp": true,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.4020792003844367,
+    "force_module_update": 0.13523603021775954,
     "iaa_gs_dict": {
         "2195438294481648": {
             "ann": {
