@@ -29,6 +29,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#a6cee3"
+                },
                 "shortcut": "1"
             },
             "H": {
@@ -57,6 +60,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#1f78b4"
                 },
                 "shortcut": "2"
             },
@@ -87,6 +93,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#b2df8a"
+                },
                 "shortcut": "3"
             },
             "PY": {
@@ -115,6 +124,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#33a02c"
                 },
                 "shortcut": "4"
             },
@@ -145,6 +157,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fb9a99"
+                },
                 "shortcut": "5"
             },
             "D": {
@@ -173,6 +188,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#e31a1c"
                 },
                 "shortcut": "q"
             },
@@ -203,6 +221,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fdbf6f"
+                },
                 "shortcut": "w"
             },
             "O": {
@@ -232,6 +253,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#ff7f00"
+                },
                 "shortcut": "e"
             },
             "M": {
@@ -260,6 +284,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#cab2d6"
                 },
                 "shortcut": "r"
             },
@@ -325,6 +352,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#9654dc"
                 }
             }
         },
@@ -357,6 +387,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#a6cee3"
+                },
                 "shortcut": "1"
             },
             "HEADACHE": {
@@ -385,6 +418,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#1f78b4"
                 },
                 "shortcut": "2"
             },
@@ -415,6 +451,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#b2df8a"
+                },
                 "shortcut": "3"
             },
             "PYREXIA": {
@@ -443,6 +482,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#33a02c"
                 },
                 "shortcut": "4"
             },
@@ -473,6 +515,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fb9a99"
+                },
                 "shortcut": "5"
             },
             "DIZZINESS": {
@@ -501,6 +546,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#e31a1c"
                 },
                 "shortcut": "q"
             },
@@ -531,6 +579,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fdbf6f"
+                },
                 "shortcut": "w"
             },
             "OTHER_AE": {
@@ -560,6 +611,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#ff7f00"
+                },
                 "shortcut": "e"
             },
             "MEDICATION": {
@@ -588,6 +642,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#cab2d6"
                 },
                 "shortcut": "r"
             },
@@ -653,6 +710,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#9654dc"
                 }
             }
         },
@@ -684,6 +744,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#a6cee3"
+                },
                 "shortcut": "1"
             },
             {
@@ -712,6 +775,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#1f78b4"
                 },
                 "shortcut": "2"
             },
@@ -742,6 +808,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#b2df8a"
+                },
                 "shortcut": "3"
             },
             {
@@ -770,6 +839,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#33a02c"
                 },
                 "shortcut": "4"
             },
@@ -800,6 +872,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fb9a99"
+                },
                 "shortcut": "5"
             },
             {
@@ -828,6 +903,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#e31a1c"
                 },
                 "shortcut": "q"
             },
@@ -858,6 +936,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#fdbf6f"
+                },
                 "shortcut": "w"
             },
             {
@@ -887,6 +968,9 @@
                         "default_value": ""
                     }
                 },
+                "style": {
+                    "color": "#ff7f00"
+                },
                 "shortcut": "e"
             },
             {
@@ -915,6 +999,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#cab2d6"
                 },
                 "shortcut": "r"
             }
@@ -982,6 +1069,9 @@
                         "values": [],
                         "default_value": ""
                     }
+                },
+                "style": {
+                    "color": "#9654dc"
                 }
             }
         ],
@@ -12958,10 +13048,10 @@
     "iaa_overlap_ratio_default": 50,
     "iaa_display_hashcode": "2195438294481648",
     "iaa_display_tags_context": true,
-    "iaa_display_tags_tp": true,
+    "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.13523603021775954,
+    "force_module_update": 0.16588830343776562,
     "iaa_gs_dict": {
         "2195438294481648": {
             "ann": {

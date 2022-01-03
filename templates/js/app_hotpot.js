@@ -1336,6 +1336,19 @@ var app_hotpot = {
                     },
                 }
             }
+            // change the style for the tag column
+            var col = 'A';
+            for (let i = 0; i < this.dtd.etags.length; i++) {
+                const etag = this.dtd.etags[i];
+                var row = '' + (i+3);
+                ws_summary[col + row].s = {
+                    fill: {
+                        fgColor: {
+                            rgb: etag.style.color.substring(1).toLocaleUpperCase()
+                        }
+                    },
+                }
+            }
 
             // sheet 2. the files
             var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
@@ -1356,6 +1369,7 @@ var app_hotpot = {
                     Tags: ws_tags,
                 }
             };
+            console.log(wb);
 
             // decide the file name for this export
             var fn = this.dtd.name + '-iaa-report.xlsx';
