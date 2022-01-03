@@ -1314,7 +1314,35 @@ var app_hotpot = {
         },
 
         export_iaa_report: function() {
+            // create each sheet
+            // sheet 1. the summary
+            var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
 
+            // sheet 2. the files
+            var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
+
+            // sheet 3. the tags
+            var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
+
+            // create wb for download
+            var wb = {
+                SheetNames: [
+                    "Summary",
+                    "Files",
+                    "Tags"
+                ],
+                Sheets: {
+                    Summary: ws_summary,
+                    Files: ws_files,
+                    Tags: ws_tags,
+                }
+            };
+
+            // decide the file name for this export
+            var fn = this.dtd.name + '-iaa-report.xlsx';
+
+            // download this wb
+            XLSX.writeFile(wb, fn);
         },
 
         get_gs_zipfile_folder_name: function() {
@@ -2909,7 +2937,7 @@ var app_hotpot = {
         var i = 0;
         for (const tag_name in this.vpp.$data.dtd.tag_dict) {
             if (Object.hasOwnProperty.call(this.vpp.$data.dtd.tag_dict, tag_name)) {
-                const tag = this.vpp.$data.dtd.tag_dict[tag_name];
+                var tag = this.vpp.$data.dtd.tag_dict[tag_name];
                 
                 // add a new style for this tag
                 var color = 'white';
@@ -2921,6 +2949,11 @@ var app_hotpot = {
                     // just use a random color
                     color = '#' + Math.floor(Math.random()*16777215).toString(16);
                 }
+                
+                // update the color for this tag
+                this.vpp.$data.dtd.tag_dict[tag_name].style = {
+                    color: color
+                };
                 
                 // add this tag as the given color
                 // set this color for related css rules
