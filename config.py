@@ -85,6 +85,9 @@ THIRD_PARTY_LIB_URL={
     },
     'XLSX_JS_STYLE': {
         'JS': './static/lib/xlsx-js-style/xlsx.bundle.js'
+    },
+    'D3': {
+        'JS': './static/lib/d3/d3-v7.2.1.js'
     }
 },
 'cdn': {
@@ -155,6 +158,9 @@ THIRD_PARTY_LIB_URL={
     },
     'XLSX_JS_STYLE': {
         'JS': 'https://cdn.jsdelivr.net/npm/xlsx-js-style@1.0.0/dist/xlsx.bundle.js'
+    },
+    'D3': {
+        'JS': 'https://cdn.jsdelivr.net/npm/d3@7'
     }
 }}
 

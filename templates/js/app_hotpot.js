@@ -1330,21 +1330,34 @@ var app_hotpot = {
                 var row = '1';
                 ws_summary[col + row].s = {
                     font: {
-                        name: "Calibri",
                         sz: 14,
                         bold: true
                     },
                 }
             }
             // change the style for the tag column
-            var col = 'A';
+            var col_tag = 'A';
+            var col_f1 = 'B';
             for (let i = 0; i < this.dtd.etags.length; i++) {
                 const etag = this.dtd.etags[i];
                 var row = '' + (i+3);
-                ws_summary[col + row].s = {
+                // change the tag bg
+                ws_summary[col_tag + row].s = {
                     fill: {
                         fgColor: {
                             rgb: etag.style.color.substring(1).toLocaleUpperCase()
+                        }
+                    },
+                }
+                // change the f1 bg
+                var f1_value = parseFloat(ws_summary[col_f1 + row].v)
+                var color4ws = d3.rgb(
+                    d3.interpolateBlues(f1_value)
+                ).formatHex();
+                ws_summary[col_f1 + row].s = {
+                    fill: {
+                        fgColor: {
+                            rgb: color4ws.substring(1)
                         }
                     },
                 }
