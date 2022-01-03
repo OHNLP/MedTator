@@ -1313,6 +1313,10 @@ var app_hotpot = {
             });
         },
 
+        export_iaa_report: function() {
+
+        },
+
         get_gs_zipfile_folder_name: function() {
             return this.dtd.name + '-goldstandards';
         },

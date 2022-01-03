@@ -79,6 +79,13 @@ THIRD_PARTY_LIB_URL={
     'XML_FORMATTER': {
         'JS': "./static/lib/xml-formatter/xml-formatter.js"
     },
+    'SHEETJS': {
+        'JS_MINI': "./static/lib/sheetjs/xlsx.mini.min.js",
+        'JS_SHIM': "./static/lib/sheetjs/shim.min.js"
+    },
+    'XLSX_JS_STYLE': {
+        'JS': './static/lib/xlsx-js-style/xlsx.bundle.js'
+    }
 },
 'cdn': {
     'METRO_UI': {
@@ -142,6 +149,13 @@ THIRD_PARTY_LIB_URL={
     'XML_FORMATTER': {
         'JS': "https://cdn.jsdelivr.net/npm/xml-formatter@2.4.0/dist/browser/xml-formatter.js"
     },
+    'SHEETJS': {
+        'JS_MINI': "https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.mini.min.js",
+        'JS_SHIM': "https://unpkg.com/xlsx@0.17.4/dist/shim.min.js"
+    },
+    'XLSX_JS_STYLE': {
+        'JS': 'https://cdn.jsdelivr.net/npm/xlsx-js-style@1.0.0/dist/xlsx.bundle.js'
+    }
 }}
 
 # Samples

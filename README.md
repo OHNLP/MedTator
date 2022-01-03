@@ -1,6 +1,6 @@
 # <img alt="MedTator" src="https://raw.githubusercontent.com/wiki/OHNLP/MedTator/img/logo.png">
 
-MedTator is a serverless web tool for corpus annotation. It is built on HTML5 techniques and many open-source packages, and was designed to be easy-to-use for your annotation task.
+MedTator is a serverless text annotation tool for corpus development. It is built on HTML5 techniques and many open-source packages, and was designed to be easy-to-use for your annotation task.
 
 No need to install any server or client runtime! 
 [Check Here to Start Annotation Now!](https://ohnlp.github.io/MedTator/?st=yes)

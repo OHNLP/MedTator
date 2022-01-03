@@ -138,6 +138,18 @@ v-bind:class="{'active': section=='iaa'}">
         <span class="caption">Calculate F1</span>
     </button>
 
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || iaa_gs_dict == null"
+        title="Download current adjudication result"
+        v-on:click="export_iaa_report">
+        <span class="icon">
+            <i class="fa fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Report</span>
+    </button>
+
     <span class="title">Inter-Annotator Agreement (IAA)</span>
 </div>
 
@@ -210,9 +222,10 @@ v-bind:class="{'active': section=='iaa'}">
 
     </div>
 
-        <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
 
-    <div>
+    <div class="d-flex flex-row">
+
         <button class="ribbon-button" 
             :disabled="dtd == null || iaa_gs_dict == null"
             title="Download current adjudication result"
@@ -222,6 +235,7 @@ v-bind:class="{'active': section=='iaa'}">
             </span>
             <span class="caption">Download</span>
         </button>
+
     </div>
     
     <span class="title">Adjudication</span>
