@@ -1316,7 +1316,26 @@ var app_hotpot = {
         export_iaa_report: function() {
             // create each sheet
             // sheet 1. the summary
-            var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
+            // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_summary = XLSX.utils.json_to_sheet(
+                iaa_calculator.get_iaa_summary_json(
+                    this.iaa_dict,
+                    this.dtd
+                )
+            );
+            // change the style for the header line
+            var cols = 'ABCDEFG'.split('');
+            for (let i = 0; i < cols.length; i++) {
+                var col = cols[i];
+                var row = '1';
+                ws_summary[col + row].s = {
+                    font: {
+                        name: "Calibri",
+                        sz: 14,
+                        bold: true
+                    },
+                }
+            }
 
             // sheet 2. the files
             var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
@@ -2949,7 +2968,7 @@ var app_hotpot = {
                     // just use a random color
                     color = '#' + Math.floor(Math.random()*16777215).toString(16);
                 }
-                
+
                 // update the color for this tag
                 this.vpp.$data.dtd.tag_dict[tag_name].style = {
                     color: color

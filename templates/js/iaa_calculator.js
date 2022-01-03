@@ -1,6 +1,5 @@
 var iaa_calculator = {
     
-
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
 
@@ -132,6 +131,41 @@ var iaa_calculator = {
         }
 
         return gs_dict;
+    },
+
+    get_iaa_summary_json: function(iaa_dict, dtd) {
+        // there are the following columns in the summary
+        // Tag Name, F1, precision, recall, TP, FP, FN
+        var js = [];
+
+        // add the overall
+        js.push({
+            'tag_name': 'Overall',
+            'F1': iaa_dict.all.f1.toFixed(4),
+            'precision': iaa_dict.all.precision.toFixed(4),
+            'recall': iaa_dict.all.recall.toFixed(4),
+            'TP': iaa_dict.all.cm.tp,
+            'FP': iaa_dict.all.cm.fp,
+            'FN': iaa_dict.all.cm.fn,
+        });
+
+        // now, check each etag
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const etag_name = dtd.etags[i].name;
+            
+            // add this tag to the summary
+            js.push({
+                'tag_name': etag_name,
+                'F1': iaa_dict.tag[etag_name].f1.toFixed(4),
+                'precision': iaa_dict.tag[etag_name].precision.toFixed(4),
+                'recall': iaa_dict.tag[etag_name].recall.toFixed(4),
+                'TP': iaa_dict.tag[etag_name].cm.tp,
+                'FP': iaa_dict.tag[etag_name].cm.fp,
+                'FN': iaa_dict.tag[etag_name].cm.fn,
+            });
+        }
+
+        return js;
     },
 
     /**
