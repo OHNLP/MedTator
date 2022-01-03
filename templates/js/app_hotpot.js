@@ -1317,54 +1317,17 @@ var app_hotpot = {
             // create each sheet
             // sheet 1. the summary
             // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
-            var ws_summary = XLSX.utils.json_to_sheet(
-                iaa_calculator.get_iaa_summary_json(
-                    this.iaa_dict,
-                    this.dtd
-                )
+            var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
+                this.iaa_dict,
+                this.dtd
             );
-            // change the style for the header line
-            var cols = 'ABCDEFG'.split('');
-            for (let i = 0; i < cols.length; i++) {
-                var col = cols[i];
-                var row = '1';
-                ws_summary[col + row].s = {
-                    font: {
-                        sz: 14,
-                        bold: true
-                    },
-                }
-            }
-            // change the style for the tag column
-            var col_tag = 'A';
-            var col_f1 = 'B';
-            for (let i = 0; i < this.dtd.etags.length; i++) {
-                const etag = this.dtd.etags[i];
-                var row = '' + (i+3);
-                // change the tag bg
-                ws_summary[col_tag + row].s = {
-                    fill: {
-                        fgColor: {
-                            rgb: etag.style.color.substring(1).toLocaleUpperCase()
-                        }
-                    },
-                }
-                // change the f1 bg
-                var f1_value = parseFloat(ws_summary[col_f1 + row].v)
-                var color4ws = d3.rgb(
-                    d3.interpolateBlues(f1_value)
-                ).formatHex();
-                ws_summary[col_f1 + row].s = {
-                    fill: {
-                        fgColor: {
-                            rgb: color4ws.substring(1)
-                        }
-                    },
-                }
-            }
 
             // sheet 2. the files
-            var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
+            // var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_files = iaa_calculator.get_iaa_report_files_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
 
             // sheet 3. the tags
             var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);

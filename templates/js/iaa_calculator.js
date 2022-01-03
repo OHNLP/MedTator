@@ -133,7 +133,7 @@ var iaa_calculator = {
         return gs_dict;
     },
 
-    get_iaa_summary_json: function(iaa_dict, dtd) {
+    get_iaa_report_summary_json: function(iaa_dict, dtd) {
         // there are the following columns in the summary
         // Tag Name, F1, precision, recall, TP, FP, FN
         var js = [];
@@ -166,6 +166,103 @@ var iaa_calculator = {
         }
 
         return js;
+    },
+
+    get_iaa_report_summary_excelws: function(iaa_dict, dtd) {
+        var ws_summary = XLSX.utils.json_to_sheet(
+            this.get_iaa_report_summary_json(
+                iaa_dict,
+                dtd
+            )
+        );
+        // change the style for the header line
+        var cols = 'ABCDEFG'.split('');
+        for (let i = 0; i < cols.length; i++) {
+            var col = cols[i];
+            var row = '1';
+            ws_summary[col + row].s = {
+                font: {
+                    sz: 14,
+                    bold: true
+                },
+            }
+        }
+        // change the style for the tag column
+        var col_tag = 'A';
+        var col_f1 = 'B';
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const etag = dtd.etags[i];
+            var row = '' + (i+3);
+            // change the tag bg
+            ws_summary[col_tag + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: etag.style.color.substring(1).toLocaleUpperCase()
+                    }
+                },
+            }
+            // change the f1 bg
+            var f1_value = parseFloat(ws_summary[col_f1 + row].v)
+            var color4ws = d3.rgb(
+                d3.interpolateBlues(f1_value)
+            ).formatHex();
+            ws_summary[col_f1 + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: color4ws.substring(1)
+                    }
+                },
+            }
+        }
+
+        return ws_summary;
+    },
+
+    get_iaa_report_files_json: function(iaa_dict, dtd) {
+        // there are following columns in the files json
+        // file name
+        var js = [];
+
+        for (const fnhash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
+                const ann_rst = iaa_dict.ann[fnhash];
+                
+                // create a j obj for this file
+                var j = {
+                    'file_name': ann_rst.anns[0]._filename,
+                    'F1': this.to_fixed(ann_rst.rst.all.f1),
+                    'precision': this.to_fixed(ann_rst.rst.all.precision),
+                    'recall': this.to_fixed(ann_rst.rst.all.recall),
+                    'TP': ann_rst.rst.all.cm.tp,
+                    'FP': ann_rst.rst.all.cm.fp,
+                    'FN': ann_rst.rst.all.cm.fn,
+                };
+
+                // add the f1 of each tag
+                for (let i = 0; i < dtd.etags.length; i++) {
+                    const etag = dtd.etags[i];
+                    j[etag.name + '_F1'] = this.to_fixed(
+                        ann_rst.rst.tag[etag.name].f1
+                    )
+                }
+
+                // add the result
+                js.push(j);
+            }
+        }
+
+        return js;
+    },
+
+    get_iaa_report_files_excelws: function(iaa_dict, dtd) {
+        var ws_files = XLSX.utils.json_to_sheet(
+            this.get_iaa_report_files_json(
+                iaa_dict,
+                dtd
+            )
+        );
+
+        return ws_files;
     },
 
     /**
@@ -635,6 +732,15 @@ var iaa_calculator = {
         h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
         h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
         return 4294967296 * (2097151 & h2) + (h1>>>0);
+    },
+
+    to_fixed: function(v) {
+        if (typeof(v) == 'undefined' ||
+            v == null || 
+            isNaN(v)) {
+            return '0.0000';
+        }
+        return v.toFixed(4);
     },
 
     set_union: function(setA, setB) {
