@@ -5,18 +5,19 @@
 <HEADACHE spans="361~369" text="headache" id="H0" comment=""/>
 <PAIN spans="371~381" text="Body aches" id="P0" comment=""/>
 <FATIGUE spans="383~390" text="fatigue" id="F0" comment=""/>
-<OTHER_AE spans="405~413" text="diarrhea" id="O0" comment=""/>
-<OTHER_AE spans="418~429" text="dehydration" id="O1" comment=""/>
+<OTHER_AE spans="405~413" text="diarrhea" id="O0" comment="" certainty="Positive"/>
+<OTHER_AE spans="418~429" text="dehydration" id="O1" comment="" certainty="Positive"/>
 <PAIN spans="505~515" text="Body aches" id="P1" comment=""/>
-<OTHER_AE spans="708~716" text="diarrhea" id="O2" comment=""/>
-<OTHER_AE spans="655~663" text="diarrhea" id="O3" comment=""/>
-<OTHER_AE spans="751~759" text="diarrhea" id="O4" comment=""/>
-<OTHER_AE spans="566~574" text="diarrhea" id="O5" comment=""/>
+<OTHER_AE spans="708~716" text="diarrhea" id="O2" comment="" certainty="Positive"/>
+<OTHER_AE spans="655~663" text="diarrhea" id="O3" comment="" certainty="Positive"/>
+<OTHER_AE spans="751~759" text="diarrhea" id="O4" comment="" certainty="Positive"/>
+<OTHER_AE spans="566~574" text="diarrhea" id="O5" comment="" certainty="Positive"/>
 <FATIGUE spans="552~559" text="fatigue" id="F1" comment=""/>
-<OTHER_AE spans="576~587" text="dehydration" id="O6" comment=""/>
+<OTHER_AE spans="576~587" text="dehydration" id="O6" comment="" certainty="Positive"/>
 <MEDICATION spans="318~325" text="Tylenol" id="M0" comment=""/>
 <HEADACHE spans="341~349" text="headache" id="H1" comment=""/>
 <MEDICATION spans="306~311" text="Advil" id="M1" comment=""/>
 <MEDICATION spans="479~484" text="Advil" id="M2" comment=""/>
+<OTHER_AE spans="873~879" text="thirst" id="O7" certainty="Positive" comment="Maybe not?"/>
 </TAGS>
 </VAX_AE_MED>

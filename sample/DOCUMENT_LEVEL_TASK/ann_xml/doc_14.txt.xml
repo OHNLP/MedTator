@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<VAX_SYMPTOM>
-<TEXT><![CDATA[Body aches, fever 101.1. No treatment. outcome mild improvement repeat temp 100.4]]></TEXT>
-<TAGS>
-<PAIN id="PA0" spans="-1~-1" text="" comment=""/>
-<PYREXIA id="P0" spans="-1~-1" text="" comment=""/>
-</TAGS>
-</VAX_SYMPTOM>

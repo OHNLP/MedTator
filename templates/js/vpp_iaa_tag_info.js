@@ -44,6 +44,14 @@ Vue.component('iaa-tag-info', {
             // call app_hotpot directly
             app_hotpot.vpp.accept_iaa_tag(hashcode, tag_name, cm, tag_idx, from);
         },
+
+        get_tag_spans_html: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return 'DOCLEVEL';
+            } else {
+                return tag.spans;
+            }
+        }
     },
 
     computed: {
@@ -82,7 +90,7 @@ Vue.component('iaa-tag-info', {
                 {{ tag.id }}
             </span>
             <span>
-                {{ tag.spans }}: 
+                {{ get_tag_spans_html(tag) }}: 
                 <b>
                     {{ tag.text }}
                 </b>

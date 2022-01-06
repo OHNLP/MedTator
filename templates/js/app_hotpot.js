@@ -342,6 +342,13 @@ var app_hotpot = {
             );
         },
 
+        report_an_issue: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/issues',
+                '_blank'
+            );
+        },
+
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
@@ -1330,7 +1337,11 @@ var app_hotpot = {
             );
 
             // sheet 3. the tags
-            var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
+            // var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_tags = iaa_calculator.get_iaa_report_tags_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
 
             // create wb for download
             var wb = {
@@ -2353,7 +2364,7 @@ var app_hotpot = {
         document.addEventListener(
             "keypress",
             function(event) {
-                console.log('* pressed on', event);
+                // console.log('* pressed on', event);
 
                 // first, check if there is any selection
                 app_hotpot.vpp.add_etag_by_shortcut_key(

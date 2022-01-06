@@ -4,5 +4,6 @@
 <TAGS>
 <NAUSEA spans="12~18" text="nausea" id="N0" comment=""/>
 <PAIN spans="88~92" text="pain" id="P0" comment=""/>
+<OTHER_AE spans="224~235" text="No vomiting" id="O0" certainty="Negated" comment="or just vomiting?"/>
 </TAGS>
 </VAX_AE_MED>

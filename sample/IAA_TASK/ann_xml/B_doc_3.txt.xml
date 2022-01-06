@@ -10,5 +10,9 @@
 <PYREXIA spans="743~748" text="fever" id="PY3" comment=""/>
 <PYREXIA spans="683~688" text="fever" id="PY4" comment=""/>
 <PYREXIA spans="595~600" text="fever" id="PY5" comment=""/>
+<MEDICATION spans="1299~1310" text="Antipyretic" id="M2" comment=""/>
+<MEDICATION spans="1314~1323" text="analgesic" id="M3" comment=""/>
+<MEDICATION spans="1343~1356" text="acetaminophen" id="M4" comment=""/>
+<MEDICATION spans="1358~1395" text="non-steroidal anti-inflammatory drugs" id="M5" comment=""/>
 </TAGS>
 </VAX_AE_MED>

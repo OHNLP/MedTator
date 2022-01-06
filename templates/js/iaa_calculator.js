@@ -169,12 +169,11 @@ var iaa_calculator = {
     },
 
     get_iaa_report_summary_excelws: function(iaa_dict, dtd) {
-        var ws_summary = XLSX.utils.json_to_sheet(
-            this.get_iaa_report_summary_json(
-                iaa_dict,
-                dtd
-            )
+        var js = this.get_iaa_report_summary_json(
+            iaa_dict,
+            dtd
         );
+        var ws_summary = XLSX.utils.json_to_sheet(js);
         // change the style for the header line
         var cols = 'ABCDEFG'.split('');
         for (let i = 0; i < cols.length; i++) {
@@ -187,9 +186,23 @@ var iaa_calculator = {
                 },
             }
         }
-        // change the style for the tag column
+
+        // change the style for the overall F1
         var col_tag = 'A';
         var col_f1 = 'B';
+        var overall_f1_value = js[0].F1;
+        var overall_f1_color4ws = d3.rgb(
+            d3.interpolateBlues(overall_f1_value * 0.9)
+        ).formatHex();
+        ws_summary[col_f1 + '2'].s = {
+            fill: {
+                fgColor: {
+                    rgb: overall_f1_color4ws.substring(1)
+                }
+            },
+        }
+
+        // change the style for the tag column
         for (let i = 0; i < dtd.etags.length; i++) {
             const etag = dtd.etags[i];
             var row = '' + (i+3);
@@ -204,7 +217,7 @@ var iaa_calculator = {
             // change the f1 bg
             var f1_value = parseFloat(ws_summary[col_f1 + row].v)
             var color4ws = d3.rgb(
-                d3.interpolateBlues(f1_value)
+                d3.interpolateBlues(f1_value * 0.9)
             ).formatHex();
             ws_summary[col_f1 + row].s = {
                 fill: {
@@ -229,7 +242,8 @@ var iaa_calculator = {
                 
                 // create a j obj for this file
                 var j = {
-                    'file_name': ann_rst.anns[0]._filename,
+                    'file_name_A': ann_rst.anns[0]._filename,
+                    'file_name_B': ann_rst.anns[1]._filename,
                     'F1': this.to_fixed(ann_rst.rst.all.f1),
                     'precision': this.to_fixed(ann_rst.rst.all.precision),
                     'recall': this.to_fixed(ann_rst.rst.all.recall),
@@ -255,14 +269,186 @@ var iaa_calculator = {
     },
 
     get_iaa_report_files_excelws: function(iaa_dict, dtd) {
-        var ws_files = XLSX.utils.json_to_sheet(
-            this.get_iaa_report_files_json(
-                iaa_dict,
-                dtd
-            )
+        var js = this.get_iaa_report_files_json(
+            iaa_dict,
+            dtd
         );
 
+        var ws_files = XLSX.utils.json_to_sheet(js);
+
+        // update the style
+        var col_f1 = 'C';
+        for (let i = 0; i < js.length; i++) {
+            // get the row number
+            var row = i + 2;
+
+            // the F1 column is
+            const j = js[i];
+            
+            // get the f1 value
+            var f1_value = parseFloat(j.F1);
+
+            // convert the f1 value to RGB color
+            var color4ws = d3.rgb(
+                d3.interpolateBlues(f1_value)
+            ).formatHex();
+
+            // set the style for this cell
+            ws_files[col_f1 + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: color4ws.substring(1)
+                    }
+                },
+            }
+        }
+
         return ws_files;
+    },
+
+    /**
+     * Get the IAA report, the details of tags.
+     *
+     * 
+     * @param {Object} iaa_dict the dictionary contains IAA result
+     * @param {Object} dtd the DTD schema
+     * @param {Object} flags flags for controling results
+     * @returns JSON format report
+     */
+    get_iaa_report_tags_json: function(iaa_dict, dtd, flags) {
+        if (typeof(flags)=='undefined') {
+            flags = {
+                skip_agreed_tags: false
+            }
+        }
+        // there are following columns in the files json
+        // file name
+        var js = [];
+        var cms = ['tp', 'fp', 'fn'];
+        if (flags.skip_agreed_tags) {
+            cms = ['fp', 'fn'];
+        }
+
+        for (const fnhash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
+                const ann_rst = iaa_dict.ann[fnhash];
+
+                // now need to check each tag in this ann_rst
+                for (let i = 0; i < dtd.etags.length; i++) {
+                    const etag = dtd.etags[i];
+                    
+                    // now need to check each cm
+                    for (let j = 0; j < cms.length; j++) {
+                        const cm = cms[j];
+                        // get the index for the cm tags
+                        // for tp and fp, use 0
+                        // for fn, use 1
+                        var idx = {'tp': 0, 'fp': 0, 'fn': 1}[cm];
+                        
+                        // where the tags comes from depends on
+                        // the index, which is coded in the parsing iaa
+                        var src = {0: 'A', 1: 'B'}[idx];
+
+                        // the IAA 
+                        var iaa = {
+                            'tp': 'Agreed',
+                            'fp': 'Disagreed',
+                            'fn': 'Disagreed'
+                        }[cm];
+                        
+                        // now need to check each item in this
+                        var cm_tags = ann_rst.rst.tag[etag.name].cm.tags[cm];
+                        for (let k = 0; k < cm_tags.length; k++) {
+                            // ok, put each tag to the js
+                            const cm_tag = cm_tags[k];
+                            
+                            // create a base json to hold everything
+                            var json = {
+                                'file_name': ann_rst.anns[idx]._filename,
+                                'source': src,
+                                'concept': etag.name,
+                                'id': cm_tag[idx].id,
+                                'spans': cm_tag[idx].spans,
+                                'text': cm_tag[idx].text,
+                                'IAA': iaa
+                            };
+
+                            // next need to put all attributes to this
+                            // this depends on the schema
+                            for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
+                                const etag_att = etag.attlists[att_idx];
+                                
+                                // the attribute name should be the same
+                                // since it is used as the column name.
+                                // So we need to create two new columns:
+                                // 1. att_x_key, for the attr key
+                                // 2. att_x_txt, for the attr value
+                                var col_att_key = 'attr_name_' + att_idx;
+                                var col_att_key_value = etag_att.name;
+
+                                var col_att_txt = 'attr_value_' + att_idx;
+                                var col_att_txt_value = cm_tag[idx][etag_att.name];
+
+                                // then put this two columns to the json
+                                json[col_att_key] = col_att_key_value;
+                                json[col_att_txt] = col_att_txt_value;
+                            }
+
+                            // put to js
+                            js.push(json);
+                        }
+                    }
+                }
+            }
+        }
+
+        return js;
+    },
+
+    get_iaa_report_tags_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_tags_json(
+            iaa_dict,
+            dtd
+        );
+        var ws_tags = XLSX.utils.json_to_sheet(js);
+
+        // change the style for the IAA column
+        var col_concept = 'C';
+        var col_iaa = 'G';
+        for (let i = 0; i < js.length; i++) {
+            // get the data item
+            var json = js[i];
+
+            // get the row number
+            // the first row is the header, 
+            // so the number starts with 2
+            var row = i + 2;
+
+            // set the style for the concept name
+            ws_tags[col_concept + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: dtd.tag_dict[json.concept].style.color.substring(1)
+                    }
+                },
+            }
+
+            // get IAA value in that cell and convert to color
+            var iaa_value = ws_tags[col_iaa + row].v;
+            var iaa_color = iaa_value=='Agreed'? '94D2BD': 'f4978e';
+
+            // set the style for the 
+            ws_tags[col_iaa + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: iaa_color
+                    }
+                },
+            }
+            
+        }
+
+        return ws_tags;
     },
 
     /**

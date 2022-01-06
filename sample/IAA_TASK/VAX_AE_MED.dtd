@@ -30,7 +30,8 @@
 
 
 <!ELEMENT OTHER_AE ( #PCDATA ) >
-<!ATTLIST OTHER_AE comment CDATA "" >
+<!ATTLIST OTHER_AE certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST OTHER_AE comment CDATA "NA" >
 
 
 <!ELEMENT MEDICATION ( #PCDATA ) >

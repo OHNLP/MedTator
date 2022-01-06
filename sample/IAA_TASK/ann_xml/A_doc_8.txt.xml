@@ -20,12 +20,12 @@ Information on the lot/batch number has been requested.]]></TEXT>
 <MEDICATION spans="792~801" text="vitamin e" id="M14" comment=""/>
 <MEDICATION spans="807~811" text="zinc" id="M15" comment=""/>
 <MEDICATION spans="869~875" text="keflex" id="M16" comment=""/>
-<OTHER_AE spans="1084~1099" text="sinus infection" id="O0" comment=""/>
+<OTHER_AE spans="1084~1099" text="sinus infection" id="O0" comment="or just sinus?" certainty="Positive"/>
 <DIZZINESS spans="1166~1171" text="dizzy" id="D0" comment=""/>
 <PAIN spans="1428~1434" text="aching" id="P0" comment=""/>
-<OTHER_AE spans="1718~1726" text="swelling" id="O1" comment=""/>
+<OTHER_AE spans="1718~1726" text="swelling" id="O1" comment="check later" certainty="Positive"/>
 <MEDICATION spans="2043~2053" text="antibiotic" id="M17" comment=""/>
-<OTHER_AE spans="2058~2063" text="sinus" id="O2" comment=""/>
+<OTHER_AE spans="2058~2063" text="sinus" id="O2" comment="or sinus problem?" certainty="Positive"/>
 <DIZZINESS spans="2196~2205" text="dizziness" id="D1" comment=""/>
 </TAGS>
 </VAX_AE_MED>

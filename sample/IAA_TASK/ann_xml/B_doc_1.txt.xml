@@ -5,8 +5,8 @@
 <MEDICATION spans="1143~1149" text="EpiPen" id="M0" comment=""/>
 <DIZZINESS spans="199~204" text="dizzy" id="D0" comment=""/>
 <DIZZINESS spans="209~220" text="lightheaded" id="D1" comment=""/>
-<OTHER_AE spans="1407~1424" text="face was very red" id="O0" comment=""/>
-<OTHER_AE spans="1430~1456" text="eyes were bulging slightly" id="O1" comment=""/>
+<OTHER_AE spans="1407~1424" text="face was very red" id="O0" comment="or red?" certainty="Positive"/>
+<OTHER_AE spans="1430~1456" text="eyes were bulging slightly" id="O1" comment="or just bulging?" certainty="Positive"/>
 <MEDICATION spans="1568~1574" text="EpiPen" id="M1" comment=""/>
 <TREATMENT id="T0" link_AEID="O0" link_AEText="face was very red" link_MEDID="M1" link_MEDText="EpiPen" comment=""/>
 <MEDICATION spans="470~488" text="ice pack and water" id="M2" comment=""/>

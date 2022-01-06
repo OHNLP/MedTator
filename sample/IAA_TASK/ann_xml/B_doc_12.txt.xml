@@ -3,5 +3,6 @@
 <TEXT><![CDATA[Within 15-minutes of vaccination, the patient reported a headache and feeling nauseous. EMS managed the patient's condition on-site.]]></TEXT>
 <TAGS>
 <HEADACHE spans="57~65" text="headache" id="H0" comment=""/>
+<NAUSEA spans="78~86" text="nauseous" id="N0" comment=""/>
 </TAGS>
 </VAX_AE_MED>

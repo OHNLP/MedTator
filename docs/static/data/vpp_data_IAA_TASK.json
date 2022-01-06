@@ -234,15 +234,43 @@
                 "attlists": [
                     {
                         "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "OTHER_AE",
                         "name": "comment",
                         "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 ],
                 "attlist_dict": {
+                    "certainty": {
+                        "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
                     "comment": {
                         "element": "OTHER_AE",
                         "name": "comment",
@@ -250,7 +278,7 @@
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 },
                 "style": {
@@ -592,15 +620,43 @@
                 "attlists": [
                     {
                         "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "OTHER_AE",
                         "name": "comment",
                         "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 ],
                 "attlist_dict": {
+                    "certainty": {
+                        "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
                     "comment": {
                         "element": "OTHER_AE",
                         "name": "comment",
@@ -608,7 +664,7 @@
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 },
                 "style": {
@@ -949,15 +1005,43 @@
                 "attlists": [
                     {
                         "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
+                    {
+                        "element": "OTHER_AE",
                         "name": "comment",
                         "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 ],
                 "attlist_dict": {
+                    "certainty": {
+                        "element": "OTHER_AE",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "Positive",
+                            "Negated",
+                            "Hypothetic",
+                            "Possible"
+                        ],
+                        "default_value": "Positive"
+                    },
                     "comment": {
                         "element": "OTHER_AE",
                         "name": "comment",
@@ -965,7 +1049,7 @@
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "NA"
                     }
                 },
                 "style": {
@@ -1075,7 +1159,7 @@
                 }
             }
         ],
-        "text": "<!ENTITY name \"VAX_AE_MED\">\n\n<!-- entity tag -->\n<!ELEMENT VAX ( #PCDATA ) >\n<!ATTLIST VAX comment CDATA \"\" >\n\n\n<!ELEMENT HEADACHE ( #PCDATA ) >\n<!ATTLIST HEADACHE comment CDATA \"\" >\n\n\n<!ELEMENT PAIN ( #PCDATA ) >\n<!ATTLIST PAIN comment CDATA \"\" >\n\n\n<!ELEMENT PYREXIA ( #PCDATA ) >\n<!ATTLIST PYREXIA comment CDATA \"\" >\n\n\n<!ELEMENT FATIGUE ( #PCDATA ) >\n<!ATTLIST FATIGUE comment CDATA \"\" >\n\n\n<!ELEMENT DIZZINESS ( #PCDATA ) >\n<!ATTLIST DIZZINESS comment CDATA \"\" >\n\n\n<!ELEMENT NAUSEA ( #PCDATA ) >\n<!ATTLIST NAUSEA comment CDATA \"\" >\n\n\n<!ELEMENT OTHER_AE ( #PCDATA ) >\n<!ATTLIST OTHER_AE comment CDATA \"\" >\n\n\n<!ELEMENT MEDICATION ( #PCDATA ) >\n<!ATTLIST MEDICATION comment CDATA \"\" >\n\n\n<!-- no #PCDATA makes a link tag-->\n<!ELEMENT TREATMENT EMPTY >\n<!ATTLIST TREATMENT arg0 IDREF prefix=\"link_AE\" #IMPLIED>\n<!ATTLIST TREATMENT arg1 IDREF prefix=\"link_MED\" #IMPLIED>\n<!ATTLIST TREATMENT comment CDATA \"\" >\n"
+        "text": "<!ENTITY name \"VAX_AE_MED\">\n\n<!-- entity tag -->\n<!ELEMENT VAX ( #PCDATA ) >\n<!ATTLIST VAX comment CDATA \"\" >\n\n\n<!ELEMENT HEADACHE ( #PCDATA ) >\n<!ATTLIST HEADACHE comment CDATA \"\" >\n\n\n<!ELEMENT PAIN ( #PCDATA ) >\n<!ATTLIST PAIN comment CDATA \"\" >\n\n\n<!ELEMENT PYREXIA ( #PCDATA ) >\n<!ATTLIST PYREXIA comment CDATA \"\" >\n\n\n<!ELEMENT FATIGUE ( #PCDATA ) >\n<!ATTLIST FATIGUE comment CDATA \"\" >\n\n\n<!ELEMENT DIZZINESS ( #PCDATA ) >\n<!ATTLIST DIZZINESS comment CDATA \"\" >\n\n\n<!ELEMENT NAUSEA ( #PCDATA ) >\n<!ATTLIST NAUSEA comment CDATA \"\" >\n\n\n<!ELEMENT OTHER_AE ( #PCDATA ) >\n<!ATTLIST OTHER_AE certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED \"Positive\" >\n<!ATTLIST OTHER_AE comment CDATA \"NA\" >\n\n\n<!ELEMENT MEDICATION ( #PCDATA ) >\n<!ATTLIST MEDICATION comment CDATA \"\" >\n\n\n<!-- no #PCDATA makes a link tag-->\n<!ELEMENT TREATMENT EMPTY >\n<!ATTLIST TREATMENT arg0 IDREF prefix=\"link_AE\" #IMPLIED>\n<!ATTLIST TREATMENT arg1 IDREF prefix=\"link_MED\" #IMPLIED>\n<!ATTLIST TREATMENT comment CDATA \"\" >\n"
     },
     "ann_idx": 0,
     "anns": [
@@ -1088,14 +1172,16 @@
                     "spans": "86~93",
                     "text": "anxiety",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "It may not relate to adverse event, check later",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "OTHER_AE",
                     "spans": "94~105",
                     "text": "nervousness",
                     "id": "O1",
-                    "comment": ""
+                    "comment": "Not sure",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "DIZZINESS",
@@ -1123,21 +1209,24 @@
                     "spans": "306~322",
                     "text": "not feeling well",
                     "id": "O2",
-                    "comment": ""
+                    "comment": "Not sure",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "OTHER_AE",
                     "spans": "989~1012",
                     "text": "unresponsive completely",
                     "id": "O3",
-                    "comment": ""
+                    "comment": "check later",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "OTHER_AE",
                     "spans": "406~411",
                     "text": "faint",
                     "id": "O4",
-                    "comment": ""
+                    "comment": "may merge to dizzy",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "MEDICATION",
@@ -1290,7 +1379,8 @@
                     "spans": "0~15",
                     "text": "Soreness in arm",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "Or just soreness?",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "PAIN",
@@ -1304,7 +1394,8 @@
                     "spans": "462~477",
                     "text": "Soreness in arm",
                     "id": "O1",
-                    "comment": ""
+                    "comment": "same as another one",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "PAIN",
@@ -1603,7 +1694,8 @@
                     "spans": "248~254",
                     "text": "Nausea",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "should be another AE",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "PAIN",
@@ -1624,14 +1716,16 @@
                     "spans": "566~574",
                     "text": "diarrhea",
                     "id": "O1",
-                    "comment": ""
+                    "comment": "",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "OTHER_AE",
                     "spans": "576~587",
                     "text": "dehydration",
                     "id": "O2",
-                    "comment": ""
+                    "comment": "",
+                    "certainty": "Positive"
                 }
             ],
             "meta": {},
@@ -1728,14 +1822,16 @@
                     "spans": "39~47",
                     "text": "Soreness",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "OTHER_AE",
                     "spans": "52~62",
                     "text": "tenderness",
                     "id": "O1",
-                    "comment": ""
+                    "comment": "",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "VAX",
@@ -2222,7 +2318,8 @@
                     "spans": "1084~1099",
                     "text": "sinus infection",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "or just sinus?",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "DIZZINESS",
@@ -2243,7 +2340,8 @@
                     "spans": "1718~1726",
                     "text": "swelling",
                     "id": "O1",
-                    "comment": ""
+                    "comment": "check later",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "MEDICATION",
@@ -2257,7 +2355,8 @@
                     "spans": "2058~2063",
                     "text": "sinus",
                     "id": "O2",
-                    "comment": ""
+                    "comment": "or sinus problem?",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "DIZZINESS",
@@ -2577,7 +2676,8 @@
                     "spans": "113~121",
                     "text": "swelling",
                     "id": "O0",
-                    "comment": ""
+                    "comment": "check later with soreness",
+                    "certainty": "Positive"
                 },
                 {
                     "tag": "MEDICATION",
@@ -3386,14 +3486,16 @@
                             "spans": "86~93",
                             "text": "anxiety",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "It may not relate to adverse event, check later",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "94~105",
                             "text": "nervousness",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "Not sure",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "DIZZINESS",
@@ -3421,21 +3523,24 @@
                             "spans": "306~322",
                             "text": "not feeling well",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "Not sure",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "989~1012",
                             "text": "unresponsive completely",
                             "id": "O3",
-                            "comment": ""
+                            "comment": "check later",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "406~411",
                             "text": "faint",
                             "id": "O4",
-                            "comment": ""
+                            "comment": "may merge to dizzy",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -3588,7 +3693,8 @@
                             "spans": "0~15",
                             "text": "Soreness in arm",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "Or just soreness?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "PAIN",
@@ -3602,7 +3708,8 @@
                             "spans": "462~477",
                             "text": "Soreness in arm",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "same as another one",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "PAIN",
@@ -3901,7 +4008,8 @@
                             "spans": "248~254",
                             "text": "Nausea",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "should be another AE",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "PAIN",
@@ -3922,14 +4030,16 @@
                             "spans": "566~574",
                             "text": "diarrhea",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "576~587",
                             "text": "dehydration",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         }
                     ],
                     "meta": {},
@@ -4026,14 +4136,16 @@
                             "spans": "39~47",
                             "text": "Soreness",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "52~62",
                             "text": "tenderness",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "VAX",
@@ -4520,7 +4632,8 @@
                             "spans": "1084~1099",
                             "text": "sinus infection",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "or just sinus?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "DIZZINESS",
@@ -4541,7 +4654,8 @@
                             "spans": "1718~1726",
                             "text": "swelling",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "check later",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -4555,7 +4669,8 @@
                             "spans": "2058~2063",
                             "text": "sinus",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "or sinus problem?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "DIZZINESS",
@@ -4875,7 +4990,8 @@
                             "spans": "113~121",
                             "text": "swelling",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "check later with soreness",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5059,14 +5175,16 @@
                             "spans": "1407~1424",
                             "text": "face was very red",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "or red?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "1430~1456",
                             "text": "eyes were bulging slightly",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "or just bulging?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5240,7 +5358,8 @@
                             "spans": "462~477",
                             "text": "Soreness in arm",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "or soreness?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5393,6 +5512,34 @@
                             "spans": "595~600",
                             "text": "fever",
                             "id": "PY5",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1299~1310",
+                            "text": "Antipyretic",
+                            "id": "M2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1314~1323",
+                            "text": "analgesic",
+                            "id": "M3",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1343~1356",
+                            "text": "acetaminophen",
+                            "id": "M4",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1358~1395",
+                            "text": "non-steroidal anti-inflammatory drugs",
+                            "id": "M5",
                             "comment": ""
                         }
                     ],
@@ -5553,14 +5700,16 @@
                             "spans": "405~413",
                             "text": "diarrhea",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "418~429",
                             "text": "dehydration",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "PAIN",
@@ -5574,28 +5723,32 @@
                             "spans": "708~716",
                             "text": "diarrhea",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "655~663",
                             "text": "diarrhea",
                             "id": "O3",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "751~759",
                             "text": "diarrhea",
                             "id": "O4",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "566~574",
                             "text": "diarrhea",
                             "id": "O5",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "FATIGUE",
@@ -5609,7 +5762,8 @@
                             "spans": "576~587",
                             "text": "dehydration",
                             "id": "O6",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5638,6 +5792,14 @@
                             "text": "Advil",
                             "id": "M2",
                             "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "873~879",
+                            "text": "thirst",
+                            "id": "O7",
+                            "certainty": "Positive",
+                            "comment": "Maybe not?"
                         }
                     ],
                     "meta": {},
@@ -5748,14 +5910,16 @@
                             "spans": "1119~1127",
                             "text": "Soreness",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "1132~1142",
                             "text": "tenderness",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5783,14 +5947,16 @@
                             "spans": "1308~1316",
                             "text": "Soreness",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "1321~1331",
                             "text": "tenderness",
                             "id": "O3",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "MEDICATION",
@@ -5811,14 +5977,16 @@
                             "spans": "39~47",
                             "text": "Soreness",
                             "id": "O4",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "52~62",
                             "text": "tenderness",
                             "id": "O5",
-                            "comment": ""
+                            "comment": "",
+                            "certainty": "Positive"
                         }
                     ],
                     "meta": {},
@@ -6123,21 +6291,24 @@
                             "spans": "2558~2573",
                             "text": "sinus infection",
                             "id": "O0",
-                            "comment": ""
+                            "comment": "or just sinus?",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "2660~2675",
                             "text": "sinus infection",
                             "id": "O1",
-                            "comment": ""
+                            "comment": "same as the first one",
+                            "certainty": "Positive"
                         },
                         {
                             "tag": "OTHER_AE",
                             "spans": "1335~1350",
                             "text": "sinus infection",
                             "id": "O2",
-                            "comment": ""
+                            "comment": "same",
+                            "certainty": "Positive"
                         }
                     ],
                     "meta": {},
@@ -6492,6 +6663,14 @@
                             "text": "pain",
                             "id": "P0",
                             "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "224~235",
+                            "text": "No vomiting",
+                            "id": "O0",
+                            "certainty": "Negated",
+                            "comment": "or just vomiting?"
                         }
                     ],
                     "meta": {},
@@ -6547,6 +6726,13 @@
                             "text": "headache",
                             "id": "H0",
                             "comment": ""
+                        },
+                        {
+                            "tag": "NAUSEA",
+                            "spans": "78~86",
+                            "text": "nauseous",
+                            "id": "N0",
+                            "comment": ""
                         }
                     ],
                     "meta": {},
@@ -6588,14 +6774,16 @@
                                 "spans": "86~93",
                                 "text": "anxiety",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "It may not relate to adverse event, check later",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "94~105",
                                 "text": "nervousness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "Not sure",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "DIZZINESS",
@@ -6623,21 +6811,24 @@
                                 "spans": "306~322",
                                 "text": "not feeling well",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "Not sure",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "989~1012",
                                 "text": "unresponsive completely",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "check later",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "406~411",
                                 "text": "faint",
                                 "id": "O4",
-                                "comment": ""
+                                "comment": "may merge to dizzy",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -6811,14 +7002,16 @@
                                 "spans": "1407~1424",
                                 "text": "face was very red",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or red?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "1430~1456",
                                 "text": "eyes were bulging slightly",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "or just bulging?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -7151,7 +7344,8 @@
                                                 "spans": "86~93",
                                                 "text": "anxiety",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "It may not relate to adverse event, check later",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -7161,7 +7355,8 @@
                                                 "spans": "94~105",
                                                 "text": "nervousness",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "Not sure",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -7171,7 +7366,8 @@
                                                 "spans": "306~322",
                                                 "text": "not feeling well",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "Not sure",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -7181,7 +7377,8 @@
                                                 "spans": "989~1012",
                                                 "text": "unresponsive completely",
                                                 "id": "O3",
-                                                "comment": ""
+                                                "comment": "check later",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -7191,7 +7388,8 @@
                                                 "spans": "406~411",
                                                 "text": "faint",
                                                 "id": "O4",
-                                                "comment": ""
+                                                "comment": "may merge to dizzy",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ]
@@ -7204,7 +7402,8 @@
                                                 "spans": "1407~1424",
                                                 "text": "face was very red",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "or red?",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -7214,7 +7413,8 @@
                                                 "spans": "1430~1456",
                                                 "text": "eyes were bulging slightly",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "or just bulging?",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ]
@@ -7304,7 +7504,8 @@
                                 "spans": "0~15",
                                 "text": "Soreness in arm",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "Or just soreness?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "PAIN",
@@ -7318,7 +7519,8 @@
                                 "spans": "462~477",
                                 "text": "Soreness in arm",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "same as another one",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "PAIN",
@@ -7422,7 +7624,8 @@
                                 "spans": "462~477",
                                 "text": "Soreness in arm",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or soreness?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -7696,14 +7899,16 @@
                                                 "spans": "462~477",
                                                 "text": "Soreness in arm",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "same as another one",
+                                                "certainty": "Positive"
                                             },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "462~477",
                                                 "text": "Soreness in arm",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "or soreness?",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ],
@@ -7714,7 +7919,8 @@
                                                 "spans": "0~15",
                                                 "text": "Soreness in arm",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "Or just soreness?",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ]
@@ -8007,6 +8213,34 @@
                                 "text": "fever",
                                 "id": "PY5",
                                 "comment": ""
+                            },
+                            {
+                                "tag": "MEDICATION",
+                                "spans": "1299~1310",
+                                "text": "Antipyretic",
+                                "id": "M2",
+                                "comment": ""
+                            },
+                            {
+                                "tag": "MEDICATION",
+                                "spans": "1314~1323",
+                                "text": "analgesic",
+                                "id": "M3",
+                                "comment": ""
+                            },
+                            {
+                                "tag": "MEDICATION",
+                                "spans": "1343~1356",
+                                "text": "acetaminophen",
+                                "id": "M4",
+                                "comment": ""
+                            },
+                            {
+                                "tag": "MEDICATION",
+                                "spans": "1358~1395",
+                                "text": "non-steroidal anti-inflammatory drugs",
+                                "id": "M5",
+                                "comment": ""
                             }
                         ],
                         "meta": {},
@@ -8139,13 +8373,13 @@
                 ],
                 "rst": {
                     "all": {
-                        "precision": 0.42857142857142855,
-                        "recall": 0.375,
-                        "f1": 0.39999999999999997,
+                        "precision": 0.7142857142857143,
+                        "recall": 0.4166666666666667,
+                        "f1": 0.5263157894736842,
                         "cm": {
-                            "tp": 3,
-                            "fp": 4,
-                            "fn": 5
+                            "tp": 5,
+                            "fp": 2,
+                            "fn": 7
                         }
                     },
                     "tag": {
@@ -8360,13 +8594,13 @@
                             }
                         },
                         "MEDICATION": {
-                            "precision": 0.5,
-                            "recall": 1,
-                            "f1": 0.6666666666666666,
+                            "precision": 1,
+                            "recall": 0.6666666666666666,
+                            "f1": 0.8,
                             "cm": {
-                                "tp": 2,
-                                "fp": 2,
-                                "fn": 0,
+                                "tp": 4,
+                                "fp": 0,
+                                "fn": 2,
                                 "tags": {
                                     "tp": [
                                         [
@@ -8400,9 +8634,7 @@
                                                 "id": "M1",
                                                 "comment": ""
                                             }
-                                        ]
-                                    ],
-                                    "fp": [
+                                        ],
                                         [
                                             {
                                                 "tag": "MEDICATION",
@@ -8411,7 +8643,13 @@
                                                 "id": "M2",
                                                 "comment": ""
                                             },
-                                            null
+                                            {
+                                                "tag": "MEDICATION",
+                                                "spans": "1299~1310",
+                                                "text": "Antipyretic",
+                                                "id": "M2",
+                                                "comment": ""
+                                            }
                                         ],
                                         [
                                             {
@@ -8421,10 +8659,38 @@
                                                 "id": "M3",
                                                 "comment": ""
                                             },
-                                            null
+                                            {
+                                                "tag": "MEDICATION",
+                                                "spans": "1343~1356",
+                                                "text": "acetaminophen",
+                                                "id": "M4",
+                                                "comment": ""
+                                            }
                                         ]
                                     ],
-                                    "fn": []
+                                    "fp": [],
+                                    "fn": [
+                                        [
+                                            null,
+                                            {
+                                                "tag": "MEDICATION",
+                                                "spans": "1314~1323",
+                                                "text": "analgesic",
+                                                "id": "M3",
+                                                "comment": ""
+                                            }
+                                        ],
+                                        [
+                                            null,
+                                            {
+                                                "tag": "MEDICATION",
+                                                "spans": "1358~1395",
+                                                "text": "non-steroidal anti-inflammatory drugs",
+                                                "id": "M5",
+                                                "comment": ""
+                                            }
+                                        ]
+                                    ]
                                 }
                             }
                         }
@@ -8449,7 +8715,8 @@
                                 "spans": "248~254",
                                 "text": "Nausea",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "should be another AE",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "PAIN",
@@ -8470,14 +8737,16 @@
                                 "spans": "566~574",
                                 "text": "diarrhea",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "576~587",
                                 "text": "dehydration",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             }
                         ],
                         "meta": {},
@@ -8588,14 +8857,16 @@
                                 "spans": "405~413",
                                 "text": "diarrhea",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "418~429",
                                 "text": "dehydration",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "PAIN",
@@ -8609,28 +8880,32 @@
                                 "spans": "708~716",
                                 "text": "diarrhea",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "655~663",
                                 "text": "diarrhea",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "751~759",
                                 "text": "diarrhea",
                                 "id": "O4",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "566~574",
                                 "text": "diarrhea",
                                 "id": "O5",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "FATIGUE",
@@ -8644,7 +8919,8 @@
                                 "spans": "576~587",
                                 "text": "dehydration",
                                 "id": "O6",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -8673,6 +8949,14 @@
                                 "text": "Advil",
                                 "id": "M2",
                                 "comment": ""
+                            },
+                            {
+                                "tag": "OTHER_AE",
+                                "spans": "873~879",
+                                "text": "thirst",
+                                "id": "O7",
+                                "certainty": "Positive",
+                                "comment": "Maybe not?"
                             }
                         ],
                         "meta": {},
@@ -8757,12 +9041,12 @@
                 "rst": {
                     "all": {
                         "precision": 0.5,
-                        "recall": 0.1875,
-                        "f1": 0.2727272727272727,
+                        "recall": 0.17647058823529413,
+                        "f1": 0.2608695652173913,
                         "cm": {
                             "tp": 3,
                             "fp": 3,
-                            "fn": 13
+                            "fn": 14
                         }
                     },
                     "tag": {
@@ -8965,12 +9249,12 @@
                         },
                         "OTHER_AE": {
                             "precision": 0.6666666666666666,
-                            "recall": 0.2857142857142857,
-                            "f1": 0.4,
+                            "recall": 0.25,
+                            "f1": 0.36363636363636365,
                             "cm": {
                                 "tp": 2,
                                 "fp": 1,
-                                "fn": 5,
+                                "fn": 6,
                                 "tags": {
                                     "tp": [
                                         [
@@ -8979,14 +9263,16 @@
                                                 "spans": "566~574",
                                                 "text": "diarrhea",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "566~574",
                                                 "text": "diarrhea",
                                                 "id": "O5",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -8995,14 +9281,16 @@
                                                 "spans": "576~587",
                                                 "text": "dehydration",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "576~587",
                                                 "text": "dehydration",
                                                 "id": "O6",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ],
@@ -9013,7 +9301,8 @@
                                                 "spans": "248~254",
                                                 "text": "Nausea",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "should be another AE",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ]
@@ -9026,7 +9315,8 @@
                                                 "spans": "405~413",
                                                 "text": "diarrhea",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9036,7 +9326,8 @@
                                                 "spans": "418~429",
                                                 "text": "dehydration",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9046,7 +9337,8 @@
                                                 "spans": "708~716",
                                                 "text": "diarrhea",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9056,7 +9348,8 @@
                                                 "spans": "655~663",
                                                 "text": "diarrhea",
                                                 "id": "O3",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9066,7 +9359,19 @@
                                                 "spans": "751~759",
                                                 "text": "diarrhea",
                                                 "id": "O4",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
+                                            }
+                                        ],
+                                        [
+                                            null,
+                                            {
+                                                "tag": "OTHER_AE",
+                                                "spans": "873~879",
+                                                "text": "thirst",
+                                                "id": "O7",
+                                                "certainty": "Positive",
+                                                "comment": "Maybe not?"
                                             }
                                         ]
                                     ]
@@ -9140,14 +9445,16 @@
                                 "spans": "39~47",
                                 "text": "Soreness",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "52~62",
                                 "text": "tenderness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "VAX",
@@ -9377,14 +9684,16 @@
                                 "spans": "1119~1127",
                                 "text": "Soreness",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "1132~1142",
                                 "text": "tenderness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -9412,14 +9721,16 @@
                                 "spans": "1308~1316",
                                 "text": "Soreness",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "1321~1331",
                                 "text": "tenderness",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -9440,14 +9751,16 @@
                                 "spans": "39~47",
                                 "text": "Soreness",
                                 "id": "O4",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "52~62",
                                 "text": "tenderness",
                                 "id": "O5",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             }
                         ],
                         "meta": {},
@@ -9790,14 +10103,16 @@
                                                 "spans": "39~47",
                                                 "text": "Soreness",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "39~47",
                                                 "text": "Soreness",
                                                 "id": "O4",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9806,14 +10121,16 @@
                                                 "spans": "52~62",
                                                 "text": "tenderness",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "52~62",
                                                 "text": "tenderness",
                                                 "id": "O5",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ],
@@ -9826,7 +10143,8 @@
                                                 "spans": "1119~1127",
                                                 "text": "Soreness",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9836,7 +10154,8 @@
                                                 "spans": "1132~1142",
                                                 "text": "tenderness",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9846,7 +10165,8 @@
                                                 "spans": "1308~1316",
                                                 "text": "Soreness",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -9856,7 +10176,8 @@
                                                 "spans": "1321~1331",
                                                 "text": "tenderness",
                                                 "id": "O3",
-                                                "comment": ""
+                                                "comment": "",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ]
@@ -10792,7 +11113,8 @@
                                 "spans": "1084~1099",
                                 "text": "sinus infection",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or just sinus?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "DIZZINESS",
@@ -10813,7 +11135,8 @@
                                 "spans": "1718~1726",
                                 "text": "swelling",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "check later",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -10827,7 +11150,8 @@
                                 "spans": "2058~2063",
                                 "text": "sinus",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "or sinus problem?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "DIZZINESS",
@@ -11036,21 +11360,24 @@
                                 "spans": "2558~2573",
                                 "text": "sinus infection",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or just sinus?",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "2660~2675",
                                 "text": "sinus infection",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "same as the first one",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "OTHER_AE",
                                 "spans": "1335~1350",
                                 "text": "sinus infection",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "same",
+                                "certainty": "Positive"
                             }
                         ],
                         "meta": {},
@@ -11410,7 +11737,8 @@
                                                 "spans": "1084~1099",
                                                 "text": "sinus infection",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "or just sinus?",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -11420,7 +11748,8 @@
                                                 "spans": "1718~1726",
                                                 "text": "swelling",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "check later",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ],
@@ -11430,7 +11759,8 @@
                                                 "spans": "2058~2063",
                                                 "text": "sinus",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "or sinus problem?",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ]
@@ -11443,7 +11773,8 @@
                                                 "spans": "2558~2573",
                                                 "text": "sinus infection",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "or just sinus?",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -11453,7 +11784,8 @@
                                                 "spans": "2660~2675",
                                                 "text": "sinus infection",
                                                 "id": "O1",
-                                                "comment": ""
+                                                "comment": "same as the first one",
+                                                "certainty": "Positive"
                                             }
                                         ],
                                         [
@@ -11463,7 +11795,8 @@
                                                 "spans": "1335~1350",
                                                 "text": "sinus infection",
                                                 "id": "O2",
-                                                "comment": ""
+                                                "comment": "same",
+                                                "certainty": "Positive"
                                             }
                                         ]
                                     ]
@@ -12069,7 +12402,8 @@
                                 "spans": "113~121",
                                 "text": "swelling",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "check later with soreness",
+                                "certainty": "Positive"
                             },
                             {
                                 "tag": "MEDICATION",
@@ -12333,7 +12667,8 @@
                                                 "spans": "113~121",
                                                 "text": "swelling",
                                                 "id": "O0",
-                                                "comment": ""
+                                                "comment": "check later with soreness",
+                                                "certainty": "Positive"
                                             },
                                             null
                                         ]
@@ -12452,6 +12787,14 @@
                                 "text": "pain",
                                 "id": "P0",
                                 "comment": ""
+                            },
+                            {
+                                "tag": "OTHER_AE",
+                                "spans": "224~235",
+                                "text": "No vomiting",
+                                "id": "O0",
+                                "certainty": "Negated",
+                                "comment": "or just vomiting?"
                             }
                         ],
                         "meta": {},
@@ -12501,12 +12844,12 @@
                 "rst": {
                     "all": {
                         "precision": 1,
-                        "recall": 1,
-                        "f1": 1,
+                        "recall": 0.6666666666666666,
+                        "f1": 0.8,
                         "cm": {
                             "tp": 2,
                             "fp": 0,
-                            "fn": 0
+                            "fn": 1
                         }
                     },
                     "tag": {
@@ -12651,16 +12994,28 @@
                         },
                         "OTHER_AE": {
                             "precision": null,
-                            "recall": null,
+                            "recall": 0,
                             "f1": null,
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
-                                "fn": 0,
+                                "fn": 1,
                                 "tags": {
                                     "tp": [],
                                     "fp": [],
-                                    "fn": []
+                                    "fn": [
+                                        [
+                                            null,
+                                            {
+                                                "tag": "OTHER_AE",
+                                                "spans": "224~235",
+                                                "text": "No vomiting",
+                                                "id": "O0",
+                                                "certainty": "Negated",
+                                                "comment": "or just vomiting?"
+                                            }
+                                        ]
+                                    ]
                                 }
                             }
                         },
@@ -12728,6 +13083,13 @@
                                 "text": "headache",
                                 "id": "H0",
                                 "comment": ""
+                            },
+                            {
+                                "tag": "NAUSEA",
+                                "spans": "78~86",
+                                "text": "nauseous",
+                                "id": "N0",
+                                "comment": ""
                             }
                         ],
                         "meta": {},
@@ -12756,12 +13118,12 @@
                 "rst": {
                     "all": {
                         "precision": 1,
-                        "recall": 1,
-                        "f1": 1,
+                        "recall": 0.5,
+                        "f1": 0.6666666666666666,
                         "cm": {
                             "tp": 1,
                             "fp": 0,
-                            "fn": 0
+                            "fn": 1
                         }
                     },
                     "tag": {
@@ -12874,16 +13236,27 @@
                         },
                         "NAUSEA": {
                             "precision": null,
-                            "recall": null,
+                            "recall": 0,
                             "f1": null,
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
-                                "fn": 0,
+                                "fn": 1,
                                 "tags": {
                                     "tp": [],
                                     "fp": [],
-                                    "fn": []
+                                    "fn": [
+                                        [
+                                            null,
+                                            {
+                                                "tag": "NAUSEA",
+                                                "spans": "78~86",
+                                                "text": "nauseous",
+                                                "id": "N0",
+                                                "comment": ""
+                                            }
+                                        ]
+                                    ]
                                 }
                             }
                         },
@@ -12922,13 +13295,13 @@
             }
         },
         "all": {
-            "precision": 0.3815789473684211,
-            "recall": 0.46774193548387094,
-            "f1": 0.4202898550724638,
+            "precision": 0.40789473684210525,
+            "recall": 0.4492753623188406,
+            "f1": 0.4275862068965517,
             "cm": {
-                "tp": 29,
-                "fp": 47,
-                "fn": 33
+                "tp": 31,
+                "fp": 45,
+                "fn": 38
             }
         },
         "tag": {
@@ -12994,32 +13367,32 @@
             },
             "NAUSEA": {
                 "precision": 1,
-                "recall": 1,
-                "f1": 1,
+                "recall": 0.6666666666666666,
+                "f1": 0.8,
                 "cm": {
                     "tp": 2,
                     "fp": 0,
-                    "fn": 0
+                    "fn": 1
                 }
             },
             "OTHER_AE": {
                 "precision": 0.3125,
-                "recall": 0.2631578947368421,
-                "f1": 0.2857142857142857,
+                "recall": 0.23809523809523808,
+                "f1": 0.27027027027027023,
                 "cm": {
                     "tp": 5,
                     "fp": 11,
-                    "fn": 14
+                    "fn": 16
                 }
             },
             "MEDICATION": {
-                "precision": 0.25,
-                "recall": 0.6153846153846154,
-                "f1": 0.35555555555555557,
+                "precision": 0.3125,
+                "recall": 0.5882352941176471,
+                "f1": 0.40816326530612246,
                 "cm": {
-                    "tp": 8,
-                    "fp": 24,
-                    "fn": 5
+                    "tp": 10,
+                    "fp": 22,
+                    "fn": 7
                 }
             }
         },
@@ -13048,10 +13421,10 @@
     "iaa_overlap_ratio_default": 50,
     "iaa_display_hashcode": "2195438294481648",
     "iaa_display_tags_context": true,
-    "iaa_display_tags_tp": false,
+    "iaa_display_tags_tp": true,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.16588830343776562,
+    "force_module_update": 0.6934493134056456,
     "iaa_gs_dict": {
         "2195438294481648": {
             "ann": {
@@ -13258,7 +13631,8 @@
                                 "spans": "86~93",
                                 "text": "anxiety",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "It may not relate to adverse event, check later",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -13268,7 +13642,8 @@
                                 "spans": "94~105",
                                 "text": "nervousness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "Not sure",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -13278,7 +13653,8 @@
                                 "spans": "306~322",
                                 "text": "not feeling well",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "Not sure",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -13288,7 +13664,8 @@
                                 "spans": "989~1012",
                                 "text": "unresponsive completely",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "check later",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -13298,7 +13675,8 @@
                                 "spans": "406~411",
                                 "text": "faint",
                                 "id": "O4",
-                                "comment": ""
+                                "comment": "may merge to dizzy",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -13310,7 +13688,8 @@
                                 "spans": "1407~1424",
                                 "text": "face was very red",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or red?",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -13320,7 +13699,8 @@
                                 "spans": "1430~1456",
                                 "text": "eyes were bulging slightly",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "or just bulging?",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         }
@@ -13528,7 +13908,8 @@
                                 "spans": "462~477",
                                 "text": "Soreness in arm",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "same as another one",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -13540,7 +13921,8 @@
                                 "spans": "0~15",
                                 "text": "Soreness in arm",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "Or just soreness?",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -13843,9 +14225,7 @@
                                 "comment": ""
                             },
                             "from": "A"
-                        }
-                    ],
-                    "fp": [
+                        },
                         {
                             "tag": {
                                 "tag": "MEDICATION",
@@ -13867,7 +14247,29 @@
                             "from": "A"
                         }
                     ],
-                    "fn": []
+                    "fp": [],
+                    "fn": [
+                        {
+                            "tag": {
+                                "tag": "MEDICATION",
+                                "spans": "1314~1323",
+                                "text": "analgesic",
+                                "id": "M3",
+                                "comment": ""
+                            },
+                            "from": "B"
+                        },
+                        {
+                            "tag": {
+                                "tag": "MEDICATION",
+                                "spans": "1358~1395",
+                                "text": "non-steroidal anti-inflammatory drugs",
+                                "id": "M5",
+                                "comment": ""
+                            },
+                            "from": "B"
+                        }
+                    ]
                 }
             }
         },
@@ -14084,7 +14486,8 @@
                                 "spans": "566~574",
                                 "text": "diarrhea",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -14094,7 +14497,8 @@
                                 "spans": "576~587",
                                 "text": "dehydration",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -14106,7 +14510,8 @@
                                 "spans": "248~254",
                                 "text": "Nausea",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "should be another AE",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -14118,7 +14523,8 @@
                                 "spans": "405~413",
                                 "text": "diarrhea",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14128,7 +14534,8 @@
                                 "spans": "418~429",
                                 "text": "dehydration",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14138,7 +14545,8 @@
                                 "spans": "708~716",
                                 "text": "diarrhea",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14148,7 +14556,8 @@
                                 "spans": "655~663",
                                 "text": "diarrhea",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14158,7 +14567,19 @@
                                 "spans": "751~759",
                                 "text": "diarrhea",
                                 "id": "O4",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
+                            },
+                            "from": "B"
+                        },
+                        {
+                            "tag": {
+                                "tag": "OTHER_AE",
+                                "spans": "873~879",
+                                "text": "thirst",
+                                "id": "O7",
+                                "certainty": "Positive",
+                                "comment": "Maybe not?"
                             },
                             "from": "B"
                         }
@@ -14439,7 +14860,8 @@
                                 "spans": "39~47",
                                 "text": "Soreness",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -14449,7 +14871,8 @@
                                 "spans": "52~62",
                                 "text": "tenderness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -14462,7 +14885,8 @@
                                 "spans": "1119~1127",
                                 "text": "Soreness",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14472,7 +14896,8 @@
                                 "spans": "1132~1142",
                                 "text": "tenderness",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14482,7 +14907,8 @@
                                 "spans": "1308~1316",
                                 "text": "Soreness",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -14492,7 +14918,8 @@
                                 "spans": "1321~1331",
                                 "text": "tenderness",
                                 "id": "O3",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         }
@@ -15131,7 +15558,8 @@
                                 "spans": "1084~1099",
                                 "text": "sinus infection",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or just sinus?",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -15141,7 +15569,8 @@
                                 "spans": "1718~1726",
                                 "text": "swelling",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "check later",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         },
@@ -15151,7 +15580,8 @@
                                 "spans": "2058~2063",
                                 "text": "sinus",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "or sinus problem?",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -15163,7 +15593,8 @@
                                 "spans": "2558~2573",
                                 "text": "sinus infection",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "or just sinus?",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -15173,7 +15604,8 @@
                                 "spans": "2660~2675",
                                 "text": "sinus infection",
                                 "id": "O1",
-                                "comment": ""
+                                "comment": "same as the first one",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         },
@@ -15183,7 +15615,8 @@
                                 "spans": "1335~1350",
                                 "text": "sinus infection",
                                 "id": "O2",
-                                "comment": ""
+                                "comment": "same",
+                                "certainty": "Positive"
                             },
                             "from": "B"
                         }
@@ -15645,7 +16078,8 @@
                                 "spans": "113~121",
                                 "text": "swelling",
                                 "id": "O0",
-                                "comment": ""
+                                "comment": "check later with soreness",
+                                "certainty": "Positive"
                             },
                             "from": "A"
                         }
@@ -15779,7 +16213,19 @@
                 "OTHER_AE": {
                     "tp": [],
                     "fp": [],
-                    "fn": []
+                    "fn": [
+                        {
+                            "tag": {
+                                "tag": "OTHER_AE",
+                                "spans": "224~235",
+                                "text": "No vomiting",
+                                "id": "O0",
+                                "certainty": "Negated",
+                                "comment": "or just vomiting?"
+                            },
+                            "from": "B"
+                        }
+                    ]
                 },
                 "MEDICATION": {
                     "tp": [],
@@ -15860,7 +16306,18 @@
                 "NAUSEA": {
                     "tp": [],
                     "fp": [],
-                    "fn": []
+                    "fn": [
+                        {
+                            "tag": {
+                                "tag": "NAUSEA",
+                                "spans": "78~86",
+                                "text": "nauseous",
+                                "id": "N0",
+                                "comment": ""
+                            },
+                            "from": "B"
+                        }
+                    ]
                 },
                 "OTHER_AE": {
                     "tp": [],

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_SYMPTOM>
+<TEXT><![CDATA[Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days]]></TEXT>
+<TAGS>
+<FATIGUE id="F0" spans="-1~-1" text="" comment=""/>
+<OTHER_SYMP id="O0" spans="-1~-1" text="" comment=""/>
+<SORENESS id="S0" spans="-1~-1" text="" comment=""/>
+</TAGS>
+</VAX_SYMPTOM>

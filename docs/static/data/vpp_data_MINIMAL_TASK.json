@@ -55,6 +55,9 @@
                         "default_value": "NA"
                     }
                 },
+                "style": {
+                    "color": "#a6cee3"
+                },
                 "shortcut": "1"
             }
         },
@@ -113,6 +116,9 @@
                         "default_value": "NA"
                     }
                 },
+                "style": {
+                    "color": "#a6cee3"
+                },
                 "shortcut": "1"
             }
         },
@@ -169,6 +175,9 @@
                         "values": [],
                         "default_value": "NA"
                     }
+                },
+                "style": {
+                    "color": "#a6cee3"
                 },
                 "shortcut": "1"
             }
@@ -668,7 +677,7 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.5487621298213043,
+    "force_module_update": 0.9991696815184765,
     "iaa_gs_dict": null,
     "cm": {
         "display_mode": "document",

@@ -10,7 +10,7 @@ DEV_PORT=8086
 STATIC_PAGE_ROOT_PATH='docs'
 
 # the MedTator version
-MEDTATOR_VERSION='1.2.0'
+MEDTATOR_VERSION='1.2.3'
 
 # library base
 LIB_BASE='cdn'
@@ -175,6 +175,6 @@ TASK_SAMPLES = [
     ['ENTITY_RELATION_TASK', 'Entity and Relation Annotation', 'A sample for entity and relation annotation'],
     ['DOCUMENT_LEVEL_TASK', 'Document-Level Annotation', 'A sample for document level annotation samples'],
     ['IAA_TASK', 'IAA Calculation', 'A sample for IAA calculation'],
-    None,
-    ['AMIA21_WORKSHOP', 'AMIA 2021 Workshop', 'A sample task for AMIA 2021 workshop annotation presentation'],
+    # None,
+    # ['AMIA21_WORKSHOP', 'AMIA 2021 Workshop', 'A sample task for AMIA 2021 workshop annotation presentation'],
 ]

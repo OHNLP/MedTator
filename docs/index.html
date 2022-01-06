@@ -1545,21 +1545,38 @@ v-bind:class="{'active': section=='annotation'}">
             </li>
             
             
-            
-            <li class="divider"></li>
-            
-            
-            
-            <li title="A sample task for AMIA 2021 workshop annotation presentation"
-                v-on:click="load_sample_ds('AMIA21_WORKSHOP');">
-                <a href="javascript:void(0);">AMIA 2021 Workshop</a>
-            </li>
-            
-            
         </ul>
     </div>
 
-    <button class="ribbon-button" 
+    <div class="ribbon-split-button">
+        <button class="ribbon-main"
+            title="MedTator document"
+            data-role="popover"
+            data-popover-position="right"
+            data-popover-text="MedTator wiki that includes quick start, <br>manual, and technical details."
+            v-on:click="show_wiki">
+            <span class="icon">
+                <i class="fa fa-info"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Wiki</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+
+            <li title="MedTator wiki that includes quick start, <br>manual, and technical details."
+                v-on:click="show_wiki">
+                <a href="javascript:void(0);">MedTator Wiki</a>
+            </li>
+
+            <li title="Found anything not working? report an issue or send feedback"
+                v-on:click="report_an_issue">
+                <a href="javascript:void(0);">Report an Issue ...</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- <button class="ribbon-button" 
         data-role="popover"
         data-popover-position="right"
         data-popover-text="MedTator wiki that includes quick start, <br>manual, and technical details."
@@ -1568,7 +1585,7 @@ v-bind:class="{'active': section=='annotation'}">
             <i class="fa fa-info"></i>
         </span>
         <span class="caption">Wiki</span>
-    </button>
+    </button> -->
 
     <span class="title">Help</span>
 </div>
@@ -1808,7 +1825,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 <div class="group">
     <button class="ribbon-button"
-        v-on:click="clear_iaa_all">
+        v-on:click="clear_iaa_all(null)">
         <span class="icon">
             <i class="far fa-times-circle"></i>
         </span>
@@ -1942,6 +1959,18 @@ v-bind:class="{'active': section=='iaa'}">
         <span class="caption">Calculate F1</span>
     </button>
 
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || iaa_gs_dict == null"
+        title="Download current adjudication result"
+        v-on:click="export_iaa_report">
+        <span class="icon">
+            <i class="fa fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Report</span>
+    </button>
+
     <span class="title">Inter-Annotator Agreement (IAA)</span>
 </div>
 
@@ -2014,9 +2043,10 @@ v-bind:class="{'active': section=='iaa'}">
 
     </div>
 
-        <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
 
-    <div>
+    <div class="d-flex flex-row">
+
         <button class="ribbon-button" 
             :disabled="dtd == null || iaa_gs_dict == null"
             title="Download current adjudication result"
@@ -2026,6 +2056,7 @@ v-bind:class="{'active': section=='iaa'}">
             </span>
             <span class="caption">Download</span>
         </button>
+
     </div>
     
     <span class="title">Adjudication</span>
@@ -2036,7 +2067,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.0 | 
+            MedTator 1.2.3 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -3424,6 +3455,13 @@ var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.o
 <script src="./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"></script>
 <!-- format xml -->
 <script src="https://cdn.jsdelivr.net/npm/xml-formatter@2.4.0/dist/browser/xml-formatter.js"></script>
+<!-- export xlsx -->
+<script src="https://unpkg.com/xlsx@0.17.4/dist/shim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.mini.min.js"></script>
+<!-- xlsx style -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.0.0/dist/xlsx.bundle.js"></script>
+<!-- d3 for data visualization -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script>
 
 // The file helper 
@@ -6244,7 +6282,6 @@ var spacy_toolkit = {
 // The IAA Calculator
 var iaa_calculator = {
     
-
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
 
@@ -6376,6 +6413,324 @@ var iaa_calculator = {
         }
 
         return gs_dict;
+    },
+
+    get_iaa_report_summary_json: function(iaa_dict, dtd) {
+        // there are the following columns in the summary
+        // Tag Name, F1, precision, recall, TP, FP, FN
+        var js = [];
+
+        // add the overall
+        js.push({
+            'tag_name': 'Overall',
+            'F1': iaa_dict.all.f1.toFixed(4),
+            'precision': iaa_dict.all.precision.toFixed(4),
+            'recall': iaa_dict.all.recall.toFixed(4),
+            'TP': iaa_dict.all.cm.tp,
+            'FP': iaa_dict.all.cm.fp,
+            'FN': iaa_dict.all.cm.fn,
+        });
+
+        // now, check each etag
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const etag_name = dtd.etags[i].name;
+            
+            // add this tag to the summary
+            js.push({
+                'tag_name': etag_name,
+                'F1': iaa_dict.tag[etag_name].f1.toFixed(4),
+                'precision': iaa_dict.tag[etag_name].precision.toFixed(4),
+                'recall': iaa_dict.tag[etag_name].recall.toFixed(4),
+                'TP': iaa_dict.tag[etag_name].cm.tp,
+                'FP': iaa_dict.tag[etag_name].cm.fp,
+                'FN': iaa_dict.tag[etag_name].cm.fn,
+            });
+        }
+
+        return js;
+    },
+
+    get_iaa_report_summary_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_summary_json(
+            iaa_dict,
+            dtd
+        );
+        var ws_summary = XLSX.utils.json_to_sheet(js);
+        // change the style for the header line
+        var cols = 'ABCDEFG'.split('');
+        for (let i = 0; i < cols.length; i++) {
+            var col = cols[i];
+            var row = '1';
+            ws_summary[col + row].s = {
+                font: {
+                    sz: 14,
+                    bold: true
+                },
+            }
+        }
+
+        // change the style for the overall F1
+        var col_tag = 'A';
+        var col_f1 = 'B';
+        var overall_f1_value = js[0].F1;
+        var overall_f1_color4ws = d3.rgb(
+            d3.interpolateBlues(overall_f1_value * 0.9)
+        ).formatHex();
+        ws_summary[col_f1 + '2'].s = {
+            fill: {
+                fgColor: {
+                    rgb: overall_f1_color4ws.substring(1)
+                }
+            },
+        }
+
+        // change the style for the tag column
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const etag = dtd.etags[i];
+            var row = '' + (i+3);
+            // change the tag bg
+            ws_summary[col_tag + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: etag.style.color.substring(1).toLocaleUpperCase()
+                    }
+                },
+            }
+            // change the f1 bg
+            var f1_value = parseFloat(ws_summary[col_f1 + row].v)
+            var color4ws = d3.rgb(
+                d3.interpolateBlues(f1_value * 0.9)
+            ).formatHex();
+            ws_summary[col_f1 + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: color4ws.substring(1)
+                    }
+                },
+            }
+        }
+
+        return ws_summary;
+    },
+
+    get_iaa_report_files_json: function(iaa_dict, dtd) {
+        // there are following columns in the files json
+        // file name
+        var js = [];
+
+        for (const fnhash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
+                const ann_rst = iaa_dict.ann[fnhash];
+                
+                // create a j obj for this file
+                var j = {
+                    'file_name_A': ann_rst.anns[0]._filename,
+                    'file_name_B': ann_rst.anns[1]._filename,
+                    'F1': this.to_fixed(ann_rst.rst.all.f1),
+                    'precision': this.to_fixed(ann_rst.rst.all.precision),
+                    'recall': this.to_fixed(ann_rst.rst.all.recall),
+                    'TP': ann_rst.rst.all.cm.tp,
+                    'FP': ann_rst.rst.all.cm.fp,
+                    'FN': ann_rst.rst.all.cm.fn,
+                };
+
+                // add the f1 of each tag
+                for (let i = 0; i < dtd.etags.length; i++) {
+                    const etag = dtd.etags[i];
+                    j[etag.name + '_F1'] = this.to_fixed(
+                        ann_rst.rst.tag[etag.name].f1
+                    )
+                }
+
+                // add the result
+                js.push(j);
+            }
+        }
+
+        return js;
+    },
+
+    get_iaa_report_files_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_files_json(
+            iaa_dict,
+            dtd
+        );
+
+        var ws_files = XLSX.utils.json_to_sheet(js);
+
+        // update the style
+        var col_f1 = 'C';
+        for (let i = 0; i < js.length; i++) {
+            // get the row number
+            var row = i + 2;
+
+            // the F1 column is
+            const j = js[i];
+            
+            // get the f1 value
+            var f1_value = parseFloat(j.F1);
+
+            // convert the f1 value to RGB color
+            var color4ws = d3.rgb(
+                d3.interpolateBlues(f1_value)
+            ).formatHex();
+
+            // set the style for this cell
+            ws_files[col_f1 + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: color4ws.substring(1)
+                    }
+                },
+            }
+        }
+
+        return ws_files;
+    },
+
+    /**
+     * Get the IAA report, the details of tags.
+     *
+     * 
+     * @param {Object} iaa_dict the dictionary contains IAA result
+     * @param {Object} dtd the DTD schema
+     * @param {Object} flags flags for controling results
+     * @returns JSON format report
+     */
+    get_iaa_report_tags_json: function(iaa_dict, dtd, flags) {
+        if (typeof(flags)=='undefined') {
+            flags = {
+                skip_agreed_tags: false
+            }
+        }
+        // there are following columns in the files json
+        // file name
+        var js = [];
+        var cms = ['tp', 'fp', 'fn'];
+        if (flags.skip_agreed_tags) {
+            cms = ['fp', 'fn'];
+        }
+
+        for (const fnhash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
+                const ann_rst = iaa_dict.ann[fnhash];
+
+                // now need to check each tag in this ann_rst
+                for (let i = 0; i < dtd.etags.length; i++) {
+                    const etag = dtd.etags[i];
+                    
+                    // now need to check each cm
+                    for (let j = 0; j < cms.length; j++) {
+                        const cm = cms[j];
+                        // get the index for the cm tags
+                        // for tp and fp, use 0
+                        // for fn, use 1
+                        var idx = {'tp': 0, 'fp': 0, 'fn': 1}[cm];
+                        
+                        // where the tags comes from depends on
+                        // the index, which is coded in the parsing iaa
+                        var src = {0: 'A', 1: 'B'}[idx];
+
+                        // the IAA 
+                        var iaa = {
+                            'tp': 'Agreed',
+                            'fp': 'Disagreed',
+                            'fn': 'Disagreed'
+                        }[cm];
+                        
+                        // now need to check each item in this
+                        var cm_tags = ann_rst.rst.tag[etag.name].cm.tags[cm];
+                        for (let k = 0; k < cm_tags.length; k++) {
+                            // ok, put each tag to the js
+                            const cm_tag = cm_tags[k];
+                            
+                            // create a base json to hold everything
+                            var json = {
+                                'file_name': ann_rst.anns[idx]._filename,
+                                'source': src,
+                                'concept': etag.name,
+                                'id': cm_tag[idx].id,
+                                'spans': cm_tag[idx].spans,
+                                'text': cm_tag[idx].text,
+                                'IAA': iaa
+                            };
+
+                            // next need to put all attributes to this
+                            // this depends on the schema
+                            for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
+                                const etag_att = etag.attlists[att_idx];
+                                
+                                // the attribute name should be the same
+                                // since it is used as the column name.
+                                // So we need to create two new columns:
+                                // 1. att_x_key, for the attr key
+                                // 2. att_x_txt, for the attr value
+                                var col_att_key = 'attr_name_' + att_idx;
+                                var col_att_key_value = etag_att.name;
+
+                                var col_att_txt = 'attr_value_' + att_idx;
+                                var col_att_txt_value = cm_tag[idx][etag_att.name];
+
+                                // then put this two columns to the json
+                                json[col_att_key] = col_att_key_value;
+                                json[col_att_txt] = col_att_txt_value;
+                            }
+
+                            // put to js
+                            js.push(json);
+                        }
+                    }
+                }
+            }
+        }
+
+        return js;
+    },
+
+    get_iaa_report_tags_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_tags_json(
+            iaa_dict,
+            dtd
+        );
+        var ws_tags = XLSX.utils.json_to_sheet(js);
+
+        // change the style for the IAA column
+        var col_concept = 'C';
+        var col_iaa = 'G';
+        for (let i = 0; i < js.length; i++) {
+            // get the data item
+            var json = js[i];
+
+            // get the row number
+            // the first row is the header, 
+            // so the number starts with 2
+            var row = i + 2;
+
+            // set the style for the concept name
+            ws_tags[col_concept + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: dtd.tag_dict[json.concept].style.color.substring(1)
+                    }
+                },
+            }
+
+            // get IAA value in that cell and convert to color
+            var iaa_value = ws_tags[col_iaa + row].v;
+            var iaa_color = iaa_value=='Agreed'? '94D2BD': 'f4978e';
+
+            // set the style for the 
+            ws_tags[col_iaa + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: iaa_color
+                    }
+                },
+            }
+            
+        }
+
+        return ws_tags;
     },
 
     /**
@@ -6845,6 +7200,15 @@ var iaa_calculator = {
         h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
         h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
         return 4294967296 * (2097151 & h2) + (h1>>>0);
+    },
+
+    to_fixed: function(v) {
+        if (typeof(v) == 'undefined' ||
+            v == null || 
+            isNaN(v)) {
+            return '0.0000';
+        }
+        return v.toFixed(4);
     },
 
     set_union: function(setA, setB) {
@@ -7939,6 +8303,13 @@ var app_hotpot = {
             );
         },
 
+        report_an_issue: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/issues',
+                '_blank'
+            );
+        },
+
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
@@ -8908,6 +9279,51 @@ var app_hotpot = {
             zip.generateAsync({ type: "blob" }).then(function (content) {
                 saveAs(content, app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + '.zip');
             });
+        },
+
+        export_iaa_report: function() {
+            // create each sheet
+            // sheet 1. the summary
+            // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
+            // sheet 2. the files
+            // var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_files = iaa_calculator.get_iaa_report_files_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
+            // sheet 3. the tags
+            // var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
+            var ws_tags = iaa_calculator.get_iaa_report_tags_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
+            // create wb for download
+            var wb = {
+                SheetNames: [
+                    "Summary",
+                    "Files",
+                    "Tags"
+                ],
+                Sheets: {
+                    Summary: ws_summary,
+                    Files: ws_files,
+                    Tags: ws_tags,
+                }
+            };
+            console.log(wb);
+
+            // decide the file name for this export
+            var fn = this.dtd.name + '-iaa-report.xlsx';
+
+            // download this wb
+            XLSX.writeFile(wb, fn);
         },
 
         get_gs_zipfile_folder_name: function() {
@@ -9909,7 +10325,7 @@ var app_hotpot = {
         document.addEventListener(
             "keypress",
             function(event) {
-                console.log('* pressed on', event);
+                // console.log('* pressed on', event);
 
                 // first, check if there is any selection
                 app_hotpot.vpp.add_etag_by_shortcut_key(
@@ -10502,7 +10918,7 @@ var app_hotpot = {
         var i = 0;
         for (const tag_name in this.vpp.$data.dtd.tag_dict) {
             if (Object.hasOwnProperty.call(this.vpp.$data.dtd.tag_dict, tag_name)) {
-                const tag = this.vpp.$data.dtd.tag_dict[tag_name];
+                var tag = this.vpp.$data.dtd.tag_dict[tag_name];
                 
                 // add a new style for this tag
                 var color = 'white';
@@ -10514,6 +10930,11 @@ var app_hotpot = {
                     // just use a random color
                     color = '#' + Math.floor(Math.random()*16777215).toString(16);
                 }
+
+                // update the color for this tag
+                this.vpp.$data.dtd.tag_dict[tag_name].style = {
+                    color: color
+                };
                 
                 // add this tag as the given color
                 // set this color for related css rules
@@ -12046,6 +12467,14 @@ Vue.component('iaa-tag-info', {
             // call app_hotpot directly
             app_hotpot.vpp.accept_iaa_tag(hashcode, tag_name, cm, tag_idx, from);
         },
+
+        get_tag_spans_html: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return 'DOCLEVEL';
+            } else {
+                return tag.spans;
+            }
+        }
     },
 
     computed: {
@@ -12084,7 +12513,7 @@ Vue.component('iaa-tag-info', {
                 {{ tag.id }}
             </span>
             <span>
-                {{ tag.spans }}: 
+                {{ get_tag_spans_html(tag) }}: 
                 <b>
                     {{ tag.text }}
                 </b>

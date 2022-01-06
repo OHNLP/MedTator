@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_SYMPTOM>
+<TEXT><![CDATA[Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night]]></TEXT>
+<TAGS>
+<HEADACHE id="H0" spans="-1~-1" text="" comment=""/>
+<PAIN id="PA0" spans="-1~-1" text="" comment=""/>
+</TAGS>
+</VAX_SYMPTOM>

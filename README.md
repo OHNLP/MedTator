@@ -7,6 +7,7 @@ No need to install any server or client runtime!
 
 ![MedTator Demo](https://raw.githubusercontent.com/wiki/OHNLP/MedTator/img/MedTator-demo-211221.gif)
 
+If you're having trouble using MedTator, you can use [Issues](https://github.com/OHNLP/MedTator/issues) to tell us about the issue you're experiencing.
 
 ## Documentation
 
@@ -15,6 +16,7 @@ No need to install any server or client runtime!
 * Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * No internet access? Check this [Standalone version](https://github.com/OHNLP/MedTator/wiki#download-standalone-version)
 * Parse annotation data? Here is the [Annotation File Format](https://github.com/OHNLP/MedTator/wiki/Annotation-Data).
+* Having issues? Check the [Issues](https://github.com/OHNLP/MedTator/issues).
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual).
 
 
@@ -80,6 +82,18 @@ python web.py --mode release
 ```
 
 ## Change log
+
+### 1.2.3 (2022-01-06)
+
+- Added IAA report download (as Excel XLSX format)
+- Added bacground colors to IAA report cells
+- Added summary and files details in the IAA report
+- Updated Wiki button for issue report
+- Updated IAA sample data annotation and schema design
+- Updated sample json files for style information
+- Updated the document-level adjudication label
+- Updated default samples
+- Fixed "Clear All" button not working bug
 
 ### 1.2.0 (2021-12-20)
 
