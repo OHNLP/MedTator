@@ -133,3 +133,6 @@ tmp/
 
 # release file
 *.zip
+
+# the editor settings
+.vscode/
