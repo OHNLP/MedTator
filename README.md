@@ -86,7 +86,7 @@ python web.py --mode release
 ### 1.2.3 (2022-01-06)
 
 - Added IAA report download (as Excel XLSX format)
-- Added bacground colors to IAA report cells
+- Added background colors to IAA report cells
 - Added summary and files details in the IAA report
 - Updated Wiki button for issue report
 - Updated IAA sample data annotation and schema design
