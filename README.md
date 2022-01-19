@@ -83,6 +83,11 @@ python web.py --mode release
 
 ## Change log
 
+### 1.2.5 (2022-01-20)
+
+- Added a setting option for linking marks between
+- Fixed the hover bug dismiss bug when deleting tag
+
 ### 1.2.3 (2022-01-06)
 
 - Added IAA report download (as Excel XLSX format)

@@ -1,0 +1,98 @@
+<div id="app_settings"
+    v-show="cfg.is_show_settings"
+    class="box">
+    <div class="box-header d-flex flex-justify-between">
+        <h4>
+            <i class="fa fa-cog"></i>
+            MedTator Settings
+        </h4>
+        <div>
+            <button v-on:click="cfg.is_show_settings = false">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="d-flex flex-row">
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
+                v-on:click="switch_setting_tab('import')">
+                <i class="far fa-file"></i>
+                Import
+            </div>
+
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='gui'}"
+                v-on:click="switch_setting_tab('gui')">
+                <i class="fa fa-table"></i>
+                GUI
+            </div>
+        </div>
+
+        <!-- import setting tab -->
+        <div v-if="cfg.active_setting_tab == 'import'">
+            <div class="box-body-item">
+                <p>
+                    Sentence Splitting Algorithm
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('sentence_splitting_algorithm')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ssa_v1" 
+                            value="simpledot" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v1">Simple Method (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ssa_v2" 
+                            value="compromise" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v2">Compromise NLP</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ssa_v3" 
+                            value="wink_nlp" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- data setting tab -->
+        <div v-else-if="cfg.active_setting_tab == 'gui'">
+            <div class="box-body-item">
+                <p>
+                    Linking marks selection between editor and concept list 
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('linking_marks_selection')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_lms_v1" 
+                            value="all_concepts" 
+                            v-model="cfg.linking_marks_selection">
+                        <label for="cfg_lms_v1">Render all marks (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_lms_v2" 
+                            value="selected_concepts" 
+                            v-model="cfg.linking_marks_selection">
+                        <label for="cfg_lms_v2">Render marks of selected concept</label>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+
+        <div v-else>
+            &nbsp;
+        </div>
+
+    </div>
+</div>

@@ -136,6 +136,9 @@ var app_hotpot = {
 
             // which algorithm to use as default
             sentence_splitting_algorithm: 'simpledot',
+
+            // render all marks or only the selected marks
+            linking_marks_selection: 'all_concepts'
         },
 
         // for statistics
@@ -2083,6 +2086,18 @@ var app_hotpot = {
         },
 
         /**
+         * Render all tags of all concepts or not
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.linking_marks_selection`.
+         * 
+         * @returns true/false
+         */
+        is_render_tags_of_all_concepts: function() {
+            return this.cfg.linking_marks_selection == 'all_concepts';
+        },
+
+        /**
          * Check if a tag is related to a certain tag type
          * 
          * @param {object} tag a tag object
@@ -3473,6 +3488,7 @@ var app_hotpot = {
             // nothing to do for empty
             return;
         }
+
         // update the new marks
         var working_ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
         for (let i = 0; i < working_ann.tags.length; i++) {
@@ -3588,10 +3604,14 @@ var app_hotpot = {
     },
 
     cm_mark_ann_ltag_in_text: function(tag, tag_def, ann) {
-        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-            // ok
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+            // ok, let's render all tags here
         } else {
-            return [-1];
+            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+                // ok
+            } else {
+                return [-1];
+            }
         }
 
         this.cm_draw_ltag(tag, tag_def, ann);
@@ -3599,43 +3619,50 @@ var app_hotpot = {
 
     cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
         var raw_spans = tag['spans'];
+        // before rendering this tag
+        // we need to check whether it should be rendered
 
-        // something wrong with the spans information?
+        // 1. something wrong with the spans information?
         if (raw_spans == '' || raw_spans == null) { 
             return [-1]; 
         }
 
-        // document-level tag, nothing to do
+        // 2. document-level tag, nothing to do or render differently
         if (raw_spans == dtd_parser.NON_CONSUMING_SPANS) {
             return [-2];
         }
 
-        // is display this tag by the tag list filter?
-        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-            // ok
+        // 3. is current setting to render all or only selected?
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+            // ok, nothing to worry, just render this tag
         } else {
-            // the second case is quite complex.
-            // to render the link tags,
-            // the related entity tags are also needed to render
-            // so the question is, is this tag belong to current link tag?
-            if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
-                // only check this for only showing link tag.
-                // otherwise it will cost unnecessary computation
-                if (app_hotpot.vpp.is_tag_related_to_tag_name(
-                    tag, 
-                    [app_hotpot.vpp.$data.display_tag_name],
-                    app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
-                )) {
-                    // ok, I don't which one, but it does belong to which link
-                    // just goto render
+            // is display this tag by the tag list filter?
+            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+                // ok
+            } else {
+                // the second case is quite complex.
+                // to render the link tags,
+                // the related entity tags are also needed to render
+                // so the question is, is this tag belong to current link tag?
+                if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
+                    // only check this for only showing link tag.
+                    // otherwise it will cost unnecessary computation
+                    if (app_hotpot.vpp.is_tag_related_to_tag_name(
+                        tag, 
+                        [app_hotpot.vpp.$data.display_tag_name],
+                        app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
+                    )) {
+                        // ok, I don't which one, but it does belong to which link
+                        // just goto render
 
+                    } else {
+                        // great, no need to render
+                        return [-3];
+                    }
                 } else {
                     // great, no need to render
-                    return [-3];
+                    return [-4];
                 }
-            } else {
-                // great, no need to render
-                return [-4];
             }
         }
 
@@ -3649,9 +3676,9 @@ var app_hotpot = {
             "" + tag.tag + ' - ' + tag.id,
             "spans: " + tag.spans
         ];
-
         descr = descr.join('\n');
         
+        // render every part of the spans
         for (let i = 0; i < spans_arr.length; i++) {
             const spans = spans_arr[i];
             const spans_text = text_arr[i];

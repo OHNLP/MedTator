@@ -17,5 +17,9 @@ MedTator provides some options for selecting different methods.
     <li>The <b>Wink NLP</b> method is based on <a target="_blank" href="https://winkjs.org/">WinkJS NLP library</a>.</li>
 </ul>
 `
+    },
+    "linking_marks_selection": {
+        title: 'Linking marks selection',
+        html: `The marks shown in the tag editor can be linked with the selection with the concept list.`
     }
 }});

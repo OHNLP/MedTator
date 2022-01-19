@@ -120,86 +120,8 @@
 
     </nav>
 
-    <div id="app_settings"
-        v-show="cfg.is_show_settings"
-        class="box">
-        <div class="box-header d-flex flex-justify-between">
-            <h4>
-                <i class="fa fa-cog"></i>
-                MedTator Settings
-            </h4>
-            <div>
-                <button v-on:click="cfg.is_show_settings = false">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <div class="d-flex flex-row">
-                <div class="px-2 setting-tab"
-                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                    v-on:click="switch_setting_tab('import')">
-                    <i class="far fa-file"></i>
-                    Import
-                </div>
-
-                <!-- <div class="px-2 setting-tab"
-                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='external_data'}"
-                    v-on:click="switch_setting_tab('external_data')">
-                    <i class="fa fa-table"></i>
-                    Data
-                </div> -->
-            </div>
-
-            <!-- import setting tab -->
-            <div v-if="cfg.active_setting_tab == 'import'">
-                <div class="box-body-item">
-                    <p>
-                        Sentence Splitting Algorithm
-                        <a href="javascript:void(0);"
-                            v-on:click="show_help('sentence_splitting_algorithm')">
-                            <i class="far fa-question-circle"></i>
-                        </a>:
-                    </p>
-                    <ul class="box">
-                        <li>
-                            <input type="radio" id="cfg_ssa_v1" 
-                                value="simpledot" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v1">Simple Method (Default)</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="cfg_ssa_v2" 
-                                value="compromise" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v2">Compromise NLP</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="cfg_ssa_v3" 
-                                value="wink_nlp" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- data setting tab -->
-            <div v-else-if="cfg.active_setting_tab == 'external_data'">
-                <div class="box-body-item">
-                    <p>
-                        TBD
-                    </p>
-                    
-                </div>
-            </div>
-
-            <div v-else>
-                &nbsp;
-            </div>
-
-        </div>
-    </div>
+    <!-- the ui for main settings -->
+    {% include '_annotator_mui_settings.html' %}
 
     <!-- the ui for main annotation -->
     {% include '_annotator_mui_annotation.html' %}
