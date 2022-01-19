@@ -3131,6 +3131,126 @@
         {
             "anns": [
                 {
+                    "text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation. The patient's medical history and concomitant medications were not reported. The patient previously had a flu and shingles shot. The patient asked the side effects after the second shot compared to the first in older people. She wanted to known if they need to be monitored more after the second shot. The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day. The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot. The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever. The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm. Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.  Information on the Lot/Batch Number has been requested.\n",
+                    "dtd_name": "COVID_VAX_AE",
+                    "tags": [
+                        {
+                            "tag": "SVRT",
+                            "spans": "691~695",
+                            "text": "mild",
+                            "id": "S2",
+                            "severity": "NA",
+                            "comment": "NA"
+                        },
+                        {
+                            "tag": "AE",
+                            "spans": "696~700",
+                            "text": "pain",
+                            "id": "A0",
+                            "certainty": "positive",
+                            "comment": "NA"
+                        },
+                        {
+                            "tag": "LK_AE_SVRT",
+                            "id": "L0",
+                            "comment": "NA",
+                            "link_AE": "A0",
+                            "link_SVRT": "S2"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "A_doc1.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [
+                        {
+                            "text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation.",
+                            "spans": {
+                                "start": 0,
+                                "end": 233
+                            }
+                        },
+                        {
+                            "text": " The patient's medical history and concomitant medications were not reported.",
+                            "spans": {
+                                "start": 234,
+                                "end": 310
+                            }
+                        },
+                        {
+                            "text": " The patient previously had a flu and shingles shot.",
+                            "spans": {
+                                "start": 311,
+                                "end": 362
+                            }
+                        },
+                        {
+                            "text": " The patient asked the side effects after the second shot compared to the first in older people.",
+                            "spans": {
+                                "start": 363,
+                                "end": 458
+                            }
+                        },
+                        {
+                            "text": " She wanted to known if they need to be monitored more after the second shot.",
+                            "spans": {
+                                "start": 459,
+                                "end": 535
+                            }
+                        },
+                        {
+                            "text": " The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day.",
+                            "spans": {
+                                "start": 536,
+                                "end": 748
+                            }
+                        },
+                        {
+                            "text": " The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot.",
+                            "spans": {
+                                "start": 749,
+                                "end": 864
+                            }
+                        },
+                        {
+                            "text": " The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever.",
+                            "spans": {
+                                "start": 865,
+                                "end": 1120
+                            }
+                        },
+                        {
+                            "text": " The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm.",
+                            "spans": {
+                                "start": 1121,
+                                "end": 1440
+                            }
+                        },
+                        {
+                            "text": " Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.",
+                            "spans": {
+                                "start": 1441,
+                                "end": 1862
+                            }
+                        },
+                        {
+                            "text": "  Information on the Lot/Batch Number has been requested.",
+                            "spans": {
+                                "start": 1863,
+                                "end": 1919
+                            }
+                        },
+                        {
+                            "text": "",
+                            "spans": {
+                                "start": 1920,
+                                "end": 1920
+                            }
+                        }
+                    ],
+                    "_sentences_text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation.\n The patient's medical history and concomitant medications were not reported.\n The patient previously had a flu and shingles shot.\n The patient asked the side effects after the second shot compared to the first in older people.\n She wanted to known if they need to be monitored more after the second shot.\n The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day.\n The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot.\n The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever.\n The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm.\n Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.\n  Information on the Lot/Batch Number has been requested.\n"
+                },
+                {
                     "text": "A 73-years-old female patient received first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; lot number and expiration date unspecified), via an unspecified route of administration on 28Jan2021 18:30 at single dose (right arm) for covid-19 immunization. Medical history included allergies, asthma and Clostridium difficile (c.dif). Patient had allergies to medications, food or other products. The patient was not pregnant. Concomitant medication included rosuvastatin within 2 weeks of vaccination. The patient received other vaccine within 4 weeks prior to Covid vaccine included 1 dose of pneumonia vaccine on 07Jan2021 at a clinic. On 28Jan2021 18:30, the patient experienced mild nausea. Treatment was not received for the event. Prior to vaccination, patient was not diagnosed with COVID-19 and since the vaccination, patient has not patient been tested for covid-19. Outcome of event was recovered on an unspecified date.  Information on the lot/batch number has been requested.\n",
                     "dtd_name": "COVID_VAX_AE",
                     "tags": [
@@ -3256,126 +3376,6 @@
                         }
                     ],
                     "_sentences_text": "A 73-years-old female patient received first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE;\n lot number and expiration date unspecified), via an unspecified route of administration on 28Jan2021 18:30 at single dose (right arm) for covid-19 immunization.\n Medical history included allergies, asthma and Clostridium difficile (c.dif).\n Patient had allergies to medications, food or other products.\n The patient was not pregnant.\n Concomitant medication included rosuvastatin within 2 weeks of vaccination.\n The patient received other vaccine within 4 weeks prior to Covid vaccine included 1 dose of pneumonia vaccine on 07Jan2021 at a clinic.\n On 28Jan2021 18:30, the patient experienced mild nausea.\n Treatment was not received for the event.\n Prior to vaccination, patient was not diagnosed with COVID-19 and since the vaccination, patient has not patient been tested for covid-19.\n Outcome of event was recovered on an unspecified date.\n  Information on the lot/batch number has been requested.\n"
-                },
-                {
-                    "text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation. The patient's medical history and concomitant medications were not reported. The patient previously had a flu and shingles shot. The patient asked the side effects after the second shot compared to the first in older people. She wanted to known if they need to be monitored more after the second shot. The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day. The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot. The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever. The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm. Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.  Information on the Lot/Batch Number has been requested.\n",
-                    "dtd_name": "COVID_VAX_AE",
-                    "tags": [
-                        {
-                            "tag": "SVRT",
-                            "spans": "691~695",
-                            "text": "mild",
-                            "id": "S2",
-                            "severity": "NA",
-                            "comment": "NA"
-                        },
-                        {
-                            "tag": "AE",
-                            "spans": "696~700",
-                            "text": "pain",
-                            "id": "A0",
-                            "certainty": "positive",
-                            "comment": "NA"
-                        },
-                        {
-                            "tag": "LK_AE_SVRT",
-                            "id": "L0",
-                            "comment": "NA",
-                            "link_AE": "A0",
-                            "link_SVRT": "S2"
-                        }
-                    ],
-                    "meta": {},
-                    "_fh": {},
-                    "_filename": "A_doc1.txt.xml",
-                    "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation.",
-                            "spans": {
-                                "start": 0,
-                                "end": 233
-                            }
-                        },
-                        {
-                            "text": " The patient's medical history and concomitant medications were not reported.",
-                            "spans": {
-                                "start": 234,
-                                "end": 310
-                            }
-                        },
-                        {
-                            "text": " The patient previously had a flu and shingles shot.",
-                            "spans": {
-                                "start": 311,
-                                "end": 362
-                            }
-                        },
-                        {
-                            "text": " The patient asked the side effects after the second shot compared to the first in older people.",
-                            "spans": {
-                                "start": 363,
-                                "end": 458
-                            }
-                        },
-                        {
-                            "text": " She wanted to known if they need to be monitored more after the second shot.",
-                            "spans": {
-                                "start": 459,
-                                "end": 535
-                            }
-                        },
-                        {
-                            "text": " The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day.",
-                            "spans": {
-                                "start": 536,
-                                "end": 748
-                            }
-                        },
-                        {
-                            "text": " The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot.",
-                            "spans": {
-                                "start": 749,
-                                "end": 864
-                            }
-                        },
-                        {
-                            "text": " The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever.",
-                            "spans": {
-                                "start": 865,
-                                "end": 1120
-                            }
-                        },
-                        {
-                            "text": " The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm.",
-                            "spans": {
-                                "start": 1121,
-                                "end": 1440
-                            }
-                        },
-                        {
-                            "text": " Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.",
-                            "spans": {
-                                "start": 1441,
-                                "end": 1862
-                            }
-                        },
-                        {
-                            "text": "  Information on the Lot/Batch Number has been requested.",
-                            "spans": {
-                                "start": 1863,
-                                "end": 1919
-                            }
-                        },
-                        {
-                            "text": "",
-                            "spans": {
-                                "start": 1920,
-                                "end": 1920
-                            }
-                        }
-                    ],
-                    "_sentences_text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation.\n The patient's medical history and concomitant medications were not reported.\n The patient previously had a flu and shingles shot.\n The patient asked the side effects after the second shot compared to the first in older people.\n She wanted to known if they need to be monitored more after the second shot.\n The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day.\n The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot.\n The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever.\n The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm.\n Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.\n  Information on the Lot/Batch Number has been requested.\n"
                 },
                 {
                     "text": "The patient received his first of two planned doses of mRNA-1273 (Lot 011L20A) on 08 Jan 2021 intramuscularly in the left upper arm. On 05 Feb 2021, prior to the onset of the events, the patient received his second of two planned doses of mRNA-1273 (Lot number: 031L20A) intramuscularly in the left upper arm for prophylaxis of Covid-19 infection.   The patient stated that when he received the first vaccine on 08 Jan 2021, it was a wonderful experience, and he did not feel the injection and did not experience any side effect. But, when he received the second dose on 05 Feb 2021, the injection itself was not well administered. Injector was distracted or not fully trained, and the patient felt pain with the needle and pain while the liquid of the vaccine was entering to the arm. After that, injector put a bandage but caller states that it was not placed where he receives the vaccine. While he was leaving the facility, the arm immediately started to swell up.\nThe patient stated that he thought the swelling was due to accumulation of the vaccine in the place where the vaccine was really administered, a few inches away from the site the first vaccine was administered. The day after the arm was very sore, red and bruised, but he thought it is because the administration of the needle, not a side effect of the vaccine. Both vaccines where administered in the upper left arm, but caller does not known if the second was in target. Unfortunately, had an incompetent injector who gave him a painful experience with the injection and the realize of the vaccine. Wanted to find out if should be concern that may have injected in an improper location and weather if gave him in other location, if should be concern that he may have not full effect of the vaccine. \n",
@@ -14319,14 +14319,14 @@
     },
     "iaa_display_tag_name": "__all__",
     "iaa_match_mode": "overlap",
-    "iaa_overlap_ratio": 30,
+    "iaa_overlap_ratio": 20,
     "iaa_overlap_ratio_default": 50,
     "iaa_display_hashcode": "2652282049920680",
     "iaa_display_tags_context": true,
     "iaa_display_tags_tp": true,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.6006121199497771,
+    "force_module_update": 0.4668965429471519,
     "iaa_gs_dict": {
         "2652282049920680": {
             "ann": {
@@ -17403,13 +17403,18 @@
     "cfg": {
         "is_show_settings": false,
         "active_setting_tab": "import",
-        "sentence_splitting_algorithm": "simpledot"
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts"
     },
     "export_text": null,
     "texts": {
         "sentence_splitting_algorithm": {
             "title": "Sentence Splitting Algorithm",
             "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        },
+        "linking_marks_selection": {
+            "title": "Linking marks selection",
+            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
         }
     }
 }

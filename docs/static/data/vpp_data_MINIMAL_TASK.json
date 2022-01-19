@@ -677,7 +677,7 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.9991696815184765,
+    "force_module_update": 0.8129581889329498,
     "iaa_gs_dict": null,
     "cm": {
         "display_mode": "document",
@@ -693,13 +693,18 @@
     "cfg": {
         "is_show_settings": false,
         "active_setting_tab": "import",
-        "sentence_splitting_algorithm": "simpledot"
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts"
     },
     "export_text": null,
     "texts": {
         "sentence_splitting_algorithm": {
             "title": "Sentence Splitting Algorithm",
             "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        },
+        "linking_marks_selection": {
+            "title": "Linking marks selection",
+            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
         }
     }
 }
