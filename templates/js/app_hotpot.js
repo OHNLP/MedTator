@@ -3150,6 +3150,9 @@ var app_hotpot = {
         this.vpp.$data.anns[this.vpp.$data.ann_idx]._has_saved = false;
         console.log('* deleted tag ' + tag_id);
 
+        // remove the hover box
+        this.vpp.hovered_tag = null;
+
         // update the marks
         if (is_update_marks) {
             app_hotpot.cm_update_marks();
