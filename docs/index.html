@@ -342,7 +342,7 @@ html,body {
     bottom: 0;
 }
 .tag-list-row {
-    
+    background-color: white;
 }
 .tag-list-row-actived {
     background-color: #fffee8;
@@ -684,6 +684,11 @@ span[data-descr]:focus::after {
 .tag-list-row-count-0 {
     color: #bdbdbd;
     font-size: .95em;
+}
+.tag-list-row-all-tags {
+    position: sticky;
+    top: 0;
+    z-index: 99;
 }
 .tag-table {
     font-size: .9em;
@@ -1570,6 +1575,13 @@ v-bind:class="{'active': section=='annotation'}">
                 <a href="javascript:void(0);">MedTator Wiki</a>
             </li>
 
+            <li title="The best practices for corpus annotation."
+                v-on:click="show_best_practice">
+                <a href="javascript:void(0);">Annotation Best Practice</a>
+            </li>
+
+            <li class="divider"></li>
+            
             <li title="Found anything not working? Report an issue or send feedback"
                 v-on:click="report_an_issue">
                 <a href="javascript:void(0);">Report an Issue</a>
@@ -2068,7 +2080,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.3 | 
+            MedTator 1.2.5 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2084,86 +2096,105 @@ v-bind:class="{'active': section=='iaa'}">
 
     </nav>
 
+    <!-- the ui for main settings -->
     <div id="app_settings"
-        v-show="cfg.is_show_settings"
-        class="box">
-        <div class="box-header d-flex flex-justify-between">
-            <h4>
-                <i class="fa fa-cog"></i>
-                MedTator Settings
-            </h4>
-            <div>
-                <button v-on:click="cfg.is_show_settings = false">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <div class="d-flex flex-row">
-                <div class="px-2 setting-tab"
-                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                    v-on:click="switch_setting_tab('import')">
-                    <i class="far fa-file"></i>
-                    Import
-                </div>
-
-                <!-- <div class="px-2 setting-tab"
-                    v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='external_data'}"
-                    v-on:click="switch_setting_tab('external_data')">
-                    <i class="fa fa-table"></i>
-                    Data
-                </div> -->
-            </div>
-
-            <!-- import setting tab -->
-            <div v-if="cfg.active_setting_tab == 'import'">
-                <div class="box-body-item">
-                    <p>
-                        Sentence Splitting Algorithm
-                        <a href="javascript:void(0);"
-                            v-on:click="show_help('sentence_splitting_algorithm')">
-                            <i class="far fa-question-circle"></i>
-                        </a>:
-                    </p>
-                    <ul class="box">
-                        <li>
-                            <input type="radio" id="cfg_ssa_v1" 
-                                value="simpledot" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v1">Simple Method (Default)</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="cfg_ssa_v2" 
-                                value="compromise" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v2">Compromise NLP</label>
-                        </li>
-                        <li>
-                            <input type="radio" id="cfg_ssa_v3" 
-                                value="wink_nlp" 
-                                v-model="cfg.sentence_splitting_algorithm">
-                            <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- data setting tab -->
-            <div v-else-if="cfg.active_setting_tab == 'external_data'">
-                <div class="box-body-item">
-                    <p>
-                        TBD
-                    </p>
-                    
-                </div>
-            </div>
-
-            <div v-else>
-                &nbsp;
-            </div>
-
+    v-show="cfg.is_show_settings"
+    class="box">
+    <div class="box-header d-flex flex-justify-between">
+        <h4>
+            <i class="fa fa-cog"></i>
+            MedTator Settings
+        </h4>
+        <div>
+            <button v-on:click="cfg.is_show_settings = false">
+                <i class="fa fa-times"></i>
+            </button>
         </div>
     </div>
+    <div class="box-body">
+        <div class="d-flex flex-row">
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
+                v-on:click="switch_setting_tab('import')">
+                <i class="far fa-file"></i>
+                Import
+            </div>
+
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='gui'}"
+                v-on:click="switch_setting_tab('gui')">
+                <i class="fa fa-table"></i>
+                GUI
+            </div>
+        </div>
+
+        <!-- import setting tab -->
+        <div v-if="cfg.active_setting_tab == 'import'">
+            <div class="box-body-item">
+                <p>
+                    Sentence Splitting Algorithm
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('sentence_splitting_algorithm')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ssa_v1" 
+                            value="simpledot" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v1">Simple Method (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ssa_v2" 
+                            value="compromise" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v2">Compromise NLP</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ssa_v3" 
+                            value="wink_nlp" 
+                            v-model="cfg.sentence_splitting_algorithm">
+                        <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- data setting tab -->
+        <div v-else-if="cfg.active_setting_tab == 'gui'">
+            <div class="box-body-item">
+                <p>
+                    Linking marks selection between editor and concept list 
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('linking_marks_selection')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_lms_v1" 
+                            value="all_concepts" 
+                            v-model="cfg.linking_marks_selection">
+                        <label for="cfg_lms_v1">Render all marks (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_lms_v2" 
+                            value="selected_concepts" 
+                            v-model="cfg.linking_marks_selection">
+                        <label for="cfg_lms_v2">Render marks of selected concept</label>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+
+        <div v-else>
+            &nbsp;
+        </div>
+
+    </div>
+</div>
 
     <!-- the ui for main annotation -->
     <div v-show="section=='annotation'" id="main_ui" 
@@ -2264,7 +2295,7 @@ v-bind:class="{'active': section=='iaa'}">
                 class="w-100 tag-list">
 
                 <li v-on:click="update_tag_table()"
-                    class="tag-list-row d-flex flex-row flex-justify-between"
+                    class="tag-list-row tag-list-row-all-tags d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == '__all__'}">
                     <div class="tag-list-row-name">
                         <span class='mif-folder fg-red'></span>
@@ -2412,9 +2443,13 @@ v-bind:class="{'active': section=='iaa'}">
                             <span v-if="is_etag_doc_level(tag)">
                                 DOCUMENT
                             </span>
-                            <span v-else
+                            <span v-else-if="is_etag(tag)"
                                 class="c-pointer">
                                 {{ tag.spans }}
+                            </span>
+                            <span v-else
+                                class="c-pointer">
+                                LINK
                             </span>
                         </td>
 
@@ -8098,6 +8133,9 @@ var app_hotpot = {
 
             // which algorithm to use as default
             sentence_splitting_algorithm: 'simpledot',
+
+            // render all marks or only the selected marks
+            linking_marks_selection: 'all_concepts'
         },
 
         // for statistics
@@ -8304,6 +8342,13 @@ var app_hotpot = {
             );
         },
 
+        show_best_practice: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki/Annotation-Best-Practices',
+                '_blank'
+            );
+        },
+
         report_an_issue: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/issues',
@@ -8473,7 +8518,11 @@ var app_hotpot = {
             }
 
             // need to re-render the code-mirror accordingly
-            app_hotpot.cm_update_marks();
+            if (this.is_render_tags_of_all_concepts()) {
+                // no need to update marks if render all by default
+            } else {
+                app_hotpot.cm_update_marks();
+            }
         },
 
         set_current_ann: function(ann) {
@@ -10045,6 +10094,18 @@ var app_hotpot = {
         },
 
         /**
+         * Render all tags of all concepts or not
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.linking_marks_selection`.
+         * 
+         * @returns true/false
+         */
+        is_render_tags_of_all_concepts: function() {
+            return this.cfg.linking_marks_selection == 'all_concepts';
+        },
+
+        /**
          * Check if a tag is related to a certain tag type
          * 
          * @param {object} tag a tag object
@@ -11004,18 +11065,26 @@ var app_hotpot = {
     },
 
     show_tag_ctxmenu: function(x, y) {
-        console.log("* show tag ctx menu on ", x, y);
         var w = this.ctxmenu_sel.width();
+        var h = this.ctxmenu_sel.height();
+        var new_y = this.adjust_ctxmenu_y(y, h);
+        console.log("* show tag ctx menu on ", x, y, "("+new_y+")", 'w', w, 'h', h);
+
+        // show the tag ctx menu
         this.ctxmenu_sel.css('left', (x - 10 - w) + 'px')
-            .css('top', (y + 10) + 'px')
+            .css('top', (new_y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
     show_nce_ctxmenu: function(x, y) {
-        console.log("* show nce ctx menu on ", x, y);
         var w = this.ctxmenu_nce.width();
+        var h = this.ctxmenu_nce.height();
+        var new_y = this.adjust_ctxmenu_y(y, h);
+        console.log("* show nce ctx menu on ", x, y, "("+new_y+")", 'w', w, 'h', h);
+        
+        // show the document level menu
         this.ctxmenu_nce.css('left', (x - 10 - w) + 'px')
-            .css('top', (y + 10) + 'px')
+            .css('top', (new_y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
@@ -11027,6 +11096,21 @@ var app_hotpot = {
         this.popmenu_tag.css('left', (x - 10 - w) + 'px')
             .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
+    },
+
+    adjust_ctxmenu_y: function(y, h) {
+        // get the height of current window
+        var win_h = $(window).height();
+
+        // set a new y position
+        var new_y = y;
+
+        // check the height to avoid hidden by 
+        if (y + h > win_h) {
+            new_y = win_h - h - 15;
+        }
+
+        return new_y;
     },
 
     update_tag_ctxmenu: function() {
@@ -11096,6 +11180,9 @@ var app_hotpot = {
         // mark _has_saved
         this.vpp.$data.anns[this.vpp.$data.ann_idx]._has_saved = false;
         console.log('* deleted tag ' + tag_id);
+
+        // remove the hover box
+        this.vpp.hovered_tag = null;
 
         // update the marks
         if (is_update_marks) {
@@ -11387,11 +11474,15 @@ var app_hotpot = {
         }
 
         var focus_tags = null;
-        if (this.vpp.$data.display_tag_name == '__all__') {
-            // search all tag
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+
         } else {
-            // ok, only search this tag
-            focus_tags = [ this.vpp.$data.display_tag_name ];
+            if (this.vpp.$data.display_tag_name == '__all__') {
+                // search all tag
+            } else {
+                // ok, only search this tag
+                focus_tags = [ this.vpp.$data.display_tag_name ];
+            }
         }
 
         // find markable hints for this ann
@@ -11435,6 +11526,7 @@ var app_hotpot = {
             // nothing to do for empty
             return;
         }
+
         // update the new marks
         var working_ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
         for (let i = 0; i < working_ann.tags.length; i++) {
@@ -11550,10 +11642,14 @@ var app_hotpot = {
     },
 
     cm_mark_ann_ltag_in_text: function(tag, tag_def, ann) {
-        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-            // ok
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+            // ok, let's render all tags here
         } else {
-            return [-1];
+            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+                // ok
+            } else {
+                return [-1];
+            }
         }
 
         this.cm_draw_ltag(tag, tag_def, ann);
@@ -11561,43 +11657,50 @@ var app_hotpot = {
 
     cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
         var raw_spans = tag['spans'];
+        // before rendering this tag
+        // we need to check whether it should be rendered
 
-        // something wrong with the spans information?
+        // 1. something wrong with the spans information?
         if (raw_spans == '' || raw_spans == null) { 
             return [-1]; 
         }
 
-        // document-level tag, nothing to do
+        // 2. document-level tag, nothing to do or render differently
         if (raw_spans == dtd_parser.NON_CONSUMING_SPANS) {
             return [-2];
         }
 
-        // is display this tag by the tag list filter?
-        if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-            // ok
+        // 3. is current setting to render all or only selected?
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+            // ok, nothing to worry, just render this tag
         } else {
-            // the second case is quite complex.
-            // to render the link tags,
-            // the related entity tags are also needed to render
-            // so the question is, is this tag belong to current link tag?
-            if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
-                // only check this for only showing link tag.
-                // otherwise it will cost unnecessary computation
-                if (app_hotpot.vpp.is_tag_related_to_tag_name(
-                    tag, 
-                    [app_hotpot.vpp.$data.display_tag_name],
-                    app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
-                )) {
-                    // ok, I don't which one, but it does belong to which link
-                    // just goto render
+            // is display this tag by the tag list filter?
+            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
+                // ok
+            } else {
+                // the second case is quite complex.
+                // to render the link tags,
+                // the related entity tags are also needed to render
+                // so the question is, is this tag belong to current link tag?
+                if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
+                    // only check this for only showing link tag.
+                    // otherwise it will cost unnecessary computation
+                    if (app_hotpot.vpp.is_tag_related_to_tag_name(
+                        tag, 
+                        [app_hotpot.vpp.$data.display_tag_name],
+                        app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
+                    )) {
+                        // ok, I don't which one, but it does belong to which link
+                        // just goto render
 
+                    } else {
+                        // great, no need to render
+                        return [-3];
+                    }
                 } else {
                     // great, no need to render
-                    return [-3];
+                    return [-4];
                 }
-            } else {
-                // great, no need to render
-                return [-4];
             }
         }
 
@@ -11611,9 +11714,9 @@ var app_hotpot = {
             "" + tag.tag + ' - ' + tag.id,
             "spans: " + tag.spans
         ];
-
         descr = descr.join('\n');
         
+        // render every part of the spans
         for (let i = 0; i < spans_arr.length; i++) {
             const spans = spans_arr[i];
             const spans_text = text_arr[i];
@@ -12418,6 +12521,10 @@ MedTator provides some options for selecting different methods.
     <li>The <b>Wink NLP</b> method is based on <a target="_blank" href="https://winkjs.org/">WinkJS NLP library</a>.</li>
 </ul>
 `
+    },
+    "linking_marks_selection": {
+        title: 'Linking marks selection',
+        html: `The marks shown in the tag editor can be linked with the selection with the concept list.`
     }
 }});
 

@@ -24,8 +24,10 @@ If you're having trouble using MedTator, you can use [Issues](https://github.com
 
 ## MedTator Development
 
-If you are interested in the MedTator development or run a development version, a Python 3+ runtime environment is needed to run a debugging server(MedTator doesn't require Python runtime environment to run).
-Then, download the source code and install the requirements (just Python [Flask](https://github.com/pallets/flask/), that's all):
+MedTator itself doesn't require Python runtime environment, so you don't need to install any runtime environment to run MedTator for corpus annotation.
+If you are interested in the MedTator development or just want to try the development version, a Python 3+ runtime environment is needed to run a debugging server.
+
+You can install a [Python 3+](https://www.python.org/downloads/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) / [Anaconda](https://www.anaconda.com/products/individual), then download the source code of MedTator and install the requirements (just Python [Flask](https://github.com/pallets/flask/), that's all):
 
 ```bash
 pip install -r requirements.txt
@@ -37,7 +39,8 @@ Then, run the following command to start a local server which is binding port 80
 python web.py
 ```
 
-Then you can open web browser and check the http://localhost:8086/. 
+Now you can open web browser and check the http://localhost:8086/. 
+
 For more details of the parameters for `web.py`, run `python web.py -h` and it will show the details as follows.
 
 ```
