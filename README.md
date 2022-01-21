@@ -2,7 +2,7 @@
 
 MedTator is a serverless text annotation tool for corpus development. It is built on HTML5 techniques and many open-source packages, and was designed to be easy-to-use for your annotation task.
 
-No need to install any server or client runtime! 
+No Java, no Python, no PHP, no Docker, no MySQL, and no need to install any server or client runtime!
 [Check Here to Start Annotation Now!](https://ohnlp.github.io/MedTator/?st=yes)
 
 ![MedTator Demo](https://raw.githubusercontent.com/wiki/OHNLP/MedTator/img/MedTator-demo-211221.gif)
@@ -13,11 +13,13 @@ If you're having trouble using MedTator, you can use [Issues](https://github.com
 
 * New to MedTator? Let's have a [Quick Start](https://github.com/OHNLP/MedTator/wiki/Quick-Start).
 * More samples? Check our [Sample Datasets](https://github.com/OHNLP/MedTator/tree/main/sample).
-* Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * No internet access? Check this [Standalone version](https://github.com/OHNLP/MedTator/wiki#download-standalone-version)
+* Effective strategies for annotating? Check this [Annotation best practices](https://github.com/OHNLP/MedTator/wiki/Annotation-Best-Practices)
+* Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * Parse annotation data? Here is the [Annotation File Format](https://github.com/OHNLP/MedTator/wiki/Annotation-Data).
 * Having issues? Check the [Issues](https://github.com/OHNLP/MedTator/issues).
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual).
+* And more contents in the [Wiki](https://github.com/OHNLP/MedTator/wiki/)
 
 
 ## MedTator Development

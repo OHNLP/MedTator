@@ -345,6 +345,13 @@ var app_hotpot = {
             );
         },
 
+        show_best_practice: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki/Annotation-Best-Practices',
+                '_blank'
+            );
+        },
+
         report_an_issue: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/issues',
