@@ -96,7 +96,7 @@
                 class="w-100 tag-list">
 
                 <li v-on:click="update_tag_table()"
-                    class="tag-list-row d-flex flex-row flex-justify-between"
+                    class="tag-list-row tag-list-row-all-tags d-flex flex-row flex-justify-between"
                     v-bind:class="{'tag-list-row-actived':display_tag_name == '__all__'}">
                     <div class="tag-list-row-name">
                         <span class='mif-folder fg-red'></span>
@@ -244,9 +244,13 @@
                             <span v-if="is_etag_doc_level(tag)">
                                 DOCUMENT
                             </span>
-                            <span v-else
+                            <span v-else-if="is_etag(tag)"
                                 class="c-pointer">
                                 {{ tag.spans }}
+                            </span>
+                            <span v-else
+                                class="c-pointer">
+                                LINK
                             </span>
                         </td>
 

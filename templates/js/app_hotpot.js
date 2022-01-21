@@ -514,7 +514,11 @@ var app_hotpot = {
             }
 
             // need to re-render the code-mirror accordingly
-            app_hotpot.cm_update_marks();
+            if (this.is_render_tags_of_all_concepts()) {
+                // no need to update marks if render all by default
+            } else {
+                app_hotpot.cm_update_marks();
+            }
         },
 
         set_current_ann: function(ann) {
@@ -3057,18 +3061,26 @@ var app_hotpot = {
     },
 
     show_tag_ctxmenu: function(x, y) {
-        console.log("* show tag ctx menu on ", x, y);
         var w = this.ctxmenu_sel.width();
+        var h = this.ctxmenu_sel.height();
+        var new_y = this.adjust_ctxmenu_y(y, h);
+        console.log("* show tag ctx menu on ", x, y, "("+new_y+")", 'w', w, 'h', h);
+
+        // show the tag ctx menu
         this.ctxmenu_sel.css('left', (x - 10 - w) + 'px')
-            .css('top', (y + 10) + 'px')
+            .css('top', (new_y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
     show_nce_ctxmenu: function(x, y) {
-        console.log("* show nce ctx menu on ", x, y);
         var w = this.ctxmenu_nce.width();
+        var h = this.ctxmenu_nce.height();
+        var new_y = this.adjust_ctxmenu_y(y, h);
+        console.log("* show nce ctx menu on ", x, y, "("+new_y+")", 'w', w, 'h', h);
+        
+        // show the document level menu
         this.ctxmenu_nce.css('left', (x - 10 - w) + 'px')
-            .css('top', (y + 10) + 'px')
+            .css('top', (new_y + 10) + 'px')
             .show('drop', {}, 200, null);
     },
 
@@ -3080,6 +3092,21 @@ var app_hotpot = {
         this.popmenu_tag.css('left', (x - 10 - w) + 'px')
             .css('top', (y + 10) + 'px')
             .show('drop', {}, 200, null);
+    },
+
+    adjust_ctxmenu_y: function(y, h) {
+        // get the height of current window
+        var win_h = $(window).height();
+
+        // set a new y position
+        var new_y = y;
+
+        // check the height to avoid hidden by 
+        if (y + h > win_h) {
+            new_y = win_h - h - 15;
+        }
+
+        return new_y;
     },
 
     update_tag_ctxmenu: function() {
@@ -3443,11 +3470,15 @@ var app_hotpot = {
         }
 
         var focus_tags = null;
-        if (this.vpp.$data.display_tag_name == '__all__') {
-            // search all tag
+        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
+
         } else {
-            // ok, only search this tag
-            focus_tags = [ this.vpp.$data.display_tag_name ];
+            if (this.vpp.$data.display_tag_name == '__all__') {
+                // search all tag
+            } else {
+                // ok, only search this tag
+                focus_tags = [ this.vpp.$data.display_tag_name ];
+            }
         }
 
         // find markable hints for this ann

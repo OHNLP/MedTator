@@ -85,7 +85,9 @@ python web.py --mode release
 
 ### 1.2.5 (2022-01-20)
 
-- Added a setting option for linking marks between
+- Added a setting option for showing annotated tags
+- Added fixed header for the "All Tags" in concept list 
+- Updated the context menu position calculation
 - Fixed the hover bug dismiss bug when deleting tag
 
 ### 1.2.3 (2022-01-06)
