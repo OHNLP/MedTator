@@ -251,7 +251,7 @@ v-bind:class="{'active': section=='annotation'}">
             @change="on_change_link_settings">
     </div>
 
-    <div v-show="is_linking">
+    <!-- <div v-show="is_linking">
         <button class="ribbon-button"
             title="Create a new link tag with selected tags"
             v-on:click="done_linking">
@@ -271,7 +271,7 @@ v-bind:class="{'active': section=='annotation'}">
             </span>
             <span class="caption">Cancel Linking</span>
         </button>
-    </div>
+    </div> -->
     <span class="title">Link Marks</span>
 </div>
 
@@ -376,7 +376,7 @@ v-bind:class="{'active': section=='annotation'}">
             </li>
 
             <li class="divider"></li>
-            
+
             <li title="Found anything not working? Report an issue or send feedback"
                 v-on:click="report_an_issue">
                 <a href="javascript:void(0);">Report an Issue</a>
