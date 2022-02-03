@@ -955,3 +955,6 @@ input[type=text].ipt-spinner-xs {
     height: 1.5rem;
     line-height: 1.5rem;
 }
+.CM-gutter-test {
+    border-left: 2px solid red;
+}

@@ -1,4 +1,10 @@
 var iaa_calculator = {
+    colors: {
+        decision_agreed: '94d2bd',
+        decision_disagreed: 'f4978e',
+        annotator_a_tag: 'd9e9f1',
+        annotator_b_tag: 'd8f7d6',
+    },
     
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
@@ -345,10 +351,6 @@ var iaa_calculator = {
                         // for fn, use 1
                         var idx = {'tp': 0, 'fp': 0, 'fn': 1}[cm];
                         
-                        // where the tags comes from depends on
-                        // the index, which is coded in the parsing iaa
-                        var src = {0: 'A', 1: 'B'}[idx];
-
                         // the IAA 
                         var iaa = {
                             'tp': 'Agreed',
@@ -362,40 +364,52 @@ var iaa_calculator = {
                             // ok, put each tag to the js
                             const cm_tag = cm_tags[k];
                             
-                            // create a base json to hold everything
-                            var json = {
-                                'file_name': ann_rst.anns[idx]._filename,
-                                'source': src,
-                                'concept': etag.name,
-                                'id': cm_tag[idx].id,
-                                'spans': cm_tag[idx].spans,
-                                'text': cm_tag[idx].text,
-                                'IAA': iaa
-                            };
+                            for (let anter_idx = 0; anter_idx < 2; anter_idx++) {
+                                if (cm_tag[anter_idx] == null) {
+                                    // no such tag, skip
+                                    continue
+                                }
+                                // where the tags comes from depends on
+                                // the index, which is coded in the parsing iaa
+                                var src = {0: 'A', 1: 'B'}[anter_idx];
 
-                            // next need to put all attributes to this
-                            // this depends on the schema
-                            for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
-                                const etag_att = etag.attlists[att_idx];
+                                // add this tag to final list
+                                // create a base json to hold everything
+                                var json = {
+                                    'file_name': ann_rst.anns[idx]._filename,
+                                    'source': src,
+                                    'concept': etag.name,
+                                    'id': cm_tag[anter_idx].id,
+                                    'spans': cm_tag[anter_idx].spans,
+                                    'text': cm_tag[anter_idx].text,
+                                    'IAA': iaa
+                                };
+
+                                // next need to put all attributes to this
+                                // this depends on the schema
+                                for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
+                                    const etag_att = etag.attlists[att_idx];
+                                    
+                                    // the attribute name should be the same
+                                    // since it is used as the column name.
+                                    // So we need to create two new columns:
+                                    // 1. att_x_key, for the attr key
+                                    // 2. att_x_txt, for the attr value
+                                    var col_att_key = 'attr_name_' + att_idx;
+                                    var col_att_key_value = etag_att.name;
+
+                                    var col_att_txt = 'attr_value_' + att_idx;
+                                    var col_att_txt_value = cm_tag[anter_idx][etag_att.name];
+
+                                    // then put this two columns to the json
+                                    json[col_att_key] = col_att_key_value;
+                                    json[col_att_txt] = col_att_txt_value;
+                                }
+
+                                // put to js
+                                js.push(json);
                                 
-                                // the attribute name should be the same
-                                // since it is used as the column name.
-                                // So we need to create two new columns:
-                                // 1. att_x_key, for the attr key
-                                // 2. att_x_txt, for the attr value
-                                var col_att_key = 'attr_name_' + att_idx;
-                                var col_att_key_value = etag_att.name;
-
-                                var col_att_txt = 'attr_value_' + att_idx;
-                                var col_att_txt_value = cm_tag[idx][etag_att.name];
-
-                                // then put this two columns to the json
-                                json[col_att_key] = col_att_key_value;
-                                json[col_att_txt] = col_att_txt_value;
                             }
-
-                            // put to js
-                            js.push(json);
                         }
                     }
                 }
@@ -435,7 +449,9 @@ var iaa_calculator = {
 
             // get IAA value in that cell and convert to color
             var iaa_value = ws_tags[col_iaa + row].v;
-            var iaa_color = iaa_value=='Agreed'? '94D2BD': 'f4978e';
+            var iaa_color = iaa_value == 'Agreed'? 
+                this.colors.decision_agreed: 
+                this.colors.decision_disagreed;
 
             // set the style for the 
             ws_tags[col_iaa + row].s = {
@@ -446,6 +462,206 @@ var iaa_calculator = {
                 },
             }
             
+        }
+
+        return ws_tags;
+    },
+
+    /**
+     * Get the IAA report in a format for adjudication.
+     *
+     * 
+     * @param {Object} iaa_dict the dictionary contains IAA result
+     * @param {Object} dtd the DTD schema
+     * @param {Object} flags flags for controling results
+     * @returns JSON format report
+     */
+    get_iaa_report_adjudication_json: function(iaa_dict, dtd, flags) {
+        if (typeof(flags)=='undefined') {
+            flags = {
+                skip_agreed_tags: false
+            }
+        }
+        // there are following columns in the files json
+        // file name
+        var js = [];
+        var cms = ['tp', 'fp', 'fn'];
+        if (flags.skip_agreed_tags) {
+            cms = ['fp', 'fn'];
+        }
+
+        for (const fnhash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
+                const ann_rst = iaa_dict.ann[fnhash];
+
+                // now need to check each tag in this ann_rst
+                for (let i = 0; i < dtd.etags.length; i++) {
+                    const etag = dtd.etags[i];
+                    // processed tags in list b
+                    var p_tags_b = [];
+                    
+                    // now need to check each cm
+                    for (let j = 0; j < cms.length; j++) {
+                        const cm = cms[j];
+                        // the IAA 
+                        var iaa = {
+                            'tp': 'Agreed',
+                            'fp': 'Disagreed',
+                            'fn': 'Disagreed'
+                        }[cm];
+                        
+                        // now need to check each item in this
+                        var cm_tags = ann_rst.rst.tag[etag.name].cm.tags[cm];
+                        for (let k = 0; k < cm_tags.length; k++) {
+                            // no matter what the 
+                            // ok, put each tag to the js
+                            const cm_tag = cm_tags[k];
+
+                            // need to check if tag_b
+                            if (cm_tag[1] == null) {
+                                // ok, this only involves annotator a
+                            } else {
+                                // now check if this tag added?
+                                if (p_tags_b.contains(cm_tag[1].id)) {
+                                    // oh, this tag b has been added
+                                    continue
+                                } else {
+                                    // oh, this is a new tag b
+                                    p_tags_b.push(cm_tag[1].id)
+                                }
+                            }
+                            
+                            // create a base json to hold everything
+                            var json = {
+                                // just use the first file as file name
+                                'file_name': ann_rst.anns[0]._filename,
+                                'concept': etag.name,
+                                'IAA': iaa
+                            };
+                            
+                            // decision
+                            
+                            // then put the annotation from A and B
+                            // anter_idx 0 is A
+                            // anter_idx 1 is B
+                            for (let anter_idx = 0; anter_idx < 2; anter_idx++) {
+                                var anter_label = {0:'A', 1:'B'}[anter_idx];
+                                if (cm_tag[anter_idx] == null) {
+                                    // which means this location is empty
+                                    // just put empty content
+                                    // due to the xlsx convert design, 
+                                    // must put empty text here
+                                    json[anter_label+'.id'] = '';
+                                    json[anter_label+'.spans'] = '';
+                                    json[anter_label+'.text'] = '';
+                                } else {
+                                    // ok, this is a tag, put it here
+                                    json[anter_label+'.id'] = cm_tag[anter_idx].id;
+                                    json[anter_label+'.spans'] = cm_tag[anter_idx].spans;
+                                    json[anter_label+'.text'] = cm_tag[anter_idx].text;
+                                }                                
+                            }
+                            
+                            // next need to put all attributes to this
+                            // this depends on the schema
+                            // for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
+                            //     const etag_att = etag.attlists[att_idx];
+                                
+                            //     // the attribute name should be the same
+                            //     // since it is used as the column name.
+                            //     // So we need to create two new columns:
+                            //     // 1. att_x_key, for the attr key
+                            //     // 2. att_x_txt, for the attr value
+                            //     var col_att_key = 'attr_name_' + att_idx;
+                            //     var col_att_key_value = etag_att.name;
+
+                            //     var col_att_txt = 'attr_value_' + att_idx;
+                            //     var col_att_txt_value = cm_tag[idx][etag_att.name];
+
+                            //     // then put this two columns to the json
+                            //     json[col_att_key] = col_att_key_value;
+                            //     json[col_att_txt] = col_att_txt_value;
+                            // }
+
+                            // put to js
+                            js.push(json);
+                        }
+                    }
+                }
+            }
+        }
+
+        return js;
+    },
+
+    get_iaa_report_adjudication_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_adjudication_json(
+            iaa_dict,
+            dtd
+        );
+        var ws_tags = XLSX.utils.json_to_sheet(js);
+
+        // change the style for the adjudication column
+        var col_concept = 'B';
+        var col_iaa = 'C';
+        var cols_a = ['D', 'E', 'F'];
+        var cols_b = ['G', 'H', 'I'];
+        for (let i = 0; i < js.length; i++) {
+            // get the data item
+            var json = js[i];
+
+            // get the row number
+            // the first row is the header, 
+            // so the number starts with 2
+            var row = i + 2;
+
+            // set the style for the concept name
+            ws_tags[col_concept + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: dtd.tag_dict[json.concept].style.color.substring(1)
+                    }
+                },
+            }
+
+            // get IAA value in that cell and convert to color
+            var iaa_value = ws_tags[col_iaa + row].v;
+            var iaa_color = iaa_value == 'Agreed'? 
+                this.colors.decision_agreed: 
+                this.colors.decision_disagreed;
+
+            // set the style for the 
+            ws_tags[col_iaa + row].s = {
+                fill: {
+                    fgColor: {
+                        rgb: iaa_color
+                    }
+                },
+            }
+
+            // set bg color for annotator A
+            for (let j = 0; j < cols_a.length; j++) {
+                const col = cols_a[j];
+                ws_tags[col + row].s = {
+                    fill: {
+                        fgColor: {
+                            rgb: this.colors.annotator_a_tag
+                        }
+                    },
+                }
+            }
+
+            // set bg color for annotator B
+            for (let j = 0; j < cols_b.length; j++) {
+                const col = cols_b[j];
+                ws_tags[col + row].s = {
+                    fill: {
+                        fgColor: {
+                            rgb: this.colors.annotator_b_tag
+                        }
+                    },
+                }
+            }
         }
 
         return ws_tags;
@@ -738,9 +954,13 @@ var iaa_calculator = {
             tag_dict_b[tag.spans] = tag;
         }
 
+        // check each element in tag_list_a and find matched in b
         for (let i = 0; i < tag_list_a.length; i++) {
             var tag_a = tag_list_a[i];
             
+            // the `tag_list_b` may be not empty
+            // if not match, may due to the low overlap
+            // the return result also contains the overlap rate
             var is_match = this.is_tag_in_list(
                 tag_a, 
                 tag_list_b, 
@@ -751,18 +971,23 @@ var iaa_calculator = {
             console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
 
             if (is_match.is_in) {
+                // This case is simple, two tags are matched
                 cm.tp += 1;
-                cm.tags.tp.push([tag_a, is_match.tag_b]);
+                cm.tags.tp.push([
+                    tag_a, 
+                    is_match.tag_b
+                ]);
 
                 // remove this tag_b from the dict
                 delete tag_dict_b[is_match.tag_b.spans];
 
             } else {
+                // This case means that this tag is not found in tag_list_b
                 cm.fp += 1;
                 cm.tags.fp.push([
                     tag_a, 
                     // usually, the tag_b is null,
-                    // but sometimes it is not
+                    // but sometimes it is not depends on the rate
                     is_match.tag_b
                 ]);
 
@@ -793,6 +1018,8 @@ var iaa_calculator = {
 
         // potential b
         var p_tag_b = null;
+        // the overlap rate
+        var olpr = 0;
 
         for (let i = 0; i < tag_list.length; i++) {
             const tag_b = tag_list[i];
@@ -801,14 +1028,21 @@ var iaa_calculator = {
             if (match_mode == 'overlap') {
                 // for overlap mode, check ranges of two spans
                 var loc_b = this.spans2loc(spans_b);
+
+                // the overlap contains two value
+                // first the decision based on the ratio
+                // seoncd the how much is overlapped
                 var is_olpd = this.is_overlapped(
                     loc_a, loc_b, 
                     overlap_ratio
                 );
                 if (is_olpd[0]) {
+                    // OK, the overlap is bigger than the ratio
+                    // just return this is matched
                     return { 
                         is_in: true,
-                        tag_b: tag_b
+                        tag_b: tag_b,
+                        olpr: is_olpd[1]
                     };
                 }
                 // in some cases, the overlapped ratio is low
@@ -822,15 +1056,18 @@ var iaa_calculator = {
                 if (spans == spans_b) {
                     return {
                         is_in: true,
-                        tag_b: tag_b
+                        tag_b: tag_b,
+                        olpr: 1
                     };
                 }
+                
             }
         }
 
         return {
             is_in: false,
-            tag_b: p_tag_b
+            tag_b: p_tag_b,
+            olpr: olpr
         };
     },
 

@@ -1357,17 +1357,25 @@ var app_hotpot = {
                 this.dtd
             );
 
+            // sheet 4. the adjudication
+            var ws_adj = iaa_calculator.get_iaa_report_adjudication_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
             // create wb for download
             var wb = {
                 SheetNames: [
                     "Summary",
                     "Files",
-                    "Tags"
+                    "Tags",
+                    "Adjudication"
                 ],
                 Sheets: {
                     Summary: ws_summary,
                     Files: ws_files,
                     Tags: ws_tags,
+                    Adjudication: ws_adj
                 }
             };
             console.log(wb);
