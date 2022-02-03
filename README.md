@@ -88,6 +88,13 @@ python web.py --mode release
 
 ## Change log
 
+### 1.2.6 (2022-02-03)
+
+- Added the adjudication sheet in the IAA report xlsx file
+- Updated the included tags in the IAA report xlsx file
+- Updated the colors in IAA report xlsx file
+- Updated wiki pages
+
 ### 1.2.5 (2022-01-20)
 
 - Added a setting option for showing annotated tags
