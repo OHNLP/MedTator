@@ -16,12 +16,23 @@ v-bind:class="{'active': section=='statistics'}">
 
 <div class="group">
     <button class="ribbon-button" 
+        title="Download the summary of the statistics"
         :disabled="dtd == null"
         v-on:click="download_stat_summary">
         <span class="icon">
-            <i class="fa fa-download"></i>
+            <i class="far fa-clipboard"></i>
         </span>
         <span class="caption">Summary (.csv)</span>
+    </button>
+
+    <button class="ribbon-button" 
+        title="Download the detailed statistics"
+        :disabled="dtd == null"
+        v-on:click="download_stat_details">
+        <span class="icon">
+            <i class="fas fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Details (.xlsx)</span>
     </button>
 
     <span class="title">Download</span>    

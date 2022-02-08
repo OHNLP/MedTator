@@ -963,6 +963,31 @@ var app_hotpot = {
             saveAs(blob, fn);
         },
 
+        download_stat_details: function() {
+            // create each sheet 
+            // sheet 1. the summary
+            var ws_summary = stat_helper.get_stat_summary_excelws(
+                this.get_stat_items()
+            );
+
+            // create the wb for download
+            var wb = {
+                SheetNames: [
+                    "Summary"
+                ],
+                Sheets: {
+                    Summary: ws_summary
+                }
+            };
+            console.log(wb);
+
+            // decide the file name for this export
+            var fn = this.dtd.name + '-annotation-statistics.xlsx';
+
+            // download this wb
+            XLSX.writeFile(wb, fn);
+        },
+
         get_stat_items: function() {
             return [
                 ['# of documents', this.anns.length],
