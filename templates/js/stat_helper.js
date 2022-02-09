@@ -2,6 +2,48 @@
  * A helper object for the statistics related functions
  */
 var stat_helper = {
+    get_stat_items: function(anns, dtd) {
+        var items = [
+            // the basic statistics
+            ['# of documents', anns.length],
+            ['# of tags in schema', dtd.etags.length],
+            ['# of annotations', this.count_all_tags(anns)],
+
+            // the frequents
+            [
+                '# of annotations per tag', 
+                this.calc_avg_tags_per_def(anns, dtd)
+            ],
+            [
+                '# of annotations per document', 
+                this.calc_avg_tags_per_doc(anns)
+            ],
+            [
+                '# of sentences',
+                this.count_all_sentences(anns)
+            ],
+            [
+                '# of sentences per document',
+                this.calc_avg_sentences_per_doc(anns)
+            ],
+            
+        ];
+
+        // the number by tags
+        var cnt = this.count_tags_by_concepts(anns, dtd);
+        for (const tag_name in cnt) {
+            if (Object.hasOwnProperty.call(cnt, tag_name)) {
+                const val = cnt[tag_name];
+                items.push([
+                    '# of tags ' + tag_name,
+                    val
+                ]);
+            }
+        }
+
+        return items;
+    },
+
     /**
      * Get the statistics summary in JSON format
      * @param {list} raw_summary the raw summary list
@@ -182,6 +224,89 @@ var stat_helper = {
         return ws;
     },
 
+
+    /**
+     * Count the total number of all annotated tags
+     * @param {list} anns the anns from vpp
+     * @returns the total number annotated tags
+     */
+    count_all_tags: function(anns) {
+        var n = 0;
+        for (let i = 0; i < anns.length; i++) {
+            for (let j = 0; j < anns[i].tags.length; j++) {
+                n += 1;
+            }
+        }
+        return n;
+    },
+
+    /**
+     * Count the total number of split sentences
+     * @param {list} anns the anns from vpp
+     * @returns the total number of sentences
+     */
+    count_all_sentences: function(anns) {
+        var n = 0;
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            if (ann.hasOwnProperty('_sentences')) {
+                n += ann._sentences.length;
+            }
+        }
+        return n;
+    },
+
+    count_tags_by_concepts: function(anns, dtd) {
+        var cnt = {};
+
+        for (const tag_name in dtd.tag_dict) {
+            if (Object.hasOwnProperty.call(dtd.tag_dict, tag_name)) {
+                const tag_def = dtd.tag_dict[tag_name];
+                cnt[tag_def.name] = 0;
+            }
+        }
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            for (let j = 0; j < ann.tags.length; j++) {
+                const tag = ann.tags[j];
+                cnt[tag.tag] += 1;
+            }
+        }
+
+        return cnt;
+    },
+
+    calc_avg_sentences_per_doc: function(anns) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        var t = this.count_all_sentences(anns);
+        return (t/anns.length).toFixed(2);
+    },
+
+    calc_avg_tags_per_doc: function(anns) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        var t = this.count_all_tags(anns);
+        return (t/anns.length).toFixed(2);
+    },
+
+    calc_avg_tags_per_def: function(anns, dtd) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        if (dtd == null || dtd.etags.length == 0) {
+            return '-';
+        }
+        return (anns.length / dtd.etags.length).toFixed(2);
+    },
+
+    /**
+     * stat_helper internal use only
+     * @param {list} json the json for the stat report
+     * @returns the max value
+     */
     __get_max_val: function(json) {
         var max_val = 0;
         // skip the summary, so skip the first row in json

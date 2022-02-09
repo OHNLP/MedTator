@@ -12,9 +12,10 @@
                 </div>
 
                 <div v-if="dtd != null && anns.length != 0"
-                    class="box-body">
+                    class="box-body"
+                    style="overflow-y: auto;">
 
-                    <div v-for="stat_item in get_stat_items()"
+                    <div v-for="stat_item in stat_summary"
                         class="box-body-item d-flex flex-row flex-justify-between">
                         <div>
                             {{ stat_item[0] }}: 

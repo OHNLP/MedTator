@@ -943,7 +943,10 @@ var app_hotpot = {
         download_stat_summary: function() {
             var json = [];
 
-            var stat_items = this.get_stat_items();
+            var stat_items = stat_helper.get_stat_items(
+                this.anns,
+                this.dtd
+            );
 
             for (let i = 0; i < stat_items.length; i++) {
                 const stat_item = stat_items[i];
@@ -967,7 +970,10 @@ var app_hotpot = {
             // create each sheet 
             // sheet 1. the summary
             var ws_summary = stat_helper.get_stat_summary_excelws(
-                this.get_stat_items()
+                stat_helper.get_stat_items(
+                    this.anns,
+                    this.dtd
+                )
             );
 
             // sheet 2. the tags
@@ -994,24 +1000,6 @@ var app_hotpot = {
 
             // download this wb
             XLSX.writeFile(wb, fn);
-        },
-
-        get_stat_items: function() {
-            return [
-                ['# of documents', this.anns.length],
-                ['# of tags in schema', this.dtd.etags.length],
-                ['# of annotations', this.count_all_tags(this.anns)],
-                ['# of annotations per tag', this.calc_avg_tags_per_def(this.anns, this.dtd)],
-                ['# of annotations per document', this.calc_avg_tags_per_doc(this.anns)],
-                [
-                    '# of sentences',
-                    this.count_all_sentences(this.anns)
-                ],
-                [
-                    '# of sentences per document',
-                    this.calc_avg_sentences_per_doc(this.anns)
-                ],
-            ];
         },
         
         /////////////////////////////////////////////////////////////////
@@ -1880,53 +1868,6 @@ var app_hotpot = {
             return cnt;
         },
 
-        count_all_tags: function(anns) {
-            var n = 0;
-            for (let i = 0; i < anns.length; i++) {
-                for (let j = 0; j < anns[i].tags.length; j++) {
-                    n += 1;
-                }
-            }
-            return n;
-        },
-
-        count_all_sentences: function(anns) {
-            var n = 0;
-            for (let i = 0; i < anns.length; i++) {
-                const ann = anns[i];
-                if (ann.hasOwnProperty('_sentences')) {
-                    n += ann._sentences.length;
-                }
-            }
-            return n;
-        },
-
-        calc_avg_sentences_per_doc: function(anns) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            var t = this.count_all_sentences(anns);
-            return (t/anns.length).toFixed(2);
-        },
-
-        calc_avg_tags_per_doc: function(anns) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            var t = this.count_all_tags(anns);
-            return (t/anns.length).toFixed(2);
-        },
-
-        calc_avg_tags_per_def: function(anns, dtd) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            if (dtd == null || dtd.etags.length == 0) {
-                return '-';
-            }
-            return (anns.length / dtd.etags.length).toFixed(2);
-        },
-
         is_match_filename: function(fn) {
             let p = this.fn_pattern.trim();
             if (p == '') {
@@ -2252,6 +2193,13 @@ var app_hotpot = {
             computed: {
                 stat_docs_by_tags: function() {
                     return stat_helper.get_stat_docs_by_tags_json(
+                        this.anns,
+                        this.dtd
+                    );
+                },
+
+                stat_summary: function() {
+                    return stat_helper.get_stat_items(
                         this.anns,
                         this.dtd
                     );
