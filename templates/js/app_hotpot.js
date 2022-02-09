@@ -2188,16 +2188,37 @@ var app_hotpot = {
             return false;
         },
 
-        stat_value2bgcolor: function(value, max_value) {
+        stat_value2bgcolor: function(value, max_value, zero_color) {
             if (typeof(max_value)=='undefined') {
                 max_value = 10;
             }
+            if (typeof(zero_color)=='undefined') {
+                zero_color = '#ffffff';
+            }
             if (value == 0) {
-                return '#ffffff';
+                return zero_color;
             } else {
                 return d3.rgb(
                     d3.interpolateReds(value / max_value)
                 ).formatHex() + '';
+            }
+        },
+
+        stat_value2ftcolor: function(value, max_value, zero_color) {
+            if (typeof(max_value)=='undefined') {
+                max_value = 10;
+            }
+            if (typeof(zero_color)=='undefined') {
+                zero_color = '#eeeeee';
+            }
+            if (value == 0) {
+                return zero_color;
+            } else {
+                if (value / max_value < 0.6) {
+                    return '#000000';
+                } else {
+                    return '#ffffff';
+                }
             }
         }
     },

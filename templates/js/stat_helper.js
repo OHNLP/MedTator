@@ -34,7 +34,10 @@ var stat_helper = {
     },
 
     get_stat_docs_by_tags_json: function(anns, dtd) {
-        var js = [];
+        var js = [{
+            'file_name': 'Summary',
+            '_total_tags': 0
+        }];
 
         for (let i = 0; i < anns.length; i++) {
             // each ann is a document
@@ -42,7 +45,8 @@ var stat_helper = {
 
             // create a new json object
             var j = {
-                'file_name': ann._filename
+                'file_name': ann._filename,
+                '_total_tags': 0
             };
             
             // to make sure the order of tags, use two loops
@@ -51,6 +55,11 @@ var stat_helper = {
                 const tag = dtd.etags[k];
                 // init this tag count
                 j[tag.name] = 0;
+
+                // init the first row if not 
+                if (!js[0].hasOwnProperty(tag.name)) {
+                    js[0][tag.name] = 0;
+                }
             }
 
             // then, init all ltags
@@ -58,6 +67,11 @@ var stat_helper = {
                 const tag = dtd.ltags[k];
                 // init this tag count
                 j[tag.name] = 0;
+
+                // init the first row if not 
+                if (!js[0].hasOwnProperty(tag.name)) {
+                    js[0][tag.name] = 0;
+                }
             }
 
             // now, we can count how many tags in this doc
@@ -65,6 +79,13 @@ var stat_helper = {
                 const tag = ann.tags[k];
                 // update the count
                 j[tag.tag] += 1;
+                // update the total of this file
+                j['_total_tags'] += 1;
+
+                // update the summary of this concept
+                js[0][tag.tag] += 1;
+                // update the summary of all
+                js[0]['_total_tags'] += 1;
             }
 
             // ok, done! let's put this j to js list
@@ -81,6 +102,7 @@ var stat_helper = {
 
         // now add color to the number cells
         // first, get the max number
+        // because the number is counted
         var n_max = this.__get_max_val(js);
         // set a min threshold for this max value
         if (n_max < 10) {
@@ -91,6 +113,13 @@ var stat_helper = {
                 d3.interpolateReds(val / n_max)
             ).formatHex();
         }
+        var func_val2fontc = function(val) {
+            if (val / n_max > 0.7) {
+                return '#ffffff';
+            } else {
+                return '#000000';
+            }
+        }
 
         // now, check each cell
         for (const coord in ws) {
@@ -99,6 +128,11 @@ var stat_helper = {
                 // skip the system attr
                 if (obj.hasOwnProperty('v')) {
                     if (typeof(obj.v) == 'number') {
+                        // skip the sum
+                        if (coord.startsWith('B')) {
+                            continue;
+                        }
+
                         // which means this is a count number
                         // create a color
                         var fg_color = func_val2color(obj.v);
@@ -106,6 +140,8 @@ var stat_helper = {
                         if (obj.v == 0) {
                             fg_color = '#ffffff';
                             font_color = '#cccccc';
+                        } else {
+                            font_color = func_val2fontc(obj.v);
                         }
 
                         // set this color
@@ -148,9 +184,14 @@ var stat_helper = {
 
     __get_max_val: function(json) {
         var max_val = 0;
-        for (let i = 0; i < json.length; i++) {
+        // skip the summary, so skip the first row in json
+        for (let i = 1; i < json.length; i++) {
             const obj = json[i];
             for (const key in obj) {
+                if (key == '_total_tags') {
+                    // skip the total column
+                    continue;
+                }
                 if (Object.hasOwnProperty.call(obj, key)) {
                     const val = obj[key];
                     if (val > max_val) {

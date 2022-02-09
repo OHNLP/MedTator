@@ -47,35 +47,64 @@
                             <thead>
                                 <tr>
                                     <th>File Name</th>
+                                    <th>Total</th>
                                     <th v-for="tag_def in dtd.etags"
                                         v-bind:class="'fg-tag-' + tag_def.name">
                                         <span class="rotate-90">
+                                            <i class="fa fa-tag"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
                                             {{ tag_def.name }}
                                         </span>
                                     </th>
                                     <th v-for="tag_def in dtd.ltags"
                                         v-bind:class="'fg-tag-' + tag_def.name">
                                         <span class="rotate-90">
+                                            <i class="fa fa-link"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
                                             {{ tag_def.name }}
                                         </span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="stat in stat_docs_by_tags">
-                                    <td class="td-filename">
+                                <tr v-for="stat, stat_idx in stat_docs_by_tags">
+                                    <td v-if="stat_idx == 0"
+                                        class="td-summary">
                                         {{ stat.file_name }}
                                     </td>
+                                    <td v-else
+                                        class="td-filename"
+                                        title="Check this file in the Annotation tab"
+                                        v-on:click="show_ann_file(stat.file_name)">
+                                        {{ stat.file_name }}
+                                    </td>
+                                    <td>
+                                        {{ stat._total_tags }}
+                                    </td>
                                     <td v-for="tag_def in dtd.etags">
-                                        <span class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + ';'"
+                                        <span v-if="stat_idx == 0"
+                                            class="td-count"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                        <span v-else
+                                            class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
                                             v-bind:class="'td-count-' + stat[tag_def.name]">
                                             {{ stat[tag_def.name] }}
                                         </span>
                                     </td>
                                     <td v-for="tag_def in dtd.ltags">
-                                        <span class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + ';'"
+                                        <span v-if="stat_idx == 0"
+                                            class="td-count"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                        <span v-else
+                                            class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
                                             v-bind:class="'td-count-' + stat[tag_def.name]">
                                             {{ stat[tag_def.name] }}
                                         </span>

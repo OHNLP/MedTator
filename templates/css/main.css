@@ -960,6 +960,9 @@ input[type=text].ipt-spinner-xs {
 }
 
 /* rules for the statistics tab */
+.doctag-table {
+    cursor: default;
+}
 .doctag-table tr:nth-child(even) {
     background: whitesmoke;
 }
@@ -992,15 +995,19 @@ input[type=text].ipt-spinner-xs {
     text-align: center;
     padding: 2px;
 }
+.doctag-table td.td-summary {
+    font-weight: bold;
+}
 .doctag-table td.td-filename {
     border-left: 5px solid transparent;
     padding-left: 5px;
     padding-right: 10px;
-    width: 200px;
-    max-width: 300px;
+    width: 180px;
+    max-width: 280px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 }
 .doctag-table tr:hover td.td-filename{
     border-left-color: #646464;
