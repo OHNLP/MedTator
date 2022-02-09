@@ -970,13 +970,21 @@ var app_hotpot = {
                 this.get_stat_items()
             );
 
+            // sheet 2. the tags
+            var ws_docbtag = stat_helper.get_stat_docs_by_tags_excelws(
+                this.anns,
+                this.dtd
+            );
+
             // create the wb for download
             var wb = {
                 SheetNames: [
-                    "Summary"
+                    "Summary",
+                    "Documents"
                 ],
                 Sheets: {
-                    Summary: ws_summary
+                    Summary: ws_summary,
+                    Documents: ws_docbtag
                 }
             };
             console.log(wb);
@@ -2178,6 +2186,19 @@ var app_hotpot = {
                 return true;
             }
             return false;
+        },
+
+        stat_value2bgcolor: function(value, max_value) {
+            if (typeof(max_value)=='undefined') {
+                max_value = 10;
+            }
+            if (value == 0) {
+                return '#ffffff';
+            } else {
+                return d3.rgb(
+                    d3.interpolateReds(value / max_value)
+                ).formatHex() + '';
+            }
         }
     },
 
@@ -2205,6 +2226,15 @@ var app_hotpot = {
 
             mounted: function() {
                 Metro.init();
+            },
+
+            computed: {
+                stat_docs_by_tags: function() {
+                    return stat_helper.get_stat_docs_by_tags_json(
+                        this.anns,
+                        this.dtd
+                    );
+                }
             },
 
             updated: function() {

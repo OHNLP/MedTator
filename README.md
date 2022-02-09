@@ -88,6 +88,12 @@ python web.py --mode release
 
 ## Change log
 
+### 1.2.9 (2022-02-17)
+
+- Added a new section in the statistics tab
+- Added a new statistics report in xlsx format
+- Added colored cells to the statistics report
+
 ### 1.2.6 (2022-02-03)
 
 - Added the adjudication sheet in the IAA report xlsx file

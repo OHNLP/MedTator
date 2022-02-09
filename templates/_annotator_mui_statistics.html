@@ -32,7 +32,61 @@
 
         <div id="mui_stat_details" class="d-flex ml-2">
 
-            <div class="w-100 d-flex flex-row h-100">
+            <div class="w-100 d-flex flex-row flex-wrap h-100"
+                 style="overflow-y: auto;">
+                <div class="box w-100 mb-2">
+                    <div class="box-header">
+                        <h4>
+                            <i class="fas fa-table"></i>
+                            Document Summary
+                        </h4>
+                    </div>
+                    <div v-if="dtd != null && anns.length > 0"
+                        class="box-body">
+                        <table class="doctag-table">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th v-for="tag_def in dtd.etags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th>
+                                    <th v-for="tag_def in dtd.ltags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="stat in stat_docs_by_tags">
+                                    <td class="td-filename">
+                                        {{ stat.file_name }}
+                                    </td>
+                                    <td v-for="tag_def in dtd.etags">
+                                        <span class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                    </td>
+                                    <td v-for="tag_def in dtd.ltags">
+                                        <span class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
                 <div class="box w-100">
                     <div class="box-header">
                         <h4>

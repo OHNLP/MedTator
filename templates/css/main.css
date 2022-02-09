@@ -958,3 +958,64 @@ input[type=text].ipt-spinner-xs {
 .CM-gutter-test {
     border-left: 2px solid red;
 }
+
+/* rules for the statistics tab */
+.doctag-table tr:nth-child(even) {
+    background: whitesmoke;
+}
+.doctag-table tr:nth-child(odd) {
+    background: #ffffff;
+}
+.doctag-table tr {
+    border-bottom: 1px solid transparent;
+}
+.doctag-table tr:hover {
+    background-color: rgb(219, 219, 219);
+    border-color: #646464 !important;
+}
+.doctag-table th {
+    vertical-align: bottom;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+    min-width: 30px;
+    max-width: 40px;
+}
+.doctag-table th span.rotate-90 {
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+.doctag-table td {
+    vertical-align: center;
+    text-align: center;
+    padding: 2px;
+}
+.doctag-table td.td-filename {
+    border-left: 5px solid transparent;
+    padding-left: 5px;
+    padding-right: 10px;
+    width: 200px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.doctag-table tr:hover td.td-filename{
+    border-left-color: #646464;
+    font-weight: bold;
+    font-style: italic;
+}
+.doctag-table .td-count {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid transparent;
+}
+.doctag-table .td-count:hover {
+    border-color: #646464;
+}
+.doctag-table .td-count-0 {
+    font-size: 0.9em;
+    color: #eeeeee;
+}
