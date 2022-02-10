@@ -487,7 +487,9 @@ var nlp_toolkit = {
         }
 
         // create a folder in this zip file
-        var folder_name = 'annotation-'+ dtd.name + '';
+        // var folder_name = 'annotation-'+ dtd.name + '';
+        // use the given filename as the folder name (exclude the .zip)
+        var folder_name = fn.substring(0, fn.lastIndexOf('.'));
 
         // check each ann file
         for (let i = 0; i < anns.length; i++) {

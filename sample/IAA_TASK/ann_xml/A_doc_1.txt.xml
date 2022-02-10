@@ -11,5 +11,6 @@
 <OTHER_AE spans="989~1012" text="unresponsive completely" id="O3" comment="check later" certainty="Positive"/>
 <OTHER_AE spans="406~411" text="faint" id="O4" comment="may merge to dizzy" certainty="Positive"/>
 <MEDICATION spans="470~478" text="ice pack" id="M2" comment=""/>
+<VAX spans="1028~1034" text="looked" id="V0" comment=""/>
 </TAGS>
 </VAX_AE_MED>

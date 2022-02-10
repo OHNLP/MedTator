@@ -318,10 +318,17 @@ var app_hotpot = {
             if (typeof(skip_dtd) == 'undefined') {
                 skip_dtd = true;
             }
+            var fn = 'annotation-' + 
+                this.get_ruleset_base_name() + 
+                '-' +
+                this.get_datetime() +
+                '.zip';
+            console.log('* download all as zip ' + fn);
+
             var file_list = nlp_toolkit.download_dataset_raw(
                 this.anns,
                 this.dtd,
-                'annotation-' + this.get_ruleset_base_name() + '.zip',
+                fn,
                 skip_dtd
             );
             
@@ -2161,6 +2168,10 @@ var app_hotpot = {
                     return '#ffffff';
                 }
             }
+        },
+
+        get_datetime: function() {
+            return dayjs().format('YYYY-MM-DD.HHmm');
         }
     },
 

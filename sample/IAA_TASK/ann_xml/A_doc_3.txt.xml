@@ -10,5 +10,6 @@
 <MEDICATION spans="1299~1310" text="Antipyretic" id="M2" comment=""/>
 <MEDICATION spans="1343~1356" text="acetaminophen" id="M3" comment=""/>
 <TREATMENT id="T0" link_AEID="PY1" link_AEText="fever" link_MEDID="M1" link_MEDText="ibuprofen" comment=""/>
+<VAX spans="251~257" text="expiry" id="V1" comment=""/>
 </TAGS>
 </VAX_AE_MED>

@@ -94,6 +94,7 @@ python web.py --mode release
 - Added a new statistics report in xlsx format
 - Added colored cells to the statistics report
 - Updated the statistics summary with more items
+- Updated the XML zip file name with timestamp
 
 ### 1.2.6 (2022-02-03)
 
