@@ -3,6 +3,24 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
+async function fs_read_dir_handle(fh, dtd) {
+    for await (const entry of fh.values()) {
+        // Each entry is an instance of FileSystemFileHandle 
+        // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 
+        console.log(entry);
+        if (entry.kind != 'file') {
+            console.log('* skip sub folder', entry.name);
+            continue;
+        }
+
+        // call the app_hotpot to parse and decide this fh
+        app_hotpot.parse_ann_file_fh(
+            entry, 
+            dtd
+        );
+    }
+}
+
 async function fs_read_txt_file_handle(fh, dtd) {
     if (typeof(dtd) == 'undefined') {
         dtd = {name: ''};

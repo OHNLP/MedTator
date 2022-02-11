@@ -88,11 +88,13 @@ python web.py --mode release
 
 ## Change log
 
-### 1.2.9 (2022-02-17)
+### 1.2.10 (2022-02-17)
 
 - Added a new section in the statistics tab
 - Added a new statistics report in xlsx format
 - Added colored cells to the statistics report
+- Added importing annotation files by dropping folder(s)
+- Added memory check in settings
 - Updated the statistics summary with more items
 - Updated the XML zip file name with timestamp
 

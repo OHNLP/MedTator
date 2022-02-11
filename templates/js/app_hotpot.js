@@ -164,6 +164,18 @@ var app_hotpot = {
             return this.annotation_tab_working_mode == 'adjudication';
         },
 
+        get_metator_mem: function() {
+            // return Math.floor(window.performance.memory.totalJSHeapSize / 1024 / 1024);
+            if (window.hasOwnProperty('performance')) {
+                if (window.performance.hasOwnProperty('memory')) {
+                    return Math.floor(window.performance.memory.usedJSHeapSize / 1024 / 1024);
+                }
+            } else {
+                return 'NA';
+            }
+            return 'NA';
+        },
+
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
@@ -319,7 +331,7 @@ var app_hotpot = {
                 skip_dtd = true;
             }
             var fn = 'annotation-' + 
-                this.get_ruleset_base_name() + 
+                this.dtd.name + 
                 '-' +
                 this.get_datetime() +
                 '.zip';
@@ -2171,7 +2183,7 @@ var app_hotpot = {
         },
 
         get_datetime: function() {
-            return dayjs().format('YYYY-MM-DD.HHmm');
+            return dayjs().format('YYYY-MM-DD_HH.mm.ss');
         }
     },
 
@@ -2477,7 +2489,7 @@ var app_hotpot = {
             if (isFSA_API_OK) {
                 // use FSA API to access
                 let item = items[0].getAsFileSystemHandle();
-                console.log('* using FSA API to load item as dtd', item);
+                console.log('* using FSA API to load item as dtd');
 
                 // read this handle
                 item.then(function(fh) {
@@ -2568,33 +2580,54 @@ var app_hotpot = {
                     // read this handle
                     item.then(function(fh) {
                         if (fh.kind == 'file') {
-
-                            // show something if this file exists
-                            // check if this file name exists
-                            if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                                // exists? skip this file
-                                app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                                return;
-                            }
-
-                            // if drop a txt!
-                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                                // parse this txt file
-                                app_hotpot.parse_ann_txt_file_fh(
-                                    fh,
-                                    app_hotpot.vpp.$data.dtd
-                                );
-                                return;
-                            }
-
-                            // should be a ann txt/xml file
-                            app_hotpot.parse_ann_xml_file_fh(
-                                fh,
+                            app_hotpot.parse_ann_file_fh(
+                                fh, 
                                 app_hotpot.vpp.$data.dtd
                             );
 
+                            // // show something if this file exists
+                            // // check if this file name exists
+                            // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                            //     // exists? skip this file
+                            //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                            //     return;
+                            // }
+
+                            // // if drop a txt!
+                            // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                            //     // parse this txt file
+                            //     app_hotpot.parse_ann_txt_file_fh(
+                            //         fh,
+                            //         app_hotpot.vpp.$data.dtd
+                            //     );
+                            //     return;
+                            // }
+
+                            // // should be a ann txt/xml file
+                            // app_hotpot.parse_ann_xml_file_fh(
+                            //     fh,
+                            //     app_hotpot.vpp.$data.dtd
+                            // );
+
                         } else {
                             // so item is a directory?
+                            // console.log(fh);
+                            
+                            fs_read_dir_handle(
+                                fh, 
+                                app_hotpot.vpp.$data.dtd
+                            );
+
+                            // p_ents.then(function(ents) {
+                            //     console.log('* ents:', ents);
+                            //     // ents.forEach(function(item, index, array) {
+                            //     //     console.log(item, index)
+                            //     //   });
+                            //     for (let i = 0; i < ents.length; i++) {
+                            //         const ent = ents[i];
+                            //         console.log(i, ent);
+                            //     }
+                            // });
                         }
                     });
                 } else {
@@ -2909,6 +2942,37 @@ var app_hotpot = {
             reader.onload = callback;
             reader.readAsText(file)
         });
+    },
+
+    parse_ann_file_fh: function(fh, dtd) {
+        // show something if this file exists
+        // check if this file name exists
+        if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+            // exists? skip this file
+            app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+            return;
+        }
+
+        // if drop a txt!
+        if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+            // parse this txt file
+            app_hotpot.parse_ann_txt_file_fh(
+                fh,
+                dtd
+            );
+            return;
+        }
+
+        // should be a ann txt/xml file
+        if (app_hotpot.is_file_ext(fh.name, 'xml')) {
+            app_hotpot.parse_ann_xml_file_fh(
+                fh,
+                dtd
+            );
+            return;
+        }
+
+        console.log('* skip unknown format file', fh.name);
     },
 
     parse_ann_txt_file_fh: function(fh, dtd) {

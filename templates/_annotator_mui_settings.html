@@ -6,7 +6,10 @@
             <i class="fa fa-cog"></i>
             MedTator Settings
         </h4>
-        <div>
+        <div class="d-flex flex-row">
+            <div style="line-height: 2em;">
+                MEM: {{ get_metator_mem() }} MB
+            </div>
             <button v-on:click="cfg.is_show_settings = false">
                 <i class="fa fa-times"></i>
             </button>

@@ -44,7 +44,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div class="group">
 
     <div id="dropzone_ann" 
-        title="Drop the file(s) for annotation (.xml or .txt)"
+        title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
         v-on:click="open_ann_files"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
         <div v-if="ann_idx != null" class="zone-text">
@@ -52,10 +52,12 @@ v-bind:class="{'active': section=='annotation'}">
             {{ anns[ann_idx].text.length }} chars<br>
             {{ anns[ann_idx].tags.length }} tags
         </div>
-        <div v-else-if="dtd != null">
+        <div v-else-if="dtd != null"
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files">
             Drop <b>Annotation</b> File(s)
         </div>
-        <div v-else>
+        <div v-else
+            title="Load the schema for annotation task first">
             <i class="fa fa-arrow-left"></i>
             Load schema file first
         </div>

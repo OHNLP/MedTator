@@ -19,7 +19,8 @@ v-bind:class="{'active': section=='iaa'}">
 
     <div id="dropzone_iaa_0" class="dropzone-iaa"
         iaa_id="0">
-        <div v-if="dtd == null" class="zone-text">
+        <div v-if="dtd == null" 
+            class="zone-text">
             Load DTD file first<br>
             in Annotation Tab
         </div>
@@ -28,7 +29,8 @@ v-bind:class="{'active': section=='iaa'}">
             Drop Annotation <br>
             File(s)
         </div>
-        <div v-else class="zone-text">
+        <div v-else 
+            class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
             <br>
             in {{ iaa_ann_list[0].anns.length }} Files
