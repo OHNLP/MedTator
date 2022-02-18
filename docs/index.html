@@ -1127,6 +1127,74 @@ input[type=text].ipt-spinner-xs {
 .CM-gutter-test {
     border-left: 2px solid red;
 }
+
+/* rules for the statistics tab */
+.doctag-table {
+    cursor: default;
+}
+.doctag-table tr:nth-child(even) {
+    background: whitesmoke;
+}
+.doctag-table tr:nth-child(odd) {
+    background: #ffffff;
+}
+.doctag-table tr {
+    border-bottom: 1px solid transparent;
+}
+.doctag-table tr:hover {
+    background-color: rgb(219, 219, 219);
+    border-color: #646464 !important;
+}
+.doctag-table th {
+    vertical-align: bottom;
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+    min-width: 30px;
+    max-width: 40px;
+}
+.doctag-table th span.rotate-90 {
+  -ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+.doctag-table td {
+    vertical-align: center;
+    text-align: center;
+    padding: 2px;
+}
+.doctag-table td.td-summary {
+    font-weight: bold;
+}
+.doctag-table td.td-filename {
+    border-left: 5px solid transparent;
+    padding-left: 5px;
+    padding-right: 10px;
+    width: 180px;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.doctag-table tr:hover td.td-filename{
+    border-left-color: #646464;
+    font-weight: bold;
+    font-style: italic;
+}
+.doctag-table .td-count {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid transparent;
+}
+.doctag-table .td-count:hover {
+    border-color: #646464;
+}
+.doctag-table .td-count-0 {
+    font-size: 0.9em;
+    color: #eeeeee;
+}
 </style>
 
 <style id="dtd_style">
@@ -1233,7 +1301,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div class="group">
 
     <div id="dropzone_ann" 
-        title="Drop the file(s) for annotation (.xml or .txt)"
+        title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
         v-on:click="open_ann_files"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
         <div v-if="ann_idx != null" class="zone-text">
@@ -1241,10 +1309,12 @@ v-bind:class="{'active': section=='annotation'}">
             {{ anns[ann_idx].text.length }} chars<br>
             {{ anns[ann_idx].tags.length }} tags
         </div>
-        <div v-else-if="dtd != null">
+        <div v-else-if="dtd != null"
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files">
             Drop <b>Annotation</b> File(s)
         </div>
-        <div v-else>
+        <div v-else
+            title="Load the schema for annotation task first">
             <i class="fa fa-arrow-left"></i>
             Load schema file first
         </div>
@@ -1708,12 +1778,23 @@ v-bind:class="{'active': section=='statistics'}">
 
 <div class="group">
     <button class="ribbon-button" 
+        title="Download the summary of the statistics"
         :disabled="dtd == null"
         v-on:click="download_stat_summary">
         <span class="icon">
-            <i class="fa fa-download"></i>
+            <i class="far fa-clipboard"></i>
         </span>
         <span class="caption">Summary (.csv)</span>
+    </button>
+
+    <button class="ribbon-button" 
+        title="Download the detailed statistics"
+        :disabled="dtd == null"
+        v-on:click="download_stat_details">
+        <span class="icon">
+            <i class="fas fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Details (.xlsx)</span>
     </button>
 
     <span class="title">Download</span>    
@@ -1856,7 +1937,8 @@ v-bind:class="{'active': section=='iaa'}">
 
     <div id="dropzone_iaa_0" class="dropzone-iaa"
         iaa_id="0">
-        <div v-if="dtd == null" class="zone-text">
+        <div v-if="dtd == null" 
+            class="zone-text">
             Load DTD file first<br>
             in Annotation Tab
         </div>
@@ -1865,7 +1947,8 @@ v-bind:class="{'active': section=='iaa'}">
             Drop Annotation <br>
             File(s)
         </div>
-        <div v-else class="zone-text">
+        <div v-else 
+            class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[0].anns) }} Tags
             <br>
             in {{ iaa_ann_list[0].anns.length }} Files
@@ -2083,7 +2166,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.6 | 
+            MedTator 1.2.10 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2108,7 +2191,10 @@ v-bind:class="{'active': section=='iaa'}">
             <i class="fa fa-cog"></i>
             MedTator Settings
         </h4>
-        <div>
+        <div class="d-flex flex-row">
+            <div style="line-height: 2em;">
+                MEM: {{ get_metator_mem() }} MB
+            </div>
             <button v-on:click="cfg.is_show_settings = false">
                 <i class="fa fa-times"></i>
             </button>
@@ -3130,7 +3216,8 @@ v-bind:class="{'active': section=='iaa'}">
                 </div>
 
                 <div v-if="dtd != null && anns.length != 0"
-                    class="box-body">
+                    class="box-body"
+                    style="overflow-y: auto;">
 
                     <div v-for="stat_item in stat_summary"
                         class="box-body-item d-flex flex-row flex-justify-between">
@@ -3150,7 +3237,90 @@ v-bind:class="{'active': section=='iaa'}">
 
         <div id="mui_stat_details" class="d-flex ml-2">
 
-            <div class="w-100 d-flex flex-row h-100">
+            <div class="w-100 d-flex flex-row flex-wrap h-100"
+                 style="overflow-y: auto;">
+                <div class="box w-100 mb-2">
+                    <div class="box-header">
+                        <h4>
+                            <i class="fas fa-table"></i>
+                            Document Summary
+                        </h4>
+                    </div>
+                    <div v-if="dtd != null && anns.length > 0"
+                        class="box-body">
+                        <table class="doctag-table">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Total</th>
+                                    <th v-for="tag_def in dtd.etags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            <i class="fa fa-tag"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th>
+                                    <th v-for="tag_def in dtd.ltags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            <i class="fa fa-link"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="stat, stat_idx in stat_docs_by_tags">
+                                    <td v-if="stat_idx == 0"
+                                        class="td-summary">
+                                        {{ stat.file_name }}
+                                    </td>
+                                    <td v-else
+                                        class="td-filename"
+                                        title="Check this file in the Annotation tab"
+                                        v-on:click="show_ann_file(stat.file_name)">
+                                        {{ stat.file_name }}
+                                    </td>
+                                    <td>
+                                        {{ stat._total_tags }}
+                                    </td>
+                                    <td v-for="tag_def in dtd.etags">
+                                        <span v-if="stat_idx == 0"
+                                            class="td-count"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                        <span v-else
+                                            class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                    </td>
+                                    <td v-for="tag_def in dtd.ltags">
+                                        <span v-if="stat_idx == 0"
+                                            class="td-count"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                        <span v-else
+                                            class="td-count"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            {{ stat[tag_def.name] }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
                 <div class="box w-100">
                     <div class="box-header">
                         <h4>
@@ -3507,6 +3677,24 @@ var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.o
 async function fs_open_files(pickerOpts) {
     const fhs = await window.showOpenFilePicker(pickerOpts);
     return fhs;
+}
+
+async function fs_read_dir_handle(fh, dtd) {
+    for await (const entry of fh.values()) {
+        // Each entry is an instance of FileSystemFileHandle 
+        // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 
+        console.log(entry);
+        if (entry.kind != 'file') {
+            console.log('* skip sub folder', entry.name);
+            continue;
+        }
+
+        // call the app_hotpot to parse and decide this fh
+        app_hotpot.parse_ann_file_fh(
+            entry, 
+            dtd
+        );
+    }
 }
 
 async function fs_read_txt_file_handle(fh, dtd) {
@@ -4928,6 +5116,339 @@ var ann_parser = {
     },
 
 
+};
+
+// The statistics helper
+/**
+ * A helper object for the statistics related functions
+ */
+var stat_helper = {
+    get_stat_items: function(anns, dtd) {
+        var items = [
+            // the basic statistics
+            ['# of documents', anns.length],
+            ['# of tags in schema', dtd.etags.length],
+            ['# of annotations', this.count_all_tags(anns)],
+
+            // the frequents
+            [
+                '# of annotations per tag', 
+                this.calc_avg_tags_per_def(anns, dtd)
+            ],
+            [
+                '# of annotations per document', 
+                this.calc_avg_tags_per_doc(anns)
+            ],
+            [
+                '# of sentences',
+                this.count_all_sentences(anns)
+            ],
+            [
+                '# of sentences per document',
+                this.calc_avg_sentences_per_doc(anns)
+            ],
+            
+        ];
+
+        // the number by tags
+        var cnt = this.count_tags_by_concepts(anns, dtd);
+        for (const tag_name in cnt) {
+            if (Object.hasOwnProperty.call(cnt, tag_name)) {
+                const val = cnt[tag_name];
+                items.push([
+                    '# of tags ' + tag_name,
+                    val
+                ]);
+            }
+        }
+
+        return items;
+    },
+
+    /**
+     * Get the statistics summary in JSON format
+     * @param {list} raw_summary the raw summary list
+     */
+    get_stat_summary_json: function(raw_summary) {
+        var json = [];
+
+        for (let i = 0; i < raw_summary.length; i++) {
+            const s = raw_summary[i];
+            json.push({
+                'measure': s[0],
+                'result': s[1]
+            });
+        }
+
+        return json;
+    },
+
+    /**
+     * Get the worksheet of the summary
+     * @param {list} raw_summary the raw summary list
+     * @returns a XLSX worksheet object 
+     */
+    get_stat_summary_excelws: function(raw_summary) {
+        var js = this.get_stat_summary_json(raw_summary);
+
+        var ws = XLSX.utils.json_to_sheet(js);
+
+        return ws;
+    },
+
+    get_stat_docs_by_tags_json: function(anns, dtd) {
+        var js = [{
+            'file_name': 'Summary',
+            '_total_tags': 0
+        }];
+
+        for (let i = 0; i < anns.length; i++) {
+            // each ann is a document
+            const ann = anns[i];
+
+            // create a new json object
+            var j = {
+                'file_name': ann._filename,
+                '_total_tags': 0
+            };
+            
+            // to make sure the order of tags, use two loops
+            // first, init all the etags
+            for (let k = 0; k < dtd.etags.length; k++) {
+                const tag = dtd.etags[k];
+                // init this tag count
+                j[tag.name] = 0;
+
+                // init the first row if not 
+                if (!js[0].hasOwnProperty(tag.name)) {
+                    js[0][tag.name] = 0;
+                }
+            }
+
+            // then, init all ltags
+            for (let k = 0; k < dtd.ltags.length; k++) {
+                const tag = dtd.ltags[k];
+                // init this tag count
+                j[tag.name] = 0;
+
+                // init the first row if not 
+                if (!js[0].hasOwnProperty(tag.name)) {
+                    js[0][tag.name] = 0;
+                }
+            }
+
+            // now, we can count how many tags in this doc
+            for (let k = 0; k < ann.tags.length; k++) {
+                const tag = ann.tags[k];
+                // update the count
+                j[tag.tag] += 1;
+                // update the total of this file
+                j['_total_tags'] += 1;
+
+                // update the summary of this concept
+                js[0][tag.tag] += 1;
+                // update the summary of all
+                js[0]['_total_tags'] += 1;
+            }
+
+            // ok, done! let's put this j to js list
+            js.push(j);
+        }
+
+        return js;
+    },
+
+    get_stat_docs_by_tags_excelws: function(ann, dtd) {
+        var js = this.get_stat_docs_by_tags_json(ann, dtd);
+
+        var ws = XLSX.utils.json_to_sheet(js);
+
+        // now add color to the number cells
+        // first, get the max number
+        // because the number is counted
+        var n_max = this.__get_max_val(js);
+        // set a min threshold for this max value
+        if (n_max < 10) {
+            n_max = 10;
+        }
+        var func_val2color = function(val) {
+            return d3.rgb(
+                d3.interpolateReds(val / n_max)
+            ).formatHex();
+        }
+        var func_val2fontc = function(val) {
+            if (val / n_max > 0.7) {
+                return '#ffffff';
+            } else {
+                return '#000000';
+            }
+        }
+
+        // now, check each cell
+        for (const coord in ws) {
+            if (Object.hasOwnProperty.call(ws, coord)) {
+                const obj = ws[coord];
+                // skip the system attr
+                if (obj.hasOwnProperty('v')) {
+                    if (typeof(obj.v) == 'number') {
+                        // skip the sum
+                        if (coord.startsWith('B')) {
+                            continue;
+                        }
+
+                        // which means this is a count number
+                        // create a color
+                        var fg_color = func_val2color(obj.v);
+                        var font_color = '#000000';
+                        if (obj.v == 0) {
+                            fg_color = '#ffffff';
+                            font_color = '#cccccc';
+                        } else {
+                            font_color = func_val2fontc(obj.v);
+                        }
+
+                        // set this color
+                        ws[coord].s = {
+                            fill: {
+                                fgColor: {
+                                    rgb: fg_color.substring(1)
+                                }
+                            },
+                            font: {
+                                color: {
+                                    rgb: font_color.substring(1)
+                                }
+                            }
+                        }
+                    } else if (typeof(obj.v) == 'string') {
+                        // we want to set color for the header
+                        if (dtd.tag_dict.hasOwnProperty(obj.v)) {
+                            // ok, this is a tag name
+                            ws[coord].s = {
+                                fill: {
+                                    fgColor: {
+                                        rgb: dtd.tag_dict[obj.v].style.color.substring(1)
+                                    }
+                                },
+                                font: {
+                                    sz: 14
+                                }
+                            }
+                        }
+                    } else {
+                        // ok, other cell?
+                    }
+                }
+            }
+        }
+
+        return ws;
+    },
+
+
+    /**
+     * Count the total number of all annotated tags
+     * @param {list} anns the anns from vpp
+     * @returns the total number annotated tags
+     */
+    count_all_tags: function(anns) {
+        var n = 0;
+        for (let i = 0; i < anns.length; i++) {
+            for (let j = 0; j < anns[i].tags.length; j++) {
+                n += 1;
+            }
+        }
+        return n;
+    },
+
+    /**
+     * Count the total number of split sentences
+     * @param {list} anns the anns from vpp
+     * @returns the total number of sentences
+     */
+    count_all_sentences: function(anns) {
+        var n = 0;
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            if (ann.hasOwnProperty('_sentences')) {
+                n += ann._sentences.length;
+            }
+        }
+        return n;
+    },
+
+    count_tags_by_concepts: function(anns, dtd) {
+        var cnt = {};
+
+        for (const tag_name in dtd.tag_dict) {
+            if (Object.hasOwnProperty.call(dtd.tag_dict, tag_name)) {
+                const tag_def = dtd.tag_dict[tag_name];
+                cnt[tag_def.name] = 0;
+            }
+        }
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            for (let j = 0; j < ann.tags.length; j++) {
+                const tag = ann.tags[j];
+                cnt[tag.tag] += 1;
+            }
+        }
+
+        return cnt;
+    },
+
+    calc_avg_sentences_per_doc: function(anns) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        var t = this.count_all_sentences(anns);
+        return (t/anns.length).toFixed(2);
+    },
+
+    calc_avg_tags_per_doc: function(anns) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        var t = this.count_all_tags(anns);
+        return (t/anns.length).toFixed(2);
+    },
+
+    calc_avg_tags_per_def: function(anns, dtd) {
+        if (anns == null || anns.length == 0) {
+            return '-';
+        }
+        if (dtd == null || dtd.etags.length == 0) {
+            return '-';
+        }
+        return (anns.length / dtd.etags.length).toFixed(2);
+    },
+
+    /**
+     * stat_helper internal use only
+     * @param {list} json the json for the stat report
+     * @returns the max value
+     */
+    __get_max_val: function(json) {
+        var max_val = 0;
+        // skip the summary, so skip the first row in json
+        for (let i = 1; i < json.length; i++) {
+            const obj = json[i];
+            for (const key in obj) {
+                if (key == '_total_tags') {
+                    // skip the total column
+                    continue;
+                }
+                if (Object.hasOwnProperty.call(obj, key)) {
+                    const val = obj[key];
+                    if (val > max_val) {
+                        max_val = val;
+                    }
+                }
+            }
+        }
+
+        return max_val;
+    }
 };
 
 // The BioC parser
@@ -8033,7 +8554,9 @@ var nlp_toolkit = {
         }
 
         // create a folder in this zip file
-        var folder_name = 'annotation-'+ dtd.name + '';
+        // var folder_name = 'annotation-'+ dtd.name + '';
+        // use the given filename as the folder name (exclude the .zip)
+        var folder_name = fn.substring(0, fn.lastIndexOf('.'));
 
         // check each ann file
         for (let i = 0; i < anns.length; i++) {
@@ -8401,6 +8924,18 @@ var app_hotpot = {
             return this.annotation_tab_working_mode == 'adjudication';
         },
 
+        get_metator_mem: function() {
+            // return Math.floor(window.performance.memory.totalJSHeapSize / 1024 / 1024);
+            if (window.hasOwnProperty('performance')) {
+                if (window.performance.hasOwnProperty('memory')) {
+                    return Math.floor(window.performance.memory.usedJSHeapSize / 1024 / 1024);
+                }
+            } else {
+                return 'NA';
+            }
+            return 'NA';
+        },
+
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
@@ -8555,10 +9090,17 @@ var app_hotpot = {
             if (typeof(skip_dtd) == 'undefined') {
                 skip_dtd = true;
             }
+            var fn = 'annotation-' + 
+                this.dtd.name + 
+                '-' +
+                this.get_datetime() +
+                '.zip';
+            console.log('* download all as zip ' + fn);
+
             var file_list = nlp_toolkit.download_dataset_raw(
                 this.anns,
                 this.dtd,
-                'annotation-' + this.get_ruleset_base_name() + '.zip',
+                fn,
                 skip_dtd
             );
             
@@ -9180,7 +9722,10 @@ var app_hotpot = {
         download_stat_summary: function() {
             var json = [];
 
-            var stat_items = this.get_stat_items();
+            var stat_items = stat_helper.get_stat_items(
+                this.anns,
+                this.dtd
+            );
 
             for (let i = 0; i < stat_items.length; i++) {
                 const stat_item = stat_items[i];
@@ -9200,22 +9745,40 @@ var app_hotpot = {
             saveAs(blob, fn);
         },
 
-        get_stat_items: function() {
-            return [
-                ['# of documents', this.anns.length],
-                ['# of tags in schema', this.dtd.etags.length],
-                ['# of annotations', this.count_all_tags(this.anns)],
-                ['# of annotations per tag', this.calc_avg_tags_per_def(this.anns, this.dtd)],
-                ['# of annotations per document', this.calc_avg_tags_per_doc(this.anns)],
-                [
-                    '# of sentences',
-                    this.count_all_sentences(this.anns)
+        download_stat_details: function() {
+            // create each sheet 
+            // sheet 1. the summary
+            var ws_summary = stat_helper.get_stat_summary_excelws(
+                stat_helper.get_stat_items(
+                    this.anns,
+                    this.dtd
+                )
+            );
+
+            // sheet 2. the tags
+            var ws_docbtag = stat_helper.get_stat_docs_by_tags_excelws(
+                this.anns,
+                this.dtd
+            );
+
+            // create the wb for download
+            var wb = {
+                SheetNames: [
+                    "Summary",
+                    "Documents"
                 ],
-                [
-                    '# of sentences per document',
-                    this.calc_avg_sentences_per_doc(this.anns)
-                ],
-            ];
+                Sheets: {
+                    Summary: ws_summary,
+                    Documents: ws_docbtag
+                }
+            };
+            console.log(wb);
+
+            // decide the file name for this export
+            var fn = this.dtd.name + '-annotation-statistics.xlsx';
+
+            // download this wb
+            XLSX.writeFile(wb, fn);
         },
         
         /////////////////////////////////////////////////////////////////
@@ -10084,53 +10647,6 @@ var app_hotpot = {
             return cnt;
         },
 
-        count_all_tags: function(anns) {
-            var n = 0;
-            for (let i = 0; i < anns.length; i++) {
-                for (let j = 0; j < anns[i].tags.length; j++) {
-                    n += 1;
-                }
-            }
-            return n;
-        },
-
-        count_all_sentences: function(anns) {
-            var n = 0;
-            for (let i = 0; i < anns.length; i++) {
-                const ann = anns[i];
-                if (ann.hasOwnProperty('_sentences')) {
-                    n += ann._sentences.length;
-                }
-            }
-            return n;
-        },
-
-        calc_avg_sentences_per_doc: function(anns) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            var t = this.count_all_sentences(anns);
-            return (t/anns.length).toFixed(2);
-        },
-
-        calc_avg_tags_per_doc: function(anns) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            var t = this.count_all_tags(anns);
-            return (t/anns.length).toFixed(2);
-        },
-
-        calc_avg_tags_per_def: function(anns, dtd) {
-            if (anns == null || anns.length == 0) {
-                return '-';
-            }
-            if (dtd == null || dtd.etags.length == 0) {
-                return '-';
-            }
-            return (anns.length / dtd.etags.length).toFixed(2);
-        },
-
         is_match_filename: function(fn) {
             let p = this.fn_pattern.trim();
             if (p == '') {
@@ -10390,6 +10906,44 @@ var app_hotpot = {
                 return true;
             }
             return false;
+        },
+
+        stat_value2bgcolor: function(value, max_value, zero_color) {
+            if (typeof(max_value)=='undefined') {
+                max_value = 10;
+            }
+            if (typeof(zero_color)=='undefined') {
+                zero_color = '#ffffff';
+            }
+            if (value == 0) {
+                return zero_color;
+            } else {
+                return d3.rgb(
+                    d3.interpolateReds(value / max_value)
+                ).formatHex() + '';
+            }
+        },
+
+        stat_value2ftcolor: function(value, max_value, zero_color) {
+            if (typeof(max_value)=='undefined') {
+                max_value = 10;
+            }
+            if (typeof(zero_color)=='undefined') {
+                zero_color = '#eeeeee';
+            }
+            if (value == 0) {
+                return zero_color;
+            } else {
+                if (value / max_value < 0.6) {
+                    return '#000000';
+                } else {
+                    return '#ffffff';
+                }
+            }
+        },
+
+        get_datetime: function() {
+            return dayjs().format('YYYY-MM-DD_HH.mm.ss');
         }
     },
 
@@ -10417,6 +10971,22 @@ var app_hotpot = {
 
             mounted: function() {
                 Metro.init();
+            },
+
+            computed: {
+                stat_docs_by_tags: function() {
+                    return stat_helper.get_stat_docs_by_tags_json(
+                        this.anns,
+                        this.dtd
+                    );
+                },
+
+                stat_summary: function() {
+                    return stat_helper.get_stat_items(
+                        this.anns,
+                        this.dtd
+                    );
+                }
             },
 
             updated: function() {
@@ -10679,7 +11249,7 @@ var app_hotpot = {
             if (isFSA_API_OK) {
                 // use FSA API to access
                 let item = items[0].getAsFileSystemHandle();
-                console.log('* using FSA API to load item as dtd', item);
+                console.log('* using FSA API to load item as dtd');
 
                 // read this handle
                 item.then(function(fh) {
@@ -10770,33 +11340,54 @@ var app_hotpot = {
                     // read this handle
                     item.then(function(fh) {
                         if (fh.kind == 'file') {
-
-                            // show something if this file exists
-                            // check if this file name exists
-                            if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                                // exists? skip this file
-                                app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                                return;
-                            }
-
-                            // if drop a txt!
-                            if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                                // parse this txt file
-                                app_hotpot.parse_ann_txt_file_fh(
-                                    fh,
-                                    app_hotpot.vpp.$data.dtd
-                                );
-                                return;
-                            }
-
-                            // should be a ann txt/xml file
-                            app_hotpot.parse_ann_xml_file_fh(
-                                fh,
+                            app_hotpot.parse_ann_file_fh(
+                                fh, 
                                 app_hotpot.vpp.$data.dtd
                             );
 
+                            // // show something if this file exists
+                            // // check if this file name exists
+                            // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                            //     // exists? skip this file
+                            //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                            //     return;
+                            // }
+
+                            // // if drop a txt!
+                            // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                            //     // parse this txt file
+                            //     app_hotpot.parse_ann_txt_file_fh(
+                            //         fh,
+                            //         app_hotpot.vpp.$data.dtd
+                            //     );
+                            //     return;
+                            // }
+
+                            // // should be a ann txt/xml file
+                            // app_hotpot.parse_ann_xml_file_fh(
+                            //     fh,
+                            //     app_hotpot.vpp.$data.dtd
+                            // );
+
                         } else {
                             // so item is a directory?
+                            // console.log(fh);
+                            
+                            fs_read_dir_handle(
+                                fh, 
+                                app_hotpot.vpp.$data.dtd
+                            );
+
+                            // p_ents.then(function(ents) {
+                            //     console.log('* ents:', ents);
+                            //     // ents.forEach(function(item, index, array) {
+                            //     //     console.log(item, index)
+                            //     //   });
+                            //     for (let i = 0; i < ents.length; i++) {
+                            //         const ent = ents[i];
+                            //         console.log(i, ent);
+                            //     }
+                            // });
                         }
                     });
                 } else {
@@ -11111,6 +11702,37 @@ var app_hotpot = {
             reader.onload = callback;
             reader.readAsText(file)
         });
+    },
+
+    parse_ann_file_fh: function(fh, dtd) {
+        // show something if this file exists
+        // check if this file name exists
+        if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+            // exists? skip this file
+            app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+            return;
+        }
+
+        // if drop a txt!
+        if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+            // parse this txt file
+            app_hotpot.parse_ann_txt_file_fh(
+                fh,
+                dtd
+            );
+            return;
+        }
+
+        // should be a ann txt/xml file
+        if (app_hotpot.is_file_ext(fh.name, 'xml')) {
+            app_hotpot.parse_ann_xml_file_fh(
+                fh,
+                dtd
+            );
+            return;
+        }
+
+        console.log('* skip unknown format file', fh.name);
     },
 
     parse_ann_txt_file_fh: function(fh, dtd) {
