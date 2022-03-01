@@ -92,6 +92,17 @@ var app_hotpot = {
         // for iaa adjudication
         iaa_gs_dict: null,
 
+        // for using attributes in IAA
+        iaa_use_attributes: false,
+
+        // for using attributes in IAA a selection map
+        // {
+        //    tag_name: {
+        //        attr_name: true / false
+        //    }
+        // }
+        iaa_use_tag_attrs: {},
+
         // cm settings
         cm: {
             // document / sentences
@@ -1207,7 +1218,10 @@ var app_hotpot = {
                 this.iaa_ann_list[0].anns,
                 this.iaa_ann_list[1].anns,
                 this.iaa_match_mode,
-                this.iaa_overlap_ratio / 100
+                this.iaa_overlap_ratio / 100,
+                this.iaa_use_attributes?
+                    this.iaa_use_tag_attrs:
+                    null
             );
             this.iaa_dict = iaa_dict;
             console.log('* iaa result:', iaa_dict);
@@ -1226,6 +1240,69 @@ var app_hotpot = {
 
         on_change_iaa_settings: function(event) {
             console.log('* changed attr in', event.target);
+            
+        },
+
+        on_change_iaa_use_attributes: function(event) {
+            console.log('* changed iaa_use_attributes=', this.iaa_use_attributes);
+
+            // update the settings of iaa_use_tag_attrs
+            if (this.dtd == null) {
+                return;
+            }
+
+            if (Object.keys(this.iaa_use_tag_attrs).length != 0) {
+                // which means this has been inited
+                return;
+            }
+
+            this.init_iaa_use_tag_attrs();
+        },
+
+        init_iaa_use_tag_attrs: function() {
+            // update the values
+            for (const tag_name in this.dtd.tag_dict) {
+                if (Object.hasOwnProperty.call(this.dtd.tag_dict, tag_name)) {
+                    const tag = this.dtd.tag_dict[tag_name];
+                    this.iaa_use_tag_attrs[tag_name] = {};
+
+                    // update all the attributes
+                    for (let i = 0; i < tag.attlists.length; i++) {
+                        const att = tag.attlists[i];
+                        // set all to true
+                        this.iaa_use_tag_attrs[tag_name][att.name] = true;
+                    }
+                }
+            }
+        },
+
+        set_all_iaa_use_tag_attrs: function(selection) {
+            for (const tag_name in this.iaa_use_tag_attrs) {
+                if (Object.hasOwnProperty.call(this.iaa_use_tag_attrs, tag_name)) {
+                    const tag_attrs = this.iaa_use_tag_attrs[tag_name];
+                    for (const att_name in tag_attrs) {
+                        if (Object.hasOwnProperty.call(tag_attrs, att_name)) {
+                            this.iaa_use_tag_attrs[tag_name][att_name] = selection;
+                        }
+                    }
+                }
+            }
+
+            // due to deep update, need to update manually
+            this.$forceUpdate();
+        },
+
+        toggle_iaa_tag_attrs: function(tag_name, att_name) {
+            if (this.iaa_use_tag_attrs.hasOwnProperty(tag_name)) {
+                if (this.iaa_use_tag_attrs[tag_name].hasOwnProperty(att_name)) {
+                    this.iaa_use_tag_attrs[tag_name][att_name] = 
+                        !this.iaa_use_tag_attrs[tag_name][att_name];
+                }
+            }
+            console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
+
+            // due to deep update, need to update manually
+            this.$forceUpdate();
         },
 
         transfer_to_annotation_tab: function() {

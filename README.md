@@ -86,6 +86,11 @@ Then, you can create a release zip file:
 python web.py --mode release
 ```
 
+## License
+
+Apache-2.0 License
+
+
 ## Change log
 
 ### 1.2.10 (2022-02-17)
@@ -201,7 +206,3 @@ Release Highlights
 - Multi-format export.
 - Multi-file annotation.
 
-
-## License
-
-Apache-2.0 License

@@ -5,6 +5,8 @@ var iaa_calculator = {
         annotator_a_tag: 'd9e9f1',
         annotator_b_tag: 'd8f7d6',
     },
+
+    default_overlap_ratio: 0.1,
     
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
@@ -683,13 +685,17 @@ var iaa_calculator = {
         anns_a, 
         anns_b, 
         match_mode, 
-        overlap_ratio
+        overlap_ratio,
+        tag_attrs
     ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         /* we will build a dictionary for this task
         {
@@ -799,7 +805,8 @@ var iaa_calculator = {
                 ann_a,
                 ann_b,
                 match_mode,
-                overlap_ratio
+                overlap_ratio,
+                tag_attrs
             );
 
             // save this result
@@ -859,14 +866,24 @@ var iaa_calculator = {
      * @param {Object} ann_b an annotation by B
      * @param {string} match_mode overlap or exact match
      * @param {float} overlap_ratio overlap ratio
+     * @param {Object} tag_attrs which attr to be used in calc 
      * @returns Object of IAA result
      */
-    evaluate_ann_on_dtd: function(dtd, ann_a, ann_b, match_mode, overlap_ratio) {
+    evaluate_ann_on_dtd: function(
+        dtd, 
+        ann_a, 
+        ann_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
 
         // check the text first
@@ -885,7 +902,14 @@ var iaa_calculator = {
         var cm_ann = { tp: 0, fp: 0, fn: 0 };
         for (let i = 0; i < dtd.etags.length; i++) {
             const tag_def = dtd.etags[i];
-            var r = this.evaluate_ann_on_tag(tag_def, ann_a, ann_b, match_mode, overlap_ratio);
+            var r = this.evaluate_ann_on_tag(
+                tag_def, 
+                ann_a, 
+                ann_b, 
+                match_mode, 
+                overlap_ratio,
+                tag_attrs
+            );
             result_ann.tag[tag_def.name] = r;
 
             // add the result of this tag
@@ -901,12 +925,22 @@ var iaa_calculator = {
         return result_ann;
     },
 
-    evaluate_ann_on_tag: function(tag_def, ann_a, ann_b, match_mode, overlap_ratio) {
+    evaluate_ann_on_tag: function(
+        tag_def, 
+        ann_a, 
+        ann_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
 
         // check the text first
@@ -921,18 +955,33 @@ var iaa_calculator = {
         var tag_list_a = this.get_tag_list_by_tag(tag_def, ann_a);
         var tag_list_b = this.get_tag_list_by_tag(tag_def, ann_b);
 
-        var cm = this.calc_matching(tag_list_a, tag_list_b, match_mode, overlap_ratio);
+        var cm = this.calc_matching(
+            tag_list_a, 
+            tag_list_b, 
+            match_mode, 
+            overlap_ratio,
+            tag_attrs
+        );
         var result = this.calc_p_r_f1(cm);
 
         return result;
     },
 
-    calc_matching: function(tag_list_a, tag_list_b, match_mode, overlap_ratio) {
+    calc_matching: function(
+        tag_list_a, 
+        tag_list_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         var cm = {
             tp: 0,
@@ -961,11 +1010,12 @@ var iaa_calculator = {
             // the `tag_list_b` may be not empty
             // if not match, may due to the low overlap
             // the return result also contains the overlap rate
-            var is_match = this.is_tag_in_list(
+            var is_match = this.is_tag_match_in_list(
                 tag_a, 
                 tag_list_b, 
                 match_mode,
-                overlap_ratio
+                overlap_ratio,
+                tag_attrs
             );
 
             console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
@@ -1006,12 +1056,21 @@ var iaa_calculator = {
         return cm;
     },
 
-    is_tag_in_list: function(tag, tag_list, match_mode, overlap_ratio) {
+    is_tag_match_in_list: function(
+        tag, 
+        tag_list, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         var spans = tag.spans;
         var loc_a = this.spans2loc(spans);
@@ -1033,17 +1092,48 @@ var iaa_calculator = {
                 // first the decision based on the ratio
                 // seoncd the how much is overlapped
                 var is_olpd = this.is_overlapped(
-                    loc_a, loc_b, 
+                    loc_a, 
+                    loc_b, 
                     overlap_ratio
                 );
                 if (is_olpd[0]) {
-                    // OK, the overlap is bigger than the ratio
-                    // just return this is matched
-                    return { 
-                        is_in: true,
-                        tag_b: tag_b,
-                        olpr: is_olpd[1]
-                    };
+                    // check if using tag_attrs
+                    if (tag_attrs == null) {
+                        // OK, the overlap is bigger than the ratio
+                        // just return this is matched
+                        return { 
+                            is_in: true,
+                            tag_b: tag_b,
+                            olpr: is_olpd[1],
+                            atum: null
+                        };
+                    } else {
+                        // too bad, need to check the attributes
+                        var is_atmd = this.is_attrs_matched(
+                            tag,
+                            tag_b,
+                            tag_attrs
+                        );
+
+                        if (is_atmd[0]) {
+                            // great! perfect match!
+                            return { 
+                                is_in: true,
+                                tag_b: tag_b,
+                                olpr: is_olpd[1],
+                                atum: null
+                            };
+                        } else {
+                            // too bad, some attr maybe different
+                            return { 
+                                is_in: false,
+                                tag_b: tag_b,
+                                olpr: is_olpd[1],
+                                // ATtribute UnMatched
+                                atum: is_atmd[1]
+                            };
+                        }
+                    }
                 }
                 // in some cases, the overlapped ratio is low
                 // but still match, we need to check this case
@@ -1057,7 +1147,8 @@ var iaa_calculator = {
                     return {
                         is_in: true,
                         tag_b: tag_b,
-                        olpr: 1
+                        olpr: 1,
+                        atum: null
                     };
                 }
                 
@@ -1067,13 +1158,57 @@ var iaa_calculator = {
         return {
             is_in: false,
             tag_b: p_tag_b,
-            olpr: olpr
+            olpr: olpr,
+            atum: null
         };
+    },
+
+    is_attrs_matched: function(tag_a, tag_b, tag_attrs) {
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = {};
+        }
+        for (const attr in tag_a) {
+            if (!tag_attrs.hasOwnProperty(tag_a.tag)) {
+                // what??? 
+                break;
+            }
+            if (!tag_attrs[tag_a.tag].hasOwnProperty(attr)) {
+                // skip those system attr
+                continue;
+            }
+            if (!tag_attrs[tag_a.tag][attr]) {
+                // skip those unselected attr
+                continue;
+            }
+            if (Object.hasOwnProperty.call(tag_a, attr)) {
+                const val_a = tag_a[attr];
+
+                if (tag_b.hasOwnProperty(attr)) {
+                    // skip those attrs that not available
+                    const val_b = tag_b[attr];
+
+                    if (val_a == val_b) {
+                        // ok, nothing to do with one as they are the same 
+                        continue;
+
+                    } else {
+                        // ok, we found different attr val!
+                        return [false, attr];
+                    }
+                } else {
+                    // what??? this can't be!
+                    // return [false, attr];
+                    continue;
+                }
+            }
+        }
+        // ok, is matched and no difference
+        return [true, null];
     },
 
     is_overlapped: function(loc_a, loc_b, overlap_ratio) {
         if (typeof(overlap_ratio)=='undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
         }
         
         var s_a = new Set(new Array(loc_a[1] - loc_a[0] + 1).fill(loc_a[0]).map((e,i)=>e+i));

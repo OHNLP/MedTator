@@ -708,6 +708,9 @@ input[type=text].ipt-spinner-xs {
     padding: 0px 2px;
     background-color: #eaeaea;
 }
+.iaa-tag-attr-name {
+    font-size: 0.8em;
+}
 .iaa-annotator-AB,
 .iaa-annotator-ab {
     color: green;

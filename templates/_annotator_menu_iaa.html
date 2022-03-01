@@ -22,7 +22,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-if="dtd == null" 
             class="zone-text">
             Load DTD file first<br>
-            in Annotation Tab
+            in the Annotation Tab
         </div>
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
@@ -61,7 +61,7 @@ v-bind:class="{'active': section=='iaa'}">
         iaa_id="1">
         <div v-if="dtd == null" class="zone-text">
             Load DTD file first<br>
-            in Annotation Tab
+            in the Annotation Tab
         </div>
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
@@ -90,6 +90,7 @@ v-bind:class="{'active': section=='iaa'}">
 </div>
 
 <div class="group">
+    <!-- 
     <div class="mr-1">
         <input type="radio" name="match_mode" 
             value="overlap" 
@@ -103,8 +104,9 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="radio" 
             data-caption="<i class='fa fa-align-justify'></i> Exact" 
             v-model="iaa_match_mode"
-            @change="on_change_iaa_settings">
+            @change="on_change_iaa_settings"> 
     </div>
+    -->
     
     <div v-if="iaa_match_mode == 'overlap'"
         class="p-1 ml-1 mr-1 border bd-gray border-radius">
@@ -118,7 +120,8 @@ v-bind:class="{'active': section=='iaa'}">
             <input id="iaa_form_overlap_ratio" 
                 name="iaa_form_overlap_ratio" 
                 style="width: 36px"
-                type="text" class="ipt-md" 
+                type="text" 
+                class="ipt-md" 
                 v-model.number="iaa_overlap_ratio">
             <span class="mr-1">
                 %
@@ -130,6 +133,67 @@ v-bind:class="{'active': section=='iaa'}">
             </button>
         </div>
     </div>
+
+    <div class="mr-1">
+        <input type="checkbox" 
+            class="check"
+            title="Include attributes in IAA calculation?"
+            data-role="switch" 
+            data-caption="Attribute"
+            v-model="iaa_use_attributes"
+            v-bind:disabled="dtd == null"
+            @change="on_change_iaa_use_attributes">
+        <br>
+        <button class="ribbon-icon-button dropdown-toggle"
+            title="Select the attributes to be included in IAA calculation"
+            v-bind:disabled="!iaa_use_attributes">
+            <span class="icon">
+                <i class="fas fa-tasks"></i>
+            </span>
+            <span class="caption">
+                Select Attributes
+            </span>
+        </button>
+        <ul v-if="dtd != null && iaa_use_attributes"
+            class="ribbon-dropdown" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li v-for="tag in dtd.etags">
+                <a href="#" class="dropdown-toggle">
+                    {{ tag.name }}:
+                    
+                    <span v-for="att in tag.attlists"
+                        v-show="iaa_use_tag_attrs[tag.name][att.name]"
+                        class="mr-1 iaa-tag-attr-name">
+                        {{ att.name }}
+                    </span>
+                </a>
+                <ul class="ribbon-dropdown" data-role="dropdown">
+                    <li v-for="att in tag.attlists"
+                        v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
+                        <a href="#" 
+                            v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">
+                            {{ att.name }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li title="Select all attributes for IAA calcuation">
+                <a href="#"
+                    v-on:click="set_all_iaa_use_tag_attrs(true)">
+                    Select All Attributes
+                </a>
+            </li>
+            <li title="Select none attributes for IAA calcuation">
+                <a href="#"
+                    v-on:click="set_all_iaa_use_tag_attrs(false)">
+                    Select None Attributes
+                </a>
+            </li>
+        </ul>
+    </div>
+
 
     <button class="ribbon-button"
         :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
@@ -162,6 +226,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="switch" 
             data-caption="Agreed Tags"
             v-model="iaa_display_tags_tp"
+            v-bind:disabled="dtd == null"
             @change="on_change_iaa_settings">
         <br>
 
@@ -170,6 +235,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="switch" 
             data-caption="Tag Context"
             v-model="iaa_display_tags_context"
+            v-bind:disabled="dtd == null"
             @change="on_change_iaa_settings">
 
     </div>
