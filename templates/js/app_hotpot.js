@@ -1299,7 +1299,7 @@ var app_hotpot = {
                         !this.iaa_use_tag_attrs[tag_name][att_name];
                 }
             }
-            console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
+            // console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
 
             // due to deep update, need to update manually
             this.$forceUpdate();

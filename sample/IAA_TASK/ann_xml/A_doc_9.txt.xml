@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<VAX_AE_MED>
-<TEXT><![CDATA[A 34-year-old non-pregnant female patient received the second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE; lot number and expiry date: not reported), via an unspecified route of administration on 24Jan2021 at 10:30 at a single dose on the right arm for COVID-19 immunization. The patient's medical history and concomitant medications were not reported. The patient previously took first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on an unspecified date for COVID-19 immunization. The patient was not diagnosed with COVID-19 prior to vaccination. Last Monday (25Jan2021), the patient experienced a low grade fever and body aches. The patient did not receive any treatment for the reported events. Since the vaccination, the patient has not been tested for COVID-19. The outcome of the events was recovered on 26Jan2021.  No follow-up attempts are possible; information about lot/batch number cannot be obtained.]]></TEXT>
-<TAGS>
-<PAIN spans="638~643" text="aches" id="P0" comment=""/>
-<PYREXIA spans="623~628" text="fever" id="PY0" comment=""/>
-</TAGS>
-</VAX_AE_MED>

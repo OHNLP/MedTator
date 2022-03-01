@@ -4,7 +4,7 @@
 <TAGS>
 <OTHER_AE spans="462~477" text="Soreness in arm" id="O0" comment="or soreness?" certainty="Positive"/>
 <MEDICATION spans="524~533" text="ibuprofen" id="M0" comment=""/>
-<PAIN spans="482~492" text="Body aches" id="P0" comment=""/>
+<PAIN spans="482~492" text="Body aches" id="P0" comment="" certainty="Positive"/>
 <VAX spans="176~184" text="BNT162B2" id="V0" comment=""/>
 </TAGS>
 </VAX_AE_MED>
