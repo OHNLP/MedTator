@@ -132,7 +132,7 @@ html,body {
     white-space: nowrap;
 }
 #dropzone_dtd {
-    width: 150px;
+    width: 170px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -141,7 +141,7 @@ html,body {
     border-radius: 4px;
 }
 #dropzone_ann {
-    width: 150px;
+    width: 170px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -159,7 +159,7 @@ html,body {
     border-radius: 4px;
 }
 .dropzone-iaa {
-    width: 150px;
+    width: 160px;
     height: 60px;
     line-height: 60px;
     text-align: center;
