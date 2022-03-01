@@ -2636,97 +2636,114 @@ var app_hotpot = {
     },
 
     bind_dropzone_ann: function() {
+        // bind basic dropzone in the top
         let dropzone = document.getElementById("dropzone_ann");
-
         dropzone.addEventListener("dragover", function(event) {
             event.preventDefault();
         }, false);
 
-        dropzone.addEventListener("drop", function(event) {
-            // prevent the default download event
+        dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_dropzone_ann, 
+            false
+        );
+
+        // bind second dropzone
+        let filelist_dropzone = document.getElementById('mui_filelist');
+        filelist_dropzone.addEventListener("dragover", function(event) {
             event.preventDefault();
-            
-            let items = event.dataTransfer.items;
-            for (let i=0; i<items.length; i++) {
-                if (isFSA_API_OK) {
-                    // get this item as a FileSystemHandle Object
-                    // this could be used for saving the content back
-                    // let item = items[i].webkitGetAsEntry();
-                    let item = items[i].getAsFileSystemHandle();
+        }, false);
 
-                    // read this handle
-                    item.then(function(fh) {
-                        if (fh.kind == 'file') {
-                            app_hotpot.parse_ann_file_fh(
-                                fh, 
-                                app_hotpot.vpp.$data.dtd
-                            );
+        filelist_dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_dropzone_ann, 
+            false
+        );
+    },
 
-                            // // show something if this file exists
-                            // // check if this file name exists
-                            // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                            //     // exists? skip this file
-                            //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                            //     return;
-                            // }
+    on_drop_dropzone_ann: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+        
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            if (isFSA_API_OK) {
+                // get this item as a FileSystemHandle Object
+                // this could be used for saving the content back
+                // let item = items[i].webkitGetAsEntry();
+                let item = items[i].getAsFileSystemHandle();
 
-                            // // if drop a txt!
-                            // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                            //     // parse this txt file
-                            //     app_hotpot.parse_ann_txt_file_fh(
-                            //         fh,
-                            //         app_hotpot.vpp.$data.dtd
-                            //     );
-                            //     return;
-                            // }
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind == 'file') {
+                        app_hotpot.parse_ann_file_fh(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
 
-                            // // should be a ann txt/xml file
-                            // app_hotpot.parse_ann_xml_file_fh(
-                            //     fh,
-                            //     app_hotpot.vpp.$data.dtd
-                            // );
+                        // // show something if this file exists
+                        // // check if this file name exists
+                        // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                        //     // exists? skip this file
+                        //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                        //     return;
+                        // }
 
-                        } else {
-                            // so item is a directory?
-                            // console.log(fh);
-                            
-                            fs_read_dir_handle(
-                                fh, 
-                                app_hotpot.vpp.$data.dtd
-                            );
+                        // // if drop a txt!
+                        // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                        //     // parse this txt file
+                        //     app_hotpot.parse_ann_txt_file_fh(
+                        //         fh,
+                        //         app_hotpot.vpp.$data.dtd
+                        //     );
+                        //     return;
+                        // }
 
-                            // p_ents.then(function(ents) {
-                            //     console.log('* ents:', ents);
-                            //     // ents.forEach(function(item, index, array) {
-                            //     //     console.log(item, index)
-                            //     //   });
-                            //     for (let i = 0; i < ents.length; i++) {
-                            //         const ent = ents[i];
-                            //         console.log(i, ent);
-                            //     }
-                            // });
-                        }
-                    });
-                } else {
-                    // just load the file 
-                    let item = items[i].webkitGetAsEntry();
-                    console.log(item);
-                    if (item) {
-                        // ok, user select a folder ???
-                        if (item.isDirectory) {
-                            // show something?
-    
-                        } else {
-                            // so item is a fileEntry
-                            app_hotpot.parse_ann_file_entry(item);
-                        }
+                        // // should be a ann txt/xml file
+                        // app_hotpot.parse_ann_xml_file_fh(
+                        //     fh,
+                        //     app_hotpot.vpp.$data.dtd
+                        // );
+
+                    } else {
+                        // so item is a directory?
+                        // console.log(fh);
+                        
+                        fs_read_dir_handle(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
+
+                        // p_ents.then(function(ents) {
+                        //     console.log('* ents:', ents);
+                        //     // ents.forEach(function(item, index, array) {
+                        //     //     console.log(item, index)
+                        //     //   });
+                        //     for (let i = 0; i < ents.length; i++) {
+                        //         const ent = ents[i];
+                        //         console.log(i, ent);
+                        //     }
+                        // });
+                    }
+                });
+            } else {
+                // just load the file 
+                let item = items[i].webkitGetAsEntry();
+                console.log(item);
+                if (item) {
+                    // ok, user select a folder ???
+                    if (item.isDirectory) {
+                        // show something?
+
+                    } else {
+                        // so item is a fileEntry
+                        app_hotpot.parse_ann_file_entry(item);
                     }
                 }
-                
-                
             }
-
-        }, false);
+            
+            
+        }
 
     },
 

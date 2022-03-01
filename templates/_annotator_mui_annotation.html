@@ -30,8 +30,8 @@
                 </div>
             </div>
             <div id="mui_filelist_list" 
+                v-if="anns.length > 0"
                 class="d-flex flex-column flex-justify-start flex-align-start w-100 h-100">
-
                 <ul class="w-100 file-list">
                     <li v-for="ann, idx in anns"
                         v-show="idx == ann_idx || is_match_filename(ann._filename)"
@@ -74,6 +74,17 @@
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div id="mui_filelist_list"
+                class="d-flex flex-align-center flex-justify-center"
+                v-else>
+                <p v-if="dtd == null">
+                    <i class="fa fa-arrow-up"></i>
+                    Load schema file first
+                </p>
+                <p v-else>
+                    Drop <b>Annotation</b> File(s) Here
+                </p>
             </div>
         </div>
 
