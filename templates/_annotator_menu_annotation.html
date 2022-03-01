@@ -53,8 +53,10 @@ v-bind:class="{'active': section=='annotation'}">
             {{ anns[ann_idx].tags.length }} tags
         </div>
         <div v-else-if="dtd != null"
-            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files">
-            Drop <b>Annotation</b> File(s)
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            Drop <b>Annotation</b> <br>
+            File(s) / Folder Here
         </div>
         <div v-else
             title="Load the schema for annotation task first">

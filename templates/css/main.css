@@ -876,6 +876,12 @@ input[type=text].ipt-spinner-xs {
 .clr-red {
     color: red;
 }
+.clr-grey {
+    color: grey;
+}
+.txt-hover-bold:hover {
+    font-weight: bold;
+}
 /* fix for metro */
 .radio .caption, .radio .check {
     font-size: 1em;
