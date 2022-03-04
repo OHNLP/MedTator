@@ -301,7 +301,7 @@ html,body {
     white-space: nowrap;
 }
 #dropzone_dtd {
-    width: 150px;
+    width: 170px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -310,7 +310,7 @@ html,body {
     border-radius: 4px;
 }
 #dropzone_ann {
-    width: 150px;
+    width: 170px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -328,7 +328,7 @@ html,body {
     border-radius: 4px;
 }
 .dropzone-iaa {
-    width: 150px;
+    width: 160px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -877,6 +877,9 @@ input[type=text].ipt-spinner-xs {
     padding: 0px 2px;
     background-color: #eaeaea;
 }
+.iaa-tag-attr-name {
+    font-size: 0.8em;
+}
 .iaa-annotator-AB,
 .iaa-annotator-ab {
     color: green;
@@ -1041,6 +1044,12 @@ input[type=text].ipt-spinner-xs {
 /* for text display */
 .clr-red {
     color: red;
+}
+.clr-grey {
+    color: grey;
+}
+.txt-hover-bold:hover {
+    font-weight: bold;
 }
 /* fix for metro */
 .radio .caption, .radio .check {
@@ -1310,8 +1319,10 @@ v-bind:class="{'active': section=='annotation'}">
             {{ anns[ann_idx].tags.length }} tags
         </div>
         <div v-else-if="dtd != null"
-            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files">
-            Drop <b>Annotation</b> File(s)
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            Drop <b>Annotation</b> <br>
+            File(s) / Folder Here
         </div>
         <div v-else
             title="Load the schema for annotation task first">
@@ -1940,7 +1951,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-if="dtd == null" 
             class="zone-text">
             Load DTD file first<br>
-            in Annotation Tab
+            in the Annotation Tab
         </div>
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
@@ -1979,7 +1990,7 @@ v-bind:class="{'active': section=='iaa'}">
         iaa_id="1">
         <div v-if="dtd == null" class="zone-text">
             Load DTD file first<br>
-            in Annotation Tab
+            in the Annotation Tab
         </div>
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
@@ -2008,6 +2019,7 @@ v-bind:class="{'active': section=='iaa'}">
 </div>
 
 <div class="group">
+    <!-- 
     <div class="mr-1">
         <input type="radio" name="match_mode" 
             value="overlap" 
@@ -2021,8 +2033,9 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="radio" 
             data-caption="<i class='fa fa-align-justify'></i> Exact" 
             v-model="iaa_match_mode"
-            @change="on_change_iaa_settings">
+            @change="on_change_iaa_settings"> 
     </div>
+    -->
     
     <div v-if="iaa_match_mode == 'overlap'"
         class="p-1 ml-1 mr-1 border bd-gray border-radius">
@@ -2036,7 +2049,8 @@ v-bind:class="{'active': section=='iaa'}">
             <input id="iaa_form_overlap_ratio" 
                 name="iaa_form_overlap_ratio" 
                 style="width: 36px"
-                type="text" class="ipt-md" 
+                type="text" 
+                class="ipt-md" 
                 v-model.number="iaa_overlap_ratio">
             <span class="mr-1">
                 %
@@ -2048,6 +2062,67 @@ v-bind:class="{'active': section=='iaa'}">
             </button>
         </div>
     </div>
+
+    <div class="mr-1">
+        <input type="checkbox" 
+            class="check"
+            title="Include attributes in IAA calculation?"
+            data-role="switch" 
+            data-caption="Attribute"
+            v-model="iaa_use_attributes"
+            v-bind:disabled="dtd == null"
+            @change="on_change_iaa_use_attributes">
+        <br>
+        <button class="ribbon-icon-button dropdown-toggle"
+            title="Select the attributes to be included in IAA calculation"
+            v-bind:disabled="!iaa_use_attributes">
+            <span class="icon">
+                <i class="fas fa-tasks"></i>
+            </span>
+            <span class="caption">
+                Select Attributes
+            </span>
+        </button>
+        <ul v-if="dtd != null && iaa_use_attributes"
+            class="ribbon-dropdown" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li v-for="tag in dtd.etags">
+                <a href="#" class="dropdown-toggle">
+                    {{ tag.name }}:
+                    
+                    <span v-for="att in tag.attlists"
+                        v-show="iaa_use_tag_attrs[tag.name][att.name]"
+                        class="mr-1 iaa-tag-attr-name">
+                        {{ att.name }}
+                    </span>
+                </a>
+                <ul class="ribbon-dropdown" data-role="dropdown">
+                    <li v-for="att in tag.attlists"
+                        v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
+                        <a href="#" 
+                            v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">
+                            {{ att.name }}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li title="Select all attributes for IAA calcuation">
+                <a href="#"
+                    v-on:click="set_all_iaa_use_tag_attrs(true)">
+                    Select All Attributes
+                </a>
+            </li>
+            <li title="Select none attributes for IAA calcuation">
+                <a href="#"
+                    v-on:click="set_all_iaa_use_tag_attrs(false)">
+                    Select None Attributes
+                </a>
+            </li>
+        </ul>
+    </div>
+
 
     <button class="ribbon-button"
         :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
@@ -2080,6 +2155,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="switch" 
             data-caption="Agreed Tags"
             v-model="iaa_display_tags_tp"
+            v-bind:disabled="dtd == null"
             @change="on_change_iaa_settings">
         <br>
 
@@ -2088,6 +2164,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="switch" 
             data-caption="Tag Context"
             v-model="iaa_display_tags_context"
+            v-bind:disabled="dtd == null"
             @change="on_change_iaa_settings">
 
     </div>
@@ -2166,7 +2243,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.10 | 
+            MedTator 1.2.13 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2318,8 +2395,8 @@ v-bind:class="{'active': section=='iaa'}">
                 </div>
             </div>
             <div id="mui_filelist_list" 
+                v-if="anns.length > 0"
                 class="d-flex flex-column flex-justify-start flex-align-start w-100 h-100">
-
                 <ul class="w-100 file-list">
                     <li v-for="ann, idx in anns"
                         v-show="idx == ann_idx || is_match_filename(ann._filename)"
@@ -2362,6 +2439,23 @@ v-bind:class="{'active': section=='iaa'}">
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div id="mui_filelist_list"
+                class="d-flex flex-align-center flex-justify-center w-100"
+                v-else>
+                <!--
+                    
+                <p v-if="dtd == null"
+                    class="clr-grey">
+                    <i class="fa fa-arrow-up"></i>
+                    Load schema file first
+                </p>
+                <p v-else
+                    title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+                    class="txt-hover-bold">
+                    Drop <b>Annotation</b> File(s) / Folder Here
+                </p>
+                -->
             </div>
         </div>
 
@@ -6847,6 +6941,8 @@ var iaa_calculator = {
         annotator_a_tag: 'd9e9f1',
         annotator_b_tag: 'd8f7d6',
     },
+
+    default_overlap_ratio: 0.1,
     
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
@@ -7525,13 +7621,17 @@ var iaa_calculator = {
         anns_a, 
         anns_b, 
         match_mode, 
-        overlap_ratio
+        overlap_ratio,
+        tag_attrs
     ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         /* we will build a dictionary for this task
         {
@@ -7641,7 +7741,8 @@ var iaa_calculator = {
                 ann_a,
                 ann_b,
                 match_mode,
-                overlap_ratio
+                overlap_ratio,
+                tag_attrs
             );
 
             // save this result
@@ -7701,14 +7802,24 @@ var iaa_calculator = {
      * @param {Object} ann_b an annotation by B
      * @param {string} match_mode overlap or exact match
      * @param {float} overlap_ratio overlap ratio
+     * @param {Object} tag_attrs which attr to be used in calc 
      * @returns Object of IAA result
      */
-    evaluate_ann_on_dtd: function(dtd, ann_a, ann_b, match_mode, overlap_ratio) {
+    evaluate_ann_on_dtd: function(
+        dtd, 
+        ann_a, 
+        ann_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
 
         // check the text first
@@ -7727,7 +7838,14 @@ var iaa_calculator = {
         var cm_ann = { tp: 0, fp: 0, fn: 0 };
         for (let i = 0; i < dtd.etags.length; i++) {
             const tag_def = dtd.etags[i];
-            var r = this.evaluate_ann_on_tag(tag_def, ann_a, ann_b, match_mode, overlap_ratio);
+            var r = this.evaluate_ann_on_tag(
+                tag_def, 
+                ann_a, 
+                ann_b, 
+                match_mode, 
+                overlap_ratio,
+                tag_attrs
+            );
             result_ann.tag[tag_def.name] = r;
 
             // add the result of this tag
@@ -7743,12 +7861,22 @@ var iaa_calculator = {
         return result_ann;
     },
 
-    evaluate_ann_on_tag: function(tag_def, ann_a, ann_b, match_mode, overlap_ratio) {
+    evaluate_ann_on_tag: function(
+        tag_def, 
+        ann_a, 
+        ann_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
 
         // check the text first
@@ -7763,18 +7891,33 @@ var iaa_calculator = {
         var tag_list_a = this.get_tag_list_by_tag(tag_def, ann_a);
         var tag_list_b = this.get_tag_list_by_tag(tag_def, ann_b);
 
-        var cm = this.calc_matching(tag_list_a, tag_list_b, match_mode, overlap_ratio);
+        var cm = this.calc_matching(
+            tag_list_a, 
+            tag_list_b, 
+            match_mode, 
+            overlap_ratio,
+            tag_attrs
+        );
         var result = this.calc_p_r_f1(cm);
 
         return result;
     },
 
-    calc_matching: function(tag_list_a, tag_list_b, match_mode, overlap_ratio) {
+    calc_matching: function(
+        tag_list_a, 
+        tag_list_b, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         var cm = {
             tp: 0,
@@ -7803,11 +7946,12 @@ var iaa_calculator = {
             // the `tag_list_b` may be not empty
             // if not match, may due to the low overlap
             // the return result also contains the overlap rate
-            var is_match = this.is_tag_in_list(
+            var is_match = this.is_tag_match_in_list(
                 tag_a, 
                 tag_list_b, 
                 match_mode,
-                overlap_ratio
+                overlap_ratio,
+                tag_attrs
             );
 
             console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
@@ -7848,12 +7992,21 @@ var iaa_calculator = {
         return cm;
     },
 
-    is_tag_in_list: function(tag, tag_list, match_mode, overlap_ratio) {
+    is_tag_match_in_list: function(
+        tag, 
+        tag_list, 
+        match_mode, 
+        overlap_ratio,
+        tag_attrs
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
         if (typeof(overlap_ratio) == 'undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
+        }
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = null;
         }
         var spans = tag.spans;
         var loc_a = this.spans2loc(spans);
@@ -7875,17 +8028,48 @@ var iaa_calculator = {
                 // first the decision based on the ratio
                 // seoncd the how much is overlapped
                 var is_olpd = this.is_overlapped(
-                    loc_a, loc_b, 
+                    loc_a, 
+                    loc_b, 
                     overlap_ratio
                 );
                 if (is_olpd[0]) {
-                    // OK, the overlap is bigger than the ratio
-                    // just return this is matched
-                    return { 
-                        is_in: true,
-                        tag_b: tag_b,
-                        olpr: is_olpd[1]
-                    };
+                    // check if using tag_attrs
+                    if (tag_attrs == null) {
+                        // OK, the overlap is bigger than the ratio
+                        // just return this is matched
+                        return { 
+                            is_in: true,
+                            tag_b: tag_b,
+                            olpr: is_olpd[1],
+                            atum: null
+                        };
+                    } else {
+                        // too bad, need to check the attributes
+                        var is_atmd = this.is_attrs_matched(
+                            tag,
+                            tag_b,
+                            tag_attrs
+                        );
+
+                        if (is_atmd[0]) {
+                            // great! perfect match!
+                            return { 
+                                is_in: true,
+                                tag_b: tag_b,
+                                olpr: is_olpd[1],
+                                atum: null
+                            };
+                        } else {
+                            // too bad, some attr maybe different
+                            return { 
+                                is_in: false,
+                                tag_b: tag_b,
+                                olpr: is_olpd[1],
+                                // ATtribute UnMatched
+                                atum: is_atmd[1]
+                            };
+                        }
+                    }
                 }
                 // in some cases, the overlapped ratio is low
                 // but still match, we need to check this case
@@ -7899,7 +8083,8 @@ var iaa_calculator = {
                     return {
                         is_in: true,
                         tag_b: tag_b,
-                        olpr: 1
+                        olpr: 1,
+                        atum: null
                     };
                 }
                 
@@ -7909,13 +8094,57 @@ var iaa_calculator = {
         return {
             is_in: false,
             tag_b: p_tag_b,
-            olpr: olpr
+            olpr: olpr,
+            atum: null
         };
+    },
+
+    is_attrs_matched: function(tag_a, tag_b, tag_attrs) {
+        if (typeof(tag_attrs) == 'undefined') {
+            tag_attrs = {};
+        }
+        for (const attr in tag_a) {
+            if (!tag_attrs.hasOwnProperty(tag_a.tag)) {
+                // what??? 
+                break;
+            }
+            if (!tag_attrs[tag_a.tag].hasOwnProperty(attr)) {
+                // skip those system attr
+                continue;
+            }
+            if (!tag_attrs[tag_a.tag][attr]) {
+                // skip those unselected attr
+                continue;
+            }
+            if (Object.hasOwnProperty.call(tag_a, attr)) {
+                const val_a = tag_a[attr];
+
+                if (tag_b.hasOwnProperty(attr)) {
+                    // skip those attrs that not available
+                    const val_b = tag_b[attr];
+
+                    if (val_a == val_b) {
+                        // ok, nothing to do with one as they are the same 
+                        continue;
+
+                    } else {
+                        // ok, we found different attr val!
+                        return [false, attr];
+                    }
+                } else {
+                    // what??? this can't be!
+                    // return [false, attr];
+                    continue;
+                }
+            }
+        }
+        // ok, is matched and no difference
+        return [true, null];
     },
 
     is_overlapped: function(loc_a, loc_b, overlap_ratio) {
         if (typeof(overlap_ratio)=='undefined') {
-            overlap_ratio = 0.01;
+            overlap_ratio = this.default_overlap_ratio;
         }
         
         var s_a = new Set(new Array(loc_a[1] - loc_a[0] + 1).fill(loc_a[0]).map((e,i)=>e+i));
@@ -8851,6 +9080,17 @@ var app_hotpot = {
 
         // for iaa adjudication
         iaa_gs_dict: null,
+
+        // for using attributes in IAA
+        iaa_use_attributes: false,
+
+        // for using attributes in IAA a selection map
+        // {
+        //    tag_name: {
+        //        attr_name: true / false
+        //    }
+        // }
+        iaa_use_tag_attrs: {},
 
         // cm settings
         cm: {
@@ -9967,7 +10207,10 @@ var app_hotpot = {
                 this.iaa_ann_list[0].anns,
                 this.iaa_ann_list[1].anns,
                 this.iaa_match_mode,
-                this.iaa_overlap_ratio / 100
+                this.iaa_overlap_ratio / 100,
+                this.iaa_use_attributes?
+                    this.iaa_use_tag_attrs:
+                    null
             );
             this.iaa_dict = iaa_dict;
             console.log('* iaa result:', iaa_dict);
@@ -9986,6 +10229,69 @@ var app_hotpot = {
 
         on_change_iaa_settings: function(event) {
             console.log('* changed attr in', event.target);
+            
+        },
+
+        on_change_iaa_use_attributes: function(event) {
+            console.log('* changed iaa_use_attributes=', this.iaa_use_attributes);
+
+            // update the settings of iaa_use_tag_attrs
+            if (this.dtd == null) {
+                return;
+            }
+
+            if (Object.keys(this.iaa_use_tag_attrs).length != 0) {
+                // which means this has been inited
+                return;
+            }
+
+            this.init_iaa_use_tag_attrs();
+        },
+
+        init_iaa_use_tag_attrs: function() {
+            // update the values
+            for (const tag_name in this.dtd.tag_dict) {
+                if (Object.hasOwnProperty.call(this.dtd.tag_dict, tag_name)) {
+                    const tag = this.dtd.tag_dict[tag_name];
+                    this.iaa_use_tag_attrs[tag_name] = {};
+
+                    // update all the attributes
+                    for (let i = 0; i < tag.attlists.length; i++) {
+                        const att = tag.attlists[i];
+                        // set all to true
+                        this.iaa_use_tag_attrs[tag_name][att.name] = true;
+                    }
+                }
+            }
+        },
+
+        set_all_iaa_use_tag_attrs: function(selection) {
+            for (const tag_name in this.iaa_use_tag_attrs) {
+                if (Object.hasOwnProperty.call(this.iaa_use_tag_attrs, tag_name)) {
+                    const tag_attrs = this.iaa_use_tag_attrs[tag_name];
+                    for (const att_name in tag_attrs) {
+                        if (Object.hasOwnProperty.call(tag_attrs, att_name)) {
+                            this.iaa_use_tag_attrs[tag_name][att_name] = selection;
+                        }
+                    }
+                }
+            }
+
+            // due to deep update, need to update manually
+            this.$forceUpdate();
+        },
+
+        toggle_iaa_tag_attrs: function(tag_name, att_name) {
+            if (this.iaa_use_tag_attrs.hasOwnProperty(tag_name)) {
+                if (this.iaa_use_tag_attrs[tag_name].hasOwnProperty(att_name)) {
+                    this.iaa_use_tag_attrs[tag_name][att_name] = 
+                        !this.iaa_use_tag_attrs[tag_name][att_name];
+                }
+            }
+            // console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
+
+            // due to deep update, need to update manually
+            this.$forceUpdate();
         },
 
         transfer_to_annotation_tab: function() {
@@ -11319,97 +11625,114 @@ var app_hotpot = {
     },
 
     bind_dropzone_ann: function() {
+        // bind basic dropzone in the top
         let dropzone = document.getElementById("dropzone_ann");
-
         dropzone.addEventListener("dragover", function(event) {
             event.preventDefault();
         }, false);
 
-        dropzone.addEventListener("drop", function(event) {
-            // prevent the default download event
+        dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_dropzone_ann, 
+            false
+        );
+
+        // bind second dropzone
+        let filelist_dropzone = document.getElementById('mui_filelist');
+        filelist_dropzone.addEventListener("dragover", function(event) {
             event.preventDefault();
-            
-            let items = event.dataTransfer.items;
-            for (let i=0; i<items.length; i++) {
-                if (isFSA_API_OK) {
-                    // get this item as a FileSystemHandle Object
-                    // this could be used for saving the content back
-                    // let item = items[i].webkitGetAsEntry();
-                    let item = items[i].getAsFileSystemHandle();
+        }, false);
 
-                    // read this handle
-                    item.then(function(fh) {
-                        if (fh.kind == 'file') {
-                            app_hotpot.parse_ann_file_fh(
-                                fh, 
-                                app_hotpot.vpp.$data.dtd
-                            );
+        filelist_dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_dropzone_ann, 
+            false
+        );
+    },
 
-                            // // show something if this file exists
-                            // // check if this file name exists
-                            // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                            //     // exists? skip this file
-                            //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                            //     return;
-                            // }
+    on_drop_dropzone_ann: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+        
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            if (isFSA_API_OK) {
+                // get this item as a FileSystemHandle Object
+                // this could be used for saving the content back
+                // let item = items[i].webkitGetAsEntry();
+                let item = items[i].getAsFileSystemHandle();
 
-                            // // if drop a txt!
-                            // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                            //     // parse this txt file
-                            //     app_hotpot.parse_ann_txt_file_fh(
-                            //         fh,
-                            //         app_hotpot.vpp.$data.dtd
-                            //     );
-                            //     return;
-                            // }
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind == 'file') {
+                        app_hotpot.parse_ann_file_fh(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
 
-                            // // should be a ann txt/xml file
-                            // app_hotpot.parse_ann_xml_file_fh(
-                            //     fh,
-                            //     app_hotpot.vpp.$data.dtd
-                            // );
+                        // // show something if this file exists
+                        // // check if this file name exists
+                        // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+                        //     // exists? skip this file
+                        //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+                        //     return;
+                        // }
 
-                        } else {
-                            // so item is a directory?
-                            // console.log(fh);
-                            
-                            fs_read_dir_handle(
-                                fh, 
-                                app_hotpot.vpp.$data.dtd
-                            );
+                        // // if drop a txt!
+                        // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+                        //     // parse this txt file
+                        //     app_hotpot.parse_ann_txt_file_fh(
+                        //         fh,
+                        //         app_hotpot.vpp.$data.dtd
+                        //     );
+                        //     return;
+                        // }
 
-                            // p_ents.then(function(ents) {
-                            //     console.log('* ents:', ents);
-                            //     // ents.forEach(function(item, index, array) {
-                            //     //     console.log(item, index)
-                            //     //   });
-                            //     for (let i = 0; i < ents.length; i++) {
-                            //         const ent = ents[i];
-                            //         console.log(i, ent);
-                            //     }
-                            // });
-                        }
-                    });
-                } else {
-                    // just load the file 
-                    let item = items[i].webkitGetAsEntry();
-                    console.log(item);
-                    if (item) {
-                        // ok, user select a folder ???
-                        if (item.isDirectory) {
-                            // show something?
-    
-                        } else {
-                            // so item is a fileEntry
-                            app_hotpot.parse_ann_file_entry(item);
-                        }
+                        // // should be a ann txt/xml file
+                        // app_hotpot.parse_ann_xml_file_fh(
+                        //     fh,
+                        //     app_hotpot.vpp.$data.dtd
+                        // );
+
+                    } else {
+                        // so item is a directory?
+                        // console.log(fh);
+                        
+                        fs_read_dir_handle(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
+
+                        // p_ents.then(function(ents) {
+                        //     console.log('* ents:', ents);
+                        //     // ents.forEach(function(item, index, array) {
+                        //     //     console.log(item, index)
+                        //     //   });
+                        //     for (let i = 0; i < ents.length; i++) {
+                        //         const ent = ents[i];
+                        //         console.log(i, ent);
+                        //     }
+                        // });
+                    }
+                });
+            } else {
+                // just load the file 
+                let item = items[i].webkitGetAsEntry();
+                console.log(item);
+                if (item) {
+                    // ok, user select a folder ???
+                    if (item.isDirectory) {
+                        // show something?
+
+                    } else {
+                        // so item is a fileEntry
+                        app_hotpot.parse_ann_file_entry(item);
                     }
                 }
-                
-                
             }
-
-        }, false);
+            
+            
+        }
 
     },
 

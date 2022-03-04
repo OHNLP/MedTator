@@ -93,6 +93,16 @@ Apache-2.0 License
 
 ## Change log
 
+### 1.2.13 (2022-03-03)
+
+- Added using attribute IAA calculation
+- Added menu for attribute selection
+- Added dropping file in the filelist view
+- Updated the drop zone size
+- Updated the schema and IAA sample dataset
+- Updated the the JSON files of the samples
+- Fixed switch button status when no dtd file
+
 ### 1.2.10 (2022-02-17)
 
 - Added a new section in the statistics tab

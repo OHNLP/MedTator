@@ -14319,14 +14319,14 @@
     },
     "iaa_display_tag_name": "__all__",
     "iaa_match_mode": "overlap",
-    "iaa_overlap_ratio": 20,
+    "iaa_overlap_ratio": 50,
     "iaa_overlap_ratio_default": 50,
     "iaa_display_hashcode": "2652282049920680",
     "iaa_display_tags_context": true,
-    "iaa_display_tags_tp": true,
+    "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.4668965429471519,
+    "force_module_update": 0.5082420903501073,
     "iaa_gs_dict": {
         "2652282049920680": {
             "ann": {
@@ -17389,6 +17389,8 @@
             }
         }
     },
+    "iaa_use_attributes": false,
+    "iaa_use_tag_attrs": {},
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
