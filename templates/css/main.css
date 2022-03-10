@@ -751,6 +751,10 @@ input[type=text].ipt-spinner-xs {
 }
 .iaa-bar-name-box {
     width: 100px;
+    /* fix the overflow of concept name */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .iaa-bar-filename {
     font-size: 0.8em;

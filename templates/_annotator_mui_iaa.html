@@ -47,7 +47,8 @@
                             class="iaa-row d-flex flex-row"
                             v-bind:class="{'iaa-row-actived': iaa_display_tag_name == etag.name}"
                             v-on:click="iaa_display_tag_name = etag.name">
-                            <div class="iaa-bar-name-box d-flex flex-row flex-align-center flex-justify-start mr-1">
+                            <div v-bind:title="etag.name" 
+                                class="iaa-bar-name-box d-flex flex-row flex-align-center flex-justify-start mr-1">
                                 <i class="fa fa-tag mr-1"
                                     v-bind:class="'fg-tag-' + etag.name">
                                 </i>

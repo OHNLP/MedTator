@@ -100,6 +100,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.15 (2022-03-17)
+
+- Fixed concept name overflow bug in adjudication tab
+
 ### 1.2.13 (2022-03-03)
 
 - Added using attribute IAA calculation
