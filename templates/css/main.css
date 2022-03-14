@@ -899,6 +899,9 @@ input[type=text].ipt-spinner-xs {
 .radio {
     height: 30px;
 }
+.ribbon-menu {
+    min-width: 1200px;
+}
 .ribbon-toggle-group .ribbon-icon-button {
     height: 18px;
 }
