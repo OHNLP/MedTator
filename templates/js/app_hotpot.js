@@ -25,6 +25,14 @@ var app_hotpot = {
         // for the ann files in the file list
         anns: [],
 
+        // sort anns
+        // - default: how the anns are imported into tool
+        // - alphabet: A-Z
+        // - alphabet_r: Z-A
+        // - tags: 0-N
+        // - tags_r: N-0
+        sort_anns_by: 'default',
+
         // for annotation tab working mode
         // there will be the following mode:
         // 1. annotation, which is the usually mode, and it is default
@@ -190,6 +198,21 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Annotation section related functions
         /////////////////////////////////////////////////////////////////
+        save_xml_by_ann: function(ann) {
+            var idx = this.find_included(
+                ann._filename,
+                this.anns
+            );
+            if (idx < 0) {
+                // what????
+                return
+            } else {
+                // ok, we find it
+            }
+
+            this.save_xml_by_idx(idx);
+        },
+
         save_xml_by_idx: function(idx) {
             // switch to this ann first
             if (this.ann_idx != idx) {
@@ -558,6 +581,73 @@ var app_hotpot = {
             }
         },
 
+        sort_filelist_by: function(sort_by) {
+            this.sort_anns_by = sort_by;
+        },
+
+        get_sort_by: function() {
+            if (this.hasOwnProperty('sort_anns_by')) {
+                return this.sort_anns_by;
+            } else {
+                return 'default';
+            }
+        },
+
+        sort_v_anns: function(anns) {
+            var sort_by = this.get_sort_by();
+
+            // a virtual list of ann, just contain the file name
+            // this is prepared for sorting only
+            // because the sort is an in-place sort
+            // we can't modify the order in the original anns
+            var v_anns = [];
+            for (let i = 0; i < anns.length; i++) {
+                const ann = anns[i];
+                v_anns.push({
+                    // file name
+                    _filename: ann._filename,
+                    // number of annotated tags
+                    n_tags: ann.tags.length,
+                    // the true idx
+                    idx: i
+                });
+            }
+
+            if (sort_by == 'default') {
+                return v_anns;
+            } else if (sort_by == 'alphabet') {
+                v_anns.sort(function(a, b) {
+                    return a._filename.localeCompare(
+                        b._filename
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'alphabet_r') {
+                v_anns.sort(function(a, b) {
+                    return -a._filename.localeCompare(
+                        b._filename
+                    )
+                });
+                return v_anns;
+                
+            } else if (sort_by == 'tags') {
+                v_anns.sort(function(a, b) {
+                    return a.n_tags - b.n_tags
+                });
+                return v_anns;
+
+            } else if (sort_by == 'tags_r') {
+                v_anns.sort(function(a, b) {
+                    return b.n_tags - a.n_tags
+                });
+                return v_anns;
+                
+            } else {
+                return v_anns;
+            }
+        },
+
         set_current_ann: function(ann) {
             // replace the ann object
             this.anns[this.ann_idx] = ann;
@@ -590,6 +680,24 @@ var app_hotpot = {
             }
         },
 
+        set_ann_idx_by_ann: function(ann) {
+            // find the idx
+            var idx = this.find_included(
+                ann._filename,
+                this.anns
+            );
+
+            if (idx < 0) {
+                // what?? how could it be?
+                return;
+            } else {
+                // ok, we get it
+            }
+
+            // finally, just call the set_ann_idx
+            this.set_ann_idx(idx);
+        },
+
         show_ann_file: function(fn) {
             // first, find the ann_idx
             var idx = this.fn2idx(fn);
@@ -617,6 +725,14 @@ var app_hotpot = {
                 }                
             }
             return -1;
+        },
+
+        remove_ann_file_by_ann: function(ann) {
+            var idx = this.find_included(
+                ann._filename,
+                this.anns
+            );
+            this.remove_ann_file(idx);
         },
 
         remove_ann_file: function(idx) {
@@ -1964,6 +2080,18 @@ var app_hotpot = {
             return cnt;
         },
 
+        is_current_ann: function(ann) {
+            if (this.ann_idx == null) {
+                // which means there is no ann displayed now
+                return false;
+            }
+            if (ann._filename == this.anns[this.ann_idx]._filename) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
         is_match_filename: function(fn) {
             let p = this.fn_pattern.trim();
             if (p == '') {
@@ -1974,6 +2102,16 @@ var app_hotpot = {
             } else {
                 return false;
             }
+        },
+
+        find_included: function(fn, anns) {
+            for (let i = 0; i < anns.length; i++) {
+                if (anns[i]._filename == fn) {
+                    return i;
+                }
+            }
+
+            return -1;
         },
 
         has_included: function(fn, anns) {
@@ -2665,6 +2803,10 @@ var app_hotpot = {
         // prevent the default download event
         event.preventDefault();
         
+        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
+            return;
+        }
+
         let items = event.dataTransfer.items;
         for (let i=0; i<items.length; i++) {
             if (isFSA_API_OK) {

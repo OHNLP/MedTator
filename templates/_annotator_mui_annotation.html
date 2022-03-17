@@ -7,16 +7,51 @@
             <div id="mui_filelist_toolbar"
                 class="d-flex flex-row flex-justify-between flex-align-center w-100">
                 <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
+                    <button class="btn-xs mr-1 dropdown-toggle">
+                        Sort
+                    </button>
+                    <ul class="ribbon-dropdown text-left" 
+                        data-role="dropdown" 
+                        data-duration="100">
+                        <li title="Sort the file list by the file name A-Z"
+                            v-on:click="sort_filelist_by('alphabet')">
+                            <a href="javascript:void(0);">By file name (A->Z)</a>
+                        </li>
+                        <li title="Sort the file list by the file name Z-A"
+                            v-on:click="sort_filelist_by('alphabet_r')">
+                            <a href="javascript:void(0);">By file name (Z->A)</a>
+                        </li>
+
+                        <li title="Sort the file list by the number of annotated tags"
+                            v-on:click="sort_filelist_by('tags')">
+                            <a href="javascript:void(0);">By annotated tags (0->N)</a>
+                        </li>
+
+                        <li title="Sort the file list by the number of annotated tags"
+                            v-on:click="sort_filelist_by('tags_r')">
+                            <a href="javascript:void(0);">By annotated tags (N->0)</a>
+                        </li>
+
+                        <li class="divider"></li>
+
+                        <li title="Sort the file list by the number of annotated tags"
+                            v-on:click="sort_filelist_by('default')">
+                            <a href="javascript:void(0);">By the import sequence</a>
+                        </li>
+                    </ul>
+
                     <span class="mr-1"
                         title="Filter the files by file name">
                         Filter: 
                     </span>
                     <input type="text" 
                         class="ipt-xs mr-1"
+                        style="width: 55px;"
                         v-model="fn_pattern">
                 
                     <span v-if="anns.length > 0">
-                        {{ anns.length }} files
+                        {{ anns.length }} 
+                        <span class="txt-sm">files</span>
                     </span>
                 </div>
 
@@ -33,38 +68,38 @@
                 v-if="anns.length > 0"
                 class="d-flex flex-column flex-justify-start flex-align-start w-100 h-100">
                 <ul class="w-100 file-list">
-                    <li v-for="ann, idx in anns"
-                        v-show="idx == ann_idx || is_match_filename(ann._filename)"
-                        v-bind:class="{'file-selected':idx == ann_idx}"
+                    <li v-for="v_ann in sort_v_anns(anns)"
+                        v-show="is_current_ann(v_ann) || is_match_filename(v_ann._filename)"
+                        v-bind:class="{'file-selected':is_current_ann(v_ann)}"
                         class="file-list-item">
                         <div class="d-flex flex-row flex-justify-between">
                             <div class="file-list-item-name"
                                 style="flex-grow: 1;"
-                                v-on:click="set_ann_idx(idx)"
-                                v-bind:title="ann._filename"
-                                v-bind:class="{'file-list-item-name-unsaved':!ann._has_saved}">
+                                v-on:click="set_ann_idx_by_ann(v_ann)"
+                                v-bind:title="v_ann._filename"
+                                v-bind:class="{'file-list-item-name-unsaved':!anns[v_ann.idx]._has_saved}">
 
                                 <a href="javascript:void(0);"
-                                    v-show="!ann._has_saved" 
-                                    v-on:click="save_xml_by_idx(idx)"
+                                    v-show="!anns[v_ann.idx]._has_saved" 
+                                    v-on:click="save_xml_by_ann(v_ann)"
                                     title="Save this annotation file"
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
                                 </a>
                                 
                                 <span>
-                                    {{ ann._filename }}
+                                    {{ v_ann._filename }}
                                 </span>
                             </div>
 
                             <div class="d-flex flex-row">
                                 <div class="mr-2"
-                                    v-bind:title="'Annotated ' + ann.tags.length + ' tags'">
-                                    {{ ann.tags.length }}
+                                    v-bind:title="'Annotated ' + anns[v_ann.idx].tags.length + ' tags'">
+                                    {{ anns[v_ann.idx].tags.length }}
                                 </div>
 
-                                <div v-bind:title="'Remove ' + ann._filename">
-                                    <a v-on:click="remove_ann_file(idx)"
+                                <div v-bind:title="'Remove ' + v_ann._filename">
+                                    <a v-on:click="remove_ann_file_by_ann(v_ann)"
                                         class="btn btn-red btn-xs"
                                         href="javascript:void(0);">
                                         <i class="fa fa-minus-circle"></i>

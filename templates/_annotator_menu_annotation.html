@@ -166,7 +166,7 @@ v-bind:class="{'active': section=='annotation'}">
             name="display_mode" 
             value="document" 
             data-role="radio" 
-            data-caption="<i class='far fa-file-alt'></i> Document" 
+            data-caption="Document" 
             checked 
             title="Display the current annotation file in its original format"
             v-model="cm.display_mode"
@@ -176,7 +176,7 @@ v-bind:class="{'active': section=='annotation'}">
             name="display_mode" 
             value="sentences" 
             data-role="radio" 
-            data-caption="<i class='fa fa-list'></i> Sentences" 
+            data-caption="Sentences" 
             title="Display the current annotation file sentence by sentence. The sentence tokenization algorithm could be changed in settings."
             v-model="cm.display_mode"
             @change="on_change_display_mode">

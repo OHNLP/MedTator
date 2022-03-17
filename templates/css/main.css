@@ -883,6 +883,9 @@ input[type=text].ipt-spinner-xs {
 .clr-grey {
     color: grey;
 }
+.txt-sm {
+    font-size: 0.8em;
+}
 .txt-hover-bold:hover {
     font-weight: bold;
 }
@@ -900,7 +903,7 @@ input[type=text].ipt-spinner-xs {
     height: 30px;
 }
 .ribbon-menu {
-    min-width: 1200px;
+    min-width: 1240px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
     height: 18px;
