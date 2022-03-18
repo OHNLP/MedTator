@@ -390,6 +390,10 @@ var app_hotpot = {
             app_hotpot.codemirror.execCommand('clearSearch');
         },
 
+        clear_filter_box: function() {
+            this.fn_pattern = '';
+        },
+
         show_wiki: function() {
             // app_hotpot.start_tour_annotation();
             window.open(
@@ -591,6 +595,16 @@ var app_hotpot = {
             } else {
                 return 'default';
             }
+        },
+
+        get_sort_by_label: function(sort_by) {
+            return {
+                'default': 'Sort',
+                'alphabet': 'A-Z',
+                'alphabet_r': 'Z-A',
+                'tags': '0-N',
+                'tags_r': 'N-0'
+            }[sort_by];
         },
 
         sort_v_anns: function(anns) {

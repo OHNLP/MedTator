@@ -102,7 +102,9 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ### 1.2.15 (2022-03-17)
 
-- Added sort for file list by file name or tags
+- Added sort button and menu for file list by file name or tags
+- Added dynamic sort indicator for different sort mode
+- Added a button for quickly deleting filter text
 - Fixed concept name overflow bug in adjudication tab
 - Fixed ribbon menu layout bug when resized
 

@@ -8,7 +8,7 @@
                 class="d-flex flex-row flex-justify-between flex-align-center w-100">
                 <div class="d-flex flex-row flex-justify-start flex-align-center mr-1">
                     <button class="btn-xs mr-1 dropdown-toggle">
-                        Sort
+                        {{ get_sort_by_label(this.sort_anns_by) }}
                     </button>
                     <ul class="ribbon-dropdown text-left" 
                         data-role="dropdown" 
@@ -36,7 +36,7 @@
 
                         <li title="Sort the file list by the number of annotated tags"
                             v-on:click="sort_filelist_by('default')">
-                            <a href="javascript:void(0);">By the import sequence</a>
+                            <a href="javascript:void(0);">By default import sequence</a>
                         </li>
                     </ul>
 
@@ -48,6 +48,11 @@
                         class="ipt-xs mr-1"
                         style="width: 55px;"
                         v-model="fn_pattern">
+                    <span v-on:click="clear_filter_box"
+                        class="box-clear-times"
+                        title="Clear the filter input box">
+                        <i class="fa fa-times"></i>
+                    </span>
                 
                     <span v-if="anns.length > 0">
                         {{ anns.length }} 
