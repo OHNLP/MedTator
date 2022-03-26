@@ -100,6 +100,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.xx (2022-03-31) 
+
+- Fixed the message missing for browsers without FSA APIs
+
 ### 1.2.15 (2022-03-17)
 
 - Added sort button and menu for file list by file name or tags
@@ -230,4 +234,6 @@ Release Highlights
 - Customizable annotation schema.
 - Multi-format export.
 - Multi-file annotation.
+
+# Acknowledgements
 

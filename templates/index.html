@@ -306,21 +306,46 @@ var isIE = /*@cc_on!@*/false || !!document.documentMode;
 var isCHROME = _browser.name == 'Chrome';
 var isSAFARI = _browser.name == 'Safari';
 var isFIREFOX = _browser.name == 'Firefox';
+// var isCB_BRAVE = (navigator.brave && await navigator.brave.isBrave() || false);
+var isCB_BRAVE = typeof(navigator.brave) != 'undefined';
+if (isCB_BRAVE) {
+    _browser.name = 'Brave';
+}
+// for HTTPS check
+var isHTTPS = window.location.protocol == 'https:';
+var isLOCALFILE = window.location.protocol == 'file:';
+var isLOCALHOST = !window.location.host.replace(/(localhost|127\.0\.0\.1)(:\d+)?/i, "");
 
 // the file system access api
 var isFSA_API_OK = typeof(window.showOpenFilePicker) == 'function';
+
+console.log("* Browser:", _browser);
+console.log('* isHTTPS: ' + isHTTPS);
+console.log('* isLOCALFILE: ' + isLOCALFILE);
+console.log('* isLOCALHOST: ' + isLOCALHOST);
 console.log('* isIE: ' + isIE);
 console.log('* isCHROME: ' + isCHROME);
 console.log('* isSAFARI: ' + isSAFARI);
 console.log('* isFIREFOX: ' + isFIREFOX);
+console.log('* isCB_BRAVE: ' + isCB_BRAVE);
 console.log('* isFSA_API_OK: ' + isFSA_API_OK);
 
 var _NOT_SUPPORT_MSG = 'The visualization and annotation features require advanced web techniques, which are <b>NOT</b> supported by the web browser you are using.<br>'+
 'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.';
 
 var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> require latest HTML5 techniques, which are <b>NOT</b> supported by the web browser [' + _browser.name + '] you are using. <br>' +
-'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
+'Try using the latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
 'Except for the file saving limitation, you can use all other functions.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
+
+var _DISABLED_API_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> are <b>NOT</b> enabled by your current web browser [' + _browser.name + '] you are using. <br>' +
+'Try using the latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or enabling the File System Access API. <br> '+
+'We provide a tutorial about how to enable the API in some browsers in <a href="https://github.com/OHNLP/MedTator/wiki/FQA#enable-file-system-access-api">the MedTator Wiki</a>.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
+
+var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> are available only in secure contexts (HTTPs) or localhost server for accessing your local files. <br>' +
+'Try adding SSL to your web server or hosting MedTator on a web server with SSL certification. <br> '+
+'We provide a tutorial about how to solve this issue in <a href="https://github.com/OHNLP/MedTator/wiki/FQA#https">the MedTator Wiki</a>.<br>' +
 '<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
 
 </script>
@@ -433,9 +458,26 @@ var jarvis = {
             if (isFSA_API_OK) {
                 jarvis.ssmsg('Initializated')
                 setTimeout('jarvis.ssclose();', 500);
-            } else {
-                // old version chrome or not http
 
+            } else {
+                // this can be many reasons
+                if (isHTTPS) {
+                    // 2022-03-24: Thanks to Adam Cross@UIC who reported this bug!
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+
+                } else if (isLOCALFILE) {
+                    // 2022-03-24: Thanks to Adam Cross@UIC who reported this bug!
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+
+                } else if (!isLOCALHOST) {
+                    // not HTTPs and not localhost
+                    // so can not use FSA API
+                    jarvis.ssmsg(_SEC_LMT_MSG);
+
+                } else {
+                    // ?
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+                }
             }
         } else {
 
