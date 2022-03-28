@@ -1239,11 +1239,13 @@ var iaa_calculator = {
         var precision = this.calc_precision(cm.tp, cm.fp);
         var recall = this.calc_recall(cm.tp, cm.fn);
         var f1 = this.calc_f1_by_pr(precision, recall);
+        var cohen_kappa = this.get_cohen_kappa_vals(cm.tp, cm.fp, cm.fn);
 
         return {
             precision: precision,
             recall: recall,
             f1: f1,
+            cohen_kappa: cohen_kappa,
             cm: cm
         }
     },
@@ -1254,6 +1256,90 @@ var iaa_calculator = {
 
     calc_recall: function(tp, fn) {
         return tp / (tp + fn);
+    },
+
+    /**
+     * Calculate the total number of records
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns number of total
+     */
+    calc_N: function(tp, fp, fn) {
+        return tp + fp + fn;
+    },
+
+    /**
+     * Calculate the percentage agreement
+     * 
+     * As this is no TN, the PerAgr is just the TP
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns Po
+     */
+    calc_Po: function(tp, fp, fn) {
+        return tp / this.calc_N(tp, fp, fn);
+    },
+
+    calc_Pe: function(tp, fp, fn) {
+        var N = this.calc_N(tp, fp, fn);
+        return ((tp + fn) * (tp + fp) + fn * fp) / N**2;
+    },
+
+    calc_cohen_kappa: function(Po, Pe) {
+        // get the cohen's kappa
+        return 1 - (1 - Po) / (1 - Pe);
+    },
+    
+    calc_cohen_kappa_SE_k: function(N, Po, Pe) {
+        return (
+            Po * (1 - Po) / 
+            (N * (1 - Pe) ** 2)
+        )**0.5;
+    },
+
+    calc_cohen_kappa_overall: function() {
+
+    },
+
+    /**
+     * Get the Cohen's Kappa Score and 95% CI
+     * 
+     * The definition comes from 
+     * https://en.wikipedia.org/wiki/Cohen%27s_kappa
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns Cohen's Kappa Score and 95% CI
+     */
+    get_cohen_kappa_vals: function(tp, fp, fn) {
+        var N = this.calc_N(tp, fp, fn);
+        var Po = this.calc_Po(tp, fp, fn);
+        var Pe = this.calc_Pe(tp, fp, fn);
+
+        // get the cohen's kappa
+        var kappa = this.calc_cohen_kappa(Po, Pe);
+
+        // get the SE_k
+        var SE_k = this.calc_cohen_kappa_SE_k(N, Po, Pe);
+
+        // get the lower and upper for 95% CI
+        var lower = kappa - 1.96 * SE_k;
+        var upper = kappa + 1.96 * SE_k;
+
+        return {
+            N: N,
+            Po: Po,
+            Pe: Pe,
+            kappa: kappa,
+            SE_k: SE_k,
+            lower: lower,
+            upper: upper
+        };
     },
 
     calc_f1: function(tp, fp, fn) {
