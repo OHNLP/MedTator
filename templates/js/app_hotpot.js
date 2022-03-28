@@ -80,6 +80,9 @@ var app_hotpot = {
         // for file name filter
         fn_pattern: '',
 
+        // for updating the sub module
+        force_module_update: Math.random(), 
+
         // for iaa
         iaa_ann_list: [
             {anns: [], name: 'A'}, // for annotator A
@@ -95,7 +98,6 @@ var app_hotpot = {
         iaa_display_tags_tp: false,
         iaa_display_adj_panel: true,
         iaa_display_adj_detail: false,
-        force_module_update: Math.random(), // for updating the sub module
 
         // for iaa adjudication
         iaa_gs_dict: null,
@@ -110,6 +112,9 @@ var app_hotpot = {
         //    }
         // }
         iaa_use_tag_attrs: {},
+
+        // for IAA display mode, show F1 or other indicators
+        iaa_display_measure: 'f1',
 
         // cm settings
         cm: {
@@ -1404,6 +1409,10 @@ var app_hotpot = {
                     }
                 }
             }
+        },
+
+        set_iaa_display_measure: function(m) {
+            this.iaa_display_measure = m;
         },
 
         set_all_iaa_use_tag_attrs: function(selection) {

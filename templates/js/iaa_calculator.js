@@ -852,7 +852,11 @@ var iaa_calculator = {
         }
         // get the all level result
         var all_result = this.calc_p_r_f1(cm_all);
+
         iaa_dict.all = all_result;
+
+        // update the cohen kappa of all
+        all_result.cohen_kappa = this.get_cohen_kappa_overall(iaa_dict);
 
         return iaa_dict;
     },
@@ -921,6 +925,9 @@ var iaa_calculator = {
         var all_result = this.calc_p_r_f1(cm_ann);
 
         result_ann.all = all_result;
+
+        // update the cohen kappa of all
+        all_result.cohen_kappa = this.get_cohen_kappa_overall(result_ann);
 
         return result_ann;
     },
@@ -1239,7 +1246,7 @@ var iaa_calculator = {
         var precision = this.calc_precision(cm.tp, cm.fp);
         var recall = this.calc_recall(cm.tp, cm.fn);
         var f1 = this.calc_f1_by_pr(precision, recall);
-        var cohen_kappa = this.get_cohen_kappa_vals(cm.tp, cm.fp, cm.fn);
+        var cohen_kappa = this.get_cohen_kappa(cm.tp, cm.fp, cm.fn);
 
         return {
             precision: precision,
@@ -1301,8 +1308,52 @@ var iaa_calculator = {
         )**0.5;
     },
 
-    calc_cohen_kappa_overall: function() {
+    get_cohen_kappa_overall: function(iaa_rst) {
+        // the N is just the total number
+        var N = this.calc_N(
+            iaa_rst.all.cm.tp,
+            iaa_rst.all.cm.fp,
+            iaa_rst.all.cm.fn
+        );
+        // the overall Po is as usuall
+        var Po = this.calc_Po(
+            iaa_rst.all.cm.tp, 
+            iaa_rst.all.cm.fp, 
+            iaa_rst.all.cm.fn
+        );
 
+        // Need to get the sub-Pe
+        var sPes = [];
+
+        for (const tag_name in iaa_rst.tag) {
+            if (Object.hasOwnProperty.call(iaa_rst.tag, tag_name)) {
+                const rst = iaa_rst.tag[tag_name];
+                var sPe = (rst.cm.tp + rst.cm.fp) * (rst.cm.tp + rst.cm.fn) / N**2;
+                sPes.push(sPe);
+            }
+        }
+        // sum all
+        var Pe = sPes.reduce((a, b) => a + b, 0);
+
+        // get the cohen's kappa
+        var kappa = this.calc_cohen_kappa(Po, Pe);
+
+        // get the SE_k
+        var SE_k = this.calc_cohen_kappa_SE_k(N, Po, Pe);
+
+        // get the lower and upper for 95% CI
+        var lower = kappa - 1.96 * SE_k;
+        var upper = kappa + 1.96 * SE_k;
+
+        return {
+            N: N,
+            Po: Po,
+            Pe: Pe,
+            kappa: kappa,
+            SE_k: SE_k,
+            lower: lower,
+            upper: upper
+        };
     },
 
     /**
@@ -1316,7 +1367,7 @@ var iaa_calculator = {
      * @param {number} fn False negative
      * @returns Cohen's Kappa Score and 95% CI
      */
-    get_cohen_kappa_vals: function(tp, fp, fn) {
+     get_cohen_kappa: function(tp, fp, fn) {
         var N = this.calc_N(tp, fp, fn);
         var Po = this.calc_Po(tp, fp, fn);
         var Pe = this.calc_Pe(tp, fp, fn);

@@ -42,7 +42,7 @@
 }
 
 .box-header select {
-    height: 1.6em;
+    height: 2em;
     line-height: 1.2em;
     font-size: .9em;
     margin: 4px;
@@ -54,8 +54,8 @@
 
 .box-header-right {
     font-size: 1em;
-    height: 1.6em;
-    line-height: 1.6em;
+    height: 2em;
+    line-height: 2em;
     margin: 3px 0;
     text-align: right;
 }
