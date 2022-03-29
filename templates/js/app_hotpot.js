@@ -2278,7 +2278,7 @@ var app_hotpot = {
             if (typeof(v) == 'undefined' ||
                 v == null || 
                 isNaN(v)) {
-                return '0.00';
+                return 'NA';
             }
             return v.toFixed(2);
         },
