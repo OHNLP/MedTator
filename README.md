@@ -95,7 +95,7 @@ Apache-2.0 License
 
 If you use MedTator in scientific work or want to learn more about it, please have a look at
 
-> He H, Fu S, Wang L, Liu S, Wen A, Liu H. MedTator: a serverless annotation tool for corpus development. Bioinformatics. 2022 Jan 4;btab880. DOI: [10.1093/bioinformatics/btab880](https://doi.org/10.1093/bioinformatics/btab880)
+> He H, Fu S, Wang L, Liu S, Wen A, Liu H. MedTator: a serverless annotation tool for corpus development. Bioinformatics, Volume 38, Issue 6, 15 March 2022, Pages 1776–1778, DOI: [10.1093/bioinformatics/btab880](https://doi.org/10.1093/bioinformatics/btab880), PMID: [34983060](https://pubmed.ncbi.nlm.nih.gov/34983060/)
 
 
 ## Change log
