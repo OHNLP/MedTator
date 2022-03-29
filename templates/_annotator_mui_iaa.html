@@ -461,22 +461,22 @@
 
                         <br>
                         
-                        <i>- TP</i>: <b>{{ iaa_dict.all.cm.tp }}</b>
+                        <i class="ml-1">TP</i>: <b>{{ iaa_dict.all.cm.tp }}</b>
                         &nbsp;
-                        <i>- FP</i>: <b>{{ iaa_dict.all.cm.fp }}</b>
+                        <i class="ml-1">FP</i>: <b>{{ iaa_dict.all.cm.fp }}</b>
                         &nbsp;
-                        <i>- FN</i>: <b>{{ iaa_dict.all.cm.fn }}</b>
+                        <i class="ml-1">FN</i>: <b>{{ iaa_dict.all.cm.fn }}</b>
                         &nbsp;
-                        <i>- N</i>: <b>{{ iaa_dict.all.cohen_kappa.N }}</b>
+                        <i class="ml-1">N</i>: <b>{{ iaa_dict.all.cohen_kappa.N }}</b>
                         <br>
 
-                        <i>- Po</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}</b>
+                        <i class="ml-1">Po</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}</b>
                         &nbsp;
-                        <i>- Pe</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Pe) }}</b>
+                        <i class="ml-1">Pe</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Pe) }}</b>
                         &nbsp;
-                        <i>- SE<sub>k</sub></i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.SE_k) }}</b>
+                        <i class="ml-1">SE<sub>k</sub></i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.SE_k) }}</b>
                         &nbsp;
-                        <i>- 95% CI</i>: 
+                        <i class="ml-1">95% CI</i>: 
                         <b>
                             {{ to_fixed(iaa_dict.all.cohen_kappa.lower) }} - 
                             {{ to_fixed(iaa_dict.all.cohen_kappa.upper) }}
@@ -515,8 +515,11 @@
                         <table class="doctag-table">
                             <thead>
                                 <tr style="background: white;">
-                                    <th colspan="2"></th>
-                                    <th v-bind:colspan="dtd.etags.length+1">
+                                    <th style="border: 0;"
+                                        colspan="2">
+                                        &nbsp;
+                                    </th>
+                                    <th v-bind:colspan="dtd.etags.length+2">
                                         <b>
                                             Annotator B
                                         </b>
@@ -547,20 +550,21 @@
                                     -->
 
                                     <th>EMPTY</th>
+                                    <th>
+                                        <i>P<sub>b</sub></i>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="tag_def_row, row_idx in dtd.etags">
                                     <td v-if="row_idx == 0"
                                         style="vertical-align: middle; padding: 10px;"
-                                        v-bind:rowspan="dtd.etags.length+1">
+                                        v-bind:rowspan="dtd.etags.length+2">
                                         <b>Annotator A</b>
                                     </td>
-                                    <td>
-                                        <span class="rotate-90">
-                                            <i class="fa fa-tag"
-                                                v-bind:class="'fg-tag-' + tag_def_row.name">
-                                            </i>
+                                    <td v-bind:class="'fg-tag-' + tag_def_row.name">
+                                        <span class="txt-bold">
+                                            <i class="fa fa-tag"></i>
                                             {{ tag_def_row.name }}
                                         </span>
                                     </td>
@@ -572,19 +576,47 @@
                                             &nbsp;
                                         </span>
                                     </td>
-                                    <td>
+                                    <td class="clr-grey">
                                         {{ iaa_dict.tag[tag_def_row.name].cm.fp }}
                                     </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]) }}
+                                        </span>
+                                    </td>
                                 </tr>
+
                                 <tr>
-                                    <td>EMPTY</td>
-                                    <td v-for="tag_def_col in dtd.etags">
+                                    <td class="txt-bold">EMPTY</td>
+                                    <td v-for="tag_def_col in dtd.etags"
+                                        class="clr-grey">
                                         <span>
                                             {{ iaa_dict.tag[tag_def_col.name].cm.fn }}
                                         </span>
                                     </td>
-                                    <td>
-                                        &nbsp;
+                                    <td class="clr-grey">
+                                        0
+                                    </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="txt-bold">
+                                        <i>P<sub>a</sub></i>
+                                    </td>
+                                    <td v-for="tag_def_col in dtd.etags"
+                                        class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]) }}
+                                        </span>
+                                    </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']) }}
+                                        </span>
                                     </td>
                                 </tr>
                             </tbody>

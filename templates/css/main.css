@@ -105,7 +105,8 @@ html,body {
 }
 #mui_iaa_cohenk_summary {
     /* width: 540px; */
-    border-right: 1px solid #e9e9e9;
+    padding-right: 5px;
+    /* border-right: 1px solid #e9e9e9; */
     overflow-y: auto;
 }
 #mui_iaa_tags {
@@ -902,8 +903,14 @@ input[type=text].ipt-spinner-xs {
 .txt-sm {
     font-size: 0.8em;
 }
+.txt-bold {
+    font-weight: bold;
+}
 .txt-hover-bold:hover {
     font-weight: bold;
+}
+.txt-italic {
+    font-style: italic;
 }
 /* fix for metro */
 .radio .caption, .radio .check {

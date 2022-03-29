@@ -1324,14 +1324,33 @@ var iaa_calculator = {
 
         // Need to get the sub-Pe
         var sPes = [];
+        var Pes = {
+            a: {},
+            b: {}
+        };
+
+        // for the EMPTY tags
+        var _eA = 0;
+        var _eB = 0;
 
         for (const tag_name in iaa_rst.tag) {
             if (Object.hasOwnProperty.call(iaa_rst.tag, tag_name)) {
                 const rst = iaa_rst.tag[tag_name];
-                var sPe = (rst.cm.tp + rst.cm.fp) * (rst.cm.tp + rst.cm.fn) / N**2;
+                Pes.a[tag_name] = (rst.cm.tp + rst.cm.fn) / N;
+                Pes.b[tag_name] = (rst.cm.tp + rst.cm.fp) / N;
+                var sPe = Pes.a[tag_name] * Pes.b[tag_name];
                 sPes.push(sPe);
+
+                _eA += rst.cm.fn;
+                _eB += rst.cm.fp;
             }
         }
+
+        // calc the _EMPTY_
+        Pes.a['_EMPTY_'] = _eA / N;
+        Pes.b['_EMPTY_'] = _eB / N;
+        sPes.push(Pes.a['_EMPTY_'] * Pes.b['_EMPTY_']);
+
         // sum all
         var Pe = sPes.reduce((a, b) => a + b, 0);
 
@@ -1349,6 +1368,7 @@ var iaa_calculator = {
             N: N,
             Po: Po,
             Pe: Pe,
+            Pes: Pes,
             kappa: kappa,
             SE_k: SE_k,
             lower: lower,
