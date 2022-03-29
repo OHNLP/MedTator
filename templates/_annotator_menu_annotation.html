@@ -186,7 +186,28 @@ v-bind:class="{'active': section=='annotation'}">
 </div>
 
 <div class="group">
-    <div>
+    <div class="d-flex flex-column">
+        <button class="ribbon-icon-button"
+            title="Show search bar"
+            style="height: 30px;"
+            v-on:click="show_search_bar">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="caption">Search</span>
+        </button>
+
+        <button class="ribbon-icon-button"
+            title="Clear highlights of the search results"
+            style="height: 30px;"
+            v-on:click="clear_search_result">
+            <span class="icon">
+                <i class="fa fa-eraser"></i>
+            </span>
+            <span class="caption">Clear</span>
+        </button>
+    </div>
+    <!-- <div>
 
         <button class="ribbon-button" 
             title="Show search bar"
@@ -206,7 +227,7 @@ v-bind:class="{'active': section=='annotation'}">
             <span class="caption">Clear</span>
         </button>
         
-    </div>
+    </div> -->
 
     <span class="title">Search</span>
 </div>

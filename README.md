@@ -107,6 +107,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added confusion matrix for Cohen's Kappa
 - Updated sample data for demo
 - Updated browser detection for Brave
+- Updated the size of search button
 - Fixed the message missing for browsers without FSA APIs
 
 ### 1.2.15 (2022-03-17)
