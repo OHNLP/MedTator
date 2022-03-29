@@ -488,6 +488,7 @@
             "_sentences_text": "Patient took Janssen COVID-19 Vaccine EUA (3/6).\n Fatigue began 4 hours after vaccine.\n (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8).\n Mild headache and mild fatigue all day (3/8)"
         }
     ],
+    "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
     "hints": [],
@@ -657,6 +658,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
+    "force_module_update": 0.0942166006828371,
     "iaa_ann_list": [
         {
             "anns": [],
@@ -677,10 +679,10 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.38578585283001,
     "iaa_gs_dict": null,
     "iaa_use_attributes": false,
     "iaa_use_tag_attrs": {},
+    "iaa_display_measure": "f1",
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",

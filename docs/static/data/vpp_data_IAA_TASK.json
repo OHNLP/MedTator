@@ -2729,130 +2729,27 @@
             "dtd_name": "VAX_AE_MED",
             "tags": [
                 {
-                    "tag": "MEDICATION",
-                    "spans": "607~620",
-                    "text": "ascorbic acid",
-                    "id": "M0",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "622~628",
-                    "text": "biotin",
-                    "id": "M1",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "630~640",
-                    "text": "folic acid",
-                    "id": "M2",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "642~646",
-                    "text": "iron",
-                    "id": "M3",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "648~657",
-                    "text": "manganese",
-                    "id": "M4",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "659~673",
-                    "text": "nicotinic acid",
-                    "id": "M5",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "675~691",
-                    "text": "pantothenic acid",
-                    "id": "M6",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "693~717",
-                    "text": "pyridoxine hydrochloride",
-                    "id": "M7",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "719~726",
-                    "text": "retinol",
-                    "id": "M8",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "728~738",
-                    "text": "riboflavin",
-                    "id": "M9",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "740~748",
-                    "text": "selenium",
-                    "id": "M10",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "750~758",
-                    "text": "thiamine",
-                    "id": "M11",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "760~771",
-                    "text": "vitamin b12",
-                    "id": "M12",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "777~786",
-                    "text": "vitamin d",
-                    "id": "M13",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "792~801",
-                    "text": "vitamin e",
-                    "id": "M14",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "807~811",
-                    "text": "zinc",
-                    "id": "M15",
-                    "comment": ""
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "869~875",
-                    "text": "keflex",
-                    "id": "M16",
-                    "comment": ""
-                },
-                {
                     "tag": "OTHER_AE",
-                    "spans": "1084~1099",
+                    "spans": "2558~2573",
                     "text": "sinus infection",
                     "id": "O0",
                     "comment": "or just sinus?",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "2660~2675",
+                    "text": "sinus infection",
+                    "id": "O1",
+                    "comment": "same as the first one",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "1335~1350",
+                    "text": "sinus infection",
+                    "id": "O2",
+                    "comment": "same",
                     "certainty": "Positive"
                 },
                 {
@@ -2860,47 +2757,8 @@
                     "spans": "1166~1171",
                     "text": "dizzy",
                     "id": "D0",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "PAIN",
-                    "spans": "1428~1434",
-                    "text": "aching",
-                    "id": "P0",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "OTHER_AE",
-                    "spans": "1718~1726",
-                    "text": "swelling",
-                    "id": "O1",
-                    "comment": "check later",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "MEDICATION",
-                    "spans": "2043~2053",
-                    "text": "antibiotic",
-                    "id": "M17",
+                    "certainty": "Positive",
                     "comment": ""
-                },
-                {
-                    "tag": "OTHER_AE",
-                    "spans": "2058~2063",
-                    "text": "sinus",
-                    "id": "O2",
-                    "comment": "or sinus problem?",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "DIZZINESS",
-                    "spans": "2196~2205",
-                    "text": "dizziness",
-                    "id": "D1",
-                    "comment": "",
-                    "certainty": "Positive"
                 }
             ],
             "meta": {},
@@ -3094,6 +2952,7 @@
             "_sentences_text": "This is a spontaneous report from a contactable consumer (patient).\n A 59-year-old female patient received first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE;\n Solution for injection, unknown lot number and expiration), via an unspecified route of administration in right arm on 19Jan2021 at a single dose for COVID-19 immunization.\n  Medical history included sinus problems, allergy, allergy to cow's milk, TMJ (she had her wisdom teeth she was having issues on the right side;\n after they pulled it out she was fine), and wisdom teeth pulled out at the age of 57 or 58.\n  Concomitant medication included ascorbic acid, biotin, folic acid, iron, manganese, nicotinic acid, pantothenic acid, pyridoxine hydrochloride, retinol, riboflavin, selenium, thiamine, vitamin b12 nos, vitamin d nos, vitamin e nos, zinc (CENTRUM FRUITY CHEWABLES).\n  The patient previously took keflex and was allergic to it.\n The patient received her first dose of COVID-19 vaccine on 19Jan2021.\n She was okay from Tuesday to Thursday.\n On Friday (22Jan2021), the patient reported to have felt sick similar to a sinus infection, there were pressure in front of head, jaw, and right ear and was dizzy on and off for a long period.\n She had a sinus pressure/pressure in her nose and felt like she had a bad sinus infection in whole head.\n She is not saying she had a sinus infection, but that's what she experienced after receiving the shot.\n Her right ear was aching, head was ache, and jaw was also aching/throbbing on unspecified dates.\n The patient mentioned that she had swelling of bottom lip and it was hot/bottom of the lip (underneath) was swollen on 07Feb2021 but it went away today (08Feb2021).\n It was actually her neighbor that noticed the swelling and said it was on the bottom of lip chin area, it also felt hard when touching it.\n She called her primary care doctor following the events.\n At first, she did not want to provide these to her primary care, she did not have high blood pressure, high cholesterol or anything, but she did have bad sinuses.\n She took an antibiotic for sinus and pressure and her doctor told her that these could be side effects of the COVID vaccine as it causes dizziness and pressure.\n The dizziness must have been from the pressure since it was in her ear, cheek bones, and right ear was throbbing.\n It took her one month to come back to her normal self.\n The patient is scheduled to receive the next shot on 09Feb2021 and asked if she need to get the next shot or should she wait another week.\n The patient recovered from events \"felt sick similar to a sinus infection/pressure in front of head, jaw, and right ear/sinus pressure/pressure in her nose/bad sinus infection in whole head/bad sinuses/took an antibiotic for sinus and pressure\" and dizzy on and off/dizziness on 06Feb2021;\n recovered from event swelling of bottom lip on 08Feb2021;\n while unknown outcome for the remaining events.\n \nInformation on the lot/batch number has been requested."
         }
     ],
+    "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
     "hints": [
@@ -3132,6 +2991,18 @@
             "tag": "VAX",
             "text": "BNT162B2",
             "spans": "423~431"
+        },
+        {
+            "id": "hint-VAX-1-0",
+            "tag": "VAX",
+            "text": "expiry",
+            "spans": "273~279"
+        },
+        {
+            "id": "hint-VAX-1-1",
+            "tag": "VAX",
+            "text": "expiry",
+            "spans": "464~470"
         }
     ],
     "hint_dict": {
@@ -3243,23 +3114,9 @@
                     "_is_shown": false
                 },
                 "sinus infection": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "swelling": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "sinus": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
+                        "A_doc_8.txt.xml": 3
                     },
                     "_is_shown": false
                 }
@@ -3281,9 +3138,7 @@
                 "not feeling well",
                 "unresponsive completely",
                 "faint",
-                "sinus infection",
-                "swelling",
-                "sinus"
+                "sinus infection"
             ]
         },
         "VAX": {
@@ -3401,132 +3256,6 @@
                         "A_doc_5.txt.xml": 1
                     },
                     "_is_shown": false
-                },
-                "ascorbic acid": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "biotin": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "folic acid": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "iron": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "manganese": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "nicotinic acid": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "pantothenic acid": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "pyridoxine hydrochloride": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "retinol": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "riboflavin": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "selenium": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "thiamine": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "vitamin b12": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "vitamin d": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "vitamin e": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "zinc": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "keflex": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "antibiotic": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -3546,25 +3275,7 @@
                 "Antipyretic",
                 "acetaminophen",
                 "EpiPen",
-                "ice pack",
-                "ascorbic acid",
-                "biotin",
-                "folic acid",
-                "iron",
-                "manganese",
-                "nicotinic acid",
-                "pantothenic acid",
-                "pyridoxine hydrochloride",
-                "retinol",
-                "riboflavin",
-                "selenium",
-                "thiamine",
-                "vitamin b12",
-                "vitamin d",
-                "vitamin e",
-                "zinc",
-                "keflex",
-                "antibiotic"
+                "ice pack"
             ]
         },
         "TREATMENT": {
@@ -3612,13 +3323,6 @@
                         "A_doc_7.txt.xml": 1
                     },
                     "_is_shown": false
-                },
-                "aching": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -3631,8 +3335,7 @@
                 "Body aching",
                 "achy",
                 "aches",
-                "muscle aches",
-                "aching"
+                "muscle aches"
             ]
         },
         "HEADACHE": {
@@ -3690,13 +3393,6 @@
                         "A_doc_5.txt.xml": 1
                     },
                     "_is_shown": false
-                },
-                "dizziness": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc_8.txt.xml": 1
-                    },
-                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -3706,8 +3402,7 @@
             },
             "texts": [
                 "dizzy",
-                "lightheaded",
-                "dizziness"
+                "lightheaded"
             ]
         }
     },
@@ -3728,6 +3423,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
+    "force_module_update": 0.453110888651973,
     "iaa_ann_list": [
         {
             "anns": [
@@ -4793,130 +4489,27 @@
                     "dtd_name": "VAX_AE_MED",
                     "tags": [
                         {
-                            "tag": "MEDICATION",
-                            "spans": "607~620",
-                            "text": "ascorbic acid",
-                            "id": "M0",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "622~628",
-                            "text": "biotin",
-                            "id": "M1",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "630~640",
-                            "text": "folic acid",
-                            "id": "M2",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "642~646",
-                            "text": "iron",
-                            "id": "M3",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "648~657",
-                            "text": "manganese",
-                            "id": "M4",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "659~673",
-                            "text": "nicotinic acid",
-                            "id": "M5",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "675~691",
-                            "text": "pantothenic acid",
-                            "id": "M6",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "693~717",
-                            "text": "pyridoxine hydrochloride",
-                            "id": "M7",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "719~726",
-                            "text": "retinol",
-                            "id": "M8",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "728~738",
-                            "text": "riboflavin",
-                            "id": "M9",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "740~748",
-                            "text": "selenium",
-                            "id": "M10",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "750~758",
-                            "text": "thiamine",
-                            "id": "M11",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "760~771",
-                            "text": "vitamin b12",
-                            "id": "M12",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "777~786",
-                            "text": "vitamin d",
-                            "id": "M13",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "792~801",
-                            "text": "vitamin e",
-                            "id": "M14",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "807~811",
-                            "text": "zinc",
-                            "id": "M15",
-                            "comment": ""
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "869~875",
-                            "text": "keflex",
-                            "id": "M16",
-                            "comment": ""
-                        },
-                        {
                             "tag": "OTHER_AE",
-                            "spans": "1084~1099",
+                            "spans": "2558~2573",
                             "text": "sinus infection",
                             "id": "O0",
                             "comment": "or just sinus?",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "2660~2675",
+                            "text": "sinus infection",
+                            "id": "O1",
+                            "comment": "same as the first one",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1335~1350",
+                            "text": "sinus infection",
+                            "id": "O2",
+                            "comment": "same",
                             "certainty": "Positive"
                         },
                         {
@@ -4924,47 +4517,8 @@
                             "spans": "1166~1171",
                             "text": "dizzy",
                             "id": "D0",
-                            "comment": "",
-                            "certainty": "Positive"
-                        },
-                        {
-                            "tag": "PAIN",
-                            "spans": "1428~1434",
-                            "text": "aching",
-                            "id": "P0",
-                            "comment": "",
-                            "certainty": "Positive"
-                        },
-                        {
-                            "tag": "OTHER_AE",
-                            "spans": "1718~1726",
-                            "text": "swelling",
-                            "id": "O1",
-                            "comment": "check later",
-                            "certainty": "Positive"
-                        },
-                        {
-                            "tag": "MEDICATION",
-                            "spans": "2043~2053",
-                            "text": "antibiotic",
-                            "id": "M17",
+                            "certainty": "Positive",
                             "comment": ""
-                        },
-                        {
-                            "tag": "OTHER_AE",
-                            "spans": "2058~2063",
-                            "text": "sinus",
-                            "id": "O2",
-                            "comment": "or sinus problem?",
-                            "certainty": "Positive"
-                        },
-                        {
-                            "tag": "DIZZINESS",
-                            "spans": "2196~2205",
-                            "text": "dizziness",
-                            "id": "D1",
-                            "comment": "",
-                            "certainty": "Positive"
                         }
                     ],
                     "meta": {},
@@ -7051,6 +6605,41 @@
                         "precision": 0.7272727272727273,
                         "recall": 0.5714285714285714,
                         "f1": 0.64,
+                        "cohen_kappa": {
+                            "N": 17,
+                            "Po": 0.47058823529411764,
+                            "Pe": 0.19377162629757788,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0.11764705882352941,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0.17647058823529413,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.35294117647058826,
+                                    "MEDICATION": 0.17647058823529413,
+                                    "_EMPTY_": 0.35294117647058826
+                                },
+                                "b": {
+                                    "VAX": 0.058823529411764705,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0.11764705882352941,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.11764705882352941,
+                                    "MEDICATION": 0.35294117647058826,
+                                    "_EMPTY_": 0.17647058823529413
+                                }
+                            },
+                            "kappa": 0.3433476394849785,
+                            "SE_k": 0.15015326767841977,
+                            "lower": 0.04904723483527573,
+                            "upper": 0.6376480441346812
+                        },
                         "cm": {
                             "tp": 8,
                             "fp": 3,
@@ -7062,6 +6651,15 @@
                             "precision": 1,
                             "recall": 0.5,
                             "f1": 0.6666666666666666,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0.5,
+                                "Pe": 0.5,
+                                "kappa": 0,
+                                "SE_k": 0.7071067811865476,
+                                "lower": -1.3859292911256331,
+                                "upper": 1.3859292911256331
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -7105,6 +6703,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7120,6 +6727,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7135,6 +6751,15 @@
                             "precision": 1,
                             "recall": 0.6666666666666666,
                             "f1": 0.8,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 0.6666666666666666,
+                                "Pe": 0.6666666666666666,
+                                "kappa": 0,
+                                "SE_k": 0.816496580927726,
+                                "lower": -1.600333298618343,
+                                "upper": 1.600333298618343
+                            },
                             "cm": {
                                 "tp": 2,
                                 "fp": 0,
@@ -7199,6 +6824,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7214,6 +6848,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7229,6 +6872,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7244,6 +6896,15 @@
                             "precision": 1,
                             "recall": 0.3333333333333333,
                             "f1": 0.5,
+                            "cohen_kappa": {
+                                "N": 6,
+                                "Po": 0.3333333333333333,
+                                "Pe": 0.3333333333333333,
+                                "kappa": 0,
+                                "SE_k": 0.28867513459481287,
+                                "lower": -0.5658032638058332,
+                                "upper": 0.5658032638058332
+                            },
                             "cm": {
                                 "tp": 2,
                                 "fp": 0,
@@ -7341,6 +7002,15 @@
                             "precision": 0.5,
                             "recall": 1,
                             "f1": 0.6666666666666666,
+                            "cohen_kappa": {
+                                "N": 6,
+                                "Po": 0.5,
+                                "Pe": 0.5,
+                                "kappa": 0,
+                                "SE_k": 0.408248290463863,
+                                "lower": -0.8001666493091715,
+                                "upper": 0.8001666493091715
+                            },
                             "cm": {
                                 "tp": 3,
                                 "fp": 3,
@@ -7668,13 +7338,48 @@
                 ],
                 "rst": {
                     "all": {
-                        "precision": 0.5,
-                        "recall": 0.75,
-                        "f1": 0.6,
+                        "precision": 0.6666666666666666,
+                        "recall": 1,
+                        "f1": 0.8,
+                        "cohen_kappa": {
+                            "N": 6,
+                            "Po": 0.6666666666666666,
+                            "Pe": 0.16666666666666669,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0.16666666666666666,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0.16666666666666666,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.16666666666666666,
+                                    "MEDICATION": 0.16666666666666666,
+                                    "_EMPTY_": 0
+                                },
+                                "b": {
+                                    "VAX": 0.16666666666666666,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0.3333333333333333,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.3333333333333333,
+                                    "MEDICATION": 0.16666666666666666,
+                                    "_EMPTY_": 0.3333333333333333
+                                }
+                            },
+                            "kappa": 0.5999999999999999,
+                            "SE_k": 0.23094010767585033,
+                            "lower": 0.14735738895533324,
+                            "upper": 1.0526426110446665
+                        },
                         "cm": {
-                            "tp": 3,
-                            "fp": 3,
-                            "fn": 1
+                            "tp": 4,
+                            "fp": 2,
+                            "fn": 0
                         }
                     },
                     "tag": {
@@ -7682,6 +7387,15 @@
                             "precision": 1,
                             "recall": 1,
                             "f1": 1,
+                            "cohen_kappa": {
+                                "N": 1,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -7714,6 +7428,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7729,6 +7452,15 @@
                             "precision": 0.5,
                             "recall": 1,
                             "f1": 0.6666666666666666,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0.5,
+                                "Pe": 0.5,
+                                "kappa": 0,
+                                "SE_k": 0.7071067811865476,
+                                "lower": -1.3859292911256331,
+                                "upper": 1.3859292911256331
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 1,
@@ -7775,6 +7507,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7790,6 +7531,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7805,6 +7555,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7820,6 +7579,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -7832,27 +7600,24 @@
                             }
                         },
                         "OTHER_AE": {
-                            "precision": 0,
-                            "recall": 0,
-                            "f1": null,
+                            "precision": 0.5,
+                            "recall": 1,
+                            "f1": 0.6666666666666666,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0.5,
+                                "Pe": 0.5,
+                                "kappa": 0,
+                                "SE_k": 0.7071067811865476,
+                                "lower": -1.3859292911256331,
+                                "upper": 1.3859292911256331
+                            },
                             "cm": {
-                                "tp": 0,
-                                "fp": 2,
-                                "fn": 1,
+                                "tp": 1,
+                                "fp": 1,
+                                "fn": 0,
                                 "tags": {
-                                    "tp": [],
-                                    "fp": [
-                                        [
-                                            {
-                                                "tag": "OTHER_AE",
-                                                "spans": "0~15",
-                                                "text": "Soreness in arm",
-                                                "id": "O0",
-                                                "comment": "Or just soreness?",
-                                                "certainty": "Positive"
-                                            },
-                                            null
-                                        ],
+                                    "tp": [
                                         [
                                             {
                                                 "tag": "OTHER_AE",
@@ -7872,19 +7637,20 @@
                                             }
                                         ]
                                     ],
-                                    "fn": [
+                                    "fp": [
                                         [
-                                            null,
                                             {
                                                 "tag": "OTHER_AE",
-                                                "spans": "462~477",
+                                                "spans": "0~15",
                                                 "text": "Soreness in arm",
                                                 "id": "O0",
-                                                "comment": "or soreness?",
+                                                "comment": "Or just soreness?",
                                                 "certainty": "Positive"
-                                            }
+                                            },
+                                            null
                                         ]
-                                    ]
+                                    ],
+                                    "fn": []
                                 }
                             }
                         },
@@ -7892,6 +7658,15 @@
                             "precision": 1,
                             "recall": 1,
                             "f1": 1,
+                            "cohen_kappa": {
+                                "N": 1,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -8350,6 +8125,41 @@
                         "precision": 0.625,
                         "recall": 0.4166666666666667,
                         "f1": 0.5,
+                        "cohen_kappa": {
+                            "N": 15,
+                            "Po": 0.3333333333333333,
+                            "Pe": 0.25333333333333335,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0.4,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0.4,
+                                    "_EMPTY_": 0.4666666666666667
+                                },
+                                "b": {
+                                    "VAX": 0.13333333333333333,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0.13333333333333333,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0.26666666666666666,
+                                    "_EMPTY_": 0.2
+                                }
+                            },
+                            "kappa": 0.10714285714285698,
+                            "SE_k": 0.1630126659241566,
+                            "lower": -0.21236196806848995,
+                            "upper": 0.4266476823542039
+                        },
                         "cm": {
                             "tp": 5,
                             "fp": 3,
@@ -8361,6 +8171,15 @@
                             "precision": 0,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0,
+                                "Pe": 0,
+                                "kappa": 0,
+                                "SE_k": 0,
+                                "lower": 0,
+                                "upper": 0
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 2,
@@ -8397,6 +8216,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8412,6 +8240,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8427,6 +8264,15 @@
                             "precision": 0.5,
                             "recall": 0.16666666666666666,
                             "f1": 0.25,
+                            "cohen_kappa": {
+                                "N": 7,
+                                "Po": 0.14285714285714285,
+                                "Pe": 0.3469387755102041,
+                                "kappa": -0.3125,
+                                "SE_k": 0.2025231468252456,
+                                "lower": -0.7094453677774815,
+                                "upper": 0.0844453677774814
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 1,
@@ -8529,6 +8375,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8544,6 +8399,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8559,6 +8423,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8574,6 +8447,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -8589,6 +8471,15 @@
                             "precision": 1,
                             "recall": 0.6666666666666666,
                             "f1": 0.8,
+                            "cohen_kappa": {
+                                "N": 6,
+                                "Po": 0.6666666666666666,
+                                "Pe": 0.6666666666666666,
+                                "kappa": 0,
+                                "SE_k": 0.5773502691896257,
+                                "lower": -1.1316065276116665,
+                                "upper": 1.1316065276116665
+                            },
                             "cm": {
                                 "tp": 4,
                                 "fp": 0,
@@ -9044,6 +8935,41 @@
                         "precision": 0.5,
                         "recall": 0.17647058823529413,
                         "f1": 0.2608695652173913,
+                        "cohen_kappa": {
+                            "N": 20,
+                            "Po": 0.15,
+                            "Pe": 0.18,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0.1,
+                                    "PAIN": 0.1,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0.1,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.4,
+                                    "MEDICATION": 0.15,
+                                    "_EMPTY_": 0.7
+                                },
+                                "b": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0.05,
+                                    "PAIN": 0.05,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0.05,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.15,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0.15
+                                }
+                            },
+                            "kappa": -0.03658536585365835,
+                            "SE_k": 0.09737024038214213,
+                            "lower": -0.22743103700265693,
+                            "upper": 0.15426030529534024
+                        },
                         "cm": {
                             "tp": 3,
                             "fp": 3,
@@ -9055,6 +8981,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9070,6 +9005,15 @@
                             "precision": 0,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 0,
+                                "Pe": 0.4444444444444444,
+                                "kappa": -0.7999999999999998,
+                                "SE_k": 0,
+                                "lower": -0.7999999999999998,
+                                "upper": -0.7999999999999998
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 1,
@@ -9120,6 +9064,15 @@
                             "precision": 0,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 0,
+                                "Pe": 0.4444444444444444,
+                                "kappa": -0.7999999999999998,
+                                "SE_k": 0,
+                                "lower": -0.7999999999999998,
+                                "upper": -0.7999999999999998
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 1,
@@ -9170,6 +9123,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9185,6 +9147,15 @@
                             "precision": 1,
                             "recall": 0.5,
                             "f1": 0.6666666666666666,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0.5,
+                                "Pe": 0.5,
+                                "kappa": 0,
+                                "SE_k": 0.7071067811865476,
+                                "lower": -1.3859292911256331,
+                                "upper": 1.3859292911256331
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -9231,6 +9202,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9246,6 +9226,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9261,6 +9250,15 @@
                             "precision": 0.6666666666666666,
                             "recall": 0.25,
                             "f1": 0.36363636363636365,
+                            "cohen_kappa": {
+                                "N": 9,
+                                "Po": 0.2222222222222222,
+                                "Pe": 0.37037037037037035,
+                                "kappa": -0.23529411764705888,
+                                "SE_k": 0.2200974933396436,
+                                "lower": -0.6666852045927603,
+                                "upper": 0.19609696929864256
+                            },
                             "cm": {
                                 "tp": 2,
                                 "fp": 1,
@@ -9392,6 +9390,15 @@
                             "precision": null,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 0,
+                                "Pe": 0,
+                                "kappa": 0,
+                                "SE_k": 0,
+                                "lower": 0,
+                                "upper": 0
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9857,13 +9864,48 @@
                 ],
                 "rst": {
                     "all": {
-                        "precision": 0.4444444444444444,
-                        "recall": 0.5,
-                        "f1": 0.47058823529411764,
+                        "precision": 0.3333333333333333,
+                        "recall": 0.375,
+                        "f1": 0.35294117647058826,
+                        "cohen_kappa": {
+                            "N": 14,
+                            "Po": 0.21428571428571427,
+                            "Pe": 0.26530612244897955,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0.14285714285714285,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.14285714285714285,
+                                    "MEDICATION": 0.2857142857142857,
+                                    "_EMPTY_": 0.35714285714285715
+                                },
+                                "b": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0.14285714285714285,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.35714285714285715,
+                                    "MEDICATION": 0.14285714285714285,
+                                    "_EMPTY_": 0.42857142857142855
+                                }
+                            },
+                            "kappa": -0.06944444444444442,
+                            "SE_k": 0.14926517541808804,
+                            "lower": -0.36200418826389696,
+                            "upper": 0.22311529937500812
+                        },
                         "cm": {
-                            "tp": 4,
-                            "fp": 5,
-                            "fn": 4
+                            "tp": 3,
+                            "fp": 6,
+                            "fn": 5
                         }
                     },
                     "tag": {
@@ -9871,6 +9913,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9886,6 +9937,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9901,6 +9961,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9916,6 +9985,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9931,6 +10009,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -9946,6 +10033,15 @@
                             "precision": 1,
                             "recall": 1,
                             "f1": 1,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 2,
                                 "fp": 0,
@@ -9998,6 +10094,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10013,6 +10118,15 @@
                             "precision": 0,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 7,
+                                "Po": 0,
+                                "Pe": 0.40816326530612246,
+                                "kappa": -0.6896551724137931,
+                                "SE_k": 0,
+                                "lower": -0.6896551724137931,
+                                "upper": -0.6896551724137931
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 5,
@@ -10104,13 +10218,22 @@
                             }
                         },
                         "MEDICATION": {
-                            "precision": 1,
-                            "recall": 0.5,
-                            "f1": 0.6666666666666666,
+                            "precision": 0.5,
+                            "recall": 0.25,
+                            "f1": 0.3333333333333333,
+                            "cohen_kappa": {
+                                "N": 5,
+                                "Po": 0.2,
+                                "Pe": 0.44,
+                                "kappa": -0.4285714285714286,
+                                "SE_k": 0.31943828249996997,
+                                "lower": -1.0546704622713698,
+                                "upper": 0.19752760512851253
+                            },
                             "cm": {
-                                "tp": 2,
-                                "fp": 0,
-                                "fn": 2,
+                                "tp": 1,
+                                "fp": 1,
+                                "fn": 3,
                                 "tags": {
                                     "tp": [
                                         [
@@ -10128,7 +10251,9 @@
                                                 "id": "M1",
                                                 "comment": ""
                                             }
-                                        ],
+                                        ]
+                                    ],
+                                    "fp": [
                                         [
                                             {
                                                 "tag": "MEDICATION",
@@ -10146,7 +10271,6 @@
                                             }
                                         ]
                                     ],
-                                    "fp": [],
                                     "fn": [
                                         [
                                             null,
@@ -10155,6 +10279,16 @@
                                                 "spans": "1143~1149",
                                                 "text": "EpiPen",
                                                 "id": "M0",
+                                                "comment": ""
+                                            }
+                                        ],
+                                        [
+                                            null,
+                                            {
+                                                "tag": "MEDICATION",
+                                                "spans": "470~488",
+                                                "text": "ice pack and water",
+                                                "id": "M2",
                                                 "comment": ""
                                             }
                                         ],
@@ -10367,6 +10501,41 @@
                         "precision": 1,
                         "recall": 1,
                         "f1": 1,
+                        "cohen_kappa": {
+                            "N": 2,
+                            "Po": 1,
+                            "Pe": 0.5,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0.5,
+                                    "PYREXIA": 0.5,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0
+                                },
+                                "b": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0.5,
+                                    "PYREXIA": 0.5,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0
+                                }
+                            },
+                            "kappa": 1,
+                            "SE_k": 0,
+                            "lower": 1,
+                            "upper": 1
+                        },
                         "cm": {
                             "tp": 2,
                             "fp": 0,
@@ -10378,6 +10547,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10393,6 +10571,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10408,6 +10595,15 @@
                             "precision": 1,
                             "recall": 1,
                             "f1": 1,
+                            "cohen_kappa": {
+                                "N": 1,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -10442,6 +10638,15 @@
                             "precision": 1,
                             "recall": 1,
                             "f1": 1,
+                            "cohen_kappa": {
+                                "N": 1,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 1,
                                 "fp": 0,
@@ -10476,6 +10681,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10491,6 +10705,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10506,6 +10729,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10521,6 +10753,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10536,6 +10777,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10729,13 +10979,48 @@
                 ],
                 "rst": {
                     "all": {
-                        "precision": 0,
-                        "recall": 0,
-                        "f1": null,
+                        "precision": 0.3333333333333333,
+                        "recall": 0.2,
+                        "f1": 0.25,
+                        "cohen_kappa": {
+                            "N": 7,
+                            "Po": 0.14285714285714285,
+                            "Pe": 0.26530612244897955,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0.14285714285714285,
+                                    "PAIN": 0.2857142857142857,
+                                    "PYREXIA": 0.2857142857142857,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0.5714285714285714
+                                },
+                                "b": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0.14285714285714285,
+                                    "PAIN": 0.2857142857142857,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0.2857142857142857
+                                }
+                            },
+                            "kappa": -0.16666666666666674,
+                            "SE_k": 0.1800205749557739,
+                            "lower": -0.5195069935799836,
+                            "upper": 0.1861736602466501
+                        },
                         "cm": {
-                            "tp": 0,
-                            "fp": 3,
-                            "fn": 5
+                            "tp": 1,
+                            "fp": 2,
+                            "fn": 4
                         }
                     },
                     "tag": {
@@ -10743,6 +11028,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10758,6 +11052,15 @@
                             "precision": 0,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0,
+                                "Pe": 0.5,
+                                "kappa": -1,
+                                "SE_k": 0,
+                                "lower": -1,
+                                "upper": -1
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 1,
@@ -10794,34 +11097,24 @@
                             }
                         },
                         "PAIN": {
-                            "precision": 0,
-                            "recall": 0,
-                            "f1": null,
+                            "precision": 0.5,
+                            "recall": 0.5,
+                            "f1": 0.5,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 0.3333333333333333,
+                                "Pe": 0.5555555555555556,
+                                "kappa": -0.5000000000000002,
+                                "SE_k": 0.6123724356957946,
+                                "lower": -1.7002499739637575,
+                                "upper": 0.7002499739637571
+                            },
                             "cm": {
-                                "tp": 0,
-                                "fp": 2,
-                                "fn": 2,
+                                "tp": 1,
+                                "fp": 1,
+                                "fn": 1,
                                 "tags": {
-                                    "tp": [],
-                                    "fp": [
-                                        [
-                                            {
-                                                "tag": "PAIN",
-                                                "spans": "189~194",
-                                                "text": "aches",
-                                                "id": "P0",
-                                                "comment": "",
-                                                "certainty": "Positive"
-                                            },
-                                            {
-                                                "tag": "PAIN",
-                                                "spans": "182~194",
-                                                "text": "muscle aches",
-                                                "id": "P1",
-                                                "certainty": "Negated",
-                                                "comment": ""
-                                            }
-                                        ],
+                                    "tp": [
                                         [
                                             {
                                                 "tag": "PAIN",
@@ -10841,18 +11134,27 @@
                                             }
                                         ]
                                     ],
-                                    "fn": [
+                                    "fp": [
                                         [
-                                            null,
                                             {
                                                 "tag": "PAIN",
-                                                "spans": "427~439",
-                                                "text": "muscle aches",
+                                                "spans": "189~194",
+                                                "text": "aches",
                                                 "id": "P0",
+                                                "comment": "",
+                                                "certainty": "Positive"
+                                            },
+                                            {
+                                                "tag": "PAIN",
+                                                "spans": "182~194",
+                                                "text": "muscle aches",
+                                                "id": "P1",
                                                 "certainty": "Negated",
                                                 "comment": ""
                                             }
-                                        ],
+                                        ]
+                                    ],
+                                    "fn": [
                                         [
                                             null,
                                             {
@@ -10872,6 +11174,15 @@
                             "precision": null,
                             "recall": 0,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 2,
+                                "Po": 0,
+                                "Pe": 0,
+                                "kappa": 0,
+                                "SE_k": 0,
+                                "lower": 0,
+                                "upper": 0
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10910,6 +11221,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10925,6 +11245,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10940,6 +11269,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10955,6 +11293,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10970,6 +11317,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -10991,130 +11347,27 @@
                         "dtd_name": "VAX_AE_MED",
                         "tags": [
                             {
-                                "tag": "MEDICATION",
-                                "spans": "607~620",
-                                "text": "ascorbic acid",
-                                "id": "M0",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "622~628",
-                                "text": "biotin",
-                                "id": "M1",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "630~640",
-                                "text": "folic acid",
-                                "id": "M2",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "642~646",
-                                "text": "iron",
-                                "id": "M3",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "648~657",
-                                "text": "manganese",
-                                "id": "M4",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "659~673",
-                                "text": "nicotinic acid",
-                                "id": "M5",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "675~691",
-                                "text": "pantothenic acid",
-                                "id": "M6",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "693~717",
-                                "text": "pyridoxine hydrochloride",
-                                "id": "M7",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "719~726",
-                                "text": "retinol",
-                                "id": "M8",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "728~738",
-                                "text": "riboflavin",
-                                "id": "M9",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "740~748",
-                                "text": "selenium",
-                                "id": "M10",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "750~758",
-                                "text": "thiamine",
-                                "id": "M11",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "760~771",
-                                "text": "vitamin b12",
-                                "id": "M12",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "777~786",
-                                "text": "vitamin d",
-                                "id": "M13",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "792~801",
-                                "text": "vitamin e",
-                                "id": "M14",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "807~811",
-                                "text": "zinc",
-                                "id": "M15",
-                                "comment": ""
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "869~875",
-                                "text": "keflex",
-                                "id": "M16",
-                                "comment": ""
-                            },
-                            {
                                 "tag": "OTHER_AE",
-                                "spans": "1084~1099",
+                                "spans": "2558~2573",
                                 "text": "sinus infection",
                                 "id": "O0",
                                 "comment": "or just sinus?",
+                                "certainty": "Positive"
+                            },
+                            {
+                                "tag": "OTHER_AE",
+                                "spans": "2660~2675",
+                                "text": "sinus infection",
+                                "id": "O1",
+                                "comment": "same as the first one",
+                                "certainty": "Positive"
+                            },
+                            {
+                                "tag": "OTHER_AE",
+                                "spans": "1335~1350",
+                                "text": "sinus infection",
+                                "id": "O2",
+                                "comment": "same",
                                 "certainty": "Positive"
                             },
                             {
@@ -11122,47 +11375,8 @@
                                 "spans": "1166~1171",
                                 "text": "dizzy",
                                 "id": "D0",
-                                "comment": "",
-                                "certainty": "Positive"
-                            },
-                            {
-                                "tag": "PAIN",
-                                "spans": "1428~1434",
-                                "text": "aching",
-                                "id": "P0",
-                                "comment": "",
-                                "certainty": "Positive"
-                            },
-                            {
-                                "tag": "OTHER_AE",
-                                "spans": "1718~1726",
-                                "text": "swelling",
-                                "id": "O1",
-                                "comment": "check later",
-                                "certainty": "Positive"
-                            },
-                            {
-                                "tag": "MEDICATION",
-                                "spans": "2043~2053",
-                                "text": "antibiotic",
-                                "id": "M17",
+                                "certainty": "Positive",
                                 "comment": ""
-                            },
-                            {
-                                "tag": "OTHER_AE",
-                                "spans": "2058~2063",
-                                "text": "sinus",
-                                "id": "O2",
-                                "comment": "or sinus problem?",
-                                "certainty": "Positive"
-                            },
-                            {
-                                "tag": "DIZZINESS",
-                                "spans": "2196~2205",
-                                "text": "dizziness",
-                                "id": "D1",
-                                "comment": "",
-                                "certainty": "Positive"
                             }
                         ],
                         "meta": {},
@@ -11577,13 +11791,48 @@
                 ],
                 "rst": {
                     "all": {
-                        "precision": 0,
-                        "recall": 0,
-                        "f1": null,
+                        "precision": 0.75,
+                        "recall": 1,
+                        "f1": 0.8571428571428571,
+                        "cohen_kappa": {
+                            "N": 4,
+                            "Po": 0.75,
+                            "Pe": 0.5625,
+                            "Pes": {
+                                "a": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.75,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0
+                                },
+                                "b": {
+                                    "VAX": 0,
+                                    "HEADACHE": 0,
+                                    "PAIN": 0,
+                                    "PYREXIA": 0,
+                                    "FATIGUE": 0,
+                                    "DIZZINESS": 0.25,
+                                    "NAUSEA": 0,
+                                    "OTHER_AE": 0.75,
+                                    "MEDICATION": 0,
+                                    "_EMPTY_": 0.25
+                                }
+                            },
+                            "kappa": 0.4285714285714286,
+                            "SE_k": 0.4948716593053935,
+                            "lower": -0.5413770236671427,
+                            "upper": 1.39851988081
+                        },
                         "cm": {
-                            "tp": 0,
-                            "fp": 24,
-                            "fn": 3
+                            "tp": 3,
+                            "fp": 1,
+                            "fn": 0
                         }
                     },
                     "tag": {
@@ -11591,6 +11840,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -11606,6 +11864,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -11618,28 +11885,25 @@
                             }
                         },
                         "PAIN": {
-                            "precision": 0,
+                            "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
-                                "fp": 1,
+                                "fp": 0,
                                 "fn": 0,
                                 "tags": {
                                     "tp": [],
-                                    "fp": [
-                                        [
-                                            {
-                                                "tag": "PAIN",
-                                                "spans": "1428~1434",
-                                                "text": "aching",
-                                                "id": "P0",
-                                                "comment": "",
-                                                "certainty": "Positive"
-                                            },
-                                            null
-                                        ]
-                                    ],
+                                    "fp": [],
                                     "fn": []
                                 }
                             }
@@ -11648,6 +11912,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -11663,6 +11936,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -11678,9 +11960,18 @@
                             "precision": 0,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 1,
+                                "Po": 0,
+                                "Pe": 0,
+                                "kappa": 0,
+                                "SE_k": 0,
+                                "lower": 0,
+                                "upper": 0
+                            },
                             "cm": {
                                 "tp": 0,
-                                "fp": 2,
+                                "fp": 1,
                                 "fn": 0,
                                 "tags": {
                                     "tp": [],
@@ -11691,19 +11982,8 @@
                                                 "spans": "1166~1171",
                                                 "text": "dizzy",
                                                 "id": "D0",
-                                                "comment": "",
-                                                "certainty": "Positive"
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "DIZZINESS",
-                                                "spans": "2196~2205",
-                                                "text": "dizziness",
-                                                "id": "D1",
-                                                "comment": "",
-                                                "certainty": "Positive"
+                                                "certainty": "Positive",
+                                                "comment": ""
                                             },
                                             null
                                         ]
@@ -11716,6 +11996,15 @@
                             "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
                                 "fp": 0,
@@ -11728,53 +12017,33 @@
                             }
                         },
                         "OTHER_AE": {
-                            "precision": 0,
-                            "recall": 0,
-                            "f1": null,
+                            "precision": 1,
+                            "recall": 1,
+                            "f1": 1,
+                            "cohen_kappa": {
+                                "N": 3,
+                                "Po": 1,
+                                "Pe": 1,
+                                "kappa": 1,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
-                                "tp": 0,
-                                "fp": 3,
-                                "fn": 3,
+                                "tp": 3,
+                                "fp": 0,
+                                "fn": 0,
                                 "tags": {
-                                    "tp": [],
-                                    "fp": [
+                                    "tp": [
                                         [
                                             {
                                                 "tag": "OTHER_AE",
-                                                "spans": "1084~1099",
+                                                "spans": "2558~2573",
                                                 "text": "sinus infection",
                                                 "id": "O0",
                                                 "comment": "or just sinus?",
                                                 "certainty": "Positive"
                                             },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "OTHER_AE",
-                                                "spans": "1718~1726",
-                                                "text": "swelling",
-                                                "id": "O1",
-                                                "comment": "check later",
-                                                "certainty": "Positive"
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "OTHER_AE",
-                                                "spans": "2058~2063",
-                                                "text": "sinus",
-                                                "id": "O2",
-                                                "comment": "or sinus problem?",
-                                                "certainty": "Positive"
-                                            },
-                                            null
-                                        ]
-                                    ],
-                                    "fn": [
-                                        [
-                                            null,
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "2558~2573",
@@ -11785,7 +12054,14 @@
                                             }
                                         ],
                                         [
-                                            null,
+                                            {
+                                                "tag": "OTHER_AE",
+                                                "spans": "2660~2675",
+                                                "text": "sinus infection",
+                                                "id": "O1",
+                                                "comment": "same as the first one",
+                                                "certainty": "Positive"
+                                            },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "2660~2675",
@@ -11796,7 +12072,14 @@
                                             }
                                         ],
                                         [
-                                            null,
+                                            {
+                                                "tag": "OTHER_AE",
+                                                "spans": "1335~1350",
+                                                "text": "sinus infection",
+                                                "id": "O2",
+                                                "comment": "same",
+                                                "certainty": "Positive"
+                                            },
                                             {
                                                 "tag": "OTHER_AE",
                                                 "spans": "1335~1350",
@@ -11806,202 +12089,32 @@
                                                 "certainty": "Positive"
                                             }
                                         ]
-                                    ]
+                                    ],
+                                    "fp": [],
+                                    "fn": []
                                 }
                             }
                         },
                         "MEDICATION": {
-                            "precision": 0,
+                            "precision": null,
                             "recall": null,
                             "f1": null,
+                            "cohen_kappa": {
+                                "N": 0,
+                                "Po": null,
+                                "Pe": null,
+                                "kappa": null,
+                                "SE_k": null,
+                                "lower": null,
+                                "upper": null
+                            },
                             "cm": {
                                 "tp": 0,
-                                "fp": 18,
+                                "fp": 0,
                                 "fn": 0,
                                 "tags": {
                                     "tp": [],
-                                    "fp": [
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "607~620",
-                                                "text": "ascorbic acid",
-                                                "id": "M0",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "622~628",
-                                                "text": "biotin",
-                                                "id": "M1",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "630~640",
-                                                "text": "folic acid",
-                                                "id": "M2",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "642~646",
-                                                "text": "iron",
-                                                "id": "M3",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "648~657",
-                                                "text": "manganese",
-                                                "id": "M4",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "659~673",
-                                                "text": "nicotinic acid",
-                                                "id": "M5",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "675~691",
-                                                "text": "pantothenic acid",
-                                                "id": "M6",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "693~717",
-                                                "text": "pyridoxine hydrochloride",
-                                                "id": "M7",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "719~726",
-                                                "text": "retinol",
-                                                "id": "M8",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "728~738",
-                                                "text": "riboflavin",
-                                                "id": "M9",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "740~748",
-                                                "text": "selenium",
-                                                "id": "M10",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "750~758",
-                                                "text": "thiamine",
-                                                "id": "M11",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "760~771",
-                                                "text": "vitamin b12",
-                                                "id": "M12",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "777~786",
-                                                "text": "vitamin d",
-                                                "id": "M13",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "792~801",
-                                                "text": "vitamin e",
-                                                "id": "M14",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "807~811",
-                                                "text": "zinc",
-                                                "id": "M15",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "869~875",
-                                                "text": "keflex",
-                                                "id": "M16",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ],
-                                        [
-                                            {
-                                                "tag": "MEDICATION",
-                                                "spans": "2043~2053",
-                                                "text": "antibiotic",
-                                                "id": "M17",
-                                                "comment": ""
-                                            },
-                                            null
-                                        ]
-                                    ],
+                                    "fp": [],
                                     "fn": []
                                 }
                             }
@@ -12011,13 +12124,48 @@
             }
         },
         "all": {
-            "precision": 0.36231884057971014,
-            "recall": 0.38461538461538464,
-            "f1": 0.3731343283582089,
+            "precision": 0.5918367346938775,
+            "recall": 0.4461538461538462,
+            "f1": 0.5087719298245614,
+            "cohen_kappa": {
+                "N": 85,
+                "Po": 0.3411764705882353,
+                "Pe": 0.18865051903114188,
+                "Pes": {
+                    "a": {
+                        "VAX": 0.03529411764705882,
+                        "HEADACHE": 0.03529411764705882,
+                        "PAIN": 0.07058823529411765,
+                        "PYREXIA": 0.1411764705882353,
+                        "FATIGUE": 0.023529411764705882,
+                        "DIZZINESS": 0.023529411764705882,
+                        "NAUSEA": 0,
+                        "OTHER_AE": 0.23529411764705882,
+                        "MEDICATION": 0.2,
+                        "_EMPTY_": 0.4235294117647059
+                    },
+                    "b": {
+                        "VAX": 0.047058823529411764,
+                        "HEADACHE": 0.023529411764705882,
+                        "PAIN": 0.07058823529411765,
+                        "PYREXIA": 0.058823529411764705,
+                        "FATIGUE": 0.011764705882352941,
+                        "DIZZINESS": 0.03529411764705882,
+                        "NAUSEA": 0,
+                        "OTHER_AE": 0.17647058823529413,
+                        "MEDICATION": 0.15294117647058825,
+                        "_EMPTY_": 0.23529411764705882
+                    }
+                },
+                "kappa": 0.18799044694643474,
+                "SE_k": 0.06338064597570577,
+                "lower": 0.06376438083405145,
+                "upper": 0.31221651305881803
+            },
             "cm": {
-                "tp": 25,
-                "fp": 44,
-                "fn": 40
+                "tp": 29,
+                "fp": 20,
+                "fn": 36
             }
         },
         "tag": {
@@ -12025,6 +12173,15 @@
                 "precision": 0.5,
                 "recall": 0.6666666666666666,
                 "f1": 0.5714285714285715,
+                "cohen_kappa": {
+                    "N": 5,
+                    "Po": 0.4,
+                    "Pe": 0.56,
+                    "kappa": -0.36363636363636376,
+                    "SE_k": 0.4979295977319692,
+                    "lower": -1.3395783751910235,
+                    "upper": 0.6123056479182959
+                },
                 "cm": {
                     "tp": 2,
                     "fp": 2,
@@ -12035,6 +12192,15 @@
                 "precision": 0,
                 "recall": 0,
                 "f1": null,
+                "cohen_kappa": {
+                    "N": 5,
+                    "Po": 0,
+                    "Pe": 0.48,
+                    "kappa": -0.9230769230769229,
+                    "SE_k": 0,
+                    "lower": -0.9230769230769229,
+                    "upper": -0.9230769230769229
+                },
                 "cm": {
                     "tp": 0,
                     "fp": 2,
@@ -12042,19 +12208,37 @@
                 }
             },
             "PAIN": {
-                "precision": 0.2857142857142857,
-                "recall": 0.3333333333333333,
-                "f1": 0.30769230769230765,
+                "precision": 0.5,
+                "recall": 0.5,
+                "f1": 0.5,
+                "cohen_kappa": {
+                    "N": 9,
+                    "Po": 0.3333333333333333,
+                    "Pe": 0.5555555555555556,
+                    "kappa": -0.5000000000000002,
+                    "SE_k": 0.3535533905932738,
+                    "lower": -1.192964645562817,
+                    "upper": 0.19296464556281634
+                },
                 "cm": {
-                    "tp": 2,
-                    "fp": 5,
-                    "fn": 4
+                    "tp": 3,
+                    "fp": 3,
+                    "fn": 3
                 }
             },
             "PYREXIA": {
                 "precision": 0.8,
                 "recall": 0.3333333333333333,
                 "f1": 0.47058823529411764,
+                "cohen_kappa": {
+                    "N": 13,
+                    "Po": 0.3076923076923077,
+                    "Pe": 0.40236686390532544,
+                    "kappa": -0.15841584158415856,
+                    "SE_k": 0.2141911648790489,
+                    "lower": -0.5782305247470945,
+                    "upper": 0.2613988415787773
+                },
                 "cm": {
                     "tp": 4,
                     "fp": 1,
@@ -12065,6 +12249,15 @@
                 "precision": 1,
                 "recall": 0.5,
                 "f1": 0.6666666666666666,
+                "cohen_kappa": {
+                    "N": 2,
+                    "Po": 0.5,
+                    "Pe": 0.5,
+                    "kappa": 0,
+                    "SE_k": 0.7071067811865476,
+                    "lower": -1.3859292911256331,
+                    "upper": 1.3859292911256331
+                },
                 "cm": {
                     "tp": 1,
                     "fp": 0,
@@ -12072,12 +12265,21 @@
                 }
             },
             "DIZZINESS": {
-                "precision": 0.5,
+                "precision": 0.6666666666666666,
                 "recall": 1,
-                "f1": 0.6666666666666666,
+                "f1": 0.8,
+                "cohen_kappa": {
+                    "N": 3,
+                    "Po": 0.6666666666666666,
+                    "Pe": 0.6666666666666666,
+                    "kappa": 0,
+                    "SE_k": 0.816496580927726,
+                    "lower": -1.600333298618343,
+                    "upper": 1.600333298618343
+                },
                 "cm": {
                     "tp": 2,
-                    "fp": 2,
+                    "fp": 1,
                     "fn": 0
                 }
             },
@@ -12085,6 +12287,15 @@
                 "precision": null,
                 "recall": null,
                 "f1": null,
+                "cohen_kappa": {
+                    "N": 0,
+                    "Po": null,
+                    "Pe": null,
+                    "kappa": null,
+                    "SE_k": null,
+                    "lower": null,
+                    "upper": null
+                },
                 "cm": {
                     "tp": 0,
                     "fp": 0,
@@ -12092,23 +12303,41 @@
                 }
             },
             "OTHER_AE": {
-                "precision": 0.26666666666666666,
-                "recall": 0.2,
-                "f1": 0.2285714285714286,
+                "precision": 0.5333333333333333,
+                "recall": 0.4,
+                "f1": 0.4571428571428572,
+                "cohen_kappa": {
+                    "N": 27,
+                    "Po": 0.2962962962962963,
+                    "Pe": 0.5267489711934157,
+                    "kappa": -0.4869565217391305,
+                    "SE_k": 0.18568831742663153,
+                    "lower": -0.8509056238953283,
+                    "upper": -0.12300741958293271
+                },
                 "cm": {
-                    "tp": 4,
-                    "fp": 11,
-                    "fn": 16
+                    "tp": 8,
+                    "fp": 7,
+                    "fn": 12
                 }
             },
             "MEDICATION": {
-                "precision": 0.3225806451612903,
-                "recall": 0.5882352941176471,
-                "f1": 0.41666666666666663,
+                "precision": 0.6923076923076923,
+                "recall": 0.5294117647058824,
+                "f1": 0.5999999999999999,
+                "cohen_kappa": {
+                    "N": 21,
+                    "Po": 0.42857142857142855,
+                    "Pe": 0.5736961451247166,
+                    "kappa": -0.34042553191489366,
+                    "SE_k": 0.2533166148891629,
+                    "lower": -0.836926097097653,
+                    "upper": 0.15607503326786565
+                },
                 "cm": {
-                    "tp": 10,
-                    "fp": 21,
-                    "fn": 7
+                    "tp": 9,
+                    "fp": 4,
+                    "fn": 8
                 }
             }
         },
@@ -12129,14 +12358,13 @@
     },
     "iaa_display_tag_name": "__all__",
     "iaa_match_mode": "overlap",
-    "iaa_overlap_ratio": 30,
+    "iaa_overlap_ratio": 50,
     "iaa_overlap_ratio_default": 50,
-    "iaa_display_hashcode": "6975203628781989",
+    "iaa_display_hashcode": "6676480733325162",
     "iaa_display_tags_context": true,
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
-    "force_module_update": 0.2372383904429809,
     "iaa_gs_dict": {
         "6676480733325162": {
             "ann": {
@@ -12660,19 +12888,7 @@
                     "fn": []
                 },
                 "OTHER_AE": {
-                    "tp": [],
-                    "fp": [
-                        {
-                            "tag": {
-                                "tag": "OTHER_AE",
-                                "spans": "0~15",
-                                "text": "Soreness in arm",
-                                "id": "O0",
-                                "comment": "Or just soreness?",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        },
+                    "tp": [
                         {
                             "tag": {
                                 "tag": "OTHER_AE",
@@ -12685,19 +12901,20 @@
                             "from": "A"
                         }
                     ],
-                    "fn": [
+                    "fp": [
                         {
                             "tag": {
                                 "tag": "OTHER_AE",
-                                "spans": "462~477",
+                                "spans": "0~15",
                                 "text": "Soreness in arm",
                                 "id": "O0",
-                                "comment": "or soreness?",
+                                "comment": "Or just soreness?",
                                 "certainty": "Positive"
                             },
-                            "from": "B"
+                            "from": "A"
                         }
-                    ]
+                    ],
+                    "fn": []
                 },
                 "MEDICATION": {
                     "tp": [
@@ -13711,7 +13928,9 @@
                                 "comment": ""
                             },
                             "from": "A"
-                        },
+                        }
+                    ],
+                    "fp": [
                         {
                             "tag": {
                                 "tag": "MEDICATION",
@@ -13723,7 +13942,6 @@
                             "from": "A"
                         }
                     ],
-                    "fp": [],
                     "fn": [
                         {
                             "tag": {
@@ -13731,6 +13949,16 @@
                                 "spans": "1143~1149",
                                 "text": "EpiPen",
                                 "id": "M0",
+                                "comment": ""
+                            },
+                            "from": "B"
+                        },
+                        {
+                            "tag": {
+                                "tag": "MEDICATION",
+                                "spans": "470~488",
+                                "text": "ice pack and water",
+                                "id": "M2",
                                 "comment": ""
                             },
                             "from": "B"
@@ -13988,19 +14216,7 @@
                     ]
                 },
                 "PAIN": {
-                    "tp": [],
-                    "fp": [
-                        {
-                            "tag": {
-                                "tag": "PAIN",
-                                "spans": "189~194",
-                                "text": "aches",
-                                "id": "P0",
-                                "comment": "",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        },
+                    "tp": [
                         {
                             "tag": {
                                 "tag": "PAIN",
@@ -14013,18 +14229,20 @@
                             "from": "A"
                         }
                     ],
-                    "fn": [
+                    "fp": [
                         {
                             "tag": {
                                 "tag": "PAIN",
-                                "spans": "427~439",
-                                "text": "muscle aches",
+                                "spans": "189~194",
+                                "text": "aches",
                                 "id": "P0",
-                                "certainty": "Negated",
-                                "comment": ""
+                                "comment": "",
+                                "certainty": "Positive"
                             },
-                            "from": "B"
-                        },
+                            "from": "A"
+                        }
+                    ],
+                    "fn": [
                         {
                             "tag": {
                                 "tag": "PAIN",
@@ -14301,19 +14519,7 @@
                 },
                 "PAIN": {
                     "tp": [],
-                    "fp": [
-                        {
-                            "tag": {
-                                "tag": "PAIN",
-                                "spans": "1428~1434",
-                                "text": "aching",
-                                "id": "P0",
-                                "comment": "",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        }
-                    ],
+                    "fp": [],
                     "fn": []
                 },
                 "PYREXIA": {
@@ -14335,19 +14541,8 @@
                                 "spans": "1166~1171",
                                 "text": "dizzy",
                                 "id": "D0",
-                                "comment": "",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "DIZZINESS",
-                                "spans": "2196~2205",
-                                "text": "dizziness",
-                                "id": "D1",
-                                "comment": "",
-                                "certainty": "Positive"
+                                "certainty": "Positive",
+                                "comment": ""
                             },
                             "from": "A"
                         }
@@ -14360,43 +14555,7 @@
                     "fn": []
                 },
                 "OTHER_AE": {
-                    "tp": [],
-                    "fp": [
-                        {
-                            "tag": {
-                                "tag": "OTHER_AE",
-                                "spans": "1084~1099",
-                                "text": "sinus infection",
-                                "id": "O0",
-                                "comment": "or just sinus?",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "OTHER_AE",
-                                "spans": "1718~1726",
-                                "text": "swelling",
-                                "id": "O1",
-                                "comment": "check later",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "OTHER_AE",
-                                "spans": "2058~2063",
-                                "text": "sinus",
-                                "id": "O2",
-                                "comment": "or sinus problem?",
-                                "certainty": "Positive"
-                            },
-                            "from": "A"
-                        }
-                    ],
-                    "fn": [
+                    "tp": [
                         {
                             "tag": {
                                 "tag": "OTHER_AE",
@@ -14406,7 +14565,7 @@
                                 "comment": "or just sinus?",
                                 "certainty": "Positive"
                             },
-                            "from": "B"
+                            "from": "A"
                         },
                         {
                             "tag": {
@@ -14417,7 +14576,7 @@
                                 "comment": "same as the first one",
                                 "certainty": "Positive"
                             },
-                            "from": "B"
+                            "from": "A"
                         },
                         {
                             "tag": {
@@ -14428,200 +14587,21 @@
                                 "comment": "same",
                                 "certainty": "Positive"
                             },
-                            "from": "B"
-                        }
-                    ]
-                },
-                "MEDICATION": {
-                    "tp": [],
-                    "fp": [
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "607~620",
-                                "text": "ascorbic acid",
-                                "id": "M0",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "622~628",
-                                "text": "biotin",
-                                "id": "M1",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "630~640",
-                                "text": "folic acid",
-                                "id": "M2",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "642~646",
-                                "text": "iron",
-                                "id": "M3",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "648~657",
-                                "text": "manganese",
-                                "id": "M4",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "659~673",
-                                "text": "nicotinic acid",
-                                "id": "M5",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "675~691",
-                                "text": "pantothenic acid",
-                                "id": "M6",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "693~717",
-                                "text": "pyridoxine hydrochloride",
-                                "id": "M7",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "719~726",
-                                "text": "retinol",
-                                "id": "M8",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "728~738",
-                                "text": "riboflavin",
-                                "id": "M9",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "740~748",
-                                "text": "selenium",
-                                "id": "M10",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "750~758",
-                                "text": "thiamine",
-                                "id": "M11",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "760~771",
-                                "text": "vitamin b12",
-                                "id": "M12",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "777~786",
-                                "text": "vitamin d",
-                                "id": "M13",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "792~801",
-                                "text": "vitamin e",
-                                "id": "M14",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "807~811",
-                                "text": "zinc",
-                                "id": "M15",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "869~875",
-                                "text": "keflex",
-                                "id": "M16",
-                                "comment": ""
-                            },
-                            "from": "A"
-                        },
-                        {
-                            "tag": {
-                                "tag": "MEDICATION",
-                                "spans": "2043~2053",
-                                "text": "antibiotic",
-                                "id": "M17",
-                                "comment": ""
-                            },
                             "from": "A"
                         }
                     ],
+                    "fp": [],
+                    "fn": []
+                },
+                "MEDICATION": {
+                    "tp": [],
+                    "fp": [],
                     "fn": []
                 }
             }
         }
     },
-    "iaa_use_attributes": true,
+    "iaa_use_attributes": false,
     "iaa_use_tag_attrs": {
         "VAX": {
             "comment": true
@@ -14663,6 +14643,7 @@
             "comment": true
         }
     },
+    "iaa_display_measure": "f1",
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
