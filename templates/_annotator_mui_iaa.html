@@ -448,11 +448,6 @@
                             {{ to_fixed(iaa_dict.all.cohen_kappa.kappa) }} 
                         </b>
                         &nbsp;
-                        (
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.lower) }} , 
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.upper) }}
-                        )
-                        &nbsp;
                         &nbsp;
                         Percentage Agreement: 
                         <b>
@@ -527,7 +522,7 @@
                                 </tr>
                                 <tr>
                                     <th>&nbsp;</th>
-                                    <th>Tag</th>
+                                    <th>&nbsp;</th>
                                     <th v-for="tag_def in dtd.etags"
                                         v-bind:class="'fg-tag-' + tag_def.name">
                                         <span class="rotate-90">

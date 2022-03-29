@@ -102,6 +102,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ### 1.2.xx (2022-03-31) 
 
+- Added Cohen's Kappa to IAA calculation
+- Added dropdown for selecting Cohen's Kappa for IAA result
+- Added confusion matrix for Cohen's Kappa
+- Updated browser detection for Brave
 - Fixed the message missing for browsers without FSA APIs
 
 ### 1.2.15 (2022-03-17)

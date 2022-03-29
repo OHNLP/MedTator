@@ -1298,6 +1298,9 @@ var iaa_calculator = {
 
     calc_cohen_kappa: function(Po, Pe) {
         // get the cohen's kappa
+        if (Pe == 1) {
+            Pe = 1.0001;
+        }
         return 1 - (1 - Po) / (1 - Pe);
     },
     
