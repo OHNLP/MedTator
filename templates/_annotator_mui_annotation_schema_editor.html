@@ -1,0 +1,222 @@
+<div id="schema_editor"
+    data-cls-window="schema-editor"
+    class="p-2" 
+    data-draggable="true"
+    data-btn-min="false"
+    data-btn-max="false"
+    data-btn-close="false"
+    data-height="550px"
+    data-shadow="true"
+    data-place="top-center"
+    data-title="&nbsp;&nbsp;<i class='fa fa-edit'></i> Schema Editor"
+    data-cls-caption="bg-light fg-black"
+    data-role="window" >
+
+    <div>
+        <div id="schema_editor_menu"
+            class="pt-2 pb-2 mb-2 d-flex flex-row">
+
+            <div v-if="se_dtd != null"
+                class="mr-1">
+                <span class="se-input-field-legend">
+                    SCHEMA NAME
+                </span>
+                <input type="text" 
+                    style="width: 150px; height: 30px;"
+                    class=""
+                    v-model="se_dtd.name">
+            </div>
+            <div v-else
+                class="mr-1">
+
+            </div>
+            
+            <ul class="h-menu horizontal">
+                <li class="mr-2 border-right bd-gray"
+                    title="Create a new annotation schema"><a href="javascript:void(0);">
+                    <i class="far fa-file"></i>
+                    <span class="caption">New</span>
+                </a></li>
+                <li>
+                    <select style="width: 120px; height: 30px; line-height: 30px;">
+                        <optgroup label="CITY 1">
+                            <option>City 1 branch A</option>
+                            <option>City 1 branch B</option>
+                            <option>City 1 branch C</option>
+                        </optgroup>
+                    
+                        <optgroup label="CITY 2">
+                            <option>City 2 branch A</option>
+                            <option>City 2 branch B</option>
+                        </optgroup>
+                    </select>
+                </li>
+                <li class="mr-2 border-right bd-gray"
+                    title="Load the selected schema"><a href="javascript:void(0);">
+                    <i class="far fa-folder-open"></i>
+                    <span class="caption">Load</span>
+                </a></li>
+
+                <li class="mr-2 border-right bd-gray"
+                    title="Clear the current schema"><a href="javascript:void(0);">
+                    <span class="mif-cross icon"></span>
+                    <span class="caption">Clear</span>
+                </a></li>
+                
+                <li class="mr-1"
+                    title="Use this schema for annotation"><a href="javascript:void(0);">
+                    <span class="mif-rocket icon"></span>
+                    <span class="caption">Use</span>
+                </a></li>
+                
+                <li class="mr-1"
+                    title="Download current schema file"><a href="javascript:void(0);">
+                    <span class="mif-download icon"></span>
+                    <span class="caption">Download</span>
+                </a></li>
+            </ul>
+        </div>
+
+
+        <div v-if="se_dtd != null"
+            class="w-100">
+            <div class="d-flex flex-row">
+                
+
+            </div>
+
+            <div class="d-flex flex-column">
+                <div v-for="tags, idx in [se_dtd.etags, se_dtd.ltags]"
+                    class="d-flex flex-column mb-4">
+                    <h5 class="mt-0 mb-2 pt-2 pb-2 bg-light">
+                        <span v-if="idx == 0">
+                            <i class="fa fa-tags"></i>
+                            ENTITY TAGS - 
+                        </span>
+                        <span v-else>
+                            <i class="fa fa-link"></i>
+                            RELATION TAGS -
+                        </span>
+                        <span class="txt-sm">
+                            {{ tags.length }} tag(s)
+                        </span>
+                        |
+                        <button class="btn-xs mr-2">
+                            <i class="fa fa-plus"></i>
+                            Tag
+                        </button>
+                    </h5>
+                    <div v-for="tag_def in tags"
+                        class="se-tag-row d-flex flex-row pt-3 pb-2 border-bottom bd-gray">
+                        <div class="se-tag-name mr-4 d-flex flex-column flex-align-end">
+                            <div class="mb-2">
+                                <span class="se-input-field-legend">
+                                    TAG NAME
+                                </span>
+                                <input type="text"
+                                    class="se-input-tag-name"
+                                    v-model="tag_def.name">
+                            </div>
+                            
+                            <div class="pl-2">
+                                <button class="btn-xs mr-1"
+                                    title="Delete this tag">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                                <button class="btn-xs"
+                                    v-on:click="add_se_dtd_tag_attr(se_dtd, tag_def)"
+                                    v-bind:title="'Add new attribute to this [' + tag_def.name + ']'">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row flex-wrap">
+
+                            <div v-for="att in tag_def.attlists"
+                                class="se-tag-attr-cell mr-2 mb-2 p-1">
+                                <div class="mb-2">
+                                    <span class="se-input-field-legend">
+                                        ATTRIBUTE
+                                    </span>
+                                    <input type="text"
+                                        class="se-input-att-name"
+                                        v-model="att.name">
+
+                                    <a class="se-tag-attr-del"
+                                        title="Remove this attribute"
+                                        v-on:click="">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex flex-row">
+                                    <div class="mr-1">
+                                        <span class="se-input-field-legend">
+                                            TYPE
+                                        </span>
+                                        <select v-model="att.vtype"
+                                            class="se-select-att-type">
+                                            <option value="text">
+                                                TEXT
+                                            </option>
+                                            <option value="list">
+                                                LIST
+                                            </option>
+                                            <option v-if="idx==1" value="idref">
+                                                LINK
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div v-if="att.vtype == 'text'">
+                                        <span class="se-input-field-legend">
+                                            DEFAULT
+                                        </span>
+                                        <input type="text"
+                                            title="The default value for"
+                                            class="se-input-att-value"
+                                            v-model="att.default_value">
+                                    </div>
+                                    <div v-else-if="att.vtype == 'list'"
+                                        class="d-flex flex-row">
+                                        <div class="mr-1">
+                                            <span class="se-input-field-legend">
+                                                DEFAULT
+                                            </span>
+                                            <select v-model="att.default_value"
+                                                title="The default item for this attribute"
+                                                class="se-select-att-value">
+                                                <option v-for="att_opt_val in att.values"
+                                                    v-bind:value="att_opt_val">
+                                                    {{ att_opt_val }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <span class="se-input-field-legend">
+                                                ITEMS ({{ att.values.length }})
+                                            </span>
+                                            <input type="text"
+                                                class="se-input-att-list-values"
+                                                readonly
+                                                title="Click to edit the item list"
+                                                v-on:click="show_att_list_editor(att)"
+                                                v-bind:value="att.values.join('|')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div v-else>
+            No DTD yet.
+        </div>
+    </div>
+    
+</div>

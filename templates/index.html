@@ -279,6 +279,8 @@
             </div>
         </div>
     </div>
+
+    {% include '_annotator_mui_annotation_schema_editor.html' %}
     
 </div>
 
@@ -496,9 +498,17 @@ var jarvis = {
         });
 
         // get some settings here
+
+        // the default sample dataset for demo
+        var sample_ds = this.get_url_paramter('ds');
+        if (sample_ds == '') {
+            sample_ds = 'MINIMAL_TASK';
+        }
+
+        // show sample dataset at beginning or not
         var show_sample = this.get_url_paramter('ss');
         if (show_sample == 'yes') {
-            app_hotpot.vpp.load_sample_ds();
+            app_hotpot.vpp.load_sample_ds(sample_ds);
         }
 
         // show the tour?

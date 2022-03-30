@@ -18,6 +18,9 @@ var app_hotpot = {
         // for the dtd
         dtd: null,
 
+        // for schema editor dtd
+        se_dtd: null,
+
         // decide which ann file is working on.
         // null indicates that currently it is not editing
         ann_idx: null,
@@ -387,6 +390,53 @@ var app_hotpot = {
             // update the UI?
         },
 
+
+        /////////////////////////////////////////////////////////////////
+        // Schema editor related functions
+        /////////////////////////////////////////////////////////////////
+
+        show_schema_editor: function() {
+            // copy current dtd
+            this.se_dtd = JSON.parse(JSON.stringify(this.dtd));
+
+            // open the dialog
+            // Metro.dialog.open('#schema_editor');
+            $('.schema-editor').show();
+        },
+
+        show_att_list_editor: function(att) {
+            // get the current value
+            var val = att.values.join(',');
+
+            // show the promp
+            var ret = window.prompt(
+                'Set the items for attribute [' + att.name + ']',
+                val
+            );
+
+            // update the att values
+            if (ret) {
+                att.values = ret.split(',');
+            } else {
+                // nothing to do when no update
+            }
+        },
+
+        add_se_dtd_tag_attr: function(dtd, tag_def) {
+            var att = dtd_parser.mk_attlist(
+                dtd.name,
+                'new_name',
+                'text'
+            )
+            
+            // add to the given tag??
+            tag_def.attlists.push(att);
+        },
+        
+        /////////////////////////////////////////////////////////////////
+        // Show URL related functions
+        /////////////////////////////////////////////////////////////////
+
         show_search_bar: function() {
             app_hotpot.codemirror.execCommand('find');
         },
@@ -424,6 +474,13 @@ var app_hotpot = {
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
+                '_blank'
+            );
+        },
+
+        show_sample_schema_files: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/tree/main/sample',
                 '_blank'
             );
         },

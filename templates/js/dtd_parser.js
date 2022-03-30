@@ -15,6 +15,26 @@ var dtd_parser = {
 
     NON_CONSUMING_SPANS: '-1~-1',
 
+    /**
+     * Stringify a dtd object into text
+     * @param {Object} dtd DTD schema
+     */
+    stringify: function(dtd, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'dtd';
+        }
+
+        if (format == 'dtd') {
+            return this.stringify_dtd(dtd);
+        }
+
+        return this.stringify_dtd(dtd);
+    },
+
+    stringify_dtd: function(dtd) {
+
+    },
+
     parse: function(text) {
         var lines = text.split('\n');
 
