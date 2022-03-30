@@ -508,5 +508,13 @@ var dtd_parser = {
             values: [],
             default_value: null,
         };
+    },
+
+    mk_base_dtd: function(dtd_name) {
+        return {
+            name: dtd_name,
+            etags: [],
+            ltags: []
+        }
     }
 };

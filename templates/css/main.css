@@ -1082,7 +1082,7 @@ input[type=text].ipt-spinner-xs {
     min-width: 600px !important;
     max-width: 80% !important;
     z-index: 99;
-    /* display: none; */
+    display: none;
     top: 5px;
 }
 #schema_editor_menu {

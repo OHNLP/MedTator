@@ -397,26 +397,32 @@ var app_hotpot = {
 
         show_schema_editor: function() {
             // copy current dtd
-            this.se_dtd = JSON.parse(JSON.stringify(this.dtd));
+            if (this.se_dtd == null) {
+                this.se_dtd = JSON.parse(JSON.stringify(this.dtd));
+            }
 
             // open the dialog
             // Metro.dialog.open('#schema_editor');
             $('.schema-editor').show();
         },
 
+        close_schema_editor: function() {
+            $('.schema-editor').hide();
+        },
+
         show_att_list_editor: function(att) {
             // get the current value
-            var val = att.values.join(',');
+            var val = att.values.join('|');
 
             // show the promp
             var ret = window.prompt(
-                'Set the items for attribute [' + att.name + ']',
+                'Set the items for attribute [' + att.name + ']. Seperate them by "|". \nFor example, apple|banana',
                 val
             );
 
             // update the att values
             if (ret) {
-                att.values = ret.split(',');
+                att.values = ret.split('|');
             } else {
                 // nothing to do when no update
             }

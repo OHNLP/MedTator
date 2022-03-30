@@ -105,6 +105,9 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added Cohen's Kappa to IAA calculation
 - Added dropdown for selecting Cohen's Kappa for IAA result
 - Added confusion matrix for Cohen's Kappa
+- Added base schema editor
+- Updated annotation bar menu for schema editor
+- Updated dtd stringify function
 - Updated sample data for demo
 - Updated browser detection for Brave
 - Updated the size of search button

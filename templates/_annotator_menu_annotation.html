@@ -4,33 +4,6 @@ v-bind:class="{'active': section=='annotation'}">
 
 <div class="group">
 
-    <div style="margin-top: -4px;">
-        <div class="ribbon-split-button">
-            <button v-on:click="show_schema_editor"
-                style="height: 40px;"
-                class="ribbon-main">
-                <span class="icon">
-                    <span class="mif-cell-setting"></span>
-                </span>
-            </button>
-            <span class="ribbon-split dropdown-toggle">Create</span>
-            <ul class="ribbon-dropdown text-left" 
-                data-role="dropdown" data-duration="100">
-                <li><a href="javascript:void(0);">
-                    Creating
-                </a></li>
-                <li><a href="javascript:void(0);">
-                    Authors
-                </a></li>
-                <li><a href="javascript:void(0);">
-                    Names
-                </a></li>
-                <li class="divider"></li>
-                <li><a href="#">More Sample Schema Files ...</a></li>
-            </ul>
-        </div>
-    </div>
-
     <div id="dropzone_dtd" 
         class="dropzone"
         title="Drop a schema file (.dtd) that contains the annotation task"
@@ -391,6 +364,43 @@ v-bind:class="{'active': section=='annotation'}">
             {% endif %}
             {% endfor %}
         </ul>
+    </div>
+
+    <div style="margin-top: -2px;">
+        <div class="ribbon-split-button">
+            <button v-on:click="show_schema_editor"
+                style="height: 40px;"
+                class="ribbon-main">
+                <span class="icon">
+                    <span class="mif-cell-setting"></span>
+                </span>
+            </button>
+            <span class="ribbon-split dropdown-toggle">Schema</span>
+            <ul class="ribbon-dropdown text-left" 
+                data-role="dropdown" data-duration="100">
+                <li><a href="javascript:void(0);"
+                    v-on:click="show_schema_editor">
+                    Create New Schema File
+                </a></li>
+                <li><a href="javascript:void(0);" class="dropdown-toggle">
+                    Sample Schema Files
+                    </a>
+                    <ul class="ribbon-dropdown" data-role="dropdown">
+                        <li><a href="javascript:void(0);">
+                            COVID-19 Symptons
+                        </a></li>
+                        <li><a href="javascript:void(0);">
+                            Long COVID-19
+                        </a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0);">
+                    Names
+                </a></li>
+                <li class="divider"></li>
+                <li><a href="#">More Sample Schema Files ...</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="ribbon-split-button">

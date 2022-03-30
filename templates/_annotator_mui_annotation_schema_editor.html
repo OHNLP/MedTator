@@ -7,7 +7,8 @@
     data-btn-close="false"
     data-height="550px"
     data-shadow="true"
-    data-place="top-center"
+    data-top="10px"
+    data-left="55px"
     data-title="&nbsp;&nbsp;<i class='fa fa-edit'></i> Schema Editor"
     data-cls-caption="bg-light fg-black"
     data-role="window" >
@@ -57,11 +58,11 @@
                     <span class="caption">Load</span>
                 </a></li>
 
-                <li class="mr-2 border-right bd-gray"
+                <!-- <li class="mr-2 border-right bd-gray"
                     title="Clear the current schema"><a href="javascript:void(0);">
                     <span class="mif-cross icon"></span>
                     <span class="caption">Clear</span>
-                </a></li>
+                </a></li> -->
                 
                 <li class="mr-1"
                     title="Use this schema for annotation"><a href="javascript:void(0);">
@@ -69,10 +70,18 @@
                     <span class="caption">Use</span>
                 </a></li>
                 
-                <li class="mr-1"
+                <li class="mr-1 border-right bd-gray"
                     title="Download current schema file"><a href="javascript:void(0);">
                     <span class="mif-download icon"></span>
                     <span class="caption">Download</span>
+                </a></li>
+                
+                <li class="mr-1"
+                    title="Close schema editor"
+                    v-on:click="close_schema_editor"
+                    ><a href="javascript:void(0);">
+                    <span class="mif-cross icon"></span>
+                    <span class="caption">Close</span>
                 </a></li>
             </ul>
         </div>
