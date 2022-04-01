@@ -91,6 +91,15 @@
                     <span class="mif-download icon"></span>
                     <span class="caption">Download</span>
                 </a></li>
+
+                <li v-if="se_dtd != null" 
+                    class="mr-1 border-right bd-gray"
+                    title="Show how to use schema editor"
+                    v-on:click="show_se_help">
+                    <a href="javascript:void(0);">
+                    <span class="mif-question icon"></span>
+                    <span class="caption">Help</span>
+                </a></li>
                 
                 <li class="mr-1"
                     title="Close schema editor"

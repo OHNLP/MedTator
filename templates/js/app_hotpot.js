@@ -650,6 +650,14 @@ var app_hotpot = {
                 event.preventDefault(); 
             }
         },
+
+        show_se_help: function() {
+            // app_hotpot.start_tour_annotation();
+            window.open(
+                'https://github.com/OHNLP/MedTator/wiki/Annotation-Schema#schema-editor',
+                '_blank'
+            );
+        },
         
         /////////////////////////////////////////////////////////////////
         // Show URL related functions

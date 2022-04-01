@@ -100,6 +100,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.xx (2022-04-14)
+
+- Added help to schema editor with wiki
+
 ### 1.2.24 (2022-03-31) 
 
 - Added Cohen's Kappa to IAA calculation results
