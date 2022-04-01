@@ -368,8 +368,9 @@ v-bind:class="{'active': section=='annotation'}">
 
     <div style="margin-top: -2px;">
         <div class="ribbon-split-button">
-            <button v-on:click="show_schema_editor"
+            <button v-on:click="show_schema_editor(0)"
                 style="height: 40px;"
+                title="Edit current schema or create a new schema"
                 class="ribbon-main">
                 <span class="icon">
                     <span class="mif-cell-setting"></span>
@@ -378,11 +379,15 @@ v-bind:class="{'active': section=='annotation'}">
             <span class="ribbon-split dropdown-toggle">Schema</span>
             <ul class="ribbon-dropdown text-left" 
                 data-role="dropdown" data-duration="100">
+                <li v-if="dtd != null"><a href="javascript:void(0);"
+                    v-on:click="show_schema_editor(2)">
+                    Edit Current Schema File
+                </a></li>
                 <li><a href="javascript:void(0);"
-                    v-on:click="show_schema_editor">
+                    v-on:click="show_schema_editor(1)">
                     Create New Schema File
                 </a></li>
-                <li><a href="javascript:void(0);" class="dropdown-toggle">
+                <!-- <li><a href="javascript:void(0);" class="dropdown-toggle">
                     Sample Schema Files
                     </a>
                     <ul class="ribbon-dropdown" data-role="dropdown">
@@ -393,12 +398,12 @@ v-bind:class="{'active': section=='annotation'}">
                             Long COVID-19
                         </a></li>
                     </ul>
-                </li>
-                <li><a href="javascript:void(0);">
-                    Names
-                </a></li>
+                </li> -->
                 <li class="divider"></li>
-                <li><a href="#">More Sample Schema Files ...</a></li>
+                <li><a href="javascript:void(0);"
+                    v-on:click="show_sample_schema_files">
+                    More Sample Schema Files ...
+                </a></li>
             </ul>
         </div>
     </div>

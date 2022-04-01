@@ -21,6 +21,9 @@ var app_hotpot = {
         // for schema editor dtd
         se_dtd: null,
 
+        // for making schema from templates
+        se_dtd_tpl_id: null,
+
         // decide which ann file is working on.
         // null indicates that currently it is not editing
         ann_idx: null,
@@ -395,15 +398,137 @@ var app_hotpot = {
         // Schema editor related functions
         /////////////////////////////////////////////////////////////////
 
-        show_schema_editor: function() {
-            // copy current dtd
-            if (this.se_dtd == null) {
+        set_se_dtd: function(se_dtd) {
+            this.se_dtd = se_dtd;
+        },
+
+        create_new_se_dtd: function() {
+            var new_se_dtd = dtd_parser.mk_base_dtd('NEW_SCHEMA');
+
+            this.set_se_dtd(new_se_dtd);
+        },
+
+        show_schema_editor: function(mode) {
+            if (typeof(mode) == 'undefined') {
+                mode = 0;
+            }
+
+            if (mode == 0) {
+                // just open as it is
+
+            } else if (mode == 1) {
+                // create a new
+                this.create_new_se_dtd();
+
+            } else if (mode == 2) {
+                // copy current dtd
                 this.se_dtd = JSON.parse(JSON.stringify(this.dtd));
+
+            } else {
+                // ?
             }
 
             // open the dialog
             // Metro.dialog.open('#schema_editor');
             $('.schema-editor').show();
+        },
+
+        open_se_dtd: function() {
+            if (isFSA_API_OK) {
+                // the settings for dtd file
+                var pickerOpts = {
+                    types: [
+                        {
+                            description: 'DTD File',
+                            accept: {
+                                'text/dtd': ['.dtd']
+                            }
+                        },
+                    ],
+                    excludeAcceptAllOption: true,
+                    multiple: false
+                };
+
+                // get the file handles
+                var promise_fileHandles = fs_open_files(pickerOpts);
+
+                promise_fileHandles.then(function(fileHandles) {
+                    // read the fh and set dtd
+                    // in fact, there is only one file for this dtd
+                    for (let i = 0; i < fileHandles.length; i++) {
+                        const fh = fileHandles[i];
+                        if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                            app_hotpot.msg('Please select a .dtd file', 'warning');
+                            return;
+                        }
+
+                        // read the file
+                        var p_dtd = fs_read_dtd_file_handle(fh);
+
+                        p_dtd.then((function(){
+                            return function(dtd) {
+                                // just set the dtd
+                                app_hotpot.vpp.set_se_dtd(dtd);
+                            }
+                        })());
+                        
+                        // just one file
+                        break;
+                    }
+                });
+
+            } else {
+                console.log('* Not support FileSystemAccess API');
+            }
+        },
+
+        use_se_dtd_for_annotation: function(se_dtd) {
+            // check some conditions
+            if (this.dtd == null) {
+                // 
+            } else {
+                if (this.anns.length == 0) {
+
+                } else {
+                    var ret = window.confirm(
+                        'Using this new schema need to clear all annotation files in the list to avoid schema conflicts.\nAre you sure to continue?'
+                    );
+
+                    if (ret) {
+
+                    } else {
+                        return;
+                    }
+
+                    this.remove_all_ann_files(true);
+
+                }
+            }
+
+            // clear other iaa to avoid issues
+            this.clear_iaa_all();
+
+            // convert to full dtd first
+            var dtd = dtd_parser.extend_base_dtd(se_dtd);
+            
+            // set dtd
+            app_hotpot.set_dtd(dtd);
+
+            // close
+            this.close_schema_editor();
+        },
+
+        download_se_dtd: function(base_dtd) {
+            // first, convert the base_dtd to text
+            var text = dtd_parser.stringify(base_dtd);
+
+            // then save it
+            // get the current file name
+            var fn = base_dtd.name + '.dtd';
+
+            // download this dtd text
+            var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+            saveAs(blob, fn);
         },
 
         close_schema_editor: function() {
@@ -428,15 +553,102 @@ var app_hotpot = {
             }
         },
 
+        add_se_dtd_tag: function(dtd, etag_or_ltag) {
+            if (typeof(etag_or_ltag) == 'undefined') {
+                // 0: etag
+                // 1: ltag
+                etag_or_ltag = 0;
+            }
+
+            var tag_type = '';
+            if (etag_or_ltag == 0) {
+                tag_type = 'etag';
+                tag_name = 'NEW_ETAG_' + (dtd.etags.length+1);
+            } else {
+                tag_type = 'ltag';
+                tag_name = 'NEW_LTAG_' + (dtd.ltags.length+1);
+            }
+
+            var  base_tag = dtd_parser.mk_base_tag(
+                tag_name, 
+                tag_type
+            );
+
+            // add to dtd directly?
+            if (etag_or_ltag == 0) {
+                dtd.etags.push(base_tag);
+
+            } else {
+                dtd.ltags.push(base_tag);
+            }
+        },
+
         add_se_dtd_tag_attr: function(dtd, tag_def) {
             var att = dtd_parser.mk_attlist(
                 dtd.name,
-                'new_name',
+                'new_attr_' + (tag_def.attlists.length+1),
                 'text'
             )
             
             // add to the given tag??
             tag_def.attlists.push(att);
+        },
+
+        remove_se_dtd_tag: function(dtd, tag_def, etag_or_ltag, tag_idx) {
+            var ret = window.confirm('Are you sure to remove the tag [' + tag_def.name + ']?');
+
+            if (ret) {
+                // ok, go ahead
+            } else {
+                return;
+            }
+
+            if (etag_or_ltag == 0) {
+                // etag
+                dtd.etags.splice(tag_idx, 1);
+
+            } else {
+                dtd.ltags.splice(tag_idx, 1);
+            }
+        },
+
+        remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_ltag, tag_idx, att_idx) {
+            if (att.vtype == 'list') {
+                var ret = window.confirm('This attribute contains a list of values ['+att.values.join('|')+']. Are you sure to remove the attribute [' + tag_def.name + '.' + att.name + ']?');
+
+                if (ret) {
+                    // ok, go ahead
+                } else {
+                    return;
+                }
+            }
+            if (etag_or_ltag == 0) {
+                // etag
+                dtd.etags[tag_idx].attlists.splice(att_idx, 1);
+
+            } else {
+                dtd.ltags[tag_idx].attlists.splice(att_idx, 1);
+            }
+        },
+
+        is_valid_letter_for_dtd: function(char) {
+            if (/^[A-Za-z0-9_]+$/.test(char)) {
+                return true;
+            } else {
+                // Hmm, not match
+                return false;
+            }
+        },
+
+        on_keypress_se_dtd_input: function(event) {
+            // get the character
+            var char = String.fromCharCode(event.keyCode); 
+
+            if (this.is_valid_letter_for_dtd(char)) {
+                return true;
+            } else {
+                event.preventDefault(); 
+            }
         },
         
         /////////////////////////////////////////////////////////////////
@@ -834,11 +1046,22 @@ var app_hotpot = {
             }
         },
 
-        remove_all_ann_files: function() {
-            var ret = window.confirm('Are you sure to remove all annotation files?');
-            if (ret) {
+        remove_all_ann_files: function(force_remove) {
+            if (typeof(force_remove) == 'undefined') {
+                force_remove = false;
+            }
+            if (force_remove) {
+                // just remove
                 this.set_ann_idx(null);
                 this.anns = [];
+
+            } else {
+                // ask for user confirm
+                var ret = window.confirm('Are you sure to remove all annotation files?');
+                if (ret) {
+                    this.set_ann_idx(null);
+                    this.anns = [];
+                }
             }
         },
 
@@ -3795,7 +4018,7 @@ var app_hotpot = {
             sel_locs: inst.listSelections()
         };
         this.selection = selection;
-        console.log("* found selection:", app_hotpot.selection);
+        // console.log("* found selection:", app_hotpot.selection);
         return selection;
     },
 
@@ -4752,6 +4975,22 @@ var app_hotpot = {
     /////////////////////////////////////////////////////////////////
     // Utils
     /////////////////////////////////////////////////////////////////
+    is_same_dtd: function(dtd_a, dtd_b, level) {
+        if (typeof(level) == 'undefined') {
+            level = 0;
+        }
+
+        if (level>=0) {
+            if (dtd_a.name == dtd_b.name) {
+                
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    },
+
     is_file_ext: function(filename, ext) {
         var fn_lower = filename.toLocaleLowerCase();
 

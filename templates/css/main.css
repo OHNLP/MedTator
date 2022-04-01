@@ -1085,6 +1085,11 @@ input[type=text].ipt-spinner-xs {
     display: none;
     top: 5px;
 }
+.schema-editor .window-content {
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 #schema_editor_menu {
     position: sticky;
     background: white;
@@ -1097,6 +1102,9 @@ input[type=text].ipt-spinner-xs {
 }
 .se-tag-row:hover {
     background-color: #f5f5f5;
+}
+.se-tag-attr-cell {
+    min-width: 150px;
 }
 .se-tag-attr-cell:hover {
     background-color: #e6e6e6;
@@ -1119,17 +1127,19 @@ input[type=text].ipt-spinner-xs {
     border-left: 0 !important;
     border-right: 0 !important; */
 }
-.se-tag-attr-del {
-    position: absolute;
-    right: 0;
-    top: 0;
-    color: #999999 !important;
-    padding: 3px;
+.se-btn-link {
+    color: #444444 !important;
+    padding: 3px 5px;
     cursor: pointer;
 }
+.se-btn-link:hover {
+    color: #333333 !important;
+    background-color: rgb(255, 255, 255);
+}
+.se-tag-attr-del {
+}
 .se-tag-attr-del:hover {
-    color: #555555 !important;
-    background-color: whitesmoke;
+    color: #fc6262 !important;
 }
 .se-input-att-name {
     width: 120px !important;

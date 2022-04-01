@@ -100,18 +100,21 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-03-31) 
+### 1.2.24 (2022-03-31) 
 
-- Added Cohen's Kappa to IAA calculation
+- Added Cohen's Kappa to IAA calculation results
 - Added dropdown for selecting Cohen's Kappa for IAA result
 - Added confusion matrix for Cohen's Kappa
-- Added base schema editor
+- Added schema editor for creating and editing schema
+- Added helper functions for building schema
+- Added schema editor convert functions
 - Updated annotation bar menu for schema editor
 - Updated dtd stringify function
 - Updated sample data for demo
 - Updated browser detection for Brave
 - Updated the size of search button
-- Fixed the message missing for browsers without FSA APIs
+- Fixed the message for secure contexts
+- Fixed the message for browsers without FSA APIs
 
 ### 1.2.15 (2022-03-17)
 

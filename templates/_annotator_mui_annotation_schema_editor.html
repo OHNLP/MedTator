@@ -5,8 +5,8 @@
     data-btn-min="false"
     data-btn-max="false"
     data-btn-close="false"
-    data-height="550px"
     data-shadow="true"
+    data-height="600px"
     data-top="10px"
     data-left="55px"
     data-title="&nbsp;&nbsp;<i class='fa fa-edit'></i> Schema Editor"
@@ -25,6 +25,7 @@
                 <input type="text" 
                     style="width: 150px; height: 30px;"
                     class=""
+                    v-on:keypress="on_keypress_se_dtd_input($event)"
                     v-model="se_dtd.name">
             </div>
             <div v-else
@@ -34,44 +35,59 @@
             
             <ul class="h-menu horizontal">
                 <li class="mr-2 border-right bd-gray"
-                    title="Create a new annotation schema"><a href="javascript:void(0);">
+                    title="Create a new annotation schema"
+                    v-on:click="create_new_se_dtd">
+                    <a href="javascript:void(0);">
                     <i class="far fa-file"></i>
                     <span class="caption">New</span>
                 </a></li>
-                <li>
-                    <select style="width: 120px; height: 30px; line-height: 30px;">
-                        <optgroup label="CITY 1">
-                            <option>City 1 branch A</option>
-                            <option>City 1 branch B</option>
-                            <option>City 1 branch C</option>
+
+                <li class="mr-2 border-right bd-gray"
+                    title="Open local annotation schema"
+                    v-on:click="open_se_dtd">
+                    <a href="javascript:void(0);">
+                    <i class="far fa-folder-open"></i>
+                    <span class="caption">Open</span>
+                </a></li>
+
+                <!-- <li>
+                    <select style="width: 120px; height: 30px; line-height: 30px;"
+                        v-model="se_dtd_tpl_id">
+                        <optgroup label="Sample 1: Simple Tasks">
+                            <option value="s-1-1">1.1 Minimal Task</option>
+                            <option value="s-1-2">1.2 Two Entities and One Relation</option>
+                            <option value="s-1-3">1.3 Three Entities for Document-Level Task</option>
                         </optgroup>
                     
-                        <optgroup label="CITY 2">
-                            <option>City 2 branch A</option>
-                            <option>City 2 branch B</option>
+                        <optgroup label="Sample 2: Large Tasks">
+                            <option value="s-2-1">2.1 COVID-19 Symptoms (8E)</option>
+                            <option value="s-2-2">2.2 COVID-19 Vaccine Adverse Events (9E1R)</option>
+                            <option value="s-2-3">2.3 Symptoms of long COVID (10E)</option>
                         </optgroup>
                     </select>
                 </li>
                 <li class="mr-2 border-right bd-gray"
-                    title="Load the selected schema"><a href="javascript:void(0);">
+                    title="Load the selected schema">
+                    <a href="javascript:void(0);">
                     <i class="far fa-folder-open"></i>
                     <span class="caption">Load</span>
-                </a></li>
-
-                <!-- <li class="mr-2 border-right bd-gray"
-                    title="Clear the current schema"><a href="javascript:void(0);">
-                    <span class="mif-cross icon"></span>
-                    <span class="caption">Clear</span>
                 </a></li> -->
+
                 
-                <li class="mr-1"
-                    title="Use this schema for annotation"><a href="javascript:void(0);">
+                <li v-if="se_dtd != null" 
+                    v-on:click="use_se_dtd_for_annotation(se_dtd)"
+                    class="mr-1"
+                    title="Use this schema for annotation">
+                    <a href="javascript:void(0);">
                     <span class="mif-rocket icon"></span>
                     <span class="caption">Use</span>
                 </a></li>
                 
-                <li class="mr-1 border-right bd-gray"
-                    title="Download current schema file"><a href="javascript:void(0);">
+                <li v-if="se_dtd != null" 
+                    class="mr-1 border-right bd-gray"
+                    title="Download current schema file"
+                    v-on:click="download_se_dtd(se_dtd)">
+                    <a href="javascript:void(0);">
                     <span class="mif-download icon"></span>
                     <span class="caption">Download</span>
                 </a></li>
@@ -110,52 +126,78 @@
                             {{ tags.length }} tag(s)
                         </span>
                         |
-                        <button class="btn-xs mr-2">
+                        <a class="se-btn-link mr-2"
+                            v-on:click="add_se_dtd_tag(se_dtd, idx)">
                             <i class="fa fa-plus"></i>
                             Tag
-                        </button>
+                        </a>
                     </h5>
-                    <div v-for="tag_def in tags"
+                    <div v-for="tag_def, tag_idx in tags"
                         class="se-tag-row d-flex flex-row pt-3 pb-2 border-bottom bd-gray">
                         <div class="se-tag-name mr-4 d-flex flex-column flex-align-end">
-                            <div class="mb-2">
+                            <div class="mb-1 p-1 d-flex flex-row">
                                 <span class="se-input-field-legend">
                                     TAG NAME
                                 </span>
                                 <input type="text"
-                                    class="se-input-tag-name"
+                                    class="se-input-tag-name mr-1"
+                                    v-on:keypress="on_keypress_se_dtd_input($event)"
                                     v-model="tag_def.name">
+                                
+                                <a class="se-btn-link se-tag-attr-del"
+                                    title="Delete this tag"
+                                    v-on:click="remove_se_dtd_tag(se_dtd, tag_def, idx, tag_idx)">
+                                    <i class="fa fa-minus"></i>
+                                </a>
                             </div>
                             
-                            <div class="pl-2">
-                                <button class="btn-xs mr-1"
-                                    title="Delete this tag">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                                <button class="btn-xs"
-                                    v-on:click="add_se_dtd_tag_attr(se_dtd, tag_def)"
-                                    v-bind:title="'Add new attribute to this [' + tag_def.name + ']'">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                            <div class="d-flex flex-row pr-1">
+                                <div>
+                                    <div v-if="idx==0" class="mr-1">
+                                        <span class="se-input-field-legend">
+                                            ANN.TYPE
+                                        </span>
+                                        <select v-model="tag_def.is_non_consuming"
+                                            title="The tag can be assigned to a whole document for document-level annotation task. Otherwise just span-based annotation."
+                                            class="se-select-att-type">
+                                            <option :value="true">
+                                                DOCUMENT + SPAN
+                                            </option>
+                                            <option :value="false">
+                                                SPAN
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <a class="se-btn-link"
+                                        v-on:click="add_se_dtd_tag_attr(se_dtd, tag_def)"
+                                        v-bind:title="'Add new attribute to this [' + tag_def.name + ']'">
+                                        <i class="fa fa-plus"></i>
+                                        Attr
+                                    </a>
+                                </div>
                             </div>
 
                         </div>
                         <div class="d-flex flex-row flex-wrap">
 
-                            <div v-for="att in tag_def.attlists"
+                            <div v-for="att, att_idx in tag_def.attlists"
                                 class="se-tag-attr-cell mr-2 mb-2 p-1">
-                                <div class="mb-2">
+                                <div class="mb-2 d-flex flex-row">
                                     <span class="se-input-field-legend">
                                         ATTRIBUTE
                                     </span>
                                     <input type="text"
                                         class="se-input-att-name"
+                                        v-on:keypress="on_keypress_se_dtd_input($event)"
                                         v-model="att.name">
 
-                                    <a class="se-tag-attr-del"
+                                    <a class="se-btn-link se-tag-attr-del"
                                         title="Remove this attribute"
-                                        v-on:click="">
-                                        <i class="fa fa-times"></i>
+                                        v-on:click="remove_se_dtd_tag_attr(se_dtd, tag_def, att, idx, tag_idx, att_idx)">
+                                        <i class="fa fa-minus"></i>
                                     </a>
                                 </div>
 
@@ -224,7 +266,20 @@
             </div>
         </div>
         <div v-else>
-            No DTD yet.
+            <p>
+                You can click the "New" button to create an empty annotation schema.
+                <br>
+                Or click the "Open" button to open an existing schema file to edit.
+            </p>
+            <p>
+                Once the schema design is finished, you can download it as a DTD format file for backup, or use it directly in annotation.
+                <br>
+                The specification of the annotation schema file can be found in <a href="https://github.com/OHNLP/MedTator/wiki/Annotation-Schema">MedTator Wiki</a>.
+            </p>
+            <p>
+                For more schema samples, you can check <a target="_blank" href="https://github.com/OHNLP/MedTator/tree/main/sample">MedTator sample schemas on GitHub repo</a>.
+            </p>
+
         </div>
     </div>
     

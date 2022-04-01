@@ -32,18 +32,157 @@ var dtd_parser = {
     },
 
     stringify_dtd: function(dtd) {
+        // for the given dtd, convert to strings
+        var txt = [];
 
+        // output the dtd name
+        txt.push(
+            '<!ENTITY name "'+dtd.name+'">'
+        );
+
+        // just an empty line for break
+        txt.push('');
+
+        // check 
+        for (let _t = 0; _t < 2; _t++) {
+            var tags = {
+                0: dtd.etags,
+                1: dtd.ltags
+            }[_t];
+
+            for (let i = 0; i < tags.length; i++) {
+                const tag = tags[i];
+
+                // for counting the number of IDREF attrs
+                var n_lk_att = 0;
+                
+                // a comment for users
+                if (_t == 0) {
+                    txt.push('<!-- entity concept [' + tag.name + '] -->');
+    
+                    // the tag name
+                    txt.push('<!ELEMENT ' + tag.name + ' ( #PCDATA ) >')
+        
+                    // the non-comsuming attr
+                    if (tag.is_non_consuming) {
+                        txt.push('<!ATTLIST ' + tag.name + ' spans #IMPLIED >')
+                    }
+                } else {
+                    txt.push('<!-- relation concept [' + tag.name + '] -->');
+    
+                    // the tag name
+                    txt.push('<!ELEMENT ' + tag.name + ' EMPTY >')
+                }
+    
+                // check each attr
+                for (let j = 0; j < tag.attlists.length; j++) {
+                    const att = tag.attlists[j];
+                    
+                    var att_req = '#IMPLIED'
+                    if (att.require == 'REQUIRED') {
+                        att_req = '#REQUIRED'
+                    }
+
+                    if (att.vtype == 'text') {
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + att.name + ' ' + att_req + ' "' + att.default_value + '" >');
+                    } 
+                    else if (att.vtype == 'list') {
+                        var att_vals = att.values.join('|');
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + att.name + ' ( '+att_vals+' ) ' + att_req + ' "' + att.default_value + '" >');
+                    } 
+                    else if (att.vtype == 'idref') {
+                        var argN = 'arg' + n_lk_att;
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + argN + ' IDREF prefix="' + att.name + '" ' + att_req + ' >');
+
+                        // increase the argN number
+                        n_lk_att += 1;
+                    }
+                }
+    
+                // just an empty line for break
+                txt.push('');
+            }
+        }
+
+        return txt.join('\n');
+    },
+
+    extend_base_dtd: function(base_dtd) {
+        var dtd = JSON.parse(JSON.stringify(base_dtd));
+
+        // first, update the attlist_dict for each tag
+        for (let _t = 0; _t < 2; _t++) {
+            var el = {
+                0: 'etags',
+                1: 'ltags'
+            }[_t];
+
+            for (let i = 0; i < dtd[el].length; i++) {
+                // init the attlist dict
+                dtd[el][i].attlist_dict = {};
+                
+                // fill the attlist dict
+                for (let j = 0; j < dtd[el][i].attlists.length; j++) {
+                    var att = dtd[el][i].attlists[j];
+                    dtd[el][i].attlist_dict[att.name] = att;
+                }
+            }
+        }
+
+        // then, need to decide the `id_prefixd` and update the tag_dict
+        dtd.id_prefixd = {};
+        dtd.tag_dict = {};
+        for (let _t = 0; _t < 2; _t++) {
+            var el = {
+                0: 'etags',
+                1: 'ltags'
+            }[_t];
+
+            for (let i = 0; i < dtd[el].length; i++) {
+                // init the id_prefix using the first letter
+                dtd[el][i].id_prefix = dtd[el][i].name.substring(0, 1).toLocaleUpperCase();
+                
+                // search if it is available now
+                while (true) {
+                    if (dtd.id_prefixd.hasOwnProperty(dtd[el][i].id_prefix)) {
+                        dtd[el][i].id_prefix = this.get_next_id_prefix(dtd[el][i]);
+                    } else {
+                        break;
+                    }
+                }
+                
+                // yes found at last
+                dtd.id_prefixd[dtd[el][i].id_prefix] = dtd[el][i];
+
+                // and update the tag_dict
+                dtd.tag_dict[dtd[el][i].name] = dtd[el][i];
+            }
+        }
+
+        // last, add the text
+        dtd.text = this.stringify(dtd);
+
+        return dtd;
     },
 
     parse: function(text) {
         var lines = text.split('\n');
 
         var dtd = {
-            id_prefixd: {},
+            // schema name
             name: '',
-            tag_dict: {},
+
+            // the list of entity tags
             etags: [],
+
+            // the list of relation tags
             ltags: [],
+
+            // a dictionary for quick access tags by id_prefix
+            id_prefixd: {},
+
+            // a dictionary for quick access tags by tag name
+            tag_dict: {},
 
             // the raw dtd text
             text: text
@@ -506,7 +645,27 @@ var dtd_parser = {
             vtype: vtype,
             require: '',
             values: [],
-            default_value: null,
+            default_value: '',
+        };
+    },
+
+    mk_base_tag: function(tag_name, tag_type) {
+        return {
+            // basic information for a tag
+            name: tag_name,
+            type: tag_type,
+            is_non_consuming: false,
+            attlists: [],
+
+            // the followings are decided when extending
+            attlist_dict: null,
+            id_prefixd: null,
+
+            // the followings are decided when importing
+            shortcut: null,
+            style: {
+                color: '#333333'
+            }
         };
     },
 
@@ -514,7 +673,12 @@ var dtd_parser = {
         return {
             name: dtd_name,
             etags: [],
-            ltags: []
+            ltags: [],
+
+            // the followings are left null for extending later
+            id_prefixd: null,
+            tag_dict: null,
+            text: null
         }
     }
 };

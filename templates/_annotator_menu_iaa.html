@@ -159,7 +159,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="dropdown" 
             data-duration="100">
             <li v-for="tag in dtd.etags">
-                <a href="#" class="dropdown-toggle">
+                <a href="javascript:void(0);" class="dropdown-toggle">
                     {{ tag.name }}:
                     
                     <span v-for="att in tag.attlists"
@@ -171,7 +171,7 @@ v-bind:class="{'active': section=='iaa'}">
                 <ul class="ribbon-dropdown" data-role="dropdown">
                     <li v-for="att in tag.attlists"
                         v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
-                        <a href="#" 
+                        <a href="javascript:void(0);" 
                             v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">
                             {{ att.name }}
                         </a>
@@ -180,13 +180,13 @@ v-bind:class="{'active': section=='iaa'}">
             </li>
             <li class="divider"></li>
             <li title="Select all attributes for IAA calcuation">
-                <a href="#"
+                <a href="javascript:void(0);"
                     v-on:click="set_all_iaa_use_tag_attrs(true)">
                     Select All Attributes
                 </a>
             </li>
             <li title="Select none attributes for IAA calcuation">
-                <a href="#"
+                <a href="javascript:void(0);"
                     v-on:click="set_all_iaa_use_tag_attrs(false)">
                     Select None Attributes
                 </a>
