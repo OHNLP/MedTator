@@ -184,6 +184,7 @@
                         <div class="d-flex flex-row flex-wrap">
 
                             <div v-for="att, att_idx in tag_def.attlists"
+                                v-show="att.vtype != 'dfix'"
                                 class="se-tag-attr-cell mr-2 mb-2 p-1">
                                 <div class="mb-2 d-flex flex-row">
                                     <span class="se-input-field-legend">
