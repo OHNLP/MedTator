@@ -104,6 +104,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 - Added help to schema editor with wiki
 - Updated the tooltip information for annotation menu
+- Fixed the initial position of context menus
 
 ### 1.2.24 (2022-03-31) 
 
