@@ -73,7 +73,7 @@
 }
 
 .box-header select {
-    height: 1.6em;
+    height: 2em;
     line-height: 1.2em;
     font-size: .9em;
     margin: 4px;
@@ -85,8 +85,8 @@
 
 .box-header-right {
     font-size: 1em;
-    height: 1.6em;
-    line-height: 1.6em;
+    height: 2em;
+    line-height: 2em;
     margin: 3px 0;
     text-align: right;
 }
@@ -221,7 +221,7 @@ html,body {
     top: 2px;
     right: 10px;
     color: #777777;
-    z-index: 988;
+    z-index: 98;
 }
 #app_info a {
     color: #777777;
@@ -272,8 +272,15 @@ html,body {
     border-right: 1px solid #e9e9e9;
     overflow-y: auto;
 }
+#mui_iaa_cohenk_summary {
+    /* width: 540px; */
+    padding-right: 5px;
+    /* border-right: 1px solid #e9e9e9; */
+    overflow-y: auto;
+}
 #mui_iaa_tags {
     width: calc(100% - 550px);
+    /* flex-grow: 1; */
     padding-right: 5px;
     /* border-right: 1px solid #e9e9e9; */
     overflow-y: auto;
@@ -1065,8 +1072,14 @@ input[type=text].ipt-spinner-xs {
 .txt-sm {
     font-size: 0.8em;
 }
+.txt-bold {
+    font-weight: bold;
+}
 .txt-hover-bold:hover {
     font-weight: bold;
+}
+.txt-italic {
+    font-style: italic;
 }
 /* fix for metro */
 .radio .caption, .radio .check {
@@ -1085,7 +1098,7 @@ input[type=text].ipt-spinner-xs {
     min-width: 1240px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
-    height: 18px;
+    height: 20px;
 }
 /* for the linking panel */
 #pan_working_tag {
@@ -1162,10 +1175,18 @@ input[type=text].ipt-spinner-xs {
     cursor: default;
 }
 .doctag-table tr:nth-child(even) {
-    background: whitesmoke;
+    background: #ffffff;
 }
 .doctag-table tr:nth-child(odd) {
-    background: #ffffff;
+    background: #f5f5f5aa;
+}
+
+.doctag-table td:nth-child(even) {
+    /* background: #f5f5f5aa; */
+}
+.doctag-table td:nth-child(odd) {
+    background: #f5f5f5aa;
+    /* background: #f5f5f5aa; */
 }
 .doctag-table tr {
     border-bottom: 1px solid transparent;
@@ -1180,6 +1201,7 @@ input[type=text].ipt-spinner-xs {
     border-bottom: 1px solid #cccccc;
     min-width: 30px;
     max-width: 40px;
+    padding-top: 5px;
 }
 .doctag-table th span.rotate-90 {
   -ms-writing-mode: tb-rl;
@@ -1223,6 +1245,105 @@ input[type=text].ipt-spinner-xs {
 .doctag-table .td-count-0 {
     font-size: 0.9em;
     color: #eeeeee;
+}
+/* schema_editor */
+.schema-editor {
+    min-width: 600px !important;
+    max-width: 80% !important;
+    z-index: 99;
+    display: none;
+    top: 5px;
+}
+.schema-editor .window-content {
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#schema_editor_menu {
+    position: sticky;
+    background: white;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #cccccc;
+}
+.se-tag-row {
+
+}
+.se-tag-row:hover {
+    background-color: #f5f5f5;
+}
+.se-tag-attr-cell {
+    min-width: 150px;
+}
+.se-tag-attr-cell:hover {
+    background-color: #e6e6e6;
+}
+.se-input-field-legend {
+    font-size: .6em;
+    position: absolute;
+    z-index: 9;
+    margin-top: -6px;
+    margin-left: 5px;
+    color: #777777;
+    background: white;
+    padding: 0 1px;
+}
+.se-input-tag-name {
+    width: 120px !important;
+    height: 24px !important;
+    font-weight: bold !important;
+    /* border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important; */
+}
+.se-btn-link {
+    color: #444444 !important;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+.se-btn-link:hover {
+    color: #333333 !important;
+    background-color: rgb(255, 255, 255);
+}
+.se-tag-attr-del {
+}
+.se-tag-attr-del:hover {
+    color: #fc6262 !important;
+}
+.se-input-att-name {
+    width: 120px !important;
+    height: 24px !important;
+    /* border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important; */
+}
+.se-input-att-value {
+    width: 90px !important;
+    height: 20px !important;
+    font-size: .9em !important;
+    font-style: italic;
+}
+.se-input-att-list-values {
+    max-width: 150px !important;
+    height: 20px !important;
+    font-size: .9em !important;
+    font-style: italic;
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+.se-select-att-value {
+    font-size: .9em !important;
+    font-style: italic;
+    height: 20px !important;
+    width: 65px !important;
+    line-height: 20px !important;
+}
+.se-select-att-type {
+    font-size: .9em !important;
+    font-style: italic;
+    height: 20px !important;
+    width: 50px !important;
+    line-height: 20px !important;
 }
 </style>
 
@@ -1351,14 +1472,6 @@ v-bind:class="{'active': section=='annotation'}">
         </div>
     </div>
 
-    <!-- <button class="ribbon-button"
-        v-on:click="open_ann_files">
-        <span class="icon">
-            <i class="far fa-file-code"></i>
-        </span>
-        <span class="caption">Open XMLs</span>
-    </button> -->
-
     <span class="title">Annotation File (.xml/.txt)</span>
 </div>
 
@@ -1472,7 +1585,28 @@ v-bind:class="{'active': section=='annotation'}">
 </div>
 
 <div class="group">
-    <div>
+    <div class="d-flex flex-column">
+        <button class="ribbon-icon-button"
+            title="Show search bar"
+            style="height: 30px;"
+            v-on:click="show_search_bar">
+            <span class="icon">
+                <i class="fa fa-search"></i>
+            </span>
+            <span class="caption">Search</span>
+        </button>
+
+        <button class="ribbon-icon-button"
+            title="Clear highlights of the search results"
+            style="height: 30px;"
+            v-on:click="clear_search_result">
+            <span class="icon">
+                <i class="fa fa-eraser"></i>
+            </span>
+            <span class="caption">Clear</span>
+        </button>
+    </div>
+    <!-- <div>
 
         <button class="ribbon-button" 
             title="Show search bar"
@@ -1492,7 +1626,7 @@ v-bind:class="{'active': section=='annotation'}">
             <span class="caption">Clear</span>
         </button>
         
-    </div>
+    </div> -->
 
     <span class="title">Search</span>
 </div>
@@ -1656,6 +1790,48 @@ v-bind:class="{'active': section=='annotation'}">
             
             
         </ul>
+    </div>
+
+    <div style="margin-top: -2px;">
+        <div class="ribbon-split-button">
+            <button v-on:click="show_schema_editor(0)"
+                style="height: 40px;"
+                title="Edit current schema or create a new schema"
+                class="ribbon-main">
+                <span class="icon">
+                    <span class="mif-cell-setting"></span>
+                </span>
+            </button>
+            <span class="ribbon-split dropdown-toggle">Schema</span>
+            <ul class="ribbon-dropdown text-left" 
+                data-role="dropdown" data-duration="100">
+                <li v-if="dtd != null"><a href="javascript:void(0);"
+                    v-on:click="show_schema_editor(2)">
+                    Edit Current Schema File
+                </a></li>
+                <li><a href="javascript:void(0);"
+                    v-on:click="show_schema_editor(1)">
+                    Create New Schema File
+                </a></li>
+                <!-- <li><a href="javascript:void(0);" class="dropdown-toggle">
+                    Sample Schema Files
+                    </a>
+                    <ul class="ribbon-dropdown" data-role="dropdown">
+                        <li><a href="javascript:void(0);">
+                            COVID-19 Symptons
+                        </a></li>
+                        <li><a href="javascript:void(0);">
+                            Long COVID-19
+                        </a></li>
+                    </ul>
+                </li> -->
+                <li class="divider"></li>
+                <li><a href="javascript:void(0);"
+                    v-on:click="show_sample_schema_files">
+                    More Sample Schema Files ...
+                </a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="ribbon-split-button">
@@ -2108,7 +2284,7 @@ v-bind:class="{'active': section=='iaa'}">
             data-role="dropdown" 
             data-duration="100">
             <li v-for="tag in dtd.etags">
-                <a href="#" class="dropdown-toggle">
+                <a href="javascript:void(0);" class="dropdown-toggle">
                     {{ tag.name }}:
                     
                     <span v-for="att in tag.attlists"
@@ -2120,7 +2296,7 @@ v-bind:class="{'active': section=='iaa'}">
                 <ul class="ribbon-dropdown" data-role="dropdown">
                     <li v-for="att in tag.attlists"
                         v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
-                        <a href="#" 
+                        <a href="javascript:void(0);" 
                             v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">
                             {{ att.name }}
                         </a>
@@ -2129,13 +2305,13 @@ v-bind:class="{'active': section=='iaa'}">
             </li>
             <li class="divider"></li>
             <li title="Select all attributes for IAA calcuation">
-                <a href="#"
+                <a href="javascript:void(0);"
                     v-on:click="set_all_iaa_use_tag_attrs(true)">
                     Select All Attributes
                 </a>
             </li>
             <li title="Select none attributes for IAA calcuation">
-                <a href="#"
+                <a href="javascript:void(0);"
                     v-on:click="set_all_iaa_use_tag_attrs(false)">
                     Select None Attributes
                 </a>
@@ -2150,9 +2326,32 @@ v-bind:class="{'active': section=='iaa'}">
         <span class="icon">
             <i class="fa fa-calculator"></i>
         </span>
-        <span class="caption">Calculate F1</span>
+        <span class="caption">Calculate</span>
     </button>
-
+<!-- 
+    <div class="ribbon-split-button">
+        <button class="ribbon-main">
+            <span class="icon">
+                <span class="mif-cogs"></span>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Measure</span>
+        <ul class="ribbon-dropdown" data-role="dropdown" data-duration="100">
+            <li v-bind:class="{'checked': iaa_display_measure == 'f1' }">
+                <a href="javascript:void(0);"
+                    v-on:click="set_iaa_display_measure('f1')">
+                    F1 Score
+                </a>
+            </li>
+            <li v-bind:class="{'checked': iaa_display_measure == 'cohen_kappa' }">
+                <a href="javascript:void(0);"
+                    v-on:click="set_iaa_display_measure('cohen_kappa')">
+                    Cohen's Kappa Coefficient
+                </a>
+            </li>
+        </ul>
+    </div> 
+-->
 
 
     <button class="ribbon-button" 
@@ -2263,7 +2462,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.15 | 
+            MedTator 1.2.24 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2501,9 +2700,9 @@ v-bind:class="{'active': section=='iaa'}">
                 </ul>
             </div>
             <div id="mui_filelist_list"
-                class="d-flex flex-align-center flex-justify-center w-100"
+                class="d-flex text-center flex-align-center flex-justify-center w-100"
                 v-else>
-                <!--
+                
                     
                 <p v-if="dtd == null"
                     class="clr-grey">
@@ -2514,8 +2713,10 @@ v-bind:class="{'active': section=='iaa'}">
                     title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
                     class="txt-hover-bold">
                     Drop <b>Annotation</b> File(s) / Folder Here
+                    <br>
+                    (.xml / .txt)
                 </p>
-                -->
+               
             </div>
         </div>
 
@@ -2678,10 +2879,10 @@ v-bind:class="{'active': section=='iaa'}">
                                 <i v-else class="fa fa-user-plus"></i>
                                 {{ tag._annotator }}
                             </span>
-                            <span v-else
+                            <!-- <span v-else
                                 class="mr-2">
                                 &nbsp;
-                            </span>
+                            </span> -->
                                     
                             <span v-if="is_etag_doc_level(tag)">
                                 DOCUMENT
@@ -2935,7 +3136,8 @@ v-bind:class="{'active': section=='iaa'}">
     <!-- the ui for iaa -->
     <div v-show="section=='iaa'" id="main_ui" 
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+    <div v-if="iaa_display_measure == 'f1'"
+        class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
         <div id="mui_iaa_summary" class="d-flex h-100 mr-1">
             <div v-if="dtd != null && iaa_dict != null" class="box h-100">
@@ -2944,6 +3146,13 @@ v-bind:class="{'active': section=='iaa'}">
                         <i class="fa fa-list-ul"></i>
                         Summary
                     </h4>
+                    <div>
+                        <select style="width: 140px;"
+    v-model="iaa_display_measure">
+    <option value="f1">F1 Score</option>
+    <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
+</select>
+                    </div>
                 </div>
                 <div class="box-body">
 
@@ -3354,6 +3563,214 @@ v-bind:class="{'active': section=='iaa'}">
             </div>
         </div>
     </div>
+
+    <div v-else-if="iaa_display_measure == 'cohen_kappa'"
+        class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+        
+        <div id="mui_iaa_cohenk_summary"
+            class="d-flex h-100 mr-1">
+            <div v-if="dtd != null && iaa_dict != null && iaa_dict.all.hasOwnProperty('cohen_kappa')" class="box h-100">
+                <div class="box-header">
+                    <h4>
+                        <i class="fa fa-list-ul"></i>
+                        Summary
+                    </h4>
+                    
+                    <div>
+                        <select style="width: 140px;"
+    v-model="iaa_display_measure">
+    <option value="f1">F1 Score</option>
+    <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
+</select>
+                    </div>
+                </div>
+
+                <div class="box-body d-flex flex-column">
+                    <div>
+                        Overall Cohen's Kappa: 
+                        <b>
+                            {{ to_fixed(iaa_dict.all.cohen_kappa.kappa) }} 
+                        </b>
+                        &nbsp;
+                        &nbsp;
+                        Percentage Agreement: 
+                        <b>
+                            {{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}
+                        </b>
+
+                        <br>
+                        
+                        <i class="ml-1">TP</i>: <b>{{ iaa_dict.all.cm.tp }}</b>
+                        &nbsp;
+                        <i class="ml-1">FP</i>: <b>{{ iaa_dict.all.cm.fp }}</b>
+                        &nbsp;
+                        <i class="ml-1">FN</i>: <b>{{ iaa_dict.all.cm.fn }}</b>
+                        &nbsp;
+                        <i class="ml-1">N</i>: <b>{{ iaa_dict.all.cohen_kappa.N }}</b>
+                        <br>
+
+                        <i class="ml-1">Po</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}</b>
+                        &nbsp;
+                        <i class="ml-1">Pe</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Pe) }}</b>
+                        &nbsp;
+                        <i class="ml-1">SE<sub>k</sub></i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.SE_k) }}</b>
+                        &nbsp;
+                        <i class="ml-1">95% CI</i>: 
+                        <b>
+                            {{ to_fixed(iaa_dict.all.cohen_kappa.lower) }}, 
+                            {{ to_fixed(iaa_dict.all.cohen_kappa.upper) }}
+                        </b>
+
+                    </div>
+
+                    <!-- 
+                    <div class="mr-2">
+                        <p>
+                            Cohen's Kappa of each document
+                        </p>
+
+                        <div v-for="ann_rst, ann_hashcode in iaa_dict.ann"
+                            v-bind:class="{'iaa-row-actived': iaa_display_hashcode == ann_hashcode}"
+                            class="iaa-row d-flex flex-row">
+                            <div class="iaa-bar-name-box d-flex flex-row flex-align-center flex-justify-start mr-1">
+                                {{ ann_rst.anns[0]._filename }}
+                            </div>
+                            <div>
+                                <b>
+                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.kappa ) }}
+                                </b>&nbsp;
+                                (
+                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.lower) }} , 
+                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.upper) }}
+                                )
+                            </div>
+                        </div>
+
+
+                    </div> 
+                    -->
+
+                    <div class="mr-2">
+                        <table class="doctag-table">
+                            <thead>
+                                <tr style="background: white;">
+                                    <th style="border: 0;"
+                                        colspan="2">
+                                        &nbsp;
+                                    </th>
+                                    <th v-bind:colspan="dtd.etags.length+2">
+                                        <b>
+                                            Annotator B
+                                        </b>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th v-for="tag_def in dtd.etags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            <i class="fa fa-tag"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th>
+                                    <!-- 
+                                    <th v-for="tag_def in dtd.ltags"
+                                        v-bind:class="'fg-tag-' + tag_def.name">
+                                        <span class="rotate-90">
+                                            <i class="fa fa-link"
+                                                v-bind:class="'fg-tag-' + tag_def.name">
+                                            </i>
+                                            {{ tag_def.name }}
+                                        </span>
+                                    </th> 
+                                    -->
+
+                                    <th>EMPTY</th>
+                                    <th>
+                                        <i>P<sub>b</sub></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="tag_def_row, row_idx in dtd.etags">
+                                    <td v-if="row_idx == 0"
+                                        style="vertical-align: middle; padding: 10px;"
+                                        v-bind:rowspan="dtd.etags.length+2">
+                                        <b>Annotator A</b>
+                                    </td>
+                                    <td v-bind:class="'fg-tag-' + tag_def_row.name">
+                                        <span class="txt-bold">
+                                            <i class="fa fa-tag"></i>
+                                            {{ tag_def_row.name }}
+                                        </span>
+                                    </td>
+                                    <td v-for="tag_def_col in dtd.etags">
+                                        <span v-if="tag_def_col.name == tag_def_row.name">
+                                            {{ iaa_dict.tag[tag_def_row.name].cm.tp }}
+                                        </span>
+                                        <span v-else>
+                                            &nbsp;
+                                        </span>
+                                    </td>
+                                    <td class="clr-grey">
+                                        {{ iaa_dict.tag[tag_def_row.name].cm.fp }}
+                                    </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]) }}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="txt-bold">EMPTY</td>
+                                    <td v-for="tag_def_col in dtd.etags"
+                                        class="clr-grey">
+                                        <span>
+                                            {{ iaa_dict.tag[tag_def_col.name].cm.fn }}
+                                        </span>
+                                    </td>
+                                    <td class="clr-grey">
+                                        0
+                                    </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="txt-bold">
+                                        <i>P<sub>a</sub></i>
+                                    </td>
+                                    <td v-for="tag_def_col in dtd.etags"
+                                        class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]) }}
+                                        </span>
+                                    </td>
+                                    <td class="txt-italic">
+                                        <span>
+                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']) }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            
+                            
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     
     <!-- the ui for statistics -->
@@ -3728,6 +4145,293 @@ v-bind:class="{'active': section=='iaa'}">
             </div>
         </div>
     </div>
+
+    <div id="schema_editor"
+    data-cls-window="schema-editor"
+    class="p-2" 
+    data-draggable="true"
+    data-btn-min="false"
+    data-btn-max="false"
+    data-btn-close="false"
+    data-shadow="true"
+    data-height="600px"
+    data-top="10px"
+    data-left="55px"
+    data-title="&nbsp;&nbsp;<i class='fa fa-edit'></i> Schema Editor"
+    data-cls-caption="bg-light fg-black"
+    data-role="window" >
+
+    <div>
+        <div id="schema_editor_menu"
+            class="pt-2 pb-2 mb-2 d-flex flex-row">
+
+            <div v-if="se_dtd != null"
+                class="mr-1">
+                <span class="se-input-field-legend">
+                    SCHEMA NAME
+                </span>
+                <input type="text" 
+                    style="width: 150px; height: 30px;"
+                    class=""
+                    v-on:keypress="on_keypress_se_dtd_input($event)"
+                    v-model="se_dtd.name">
+            </div>
+            <div v-else
+                class="mr-1">
+
+            </div>
+            
+            <ul class="h-menu horizontal">
+                <li class="mr-2 border-right bd-gray"
+                    title="Create a new annotation schema"
+                    v-on:click="create_new_se_dtd">
+                    <a href="javascript:void(0);">
+                    <i class="far fa-file"></i>
+                    <span class="caption">New</span>
+                </a></li>
+
+                <li class="mr-2 border-right bd-gray"
+                    title="Open local annotation schema"
+                    v-on:click="open_se_dtd">
+                    <a href="javascript:void(0);">
+                    <i class="far fa-folder-open"></i>
+                    <span class="caption">Open</span>
+                </a></li>
+
+                <!-- <li>
+                    <select style="width: 120px; height: 30px; line-height: 30px;"
+                        v-model="se_dtd_tpl_id">
+                        <optgroup label="Sample 1: Simple Tasks">
+                            <option value="s-1-1">1.1 Minimal Task</option>
+                            <option value="s-1-2">1.2 Two Entities and One Relation</option>
+                            <option value="s-1-3">1.3 Three Entities for Document-Level Task</option>
+                        </optgroup>
+                    
+                        <optgroup label="Sample 2: Large Tasks">
+                            <option value="s-2-1">2.1 COVID-19 Symptoms (8E)</option>
+                            <option value="s-2-2">2.2 COVID-19 Vaccine Adverse Events (9E1R)</option>
+                            <option value="s-2-3">2.3 Symptoms of long COVID (10E)</option>
+                        </optgroup>
+                    </select>
+                </li>
+                <li class="mr-2 border-right bd-gray"
+                    title="Load the selected schema">
+                    <a href="javascript:void(0);">
+                    <i class="far fa-folder-open"></i>
+                    <span class="caption">Load</span>
+                </a></li> -->
+
+                
+                <li v-if="se_dtd != null" 
+                    v-on:click="use_se_dtd_for_annotation(se_dtd)"
+                    class="mr-1"
+                    title="Use this schema for annotation">
+                    <a href="javascript:void(0);">
+                    <span class="mif-rocket icon"></span>
+                    <span class="caption">Use</span>
+                </a></li>
+                
+                <li v-if="se_dtd != null" 
+                    class="mr-1 border-right bd-gray"
+                    title="Download current schema file"
+                    v-on:click="download_se_dtd(se_dtd)">
+                    <a href="javascript:void(0);">
+                    <span class="mif-download icon"></span>
+                    <span class="caption">Download</span>
+                </a></li>
+                
+                <li class="mr-1"
+                    title="Close schema editor"
+                    v-on:click="close_schema_editor"
+                    ><a href="javascript:void(0);">
+                    <span class="mif-cross icon"></span>
+                    <span class="caption">Close</span>
+                </a></li>
+            </ul>
+        </div>
+
+
+        <div v-if="se_dtd != null"
+            class="w-100">
+            <div class="d-flex flex-row">
+                
+
+            </div>
+
+            <div class="d-flex flex-column">
+                <div v-for="tags, idx in [se_dtd.etags, se_dtd.ltags]"
+                    class="d-flex flex-column mb-4">
+                    <h5 class="mt-0 mb-2 pt-2 pb-2 bg-light">
+                        <span v-if="idx == 0">
+                            <i class="fa fa-tags"></i>
+                            ENTITY TAGS - 
+                        </span>
+                        <span v-else>
+                            <i class="fa fa-link"></i>
+                            RELATION TAGS -
+                        </span>
+                        <span class="txt-sm">
+                            {{ tags.length }} tag(s)
+                        </span>
+                        |
+                        <a class="se-btn-link mr-2"
+                            v-on:click="add_se_dtd_tag(se_dtd, idx)">
+                            <i class="fa fa-plus"></i>
+                            Tag
+                        </a>
+                    </h5>
+                    <div v-for="tag_def, tag_idx in tags"
+                        class="se-tag-row d-flex flex-row pt-3 pb-2 border-bottom bd-gray">
+                        <div class="se-tag-name mr-4 d-flex flex-column flex-align-end">
+                            <div class="mb-1 p-1 d-flex flex-row">
+                                <span class="se-input-field-legend">
+                                    TAG NAME
+                                </span>
+                                <input type="text"
+                                    class="se-input-tag-name mr-1"
+                                    v-on:keypress="on_keypress_se_dtd_input($event)"
+                                    v-model="tag_def.name">
+                                
+                                <a class="se-btn-link se-tag-attr-del"
+                                    title="Delete this tag"
+                                    v-on:click="remove_se_dtd_tag(se_dtd, tag_def, idx, tag_idx)">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="d-flex flex-row pr-1">
+                                <div>
+                                    <div v-if="idx==0" class="mr-1">
+                                        <span class="se-input-field-legend">
+                                            ANN.TYPE
+                                        </span>
+                                        <select v-model="tag_def.is_non_consuming"
+                                            title="The tag can be assigned to a whole document for document-level annotation task. Otherwise just span-based annotation."
+                                            class="se-select-att-type">
+                                            <option :value="true">
+                                                DOCUMENT + SPAN
+                                            </option>
+                                            <option :value="false">
+                                                SPAN
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <a class="se-btn-link"
+                                        v-on:click="add_se_dtd_tag_attr(se_dtd, tag_def)"
+                                        v-bind:title="'Add new attribute to this [' + tag_def.name + ']'">
+                                        <i class="fa fa-plus"></i>
+                                        Attr
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row flex-wrap">
+
+                            <div v-for="att, att_idx in tag_def.attlists"
+                                class="se-tag-attr-cell mr-2 mb-2 p-1">
+                                <div class="mb-2 d-flex flex-row">
+                                    <span class="se-input-field-legend">
+                                        ATTRIBUTE
+                                    </span>
+                                    <input type="text"
+                                        class="se-input-att-name"
+                                        v-on:keypress="on_keypress_se_dtd_input($event)"
+                                        v-model="att.name">
+
+                                    <a class="se-btn-link se-tag-attr-del"
+                                        title="Remove this attribute"
+                                        v-on:click="remove_se_dtd_tag_attr(se_dtd, tag_def, att, idx, tag_idx, att_idx)">
+                                        <i class="fa fa-minus"></i>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex flex-row">
+                                    <div class="mr-1">
+                                        <span class="se-input-field-legend">
+                                            TYPE
+                                        </span>
+                                        <select v-model="att.vtype"
+                                            class="se-select-att-type">
+                                            <option value="text">
+                                                TEXT
+                                            </option>
+                                            <option value="list">
+                                                LIST
+                                            </option>
+                                            <option v-if="idx==1" value="idref">
+                                                LINK
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div v-if="att.vtype == 'text'">
+                                        <span class="se-input-field-legend">
+                                            DEFAULT
+                                        </span>
+                                        <input type="text"
+                                            title="The default value for"
+                                            class="se-input-att-value"
+                                            v-model="att.default_value">
+                                    </div>
+                                    <div v-else-if="att.vtype == 'list'"
+                                        class="d-flex flex-row">
+                                        <div class="mr-1">
+                                            <span class="se-input-field-legend">
+                                                DEFAULT
+                                            </span>
+                                            <select v-model="att.default_value"
+                                                title="The default item for this attribute"
+                                                class="se-select-att-value">
+                                                <option v-for="att_opt_val in att.values"
+                                                    v-bind:value="att_opt_val">
+                                                    {{ att_opt_val }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <span class="se-input-field-legend">
+                                                ITEMS ({{ att.values.length }})
+                                            </span>
+                                            <input type="text"
+                                                class="se-input-att-list-values"
+                                                readonly
+                                                title="Click to edit the item list"
+                                                v-on:click="show_att_list_editor(att)"
+                                                v-bind:value="att.values.join('|')">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div v-else>
+            <p>
+                You can click the "New" button to create an empty annotation schema.
+                <br>
+                Or click the "Open" button to open an existing schema file to edit.
+            </p>
+            <p>
+                Once the schema design is finished, you can download it as a DTD format file for backup, or use it directly in annotation.
+                <br>
+                The specification of the annotation schema file can be found in <a href="https://github.com/OHNLP/MedTator/wiki/Annotation-Schema">MedTator Wiki</a>.
+            </p>
+            <p>
+                For more schema samples, you can check <a target="_blank" href="https://github.com/OHNLP/MedTator/tree/main/sample">MedTator sample schemas on GitHub repo</a>.
+            </p>
+
+        </div>
+    </div>
+    
+</div>
     
 </div>
 
@@ -3755,21 +4459,46 @@ var isIE = /*@cc_on!@*/false || !!document.documentMode;
 var isCHROME = _browser.name == 'Chrome';
 var isSAFARI = _browser.name == 'Safari';
 var isFIREFOX = _browser.name == 'Firefox';
+// var isCB_BRAVE = (navigator.brave && await navigator.brave.isBrave() || false);
+var isCB_BRAVE = typeof(navigator.brave) != 'undefined';
+if (isCB_BRAVE) {
+    _browser.name = 'Brave';
+}
+// for HTTPS check
+var isHTTPS = window.location.protocol == 'https:';
+var isLOCALFILE = window.location.protocol == 'file:';
+var isLOCALHOST = !window.location.host.replace(/(localhost|127\.0\.0\.1)(:\d+)?/i, "");
 
 // the file system access api
 var isFSA_API_OK = typeof(window.showOpenFilePicker) == 'function';
+
+console.log("* Browser:", _browser);
+console.log('* isHTTPS: ' + isHTTPS);
+console.log('* isLOCALFILE: ' + isLOCALFILE);
+console.log('* isLOCALHOST: ' + isLOCALHOST);
 console.log('* isIE: ' + isIE);
 console.log('* isCHROME: ' + isCHROME);
 console.log('* isSAFARI: ' + isSAFARI);
 console.log('* isFIREFOX: ' + isFIREFOX);
+console.log('* isCB_BRAVE: ' + isCB_BRAVE);
 console.log('* isFSA_API_OK: ' + isFSA_API_OK);
 
 var _NOT_SUPPORT_MSG = 'The visualization and annotation features require advanced web techniques, which are <b>NOT</b> supported by the web browser you are using.<br>'+
 'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.';
 
 var _LMT_SUPPORT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> require latest HTML5 techniques, which are <b>NOT</b> supported by the web browser [' + _browser.name + '] you are using. <br>' +
-'Try using latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
+'Try using the latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or other <a target="_blank" href="https://download-chromium.appspot.com/">Chromium</a> based browsers (e.g., <a target="_blank" href="https://www.microsoft.com/en-us/edge">Microsoft Edge</a>, <a target="_blank" href="https://vivaldi.com/">Vivaldi</a>) to get full supports.<br> '+
 'Except for the file saving limitation, you can use all other functions.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
+
+var _DISABLED_API_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> are <b>NOT</b> enabled by your current web browser [' + _browser.name + '] you are using. <br>' +
+'Try using the latest <a target="_blank" href="https://www.google.com/chrome/">Google Chrome</a> or enabling the File System Access API. <br> '+
+'We provide a tutorial about how to enable the API in some browsers in <a href="https://github.com/OHNLP/MedTator/wiki/FQA#enable-file-system-access-api">the MedTator Wiki</a>.<br>' +
+'<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
+
+var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API">File System Access APIs</a> are available only in secure contexts (HTTPs) or localhost server for accessing your local files. <br>' +
+'Try adding SSL to your web server or hosting MedTator on a web server with SSL certification. <br> '+
+'We provide a tutorial about how to solve this issue in <a href="https://github.com/OHNLP/MedTator/wiki/FQA#https">the MedTator Wiki</a>.<br>' +
 '<a style="font-size:1.5em;" href="javascript:void(0);" onclick="jarvis.ssclose()">Continue to use <i class="fa fa-arrow-alt-circle-right"></i></a>';
 
 </script>
@@ -4014,15 +4743,174 @@ var dtd_parser = {
 
     NON_CONSUMING_SPANS: '-1~-1',
 
+    /**
+     * Stringify a dtd object into text
+     * @param {Object} dtd DTD schema
+     */
+    stringify: function(dtd, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'dtd';
+        }
+
+        if (format == 'dtd') {
+            return this.stringify_dtd(dtd);
+        }
+
+        return this.stringify_dtd(dtd);
+    },
+
+    stringify_dtd: function(dtd) {
+        // for the given dtd, convert to strings
+        var txt = [];
+
+        // output the dtd name
+        txt.push(
+            '<!ENTITY name "'+dtd.name+'">'
+        );
+
+        // just an empty line for break
+        txt.push('');
+
+        // check 
+        for (let _t = 0; _t < 2; _t++) {
+            var tags = {
+                0: dtd.etags,
+                1: dtd.ltags
+            }[_t];
+
+            for (let i = 0; i < tags.length; i++) {
+                const tag = tags[i];
+
+                // for counting the number of IDREF attrs
+                var n_lk_att = 0;
+                
+                // a comment for users
+                if (_t == 0) {
+                    txt.push('<!-- entity concept [' + tag.name + '] -->');
+    
+                    // the tag name
+                    txt.push('<!ELEMENT ' + tag.name + ' ( #PCDATA ) >')
+        
+                    // the non-comsuming attr
+                    if (tag.is_non_consuming) {
+                        txt.push('<!ATTLIST ' + tag.name + ' spans #IMPLIED >')
+                    }
+                } else {
+                    txt.push('<!-- relation concept [' + tag.name + '] -->');
+    
+                    // the tag name
+                    txt.push('<!ELEMENT ' + tag.name + ' EMPTY >')
+                }
+    
+                // check each attr
+                for (let j = 0; j < tag.attlists.length; j++) {
+                    const att = tag.attlists[j];
+                    
+                    var att_req = '#IMPLIED'
+                    if (att.require == 'REQUIRED') {
+                        att_req = '#REQUIRED'
+                    }
+
+                    if (att.vtype == 'text') {
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + att.name + ' ' + att_req + ' "' + att.default_value + '" >');
+                    } 
+                    else if (att.vtype == 'list') {
+                        var att_vals = att.values.join('|');
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + att.name + ' ( '+att_vals+' ) ' + att_req + ' "' + att.default_value + '" >');
+                    } 
+                    else if (att.vtype == 'idref') {
+                        var argN = 'arg' + n_lk_att;
+                        txt.push('<!ATTLIST ' + tag.name + ' ' + argN + ' IDREF prefix="' + att.name + '" ' + att_req + ' >');
+
+                        // increase the argN number
+                        n_lk_att += 1;
+                    }
+                }
+    
+                // just an empty line for break
+                txt.push('');
+            }
+        }
+
+        return txt.join('\n');
+    },
+
+    extend_base_dtd: function(base_dtd) {
+        var dtd = JSON.parse(JSON.stringify(base_dtd));
+
+        // first, update the attlist_dict for each tag
+        for (let _t = 0; _t < 2; _t++) {
+            var el = {
+                0: 'etags',
+                1: 'ltags'
+            }[_t];
+
+            for (let i = 0; i < dtd[el].length; i++) {
+                // init the attlist dict
+                dtd[el][i].attlist_dict = {};
+                
+                // fill the attlist dict
+                for (let j = 0; j < dtd[el][i].attlists.length; j++) {
+                    var att = dtd[el][i].attlists[j];
+                    dtd[el][i].attlist_dict[att.name] = att;
+                }
+            }
+        }
+
+        // then, need to decide the `id_prefixd` and update the tag_dict
+        dtd.id_prefixd = {};
+        dtd.tag_dict = {};
+        for (let _t = 0; _t < 2; _t++) {
+            var el = {
+                0: 'etags',
+                1: 'ltags'
+            }[_t];
+
+            for (let i = 0; i < dtd[el].length; i++) {
+                // init the id_prefix using the first letter
+                dtd[el][i].id_prefix = dtd[el][i].name.substring(0, 1).toLocaleUpperCase();
+                
+                // search if it is available now
+                while (true) {
+                    if (dtd.id_prefixd.hasOwnProperty(dtd[el][i].id_prefix)) {
+                        dtd[el][i].id_prefix = this.get_next_id_prefix(dtd[el][i]);
+                    } else {
+                        break;
+                    }
+                }
+                
+                // yes found at last
+                dtd.id_prefixd[dtd[el][i].id_prefix] = dtd[el][i];
+
+                // and update the tag_dict
+                dtd.tag_dict[dtd[el][i].name] = dtd[el][i];
+            }
+        }
+
+        // last, add the text
+        dtd.text = this.stringify(dtd);
+
+        return dtd;
+    },
+
     parse: function(text) {
         var lines = text.split('\n');
 
         var dtd = {
-            id_prefixd: {},
+            // schema name
             name: '',
-            tag_dict: {},
+
+            // the list of entity tags
             etags: [],
+
+            // the list of relation tags
             ltags: [],
+
+            // a dictionary for quick access tags by id_prefix
+            id_prefixd: {},
+
+            // a dictionary for quick access tags by tag name
+            tag_dict: {},
 
             // the raw dtd text
             text: text
@@ -4485,8 +5373,41 @@ var dtd_parser = {
             vtype: vtype,
             require: '',
             values: [],
-            default_value: null,
+            default_value: '',
         };
+    },
+
+    mk_base_tag: function(tag_name, tag_type) {
+        return {
+            // basic information for a tag
+            name: tag_name,
+            type: tag_type,
+            is_non_consuming: false,
+            attlists: [],
+
+            // the followings are decided when extending
+            attlist_dict: null,
+            id_prefixd: null,
+
+            // the followings are decided when importing
+            shortcut: null,
+            style: {
+                color: '#333333'
+            }
+        };
+    },
+
+    mk_base_dtd: function(dtd_name) {
+        return {
+            name: dtd_name,
+            etags: [],
+            ltags: [],
+
+            // the followings are left null for extending later
+            id_prefixd: null,
+            tag_dict: null,
+            text: null
+        }
     }
 };
 
@@ -7849,7 +8770,11 @@ var iaa_calculator = {
         }
         // get the all level result
         var all_result = this.calc_p_r_f1(cm_all);
+
         iaa_dict.all = all_result;
+
+        // update the cohen kappa of all
+        all_result.cohen_kappa = this.get_cohen_kappa_overall(iaa_dict);
 
         return iaa_dict;
     },
@@ -7918,6 +8843,9 @@ var iaa_calculator = {
         var all_result = this.calc_p_r_f1(cm_ann);
 
         result_ann.all = all_result;
+
+        // update the cohen kappa of all
+        all_result.cohen_kappa = this.get_cohen_kappa_overall(result_ann);
 
         return result_ann;
     },
@@ -8236,11 +9164,13 @@ var iaa_calculator = {
         var precision = this.calc_precision(cm.tp, cm.fp);
         var recall = this.calc_recall(cm.tp, cm.fn);
         var f1 = this.calc_f1_by_pr(precision, recall);
+        var cohen_kappa = this.get_cohen_kappa(cm.tp, cm.fp, cm.fn);
 
         return {
             precision: precision,
             recall: recall,
             f1: f1,
+            cohen_kappa: cohen_kappa,
             cm: cm
         }
     },
@@ -8251,6 +9181,157 @@ var iaa_calculator = {
 
     calc_recall: function(tp, fn) {
         return tp / (tp + fn);
+    },
+
+    /**
+     * Calculate the total number of records
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns number of total
+     */
+    calc_N: function(tp, fp, fn) {
+        return tp + fp + fn;
+    },
+
+    /**
+     * Calculate the percentage agreement
+     * 
+     * As this is no TN, the PerAgr is just the TP
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns Po
+     */
+    calc_Po: function(tp, fp, fn) {
+        return tp / this.calc_N(tp, fp, fn);
+    },
+
+    calc_Pe: function(tp, fp, fn) {
+        var N = this.calc_N(tp, fp, fn);
+        return ((tp + fn) * (tp + fp) + fn * fp) / N**2;
+    },
+
+    calc_cohen_kappa: function(Po, Pe) {
+        // get the cohen's kappa
+        if (Pe == 1) {
+            Pe = 1.0001;
+        }
+        return 1 - (1 - Po) / (1 - Pe);
+    },
+    
+    calc_cohen_kappa_SE_k: function(N, Po, Pe) {
+        return (
+            Po * (1 - Po) / 
+            (N * (1 - Pe) ** 2)
+        )**0.5;
+    },
+
+    get_cohen_kappa_overall: function(iaa_rst) {
+        // the N is just the total number
+        var N = this.calc_N(
+            iaa_rst.all.cm.tp,
+            iaa_rst.all.cm.fp,
+            iaa_rst.all.cm.fn
+        );
+        // the overall Po is as usuall
+        var Po = this.calc_Po(
+            iaa_rst.all.cm.tp, 
+            iaa_rst.all.cm.fp, 
+            iaa_rst.all.cm.fn
+        );
+
+        // Need to get the sub-Pe
+        var sPes = [];
+        var Pes = {
+            a: {},
+            b: {}
+        };
+
+        // for the EMPTY tags
+        var _eA = 0;
+        var _eB = 0;
+
+        for (const tag_name in iaa_rst.tag) {
+            if (Object.hasOwnProperty.call(iaa_rst.tag, tag_name)) {
+                const rst = iaa_rst.tag[tag_name];
+                Pes.a[tag_name] = (rst.cm.tp + rst.cm.fn) / N;
+                Pes.b[tag_name] = (rst.cm.tp + rst.cm.fp) / N;
+                var sPe = Pes.a[tag_name] * Pes.b[tag_name];
+                sPes.push(sPe);
+
+                _eA += rst.cm.fn;
+                _eB += rst.cm.fp;
+            }
+        }
+
+        // calc the _EMPTY_
+        Pes.a['_EMPTY_'] = _eA / N;
+        Pes.b['_EMPTY_'] = _eB / N;
+        sPes.push(Pes.a['_EMPTY_'] * Pes.b['_EMPTY_']);
+
+        // sum all
+        var Pe = sPes.reduce((a, b) => a + b, 0);
+
+        // get the cohen's kappa
+        var kappa = this.calc_cohen_kappa(Po, Pe);
+
+        // get the SE_k
+        var SE_k = this.calc_cohen_kappa_SE_k(N, Po, Pe);
+
+        // get the lower and upper for 95% CI
+        var lower = kappa - 1.96 * SE_k;
+        var upper = kappa + 1.96 * SE_k;
+
+        return {
+            N: N,
+            Po: Po,
+            Pe: Pe,
+            Pes: Pes,
+            kappa: kappa,
+            SE_k: SE_k,
+            lower: lower,
+            upper: upper
+        };
+    },
+
+    /**
+     * Get the Cohen's Kappa Score and 95% CI
+     * 
+     * The definition comes from 
+     * https://en.wikipedia.org/wiki/Cohen%27s_kappa
+     * 
+     * @param {number} tp True positive
+     * @param {number} fp False positive
+     * @param {number} fn False negative
+     * @returns Cohen's Kappa Score and 95% CI
+     */
+     get_cohen_kappa: function(tp, fp, fn) {
+        var N = this.calc_N(tp, fp, fn);
+        var Po = this.calc_Po(tp, fp, fn);
+        var Pe = this.calc_Pe(tp, fp, fn);
+
+        // get the cohen's kappa
+        var kappa = this.calc_cohen_kappa(Po, Pe);
+
+        // get the SE_k
+        var SE_k = this.calc_cohen_kappa_SE_k(N, Po, Pe);
+
+        // get the lower and upper for 95% CI
+        var lower = kappa - 1.96 * SE_k;
+        var upper = kappa + 1.96 * SE_k;
+
+        return {
+            N: N,
+            Po: Po,
+            Pe: Pe,
+            kappa: kappa,
+            SE_k: SE_k,
+            lower: lower,
+            upper: upper
+        };
     },
 
     calc_f1: function(tp, fp, fn) {
@@ -9068,6 +10149,12 @@ var app_hotpot = {
         // for the dtd
         dtd: null,
 
+        // for schema editor dtd
+        se_dtd: null,
+
+        // for making schema from templates
+        se_dtd_tpl_id: null,
+
         // decide which ann file is working on.
         // null indicates that currently it is not editing
         ann_idx: null,
@@ -9130,6 +10217,9 @@ var app_hotpot = {
         // for file name filter
         fn_pattern: '',
 
+        // for updating the sub module
+        force_module_update: Math.random(), 
+
         // for iaa
         iaa_ann_list: [
             {anns: [], name: 'A'}, // for annotator A
@@ -9145,7 +10235,6 @@ var app_hotpot = {
         iaa_display_tags_tp: false,
         iaa_display_adj_panel: true,
         iaa_display_adj_detail: false,
-        force_module_update: Math.random(), // for updating the sub module
 
         // for iaa adjudication
         iaa_gs_dict: null,
@@ -9160,6 +10249,9 @@ var app_hotpot = {
         //    }
         // }
         iaa_use_tag_attrs: {},
+
+        // for IAA display mode, show F1 or other indicators
+        iaa_display_measure: 'f1',
 
         // cm settings
         cm: {
@@ -9432,6 +10524,268 @@ var app_hotpot = {
             // update the UI?
         },
 
+
+        /////////////////////////////////////////////////////////////////
+        // Schema editor related functions
+        /////////////////////////////////////////////////////////////////
+
+        set_se_dtd: function(se_dtd) {
+            this.se_dtd = se_dtd;
+        },
+
+        create_new_se_dtd: function() {
+            var new_se_dtd = dtd_parser.mk_base_dtd('NEW_SCHEMA');
+
+            this.set_se_dtd(new_se_dtd);
+        },
+
+        show_schema_editor: function(mode) {
+            if (typeof(mode) == 'undefined') {
+                mode = 0;
+            }
+
+            if (mode == 0) {
+                // just open as it is
+
+            } else if (mode == 1) {
+                // create a new
+                this.create_new_se_dtd();
+
+            } else if (mode == 2) {
+                // copy current dtd
+                this.se_dtd = JSON.parse(JSON.stringify(this.dtd));
+
+            } else {
+                // ?
+            }
+
+            // open the dialog
+            // Metro.dialog.open('#schema_editor');
+            $('.schema-editor').show();
+        },
+
+        open_se_dtd: function() {
+            if (isFSA_API_OK) {
+                // the settings for dtd file
+                var pickerOpts = {
+                    types: [
+                        {
+                            description: 'DTD File',
+                            accept: {
+                                'text/dtd': ['.dtd']
+                            }
+                        },
+                    ],
+                    excludeAcceptAllOption: true,
+                    multiple: false
+                };
+
+                // get the file handles
+                var promise_fileHandles = fs_open_files(pickerOpts);
+
+                promise_fileHandles.then(function(fileHandles) {
+                    // read the fh and set dtd
+                    // in fact, there is only one file for this dtd
+                    for (let i = 0; i < fileHandles.length; i++) {
+                        const fh = fileHandles[i];
+                        if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
+                            app_hotpot.msg('Please select a .dtd file', 'warning');
+                            return;
+                        }
+
+                        // read the file
+                        var p_dtd = fs_read_dtd_file_handle(fh);
+
+                        p_dtd.then((function(){
+                            return function(dtd) {
+                                // just set the dtd
+                                app_hotpot.vpp.set_se_dtd(dtd);
+                            }
+                        })());
+                        
+                        // just one file
+                        break;
+                    }
+                });
+
+            } else {
+                console.log('* Not support FileSystemAccess API');
+            }
+        },
+
+        use_se_dtd_for_annotation: function(se_dtd) {
+            // check some conditions
+            if (this.dtd == null) {
+                // 
+            } else {
+                if (this.anns.length == 0) {
+
+                } else {
+                    var ret = window.confirm(
+                        'Using this new schema need to clear all annotation files in the list to avoid schema conflicts.\nAre you sure to continue?'
+                    );
+
+                    if (ret) {
+
+                    } else {
+                        return;
+                    }
+
+                    this.remove_all_ann_files(true);
+
+                }
+            }
+
+            // clear other iaa to avoid issues
+            this.clear_iaa_all();
+
+            // convert to full dtd first
+            var dtd = dtd_parser.extend_base_dtd(se_dtd);
+            
+            // set dtd
+            app_hotpot.set_dtd(dtd);
+
+            // close
+            this.close_schema_editor();
+        },
+
+        download_se_dtd: function(base_dtd) {
+            // first, convert the base_dtd to text
+            var text = dtd_parser.stringify(base_dtd);
+
+            // then save it
+            // get the current file name
+            var fn = base_dtd.name + '.dtd';
+
+            // download this dtd text
+            var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+            saveAs(blob, fn);
+        },
+
+        close_schema_editor: function() {
+            $('.schema-editor').hide();
+        },
+
+        show_att_list_editor: function(att) {
+            // get the current value
+            var val = att.values.join('|');
+
+            // show the promp
+            var ret = window.prompt(
+                'Set the items for attribute [' + att.name + ']. Seperate them by "|". \nFor example, apple|banana',
+                val
+            );
+
+            // update the att values
+            if (ret) {
+                att.values = ret.split('|');
+            } else {
+                // nothing to do when no update
+            }
+        },
+
+        add_se_dtd_tag: function(dtd, etag_or_ltag) {
+            if (typeof(etag_or_ltag) == 'undefined') {
+                // 0: etag
+                // 1: ltag
+                etag_or_ltag = 0;
+            }
+
+            var tag_type = '';
+            if (etag_or_ltag == 0) {
+                tag_type = 'etag';
+                tag_name = 'NEW_ETAG_' + (dtd.etags.length+1);
+            } else {
+                tag_type = 'ltag';
+                tag_name = 'NEW_LTAG_' + (dtd.ltags.length+1);
+            }
+
+            var  base_tag = dtd_parser.mk_base_tag(
+                tag_name, 
+                tag_type
+            );
+
+            // add to dtd directly?
+            if (etag_or_ltag == 0) {
+                dtd.etags.push(base_tag);
+
+            } else {
+                dtd.ltags.push(base_tag);
+            }
+        },
+
+        add_se_dtd_tag_attr: function(dtd, tag_def) {
+            var att = dtd_parser.mk_attlist(
+                dtd.name,
+                'new_attr_' + (tag_def.attlists.length+1),
+                'text'
+            )
+            
+            // add to the given tag??
+            tag_def.attlists.push(att);
+        },
+
+        remove_se_dtd_tag: function(dtd, tag_def, etag_or_ltag, tag_idx) {
+            var ret = window.confirm('Are you sure to remove the tag [' + tag_def.name + ']?');
+
+            if (ret) {
+                // ok, go ahead
+            } else {
+                return;
+            }
+
+            if (etag_or_ltag == 0) {
+                // etag
+                dtd.etags.splice(tag_idx, 1);
+
+            } else {
+                dtd.ltags.splice(tag_idx, 1);
+            }
+        },
+
+        remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_ltag, tag_idx, att_idx) {
+            if (att.vtype == 'list') {
+                var ret = window.confirm('This attribute contains a list of values ['+att.values.join('|')+']. Are you sure to remove the attribute [' + tag_def.name + '.' + att.name + ']?');
+
+                if (ret) {
+                    // ok, go ahead
+                } else {
+                    return;
+                }
+            }
+            if (etag_or_ltag == 0) {
+                // etag
+                dtd.etags[tag_idx].attlists.splice(att_idx, 1);
+
+            } else {
+                dtd.ltags[tag_idx].attlists.splice(att_idx, 1);
+            }
+        },
+
+        is_valid_letter_for_dtd: function(char) {
+            if (/^[A-Za-z0-9_]+$/.test(char)) {
+                return true;
+            } else {
+                // Hmm, not match
+                return false;
+            }
+        },
+
+        on_keypress_se_dtd_input: function(event) {
+            // get the character
+            var char = String.fromCharCode(event.keyCode); 
+
+            if (this.is_valid_letter_for_dtd(char)) {
+                return true;
+            } else {
+                event.preventDefault(); 
+            }
+        },
+        
+        /////////////////////////////////////////////////////////////////
+        // Show URL related functions
+        /////////////////////////////////////////////////////////////////
+
         show_search_bar: function() {
             app_hotpot.codemirror.execCommand('find');
         },
@@ -9469,6 +10823,13 @@ var app_hotpot = {
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
+                '_blank'
+            );
+        },
+
+        show_sample_schema_files: function() {
+            window.open(
+                'https://github.com/OHNLP/MedTator/tree/main/sample',
                 '_blank'
             );
         },
@@ -9816,11 +11177,22 @@ var app_hotpot = {
             }
         },
 
-        remove_all_ann_files: function() {
-            var ret = window.confirm('Are you sure to remove all annotation files?');
-            if (ret) {
+        remove_all_ann_files: function(force_remove) {
+            if (typeof(force_remove) == 'undefined') {
+                force_remove = false;
+            }
+            if (force_remove) {
+                // just remove
                 this.set_ann_idx(null);
                 this.anns = [];
+
+            } else {
+                // ask for user confirm
+                var ret = window.confirm('Are you sure to remove all annotation files?');
+                if (ret) {
+                    this.set_ann_idx(null);
+                    this.anns = [];
+                }
             }
         },
 
@@ -10454,6 +11826,10 @@ var app_hotpot = {
                     }
                 }
             }
+        },
+
+        set_iaa_display_measure: function(m) {
+            this.iaa_display_measure = m;
         },
 
         set_all_iaa_use_tag_attrs: function(selection) {
@@ -11319,7 +12695,7 @@ var app_hotpot = {
             if (typeof(v) == 'undefined' ||
                 v == null || 
                 isNaN(v)) {
-                return '0.00';
+                return 'NA';
             }
             return v.toFixed(2);
         },
@@ -12773,7 +14149,7 @@ var app_hotpot = {
             sel_locs: inst.listSelections()
         };
         this.selection = selection;
-        console.log("* found selection:", app_hotpot.selection);
+        // console.log("* found selection:", app_hotpot.selection);
         return selection;
     },
 
@@ -13730,6 +15106,22 @@ var app_hotpot = {
     /////////////////////////////////////////////////////////////////
     // Utils
     /////////////////////////////////////////////////////////////////
+    is_same_dtd: function(dtd_a, dtd_b, level) {
+        if (typeof(level) == 'undefined') {
+            level = 0;
+        }
+
+        if (level>=0) {
+            if (dtd_a.name == dtd_b.name) {
+                
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    },
+
     is_file_ext: function(filename, ext) {
         var fn_lower = filename.toLocaleLowerCase();
 
@@ -14150,9 +15542,26 @@ var jarvis = {
             if (isFSA_API_OK) {
                 jarvis.ssmsg('Initializated')
                 setTimeout('jarvis.ssclose();', 500);
-            } else {
-                // old version chrome or not http
 
+            } else {
+                // this can be many reasons
+                if (isHTTPS) {
+                    // 2022-03-24: Thanks to Adam Cross@UIC who reported this bug!
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+
+                } else if (isLOCALFILE) {
+                    // 2022-03-24: Thanks to Adam Cross@UIC who reported this bug!
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+
+                } else if (!isLOCALHOST) {
+                    // not HTTPs and not localhost
+                    // so can not use FSA API
+                    jarvis.ssmsg(_SEC_LMT_MSG);
+
+                } else {
+                    // ?
+                    jarvis.ssmsg(_DISABLED_API_MSG);
+                }
             }
         } else {
 
@@ -14171,9 +15580,17 @@ var jarvis = {
         });
 
         // get some settings here
+
+        // the default sample dataset for demo
+        var sample_ds = this.get_url_paramter('ds');
+        if (sample_ds == '') {
+            sample_ds = 'MINIMAL_TASK';
+        }
+
+        // show sample dataset at beginning or not
         var show_sample = this.get_url_paramter('ss');
         if (show_sample == 'yes') {
-            app_hotpot.vpp.load_sample_ds();
+            app_hotpot.vpp.load_sample_ds(sample_ds);
         }
 
         // show the tour?
