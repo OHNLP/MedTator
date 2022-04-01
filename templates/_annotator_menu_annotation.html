@@ -379,11 +379,14 @@ v-bind:class="{'active': section=='annotation'}">
             <span class="ribbon-split dropdown-toggle">Schema</span>
             <ul class="ribbon-dropdown text-left" 
                 data-role="dropdown" data-duration="100">
-                <li v-if="dtd != null"><a href="javascript:void(0);"
+                <li v-if="dtd != null"
+                    title="Show the schema editor with the current schema in the annotation tab">
+                    <a href="javascript:void(0);"
                     v-on:click="show_schema_editor(2)">
                     Edit Current Schema File
                 </a></li>
-                <li><a href="javascript:void(0);"
+                <li title="Show the schema editor with a new blank schema file">
+                    <a href="javascript:void(0);"
                     v-on:click="show_schema_editor(1)">
                     Create New Schema File
                 </a></li>
@@ -400,7 +403,13 @@ v-bind:class="{'active': section=='annotation'}">
                     </ul>
                 </li> -->
                 <li class="divider"></li>
-                <li><a href="javascript:void(0);"
+                <li title="Show wiki page of how to use schema editor">
+                    <a href="javascript:void(0);"
+                    v-on:click="show_se_help">
+                    How to Use Schema Editor?
+                </a></li>
+                <li title="Show more sample schema files in MedTator GitHub repo">
+                    <a href="javascript:void(0);"
                     v-on:click="show_sample_schema_files">
                     More Sample Schema Files ...
                 </a></li>
