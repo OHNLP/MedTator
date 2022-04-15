@@ -1,0 +1,58 @@
+<!ENTITY name "VAX_AE_MED">
+
+<!-- entity tag -->
+<!ELEMENT VAX ( #PCDATA ) >
+<!ATTLIST VAX comment CDATA "" >
+
+<!-- entity tag with two attributes -->
+<!ELEMENT HEADACHE ( #PCDATA ) >
+<!ATTLIST HEADACHE certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST HEADACHE comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT PAIN ( #PCDATA ) >
+<!ATTLIST PAIN certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST PAIN comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT PYREXIA ( #PCDATA ) >
+<!ATTLIST PYREXIA certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST PYREXIA comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT FATIGUE ( #PCDATA ) >
+<!ATTLIST FATIGUE certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST FATIGUE comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT DIZZINESS ( #PCDATA ) >
+<!ATTLIST DIZZINESS certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST DIZZINESS comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT NAUSEA ( #PCDATA ) >
+<!ATTLIST NAUSEA certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST NAUSEA comment CDATA "" >
+
+
+<!-- entity tag with two attributes -->
+<!ELEMENT OTHER_AE ( #PCDATA ) >
+<!ATTLIST OTHER_AE certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+<!ATTLIST OTHER_AE comment CDATA "NA" >
+
+
+<!-- entity tag with one attribute -->
+<!ELEMENT MEDICATION ( #PCDATA ) >
+<!ATTLIST MEDICATION comment CDATA "" >
+
+
+<!-- no #PCDATA makes a link tag-->
+<!ELEMENT TREATMENT EMPTY >
+<!ATTLIST TREATMENT arg0 IDREF prefix="link_AE" #IMPLIED>
+<!ATTLIST TREATMENT arg1 IDREF prefix="link_MED" #IMPLIED>
+<!ATTLIST TREATMENT comment CDATA "" >

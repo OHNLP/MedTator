@@ -1,0 +1,6 @@
+<!ENTITY name "COVID_VAX_SYMP">
+
+<!-- #PCDATA makes an entity concept -->
+<!ELEMENT SYMP ( #PCDATA ) >
+<!ATTLIST SYMP certainty ( positive | negated | possible ) #IMPLIED "positive" >
+<!ATTLIST SYMP comment CDATA "NA" >

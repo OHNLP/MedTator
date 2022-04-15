@@ -100,11 +100,15 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-04-14)
+### 1.2.27 (2022-04-14)
 
+- Added sample schema dropdown for editor to select
+- Added sample schema files for standalone version
 - Added help to schema editor with wiki
 - Updated the tooltip information for annotation menu
+- Updated scripts for creating sample DTD files
 - Fixed the initial position of context menus
+- Fixed schema editor menu UI margin
 
 ### 1.2.24 (2022-03-31) 
 

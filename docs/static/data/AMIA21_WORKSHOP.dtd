@@ -1,0 +1,18 @@
+<!ENTITY name "COVID_AE_AMIA">
+
+<!-- Entity Tag -->
+<!ELEMENT Fever      ( #PCDATA ) >
+<!ATTLIST Fever certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+
+<!-- Entity Tag -->
+<!ELEMENT Pain       ( #PCDATA ) >
+<!ATTLIST Pain  certainty ( Positive | Negated | Hypothetic | Possible ) #IMPLIED "Positive" >
+
+<!-- Entity Tag -->
+<!ELEMENT Severity   ( #PCDATA ) >
+<!ATTLIST Severity  type ( Not bothersome | Mild | Moderate | Severe | NA ) #IMPLIED "NA" >
+
+<!-- Relation Tag -->
+<!ELEMENT AE_lk      EMPTY >
+<!ATTLIST AE_lk arg0 IDREF prefix="Pain" #IMPLIED>
+<!ATTLIST AE_lk arg1 IDREF prefix="Pain_Severity" #IMPLIED>

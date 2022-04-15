@@ -562,6 +562,7 @@ var jarvis = {
 
 // extend the App with data if needed
 {% if config.LIB_BASE == 'local' %}
+
 // define the local samples
 jarvis.sample_dict = {};
 
@@ -570,6 +571,12 @@ jarvis.sample_dict = {};
 jarvis.sample_dict['[[ key ]]'] = [[ data['sample_dict'][key]|jsonify|safe ]];
 
 {% endfor %}
+
+
+// add the sample dtd
+jarvis.sample_dtd = [[ data['sample_dtd']|jsonify|safe ]];
+
+
 {% endif %}
 // init the whole document
 $(document).ready(function () {

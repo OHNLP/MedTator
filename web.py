@@ -57,6 +57,26 @@ def index():
             j = json.load(open(full_fn))
             data['sample_dict'][r[0]] = j
 
+        # second, we want to get the sample DTD
+        data['sample_dtd'] = {}
+        sample_path = os.path.join(
+            app.config['STATIC_PAGE_ROOT_PATH'],
+            'static',
+            'data'
+        )
+        for fn in os.listdir(sample_path):
+            if not fn.endswith('.dtd'):
+                continue
+
+            # ok, this fn is a sample dtd file
+            task_name = fn.split('.')[0]
+            full_fn = os.path.join(
+                app.root_path,
+                sample_path, 
+                fn
+            )
+            data['sample_dtd'][task_name] = open(full_fn).read()
+
     # now let's render the page
     return render_template(
         'index.html',
@@ -76,6 +96,35 @@ def build(path=None, filename='index.html', lib_base='cdn'):
     '''
     Build the static MedTator
     '''
+    # first, copy sample dtd files
+    # copy the DTD file to data folder
+    import shutil
+    for folder in os.scandir('sample/'):
+        if not folder.is_dir(): 
+            # skip non-folder
+            continue
+        
+        for fn in os.listdir(folder):
+            if not fn.endswith('.dtd'):
+                # skip non-dtd files
+                continue
+            
+            # get the full path
+            full_fn = os.path.join(folder, fn)
+
+            # copy to new file name
+            new_fn = '%s.dtd' % (folder.name)
+            full_new_fn = os.path.join('docs/', 'static/', 'data', new_fn)
+            shutil.copyfile(
+                full_fn,
+                full_new_fn
+            )
+            print("* copied %s to %s" % (
+                full_fn,
+                full_new_fn
+            ))
+
+    # then, reset the page
     # reset the output path to static page
     if path is None:
         path = app.config['STATIC_PAGE_ROOT_PATH']
@@ -100,6 +149,8 @@ def build(path=None, filename='index.html', lib_base='cdn'):
                 path,
                 filename
             )
+
+    
 
     print('* done building static MedTator %s!' % (
         app.config['MEDTATOR_VERSION']

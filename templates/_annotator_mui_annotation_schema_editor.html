@@ -34,7 +34,7 @@
             </div>
             
             <ul class="h-menu horizontal">
-                <li class="mr-2 border-right bd-gray"
+                <li class="border-right bd-gray"
                     title="Create a new annotation schema"
                     v-on:click="create_new_se_dtd">
                     <a href="javascript:void(0);">
@@ -42,7 +42,7 @@
                     <span class="caption">New</span>
                 </a></li>
 
-                <li class="mr-2 border-right bd-gray"
+                <li class="mr-1 border-right bd-gray"
                     title="Open local annotation schema"
                     v-on:click="open_se_dtd">
                     <a href="javascript:void(0);">
@@ -50,33 +50,36 @@
                     <span class="caption">Open</span>
                 </a></li>
 
-                <!-- <li>
+                <li>
                     <select style="width: 120px; height: 30px; line-height: 30px;"
                         v-model="se_dtd_tpl_id">
                         <optgroup label="Sample 1: Simple Tasks">
-                            <option value="s-1-1">1.1 Minimal Task</option>
-                            <option value="s-1-2">1.2 Two Entities and One Relation</option>
-                            <option value="s-1-3">1.3 Three Entities for Document-Level Task</option>
+                            <option value="MINIMAL_TASK">1.1 Minimal Task</option>
+                            <option value="ENTITY_RELATION_TASK">1.2 Two Entities and One Relation</option>
+                            <option value="IAA_TASK">1.3 Nine Entities and One Relation</option>
+                            <option value="DOCUMENT_LEVEL_TASK">1.4 Eleven Entities for Document-Level Annotation</option>
                         </optgroup>
                     
-                        <optgroup label="Sample 2: Large Tasks">
+                        <!-- <optgroup label="Sample 2: Large Tasks">
                             <option value="s-2-1">2.1 COVID-19 Symptoms (8E)</option>
                             <option value="s-2-2">2.2 COVID-19 Vaccine Adverse Events (9E1R)</option>
                             <option value="s-2-3">2.3 Symptoms of long COVID (10E)</option>
-                        </optgroup>
+                        </optgroup> -->
                     </select>
                 </li>
-                <li class="mr-2 border-right bd-gray"
-                    title="Load the selected schema">
+
+                <li v-on:click="load_se_dtd_sample"
+                    class="border-right bd-gray"
+                    title="Load the selected sample schema">
                     <a href="javascript:void(0);">
                     <i class="far fa-folder-open"></i>
                     <span class="caption">Load</span>
-                </a></li> -->
+                </a></li>
 
                 
                 <li v-if="se_dtd != null" 
                     v-on:click="use_se_dtd_for_annotation(se_dtd)"
-                    class="mr-1"
+                    class=""
                     title="Use this schema for annotation">
                     <a href="javascript:void(0);">
                     <span class="mif-rocket icon"></span>
@@ -84,7 +87,7 @@
                 </a></li>
                 
                 <li v-if="se_dtd != null" 
-                    class="mr-1 border-right bd-gray"
+                    class="border-right bd-gray"
                     title="Download current schema file"
                     v-on:click="download_se_dtd(se_dtd)">
                     <a href="javascript:void(0);">
@@ -92,7 +95,7 @@
                     <span class="caption">Download</span>
                 </a></li>
 
-                <li class="mr-1 border-right bd-gray"
+                <li class="border-right bd-gray"
                     title="Show how to use schema editor"
                     v-on:click="show_se_help">
                     <a href="javascript:void(0);">

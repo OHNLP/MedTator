@@ -482,6 +482,58 @@ var app_hotpot = {
             }
         },
 
+        load_se_dtd_sample: function() {
+            if (this.se_dtd_tpl_id == null) {
+                // ok, skip this
+                app_hotpot.toast('Please select a sample schema');
+                return;
+            }
+
+            // just alias name
+            var sample_name = this.se_dtd_tpl_id;
+
+            // ok, we have some selection here ...
+            // for local version, load text through binding
+            if (jarvis.hasOwnProperty('sample_dtd')) {
+                // get the text from jarvis sample
+                var sample_dtd_txt = jarvis.sample_dtd[sample_name];
+
+                // parse the dtd from data
+                var dtd = dtd_parser.parse(sample_dtd_txt);
+
+                // set the se dtd
+                app_hotpot.vpp.set_se_dtd(dtd);
+
+                return;
+            }
+
+            // for web version, just load data through AJAX
+            $.ajax({
+                url: './static/data/' + sample_name + '.dtd',
+                success: function(data, status, xhr) {
+                    // parse the dtd from data
+                    var dtd = dtd_parser.parse(data);
+
+                    // set the se dtd
+                    app_hotpot.vpp.set_se_dtd(dtd);
+
+                    // toast?
+                    app_hotpot.toast(
+                        'Loaded DTD content',
+                        'info'
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+
+                    app_hotpot.toast(
+                        'Something wrong when loading DTD, try later?',
+                        'warning'
+                    );
+                }
+            });
+        },
+
         use_se_dtd_for_annotation: function(se_dtd) {
             // check some conditions
             if (this.dtd == null) {
