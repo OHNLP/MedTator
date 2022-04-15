@@ -510,6 +510,7 @@ var app_hotpot = {
             // for web version, just load data through AJAX
             $.ajax({
                 url: './static/data/' + sample_name + '.dtd',
+                dataType: "text",
                 success: function(data, status, xhr) {
                     // parse the dtd from data
                     var dtd = dtd_parser.parse(data);
