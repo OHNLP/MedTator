@@ -100,6 +100,13 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.xx (2022-04-28)
+
+- Add the sort for IAA file list
+- Update sample schemas
+- Update sample text for testing schema
+- Fix ajax request type bug
+
 ### 1.2.27 (2022-04-14)
 
 - Added sample schema dropdown for editor to select
