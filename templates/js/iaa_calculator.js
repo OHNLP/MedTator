@@ -25,6 +25,12 @@ var iaa_calculator = {
                     const cm = cms[i];
                     
                     for (let j = 0; j < tag_rst[cm].length; j++) {
+                        // 2022-04-19: fix download bug due to null tag_rst[cm][j]
+                        if (tag_rst[cm][j] == null) {
+                            // this situation is possible due to double rejection
+                            // so no tag def can be found
+                            continue;
+                        }
                         var tag = Object.assign({}, tag_rst[cm][j].tag);
                         var tag_def = dtd.tag_dict[tag.tag];
 
