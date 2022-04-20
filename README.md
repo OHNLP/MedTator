@@ -105,7 +105,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Add the sort for IAA file list
 - Update sample schemas
 - Update sample text for testing schema
-- Fix ajax request type bug
+- Fixed ajax request type bug
 - Fixed adjudicated result download bug
 
 ### 1.2.27 (2022-04-14)
