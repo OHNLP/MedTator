@@ -105,6 +105,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Add the sort for IAA file list
 - Update sample schemas
 - Update sample text for testing schema
+- Fix duplicated tag in adjudicated results
 - Fixed ajax request type bug
 - Fixed adjudicated result download bug
 
@@ -117,6 +118,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Updated scripts for creating sample DTD files
 - Fixed the initial position of context menus
 - Fixed schema editor menu UI margin
+- Fixed path missing bug in the export script 
 
 ### 1.2.24 (2022-03-31) 
 

@@ -4,7 +4,8 @@ The development server for MedTator
 import os
 import json
 
-from flask import Flask, render_template
+from flask import Flask
+from flask import render_template
 from flask import send_from_directory
 
 # Create our little application :)
@@ -96,10 +97,38 @@ def build(path=None, filename='index.html', lib_base='cdn'):
     '''
     Build the static MedTator
     '''
+    # reset the output path to static page
+    if path is None:
+        path = app.config['STATIC_PAGE_ROOT_PATH']
+    
+    if os.path.exists(path):
+        print("* found output path %s" % path)
+    else:
+        os.makedirs(path, exist_ok=True)
+        print('* created output path %s' % path)
+        
+    print('* building static MedTator ...')
+    print('*   path: %s' % (path))
+    print('*   filename: %s' % (filename))
+    print('*   lib_base: %s' % (lib_base))
+
+    import shutil
+    import pathlib
+    path_sample = os.path.join(
+        pathlib.Path(__file__).parent.resolve(),
+        'sample/'
+    )
+    path_static_data = os.path.join(
+        path,
+        'static/',
+        'data/'
+    )
+    print('* located src sample path: %s' % path_sample)
+    print('* prepared dst sample path: %s' % path_static_data)
+
     # first, copy sample dtd files
     # copy the DTD file to data folder
-    import shutil
-    for folder in os.scandir('sample/'):
+    for folder in os.scandir(path_sample):
         if not folder.is_dir(): 
             # skip non-folder
             continue
@@ -114,7 +143,12 @@ def build(path=None, filename='index.html', lib_base='cdn'):
 
             # copy to new file name
             new_fn = '%s.dtd' % (folder.name)
-            full_new_fn = os.path.join('docs/', 'static/', 'data', new_fn)
+            full_new_fn = os.path.join(
+                path_static_data,
+                new_fn
+            )
+            # create the folder is not there
+            os.makedirs(os.path.dirname(full_new_fn), exist_ok=True)
             shutil.copyfile(
                 full_fn,
                 full_new_fn
@@ -125,15 +159,6 @@ def build(path=None, filename='index.html', lib_base='cdn'):
             ))
 
     # then, reset the page
-    # reset the output path to static page
-    if path is None:
-        path = app.config['STATIC_PAGE_ROOT_PATH']
-
-    print('* building static MedTator ...')
-    print('*   path: %s' % (path))
-    print('*   filename: %s' % (filename))
-    print('*   lib_base: %s' % (lib_base))
-
     # download the page
     # and for MedTator, this is only one HTML page
     # so we can pass the file name to this function
@@ -233,6 +258,9 @@ def make_page(client, url, path, new_fn=None, param=None):
     # just check if the file exsits
     if os.path.exists(fn):
         print('* overwrite the existed %s' % fn)
+
+    # create the folder if it is not there
+    os.makedirs(os.path.dirname(fn), exist_ok=True)
 
     with open(fn, 'w') as f:
         f.write(rv.data.decode('utf8'))
