@@ -102,10 +102,11 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ### 1.2.xx (2022-04-28)
 
-- Add the sort for IAA file list
+- Added the sort for IAA file list
 - Update sample schemas
 - Update sample text for testing schema
 - Updated iaa result box style
+- Updated sample dataset
 - Fixed duplicated tag in adjudicated results
 - Fixed ajax request type bug
 - Fixed adjudicated result download bug

@@ -1788,14 +1788,18 @@ var app_hotpot = {
                 return v_anns;
 
             } else if (sort_by == 'f1_asc') {
+                console.log('* sorting f1_asc', isNaN(0));
                 v_anns.sort(function(a, b) {
-                    return a.f1 - b.f1;
+                    var v = (isNaN(a.f1)?0:a.f1) - (isNaN(b.f1)?0:b.f1);
+                    return v;
                 });
                 return v_anns;
 
             } else if (sort_by == 'f1_desc') {
+                console.log('* sorting f1_desc', isNaN(NaN));
                 v_anns.sort(function(a, b) {
-                    return b.f1 - a.f1;
+                    var v = (isNaN(b.f1)?0:b.f1) - (isNaN(a.f1)?0:a.f1);
+                    return v;
                 });
                 return v_anns;
 
