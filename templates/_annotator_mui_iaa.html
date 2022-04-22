@@ -90,6 +90,50 @@
         <div id="mui_iaa_anns" class="d-flex h-100 ml-1 mr-1">
             <div v-if="dtd != null && iaa_dict != null" class="box w-100 h-100">
                 <div class="box-header">
+
+                    <div>
+                        <button class="btn-xs mr-1 dropdown-toggle"
+                            style="margin-left: 0;">
+                            {{ iaa_get_sort_by_label(iaa_get_sort_by()) }}
+                        </button>
+                        <ul class="ribbon-dropdown text-left" 
+                            data-role="dropdown" 
+                            data-duration="100">
+                            <li title="Sort the file list by the A's file name A-Z"
+                                v-on:click="iaa_sort_filelist_by('a.alphabet')">
+                                <a href="javascript:void(0);">By A's file name (A->Z)</a>
+                            </li>
+                            <li title="Sort the file list by the A's file name Z-A"
+                                v-on:click="iaa_sort_filelist_by('a.alphabet_r')">
+                                <a href="javascript:void(0);">By A's file name (Z->A)</a>
+                            </li>
+    
+                            <li title="Sort the file list by the B's file name A-Z"
+                                v-on:click="iaa_sort_filelist_by('b.alphabet')">
+                                <a href="javascript:void(0);">By B's file name (A->Z)</a>
+                            </li>
+                            <li title="Sort the file list by the B's file name Z-A"
+                                v-on:click="iaa_sort_filelist_by('b.alphabet_r')">
+                                <a href="javascript:void(0);">By B's file name (Z->A)</a>
+                            </li>
+    
+                            <li title="Sort the file list by F1 Score 0-1"
+                                v-on:click="iaa_sort_filelist_by('f1_asc')">
+                                <a href="javascript:void(0);">By F1 Score (0->1)</a>
+                            </li>
+                            <li title="Sort the file list by F1 Score 1-0"
+                                v-on:click="iaa_sort_filelist_by('f1_desc')">
+                                <a href="javascript:void(0);">By F1 Score (1->0)</a>
+                            </li>
+    
+                            <li class="divider"></li>
+    
+                            <li title="Sort the file list by the number of annotated tags"
+                                v-on:click="iaa_sort_filelist_by('default')">
+                                <a href="javascript:void(0);">By default import sequence</a>
+                            </li>
+                        </ul>
+                    </div>
                     <h4>
                         <i class="fa fa-list"></i>
                         Annotation Files
@@ -121,21 +165,21 @@
                         </div>
                     </div>
 
-                    <div v-for="ann_rst, ann_hashcode in iaa_dict.ann"
+                    <div v-for="v_ann in iaa_sort_v_anns(iaa_dict)"
                         class="iaa-row d-flex flex-row"
-                        v-bind:class="{'iaa-row-actived': iaa_display_hashcode == ann_hashcode}"
-                        v-on:click="iaa_display_hashcode = ann_hashcode">
+                        v-bind:class="{'iaa-row-actived': iaa_display_hashcode == v_ann.ann_hashcode}"
+                        v-on:click="iaa_display_hashcode = v_ann.ann_hashcode">
                         <div class="iaa-bar-filename-box d-flex flex-column flex-align-center flex-justify-start mr-1">
                             <div class="iaa-bar-filename w-100">
-                                A: {{ ann_rst.anns[0]._filename }}
+                                A: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[0]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
-                                B: {{ ann_rst.anns[1]._filename }}
+                                B: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[1]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
                                 <span title="Set check"
-                                    v-on:click="iaa_gs_dict[ann_hashcode].ann._has_star = !iaa_gs_dict[ann_hashcode].ann._has_star">
-                                    <span v-if="iaa_gs_dict[ann_hashcode].ann._has_star">
+                                    v-on:click="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star = !iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
+                                    <span v-if="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                         <i class="fa fa-check-circle fg-emerald"></i>
                                     </span>
                                     <span v-else>
@@ -143,32 +187,32 @@
                                     </span>
                                 </span>
                                 
-                                GS: {{ iaa_gs_dict[ann_hashcode].ann._filename }}
+                                GS: {{ iaa_gs_dict[v_ann.ann_hashcode].ann._filename }}
                             </div>
                         </div>
 
                         <div class="d-flex flex-column">
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(get_rst(ann_rst.rst)['f1']) + 'px'"
+                                <div v-bind:style="'width:' + to_width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
                                 <div class="iaa-bar-value ml-1">
-                                    {{ to_fixed(get_rst(ann_rst.rst)['f1']) }}
+                                    {{ to_fixed(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) }}
                                 </div>
                             </div>
                             <div class="iaa-file-cm-box">
                                 <span class="mr-2">
                                     <span class="iaa-op-50">AB: </span>
-                                    {{ get_rst(ann_rst.rst).cm.tp }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.tp }}
                                 </span>
                                 <span class="mr-2">
                                     <span class="iaa-op-50">A+: </span>
-                                    {{ get_rst(ann_rst.rst).cm.fp }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.fp }}
                                 </span>
                                 <span class="mr-2">
                                     <span class="iaa-op-50">B+: </span>
-                                    {{ get_rst(ann_rst.rst).cm.fn }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.fn }}
                                 </span>
                             </div>
                             <div class="iaa-file-gs-box">
@@ -182,7 +226,7 @@
                                         </span>
                                         in GS:
                                     </span> 
-                                    {{ count_gs_tags(ann_hashcode) }}
+                                    {{ count_gs_tags(v_ann.ann_hashcode) }}
                                 </span>
                             </div>
                         </div>

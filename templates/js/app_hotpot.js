@@ -105,6 +105,14 @@ var app_hotpot = {
         iaa_display_adj_panel: true,
         iaa_display_adj_detail: false,
 
+        // sort anns
+        // - default: how the anns are imported into tool
+        // - a.alphabet: A-Z
+        // - a.alphabet_r: Z-A
+        // - a.tags: 0-N
+        // - a.tags_r: N-0
+        iaa_sort_anns_by: 'default',
+
         // for iaa adjudication
         iaa_gs_dict: null,
 
@@ -1717,6 +1725,115 @@ var app_hotpot = {
 
             // and create
             this.make_default_adj();
+        },
+
+        iaa_sort_filelist_by: function(sort_by) {
+            this.iaa_sort_anns_by = sort_by;
+        },
+
+        iaa_get_sort_by: function() {
+            if (this.hasOwnProperty('iaa_sort_anns_by')) {
+                return this.iaa_sort_anns_by;
+            } else {
+                return 'default';
+            }
+        },
+        
+        iaa_get_sort_by_label: function(sort_by) {
+            return {
+                'default': 'Sort',
+                'f1_asc': 'F1 0-1',
+                'f1_desc': 'F1 1-0',
+
+                // for A
+                'a.alphabet': 'A|A-Z',
+                'a.alphabet_r': 'A|Z-A',
+
+                // for B
+                'b.alphabet': 'B|A-Z',
+                'b.alphabet_r': 'B|Z-A',
+            }[sort_by];
+        },
+
+        iaa_sort_v_anns: function(iaa_dict) {
+            var sort_by = this.iaa_get_sort_by();
+
+            // a virtual list of ann, just contain the file name
+            // this is prepared for sorting only
+            // because the sort is an in-place sort
+            // we can't modify the order in the original anns
+            var v_anns = [];
+            for (const ann_hashcode in iaa_dict.ann) {
+                const ann_rst = iaa_dict.ann[ann_hashcode];
+                v_anns.push({
+                    // hashtag
+                    ann_hashcode: ann_hashcode,
+
+                    // the f1
+                    f1: this.iaa_display_tag_name == '__all__'? 
+                        ann_rst.rst.all.f1 : ann_rst.rst.tag[this.iaa_display_tag_name].f1,
+
+                    // number of annotated tags
+                    ann_a: {
+                        _filename: ann_rst.anns[0]._filename
+                    },
+                    ann_b: {
+                        _filename: ann_rst.anns[1]._filename
+                    }
+                });
+            }
+
+            // now sort
+            if (sort_by == 'default') {
+                return v_anns;
+
+            } else if (sort_by == 'f1_asc') {
+                v_anns.sort(function(a, b) {
+                    return a.f1 - b.f1;
+                });
+                return v_anns;
+
+            } else if (sort_by == 'f1_desc') {
+                v_anns.sort(function(a, b) {
+                    return b.f1 - a.f1;
+                });
+                return v_anns;
+
+            } else if (sort_by == 'a.alphabet') {
+                v_anns.sort(function(a, b) {
+                    return a.ann_a._filename.localeCompare(
+                        b.ann_a._filename
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'a.alphabet_r') {
+                v_anns.sort(function(a, b) {
+                    return -a.ann_a._filename.localeCompare(
+                        b.ann_a._filename
+                    )
+                });
+                return v_anns;
+                
+            } else if (sort_by == 'b.alphabet') {
+                v_anns.sort(function(a, b) {
+                    return a.ann_b._filename.localeCompare(
+                        b.ann_b._filename
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'b.alphabet_r') {
+                v_anns.sort(function(a, b) {
+                    return -a.ann_b._filename.localeCompare(
+                        b.ann_b._filename
+                    )
+                });
+                return v_anns;
+                
+            } else {
+                return v_anns;
+            }
         },
 
         get_rst: function(obj) {
