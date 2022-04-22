@@ -1,127 +1,7 @@
 {
     "section": "annotation",
     "dtd": {
-        "id_prefixd": {
-            "S": {
-                "name": "SYMP",
-                "type": "etag",
-                "id_prefix": "S",
-                "is_non_consuming": false,
-                "attlists": [
-                    {
-                        "element": "SYMP",
-                        "name": "certainty",
-                        "type": "attr",
-                        "vtype": "list",
-                        "require": "IMPLIED",
-                        "values": [
-                            "positive",
-                            "negated",
-                            "possible"
-                        ],
-                        "default_value": "positive"
-                    },
-                    {
-                        "element": "SYMP",
-                        "name": "comment",
-                        "type": "attr",
-                        "vtype": "text",
-                        "require": "",
-                        "values": [],
-                        "default_value": "NA"
-                    }
-                ],
-                "attlist_dict": {
-                    "certainty": {
-                        "element": "SYMP",
-                        "name": "certainty",
-                        "type": "attr",
-                        "vtype": "list",
-                        "require": "IMPLIED",
-                        "values": [
-                            "positive",
-                            "negated",
-                            "possible"
-                        ],
-                        "default_value": "positive"
-                    },
-                    "comment": {
-                        "element": "SYMP",
-                        "name": "comment",
-                        "type": "attr",
-                        "vtype": "text",
-                        "require": "",
-                        "values": [],
-                        "default_value": "NA"
-                    }
-                },
-                "style": {
-                    "color": "#a6cee3"
-                },
-                "shortcut": "1"
-            }
-        },
         "name": "COVID_VAX_SYMP",
-        "tag_dict": {
-            "SYMP": {
-                "name": "SYMP",
-                "type": "etag",
-                "id_prefix": "S",
-                "is_non_consuming": false,
-                "attlists": [
-                    {
-                        "element": "SYMP",
-                        "name": "certainty",
-                        "type": "attr",
-                        "vtype": "list",
-                        "require": "IMPLIED",
-                        "values": [
-                            "positive",
-                            "negated",
-                            "possible"
-                        ],
-                        "default_value": "positive"
-                    },
-                    {
-                        "element": "SYMP",
-                        "name": "comment",
-                        "type": "attr",
-                        "vtype": "text",
-                        "require": "",
-                        "values": [],
-                        "default_value": "NA"
-                    }
-                ],
-                "attlist_dict": {
-                    "certainty": {
-                        "element": "SYMP",
-                        "name": "certainty",
-                        "type": "attr",
-                        "vtype": "list",
-                        "require": "IMPLIED",
-                        "values": [
-                            "positive",
-                            "negated",
-                            "possible"
-                        ],
-                        "default_value": "positive"
-                    },
-                    "comment": {
-                        "element": "SYMP",
-                        "name": "comment",
-                        "type": "attr",
-                        "vtype": "text",
-                        "require": "",
-                        "values": [],
-                        "default_value": "NA"
-                    }
-                },
-                "style": {
-                    "color": "#a6cee3"
-                },
-                "shortcut": "1"
-            }
-        },
         "etags": [
             {
                 "name": "SYMP",
@@ -183,8 +63,130 @@
             }
         ],
         "ltags": [],
+        "id_prefixd": {
+            "S": {
+                "name": "SYMP",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    "comment": {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                },
+                "style": {
+                    "color": "#a6cee3"
+                },
+                "shortcut": "1"
+            }
+        },
+        "tag_dict": {
+            "SYMP": {
+                "name": "SYMP",
+                "type": "etag",
+                "id_prefix": "S",
+                "is_non_consuming": false,
+                "attlists": [
+                    {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                ],
+                "attlist_dict": {
+                    "certainty": {
+                        "element": "SYMP",
+                        "name": "certainty",
+                        "type": "attr",
+                        "vtype": "list",
+                        "require": "IMPLIED",
+                        "values": [
+                            "positive",
+                            "negated",
+                            "possible"
+                        ],
+                        "default_value": "positive"
+                    },
+                    "comment": {
+                        "element": "SYMP",
+                        "name": "comment",
+                        "type": "attr",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA"
+                    }
+                },
+                "style": {
+                    "color": "#a6cee3"
+                },
+                "shortcut": "1"
+            }
+        },
         "text": "<!ENTITY name \"COVID_VAX_SYMP\">\n\n<!-- #PCDATA makes an entity concept -->\n<!ELEMENT SYMP ( #PCDATA ) >\n<!ATTLIST SYMP certainty ( positive | negated | possible ) #IMPLIED \"positive\" >\n<!ATTLIST SYMP comment CDATA \"NA\" >\n"
     },
+    "se_dtd": null,
+    "se_dtd_tpl_id": null,
     "ann_idx": 0,
     "anns": [
         {
@@ -658,7 +660,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.0942166006828371,
+    "force_module_update": 0.12195320026640144,
     "iaa_ann_list": [
         {
             "anns": [],
@@ -681,6 +683,7 @@
     "iaa_display_adj_detail": false,
     "iaa_gs_dict": null,
     "iaa_use_attributes": false,
+    "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
     "cm": {

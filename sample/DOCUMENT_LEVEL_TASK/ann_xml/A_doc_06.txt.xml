@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<VAX_SYMPTOM>
-<TEXT><![CDATA[PAIN AT INJECTION SITE- MODERATE PAIN FOR 24 HRS; HEADACHE-MODERATE 24 HRS; FATIGUE 24 HRS]]></TEXT>
-<TAGS>
-<PAIN id="PA0" spans="-1~-1" text="" comment=""/>
-<FATIGUE id="F0" spans="-1~-1" text="" comment=""/>
-<HEADACHE id="H0" spans="-1~-1" text="" comment=""/>
-</TAGS>
-</VAX_SYMPTOM>

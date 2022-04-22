@@ -8,5 +8,7 @@ The patient stated that he thought the swelling was due to accumulation of the v
 <AE spans="724~728" text="pain" id="A1" certainty="positive" comment="NA"/>
 <AE spans="932~935,959~964" text="arm ... swell" id="A2" certainty="positive" comment="NA"/>
 <AE spans="1008~1016" text="swelling" id="A3" certainty="positive" comment="NA"/>
+<AE spans="1217~1220" text="red" id="A4" certainty="positive" comment="NA"/>
+<AE spans="1225~1232" text="bruised" id="A5" certainty="positive" comment="NA"/>
 </TAGS>
 </COVID_VAX_AE>

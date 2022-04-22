@@ -6,5 +6,8 @@
 <AE spans="689~695" text="nausea" id="A0" certainty="positive" comment="NA"/>
 <SVRT spans="684~688" text="mild" id="S0" severity="NA" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A0" link_AEText="nausea" link_SVRTID="S0" link_SVRTText="mild" comment="NA"/>
+<AE spans="283~292" text="allergies" id="A1" certainty="positive" comment="NA"/>
+<AE spans="348~357" text="allergies" id="A2" certainty="positive" comment="NA"/>
+<AE spans="294~300" text="asthma" id="A3" certainty="positive" comment="NA"/>
 </TAGS>
 </COVID_VAX_AE>

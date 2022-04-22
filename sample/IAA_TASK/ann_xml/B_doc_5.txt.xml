@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <VAX_AE_MED>
-<TEXT><![CDATA[Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine. Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded. The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well. I went to go check on her and she stated that she felt as though she was going to faint. I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety). I brought her the ice pack, she held it on her chest and head and said it felt nice. After about a minute I stepped out again to ask a technician to get a water for her. When I came back, the patient was still seated but had a blank stare and her mouth was slightly open. I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely. I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation). I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy. I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to. I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said "I'm sorry". EMS arrived extremely fast and was there a few minutes after using the EpiPen. She was then taken by ambulance to the hospital. Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise. Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up. That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.]]></TEXT>
+<TEXT><![CDATA[The fever broke this morning (1/10/21) so a rough estimate of the time course is 32 h. The fever was also reduced with acetaminophen. The headache still persists, albeit milder. The muscle aches resolved with the fever, so a time course for that would also be 32 h.  I recently had a COVID19 infection (symptom onset was 12/25/20), but had cleared my isolation date of 1/4/21. The symptoms from my COVID19 infection (headache, muscle aches, chills) had virtually resolved by 1/8/21 before I received the vaccine.]]></TEXT>
 <TAGS>
-<MEDICATION spans="1143~1149" text="EpiPen" id="M0" comment=""/>
-<DIZZINESS spans="199~204" text="dizzy" id="D0" comment="" certainty="Positive"/>
-<DIZZINESS spans="209~220" text="lightheaded" id="D1" comment="" certainty="Positive"/>
-<OTHER_AE spans="1407~1424" text="face was very red" id="O0" comment="or red?" certainty="Positive"/>
-<OTHER_AE spans="1430~1456" text="eyes were bulging slightly" id="O1" comment="or just bulging?" certainty="Positive"/>
-<MEDICATION spans="1568~1574" text="EpiPen" id="M1" comment=""/>
-<TREATMENT id="T0" link_AEID="O0" link_AEText="face was very red" link_MEDID="M1" link_MEDText="EpiPen" comment=""/>
-<MEDICATION spans="470~488" text="ice pack and water" id="M2" comment=""/>
-<MEDICATION spans="643~651" text="ice pack" id="M3" comment=""/>
+<PYREXIA spans="4~9" text="fever" id="PY0" comment="" certainty="Positive"/>
+<PYREXIA spans="91~96" text="fever" id="PY1" comment="" certainty="Positive"/>
+<HEADACHE spans="417~425" text="headache" id="H0" certainty="Negated" comment=""/>
+<PAIN spans="427~439" text="muscle aches" id="P0" certainty="Negated" comment=""/>
+<PAIN spans="182~194" text="muscle aches" id="P1" certainty="Negated" comment=""/>
 </TAGS>
 </VAX_AE_MED>

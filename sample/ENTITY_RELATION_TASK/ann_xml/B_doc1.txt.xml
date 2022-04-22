@@ -12,5 +12,6 @@
 <AE spans="1789~1793" text="pain" id="A4" certainty="positive" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A4" link_AEText="pain" link_SVRTID="S3" link_SVRTText="mild" comment="NA"/>
 <LK_AE_SVRT id="L1" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="mild" comment="NA"/>
+<AE spans="775~779" text="pain" id="A5" certainty="positive" comment="NA"/>
 </TAGS>
 </COVID_VAX_AE>
