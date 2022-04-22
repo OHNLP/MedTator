@@ -111,6 +111,12 @@ var app_hotpot = {
         // for using attributes in IAA
         iaa_use_attributes: false,
 
+        // remove the tag when low_overlap for calcuting
+        // this can remove the duplicated results in FN
+        // so the IAA calculation result will be different
+        // the 
+        iaa_remove_tag_b_when_low_overlap: true,
+
         // for using attributes in IAA a selection map
         // {
         //    tag_name: {
@@ -1703,7 +1709,8 @@ var app_hotpot = {
                 this.iaa_overlap_ratio / 100,
                 this.iaa_use_attributes?
                     this.iaa_use_tag_attrs:
-                    null
+                    null,
+                this.iaa_remove_tag_b_when_low_overlap
             );
             this.iaa_dict = iaa_dict;
             console.log('* iaa result:', iaa_dict);

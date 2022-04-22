@@ -896,6 +896,11 @@ input[type=text].ipt-spinner-xs {
 .iaa-op-50 {
     opacity: 0.5;
 }
+.iaa-select-sm {
+    width: 140px;
+    padding: 0 !important;
+    -webkit-appearance: auto !important;
+}
 /* for text display */
 .clr-red {
     color: red;

@@ -692,7 +692,8 @@ var iaa_calculator = {
         anns_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
@@ -702,6 +703,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
         /* we will build a dictionary for this task
         {
@@ -812,7 +816,8 @@ var iaa_calculator = {
                 ann_b,
                 match_mode,
                 overlap_ratio,
-                tag_attrs
+                tag_attrs,
+                remove_tag_b_when_low_overlap
             );
 
             // save this result
@@ -885,7 +890,9 @@ var iaa_calculator = {
         ann_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs) {
+        tag_attrs,
+        remove_tag_b_when_low_overlap
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
@@ -894,6 +901,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
 
         // check the text first
@@ -918,7 +928,8 @@ var iaa_calculator = {
                 ann_b, 
                 match_mode, 
                 overlap_ratio,
-                tag_attrs
+                tag_attrs,
+                remove_tag_b_when_low_overlap
             );
             result_ann.tag[tag_def.name] = r;
 
@@ -944,7 +955,8 @@ var iaa_calculator = {
         ann_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
@@ -954,6 +966,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
 
         // check the text first
@@ -973,7 +988,8 @@ var iaa_calculator = {
             tag_list_b, 
             match_mode, 
             overlap_ratio,
-            tag_attrs
+            tag_attrs,
+            remove_tag_b_when_low_overlap
         );
         var result = this.calc_p_r_f1(cm);
 
@@ -985,7 +1001,8 @@ var iaa_calculator = {
         tag_list_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
@@ -995,6 +1012,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
         var cm = {
             tp: 0,
@@ -1031,7 +1051,7 @@ var iaa_calculator = {
                 tag_attrs
             );
 
-            console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
+            // console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
 
             if (is_match.is_in) {
                 // This case is simple, two tags are matched
@@ -1054,16 +1074,21 @@ var iaa_calculator = {
                     is_match.tag_b
                 ]);
 
-                // in some cases, it's not match is due to low overlap ratio
+                // in some cases, it does not match due to low overlap ratio
                 // we need to remove this tag_b as well.
                 // but we may also want to keep both?
-                // if (is_match.tag_b != null) {
-                //     delete tag_dict_b[is_match.tag_b.spans];
-                // }
+                if (is_match.tag_b != null) {
+                    if (remove_tag_b_when_low_overlap) {
+                        delete tag_dict_b[is_match.tag_b.spans];
+                    } else {
+                        // well, users specify to keep this, then just keep it
+                    }
+                }
             }
         }
 
-        cm.fn = tag_list_b.length - cm.tp;
+        cm.fn = Object.values(tag_dict_b).length;
+        // cm.fn = tag_list_b.length - cm.tp;
         cm.tags.fn = Object.values(tag_dict_b).map(tag => [null, tag]);
 
         return cm;

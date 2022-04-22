@@ -105,7 +105,8 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Add the sort for IAA file list
 - Update sample schemas
 - Update sample text for testing schema
-- Fix duplicated tag in adjudicated results
+- Updated iaa result box style
+- Fixed duplicated tag in adjudicated results
 - Fixed ajax request type bug
 - Fixed adjudicated result download bug
 
