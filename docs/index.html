@@ -1065,6 +1065,11 @@ input[type=text].ipt-spinner-xs {
 .iaa-op-50 {
     opacity: 0.5;
 }
+.iaa-select-sm {
+    width: 140px;
+    padding: 0 !important;
+    -webkit-appearance: auto !important;
+}
 /* for text display */
 .clr-red {
     color: red;
@@ -2249,8 +2254,8 @@ v-bind:class="{'active': section=='iaa'}">
         class="p-1 ml-1 mr-1 border bd-gray border-radius">
 
         <div class="mt-1 mb-1">
+            Overlap
             <i class="fa fa-percentage"></i>
-            Overlap Ratio
         </div>
 
         <div>        
@@ -2264,10 +2269,10 @@ v-bind:class="{'active': section=='iaa'}">
                 %
             </span>
 
-            <button title="Reset the overlap ratio"
+            <!-- <button title="Reset the overlap ratio"
                 v-on:click="iaa_overlap_ratio = iaa_overlap_ratio_default">
                 <i class="fa fa-undo"></i>
-            </button>
+            </button> -->
         </div>
     </div>
 
@@ -2474,7 +2479,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.27 | 
+            MedTator 1.2.29 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -3156,10 +3161,10 @@ v-bind:class="{'active': section=='iaa'}">
                 <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        Summary
+                        IAA: 
                     </h4>
                     <div>
-                        <select style="width: 140px;"
+                        <select class="iaa-select-sm"
     v-model="iaa_display_measure">
     <option value="f1">F1 Score</option>
     <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
@@ -3242,6 +3247,50 @@ v-bind:class="{'active': section=='iaa'}">
         <div id="mui_iaa_anns" class="d-flex h-100 ml-1 mr-1">
             <div v-if="dtd != null && iaa_dict != null" class="box w-100 h-100">
                 <div class="box-header">
+
+                    <div>
+                        <button class="btn-xs mr-1 dropdown-toggle"
+                            style="margin-left: 0;">
+                            {{ iaa_get_sort_by_label(iaa_get_sort_by()) }}
+                        </button>
+                        <ul class="ribbon-dropdown text-left" 
+                            data-role="dropdown" 
+                            data-duration="100">
+                            <li title="Sort the file list by the A's file name A-Z"
+                                v-on:click="iaa_sort_filelist_by('a.alphabet')">
+                                <a href="javascript:void(0);">By A's file name (A->Z)</a>
+                            </li>
+                            <li title="Sort the file list by the A's file name Z-A"
+                                v-on:click="iaa_sort_filelist_by('a.alphabet_r')">
+                                <a href="javascript:void(0);">By A's file name (Z->A)</a>
+                            </li>
+    
+                            <li title="Sort the file list by the B's file name A-Z"
+                                v-on:click="iaa_sort_filelist_by('b.alphabet')">
+                                <a href="javascript:void(0);">By B's file name (A->Z)</a>
+                            </li>
+                            <li title="Sort the file list by the B's file name Z-A"
+                                v-on:click="iaa_sort_filelist_by('b.alphabet_r')">
+                                <a href="javascript:void(0);">By B's file name (Z->A)</a>
+                            </li>
+    
+                            <li title="Sort the file list by F1 Score 0-1"
+                                v-on:click="iaa_sort_filelist_by('f1_asc')">
+                                <a href="javascript:void(0);">By F1 Score (0->1)</a>
+                            </li>
+                            <li title="Sort the file list by F1 Score 1-0"
+                                v-on:click="iaa_sort_filelist_by('f1_desc')">
+                                <a href="javascript:void(0);">By F1 Score (1->0)</a>
+                            </li>
+    
+                            <li class="divider"></li>
+    
+                            <li title="Sort the file list by the number of annotated tags"
+                                v-on:click="iaa_sort_filelist_by('default')">
+                                <a href="javascript:void(0);">By default import sequence</a>
+                            </li>
+                        </ul>
+                    </div>
                     <h4>
                         <i class="fa fa-list"></i>
                         Annotation Files
@@ -3273,21 +3322,21 @@ v-bind:class="{'active': section=='iaa'}">
                         </div>
                     </div>
 
-                    <div v-for="ann_rst, ann_hashcode in iaa_dict.ann"
+                    <div v-for="v_ann in iaa_sort_v_anns(iaa_dict)"
                         class="iaa-row d-flex flex-row"
-                        v-bind:class="{'iaa-row-actived': iaa_display_hashcode == ann_hashcode}"
-                        v-on:click="iaa_display_hashcode = ann_hashcode">
+                        v-bind:class="{'iaa-row-actived': iaa_display_hashcode == v_ann.ann_hashcode}"
+                        v-on:click="iaa_display_hashcode = v_ann.ann_hashcode">
                         <div class="iaa-bar-filename-box d-flex flex-column flex-align-center flex-justify-start mr-1">
                             <div class="iaa-bar-filename w-100">
-                                A: {{ ann_rst.anns[0]._filename }}
+                                A: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[0]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
-                                B: {{ ann_rst.anns[1]._filename }}
+                                B: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[1]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
                                 <span title="Set check"
-                                    v-on:click="iaa_gs_dict[ann_hashcode].ann._has_star = !iaa_gs_dict[ann_hashcode].ann._has_star">
-                                    <span v-if="iaa_gs_dict[ann_hashcode].ann._has_star">
+                                    v-on:click="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star = !iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
+                                    <span v-if="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                         <i class="fa fa-check-circle fg-emerald"></i>
                                     </span>
                                     <span v-else>
@@ -3295,32 +3344,32 @@ v-bind:class="{'active': section=='iaa'}">
                                     </span>
                                 </span>
                                 
-                                GS: {{ iaa_gs_dict[ann_hashcode].ann._filename }}
+                                GS: {{ iaa_gs_dict[v_ann.ann_hashcode].ann._filename }}
                             </div>
                         </div>
 
                         <div class="d-flex flex-column">
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(get_rst(ann_rst.rst)['f1']) + 'px'"
+                                <div v-bind:style="'width:' + to_width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
                                 <div class="iaa-bar-value ml-1">
-                                    {{ to_fixed(get_rst(ann_rst.rst)['f1']) }}
+                                    {{ to_fixed(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) }}
                                 </div>
                             </div>
                             <div class="iaa-file-cm-box">
                                 <span class="mr-2">
                                     <span class="iaa-op-50">AB: </span>
-                                    {{ get_rst(ann_rst.rst).cm.tp }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.tp }}
                                 </span>
                                 <span class="mr-2">
                                     <span class="iaa-op-50">A+: </span>
-                                    {{ get_rst(ann_rst.rst).cm.fp }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.fp }}
                                 </span>
                                 <span class="mr-2">
                                     <span class="iaa-op-50">B+: </span>
-                                    {{ get_rst(ann_rst.rst).cm.fn }}
+                                    {{ get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst).cm.fn }}
                                 </span>
                             </div>
                             <div class="iaa-file-gs-box">
@@ -3334,7 +3383,7 @@ v-bind:class="{'active': section=='iaa'}">
                                         </span>
                                         in GS:
                                     </span> 
-                                    {{ count_gs_tags(ann_hashcode) }}
+                                    {{ count_gs_tags(v_ann.ann_hashcode) }}
                                 </span>
                             </div>
                         </div>
@@ -3585,11 +3634,11 @@ v-bind:class="{'active': section=='iaa'}">
                 <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        Summary
+                        IAA: 
                     </h4>
                     
                     <div>
-                        <select style="width: 140px;"
+                        <select class="iaa-select-sm"
     v-model="iaa_display_measure">
     <option value="f1">F1 Score</option>
     <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
@@ -8634,7 +8683,8 @@ var iaa_calculator = {
         anns_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode) == 'undefined') {
             match_mode = 'overlap';
@@ -8644,6 +8694,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
         /* we will build a dictionary for this task
         {
@@ -8754,7 +8807,8 @@ var iaa_calculator = {
                 ann_b,
                 match_mode,
                 overlap_ratio,
-                tag_attrs
+                tag_attrs,
+                remove_tag_b_when_low_overlap
             );
 
             // save this result
@@ -8827,7 +8881,9 @@ var iaa_calculator = {
         ann_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs) {
+        tag_attrs,
+        remove_tag_b_when_low_overlap
+    ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
         }
@@ -8836,6 +8892,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
 
         // check the text first
@@ -8860,7 +8919,8 @@ var iaa_calculator = {
                 ann_b, 
                 match_mode, 
                 overlap_ratio,
-                tag_attrs
+                tag_attrs,
+                remove_tag_b_when_low_overlap
             );
             result_ann.tag[tag_def.name] = r;
 
@@ -8886,7 +8946,8 @@ var iaa_calculator = {
         ann_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
@@ -8896,6 +8957,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
 
         // check the text first
@@ -8915,7 +8979,8 @@ var iaa_calculator = {
             tag_list_b, 
             match_mode, 
             overlap_ratio,
-            tag_attrs
+            tag_attrs,
+            remove_tag_b_when_low_overlap
         );
         var result = this.calc_p_r_f1(cm);
 
@@ -8927,7 +8992,8 @@ var iaa_calculator = {
         tag_list_b, 
         match_mode, 
         overlap_ratio,
-        tag_attrs
+        tag_attrs,
+        remove_tag_b_when_low_overlap
     ) {
         if (typeof(match_mode)=='undefined') {
             match_mode = 'overlap';
@@ -8937,6 +9003,9 @@ var iaa_calculator = {
         }
         if (typeof(tag_attrs) == 'undefined') {
             tag_attrs = null;
+        }
+        if (typeof(remove_tag_b_when_low_overlap) == 'undefined') {
+            remove_tag_b_when_low_overlap = true;
         }
         var cm = {
             tp: 0,
@@ -8973,7 +9042,7 @@ var iaa_calculator = {
                 tag_attrs
             );
 
-            console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
+            // console.log('* a', tag_a.spans, is_match.is_in, 'b', is_match.tag_b);
 
             if (is_match.is_in) {
                 // This case is simple, two tags are matched
@@ -8996,16 +9065,21 @@ var iaa_calculator = {
                     is_match.tag_b
                 ]);
 
-                // in some cases, it's not match is due to low overlap ratio
+                // in some cases, it does not match due to low overlap ratio
                 // we need to remove this tag_b as well.
                 // but we may also want to keep both?
-                // if (is_match.tag_b != null) {
-                //     delete tag_dict_b[is_match.tag_b.spans];
-                // }
+                if (is_match.tag_b != null) {
+                    if (remove_tag_b_when_low_overlap) {
+                        delete tag_dict_b[is_match.tag_b.spans];
+                    } else {
+                        // well, users specify to keep this, then just keep it
+                    }
+                }
             }
         }
 
-        cm.fn = tag_list_b.length - cm.tp;
+        cm.fn = Object.values(tag_dict_b).length;
+        // cm.fn = tag_list_b.length - cm.tp;
         cm.tags.fn = Object.values(tag_dict_b).map(tag => [null, tag]);
 
         return cm;
@@ -10266,11 +10340,25 @@ var app_hotpot = {
         iaa_display_adj_panel: true,
         iaa_display_adj_detail: false,
 
+        // sort anns
+        // - default: how the anns are imported into tool
+        // - a.alphabet: A-Z
+        // - a.alphabet_r: Z-A
+        // - a.tags: 0-N
+        // - a.tags_r: N-0
+        iaa_sort_anns_by: 'default',
+
         // for iaa adjudication
         iaa_gs_dict: null,
 
         // for using attributes in IAA
         iaa_use_attributes: false,
+
+        // remove the tag when low_overlap for calcuting
+        // this can remove the duplicated results in FN
+        // so the IAA calculation result will be different
+        // the 
+        iaa_remove_tag_b_when_low_overlap: true,
 
         // for using attributes in IAA a selection map
         // {
@@ -11864,13 +11952,127 @@ var app_hotpot = {
                 this.iaa_overlap_ratio / 100,
                 this.iaa_use_attributes?
                     this.iaa_use_tag_attrs:
-                    null
+                    null,
+                this.iaa_remove_tag_b_when_low_overlap
             );
             this.iaa_dict = iaa_dict;
             console.log('* iaa result:', iaa_dict);
 
             // and create
             this.make_default_adj();
+        },
+
+        iaa_sort_filelist_by: function(sort_by) {
+            this.iaa_sort_anns_by = sort_by;
+        },
+
+        iaa_get_sort_by: function() {
+            if (this.hasOwnProperty('iaa_sort_anns_by')) {
+                return this.iaa_sort_anns_by;
+            } else {
+                return 'default';
+            }
+        },
+        
+        iaa_get_sort_by_label: function(sort_by) {
+            return {
+                'default': 'Sort',
+                'f1_asc': 'F1 0-1',
+                'f1_desc': 'F1 1-0',
+
+                // for A
+                'a.alphabet': 'A|A-Z',
+                'a.alphabet_r': 'A|Z-A',
+
+                // for B
+                'b.alphabet': 'B|A-Z',
+                'b.alphabet_r': 'B|Z-A',
+            }[sort_by];
+        },
+
+        iaa_sort_v_anns: function(iaa_dict) {
+            var sort_by = this.iaa_get_sort_by();
+
+            // a virtual list of ann, just contain the file name
+            // this is prepared for sorting only
+            // because the sort is an in-place sort
+            // we can't modify the order in the original anns
+            var v_anns = [];
+            for (const ann_hashcode in iaa_dict.ann) {
+                const ann_rst = iaa_dict.ann[ann_hashcode];
+                v_anns.push({
+                    // hashtag
+                    ann_hashcode: ann_hashcode,
+
+                    // the f1
+                    f1: this.iaa_display_tag_name == '__all__'? 
+                        ann_rst.rst.all.f1 : ann_rst.rst.tag[this.iaa_display_tag_name].f1,
+
+                    // number of annotated tags
+                    ann_a: {
+                        _filename: ann_rst.anns[0]._filename
+                    },
+                    ann_b: {
+                        _filename: ann_rst.anns[1]._filename
+                    }
+                });
+            }
+
+            // now sort
+            if (sort_by == 'default') {
+                return v_anns;
+
+            } else if (sort_by == 'f1_asc') {
+                console.log('* sorting f1_asc', isNaN(0));
+                v_anns.sort(function(a, b) {
+                    var v = (isNaN(a.f1)?0:a.f1) - (isNaN(b.f1)?0:b.f1);
+                    return v;
+                });
+                return v_anns;
+
+            } else if (sort_by == 'f1_desc') {
+                console.log('* sorting f1_desc', isNaN(NaN));
+                v_anns.sort(function(a, b) {
+                    var v = (isNaN(b.f1)?0:b.f1) - (isNaN(a.f1)?0:a.f1);
+                    return v;
+                });
+                return v_anns;
+
+            } else if (sort_by == 'a.alphabet') {
+                v_anns.sort(function(a, b) {
+                    return a.ann_a._filename.localeCompare(
+                        b.ann_a._filename
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'a.alphabet_r') {
+                v_anns.sort(function(a, b) {
+                    return -a.ann_a._filename.localeCompare(
+                        b.ann_a._filename
+                    )
+                });
+                return v_anns;
+                
+            } else if (sort_by == 'b.alphabet') {
+                v_anns.sort(function(a, b) {
+                    return a.ann_b._filename.localeCompare(
+                        b.ann_b._filename
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'b.alphabet_r') {
+                v_anns.sort(function(a, b) {
+                    return -a.ann_b._filename.localeCompare(
+                        b.ann_b._filename
+                    )
+                });
+                return v_anns;
+                
+            } else {
+                return v_anns;
+            }
         },
 
         get_rst: function(obj) {

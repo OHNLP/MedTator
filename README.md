@@ -100,11 +100,15 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-04-28)
+### 1.2.xx (2022-05-12)
 
-- Added the sort for IAA file list
+- Add helper functions for brat format read / write
 - Update sample schemas
 - Update sample text for testing schema
+
+### 1.2.29 (2022-04-28)
+
+- Added the sort for IAA file list
 - Updated iaa result box style
 - Updated sample dataset
 - Fixed duplicated tag in adjudicated results
