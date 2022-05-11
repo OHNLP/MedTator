@@ -39,6 +39,19 @@ var iaa_calculator = {
 
                         // now, set this tag and put it into list
                         tag.id = new_id;
+
+                        // 2022-05-11: add annotator
+                        // locate where this tag comes from
+                        if (cm == 'tp') {
+                            tag._annotator = 'AB';
+                            
+                        } else if (cm == 'fp') {
+                            tag._annotator = 'A';
+
+                        } else {
+                            tag._annotator = 'B';
+                        }
+
                         ann.tags.push(tag);
                     }
                 }

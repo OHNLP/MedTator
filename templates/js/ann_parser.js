@@ -138,6 +138,12 @@ var ann_parser = {
                         // I guess we could skip this one
                         continue;
 
+                    } else if (attr.startsWith('_')) {
+                        // which means this a special attribute
+                        // for example, _annotator
+                        var attr_lower = attr.toLocaleLowerCase();
+                        tag[attr] = value;
+
                     } else {
                         // other special rule? maybe
                         // put this value into tag
@@ -225,6 +231,8 @@ var ann_parser = {
                     // _annotator
                     // _
                     // continue;
+                    node_tag.setAttribute(attr, tag[attr]);
+                    continue;
                 }
 
                 if (attr == 'tag') {
