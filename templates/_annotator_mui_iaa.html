@@ -177,7 +177,7 @@
                                 B: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[1]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
-                                <span title="Set check"
+                                <!-- <span title="Set check"
                                     v-on:click="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star = !iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                     <span v-if="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                         <i class="fa fa-check-circle fg-emerald"></i>
@@ -185,7 +185,13 @@
                                     <span v-else>
                                         <i class="far fa-circle"></i>
                                     </span>
-                                </span>
+                                </span> -->
+                                <a href="javascript:void(0);"
+                                    v-on:click="download_gs_file(v_ann.ann_hashcode)"
+                                    v-bind:title="'Download adjudicated file ' + iaa_gs_dict[v_ann.ann_hashcode].ann._filename"
+                                    class="btn btn-xs btn-dense btn-black">
+                                    <i class="far fa-arrow-alt-circle-down"></i>
+                                </a>
                                 
                                 GS: {{ iaa_gs_dict[v_ann.ann_hashcode].ann._filename }}
                             </div>

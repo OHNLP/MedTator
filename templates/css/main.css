@@ -642,6 +642,15 @@ select.tag-attr-select {
 .btn-xs {
     font-size: .9em;
 }
+.btn-dense {
+    padding: 1px 2px !important;
+}
+.btn-black {
+    color: #333333;
+}
+.btn-black:hover {
+    color: #000000;
+}
 .btn-red {
     color: #b99090;
 }

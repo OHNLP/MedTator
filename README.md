@@ -100,11 +100,18 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-05-12)
+### 1.2.xx (2022-05-26)
 
 - Add helper functions for brat format read / write
 - Update sample schemas
 - Update sample text for testing schema
+
+### 1.2.30 (2022-05-12)
+
+- Added seperate file download for adjudicated file
+- Added annotator label for adjudicated files
+- Updated adjudication tab UI
+- Fixed edit bug
 
 ### 1.2.29 (2022-04-28)
 

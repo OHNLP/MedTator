@@ -2034,6 +2034,23 @@ var app_hotpot = {
             );
         },
 
+        download_gs_file: function(hashcode) {
+            // get this gs
+            const ann_rst = this.iaa_gs_dict[hashcode];
+            
+            // change to an ann obj
+            var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
+
+            // get the xmlText
+            var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+            var xml_text = ann_parser.xml2str(xml_doc);
+
+            // download this xml
+            var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
+            var fn = ann_rst.ann._filename;
+            saveAs(blob, fn);            
+        },
+
         download_all_gs: function() {
             // create an empty zip pack
             var zip = new JSZip();
