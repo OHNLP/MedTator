@@ -811,6 +811,15 @@ select.tag-attr-select {
 .btn-xs {
     font-size: .9em;
 }
+.btn-dense {
+    padding: 1px 2px !important;
+}
+.btn-black {
+    color: #333333;
+}
+.btn-black:hover {
+    color: #000000;
+}
 .btn-red {
     color: #b99090;
 }
@@ -2432,7 +2441,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 -->
 
-    <div>
+    <!-- <div>
         <button class="ribbon-button"
             :disabled="dtd == null || iaa_dict == null"
             title="Reset current adjudication result to default status"
@@ -2453,9 +2462,9 @@ v-bind:class="{'active': section=='iaa'}">
             <span class="caption">Edit</span>
         </button>
 
-    </div>
+    </div> -->
 
-    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> 
+    <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>  -->
 
     <div class="d-flex flex-row">
 
@@ -2479,7 +2488,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.29 | 
+            MedTator 1.2.30 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -3334,7 +3343,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 B: {{ iaa_dict.ann[v_ann.ann_hashcode].anns[1]._filename }}
                             </div>
                             <div class="iaa-bar-filename w-100">
-                                <span title="Set check"
+                                <!-- <span title="Set check"
                                     v-on:click="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star = !iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                     <span v-if="iaa_gs_dict[v_ann.ann_hashcode].ann._has_star">
                                         <i class="fa fa-check-circle fg-emerald"></i>
@@ -3342,7 +3351,13 @@ v-bind:class="{'active': section=='iaa'}">
                                     <span v-else>
                                         <i class="far fa-circle"></i>
                                     </span>
-                                </span>
+                                </span> -->
+                                <a href="javascript:void(0);"
+                                    v-on:click="download_gs_file(v_ann.ann_hashcode)"
+                                    v-bind:title="'Download adjudicated file ' + iaa_gs_dict[v_ann.ann_hashcode].ann._filename"
+                                    class="btn btn-xs btn-dense btn-black">
+                                    <i class="far fa-arrow-alt-circle-down"></i>
+                                </a>
                                 
                                 GS: {{ iaa_gs_dict[v_ann.ann_hashcode].ann._filename }}
                             </div>
@@ -5625,6 +5640,12 @@ var ann_parser = {
                         // I guess we could skip this one
                         continue;
 
+                    } else if (attr.startsWith('_')) {
+                        // which means this a special attribute
+                        // for example, _annotator
+                        var attr_lower = attr.toLocaleLowerCase();
+                        tag[attr] = value;
+
                     } else {
                         // other special rule? maybe
                         // put this value into tag
@@ -5712,6 +5733,8 @@ var ann_parser = {
                     // _annotator
                     // _
                     // continue;
+                    node_tag.setAttribute(attr, tag[attr]);
+                    continue;
                 }
 
                 if (attr == 'tag') {
@@ -8030,6 +8053,19 @@ var iaa_calculator = {
 
                         // now, set this tag and put it into list
                         tag.id = new_id;
+
+                        // 2022-05-11: add annotator
+                        // locate where this tag comes from
+                        if (cm == 'tp') {
+                            tag._annotator = 'AB';
+                            
+                        } else if (cm == 'fp') {
+                            tag._annotator = 'A';
+
+                        } else {
+                            tag._annotator = 'B';
+                        }
+
                         ann.tags.push(tag);
                     }
                 }
@@ -12267,6 +12303,23 @@ var app_hotpot = {
             this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
                 this.dtd, this.iaa_dict
             );
+        },
+
+        download_gs_file: function(hashcode) {
+            // get this gs
+            const ann_rst = this.iaa_gs_dict[hashcode];
+            
+            // change to an ann obj
+            var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
+
+            // get the xmlText
+            var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+            var xml_text = ann_parser.xml2str(xml_doc);
+
+            // download this xml
+            var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
+            var fn = ann_rst.ann._filename;
+            saveAs(blob, fn);            
         },
 
         download_all_gs: function() {
