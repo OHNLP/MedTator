@@ -381,7 +381,7 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <link rel="stylesheet" href="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['CODE_MIRROR']['CSS_ADDON_DIALOG'] ]]">
 <link rel="stylesheet" href="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['CODE_MIRROR']['CSS_ADDON_MATCHESONSCROLLBAR'] ]]">
 <!-- numjs -->
-<script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['NUMJS']['JS'] ]]"></script>
+<!-- <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['NUMJS']['JS'] ]]"></script> -->
 <!-- compromise -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['COMPROMISE']['JS'] ]]"></script>
 <!-- chart.js -->
@@ -559,6 +559,22 @@ var jarvis = {
         );
     }
 }
+
+jarvis.sample_text = {
+    'covid_vax': `Positive COVID-19 test with symptoms; 
+
+The patient had MS and was immune compromised; 
+
+This is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  
+
+Information on the batch/lot number has been requested.
+
+Sender's Comments: 
+
+Based on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information
+    `
+};
+
 
 // extend the App with data if needed
 {% if config.LIB_BASE == 'local' %}

@@ -168,9 +168,9 @@ var iaa_calculator = {
         // add the overall
         js.push({
             'tag_name': 'Overall',
-            'F1': iaa_dict.all.f1.toFixed(4),
-            'precision': iaa_dict.all.precision.toFixed(4),
-            'recall': iaa_dict.all.recall.toFixed(4),
+            'F1': this.to_fixed(iaa_dict.all.f1),
+            'precision': this.to_fixed(iaa_dict.all.precision),
+            'recall': this.to_fixed(iaa_dict.all.recall),
             'TP': iaa_dict.all.cm.tp,
             'FP': iaa_dict.all.cm.fp,
             'FN': iaa_dict.all.cm.fn,
@@ -183,9 +183,9 @@ var iaa_calculator = {
             // add this tag to the summary
             js.push({
                 'tag_name': etag_name,
-                'F1': iaa_dict.tag[etag_name].f1.toFixed(4),
-                'precision': iaa_dict.tag[etag_name].precision.toFixed(4),
-                'recall': iaa_dict.tag[etag_name].recall.toFixed(4),
+                'F1': this.to_fixed(iaa_dict.tag[etag_name].f1),
+                'precision': this.to_fixed(iaa_dict.tag[etag_name].precision),
+                'recall': this.to_fixed(iaa_dict.tag[etag_name].recall),
                 'TP': iaa_dict.tag[etag_name].cm.tp,
                 'FP': iaa_dict.tag[etag_name].cm.fp,
                 'FN': iaa_dict.tag[etag_name].cm.fn,
@@ -1500,7 +1500,7 @@ var iaa_calculator = {
         if (typeof(v) == 'undefined' ||
             v == null || 
             isNaN(v)) {
-            return '0.0000';
+            return 'NA';
         }
         return v.toFixed(4);
     },

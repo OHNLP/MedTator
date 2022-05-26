@@ -100,11 +100,12 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-05-26)
+### 1.2.31 (2022-05-26)
 
-- Add helper functions for brat format read / write
-- Update sample schemas
-- Update sample text for testing schema
+- Added sample text for schema test
+- Updated texts on UI
+- Updated CDN URLs for some packages
+- Fixed default IAA sample data bug
 
 ### 1.2.30 (2022-05-12)
 

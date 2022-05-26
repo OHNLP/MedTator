@@ -92,8 +92,10 @@ THIRD_PARTY_LIB_URL={
 },
 'cdn': {
     'METRO_UI': {
-        'CSS': "https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css",
-        'JS': "https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"
+        'CSS': "https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.5/css/metro-all.min.css",
+        'JS': "https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.5/js/metro.min.js",
+        # 'CSS': "https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css",
+        # 'JS': "https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"
     },
     'FONT_AWESOME': {
         'CSS': "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"

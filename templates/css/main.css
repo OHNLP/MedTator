@@ -948,6 +948,11 @@ input[type=text].ipt-spinner-xs {
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;
 }
+ol[class], ul[class] {
+    list-style: none inside;
+    margin: 0;
+    padding: 0;
+}
 /* for the linking panel */
 #pan_working_tag {
     position: absolute;

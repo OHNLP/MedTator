@@ -813,6 +813,25 @@ var app_hotpot = {
             );
         },
 
+        load_sample_txt: function() {
+            if (this.dtd == null) {
+                app_hotpot.toast(
+                    'Please load annotation schema first',
+                    'warning'
+                );
+                return;
+            }
+            var ann = this.add_sample_txt_as_ann(
+                jarvis.sample_text['covid_vax']
+            );
+
+            app_hotpot.toast(
+                'Loaded a sample text [' + 
+                ann._filename +
+                '] for test'
+            );
+        },
+
         open_dtd_file: function() {
             if (isFSA_API_OK) {
                 // the settings for dtd file
@@ -1595,6 +1614,40 @@ var app_hotpot = {
     
             // put this to the list
             this.txt_anns.push(txt_ann);
+        },
+
+        add_sample_txt_as_ann: function(text) {
+
+            // first, create an ann
+            var ann = ann_parser.txt2ann(text, this.dtd);
+
+            // bind the fh
+            ann._fh = null;
+
+            // bind the filename seperately
+            ann._filename = 'sample-'+
+                (Math.random() + 1).toString(36).substring(7)+
+                '.xml';
+
+            // bind a status
+            ann._has_saved = true;
+
+            // bind the sentences variable
+            ann._sentences = null;
+            ann._sentences_text = null;
+
+            // sentencize
+            var r = nlp_toolkit.sent_tokenize(
+                ann.text,
+                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+            );
+            ann._sentences = r.sentences;
+            ann._sentences_text = r.sentences_text;
+
+            // add this ann
+            app_hotpot.add_ann(ann);
+            
+            return ann;
         },
 
         convert_txt_anns_to_xmls: function() {

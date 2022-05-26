@@ -2552,6 +2552,18 @@
             "tag": "VAX",
             "text": "BNT162B2",
             "spans": "423~431"
+        },
+        {
+            "id": "hint-VAX-1-0",
+            "tag": "VAX",
+            "text": "expiry",
+            "spans": "273~279"
+        },
+        {
+            "id": "hint-VAX-1-1",
+            "tag": "VAX",
+            "text": "expiry",
+            "spans": "464~470"
         }
     ],
     "hint_dict": {
@@ -9129,6 +9141,7 @@
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
+    "iaa_sort_anns_by": "default",
     "iaa_gs_dict": {
         "6676480733325162": {
             "ann": {
