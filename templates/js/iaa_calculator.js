@@ -160,6 +160,166 @@ var iaa_calculator = {
         return gs_dict;
     },
 
+    get_iaa_report_cohen_kappa_json: function(iaa_dict, dtd) {
+        // there are the following columns in the cohen's kappa
+        // N + 3
+        // where the N is the total number of tags
+        // the 3 columns are A, EMPTY for B, and P_b
+        var js = [];
+
+        // the first row, just names
+        // var j = {
+        //     'tag_name': ''
+        // };
+        // for (let i = 0; i < dtd.etags.length; i++) {
+        //     const tag_def_col = dtd.etags[i];
+        //     j[tag_def_col.name] = tag_def_col.name;
+        // }
+        // j['EMPTY_b'] = 'EMPTY_b';
+        // j['P_b'] = 'P_b';
+        // js.push(j);
+
+        // all tags
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_row = dtd.etags[i];
+            
+            var j = {
+                'annotator': 'A',
+                'tag_name': tag_def_row.name
+            };
+            for (let k = 0; k < dtd.etags.length; k++) {
+                const tag_def_col = dtd.etags[k];
+                if (tag_def_row.name == tag_def_col.name) {
+                    j[tag_def_col.name] = iaa_dict.tag[tag_def_col.name].cm.tp;
+                } else {
+                    j[tag_def_col.name] = '';
+                }
+            }
+            j['EMPTY_b'] = iaa_dict.tag[tag_def_row.name].cm.fp;
+            j['P_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]);
+            js.push(j);
+        }
+
+        // EMPTY for a
+        j = {
+            'annotator': '',
+            'tag_name': 'EMPTY_a'
+        }
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_col = dtd.etags[i];
+            j[tag_def_col.name] = iaa_dict.tag[tag_def_col.name].cm.fn;
+        }
+        j['EMPTY_b'] = 0;
+        j['P_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']);
+        js.push(j);
+
+        // P for a
+        j = {
+            'annotator': '',
+            'tag_name': 'P_a'
+        }
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_col = dtd.etags[i];
+            j[tag_def_col.name] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]);
+        }
+        j['EMPTY_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']);
+        j['P_b'] = '';
+        js.push(j);
+
+        return js;
+    },
+
+    extend_iaa_report_cohen_kappa_json: function(iaa_dict, dtd, js) {
+        // blank lines
+        js.push({});
+        js.push({});
+        js.push({});
+
+        // overall 
+        js.push({
+            'annotator': "Overall Cohen's Kappa",
+            "tag_name": this.to_fixed(iaa_dict.all.cohen_kappa.kappa)
+        });
+
+        // percentage agreement
+        js.push({
+            'annotator': 'Percentage Agreement',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Po)
+        });
+
+        // TP
+        js.push({
+            'annotator': "TP", 
+            'tag_name': iaa_dict.all.cm.tp
+        });
+
+        // FP
+        js.push({
+            'annotator': 'FP',
+            'tag_name': iaa_dict.all.cm.fp
+        });
+
+        // FN
+        js.push({
+            'annotator': 'FN',
+            'tag_name': iaa_dict.all.cm.fn
+        });
+
+        // N
+        js.push({
+            'annotator': 'N',
+            'tag_name': iaa_dict.all.cohen_kappa.N 
+        });
+
+        // Po
+        js.push({
+            'annotator': 'Po',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Po)
+        });
+
+        // Pe
+        js.push({
+            'annotator': 'Pe',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Pe)
+        });
+
+        // SE_k
+        js.push({
+            'annotator': 'SE_k',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.SE_k)
+        });
+
+        // 95% CI lower
+        js.push({
+            'annotator': '95% CI Lower',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.lower)
+        });
+
+        // 95% CI upper
+        js.push({
+            'annotator': '95% CI Upper',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.upper)
+        });
+        return js;
+    },
+
+    get_iaa_report_cohen_kappa_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_cohen_kappa_json(
+            iaa_dict, 
+            dtd
+        );
+
+        js = this.extend_iaa_report_cohen_kappa_json(
+            iaa_dict,
+            dtd,
+            js
+        );
+
+        var ws_cohen = XLSX.utils.json_to_sheet(js);
+
+        return ws_cohen;
+    },
+
     get_iaa_report_summary_json: function(iaa_dict, dtd) {
         // there are the following columns in the summary
         // Tag Name, F1, precision, recall, TP, FP, FN

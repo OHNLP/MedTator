@@ -100,9 +100,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.31 (2022-05-26)
+### 1.2.32 (2022-05-26)
 
 - Added sample text for schema test
+- Added Cohen's Kappa score to exported XLSX report
 - Updated texts on UI
 - Updated CDN URLs for some packages
 - Fixed default IAA sample data bug

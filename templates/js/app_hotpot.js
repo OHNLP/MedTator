@@ -2136,10 +2136,26 @@ var app_hotpot = {
         },
 
         export_iaa_report: function() {
+            
+            // // Acquire Data (reference to the HTML table)
+            // var table_elt = document.getElementById("table_cohen_kappa_confusion_matrix");
+
+            // // Extract Data (create a workbook object from the table)
+            // var workbook = XLSX.utils.table_to_book(table_elt);
+
+            // // Process Data (add a new row)
+            // var ws_cohen = workbook.Sheets["Sheet1"];
+
             // create each sheet
             // sheet 1. the summary
             // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
             var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
+            // sheet 1.1 the cohen's kappa
+            var ws_cohen = iaa_calculator.get_iaa_report_cohen_kappa_excelws(
                 this.iaa_dict,
                 this.dtd
             );
@@ -2167,13 +2183,15 @@ var app_hotpot = {
             // create wb for download
             var wb = {
                 SheetNames: [
-                    "Summary",
+                    "F1-Score",
+                    "Cohen Kappa",
                     "Files",
                     "Tags",
                     "Adjudication"
                 ],
                 Sheets: {
-                    Summary: ws_summary,
+                    "F1-Score": ws_summary,
+                    "Cohen Kappa": ws_cohen,
                     Files: ws_files,
                     Tags: ws_tags,
                     Adjudication: ws_adj
