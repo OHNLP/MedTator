@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 <!-- Metro UI style -->
-<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.5/css/metro-all.min.css">
 
 <!-- jquery UI style -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
@@ -1117,6 +1117,11 @@ input[type=text].ipt-spinner-xs {
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;
 }
+ol[class], ul[class] {
+    list-style: none inside;
+    margin: 0;
+    padding: 0;
+}
 /* for the linking panel */
 #pan_working_tag {
     position: absolute;
@@ -1806,6 +1811,12 @@ v-bind:class="{'active': section=='annotation'}">
             </li>
             
             
+            <li class="divider"></li>
+            <li title="Sample Text: COVID vaccine note for annotation test"
+                v-on:click="load_sample_txt">
+                
+                <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
+            </li>
         </ul>
     </div>
 
@@ -2488,7 +2499,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.30 | 
+            MedTator 1.2.32 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -3663,186 +3674,184 @@ v-bind:class="{'active': section=='iaa'}">
 
                 <div class="box-body d-flex flex-column">
                     <div>
-                        Overall Cohen's Kappa: 
-                        <b>
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.kappa) }} 
-                        </b>
+    Overall Cohen's Kappa: 
+    <b>
+        {{ to_fixed(iaa_dict.all.cohen_kappa.kappa) }} 
+    </b>
+    &nbsp;
+    &nbsp;
+    Percentage Agreement: 
+    <b>
+        {{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}
+    </b>
+
+    <br>
+    
+    <i class="ml-1">TP</i>: <b>{{ iaa_dict.all.cm.tp }}</b>
+    &nbsp;
+    <i class="ml-1">FP</i>: <b>{{ iaa_dict.all.cm.fp }}</b>
+    &nbsp;
+    <i class="ml-1">FN</i>: <b>{{ iaa_dict.all.cm.fn }}</b>
+    &nbsp;
+    <i class="ml-1">N</i>: <b>{{ iaa_dict.all.cohen_kappa.N }}</b>
+    <br>
+
+    <i class="ml-1">Po</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}</b>
+    &nbsp;
+    <i class="ml-1">Pe</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Pe) }}</b>
+    &nbsp;
+    <i class="ml-1">SE<sub>k</sub></i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.SE_k) }}</b>
+    &nbsp;
+    <i class="ml-1">95% CI</i>: 
+    <b>
+        {{ to_fixed(iaa_dict.all.cohen_kappa.lower) }}, 
+        {{ to_fixed(iaa_dict.all.cohen_kappa.upper) }}
+    </b>
+
+</div>
+
+<!-- 
+<div class="mr-2">
+    <p>
+        Cohen's Kappa of each document
+    </p>
+
+    <div v-for="ann_rst, ann_hashcode in iaa_dict.ann"
+        v-bind:class="{'iaa-row-actived': iaa_display_hashcode == ann_hashcode}"
+        class="iaa-row d-flex flex-row">
+        <div class="iaa-bar-name-box d-flex flex-row flex-align-center flex-justify-start mr-1">
+            {{ ann_rst.anns[0]._filename }}
+        </div>
+        <div>
+            <b>
+                {{ to_fixed(ann_rst.rst.all.cohen_kappa.kappa ) }}
+            </b>&nbsp;
+            (
+                {{ to_fixed(ann_rst.rst.all.cohen_kappa.lower) }} , 
+                {{ to_fixed(ann_rst.rst.all.cohen_kappa.upper) }}
+            )
+        </div>
+    </div>
+
+
+</div> 
+-->
+
+<div class="mr-2">
+    <table id="table_cohen_kappa_confusion_matrix" class="doctag-table">
+        <thead>
+            <tr style="background: white;">
+                <th style="border: 0;"
+                    colspan="2">
+                    &nbsp;
+                </th>
+                <th v-bind:colspan="dtd.etags.length+2">
+                    <b>
+                        Annotator B
+                    </b>
+                </th>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th v-for="tag_def in dtd.etags"
+                    v-bind:class="'fg-tag-' + tag_def.name">
+                    <span class="rotate-90">
+                        <i class="fa fa-tag"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                        </i>
+                        {{ tag_def.name }}
+                    </span>
+                </th>
+                <!-- 
+                <th v-for="tag_def in dtd.ltags"
+                    v-bind:class="'fg-tag-' + tag_def.name">
+                    <span class="rotate-90">
+                        <i class="fa fa-link"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                        </i>
+                        {{ tag_def.name }}
+                    </span>
+                </th> 
+                -->
+    
+                <th>EMPTY</th>
+                <th>
+                    <i>P<sub>b</sub></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="tag_def_row, row_idx in dtd.etags">
+                <td v-if="row_idx == 0"
+                    style="vertical-align: middle; padding: 10px;"
+                    v-bind:rowspan="dtd.etags.length+2">
+                    <b>Annotator A</b>
+                </td>
+                <td v-bind:class="'fg-tag-' + tag_def_row.name">
+                    <span class="txt-bold">
+                        <i class="fa fa-tag"></i>
+                        {{ tag_def_row.name }}
+                    </span>
+                </td>
+                <td v-for="tag_def_col in dtd.etags">
+                    <span v-if="tag_def_col.name == tag_def_row.name">
+                        {{ iaa_dict.tag[tag_def_row.name].cm.tp }}
+                    </span>
+                    <span v-else>
                         &nbsp;
-                        &nbsp;
-                        Percentage Agreement: 
-                        <b>
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}
-                        </b>
-
-                        <br>
-                        
-                        <i class="ml-1">TP</i>: <b>{{ iaa_dict.all.cm.tp }}</b>
-                        &nbsp;
-                        <i class="ml-1">FP</i>: <b>{{ iaa_dict.all.cm.fp }}</b>
-                        &nbsp;
-                        <i class="ml-1">FN</i>: <b>{{ iaa_dict.all.cm.fn }}</b>
-                        &nbsp;
-                        <i class="ml-1">N</i>: <b>{{ iaa_dict.all.cohen_kappa.N }}</b>
-                        <br>
-
-                        <i class="ml-1">Po</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Po) }}</b>
-                        &nbsp;
-                        <i class="ml-1">Pe</i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.Pe) }}</b>
-                        &nbsp;
-                        <i class="ml-1">SE<sub>k</sub></i>: <b>{{ to_fixed(iaa_dict.all.cohen_kappa.SE_k) }}</b>
-                        &nbsp;
-                        <i class="ml-1">95% CI</i>: 
-                        <b>
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.lower) }}, 
-                            {{ to_fixed(iaa_dict.all.cohen_kappa.upper) }}
-                        </b>
-
-                    </div>
-
-                    <!-- 
-                    <div class="mr-2">
-                        <p>
-                            Cohen's Kappa of each document
-                        </p>
-
-                        <div v-for="ann_rst, ann_hashcode in iaa_dict.ann"
-                            v-bind:class="{'iaa-row-actived': iaa_display_hashcode == ann_hashcode}"
-                            class="iaa-row d-flex flex-row">
-                            <div class="iaa-bar-name-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                {{ ann_rst.anns[0]._filename }}
-                            </div>
-                            <div>
-                                <b>
-                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.kappa ) }}
-                                </b>&nbsp;
-                                (
-                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.lower) }} , 
-                                    {{ to_fixed(ann_rst.rst.all.cohen_kappa.upper) }}
-                                )
-                            </div>
-                        </div>
-
-
-                    </div> 
-                    -->
-
-                    <div class="mr-2">
-                        <table class="doctag-table">
-                            <thead>
-                                <tr style="background: white;">
-                                    <th style="border: 0;"
-                                        colspan="2">
-                                        &nbsp;
-                                    </th>
-                                    <th v-bind:colspan="dtd.etags.length+2">
-                                        <b>
-                                            Annotator B
-                                        </b>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>&nbsp;</th>
-                                    <th>&nbsp;</th>
-                                    <th v-for="tag_def in dtd.etags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-tag"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th>
-                                    <!-- 
-                                    <th v-for="tag_def in dtd.ltags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-link"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th> 
-                                    -->
-
-                                    <th>EMPTY</th>
-                                    <th>
-                                        <i>P<sub>b</sub></i>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="tag_def_row, row_idx in dtd.etags">
-                                    <td v-if="row_idx == 0"
-                                        style="vertical-align: middle; padding: 10px;"
-                                        v-bind:rowspan="dtd.etags.length+2">
-                                        <b>Annotator A</b>
-                                    </td>
-                                    <td v-bind:class="'fg-tag-' + tag_def_row.name">
-                                        <span class="txt-bold">
-                                            <i class="fa fa-tag"></i>
-                                            {{ tag_def_row.name }}
-                                        </span>
-                                    </td>
-                                    <td v-for="tag_def_col in dtd.etags">
-                                        <span v-if="tag_def_col.name == tag_def_row.name">
-                                            {{ iaa_dict.tag[tag_def_row.name].cm.tp }}
-                                        </span>
-                                        <span v-else>
-                                            &nbsp;
-                                        </span>
-                                    </td>
-                                    <td class="clr-grey">
-                                        {{ iaa_dict.tag[tag_def_row.name].cm.fp }}
-                                    </td>
-                                    <td class="txt-italic">
-                                        <span>
-                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]) }}
-                                        </span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="txt-bold">EMPTY</td>
-                                    <td v-for="tag_def_col in dtd.etags"
-                                        class="clr-grey">
-                                        <span>
-                                            {{ iaa_dict.tag[tag_def_col.name].cm.fn }}
-                                        </span>
-                                    </td>
-                                    <td class="clr-grey">
-                                        0
-                                    </td>
-                                    <td class="txt-italic">
-                                        <span>
-                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']) }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="txt-bold">
-                                        <i>P<sub>a</sub></i>
-                                    </td>
-                                    <td v-for="tag_def_col in dtd.etags"
-                                        class="txt-italic">
-                                        <span>
-                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]) }}
-                                        </span>
-                                    </td>
-                                    <td class="txt-italic">
-                                        <span>
-                                            {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']) }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p>
-                            
-                            
-                        </p>
-                    </div>
-
-
+                    </span>
+                </td>
+                <td class="clr-grey">
+                    {{ iaa_dict.tag[tag_def_row.name].cm.fp }}
+                </td>
+                <td class="txt-italic">
+                    <span>
+                        {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]) }}
+                    </span>
+                </td>
+            </tr>
+    
+            <tr>
+                <td class="txt-bold">EMPTY</td>
+                <td v-for="tag_def_col in dtd.etags"
+                    class="clr-grey">
+                    <span>
+                        {{ iaa_dict.tag[tag_def_col.name].cm.fn }}
+                    </span>
+                </td>
+                <td class="clr-grey">
+                    0
+                </td>
+                <td class="txt-italic">
+                    <span>
+                        {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']) }}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="txt-bold">
+                    <i>P<sub>a</sub></i>
+                </td>
+                <td v-for="tag_def_col in dtd.etags"
+                    class="txt-italic">
+                    <span>
+                        {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]) }}
+                    </span>
+                </td>
+                <td class="txt-italic">
+                    <span>
+                        {{ to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']) }}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        
+        
+    </p>
+</div>
                 </div>
             </div>
         </div>
@@ -4591,7 +4600,7 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 </script>
 <!-- metro ui -->
-<script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.5/js/metro.min.js"></script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- jQuery UI -->
@@ -4620,7 +4629,7 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/dialog/dialog.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/addon/search/matchesonscrollbar.min.css">
 <!-- numjs -->
-<script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script> -->
 <!-- compromise -->
 <script src="https://unpkg.com/compromise"></script>
 <!-- chart.js -->
@@ -8174,6 +8183,166 @@ var iaa_calculator = {
         return gs_dict;
     },
 
+    get_iaa_report_cohen_kappa_json: function(iaa_dict, dtd) {
+        // there are the following columns in the cohen's kappa
+        // N + 3
+        // where the N is the total number of tags
+        // the 3 columns are A, EMPTY for B, and P_b
+        var js = [];
+
+        // the first row, just names
+        // var j = {
+        //     'tag_name': ''
+        // };
+        // for (let i = 0; i < dtd.etags.length; i++) {
+        //     const tag_def_col = dtd.etags[i];
+        //     j[tag_def_col.name] = tag_def_col.name;
+        // }
+        // j['EMPTY_b'] = 'EMPTY_b';
+        // j['P_b'] = 'P_b';
+        // js.push(j);
+
+        // all tags
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_row = dtd.etags[i];
+            
+            var j = {
+                'annotator': 'A',
+                'tag_name': tag_def_row.name
+            };
+            for (let k = 0; k < dtd.etags.length; k++) {
+                const tag_def_col = dtd.etags[k];
+                if (tag_def_row.name == tag_def_col.name) {
+                    j[tag_def_col.name] = iaa_dict.tag[tag_def_col.name].cm.tp;
+                } else {
+                    j[tag_def_col.name] = '';
+                }
+            }
+            j['EMPTY_b'] = iaa_dict.tag[tag_def_row.name].cm.fp;
+            j['P_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.b[tag_def_row.name]);
+            js.push(j);
+        }
+
+        // EMPTY for a
+        j = {
+            'annotator': '',
+            'tag_name': 'EMPTY_a'
+        }
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_col = dtd.etags[i];
+            j[tag_def_col.name] = iaa_dict.tag[tag_def_col.name].cm.fn;
+        }
+        j['EMPTY_b'] = 0;
+        j['P_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.b['_EMPTY_']);
+        js.push(j);
+
+        // P for a
+        j = {
+            'annotator': '',
+            'tag_name': 'P_a'
+        }
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag_def_col = dtd.etags[i];
+            j[tag_def_col.name] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.a[tag_def_col.name]);
+        }
+        j['EMPTY_b'] = this.to_fixed(iaa_dict.all.cohen_kappa.Pes.a['_EMPTY_']);
+        j['P_b'] = '';
+        js.push(j);
+
+        return js;
+    },
+
+    extend_iaa_report_cohen_kappa_json: function(iaa_dict, dtd, js) {
+        // blank lines
+        js.push({});
+        js.push({});
+        js.push({});
+
+        // overall 
+        js.push({
+            'annotator': "Overall Cohen's Kappa",
+            "tag_name": this.to_fixed(iaa_dict.all.cohen_kappa.kappa)
+        });
+
+        // percentage agreement
+        js.push({
+            'annotator': 'Percentage Agreement',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Po)
+        });
+
+        // TP
+        js.push({
+            'annotator': "TP", 
+            'tag_name': iaa_dict.all.cm.tp
+        });
+
+        // FP
+        js.push({
+            'annotator': 'FP',
+            'tag_name': iaa_dict.all.cm.fp
+        });
+
+        // FN
+        js.push({
+            'annotator': 'FN',
+            'tag_name': iaa_dict.all.cm.fn
+        });
+
+        // N
+        js.push({
+            'annotator': 'N',
+            'tag_name': iaa_dict.all.cohen_kappa.N 
+        });
+
+        // Po
+        js.push({
+            'annotator': 'Po',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Po)
+        });
+
+        // Pe
+        js.push({
+            'annotator': 'Pe',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.Pe)
+        });
+
+        // SE_k
+        js.push({
+            'annotator': 'SE_k',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.SE_k)
+        });
+
+        // 95% CI lower
+        js.push({
+            'annotator': '95% CI Lower',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.lower)
+        });
+
+        // 95% CI upper
+        js.push({
+            'annotator': '95% CI Upper',
+            'tag_name': this.to_fixed(iaa_dict.all.cohen_kappa.upper)
+        });
+        return js;
+    },
+
+    get_iaa_report_cohen_kappa_excelws: function(iaa_dict, dtd) {
+        var js = this.get_iaa_report_cohen_kappa_json(
+            iaa_dict, 
+            dtd
+        );
+
+        js = this.extend_iaa_report_cohen_kappa_json(
+            iaa_dict,
+            dtd,
+            js
+        );
+
+        var ws_cohen = XLSX.utils.json_to_sheet(js);
+
+        return ws_cohen;
+    },
+
     get_iaa_report_summary_json: function(iaa_dict, dtd) {
         // there are the following columns in the summary
         // Tag Name, F1, precision, recall, TP, FP, FN
@@ -8182,9 +8351,9 @@ var iaa_calculator = {
         // add the overall
         js.push({
             'tag_name': 'Overall',
-            'F1': iaa_dict.all.f1.toFixed(4),
-            'precision': iaa_dict.all.precision.toFixed(4),
-            'recall': iaa_dict.all.recall.toFixed(4),
+            'F1': this.to_fixed(iaa_dict.all.f1),
+            'precision': this.to_fixed(iaa_dict.all.precision),
+            'recall': this.to_fixed(iaa_dict.all.recall),
             'TP': iaa_dict.all.cm.tp,
             'FP': iaa_dict.all.cm.fp,
             'FN': iaa_dict.all.cm.fn,
@@ -8197,9 +8366,9 @@ var iaa_calculator = {
             // add this tag to the summary
             js.push({
                 'tag_name': etag_name,
-                'F1': iaa_dict.tag[etag_name].f1.toFixed(4),
-                'precision': iaa_dict.tag[etag_name].precision.toFixed(4),
-                'recall': iaa_dict.tag[etag_name].recall.toFixed(4),
+                'F1': this.to_fixed(iaa_dict.tag[etag_name].f1),
+                'precision': this.to_fixed(iaa_dict.tag[etag_name].precision),
+                'recall': this.to_fixed(iaa_dict.tag[etag_name].recall),
                 'TP': iaa_dict.tag[etag_name].cm.tp,
                 'FP': iaa_dict.tag[etag_name].cm.fp,
                 'FN': iaa_dict.tag[etag_name].cm.fn,
@@ -9514,7 +9683,7 @@ var iaa_calculator = {
         if (typeof(v) == 'undefined' ||
             v == null || 
             isNaN(v)) {
-            return '0.0000';
+            return 'NA';
         }
         return v.toFixed(4);
     },
@@ -11084,6 +11253,25 @@ var app_hotpot = {
             );
         },
 
+        load_sample_txt: function() {
+            if (this.dtd == null) {
+                app_hotpot.toast(
+                    'Please load annotation schema first',
+                    'warning'
+                );
+                return;
+            }
+            var ann = this.add_sample_txt_as_ann(
+                jarvis.sample_text['covid_vax']
+            );
+
+            app_hotpot.toast(
+                'Loaded a sample text [' + 
+                ann._filename +
+                '] for test'
+            );
+        },
+
         open_dtd_file: function() {
             if (isFSA_API_OK) {
                 // the settings for dtd file
@@ -11868,6 +12056,40 @@ var app_hotpot = {
             this.txt_anns.push(txt_ann);
         },
 
+        add_sample_txt_as_ann: function(text) {
+
+            // first, create an ann
+            var ann = ann_parser.txt2ann(text, this.dtd);
+
+            // bind the fh
+            ann._fh = null;
+
+            // bind the filename seperately
+            ann._filename = 'sample-'+
+                (Math.random() + 1).toString(36).substring(7)+
+                '.xml';
+
+            // bind a status
+            ann._has_saved = true;
+
+            // bind the sentences variable
+            ann._sentences = null;
+            ann._sentences_text = null;
+
+            // sentencize
+            var r = nlp_toolkit.sent_tokenize(
+                ann.text,
+                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+            );
+            ann._sentences = r.sentences;
+            ann._sentences_text = r.sentences_text;
+
+            // add this ann
+            app_hotpot.add_ann(ann);
+            
+            return ann;
+        },
+
         convert_txt_anns_to_xmls: function() {
             // clear the current txt_xmls
             this.txt_xmls = [];
@@ -12354,10 +12576,26 @@ var app_hotpot = {
         },
 
         export_iaa_report: function() {
+            
+            // // Acquire Data (reference to the HTML table)
+            // var table_elt = document.getElementById("table_cohen_kappa_confusion_matrix");
+
+            // // Extract Data (create a workbook object from the table)
+            // var workbook = XLSX.utils.table_to_book(table_elt);
+
+            // // Process Data (add a new row)
+            // var ws_cohen = workbook.Sheets["Sheet1"];
+
             // create each sheet
             // sheet 1. the summary
             // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
             var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
+                this.iaa_dict,
+                this.dtd
+            );
+
+            // sheet 1.1 the cohen's kappa
+            var ws_cohen = iaa_calculator.get_iaa_report_cohen_kappa_excelws(
                 this.iaa_dict,
                 this.dtd
             );
@@ -12385,13 +12623,15 @@ var app_hotpot = {
             // create wb for download
             var wb = {
                 SheetNames: [
-                    "Summary",
+                    "F1-Score",
+                    "Cohen Kappa",
                     "Files",
                     "Tags",
                     "Adjudication"
                 ],
                 Sheets: {
-                    Summary: ws_summary,
+                    "F1-Score": ws_summary,
+                    "Cohen Kappa": ws_cohen,
                     Files: ws_files,
                     Tags: ws_tags,
                     Adjudication: ws_adj
@@ -15987,6 +16227,22 @@ var jarvis = {
         );
     }
 }
+
+jarvis.sample_text = {
+    'covid_vax': `Positive COVID-19 test with symptoms; 
+
+The patient had MS and was immune compromised; 
+
+This is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  
+
+Information on the batch/lot number has been requested.
+
+Sender's Comments: 
+
+Based on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information
+    `
+};
+
 
 // extend the App with data if needed
 
