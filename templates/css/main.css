@@ -571,8 +571,8 @@ tr.tag-table-tr-actived {
     width: 60px;
 }
 .tag-table th.tag-spans {
-    max-width: 200px;
-    width: 120px;
+    max-width: 220px;
+    width: 140px;
 }
 .tag-table td {
     border-bottom: 1px dotted #aaaaaa;
@@ -656,6 +656,24 @@ select.tag-attr-select {
 }
 .btn-red:hover {
     color: red;
+}
+.btn-green {
+    color: rgb(77, 118, 15);
+}
+.btn-green:hover {
+    color: #68e22f;
+}
+.btn-orange {
+    color: rgb(186, 107, 42);
+}
+.btn-orange:hover {
+    color: rgb(239, 145, 45);
+}
+.btn-blue {
+    color: rgb(24, 70, 139);
+}
+.btn-blue:hover {
+    color: rgb(70, 166, 235);
 }
 input[type=text].ipt-xs {
     font-size: 1em;
@@ -1197,4 +1215,29 @@ ol[class], ul[class] {
     height: 20px !important;
     width: 50px !important;
     line-height: 20px !important;
+}
+
+/* labels */
+.label-red {
+    color: #a5311d;
+}
+.label-yellow {
+    color: #f3dd34;
+}
+.label-green {
+    color: #61a51d;
+}
+.label-blue {
+    color: #3287e8;
+}
+.label-purple {
+    color: purple;
+}
+
+/* annotator-actions */
+.box-annotator-actions { 
+    display: none;
+}
+.tag-table-row:hover .box-annotator-actions {
+    display: inline;
 }

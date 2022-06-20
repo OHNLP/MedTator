@@ -91,7 +91,12 @@
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
                                 </a>
-                                
+                                <span v-if="has_any_label(anns[v_ann.idx])">
+                                    <span v-for="ann_label in anns[v_ann.idx].meta.label"
+                                        :class="'label-' + ann_label.color">
+                                        <i class="fas fa-bookmark"></i>
+                                    </span>
+                                </span>
                                 <span>
                                     {{ v_ann._filename }}
                                 </span>
@@ -244,7 +249,7 @@
                     <tr>
                         <th class="tag-name">Tag</th>
                         <th class="tag-id">ID</th>
-                        <th class="tag-span">Spans</th>
+                        <th class="tag-spans">Spans</th>
                         <th class="tag-text">Text</th>
                         <th class="tag-attr">Attributes</th>
                     </tr>
@@ -289,10 +294,10 @@
                         <td v-bind:class="{'c-pointer': !is_etag_doc_level(tag)}"
                             v-on:click="on_click_tag_table_row(tag)">
                             <span v-if="tag.hasOwnProperty('_annotator')"
-                                class="mr-2"
-                                v-bind:class="'iaa-annotator-' + tag._annotator">
-                                <i v-if="tag._annotator != 'G'" class="fa fa-user-edit"></i>
-                                <i v-else class="fa fa-user-plus"></i>
+                                v-bind:class="'iaa-annotator-' + tag._annotator"
+                                class="mr-2">
+                                <i v-if="tag._annotator == 'AB'" class="fa fa-user-check"></i>
+                                <i v-else class="fa fa-user-edit"></i>
                                 {{ tag._annotator }}
                             </span>
                             <!-- <span v-else
@@ -310,6 +315,36 @@
                             <span v-else
                                 class="c-pointer">
                                 LINK
+                            </span>
+
+                            <span v-if="tag.hasOwnProperty('_annotator')"
+                                class="box-annotator-actions">
+                                <!-- this is a adjudication tag -->
+                                <br>
+                                <button class="btn btn-xs btn-green"
+                                    title="Set this tag as both agreed"
+                                    v-if="tag._annotator != 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'AB')">
+                                    <i class="far fa-handshake"></i>
+                                    Both A and B
+                                </button>
+                                
+
+                                <button class="btn btn-xs btn-orange"
+                                    title="Set annotator to A"
+                                    v-if="tag._annotator == 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'A')">
+                                    <i class="fas fa-user-edit"></i>
+                                    Only A
+                                </button>
+
+                                <button class="btn btn-xs btn-blue"
+                                    title="Set annotator to B"
+                                    v-if="tag._annotator == 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'B')">
+                                    <i class="fas fa-user-edit"></i>
+                                    Only B
+                                </button>
                             </span>
                         </td>
 

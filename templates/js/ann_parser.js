@@ -26,7 +26,8 @@ var ann_parser = {
         var ann = {
             text: txt,
             dtd_name: dtd.name,
-            tags: []
+            tags: [],
+            meta: {},  // the meta data of this annotation
         };
 
         return ann;
@@ -194,7 +195,44 @@ var ann_parser = {
             // it's very very possible that no meta data
             // then just skip
         } else {
+            // Wow! that's great!
+            // We found some meta data for this annotation!
+            // just save everything to `ann.meta`?
 
+            // check all
+            var elems = xmlDoc.getElementsByTagName('META')[0].children;
+            for (let i = 0; i < elems.length; i++) {
+                var elem = elems[i];
+
+                // get the attributes
+                var tag_name = elem.tagName;
+
+                // decide the format
+                if (ann.meta.hasOwnProperty(tag_name)) {
+                    // nothing to do
+                } else {
+                    // we assume each tag may have multiple tags
+                    ann.meta[tag_name] = [];
+                }
+
+                // get all attr names
+                var attrs = elem.getAttributeNames();
+
+                // create a temp obj
+                var obj = {};
+
+                // put all attrs 
+                for (let j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    var value = elem.getAttribute(attr);
+
+                    // put value
+                    obj[attr] = value;
+                }
+
+                // save this obj
+                ann.meta[tag_name].push(obj);
+            }
         }
 
         return ann;
@@ -303,7 +341,36 @@ var ann_parser = {
         }
         root.appendChild(node_TAGS);
 
+        if (!ann.hasOwnProperty('meta')) {
+            // this is old format, there is no meta
+            return xmlDoc;
+        }
+
         // create the meta
+        var node_META = xmlDoc.createElement('META');
+        for (const key in ann.meta) {
+            if (Object.hasOwnProperty.call(ann.meta, key)) {
+                const objs = ann.meta[key];
+                
+                // objs is a list of items of this key
+
+                for (let i = 0; i < objs.length; i++) {
+                    const obj = objs[i];
+
+                    // create a node for this tag
+                    var node_tag = xmlDoc.createElement(key);
+                    
+                    // save this obj
+                    for (const attr in obj) {
+                        node_tag.setAttribute(attr, obj[attr]);
+                    }
+
+                    // save this node
+                    node_META.appendChild(node_tag);
+                }
+            }
+        }
+        root.appendChild(node_META);
         
         return xmlDoc;
     },
@@ -339,9 +406,14 @@ var ann_parser = {
         const serializer = new XMLSerializer();
         var xml_str_TEXT = serializer.serializeToString(xml_doc.getElementsByTagName('TEXT')[0]);
         var xml_str_TAGS = serializer.serializeToString(xml_doc.getElementsByTagName('TAGS')[0]);
+        var xml_str_META = serializer.serializeToString(xml_doc.getElementsByTagName('META')[0]);
 
+        // format the XML to make it looks better for human
         var format = require('xml-formatter');
         var xml_str_TAGS_formatted = format(xml_str_TAGS, {
+            indentation: ''
+        });
+        var xml_str_META_formatted = format(xml_str_META, {
             indentation: ''
         });
 
@@ -352,6 +424,7 @@ var ann_parser = {
             '<' + root_name + '>',
             xml_str_TEXT,
             xml_str_TAGS_formatted,
+            xml_str_META_formatted,
             '</' + root_name + '>'
         ].join('\n');
 

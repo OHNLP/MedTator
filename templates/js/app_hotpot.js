@@ -302,6 +302,65 @@ var app_hotpot = {
             });;
         },
         
+        /////////////////////////////////////////////////////////////////
+        // "Label" related functions
+        /////////////////////////////////////////////////////////////////
+        has_any_label: function(ann) {
+            if (ann.hasOwnProperty('meta') &&
+                ann.meta.hasOwnProperty('label') &&
+                ann.meta.label.length > 0) {
+                return true;
+            }
+
+            return false;
+        },
+
+        set_label: function(color, ann) {
+            if (typeof(color)=='undefined') {
+                color = 'green';
+            }
+
+            if (typeof(ann)=='undefined') {
+                // just a reference
+                ann = this.anns[this.ann_idx];
+            }
+
+            // if this is not label, the `label` may be available
+            if (!this.has_any_label(ann)) {
+                ann.meta['label'] = [];
+            }
+
+            // just set the label
+            ann.meta['label'] = [{
+                'color': color
+            }];
+
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            // update the UI
+            this.$forceUpdate();
+        },
+
+        remove_labels: function(ann) {
+            if (typeof(ann)=='undefined') {
+                // just a reference
+                ann = this.anns[this.ann_idx];
+            }
+
+            ann.meta['label'] = [];
+
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            // update the UI
+            this.$forceUpdate();
+        },
+        
+        /////////////////////////////////////////////////////////////////
+        // "Save as" related functions
+        /////////////////////////////////////////////////////////////////
+        
         save_as_xml: function() {
             // convert to xml
             var xmlDoc = ann_parser.ann2xml(
@@ -1472,10 +1531,39 @@ var app_hotpot = {
         del_tag: function(tag_id) {
             // delete the clicked tag id
             app_hotpot.del_tag(
-                tag_id, this.anns[this.ann_idx]
+                tag_id, 
+                this.anns[this.ann_idx]
             );
         },
 
+        set_tag_annotator: function(tag_id, annotator, ann) {
+            if (typeof(ann) == 'undefined') {
+                // just use the current ann
+                ann = this.anns[this.ann_idx];
+            }
+            var tag_idx = -1;
+            for (let i = 0; i < ann.tags.length; i++) {
+                if (ann.tags[i].id == tag_id) {
+                    ann.tags[i]._annotator = annotator;
+                    break;
+                }            
+            }
+
+            // what to do?
+            if (tag_idx == -1) {
+                // ???
+            } else {
+                // ???
+            }
+            
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            console.log('* set annotator to tag: ', 
+                tag_id + '._annotator = ' + annotator);
+
+            return ann;
+        },
 
         /////////////////////////////////////////////////////////////////
         // Statistics related functions

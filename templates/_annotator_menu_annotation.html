@@ -144,13 +144,54 @@ v-bind:class="{'active': section=='annotation'}">
     <span class="title">Save</span>
 </div>
 
-<!-- <div class="group">
-    <div>
-        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
-        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
+<div v-if="ann_idx != null"
+    class="group">
+    
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            title="Set a Green label to the current file"
+            v-on:click="set_label('green')">
+            <span class="icon">
+                <i class="far fa-bookmark"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Set Labels</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Set a Green label to the current file"
+                v-on:click="set_label('green')">
+                <a href="javascript:void(0);">Set <b class="label-green"> <i class="fa fa-bookmark"></i> Green</b> Label</a>
+            </li>
+            <li title="Set a red label to the current file"
+                v-on:click="set_label('red')">
+                <a href="javascript:void(0);">Set <b class="label-red"> <i class="fa fa-bookmark"></i> Red</b> Label</a>
+            </li>
+            <li title="Set a yellow label to the current file"
+                v-on:click="set_label('yellow')">
+                <a href="javascript:void(0);">Set <b class="label-yellow"> <i class="fa fa-bookmark"></i> Yellow</b> Label</a>
+            </li>
+            <li title="Set a blue label to the current file"
+                v-on:click="set_label('blue')">
+                <a href="javascript:void(0);">Set <b class="label-blue"> <i class="fa fa-bookmark"></i> Blue</b> Label</a>
+            </li>
+            <li title="Set a purple label to the current file"
+                v-on:click="set_label('purple')">
+                <a href="javascript:void(0);">Set <b class="label-purple"> <i class="fa fa-bookmark"></i> Purple</b> Label</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li title="Download all annotation files and the schema file as a ZIP file"
+                v-on:click="remove_labels()">
+                <a href="javascript:void(0);">Remove Labels</a>
+            </li>
+        </ul>
     </div>
-    <span class="title">Annotation Mode</span>
-</div> -->
+    
+    <span class="title">File Label</span>
+</div>
 
 <div class="group">
     <div title="Display the current annotation file in its original format or sentence by sentence">
