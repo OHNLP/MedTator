@@ -32,6 +32,16 @@
                             <a href="javascript:void(0);">By annotated tags (N->0)</a>
                         </li>
 
+                        <li title="Sort the file list by the color of labels"
+                            v-on:click="sort_filelist_by('label')">
+                            <a href="javascript:void(0);">By label color (Green first)</a>
+                        </li>
+
+                        <li title="Sort the file list by the color of labels"
+                            v-on:click="sort_filelist_by('label_r')">
+                            <a href="javascript:void(0);">By label color (Non-color first)</a>
+                        </li>
+
                         <li class="divider"></li>
 
                         <li title="Sort the file list by the number of annotated tags"

@@ -37,6 +37,7 @@ var app_hotpot = {
         // - alphabet_r: Z-A
         // - tags: 0-N
         // - tags_r: N-0
+        // - label: color
         sort_anns_by: 'default',
 
         // for annotation tab working mode
@@ -1033,6 +1034,8 @@ var app_hotpot = {
         get_sort_by_label: function(sort_by) {
             return {
                 'default': 'Sort',
+                'label': 'Gr-NA',
+                'label_r': 'NA-Gr',
                 'alphabet': 'A-Z',
                 'alphabet_r': 'Z-A',
                 'tags': '0-N',
@@ -1050,11 +1053,21 @@ var app_hotpot = {
             var v_anns = [];
             for (let i = 0; i < anns.length; i++) {
                 const ann = anns[i];
+
+                var ann_label = 'zunisha';
+                if (this.has_any_label(ann)) {
+                    ann_label = ann.meta.label[0].color;
+                }
                 v_anns.push({
                     // file name
                     _filename: ann._filename,
+
                     // number of annotated tags
                     n_tags: ann.tags.length,
+
+                    // label color
+                    label: ann_label,
+
                     // the true idx
                     idx: i
                 });
@@ -1062,6 +1075,7 @@ var app_hotpot = {
 
             if (sort_by == 'default') {
                 return v_anns;
+
             } else if (sort_by == 'alphabet') {
                 v_anns.sort(function(a, b) {
                     return a._filename.localeCompare(
@@ -1090,6 +1104,27 @@ var app_hotpot = {
                 });
                 return v_anns;
                 
+            } else if (sort_by == 'label') {
+                // blue
+                // green
+                // red
+                // yellow
+                // zunisha
+                v_anns.sort(function(a, b) {
+                    return a.label.localeCompare(
+                        b.label
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'label_r') {
+                v_anns.sort(function(a, b) {
+                    return b.label.localeCompare(
+                        a.label
+                    )
+                });
+                return v_anns;
+
             } else {
                 return v_anns;
             }
@@ -1883,6 +1918,7 @@ var app_hotpot = {
         iaa_get_sort_by_label: function(sort_by) {
             return {
                 'default': 'Sort',
+                'label': 'Label',
                 'f1_asc': 'F1 0-1',
                 'f1_desc': 'F1 1-0',
 

@@ -1219,7 +1219,7 @@ ol[class], ul[class] {
 
 /* labels */
 .label-red {
-    color: #a5311d;
+    color: #ff4e2f;
 }
 .label-yellow {
     color: #f3dd34;
@@ -1231,7 +1231,7 @@ ol[class], ul[class] {
     color: #3287e8;
 }
 .label-purple {
-    color: purple;
+    color: #f200f2;
 }
 
 /* annotator-actions */

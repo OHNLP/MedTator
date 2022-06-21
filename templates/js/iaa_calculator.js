@@ -15,6 +15,9 @@ var iaa_calculator = {
         // clear the ann tags
         ann.tags = [];
 
+        // clear the meta
+        ann.meta = {};
+
         // check each cate
         var cms = ['tp', 'fp', 'fn'];
 
@@ -86,6 +89,9 @@ var iaa_calculator = {
 
         // clear the ann tags
         ann.tags = [];
+
+        // clear the meta
+        ann.meta = {};
 
         // check each cate
         var cms = ['tp', 'fp', 'fn'];
