@@ -100,6 +100,14 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.35 (2022-06-23)
+
+- Added meta-data structure for annotation file
+- Added color label to annotation file
+- Added functions for updating annotator for adjudication
+- Added download all tags for adjudication
+- Updated IAA drop box width
+
 ### 1.2.32 (2022-05-26)
 
 - Added sample text for schema test

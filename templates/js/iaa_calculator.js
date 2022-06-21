@@ -7,6 +7,79 @@ var iaa_calculator = {
     },
 
     default_overlap_ratio: 0.1,
+
+    make_ann_by_iaa: function(ann_rst, ann_iaa, dtd) {
+        // create a blank ann by the ann_rst's ann
+        var ann = JSON.parse(JSON.stringify(ann_rst.ann));
+
+        // clear the ann tags
+        ann.tags = [];
+
+        // check each cate
+        var cms = ['tp', 'fp', 'fn'];
+
+        // check the ann in 
+        for (const tag_name in ann_iaa.rst.tag) {
+            if (Object.hasOwnProperty.call(ann_iaa.rst.tag, tag_name)) {
+                const tag_rst = ann_iaa.rst.tag[tag_name].cm.tags;
+
+                for (let i = 0; i < cms.length; i++) {
+                    const cm = cms[i];
+                    
+                    for (let j = 0; j < tag_rst[cm].length; j++) {
+                        if (tag_rst[cm][j] == null) {
+                            // for ann_iaa, this is not possible
+                            continue;
+                        }
+                        
+                        // there may be two tags
+                        for (let k = 0; k < 2; k++) {
+                            const _tag = tag_rst[cm][j][k];
+
+                            if (cm == 'tp' && k == 1) {
+                                // for true positive, just skip the second one
+                                continue;
+                            }
+
+                            if (_tag == null) {
+                                // yes, it's possible for fn
+                                continue;
+                            }
+                            
+                            // ok, now we need to save this tag
+                            var tag = Object.assign({}, _tag);
+                            var tag_def = dtd.tag_dict[tag.tag];
+
+                            // get a new id for this tag
+                            var new_id = ann_parser.get_next_tag_id(ann, tag_def);
+    
+                            // now, set this tag and put it into list
+                            tag.id = new_id;
+    
+                            // add annotator
+                            // locate where this tag comes from
+                            if (cm == 'tp') {
+                                tag._annotator = 'AB';
+                                
+                            } else if (cm == 'fn') {
+                                tag._annotator = 'B';
+    
+                            } else {
+                                tag._annotator = {
+                                    0: 'A',
+                                    1: 'B'
+                                }[k];
+                            }
+    
+                            ann.tags.push(tag);
+                        }
+                    }
+                }
+            }
+        }
+
+        return ann;
+    },
     
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
@@ -939,6 +1012,8 @@ var iaa_calculator = {
             var hashcode = this.hash(ann_b.text);
 
             if (ann_dict.hasOwnProperty(hashcode)) {
+                // one more case about this ann:
+                // how many anns have been found?
                 if (ann_dict[hashcode].length > 1) {
                     // this is a dupliated ann
                     iaa_dict.stat.duplicates.push({

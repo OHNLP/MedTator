@@ -451,7 +451,7 @@ var app_hotpot = {
             var fn = 'annotation-' + 
                 this.dtd.name + 
                 '-' +
-                this.get_datetime() +
+                this.get_datetime_now() +
                 '.zip';
             console.log('* download all as zip ' + fn);
 
@@ -1555,7 +1555,7 @@ var app_hotpot = {
             } else {
                 // ???
             }
-            
+
             // mark this file is changed and needs to be saved
             ann._has_saved = false;
 
@@ -1865,7 +1865,7 @@ var app_hotpot = {
             console.log('* iaa result:', iaa_dict);
 
             // and create
-            this.make_default_adj();
+            this.make_iaa_gs_dict();
         },
 
         iaa_sort_filelist_by: function(sort_by) {
@@ -2169,7 +2169,7 @@ var app_hotpot = {
             this.switch_mui('annotation');
         },
 
-        make_default_adj: function() {
+        make_iaa_gs_dict: function() {
             this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
                 this.dtd, this.iaa_dict
             );
@@ -2180,7 +2180,10 @@ var app_hotpot = {
             const ann_rst = this.iaa_gs_dict[hashcode];
             
             // change to an ann obj
-            var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
+            var ann = iaa_calculator.make_ann_by_rst(
+                ann_rst, 
+                this.dtd
+            );
 
             // get the xmlText
             var xml_doc = ann_parser.ann2xml(ann, this.dtd);
@@ -2203,7 +2206,10 @@ var app_hotpot = {
                     const ann_rst = this.iaa_gs_dict[hashcode];
                     
                     // change to an ann obj
-                    var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
+                    var ann = iaa_calculator.make_ann_by_rst(
+                        ann_rst, 
+                        this.dtd
+                    );
 
                     // get the xmlText
                     var xml_doc = ann_parser.ann2xml(ann, this.dtd);
@@ -2219,7 +2225,55 @@ var app_hotpot = {
 
             // create zip file
             zip.generateAsync({ type: "blob" }).then(function (content) {
-                saveAs(content, app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + '.zip');
+                saveAs(
+                    content, 
+                    app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + 
+                    '-' +
+                    app_hotpot.vpp.get_date_now() + 
+                    '.zip'
+                );
+            });
+        },
+
+        download_all_iaa_anns: function() {
+            // create an empty zip pack
+            var zip = new JSZip();
+            var folder_name = this.get_gs_zipfile_folder_name() + '_ALL';
+
+            // add files to zip pack
+            for (const hashcode in this.iaa_gs_dict) {
+                if (Object.hasOwnProperty.call(this.iaa_gs_dict, hashcode)) {
+                    const ann_rst = this.iaa_gs_dict[hashcode];
+                    const ann_iaa = this.iaa_dict.ann[hashcode];
+                    
+                    // change to an ann obj
+                    var ann = iaa_calculator.make_ann_by_iaa(
+                        ann_rst, 
+                        ann_iaa,
+                        this.dtd
+                    );
+
+                    // get the xmlText
+                    var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+                    var xml_text = ann_parser.xml2str(xml_doc);
+
+                    // put this xml in folder (virtually)
+                    var ffn = folder_name + '/' + ann._filename;
+                    
+                    // put this xml to zip
+                    zip.file(ffn, xml_text);
+                }
+            }
+
+            // create zip file
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+                saveAs(
+                    content, 
+                    app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + 
+                    '-' +
+                    app_hotpot.vpp.get_date_now() + 
+                    '-ALL.zip'
+                );
             });
         },
 
@@ -3071,7 +3125,11 @@ var app_hotpot = {
             }
         },
 
-        get_datetime: function() {
+        get_date_now: function() {
+            return dayjs().format('YYYY-MM-DD');
+        },
+
+        get_datetime_now: function() {
             return dayjs().format('YYYY-MM-DD_HH.mm.ss');
         }
     },

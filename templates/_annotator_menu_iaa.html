@@ -266,7 +266,8 @@ v-bind:class="{'active': section=='iaa'}">
 </div>
 
 
-<div class="group">
+<div v-show="dtd != null && iaa_gs_dict != null"
+    class="group">
     <!-- <div>
         <div>
             <input type="checkbox" 
@@ -315,7 +316,7 @@ v-bind:class="{'active': section=='iaa'}">
 
     <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>  -->
 
-    <div class="d-flex flex-row">
+    <!-- <div class="d-flex flex-row">
 
         <button class="ribbon-button" 
             :disabled="dtd == null || iaa_gs_dict == null"
@@ -327,6 +328,32 @@ v-bind:class="{'active': section=='iaa'}">
             <span class="caption">Download</span>
         </button>
 
+    </div> -->
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Download all tags from both annotator A and B"
+            v-on:click="download_all_iaa_anns">
+            <span class="icon">
+                <i class="far fa-copy"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Download</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Download all tags from both annotator A and B"
+                v-on:click="download_all_iaa_anns">
+                <a href="javascript:void(0);">All Tags from A and B</a>
+            </li>
+
+            <li title="Download the adjudicated tags as shown below"
+                v-on:click="download_all_gs">
+                <a href="javascript:void(0);">Simple Adjudicated Tags</a>
+            </li>
+        </ul>
     </div>
     
     <span class="title">Adjudication</span>
