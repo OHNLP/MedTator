@@ -211,5 +211,12 @@ Object.assign(app_hotpot.vpp_methods, {
         );
         
         console.log('* downloaded converted files as a zip:', file_list);   
-    }
+    },
+
+    show_converter_how_to_user: function() {
+        window.open(
+            'https://github.com/OHNLP/MedTator/wiki/Manual#converter-tab',
+            '_blank'
+        );
+    },
 });

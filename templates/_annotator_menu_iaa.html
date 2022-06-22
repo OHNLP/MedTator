@@ -28,7 +28,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) or Folder
         </div>
         <div v-else 
             class="zone-text">
@@ -67,7 +67,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) or Folder
         </div>
         <div v-else class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags

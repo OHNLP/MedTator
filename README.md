@@ -100,7 +100,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.39 (2022-06-23)
+### 1.2.41 (2022-06-23)
 
 - Added meta-data structure for annotation file
 - Added color label to annotation file
@@ -109,7 +109,11 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added sorting by label color
 - Added MedTagger ann format converter
 - Added UI for converting MedTagger results
+- Added folder drag and drop for converter
+- Added folder drag and drop for adjudication
 - Updated IAA drop box width
+- Updated code structure for better extension
+- Updated wiki pages
 - Fixed meta copy bug when generating adjudicated copy
 
 ### 1.2.32 (2022-05-26)

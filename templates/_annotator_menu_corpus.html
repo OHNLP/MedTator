@@ -74,6 +74,20 @@ v-bind:class="{'active': section=='corpus'}">
     <span class="title">Results</span>
 </div>
 
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Open the wiki page to show how to use the converter"
+        v-on:click="show_converter_how_to_user">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">Help</span>
+</div> 
+
 <!-- 
 <div class="group">
     <div id="dropzone_txt" class="dropzone">
