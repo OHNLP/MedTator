@@ -4,6 +4,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 <div class="group">
     <button class="ribbon-button"
+        title="Clear all annotation files and calculated IAA results"
         v-on:click="clear_iaa_all(null)">
         <span class="icon">
             <i class="far fa-times-circle"></i>
@@ -196,6 +197,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 
     <button class="ribbon-button"
+        title="Calculate the IAA for the given annotation files"
         :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
         v-on:click="calc_iaa">
         <span class="icon">

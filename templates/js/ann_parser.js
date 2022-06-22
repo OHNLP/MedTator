@@ -156,7 +156,7 @@ var ann_parser = {
                 // if not, skip the next step
                 if (dtd.tag_dict.hasOwnProperty(tag_name)) {
                     // one more step, sometimes the attr in XML doesn't contain
-                    // what defined int dtd, so we need to give a value
+                    // what defined in the dtd, so we need to give a value
                     for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
                         const att = dtd.tag_dict[tag_name].attlists[k];
                         if (tag.hasOwnProperty(att.name)) {

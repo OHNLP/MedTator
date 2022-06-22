@@ -4,6 +4,7 @@ v-bind:class="{'active': section=='corpus'}">
 
 <div class="group">
     <button class="ribbon-button"
+        title="Clear all files for conversion"
         v-on:click="clear_converter_corpus_all">
         <span class="icon">
             <i class="far fa-times-circle"></i>
@@ -16,23 +17,61 @@ v-bind:class="{'active': section=='corpus'}">
 
 <div class="group">
 
-    <button class="ribbon-button"
-        v-on:click="switch_corpus('medtagger')">
-        <span class="icon">
-            <i class="far fa-file-code"></i>
-        </span>
-        <span class="caption">MedTagger Output</span>
-    </button>
+    <div class="d-flex flex-column">
 
-    <!-- <button class="ribbon-button"
+        <button class="ribbon-icon-button"
+            title="Set the input format as MedTagger .ann format"
+            v-on:click="switch_corpus('medtagger')">
+            <span class="icon">
+                <i class="far fa-file-code"></i>
+            </span>
+            <span class="caption">MedTagger <i>.ann</i> Format</span>
+        </button>
+    </div>
+
+    <!-- 
+    <button class="ribbon-button"
+        title="Set the input format as Brat format"
         v-on:click="switch_corpus('brat')">
         <span class="icon">
             <i class="far fa-file-code"></i>
         </span>
-        <span class="caption">Brat Output</span>
-    </button> -->
+        <span class="caption">Brat Format</span>
+    </button>
+    -->
 
-    <span class="title">Input Format</span>
+    <span class="title">
+        Input Format: 
+        <b>{{ converter_corpus_task }}</b>
+    </span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Convert the loaded files to MedTator format"
+        v-on:click="convert_from_medtagger_txt_and_ann">
+        <span class="icon">
+            <i class="fas fa-mortar-pestle"></i>
+        </span>
+        <span class="caption">Convert Files</span>
+    </button>
+
+    <span class="title">Conversion</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Download the converted MedTator format files as a zip file"
+        v-on:click="download_converted_files_as_zip">
+        <span class="icon">
+            <i class="fas fa-download"></i>
+        </span>
+        <span class="caption">Download as zip</span>
+    </button>
+
+    <span class="title">Results</span>
 </div>
 
 <!-- 

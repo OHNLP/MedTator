@@ -14,7 +14,8 @@
                 class="box-body" 
                 style="overflow-y: auto; height: 100%;">
                 <p>
-                    For converting MedTagger format, you need to prepare <b>(1) the raw text files (.txt)</b> and <b>(2) the output files (.ann)</b>.
+                    For converting the MedTagger format, 
+                    you need to prepare the following two types of files.
                 </p>
 
                 <div class="d-flex flex-row h-100">
@@ -45,7 +46,7 @@
 
 
                     <div id="mui_converter_medtagger_ann_filelist"
-                        class="converter-dropzone">
+                        class="converter-dropzone mr-2">
                         <h5>
                             <i class="far fa-file-code"></i>
                             MedTagger OUTPUT FILES
@@ -61,12 +62,15 @@
                             class="d-flex flex-column converter-file-list">
                             <div v-for="f in converter_corpus_medtagger_ann_files"
                                 class="converter-file-row">
-                                ({{ f.lines.length }})
+                                <span class="bg-green fg-white mr-1"
+                                    :title="f.lines.length + ' lines of records'">
+                                    {{ f.lines.length }}
+                                </span>
                                 {{ f.fh.name }}
                             </div>
                         </div>
                     </div>
-
+<!-- 
                     <div>
                         <button class="converter-button"
                             v-on:click="convert_from_medtagger_txt_and_ann">
@@ -77,25 +81,25 @@
                             <b>MedTator XML</b> Format
                         </button>
                     </div>
-    
-                    <div class="converter-dropzone">
+     -->
+                    <div v-if="converter_corpus_medtagger_results.length != 0"
+                        class="converter-dropzone mr-2 bd-green">
                         <h5>
                             <i class="far fa-file-code"></i>
                             MedTator XML FILES
                         </h5>
                         
-                        <p v-if="converter_corpus_medtagger_results.length == 0">
-                            Click the button to convert
-                        </p>
-                        <p v-else>
+                        <p>
                             Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs
                         </p>
 
-                        <div v-if="converter_corpus_medtagger_results.length != 0"
-                            class="d-flex flex-column converter-file-list">
+                        <div class="d-flex flex-column converter-file-list">
                             <div v-for="obj in converter_corpus_medtagger_results"
                                 class="converter-file-row">
-                                ({{ obj.medtator_ann.tags.length }} tags)
+                                <span class="bg-green fg-white mr-1"
+                                    :title="'Converted ' + obj.medtator_ann.tags.length + ' tags'">
+                                    {{ obj.medtator_ann.tags.length }}
+                                </span>
                                 {{ obj.medtator_ann._filename }} 
                             </div>
                         </div>

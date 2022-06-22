@@ -95,6 +95,12 @@
                 tag.hasOwnProperty('text')&&
                 tag.hasOwnProperty('spans')) {
                 // get the tag_def for this tag
+                if (!dtd.tag_dict.hasOwnProperty(tag.tag)) {
+                    // this is possible that the normed term may not be available
+                    console.log('* skip unknown norm @' + i + ':', tag.tag);
+                    continue;
+                }
+
                 // it should be matched with the dtd
                 var tag_def = dtd.tag_dict[tag.tag];
 
@@ -103,6 +109,19 @@
                     ann,
                     tag_def
                 )
+
+                // one more step, the MedTagger output won't contain attrs
+                // which are defined in the dtd, so we need to set them
+                for (let k = 0; k < tag_def.attlists.length; k++) {
+                    const att = tag_def.attlists[k];
+                    if (tag.hasOwnProperty(att.name)) {
+                        // ok, that's what it should be
+                    } else {
+                        // also ok, that's what it actually is 
+                        tag[att.name] = att.default_value;                            
+                        console.log('* patched missing '+tag.tag+'.'+att.name+'] to ' + tag.id);
+                    }
+                }
                 ann.tags.push(tag);
             } else {
                 console.log('* skip incomplete tag', tag);

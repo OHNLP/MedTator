@@ -160,10 +160,53 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     convert_from_medtagger_txt_and_ann: function() {
+        if (this.dtd == null) {
+            app_hotpot.toast('Terminated. The annotation schema (.dtd) is needed for conversion. Please load the schema file first in the annotation tab', 'alert');
+            return;
+        }
+        if (this.converter_corpus_medtagger_txt_files.length == 0) {
+            app_hotpot.toast('Terminated. The .txt text files are needed for conversion.', 'alert');
+            return;
+        }
+        if (this.converter_corpus_medtagger_txt_files.length == 0) {
+            app_hotpot.toast('Terminated. The .ann output files are needed for conversion.', 'alert');
+            return;
+        }
         this.converter_corpus_medtagger_results = medtagger_toolkit.convert_medtagger_files_to_anns(
             this.converter_corpus_medtagger_txt_files,
             this.converter_corpus_medtagger_ann_files,
             this.dtd
         );
+    },
+
+    download_converted_files_as_zip: function() {
+        if (this.converter_corpus_medtagger_results.length == 0) {
+            app_hotpot.toast('Terminated. No converted files are found for conversion.', 'alert');
+            return;
+        }
+
+        // get the results, which are the ann files 
+        var anns = [];
+        for (let i = 0; i < this.converter_corpus_medtagger_results.length; i++) {
+            const r = this.converter_corpus_medtagger_results[i];
+            // the medtator_ann contains the ann objects for MedTator
+            anns.push(r.medtator_ann);
+        }
+
+        // create filename
+        var fn = 'Converted-' + 
+            this.converter_corpus_task + 
+            '-' +
+            this.get_date_now() +
+            '.zip';
+        
+        var file_list = nlp_toolkit.download_dataset_raw(
+            anns,
+            this.dtd,
+            fn,
+            true
+        );
+        
+        console.log('* downloaded converted files as a zip:', file_list);   
     }
 });
