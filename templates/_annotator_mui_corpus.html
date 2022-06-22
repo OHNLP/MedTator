@@ -25,7 +25,7 @@
                         class="converter-dropzone mr-2">
                         <h5>
                             <i class="far fa-file-alt"></i>
-                            RAW TEXT FILES
+                            Raw .txt Text Files
                         </h5>
                         <p v-if="converter_corpus_medtagger_txt_files.length == 0">
                             Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
@@ -49,7 +49,7 @@
                         class="converter-dropzone mr-2">
                         <h5>
                             <i class="far fa-file-code"></i>
-                            MedTagger OUTPUT FILES
+                            MedTagger .ann Files
                         </h5>
                         <p v-if="converter_corpus_medtagger_ann_files.length == 0">
                             Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box
@@ -84,9 +84,9 @@
      -->
                     <div v-if="converter_corpus_medtagger_results.length != 0"
                         class="converter-dropzone mr-2 bd-green">
-                        <h5>
+                        <h5 class="fg-green">
                             <i class="far fa-file-code"></i>
-                            MedTator XML FILES
+                            Generated MedTator XML Files
                         </h5>
                         
                         <p>

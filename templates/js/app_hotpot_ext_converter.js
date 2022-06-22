@@ -56,17 +56,15 @@ Object.assign(app_hotpot, {
                     if (fh.kind == 'file') {
                         app_hotpot.parse_file_fh(
                             fh, 
-                            function(file) {
-                                app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.push(file);
-                            } 
+                            app_hotpot.on_get_converter_medtagger_txt_file
                         );
 
 
                     } else {
                         // so item is a directory?
-                        fs_read_dir_handle(
+                        app_hotpot.parse_dir_fh(
                             fh, 
-                            app_hotpot.vpp.$data.dtd
+                            app_hotpot.on_get_converter_medtagger_txt_file
                         );
                     }
                 });
@@ -79,6 +77,9 @@ Object.assign(app_hotpot, {
         }
     },
 
+    on_get_converter_medtagger_txt_file: function(file) {
+        app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.push(file);
+    },
 
     // events for loading ann files
     bind_dropzone_converter_medtagger_ann: function() {
@@ -117,22 +118,15 @@ Object.assign(app_hotpot, {
                     if (fh.kind == 'file') {
                         app_hotpot.parse_file_fh(
                             fh, 
-                            function(file) {
-                                // for ann, we need the lines
-                                file.text = file.text.trim();
-                                file.lines = file.text.split('\n');
-
-                                // save this 
-                                app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files.push(file);
-                            } 
+                            app_hotpot.on_get_converter_medtagger_ann_file
                         );
 
 
                     } else {
                         // so item is a directory?
-                        fs_read_dir_handle(
+                        app_hotpot.parse_dir_fh(
                             fh, 
-                            app_hotpot.vpp.$data.dtd
+                            app_hotpot.on_get_converter_medtagger_ann_file
                         );
                     }
                 });
@@ -143,6 +137,15 @@ Object.assign(app_hotpot, {
             }
             
         }
+    },
+
+    on_get_converter_medtagger_ann_file: function(file) {
+        // for ann, we need the lines
+        file.text = file.text.trim();
+        file.lines = file.text.split('\n');
+
+        // save this 
+        app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files.push(file);
     }
 });
 

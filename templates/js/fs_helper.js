@@ -16,7 +16,29 @@ async function fs_read_file_handle(fh) {
     };
 }
 
-async function fs_read_dir_handle(fh, dtd) {
+async function fs_read_dir_handle(fh, callback) {
+    for await (const entry of fh.values()) {
+        // Each entry is an instance of FileSystemFileHandle 
+        // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 
+        console.log(entry);
+        if (entry.kind != 'file') {
+            console.log('* skip sub folder', entry.name);
+            continue;
+        }
+
+        // call the app_hotpot to parse and decide this fh
+        app_hotpot.parse_file_fh(
+            entry, 
+            callback
+        );
+    }
+}
+
+///////////////////////////////////////////////////////////
+// Customized functions of read/write for annotation
+///////////////////////////////////////////////////////////
+
+async function fs_read_ann_dir_handle(fh, dtd) {
     for await (const entry of fh.values()) {
         // Each entry is an instance of FileSystemFileHandle 
         // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 

@@ -3622,7 +3622,7 @@ var app_hotpot = {
                         // so item is a directory?
                         // console.log(fh);
                         
-                        fs_read_dir_handle(
+                        fs_read_ann_dir_handle(
                             fh, 
                             app_hotpot.vpp.$data.dtd
                         );
@@ -4053,6 +4053,11 @@ var app_hotpot = {
     },
 
     parse_file_fh: function(fh, callback) {
+        if (fh.name.startsWith('.')) {
+            // no need to parse hidden file
+            return;
+        }
+        
         var p_file = fs_read_file_handle(
             fh
         );
@@ -4067,6 +4072,13 @@ var app_hotpot = {
                     'warning');
                 console.error(error);
             }}(fh)
+        );
+    },
+
+    parse_dir_fh: function(fh, callback) {
+        fs_read_dir_handle(
+            fh,
+            callback
         );
     },
 
