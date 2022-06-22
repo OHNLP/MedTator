@@ -66,13 +66,6 @@
                     Statistics
                 </a>
             </li>
-            <!-- <li v-on:click="switch_mui('corpus')"
-                v-bind:class="{'active': section=='corpus'}">
-                <a href="#section-1-2">
-                    <i class="fa fa-cubes"></i>
-                    Batch Convert
-                </a>
-            </li> -->
             <li v-on:click="switch_mui('ruleset')"
                 v-bind:class="{'active': section=='ruleset'}">
                 <a href="#section-1-4">
@@ -85,6 +78,14 @@
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
                     Adjudication
+                </a>
+            </li>
+
+            <li v-on:click="switch_mui('corpus')"
+                v-bind:class="{'active': section=='corpus'}">
+                <a href="#section-1-2">
+                    <i class="fa fa-cubes"></i>
+                    Converter
                 </a>
             </li>
         </ul>
@@ -433,11 +434,17 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 // The NLP toolkit
 {% include 'js/nlp_toolkit.js' %}
 
+// The MedTagger toolkit
+{% include 'js/medtagger_toolkit.js' %}
+
 // The Vue App
 {% include 'js/app_hotpot.js' %}
 
 // extend the App
 {% include 'js/app_hotpot_ext_texts.js' %}
+
+// extend the App with converter
+{% include 'js/app_hotpot_ext_converter.js' %}
 
 // The Tag Info Vue Module
 {% include 'js/vpp_iaa_tag_info.js' %}

@@ -467,7 +467,6 @@ var app_hotpot = {
             // update the UI?
         },
 
-
         /////////////////////////////////////////////////////////////////
         // Schema editor related functions
         /////////////////////////////////////////////////////////////////
@@ -3361,7 +3360,11 @@ var app_hotpot = {
         this.bind_dropzone_ann();
 
         // bind drop zone for batch import text file
-        this.bind_dropzone_txt();
+        // this.bind_dropzone_txt();
+
+        // bind drop zone for converter
+        this.bind_dropzone_converter_medtagger_txt();
+        this.bind_dropzone_converter_medtagger_ann();
 
         // bind drop zone for anns
         this.bind_dropzone_iaa();
@@ -4038,6 +4041,24 @@ var app_hotpot = {
             app_hotpot.add_ann(ann);
 
         }).catch(
+            function(fh){return function(error) {
+                app_hotpot.msg(
+                    "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
+                    error.name + 
+                    ": " + error.message + "",
+                    'warning');
+                console.error(error);
+            }}(fh)
+        );
+    },
+
+    parse_file_fh: function(fh, callback) {
+        var p_file = fs_read_file_handle(
+            fh
+        );
+
+        // the callback function
+        p_file.then(callback).catch(
             function(fh){return function(error) {
                 app_hotpot.msg(
                     "Couldn't read annotation in ["+ fh.name +"]. <br>" + 

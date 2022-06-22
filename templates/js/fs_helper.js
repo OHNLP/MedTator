@@ -3,6 +3,19 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
+async function fs_read_file_handle(fh) {
+    // get the file obj
+    const file = await fh.getFile();
+    // get the text content
+    const text = await file.text();
+
+    // return the content and fh
+    return {
+        fh: fh,
+        text: text
+    };
+}
+
 async function fs_read_dir_handle(fh, dtd) {
     for await (const entry of fh.values()) {
         // Each entry is an instance of FileSystemFileHandle 

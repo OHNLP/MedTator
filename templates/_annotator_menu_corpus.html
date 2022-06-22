@@ -4,7 +4,7 @@ v-bind:class="{'active': section=='corpus'}">
 
 <div class="group">
     <button class="ribbon-button"
-        v-on:click="clear_corpus_all">
+        v-on:click="clear_converter_corpus_all">
         <span class="icon">
             <i class="far fa-times-circle"></i>
         </span>
@@ -14,6 +14,28 @@ v-bind:class="{'active': section=='corpus'}">
     <span class="title">&nbsp;</span>
 </div>
 
+<div class="group">
+
+    <button class="ribbon-button"
+        v-on:click="switch_corpus('medtagger')">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">MedTagger Output</span>
+    </button>
+
+    <!-- <button class="ribbon-button"
+        v-on:click="switch_corpus('brat')">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Brat Output</span>
+    </button> -->
+
+    <span class="title">Input Format</span>
+</div>
+
+<!-- 
 <div class="group">
     <div id="dropzone_txt" class="dropzone">
         <div v-if="txt_anns.length == 0" class="zone-text">
@@ -76,6 +98,7 @@ v-bind:class="{'active': section=='corpus'}">
     </button>
 
     <span class="title">Download</span>
-</div>
+</div> 
+-->
 
 </div>

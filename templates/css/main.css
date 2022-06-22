@@ -1241,3 +1241,27 @@ ol[class], ul[class] {
 .tag-table-row:hover .box-annotator-actions {
     display: inline;
 }
+
+/* for converter */
+.converter-dropzone {
+    border: 1px solid #999999;
+    padding: 5px;
+    width: 300px;
+    height: calc(100% - 20px);
+    max-height: 400px;
+}
+.converter-dropzone h5 {
+    background-color: white;
+}
+.converter-button {
+    height: auto !important;
+    line-height: 1.2em;
+}
+.converter-file-list {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+.converter-file-row {
+    border-bottom: 1px dotted #cccccc;
+    text-indent: 1em;
+}

@@ -6,48 +6,101 @@
             <div class="box-header">
                 <h4>
                     <i class="fa fa-list-ul"></i>
-                    Corpus Files
+                    Input Files
                 </h4>
             </div>
 
-            <div class="box-body" style="overflow-y: auto;">
-                <table class="table striped">
-                    <tr>
-                        <th>#</th>
-                        <th>TXT File Name</th>
-                        <th>&nbsp;</th>
-                        <th>XML File Name</th>
-                    </tr>
-                    <tr v-for="txt_ann, txt_ann_idx in txt_anns">
-                        <td>
-                            {{ txt_ann_idx + 1 }}
-                        </td>
-                        <td>
-                            <i class="far fa-file-alt"></i>
-                            {{ txt_ann._filename }}
-                        </td>
-                        <td>
-                            <span>
-                                <i class="fa fa-arrow-right"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span v-if="txt_xmls.length > txt_ann_idx">
-                                <i class="far fa-file-code"></i>
-                                {{ get_new_xml_filename(txt_xmls[txt_ann_idx].fn) }}
+            <div v-if="converter_corpus_task == 'medtagger'"
+                class="box-body" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    For converting MedTagger format, you need to prepare <b>(1) the raw text files (.txt)</b> and <b>(2) the output files (.ann)</b>.
+                </p>
 
-                                <span>
-                                    <a href="javascript:void(0);"
-                                        v-on:click="download_txt_xml(txt_ann_idx)"
-                                        v-bind:title="'Download ' + get_new_xml_filename(txt_xmls[txt_ann_idx].fn)">
-                                        <i class="fa fa-download"></i>
-                                        Download
-                                    </a>
-                                </span>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+                <div class="d-flex flex-row h-100">
+
+
+                    <div id="mui_converter_medtagger_txt_filelist"
+                        class="converter-dropzone mr-2">
+                        <h5>
+                            <i class="far fa-file-alt"></i>
+                            RAW TEXT FILES
+                        </h5>
+                        <p v-if="converter_corpus_medtagger_txt_files.length == 0">
+                            Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ converter_corpus_medtagger_txt_files.length }} </b> text files (.txt)
+                        </p>
+
+                        <div v-if="converter_corpus_medtagger_txt_files.length != 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_medtagger_txt_files"
+                                class="converter-file-row">
+                                {{ f.fh.name }}
+                            </div>
+                        </div>
+                    </div>
+    
+
+
+                    <div id="mui_converter_medtagger_ann_filelist"
+                        class="converter-dropzone">
+                        <h5>
+                            <i class="far fa-file-code"></i>
+                            MedTagger OUTPUT FILES
+                        </h5>
+                        <p v-if="converter_corpus_medtagger_ann_files.length == 0">
+                            Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ converter_corpus_medtagger_ann_files.length }} </b> MedTagger files (.ann)
+                        </p>
+
+                        <div v-if="converter_corpus_medtagger_ann_files.length != 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_medtagger_ann_files"
+                                class="converter-file-row">
+                                ({{ f.lines.length }})
+                                {{ f.fh.name }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="converter-button"
+                            v-on:click="convert_from_medtagger_txt_and_ann">
+                            Convert 
+                            <br>
+                            the given files to 
+                            <br>
+                            <b>MedTator XML</b> Format
+                        </button>
+                    </div>
+    
+                    <div class="converter-dropzone">
+                        <h5>
+                            <i class="far fa-file-code"></i>
+                            MedTator XML FILES
+                        </h5>
+                        
+                        <p v-if="converter_corpus_medtagger_results.length == 0">
+                            Click the button to convert
+                        </p>
+                        <p v-else>
+                            Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs
+                        </p>
+
+                        <div v-if="converter_corpus_medtagger_results.length != 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="obj in converter_corpus_medtagger_results"
+                                class="converter-file-row">
+                                ({{ obj.medtator_ann.tags.length }} tags)
+                                {{ obj.medtator_ann._filename }} 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.box -->
