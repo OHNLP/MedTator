@@ -2749,7 +2749,7 @@ var app_hotpot = {
         document.getElementById('app_hotpot').addEventListener(
             "click",
             function(event) {
-                console.log('* clicked on', event.target);
+                // console.log('* clicked on', event.target);
 
                 var dom = event.target;
                 var obj = $(dom);
