@@ -335,7 +335,7 @@ html,body {
     border-radius: 4px;
 }
 .dropzone-iaa {
-    width: 160px;
+    width: 166px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -740,8 +740,8 @@ tr.tag-table-tr-actived {
     width: 60px;
 }
 .tag-table th.tag-spans {
-    max-width: 200px;
-    width: 120px;
+    max-width: 220px;
+    width: 140px;
 }
 .tag-table td {
     border-bottom: 1px dotted #aaaaaa;
@@ -825,6 +825,24 @@ select.tag-attr-select {
 }
 .btn-red:hover {
     color: red;
+}
+.btn-green {
+    color: rgb(77, 118, 15);
+}
+.btn-green:hover {
+    color: #68e22f;
+}
+.btn-orange {
+    color: rgb(186, 107, 42);
+}
+.btn-orange:hover {
+    color: rgb(239, 145, 45);
+}
+.btn-blue {
+    color: rgb(24, 70, 139);
+}
+.btn-blue:hover {
+    color: rgb(70, 166, 235);
 }
 input[type=text].ipt-xs {
     font-size: 1em;
@@ -1367,6 +1385,55 @@ ol[class], ul[class] {
     width: 50px !important;
     line-height: 20px !important;
 }
+
+/* labels */
+.label-red {
+    color: #ff4e2f;
+}
+.label-yellow {
+    color: #f3dd34;
+}
+.label-green {
+    color: #61a51d;
+}
+.label-blue {
+    color: #3287e8;
+}
+.label-purple {
+    color: #f200f2;
+}
+
+/* annotator-actions */
+.box-annotator-actions { 
+    display: none;
+}
+.tag-table-row:hover .box-annotator-actions {
+    display: inline;
+}
+
+/* for converter */
+.converter-dropzone {
+    border: 1px solid #999999;
+    padding: 5px;
+    width: 300px;
+    height: calc(100% - 20px);
+    max-height: 400px;
+}
+.converter-dropzone h5 {
+    background-color: white;
+}
+.converter-button {
+    height: auto !important;
+    line-height: 1.2em;
+}
+.converter-file-list {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+.converter-file-row {
+    border-bottom: 1px dotted #cccccc;
+    text-indent: 1em;
+}
 </style>
 
 <style id="dtd_style">
@@ -1402,13 +1469,6 @@ ol[class], ul[class] {
                     Statistics
                 </a>
             </li>
-            <!-- <li v-on:click="switch_mui('corpus')"
-                v-bind:class="{'active': section=='corpus'}">
-                <a href="#section-1-2">
-                    <i class="fa fa-cubes"></i>
-                    Batch Convert
-                </a>
-            </li> -->
             <li v-on:click="switch_mui('ruleset')"
                 v-bind:class="{'active': section=='ruleset'}">
                 <a href="#section-1-4">
@@ -1421,6 +1481,14 @@ ol[class], ul[class] {
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
                     Adjudication
+                </a>
+            </li>
+
+            <li v-on:click="switch_mui('corpus')"
+                v-bind:class="{'active': section=='corpus'}">
+                <a href="#section-1-2">
+                    <i class="fas fa-mortar-pestle"></i>
+                    Converter
                 </a>
             </li>
         </ul>
@@ -1573,13 +1641,54 @@ v-bind:class="{'active': section=='annotation'}">
     <span class="title">Save</span>
 </div>
 
-<!-- <div class="group">
-    <div>
-        <input type="radio" name="mode" data-role="radio" data-caption="Normal" checked><br>
-        <input type="radio" name="mode" data-role="radio" data-caption="Discontiguous" >
+<div v-if="ann_idx != null"
+    class="group">
+    
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            title="Set a Green label to the current file"
+            v-on:click="set_label('green')">
+            <span class="icon">
+                <i class="far fa-bookmark"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Set Labels</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Set a Green label to the current file"
+                v-on:click="set_label('green')">
+                <a href="javascript:void(0);">Set <b class="label-green"> <i class="fa fa-bookmark"></i> Green</b> Label</a>
+            </li>
+            <li title="Set a red label to the current file"
+                v-on:click="set_label('red')">
+                <a href="javascript:void(0);">Set <b class="label-red"> <i class="fa fa-bookmark"></i> Red</b> Label</a>
+            </li>
+            <li title="Set a yellow label to the current file"
+                v-on:click="set_label('yellow')">
+                <a href="javascript:void(0);">Set <b class="label-yellow"> <i class="fa fa-bookmark"></i> Yellow</b> Label</a>
+            </li>
+            <li title="Set a blue label to the current file"
+                v-on:click="set_label('blue')">
+                <a href="javascript:void(0);">Set <b class="label-blue"> <i class="fa fa-bookmark"></i> Blue</b> Label</a>
+            </li>
+            <!-- <li title="Set a purple label to the current file"
+                v-on:click="set_label('purple')">
+                <a href="javascript:void(0);">Set <b class="label-purple"> <i class="fa fa-bookmark"></i> Purple</b> Label</a>
+            </li> -->
+
+            <li class="divider"></li>
+
+            <li title="Download all annotation files and the schema file as a ZIP file"
+                v-on:click="remove_labels()">
+                <a href="javascript:void(0);">Remove Labels</a>
+            </li>
+        </ul>
     </div>
-    <span class="title">Annotation Mode</span>
-</div> -->
+    
+    <span class="title">File Label</span>
+</div>
 
 <div class="group">
     <div title="Display the current annotation file in its original format or sentence by sentence">
@@ -1928,7 +2037,8 @@ v-bind:class="{'active': section=='corpus'}">
 
 <div class="group">
     <button class="ribbon-button"
-        v-on:click="clear_corpus_all">
+        title="Clear all files for conversion"
+        v-on:click="clear_converter_corpus_all">
         <span class="icon">
             <i class="far fa-times-circle"></i>
         </span>
@@ -1938,6 +2048,80 @@ v-bind:class="{'active': section=='corpus'}">
     <span class="title">&nbsp;</span>
 </div>
 
+<div class="group">
+
+    <div class="d-flex flex-column">
+
+        <button class="ribbon-icon-button"
+            title="Set the input format as MedTagger .ann format"
+            v-on:click="switch_corpus('medtagger')">
+            <span class="icon">
+                <i class="far fa-file-code"></i>
+            </span>
+            <span class="caption">MedTagger <i>.ann</i> Format</span>
+        </button>
+    </div>
+
+    <!-- 
+    <button class="ribbon-button"
+        title="Set the input format as Brat format"
+        v-on:click="switch_corpus('brat')">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">Brat Format</span>
+    </button>
+    -->
+
+    <span class="title">
+        Input Format: 
+        <b>{{ converter_corpus_task }}</b>
+    </span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Convert the loaded files to MedTator format"
+        v-on:click="convert_from_medtagger_txt_and_ann">
+        <span class="icon">
+            <i class="fas fa-mortar-pestle"></i>
+        </span>
+        <span class="caption">Convert Files</span>
+    </button>
+
+    <span class="title">Conversion</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Download the converted MedTator format files as a zip file"
+        v-on:click="download_converted_files_as_zip">
+        <span class="icon">
+            <i class="fas fa-download"></i>
+        </span>
+        <span class="caption">Download as zip</span>
+    </button>
+
+    <span class="title">Results</span>
+</div>
+
+<div class="group">
+
+    <button class="ribbon-button"
+        title="Open the wiki page to show how to use the converter"
+        v-on:click="show_converter_how_to_user">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">Help</span>
+</div> 
+
+<!-- 
 <div class="group">
     <div id="dropzone_txt" class="dropzone">
         <div v-if="txt_anns.length == 0" class="zone-text">
@@ -2000,7 +2184,8 @@ v-bind:class="{'active': section=='corpus'}">
     </button>
 
     <span class="title">Download</span>
-</div>
+</div> 
+-->
 
 </div>
 
@@ -2166,6 +2351,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 <div class="group">
     <button class="ribbon-button"
+        title="Clear all annotation files and calculated IAA results"
         v-on:click="clear_iaa_all(null)">
         <span class="icon">
             <i class="far fa-times-circle"></i>
@@ -2189,7 +2375,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) or Folder
         </div>
         <div v-else 
             class="zone-text">
@@ -2228,7 +2414,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) or Folder
         </div>
         <div v-else class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
@@ -2358,6 +2544,7 @@ v-bind:class="{'active': section=='iaa'}">
 
 
     <button class="ribbon-button"
+        title="Calculate the IAA for the given annotation files"
         :disabled="dtd == null || iaa_ann_list[0].anns.length == 0 || iaa_ann_list[1].anns.length == 0"
         v-on:click="calc_iaa">
         <span class="icon">
@@ -2428,7 +2615,8 @@ v-bind:class="{'active': section=='iaa'}">
 </div>
 
 
-<div class="group">
+<div v-show="dtd != null && iaa_gs_dict != null"
+    class="group">
     <!-- <div>
         <div>
             <input type="checkbox" 
@@ -2477,7 +2665,7 @@ v-bind:class="{'active': section=='iaa'}">
 
     <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>  -->
 
-    <div class="d-flex flex-row">
+    <!-- <div class="d-flex flex-row">
 
         <button class="ribbon-button" 
             :disabled="dtd == null || iaa_gs_dict == null"
@@ -2489,6 +2677,32 @@ v-bind:class="{'active': section=='iaa'}">
             <span class="caption">Download</span>
         </button>
 
+    </div> -->
+
+    <div class="ribbon-split-button"
+        id="btn_annotation_save_">
+        <button class="ribbon-main"
+            :disabled="dtd == null || iaa_gs_dict == null"
+            title="Download all tags from both annotator A and B"
+            v-on:click="download_all_iaa_anns">
+            <span class="icon">
+                <i class="far fa-copy"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Download</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+            <li title="Download all tags from both annotator A and B"
+                v-on:click="download_all_iaa_anns">
+                <a href="javascript:void(0);">All Tags from A and B</a>
+            </li>
+
+            <li title="Download the adjudicated tags as shown below"
+                v-on:click="download_all_gs">
+                <a href="javascript:void(0);">Simple Adjudicated Tags</a>
+            </li>
+        </ul>
     </div>
     
     <span class="title">Adjudication</span>
@@ -2499,7 +2713,7 @@ v-bind:class="{'active': section=='iaa'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.2.32 | 
+            MedTator 1.2.41 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.is_show_settings = true">
@@ -2653,6 +2867,16 @@ v-bind:class="{'active': section=='iaa'}">
                             <a href="javascript:void(0);">By annotated tags (N->0)</a>
                         </li>
 
+                        <li title="Sort the file list by the color of labels"
+                            v-on:click="sort_filelist_by('label')">
+                            <a href="javascript:void(0);">By label color (Green first)</a>
+                        </li>
+
+                        <li title="Sort the file list by the color of labels"
+                            v-on:click="sort_filelist_by('label_r')">
+                            <a href="javascript:void(0);">By label color (Non-color first)</a>
+                        </li>
+
                         <li class="divider"></li>
 
                         <li title="Sort the file list by the number of annotated tags"
@@ -2712,7 +2936,12 @@ v-bind:class="{'active': section=='iaa'}">
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
                                 </a>
-                                
+                                <span v-if="has_any_label(anns[v_ann.idx])">
+                                    <span v-for="ann_label in anns[v_ann.idx].meta.label"
+                                        :class="'label-' + ann_label.color">
+                                        <i class="fas fa-bookmark"></i>
+                                    </span>
+                                </span>
                                 <span>
                                     {{ v_ann._filename }}
                                 </span>
@@ -2865,7 +3094,7 @@ v-bind:class="{'active': section=='iaa'}">
                     <tr>
                         <th class="tag-name">Tag</th>
                         <th class="tag-id">ID</th>
-                        <th class="tag-span">Spans</th>
+                        <th class="tag-spans">Spans</th>
                         <th class="tag-text">Text</th>
                         <th class="tag-attr">Attributes</th>
                     </tr>
@@ -2910,10 +3139,10 @@ v-bind:class="{'active': section=='iaa'}">
                         <td v-bind:class="{'c-pointer': !is_etag_doc_level(tag)}"
                             v-on:click="on_click_tag_table_row(tag)">
                             <span v-if="tag.hasOwnProperty('_annotator')"
-                                class="mr-2"
-                                v-bind:class="'iaa-annotator-' + tag._annotator">
-                                <i v-if="tag._annotator != 'G'" class="fa fa-user-edit"></i>
-                                <i v-else class="fa fa-user-plus"></i>
+                                v-bind:class="'iaa-annotator-' + tag._annotator"
+                                class="mr-2">
+                                <i v-if="tag._annotator == 'AB'" class="fa fa-user-check"></i>
+                                <i v-else class="fa fa-user-edit"></i>
                                 {{ tag._annotator }}
                             </span>
                             <!-- <span v-else
@@ -2931,6 +3160,36 @@ v-bind:class="{'active': section=='iaa'}">
                             <span v-else
                                 class="c-pointer">
                                 LINK
+                            </span>
+
+                            <span v-if="tag.hasOwnProperty('_annotator')"
+                                class="box-annotator-actions">
+                                <!-- this is a adjudication tag -->
+                                <br>
+                                <button class="btn btn-xs btn-green"
+                                    title="Set this tag as both agreed"
+                                    v-if="tag._annotator != 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'AB')">
+                                    <i class="far fa-handshake"></i>
+                                    Both A and B
+                                </button>
+                                
+
+                                <button class="btn btn-xs btn-orange"
+                                    title="Set annotator to A"
+                                    v-if="tag._annotator == 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'A')">
+                                    <i class="fas fa-user-edit"></i>
+                                    Only A
+                                </button>
+
+                                <button class="btn btn-xs btn-blue"
+                                    title="Set annotator to B"
+                                    v-if="tag._annotator == 'AB'"
+                                    v-on:click="set_tag_annotator(tag.id, 'B')">
+                                    <i class="fas fa-user-edit"></i>
+                                    Only B
+                                </button>
                             </span>
                         </td>
 
@@ -3095,48 +3354,106 @@ v-bind:class="{'active': section=='iaa'}">
             <div class="box-header">
                 <h4>
                     <i class="fa fa-list-ul"></i>
-                    Corpus Files
+                    MedTagger Files
                 </h4>
             </div>
 
-            <div class="box-body" style="overflow-y: auto;">
-                <table class="table striped">
-                    <tr>
-                        <th>#</th>
-                        <th>TXT File Name</th>
-                        <th>&nbsp;</th>
-                        <th>XML File Name</th>
-                    </tr>
-                    <tr v-for="txt_ann, txt_ann_idx in txt_anns">
-                        <td>
-                            {{ txt_ann_idx + 1 }}
-                        </td>
-                        <td>
-                            <i class="far fa-file-alt"></i>
-                            {{ txt_ann._filename }}
-                        </td>
-                        <td>
-                            <span>
-                                <i class="fa fa-arrow-right"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span v-if="txt_xmls.length > txt_ann_idx">
-                                <i class="far fa-file-code"></i>
-                                {{ get_new_xml_filename(txt_xmls[txt_ann_idx].fn) }}
+            <div v-if="converter_corpus_task == 'medtagger'"
+                class="box-body" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    For converting the MedTagger format, 
+                    you need to prepare the following two types of files.
+                    Please make sure the file names are matched.
+                </p>
 
-                                <span>
-                                    <a href="javascript:void(0);"
-                                        v-on:click="download_txt_xml(txt_ann_idx)"
-                                        v-bind:title="'Download ' + get_new_xml_filename(txt_xmls[txt_ann_idx].fn)">
-                                        <i class="fa fa-download"></i>
-                                        Download
-                                    </a>
+                <div class="d-flex flex-row h-100">
+
+
+                    <div id="mui_converter_medtagger_txt_filelist"
+                        class="converter-dropzone mr-2">
+                        <h5>
+                            <i class="far fa-file-alt"></i>
+                            Raw .txt Text Files
+                        </h5>
+                        <p v-if="converter_corpus_medtagger_txt_files.length == 0">
+                            Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ converter_corpus_medtagger_txt_files.length }} </b> text files (.txt)
+                        </p>
+
+                        <div v-if="converter_corpus_medtagger_txt_files.length != 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_medtagger_txt_files"
+                                class="converter-file-row">
+                                {{ f.fh.name }}
+                            </div>
+                        </div>
+                    </div>
+    
+
+
+                    <div id="mui_converter_medtagger_ann_filelist"
+                        class="converter-dropzone mr-2">
+                        <h5>
+                            <i class="far fa-file-code"></i>
+                            MedTagger .ann Files
+                        </h5>
+                        <p v-if="converter_corpus_medtagger_ann_files.length == 0">
+                            Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ converter_corpus_medtagger_ann_files.length }} </b> MedTagger files (.ann)
+                        </p>
+
+                        <div v-if="converter_corpus_medtagger_ann_files.length != 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_medtagger_ann_files"
+                                class="converter-file-row">
+                                <span class="bg-blue fg-white mr-1 pl-1"
+                                    :title="f.lines.length + ' lines of records'">
+                                    {{ f.lines.length }}
                                 </span>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+                                {{ f.fh.name }}
+                            </div>
+                        </div>
+                    </div>
+<!-- 
+                    <div>
+                        <button class="converter-button"
+                            v-on:click="convert_from_medtagger_txt_and_ann">
+                            Convert 
+                            <br>
+                            the given files to 
+                            <br>
+                            <b>MedTator XML</b> Format
+                        </button>
+                    </div>
+     -->
+                    <div v-if="converter_corpus_medtagger_results.length != 0"
+                        class="converter-dropzone mr-2 bd-green">
+                        <h5 class="fg-green">
+                            <i class="far fa-file-code"></i>
+                            Generated MedTator XML Files
+                        </h5>
+                        
+                        <p>
+                            Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs to xml files
+                        </p>
+
+                        <div class="d-flex flex-column converter-file-list">
+                            <div v-for="obj in converter_corpus_medtagger_results"
+                                class="converter-file-row">
+                                <span class="bg-green fg-white mr-1 pl-1"
+                                    :title="'Converted ' + obj.medtator_ann.tags.length + ' tags'">
+                                    {{ obj.medtator_ann.tags.length }}
+                                </span>
+                                {{ obj.medtator_ann._filename }} 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.box -->
@@ -4660,7 +4977,42 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_dir_handle(fh, dtd) {
+async function fs_read_file_handle(fh) {
+    // get the file obj
+    const file = await fh.getFile();
+    // get the text content
+    const text = await file.text();
+
+    // return the content and fh
+    return {
+        fh: fh,
+        text: text
+    };
+}
+
+async function fs_read_dir_handle(fh, callback) {
+    for await (const entry of fh.values()) {
+        // Each entry is an instance of FileSystemFileHandle 
+        // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 
+        console.log(entry);
+        if (entry.kind != 'file') {
+            console.log('* skip sub folder', entry.name);
+            continue;
+        }
+
+        // call the app_hotpot to parse and decide this fh
+        app_hotpot.parse_file_fh(
+            entry, 
+            callback
+        );
+    }
+}
+
+///////////////////////////////////////////////////////////
+// Customized functions of read/write for annotation
+///////////////////////////////////////////////////////////
+
+async function fs_read_ann_dir_handle(fh, dtd) {
     for await (const entry of fh.values()) {
         // Each entry is an instance of FileSystemFileHandle 
         // FileSystemFileHandle {kind: 'file', name: 'doc_04.txt'} 
@@ -5537,7 +5889,8 @@ var ann_parser = {
         var ann = {
             text: txt,
             dtd_name: dtd.name,
-            tags: []
+            tags: [],
+            meta: {},  // the meta data of this annotation
         };
 
         return ann;
@@ -5666,7 +6019,7 @@ var ann_parser = {
                 // if not, skip the next step
                 if (dtd.tag_dict.hasOwnProperty(tag_name)) {
                     // one more step, sometimes the attr in XML doesn't contain
-                    // what defined int dtd, so we need to give a value
+                    // what defined in the dtd, so we need to give a value
                     for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
                         const att = dtd.tag_dict[tag_name].attlists[k];
                         if (tag.hasOwnProperty(att.name)) {
@@ -5705,7 +6058,44 @@ var ann_parser = {
             // it's very very possible that no meta data
             // then just skip
         } else {
+            // Wow! that's great!
+            // We found some meta data for this annotation!
+            // just save everything to `ann.meta`?
 
+            // check all
+            var elems = xmlDoc.getElementsByTagName('META')[0].children;
+            for (let i = 0; i < elems.length; i++) {
+                var elem = elems[i];
+
+                // get the attributes
+                var tag_name = elem.tagName;
+
+                // decide the format
+                if (ann.meta.hasOwnProperty(tag_name)) {
+                    // nothing to do
+                } else {
+                    // we assume each tag may have multiple tags
+                    ann.meta[tag_name] = [];
+                }
+
+                // get all attr names
+                var attrs = elem.getAttributeNames();
+
+                // create a temp obj
+                var obj = {};
+
+                // put all attrs 
+                for (let j = 0; j < attrs.length; j++) {
+                    var attr = attrs[j];
+                    var value = elem.getAttribute(attr);
+
+                    // put value
+                    obj[attr] = value;
+                }
+
+                // save this obj
+                ann.meta[tag_name].push(obj);
+            }
         }
 
         return ann;
@@ -5814,7 +6204,36 @@ var ann_parser = {
         }
         root.appendChild(node_TAGS);
 
+        if (!ann.hasOwnProperty('meta')) {
+            // this is old format, there is no meta
+            return xmlDoc;
+        }
+
         // create the meta
+        var node_META = xmlDoc.createElement('META');
+        for (const key in ann.meta) {
+            if (Object.hasOwnProperty.call(ann.meta, key)) {
+                const objs = ann.meta[key];
+                
+                // objs is a list of items of this key
+
+                for (let i = 0; i < objs.length; i++) {
+                    const obj = objs[i];
+
+                    // create a node for this tag
+                    var node_tag = xmlDoc.createElement(key);
+                    
+                    // save this obj
+                    for (const attr in obj) {
+                        node_tag.setAttribute(attr, obj[attr]);
+                    }
+
+                    // save this node
+                    node_META.appendChild(node_tag);
+                }
+            }
+        }
+        root.appendChild(node_META);
         
         return xmlDoc;
     },
@@ -5850,9 +6269,14 @@ var ann_parser = {
         const serializer = new XMLSerializer();
         var xml_str_TEXT = serializer.serializeToString(xml_doc.getElementsByTagName('TEXT')[0]);
         var xml_str_TAGS = serializer.serializeToString(xml_doc.getElementsByTagName('TAGS')[0]);
+        var xml_str_META = serializer.serializeToString(xml_doc.getElementsByTagName('META')[0]);
 
+        // format the XML to make it looks better for human
         var format = require('xml-formatter');
         var xml_str_TAGS_formatted = format(xml_str_TAGS, {
+            indentation: ''
+        });
+        var xml_str_META_formatted = format(xml_str_META, {
             indentation: ''
         });
 
@@ -5863,6 +6287,7 @@ var ann_parser = {
             '<' + root_name + '>',
             xml_str_TEXT,
             xml_str_TAGS_formatted,
+            xml_str_META_formatted,
             '</' + root_name + '>'
         ].join('\n');
 
@@ -8030,12 +8455,91 @@ var iaa_calculator = {
     },
 
     default_overlap_ratio: 0.1,
+
+    make_ann_by_iaa: function(ann_rst, ann_iaa, dtd) {
+        // create a blank ann by the ann_rst's ann
+        var ann = JSON.parse(JSON.stringify(ann_rst.ann));
+
+        // clear the ann tags
+        ann.tags = [];
+
+        // clear the meta
+        ann.meta = {};
+
+        // check each cate
+        var cms = ['tp', 'fp', 'fn'];
+
+        // check the ann in 
+        for (const tag_name in ann_iaa.rst.tag) {
+            if (Object.hasOwnProperty.call(ann_iaa.rst.tag, tag_name)) {
+                const tag_rst = ann_iaa.rst.tag[tag_name].cm.tags;
+
+                for (let i = 0; i < cms.length; i++) {
+                    const cm = cms[i];
+                    
+                    for (let j = 0; j < tag_rst[cm].length; j++) {
+                        if (tag_rst[cm][j] == null) {
+                            // for ann_iaa, this is not possible
+                            continue;
+                        }
+                        
+                        // there may be two tags
+                        for (let k = 0; k < 2; k++) {
+                            const _tag = tag_rst[cm][j][k];
+
+                            if (cm == 'tp' && k == 1) {
+                                // for true positive, just skip the second one
+                                continue;
+                            }
+
+                            if (_tag == null) {
+                                // yes, it's possible for fn
+                                continue;
+                            }
+                            
+                            // ok, now we need to save this tag
+                            var tag = Object.assign({}, _tag);
+                            var tag_def = dtd.tag_dict[tag.tag];
+
+                            // get a new id for this tag
+                            var new_id = ann_parser.get_next_tag_id(ann, tag_def);
+    
+                            // now, set this tag and put it into list
+                            tag.id = new_id;
+    
+                            // add annotator
+                            // locate where this tag comes from
+                            if (cm == 'tp') {
+                                tag._annotator = 'AB';
+                                
+                            } else if (cm == 'fn') {
+                                tag._annotator = 'B';
+    
+                            } else {
+                                tag._annotator = {
+                                    0: 'A',
+                                    1: 'B'
+                                }[k];
+                            }
+    
+                            ann.tags.push(tag);
+                        }
+                    }
+                }
+            }
+        }
+
+        return ann;
+    },
     
     make_ann_by_rst: function(ann_rst, dtd) {
         var ann = JSON.parse(JSON.stringify(ann_rst.ann));
 
         // clear the ann tags
         ann.tags = [];
+
+        // clear the meta
+        ann.meta = {};
 
         // check each cate
         var cms = ['tp', 'fp', 'fn'];
@@ -8962,6 +9466,8 @@ var iaa_calculator = {
             var hashcode = this.hash(ann_b.text);
 
             if (ann_dict.hasOwnProperty(hashcode)) {
+                // one more case about this ann:
+                // how many anns have been found?
                 if (ann_dict[hashcode].length > 1) {
                     // this is a dupliated ann
                     iaa_dict.stat.duplicates.push({
@@ -10437,6 +10943,235 @@ var nlp_toolkit = {
 
 };
 
+// The MedTagger toolkit
+/**
+ * MedTagger format annotation file parser
+ * 
+ */
+ var medtagger_toolkit = {
+     regex: {
+        // the pattern of key value for each result
+        key_and_value: /(\S+)="([^"]+)"/gm,
+    },
+
+    convert_medtagger_files_to_anns: function(txts, anns, dtd) {
+        // first of all, make a dict for ann file names
+        var ann_dict = {};
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            ann_dict[ann.fh.name] = ann;
+        }
+
+        // then, work on each txt
+        var ret = [];
+
+        for (let i = 0; i < txts.length; i++) {
+            const txt = txts[i];
+            
+            // the ann name should be exactly the txt + '.ann'
+            var ann_fn = txt.fh.name + '.ann';
+
+            if (!ann_dict.hasOwnProperty(ann_fn)) {
+                // what???
+                console.log('* not found ann file for', txt.fh.name);
+                continue;
+            }
+            var ann = ann_dict[ann_fn];
+
+            // ok, we found the matched ann!
+            var ann_rs = this.parse_ann_content(
+                ann
+            );
+
+            // to xml ann
+            var mt_ann = this.to_medtator_ann(
+                txt,
+                ann_rs,
+                dtd
+            );
+
+            var r = {
+                txt: txt,
+                ann: ann,
+                ann_rs: ann_rs,
+                medtator_ann: mt_ann
+            }
+
+            ret.push(r);
+        }
+
+        return ret;
+    },
+
+    to_medtator_ann: function(txt, ann_rs, dtd) {
+        // this is an empty medtator ann
+        var ann = {
+            text: txt.text,
+            dtd_name: dtd.name,
+            tags: [],
+            meta: {},
+
+            // other info
+            _fh: null,
+            _filename: txt.fh.name + '.xml',
+            _has_saved: true,
+            _sentences: null,
+            _sentences_text: null
+        };
+
+        for (let i = 0; i < ann_rs.length; i++) {
+            const r = ann_rs[i];
+        
+            var tag = {};
+            // each r contains many k-v pairs
+            // we need to copy some values
+            if (r.hasOwnProperty('text')) {
+                tag['text'] = r.text;
+            }
+            if (r.hasOwnProperty('norm')) {
+                tag['tag'] = r.norm;
+            }
+            if (r.hasOwnProperty('start') &&
+                r.hasOwnProperty('end')) {
+                tag['spans'] = r.start + '~' + r.end;
+            }
+
+            // then we need to check the tag quality
+            if (tag.hasOwnProperty('tag') &&
+                tag.hasOwnProperty('text')&&
+                tag.hasOwnProperty('spans')) {
+                // get the tag_def for this tag
+                if (!dtd.tag_dict.hasOwnProperty(tag.tag)) {
+                    // this is possible that the normed term may not be available
+                    console.log('* skip unknown norm @' + i + ':', tag.tag);
+                    continue;
+                }
+
+                // it should be matched with the dtd
+                var tag_def = dtd.tag_dict[tag.tag];
+
+                // now need to add an ID for this tag
+                tag.id = ann_parser.get_next_tag_id(
+                    ann,
+                    tag_def
+                )
+
+                // one more step, the MedTagger output won't contain attrs
+                // which are defined in the dtd, so we need to set them
+                for (let k = 0; k < tag_def.attlists.length; k++) {
+                    const att = tag_def.attlists[k];
+                    if (tag.hasOwnProperty(att.name)) {
+                        // ok, that's what it should be
+                    } else {
+                        // also ok, that's what it actually is 
+                        tag[att.name] = att.default_value;                            
+                        console.log('* patched missing '+tag.tag+'.'+att.name+'] to ' + tag.id);
+                    }
+                }
+                ann.tags.push(tag);
+            } else {
+                console.log('* skip incomplete tag', tag);
+            }
+            
+        }
+
+        return ann;
+    },
+
+    /**
+     * Parse the ann file
+     * 
+     * @param {Object} ann the ann 
+     */
+    parse_ann_content: function(ann) {
+
+        // first, make a ret
+        var rs = [];
+
+        // second, split the ann lines
+        for (let i = 0; i < ann.lines.length; i++) {
+            const ann_line = ann.lines[i];
+            var kvs = this.parse_ann_line(ann_line);
+
+            if (kvs == null) {
+                // so this line may be empty or no values?
+                continue;
+            }
+
+            // I guess it works
+            rs.push(kvs);
+        }
+
+        // no matter what we have at last, just return it
+        return rs;
+    },
+
+    parse_ann_line: function(ann_line) {
+        if (ann_line == '') {
+            return null;
+        }
+
+        // the parts are seperated by \t sym
+        var parts = ann_line.split('\t');
+
+        // r is record or result
+        var r = {};
+
+        for (let i = 0; i < parts.length; i++) {
+            const p = parts[i];
+            var ret = this.get_key_and_value(p);
+
+            if (ret.length < 2) {
+                // must be something wrong??
+                continue;
+            }
+            
+            // the first value is the key
+            // and the second is the value
+            r[ret[0]] = ret[1];
+        }
+
+        return r;
+    },
+
+    get_key_and_value: function(s) {
+        let m;
+        var ret = [];
+        let regex = this.regex.key_and_value;
+
+        while ((m = regex.exec(s)) !== null) {
+            // This is necessary to avoid infinite loops with zero-width matches
+            if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+
+            // the final values?
+            var values = [];
+
+            // The result can be accessed through the `m`-variable.
+            m.forEach((match, groupIndex) => {
+                // console.log(`Found attlist require match, group ${groupIndex}: ${match}`);
+                // group 0 is the leading text
+                if (groupIndex == 1) {
+                    // which is the key
+                    values.push(match)
+
+                } else if (groupIndex == 2) {
+                    // get value 
+                    // not matter what is left, save it
+                    values.push(match);
+                }
+            });
+
+            ret = values;
+        }
+
+        
+        return ret;
+    },
+
+ };
+
 // The Vue App
 var app_hotpot = {
     // metro app toast
@@ -10477,6 +11212,7 @@ var app_hotpot = {
         // - alphabet_r: Z-A
         // - tags: 0-N
         // - tags_r: N-0
+        // - label: color
         sort_anns_by: 'default',
 
         // for annotation tab working mode
@@ -10529,52 +11265,8 @@ var app_hotpot = {
         // for updating the sub module
         force_module_update: Math.random(), 
 
-        // for iaa
-        iaa_ann_list: [
-            {anns: [], name: 'A'}, // for annotator A
-            {anns: [], name: 'B'}, // for annotator B
-        ],
-        iaa_dict: null,
-        iaa_display_tag_name: '__all__',
-        iaa_match_mode: 'overlap', // overlap / exact
-        iaa_overlap_ratio: 50,
-        iaa_overlap_ratio_default: 50,
-        iaa_display_hashcode: null,
-        iaa_display_tags_context: true,
-        iaa_display_tags_tp: false,
-        iaa_display_adj_panel: true,
-        iaa_display_adj_detail: false,
-
-        // sort anns
-        // - default: how the anns are imported into tool
-        // - a.alphabet: A-Z
-        // - a.alphabet_r: Z-A
-        // - a.tags: 0-N
-        // - a.tags_r: N-0
-        iaa_sort_anns_by: 'default',
-
-        // for iaa adjudication
-        iaa_gs_dict: null,
-
-        // for using attributes in IAA
-        iaa_use_attributes: false,
-
-        // remove the tag when low_overlap for calcuting
-        // this can remove the duplicated results in FN
-        // so the IAA calculation result will be different
-        // the 
-        iaa_remove_tag_b_when_low_overlap: true,
-
-        // for using attributes in IAA a selection map
-        // {
-        //    tag_name: {
-        //        attr_name: true / false
-        //    }
-        // }
-        iaa_use_tag_attrs: {},
-
-        // for IAA display mode, show F1 or other indicators
-        iaa_display_measure: 'f1',
+        // for IAA
+        // see app_hotpot_ext_iaa.js
 
         // cm settings
         cm: {
@@ -10742,6 +11434,65 @@ var app_hotpot = {
             });;
         },
         
+        /////////////////////////////////////////////////////////////////
+        // "Label" related functions
+        /////////////////////////////////////////////////////////////////
+        has_any_label: function(ann) {
+            if (ann.hasOwnProperty('meta') &&
+                ann.meta.hasOwnProperty('label') &&
+                ann.meta.label.length > 0) {
+                return true;
+            }
+
+            return false;
+        },
+
+        set_label: function(color, ann) {
+            if (typeof(color)=='undefined') {
+                color = 'green';
+            }
+
+            if (typeof(ann)=='undefined') {
+                // just a reference
+                ann = this.anns[this.ann_idx];
+            }
+
+            // if this is not label, the `label` may be available
+            if (!this.has_any_label(ann)) {
+                ann.meta['label'] = [];
+            }
+
+            // just set the label
+            ann.meta['label'] = [{
+                'color': color
+            }];
+
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            // update the UI
+            this.$forceUpdate();
+        },
+
+        remove_labels: function(ann) {
+            if (typeof(ann)=='undefined') {
+                // just a reference
+                ann = this.anns[this.ann_idx];
+            }
+
+            ann.meta['label'] = [];
+
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            // update the UI
+            this.$forceUpdate();
+        },
+        
+        /////////////////////////////////////////////////////////////////
+        // "Save as" related functions
+        /////////////////////////////////////////////////////////////////
+        
         save_as_xml: function() {
             // convert to xml
             var xmlDoc = ann_parser.ann2xml(
@@ -10832,7 +11583,7 @@ var app_hotpot = {
             var fn = 'annotation-' + 
                 this.dtd.name + 
                 '-' +
-                this.get_datetime() +
+                this.get_datetime_now() +
                 '.zip';
             console.log('* download all as zip ' + fn);
 
@@ -10846,7 +11597,6 @@ var app_hotpot = {
             console.log('* downloaded zip file:', file_list);
             // update the UI?
         },
-
 
         /////////////////////////////////////////////////////////////////
         // Schema editor related functions
@@ -11414,6 +12164,8 @@ var app_hotpot = {
         get_sort_by_label: function(sort_by) {
             return {
                 'default': 'Sort',
+                'label': 'Gr-NA',
+                'label_r': 'NA-Gr',
                 'alphabet': 'A-Z',
                 'alphabet_r': 'Z-A',
                 'tags': '0-N',
@@ -11431,11 +12183,21 @@ var app_hotpot = {
             var v_anns = [];
             for (let i = 0; i < anns.length; i++) {
                 const ann = anns[i];
+
+                var ann_label = 'zunisha';
+                if (this.has_any_label(ann)) {
+                    ann_label = ann.meta.label[0].color;
+                }
                 v_anns.push({
                     // file name
                     _filename: ann._filename,
+
                     // number of annotated tags
                     n_tags: ann.tags.length,
+
+                    // label color
+                    label: ann_label,
+
                     // the true idx
                     idx: i
                 });
@@ -11443,6 +12205,7 @@ var app_hotpot = {
 
             if (sort_by == 'default') {
                 return v_anns;
+
             } else if (sort_by == 'alphabet') {
                 v_anns.sort(function(a, b) {
                     return a._filename.localeCompare(
@@ -11471,6 +12234,27 @@ var app_hotpot = {
                 });
                 return v_anns;
                 
+            } else if (sort_by == 'label') {
+                // blue
+                // green
+                // red
+                // yellow
+                // zunisha
+                v_anns.sort(function(a, b) {
+                    return a.label.localeCompare(
+                        b.label
+                    )
+                });
+                return v_anns;
+
+            } else if (sort_by == 'label_r') {
+                v_anns.sort(function(a, b) {
+                    return b.label.localeCompare(
+                        a.label
+                    )
+                });
+                return v_anns;
+
             } else {
                 return v_anns;
             }
@@ -11912,10 +12696,39 @@ var app_hotpot = {
         del_tag: function(tag_id) {
             // delete the clicked tag id
             app_hotpot.del_tag(
-                tag_id, this.anns[this.ann_idx]
+                tag_id, 
+                this.anns[this.ann_idx]
             );
         },
 
+        set_tag_annotator: function(tag_id, annotator, ann) {
+            if (typeof(ann) == 'undefined') {
+                // just use the current ann
+                ann = this.anns[this.ann_idx];
+            }
+            var tag_idx = -1;
+            for (let i = 0; i < ann.tags.length; i++) {
+                if (ann.tags[i].id == tag_id) {
+                    ann.tags[i]._annotator = annotator;
+                    break;
+                }            
+            }
+
+            // what to do?
+            if (tag_idx == -1) {
+                // ???
+            } else {
+                // ???
+            }
+
+            // mark this file is changed and needs to be saved
+            ann._has_saved = false;
+
+            console.log('* set annotator to tag: ', 
+                tag_id + '._annotator = ' + annotator);
+
+            return ann;
+        },
 
         /////////////////////////////////////////////////////////////////
         // Statistics related functions
@@ -12176,542 +12989,7 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // IAA Related
         /////////////////////////////////////////////////////////////////
-        clear_iaa_all: function(which) {
-            if (typeof(which) == 'undefined') {
-                which = null;
-            }
-            // clear everything related to iaa
-            if (which == null || which == 0) {
-                // just clear a
-                this.iaa_ann_list[0].anns = [];
-            }
-            if (which == null || which == 1) {
-                // just clear b
-                this.iaa_ann_list[1].anns = [];
-            }
-
-            this.iaa_dict = null;
-            this.iaa_gs_dict = null;
-
-            this.iaa_display_tag_name = '__all__';
-            this.iaa_display_hashcode = null;
-        },
-
-        add_iaa_ann: function(ann, iaa_id) {
-            this.iaa_ann_list[iaa_id].anns.push(ann);
-        },
-
-        calc_iaa: function() {
-            var iaa_dict = iaa_calculator.evaluate_anns_on_dtd(
-                this.dtd,
-                this.iaa_ann_list[0].anns,
-                this.iaa_ann_list[1].anns,
-                this.iaa_match_mode,
-                this.iaa_overlap_ratio / 100,
-                this.iaa_use_attributes?
-                    this.iaa_use_tag_attrs:
-                    null,
-                this.iaa_remove_tag_b_when_low_overlap
-            );
-            this.iaa_dict = iaa_dict;
-            console.log('* iaa result:', iaa_dict);
-
-            // and create
-            this.make_default_adj();
-        },
-
-        iaa_sort_filelist_by: function(sort_by) {
-            this.iaa_sort_anns_by = sort_by;
-        },
-
-        iaa_get_sort_by: function() {
-            if (this.hasOwnProperty('iaa_sort_anns_by')) {
-                return this.iaa_sort_anns_by;
-            } else {
-                return 'default';
-            }
-        },
-        
-        iaa_get_sort_by_label: function(sort_by) {
-            return {
-                'default': 'Sort',
-                'f1_asc': 'F1 0-1',
-                'f1_desc': 'F1 1-0',
-
-                // for A
-                'a.alphabet': 'A|A-Z',
-                'a.alphabet_r': 'A|Z-A',
-
-                // for B
-                'b.alphabet': 'B|A-Z',
-                'b.alphabet_r': 'B|Z-A',
-            }[sort_by];
-        },
-
-        iaa_sort_v_anns: function(iaa_dict) {
-            var sort_by = this.iaa_get_sort_by();
-
-            // a virtual list of ann, just contain the file name
-            // this is prepared for sorting only
-            // because the sort is an in-place sort
-            // we can't modify the order in the original anns
-            var v_anns = [];
-            for (const ann_hashcode in iaa_dict.ann) {
-                const ann_rst = iaa_dict.ann[ann_hashcode];
-                v_anns.push({
-                    // hashtag
-                    ann_hashcode: ann_hashcode,
-
-                    // the f1
-                    f1: this.iaa_display_tag_name == '__all__'? 
-                        ann_rst.rst.all.f1 : ann_rst.rst.tag[this.iaa_display_tag_name].f1,
-
-                    // number of annotated tags
-                    ann_a: {
-                        _filename: ann_rst.anns[0]._filename
-                    },
-                    ann_b: {
-                        _filename: ann_rst.anns[1]._filename
-                    }
-                });
-            }
-
-            // now sort
-            if (sort_by == 'default') {
-                return v_anns;
-
-            } else if (sort_by == 'f1_asc') {
-                console.log('* sorting f1_asc', isNaN(0));
-                v_anns.sort(function(a, b) {
-                    var v = (isNaN(a.f1)?0:a.f1) - (isNaN(b.f1)?0:b.f1);
-                    return v;
-                });
-                return v_anns;
-
-            } else if (sort_by == 'f1_desc') {
-                console.log('* sorting f1_desc', isNaN(NaN));
-                v_anns.sort(function(a, b) {
-                    var v = (isNaN(b.f1)?0:b.f1) - (isNaN(a.f1)?0:a.f1);
-                    return v;
-                });
-                return v_anns;
-
-            } else if (sort_by == 'a.alphabet') {
-                v_anns.sort(function(a, b) {
-                    return a.ann_a._filename.localeCompare(
-                        b.ann_a._filename
-                    )
-                });
-                return v_anns;
-
-            } else if (sort_by == 'a.alphabet_r') {
-                v_anns.sort(function(a, b) {
-                    return -a.ann_a._filename.localeCompare(
-                        b.ann_a._filename
-                    )
-                });
-                return v_anns;
-                
-            } else if (sort_by == 'b.alphabet') {
-                v_anns.sort(function(a, b) {
-                    return a.ann_b._filename.localeCompare(
-                        b.ann_b._filename
-                    )
-                });
-                return v_anns;
-
-            } else if (sort_by == 'b.alphabet_r') {
-                v_anns.sort(function(a, b) {
-                    return -a.ann_b._filename.localeCompare(
-                        b.ann_b._filename
-                    )
-                });
-                return v_anns;
-                
-            } else {
-                return v_anns;
-            }
-        },
-
-        get_rst: function(obj) {
-            if (this.iaa_display_tag_name == '__all__') {
-                return obj.all;
-            } else {
-                return obj.tag[this.iaa_display_tag_name];
-            }
-        },
-
-        on_change_iaa_settings: function(event) {
-            console.log('* changed attr in', event.target);
-            
-        },
-
-        on_change_iaa_use_attributes: function(event) {
-            console.log('* changed iaa_use_attributes=', this.iaa_use_attributes);
-
-            // update the settings of iaa_use_tag_attrs
-            if (this.dtd == null) {
-                return;
-            }
-
-            if (Object.keys(this.iaa_use_tag_attrs).length != 0) {
-                // which means this has been inited
-                return;
-            }
-
-            this.init_iaa_use_tag_attrs();
-        },
-
-        init_iaa_use_tag_attrs: function() {
-            // update the values
-            for (const tag_name in this.dtd.tag_dict) {
-                if (Object.hasOwnProperty.call(this.dtd.tag_dict, tag_name)) {
-                    const tag = this.dtd.tag_dict[tag_name];
-                    this.iaa_use_tag_attrs[tag_name] = {};
-
-                    // update all the attributes
-                    for (let i = 0; i < tag.attlists.length; i++) {
-                        const att = tag.attlists[i];
-                        // set all to true
-                        this.iaa_use_tag_attrs[tag_name][att.name] = true;
-                    }
-                }
-            }
-        },
-
-        set_iaa_display_measure: function(m) {
-            this.iaa_display_measure = m;
-        },
-
-        set_all_iaa_use_tag_attrs: function(selection) {
-            for (const tag_name in this.iaa_use_tag_attrs) {
-                if (Object.hasOwnProperty.call(this.iaa_use_tag_attrs, tag_name)) {
-                    const tag_attrs = this.iaa_use_tag_attrs[tag_name];
-                    for (const att_name in tag_attrs) {
-                        if (Object.hasOwnProperty.call(tag_attrs, att_name)) {
-                            this.iaa_use_tag_attrs[tag_name][att_name] = selection;
-                        }
-                    }
-                }
-            }
-
-            // due to deep update, need to update manually
-            this.$forceUpdate();
-        },
-
-        toggle_iaa_tag_attrs: function(tag_name, att_name) {
-            if (this.iaa_use_tag_attrs.hasOwnProperty(tag_name)) {
-                if (this.iaa_use_tag_attrs[tag_name].hasOwnProperty(att_name)) {
-                    this.iaa_use_tag_attrs[tag_name][att_name] = 
-                        !this.iaa_use_tag_attrs[tag_name][att_name];
-                }
-            }
-            // console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
-
-            // due to deep update, need to update manually
-            this.$forceUpdate();
-        },
-
-        transfer_to_annotation_tab: function() {
-            // confirm first if there are annotations
-            var len = app_hotpot.vpp.$data.anns.length;
-            if (len > 0) {
-                var msg = 'There are ' + len + ' documents in your annotation tab. Editing adjudication copy needs to remove those documents. Are you sure to continue?';
-                var ret = app_hotpot.confirm(msg);
-                if (ret) {
-
-                } else {
-                    // ok, let's stop
-                    return;
-                }
-            }
-
-            // check iaa_gs_dict status
-            if (this.iaa_gs_dict == null) {
-                // OK, nothing to do with an empty iaa_gs_dict
-
-                // maybe say something?
-                app_hotpot.msg('Adjudication copy is not found', 'warning');
-                return;
-            }
-
-            // convert the current gs dict
-            var gs_list = Object.values(
-                this.iaa_gs_dict
-            );
-
-            // then create ann list for update
-            var anns = [];
-
-            // check each item in this iaa_gs
-            for (let i = 0; i < gs_list.length; i++) {
-                const gs = gs_list[i];
-
-                // create a new ann
-                var ann = gs.ann;
-
-                // copy the rst of initial 
-                for (const tag_name in gs.rst) {
-                    if (Object.hasOwnProperty.call(gs.rst, tag_name)) {
-                        const r = gs.rst[tag_name];
-                        // check each cm, fn, fp, and tp
-                        for (const cm in r) {
-                            if (Object.hasOwnProperty.call(r, cm)) {
-                                const ds = r[cm];
-                                for (let j = 0; j < ds.length; j++) {
-                                    const d = ds[j];
-
-                                    // it's possible that this decision have been removed
-                                    if (d == null) {
-                                        continue;
-                                    }
-                                    // there are two attributes:
-                                    // from: a or b
-                                    // tag: the tag itself
-                                    // copy a new one
-                                    var tag = JSON.parse(JSON.stringify(d.tag));
-
-                                    // then need to update the id?
-                                    var etag_def = this.get_tag_def(tag_name);
-                                    if (etag_def == null) {
-                                        // what????
-                                    } else {
-                                        var new_tag_id = ann_parser.get_next_tag_id(
-                                            ann,
-                                            etag_def
-                                        );
-                                        tag.id = new_tag_id;
-                                    }
-
-                                    // update the tag info for annotator
-                                    if (cm == 'tp') {
-                                        // which means this tag is agreed by both
-                                        tag._annotator = 'AB';
-                                    } else {
-                                        // which means this tag is added by A or B
-                                        // or they don't have an agreement
-                                        tag._annotator = d.from;
-                                    }
-
-                                    // save this tag
-                                    ann.tags.push(tag);
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                anns.push(ann);
-            }
-
-            // replace 
-            this.set_ann_idx(null);
-            this.anns = [];
-
-            // set to span tag mode
-            this.cm.mark_mode = 'span';
-
-            // bind the ann
-            this.anns = anns;
-
-            // update the UI
-            this.ann_idx = 0;
-
-            // switch to ann tab
-            this.switch_mui('annotation');
-        },
-
-        make_default_adj: function() {
-            this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
-                this.dtd, this.iaa_dict
-            );
-        },
-
-        download_gs_file: function(hashcode) {
-            // get this gs
-            const ann_rst = this.iaa_gs_dict[hashcode];
-            
-            // change to an ann obj
-            var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
-
-            // get the xmlText
-            var xml_doc = ann_parser.ann2xml(ann, this.dtd);
-            var xml_text = ann_parser.xml2str(xml_doc);
-
-            // download this xml
-            var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
-            var fn = ann_rst.ann._filename;
-            saveAs(blob, fn);            
-        },
-
-        download_all_gs: function() {
-            // create an empty zip pack
-            var zip = new JSZip();
-            var folder_name = this.get_gs_zipfile_folder_name();
-
-            // add files to zip pack
-            for (const hashcode in this.iaa_gs_dict) {
-                if (Object.hasOwnProperty.call(this.iaa_gs_dict, hashcode)) {
-                    const ann_rst = this.iaa_gs_dict[hashcode];
-                    
-                    // change to an ann obj
-                    var ann = iaa_calculator.make_ann_by_rst(ann_rst, this.dtd);
-
-                    // get the xmlText
-                    var xml_doc = ann_parser.ann2xml(ann, this.dtd);
-                    var xml_text = ann_parser.xml2str(xml_doc);
-
-                    // put this xml in folder (virtually)
-                    var ffn = folder_name + '/' + ann._filename;
-                    
-                    // put this xml to zip
-                    zip.file(ffn, xml_text);
-                }
-            }
-
-            // create zip file
-            zip.generateAsync({ type: "blob" }).then(function (content) {
-                saveAs(content, app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + '.zip');
-            });
-        },
-
-        export_iaa_report: function() {
-            
-            // // Acquire Data (reference to the HTML table)
-            // var table_elt = document.getElementById("table_cohen_kappa_confusion_matrix");
-
-            // // Extract Data (create a workbook object from the table)
-            // var workbook = XLSX.utils.table_to_book(table_elt);
-
-            // // Process Data (add a new row)
-            // var ws_cohen = workbook.Sheets["Sheet1"];
-
-            // create each sheet
-            // sheet 1. the summary
-            // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
-            var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
-                this.iaa_dict,
-                this.dtd
-            );
-
-            // sheet 1.1 the cohen's kappa
-            var ws_cohen = iaa_calculator.get_iaa_report_cohen_kappa_excelws(
-                this.iaa_dict,
-                this.dtd
-            );
-
-            // sheet 2. the files
-            // var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
-            var ws_files = iaa_calculator.get_iaa_report_files_excelws(
-                this.iaa_dict,
-                this.dtd
-            );
-
-            // sheet 3. the tags
-            // var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
-            var ws_tags = iaa_calculator.get_iaa_report_tags_excelws(
-                this.iaa_dict,
-                this.dtd
-            );
-
-            // sheet 4. the adjudication
-            var ws_adj = iaa_calculator.get_iaa_report_adjudication_excelws(
-                this.iaa_dict,
-                this.dtd
-            );
-
-            // create wb for download
-            var wb = {
-                SheetNames: [
-                    "F1-Score",
-                    "Cohen Kappa",
-                    "Files",
-                    "Tags",
-                    "Adjudication"
-                ],
-                Sheets: {
-                    "F1-Score": ws_summary,
-                    "Cohen Kappa": ws_cohen,
-                    Files: ws_files,
-                    Tags: ws_tags,
-                    Adjudication: ws_adj
-                }
-            };
-            console.log(wb);
-
-            // decide the file name for this export
-            var fn = this.dtd.name + '-iaa-report.xlsx';
-
-            // download this wb
-            XLSX.writeFile(wb, fn);
-        },
-
-        get_gs_zipfile_folder_name: function() {
-            return this.dtd.name + '-goldstandards';
-        },
-
-        count_gs_tags: function(ann_hashcode) {
-            if (this.iaa_display_tag_name == '__all__') {
-                return this.count_iaa_gs_notnull(this.iaa_gs_dict[ann_hashcode]);
-            } else {
-                return this.count_iaa_gs_tag_notnull(
-                    this.iaa_gs_dict[ann_hashcode].rst[this.iaa_display_tag_name]
-                );
-            }
-        },
-
-        count_iaa_gs_notnull: function(ann_rst) {
-            var cnt = 0;
-            for (const tag_name in ann_rst.rst) {
-                if (Object.hasOwnProperty.call(ann_rst.rst, tag_name)) {
-                    const tag_rst = ann_rst.rst[tag_name];
-                    cnt += this.count_iaa_gs_tag_notnull(tag_rst);
-                }
-            }
-            return cnt;
-        },
-
-        count_iaa_gs_tag_notnull: function(tag_rst) {
-            var cnt = 0;
-            for (const cm in tag_rst) {
-                if (Object.hasOwnProperty.call(tag_rst, cm)) {
-                    const tags = tag_rst[cm];
-                    
-                    for (let i = 0; i < tags.length; i++) {
-                        if (tags[i] != null) {
-                            cnt += 1;
-                        }
-                    }
-                }
-            }
-            return cnt;
-        },
-
-        accept_iaa_tag: function(hashcode, tag_name, cm, tag_idx, from) {
-            console.log('* accept', hashcode, tag_name, cm, tag_idx, from);
-            this.iaa_gs_dict[hashcode].rst[tag_name][cm][tag_idx] = {
-                tag: this.iaa_dict.ann[hashcode].rst.tag[tag_name].cm.tags[cm][tag_idx][
-                    {'A':0, 'B':1}[from]
-                ],
-                from: from
-            };
-            this.force_module_update = Math.random();
-        },
-
-        reject_iaa_tag: function(hashcode, tag_name, cm ,tag_idx) {
-            console.log('* reject', hashcode, tag_name, cm, tag_idx);
-            this.iaa_gs_dict[hashcode].rst[tag_name][cm][tag_idx] = null;
-            this.force_module_update = Math.random();
-        },
-
-        count_tags_in_anns: function(anns) {
-            var cnt = 0;
-            for (let i = 0; i < anns.length; i++) {
-                const ann = anns[i];
-                cnt += ann.tags.length;
-            }
-            return cnt;
-        },
+        // see app_hotpot_ext_iaa.js
 
         /////////////////////////////////////////////////////////////////
         // Ruleset Related
@@ -13423,7 +13701,11 @@ var app_hotpot = {
             }
         },
 
-        get_datetime: function() {
+        get_date_now: function() {
+            return dayjs().format('YYYY-MM-DD');
+        },
+
+        get_datetime_now: function() {
             return dayjs().format('YYYY-MM-DD_HH.mm.ss');
         }
     },
@@ -13619,7 +13901,11 @@ var app_hotpot = {
         this.bind_dropzone_ann();
 
         // bind drop zone for batch import text file
-        this.bind_dropzone_txt();
+        // this.bind_dropzone_txt();
+
+        // bind drop zone for converter
+        this.bind_dropzone_converter_medtagger_txt();
+        this.bind_dropzone_converter_medtagger_ann();
 
         // bind drop zone for anns
         this.bind_dropzone_iaa();
@@ -13877,7 +14163,7 @@ var app_hotpot = {
                         // so item is a directory?
                         // console.log(fh);
                         
-                        fs_read_dir_handle(
+                        fs_read_ann_dir_handle(
                             fh, 
                             app_hotpot.vpp.$data.dtd
                         );
@@ -13967,135 +14253,6 @@ var app_hotpot = {
             }
 
         }, false);
-    },
-
-    bind_dropzone_iaa: function() {
-        let dropzones = document.getElementsByClassName("dropzone-iaa");
-
-        for (let i = 0; i < dropzones.length; i++) {
-            var dropzone = dropzones[i];
-            var iaa_id = parseInt(dropzone.getAttribute('iaa_id'));
-
-            dropzone.addEventListener("dragover", function(event) {
-                event.preventDefault();
-            }, false);
-
-            dropzone.addEventListener("drop", (function(iaa_id) {
-                return function(event) {
-                    // stop the download event
-                    event.preventDefault();
-                    // first, we need to which dropzone triggers event
-    
-                    console.log('* drop something on iaa ' + iaa_id);
-                    // return;
-        
-                    let items = event.dataTransfer.items;
-        
-                    for (let i=0; i<items.length; i++) {
-                        // check ext first
-                        let fileEntry = items[i].webkitGetAsEntry();
-                        if (!app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
-                            app_hotpot.msg('Skipped non-XML file ' + fileEntry.name, 'warning');
-                            continue;
-                        }
-                        // we have two ways of loading data
-                        // first using the basic entry
-                        // second using the fs handle
-                        // it depends the browser API
-                        if (isFSA_API_OK) {
-                            // just load in this way
-                            let item = items[i].getAsFileSystemHandle();
-                            item.then((function(iaa_id) {
-                                return function(fh) {
-                                    if (fh.kind == 'file') {
-                                        // check exists
-                                        if (app_hotpot.vpp.has_included(
-                                            fh.name, 
-                                            app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
-                                            // exists? skip this file
-                                            return;
-                                        }
-                
-                                        // read the file
-                                        var p_ann = fs_read_ann_file_handle(
-                                            fh,
-                                            app_hotpot.vpp.$data.dtd
-                                        );
-
-                                        // the the call back
-                                        p_ann.then((function(iaa_id) {
-                                            return function(ann) {
-                                                // add the sentences
-                                                var r = nlp_toolkit.sent_tokenize(
-                                                    ann.text,
-                                                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-                                                );
-                                                ann._sentences = r.sentences;
-                                                ann._sentences_text = r.sentences_text;
-
-                                                // add this ann to iaa list
-                                                app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
-                                            }
-                                        })(iaa_id)).catch(function(error) {
-                                            app_hotpot.msg("Couldn't read ann, " + error.name);
-                                            console.error(error);
-                                        });
-                                        
-                                    } else {
-                                        // what to do with a directory
-                                    }
-                                }
-                            })(iaa_id))
-                            .catch(function(error) {
-                                console.log('* error when drop txt', error);
-                            });
-                        } else {
-                            // just load the file 
-                            let item = items[i].webkitGetAsEntry();
-                            if (item) {
-                                // ok, user select a folder ???
-                                if (item.isDirectory) {
-                                    // show something?
-            
-                                } else {
-                                    // should be a dtd file
-                                    // so item is a fileEntry
-                                    var new_fn = item.name;
-                                    app_hotpot.read_file_async(item, (function(new_fn, iaa_id){
-                                        return function(evt) {
-                                            var xml = evt.target.result;
-                            
-                                            // try to parse this xml file
-                                            var ann = ann_parser.xml2ann(
-                                                xml, 
-                                                app_hotpot.vpp.$data.dtd
-                                            );
-                        
-                                            // post processing
-                                            // we don't have fh due to using fileEntry
-                                            ann._fh = null;
-                                            ann._filename = new_fn;
-                                            ann._has_saved = true;
-                                            var result = nlp_toolkit.sent_tokenize(ann.text);
-                                            ann._sentences = result.sentences;
-                                            ann._sentences_text = result.sentences_text;
-                                            
-                                            // ok, add this the dtd for annotator
-                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
-                                        }
-                                    })(new_fn, iaa_id));
-                                }
-                            }
-                        }
-
-
-                        
-                    }
-        
-                }
-            })(iaa_id), false);
-        }
-        
     },
 
     resize: function() {
@@ -14304,6 +14461,36 @@ var app_hotpot = {
                     'warning');
                 console.error(error);
             }}(fh)
+        );
+    },
+
+    parse_file_fh: function(fh, callback) {
+        if (fh.name.startsWith('.')) {
+            // no need to parse hidden file
+            return;
+        }
+
+        var p_file = fs_read_file_handle(
+            fh
+        );
+
+        // the callback function
+        p_file.then(callback).catch(
+            function(fh){return function(error) {
+                app_hotpot.msg(
+                    "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
+                    error.name + 
+                    ": " + error.message + "",
+                    'warning');
+                console.error(error);
+            }}(fh)
+        );
+    },
+
+    parse_dir_fh: function(fh, callback) {
+        fs_read_dir_handle(
+            fh,
+            callback
         );
     },
 
@@ -15915,6 +16102,1035 @@ MedTator provides some options for selecting different methods.
         html: `The marks shown in the tag editor can be linked with the selection with the concept list.`
     }
 }});
+
+// extend the App with IAA
+/**
+ * This is an extension for IAA calculator 
+ */
+
+/////////////////////////////////////////////////////////////////
+// IAA related variables
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_data, {
+    // for iaa
+    iaa_ann_list: [
+        {anns: [], name: 'A'}, // for annotator A
+        {anns: [], name: 'B'}, // for annotator B
+    ],
+    iaa_dict: null,
+    iaa_display_tag_name: '__all__',
+    iaa_match_mode: 'overlap', // overlap / exact
+    iaa_overlap_ratio: 50,
+    iaa_overlap_ratio_default: 50,
+    iaa_display_hashcode: null,
+    iaa_display_tags_context: true,
+    iaa_display_tags_tp: false,
+    iaa_display_adj_panel: true,
+    iaa_display_adj_detail: false,
+
+    // sort anns
+    // - default: how the anns are imported into tool
+    // - a.alphabet: A-Z
+    // - a.alphabet_r: Z-A
+    // - a.tags: 0-N
+    // - a.tags_r: N-0
+    iaa_sort_anns_by: 'default',
+
+    // for iaa adjudication
+    iaa_gs_dict: null,
+
+    // for using attributes in IAA
+    iaa_use_attributes: false,
+
+    // remove the tag when low_overlap for calcuting
+    // this can remove the duplicated results in FN
+    // so the IAA calculation result will be different
+    // the 
+    iaa_remove_tag_b_when_low_overlap: true,
+
+    // for using attributes in IAA a selection map
+    // {
+    //    tag_name: {
+    //        attr_name: true / false
+    //    }
+    // }
+    iaa_use_tag_attrs: {},
+
+    // for IAA display mode, show F1 or other indicators
+    iaa_display_measure: 'f1',
+});
+
+
+/////////////////////////////////////////////////////////////////
+// IAA related functions
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot, {
+    // events for loading ann files for IAA
+    bind_dropzone_iaa: function() {
+        let dropzones = document.getElementsByClassName("dropzone-iaa");
+
+        for (let i = 0; i < dropzones.length; i++) {
+            var dropzone = dropzones[i];
+            var iaa_id = parseInt(dropzone.getAttribute('iaa_id'));
+
+            dropzone.addEventListener("dragover", function(event) {
+                event.preventDefault();
+            }, false);
+
+            dropzone.addEventListener("drop", (function(iaa_id) {
+                return function(event) {
+                    // stop the download event
+                    event.preventDefault();
+                    // first, we need to which dropzone triggers event
+    
+                    console.log('* drop something on iaa ' + iaa_id);
+                    // return;
+        
+                    let items = event.dataTransfer.items;
+        
+                    for (let i=0; i<items.length; i++) {
+                        // check ext first
+                        let fileEntry = items[i].webkitGetAsEntry();
+                        if (!app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
+                            app_hotpot.msg('Skipped non-XML file ' + fileEntry.name, 'warning');
+                            continue;
+                        }
+                        // we have two ways of loading data
+                        // first using the basic entry
+                        // second using the fs handle
+                        // it depends the browser API
+                        if (isFSA_API_OK) {
+                            // just load in this way
+                            let item = items[i].getAsFileSystemHandle();
+                            item.then((function(iaa_id) {
+                                return function(fh) {
+                                    if (fh.kind == 'file') {
+                                        // check exists
+                                        if (app_hotpot.vpp.has_included(
+                                            fh.name, 
+                                            app_hotpot.vpp.$data.iaa_ann_list[iaa_id].anns)) {
+                                            // exists? skip this file
+                                            return;
+                                        }
+                
+                                        // read the file
+                                        var p_ann = fs_read_ann_file_handle(
+                                            fh,
+                                            app_hotpot.vpp.$data.dtd
+                                        );
+
+                                        // the the call back
+                                        p_ann.then((function(iaa_id) {
+                                            return function(ann) {
+                                                // add the sentences
+                                                var r = nlp_toolkit.sent_tokenize(
+                                                    ann.text,
+                                                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+                                                );
+                                                ann._sentences = r.sentences;
+                                                ann._sentences_text = r.sentences_text;
+
+                                                // add this ann to iaa list
+                                                app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                            }
+                                        })(iaa_id)).catch(function(error) {
+                                            app_hotpot.msg("Couldn't read ann, " + error.name);
+                                            console.error(error);
+                                        });
+                                        
+                                    } else {
+                                        // what to do with a directory
+                                    }
+                                }
+                            })(iaa_id))
+                            .catch(function(error) {
+                                console.log('* error when drop txt', error);
+                            });
+                        } else {
+                            // just load the file 
+                            let item = items[i].webkitGetAsEntry();
+                            if (item) {
+                                // ok, user select a folder ???
+                                if (item.isDirectory) {
+                                    // show something?
+            
+                                } else {
+                                    // should be a dtd file
+                                    // so item is a fileEntry
+                                    var new_fn = item.name;
+                                    app_hotpot.read_file_async(item, (function(new_fn, iaa_id){
+                                        return function(evt) {
+                                            var xml = evt.target.result;
+                            
+                                            // try to parse this xml file
+                                            var ann = ann_parser.xml2ann(
+                                                xml, 
+                                                app_hotpot.vpp.$data.dtd
+                                            );
+                        
+                                            // post processing
+                                            // we don't have fh due to using fileEntry
+                                            ann._fh = null;
+                                            ann._filename = new_fn;
+                                            ann._has_saved = true;
+                                            var result = nlp_toolkit.sent_tokenize(ann.text);
+                                            ann._sentences = result.sentences;
+                                            ann._sentences_text = result.sentences_text;
+                                            
+                                            // ok, add this the dtd for annotator
+                                            app_hotpot.vpp.add_iaa_ann(ann, iaa_id);
+                                        }
+                                    })(new_fn, iaa_id));
+                                }
+                            }
+                        }
+
+
+                        
+                    }
+        
+                }
+            })(iaa_id), false);
+        }
+        
+    },
+    
+});
+
+Object.assign(app_hotpot.vpp_methods, {
+    clear_iaa_all: function(which) {
+        if (typeof(which) == 'undefined') {
+            which = null;
+        }
+        // clear everything related to iaa
+        if (which == null || which == 0) {
+            // just clear a
+            this.iaa_ann_list[0].anns = [];
+        }
+        if (which == null || which == 1) {
+            // just clear b
+            this.iaa_ann_list[1].anns = [];
+        }
+
+        this.iaa_dict = null;
+        this.iaa_gs_dict = null;
+
+        this.iaa_display_tag_name = '__all__';
+        this.iaa_display_hashcode = null;
+    },
+
+    add_iaa_ann: function(ann, iaa_id) {
+        this.iaa_ann_list[iaa_id].anns.push(ann);
+    },
+
+    calc_iaa: function() {
+        var iaa_dict = iaa_calculator.evaluate_anns_on_dtd(
+            this.dtd,
+            this.iaa_ann_list[0].anns,
+            this.iaa_ann_list[1].anns,
+            this.iaa_match_mode,
+            this.iaa_overlap_ratio / 100,
+            this.iaa_use_attributes?
+                this.iaa_use_tag_attrs:
+                null,
+            this.iaa_remove_tag_b_when_low_overlap
+        );
+        this.iaa_dict = iaa_dict;
+        console.log('* iaa result:', iaa_dict);
+
+        // and create
+        this.make_iaa_gs_dict();
+    },
+
+    iaa_sort_filelist_by: function(sort_by) {
+        this.iaa_sort_anns_by = sort_by;
+    },
+
+    iaa_get_sort_by: function() {
+        if (this.hasOwnProperty('iaa_sort_anns_by')) {
+            return this.iaa_sort_anns_by;
+        } else {
+            return 'default';
+        }
+    },
+    
+    iaa_get_sort_by_label: function(sort_by) {
+        return {
+            'default': 'Sort',
+            'label': 'Label',
+            'f1_asc': 'F1 0-1',
+            'f1_desc': 'F1 1-0',
+
+            // for A
+            'a.alphabet': 'A|A-Z',
+            'a.alphabet_r': 'A|Z-A',
+
+            // for B
+            'b.alphabet': 'B|A-Z',
+            'b.alphabet_r': 'B|Z-A',
+        }[sort_by];
+    },
+
+    iaa_sort_v_anns: function(iaa_dict) {
+        var sort_by = this.iaa_get_sort_by();
+
+        // a virtual list of ann, just contain the file name
+        // this is prepared for sorting only
+        // because the sort is an in-place sort
+        // we can't modify the order in the original anns
+        var v_anns = [];
+        for (const ann_hashcode in iaa_dict.ann) {
+            const ann_rst = iaa_dict.ann[ann_hashcode];
+            v_anns.push({
+                // hashtag
+                ann_hashcode: ann_hashcode,
+
+                // the f1
+                f1: this.iaa_display_tag_name == '__all__'? 
+                    ann_rst.rst.all.f1 : ann_rst.rst.tag[this.iaa_display_tag_name].f1,
+
+                // number of annotated tags
+                ann_a: {
+                    _filename: ann_rst.anns[0]._filename
+                },
+                ann_b: {
+                    _filename: ann_rst.anns[1]._filename
+                }
+            });
+        }
+
+        // now sort
+        if (sort_by == 'default') {
+            return v_anns;
+
+        } else if (sort_by == 'f1_asc') {
+            console.log('* sorting f1_asc', isNaN(0));
+            v_anns.sort(function(a, b) {
+                var v = (isNaN(a.f1)?0:a.f1) - (isNaN(b.f1)?0:b.f1);
+                return v;
+            });
+            return v_anns;
+
+        } else if (sort_by == 'f1_desc') {
+            console.log('* sorting f1_desc', isNaN(NaN));
+            v_anns.sort(function(a, b) {
+                var v = (isNaN(b.f1)?0:b.f1) - (isNaN(a.f1)?0:a.f1);
+                return v;
+            });
+            return v_anns;
+
+        } else if (sort_by == 'a.alphabet') {
+            v_anns.sort(function(a, b) {
+                return a.ann_a._filename.localeCompare(
+                    b.ann_a._filename
+                )
+            });
+            return v_anns;
+
+        } else if (sort_by == 'a.alphabet_r') {
+            v_anns.sort(function(a, b) {
+                return -a.ann_a._filename.localeCompare(
+                    b.ann_a._filename
+                )
+            });
+            return v_anns;
+            
+        } else if (sort_by == 'b.alphabet') {
+            v_anns.sort(function(a, b) {
+                return a.ann_b._filename.localeCompare(
+                    b.ann_b._filename
+                )
+            });
+            return v_anns;
+
+        } else if (sort_by == 'b.alphabet_r') {
+            v_anns.sort(function(a, b) {
+                return -a.ann_b._filename.localeCompare(
+                    b.ann_b._filename
+                )
+            });
+            return v_anns;
+            
+        } else {
+            return v_anns;
+        }
+    },
+
+    get_rst: function(obj) {
+        if (this.iaa_display_tag_name == '__all__') {
+            return obj.all;
+        } else {
+            return obj.tag[this.iaa_display_tag_name];
+        }
+    },
+
+    on_change_iaa_settings: function(event) {
+        console.log('* changed attr in', event.target);
+        
+    },
+
+    on_change_iaa_use_attributes: function(event) {
+        console.log('* changed iaa_use_attributes=', this.iaa_use_attributes);
+
+        // update the settings of iaa_use_tag_attrs
+        if (this.dtd == null) {
+            return;
+        }
+
+        if (Object.keys(this.iaa_use_tag_attrs).length != 0) {
+            // which means this has been inited
+            return;
+        }
+
+        this.init_iaa_use_tag_attrs();
+    },
+
+    init_iaa_use_tag_attrs: function() {
+        // update the values
+        for (const tag_name in this.dtd.tag_dict) {
+            if (Object.hasOwnProperty.call(this.dtd.tag_dict, tag_name)) {
+                const tag = this.dtd.tag_dict[tag_name];
+                this.iaa_use_tag_attrs[tag_name] = {};
+
+                // update all the attributes
+                for (let i = 0; i < tag.attlists.length; i++) {
+                    const att = tag.attlists[i];
+                    // set all to true
+                    this.iaa_use_tag_attrs[tag_name][att.name] = true;
+                }
+            }
+        }
+    },
+
+    set_iaa_display_measure: function(m) {
+        this.iaa_display_measure = m;
+    },
+
+    set_all_iaa_use_tag_attrs: function(selection) {
+        for (const tag_name in this.iaa_use_tag_attrs) {
+            if (Object.hasOwnProperty.call(this.iaa_use_tag_attrs, tag_name)) {
+                const tag_attrs = this.iaa_use_tag_attrs[tag_name];
+                for (const att_name in tag_attrs) {
+                    if (Object.hasOwnProperty.call(tag_attrs, att_name)) {
+                        this.iaa_use_tag_attrs[tag_name][att_name] = selection;
+                    }
+                }
+            }
+        }
+
+        // due to deep update, need to update manually
+        this.$forceUpdate();
+    },
+
+    toggle_iaa_tag_attrs: function(tag_name, att_name) {
+        if (this.iaa_use_tag_attrs.hasOwnProperty(tag_name)) {
+            if (this.iaa_use_tag_attrs[tag_name].hasOwnProperty(att_name)) {
+                this.iaa_use_tag_attrs[tag_name][att_name] = 
+                    !this.iaa_use_tag_attrs[tag_name][att_name];
+            }
+        }
+        // console.log('* set iaa_use_tag_attrs['+tag_name+']['+att_name+']='+this.iaa_use_tag_attrs[tag_name][att_name]);
+
+        // due to deep update, need to update manually
+        this.$forceUpdate();
+    },
+
+    transfer_to_annotation_tab: function() {
+        // confirm first if there are annotations
+        var len = app_hotpot.vpp.$data.anns.length;
+        if (len > 0) {
+            var msg = 'There are ' + len + ' documents in your annotation tab. Editing adjudication copy needs to remove those documents. Are you sure to continue?';
+            var ret = app_hotpot.confirm(msg);
+            if (ret) {
+
+            } else {
+                // ok, let's stop
+                return;
+            }
+        }
+
+        // check iaa_gs_dict status
+        if (this.iaa_gs_dict == null) {
+            // OK, nothing to do with an empty iaa_gs_dict
+
+            // maybe say something?
+            app_hotpot.msg('Adjudication copy is not found', 'warning');
+            return;
+        }
+
+        // convert the current gs dict
+        var gs_list = Object.values(
+            this.iaa_gs_dict
+        );
+
+        // then create ann list for update
+        var anns = [];
+
+        // check each item in this iaa_gs
+        for (let i = 0; i < gs_list.length; i++) {
+            const gs = gs_list[i];
+
+            // create a new ann
+            var ann = gs.ann;
+
+            // copy the rst of initial 
+            for (const tag_name in gs.rst) {
+                if (Object.hasOwnProperty.call(gs.rst, tag_name)) {
+                    const r = gs.rst[tag_name];
+                    // check each cm, fn, fp, and tp
+                    for (const cm in r) {
+                        if (Object.hasOwnProperty.call(r, cm)) {
+                            const ds = r[cm];
+                            for (let j = 0; j < ds.length; j++) {
+                                const d = ds[j];
+
+                                // it's possible that this decision have been removed
+                                if (d == null) {
+                                    continue;
+                                }
+                                // there are two attributes:
+                                // from: a or b
+                                // tag: the tag itself
+                                // copy a new one
+                                var tag = JSON.parse(JSON.stringify(d.tag));
+
+                                // then need to update the id?
+                                var etag_def = this.get_tag_def(tag_name);
+                                if (etag_def == null) {
+                                    // what????
+                                } else {
+                                    var new_tag_id = ann_parser.get_next_tag_id(
+                                        ann,
+                                        etag_def
+                                    );
+                                    tag.id = new_tag_id;
+                                }
+
+                                // update the tag info for annotator
+                                if (cm == 'tp') {
+                                    // which means this tag is agreed by both
+                                    tag._annotator = 'AB';
+                                } else {
+                                    // which means this tag is added by A or B
+                                    // or they don't have an agreement
+                                    tag._annotator = d.from;
+                                }
+
+                                // save this tag
+                                ann.tags.push(tag);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            anns.push(ann);
+        }
+
+        // replace 
+        this.set_ann_idx(null);
+        this.anns = [];
+
+        // set to span tag mode
+        this.cm.mark_mode = 'span';
+
+        // bind the ann
+        this.anns = anns;
+
+        // update the UI
+        this.ann_idx = 0;
+
+        // switch to ann tab
+        this.switch_mui('annotation');
+    },
+
+    make_iaa_gs_dict: function() {
+        this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
+            this.dtd, this.iaa_dict
+        );
+    },
+
+    download_gs_file: function(hashcode) {
+        // get this gs
+        const ann_rst = this.iaa_gs_dict[hashcode];
+        
+        // change to an ann obj
+        var ann = iaa_calculator.make_ann_by_rst(
+            ann_rst, 
+            this.dtd
+        );
+
+        // get the xmlText
+        var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+        var xml_text = ann_parser.xml2str(xml_doc);
+
+        // download this xml
+        var blob = new Blob([xml_text], {type: "text/xml;charset=utf-8"});
+        var fn = ann_rst.ann._filename;
+        saveAs(blob, fn);            
+    },
+
+    download_all_gs: function() {
+        // create an empty zip pack
+        var zip = new JSZip();
+        var folder_name = this.get_gs_zipfile_folder_name();
+
+        // add files to zip pack
+        for (const hashcode in this.iaa_gs_dict) {
+            if (Object.hasOwnProperty.call(this.iaa_gs_dict, hashcode)) {
+                const ann_rst = this.iaa_gs_dict[hashcode];
+                
+                // change to an ann obj
+                var ann = iaa_calculator.make_ann_by_rst(
+                    ann_rst, 
+                    this.dtd
+                );
+
+                // get the xmlText
+                var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+                var xml_text = ann_parser.xml2str(xml_doc);
+
+                // put this xml in folder (virtually)
+                var ffn = folder_name + '/' + ann._filename;
+                
+                // put this xml to zip
+                zip.file(ffn, xml_text);
+            }
+        }
+
+        // create zip file
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+            saveAs(
+                content, 
+                app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + 
+                '-' +
+                app_hotpot.vpp.get_date_now() + 
+                '.zip'
+            );
+        });
+    },
+
+    download_all_iaa_anns: function() {
+        // create an empty zip pack
+        var zip = new JSZip();
+        var folder_name = this.get_gs_zipfile_folder_name() + '_ALL';
+
+        // add files to zip pack
+        for (const hashcode in this.iaa_gs_dict) {
+            if (Object.hasOwnProperty.call(this.iaa_gs_dict, hashcode)) {
+                const ann_rst = this.iaa_gs_dict[hashcode];
+                const ann_iaa = this.iaa_dict.ann[hashcode];
+                
+                // change to an ann obj
+                var ann = iaa_calculator.make_ann_by_iaa(
+                    ann_rst, 
+                    ann_iaa,
+                    this.dtd
+                );
+
+                // get the xmlText
+                var xml_doc = ann_parser.ann2xml(ann, this.dtd);
+                var xml_text = ann_parser.xml2str(xml_doc);
+
+                // put this xml in folder (virtually)
+                var ffn = folder_name + '/' + ann._filename;
+                
+                // put this xml to zip
+                zip.file(ffn, xml_text);
+            }
+        }
+
+        // create zip file
+        zip.generateAsync({ type: "blob" }).then(function (content) {
+            saveAs(
+                content, 
+                app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + 
+                '-' +
+                app_hotpot.vpp.get_date_now() + 
+                '-ALL.zip'
+            );
+        });
+    },
+
+    export_iaa_report: function() {
+        
+        // // Acquire Data (reference to the HTML table)
+        // var table_elt = document.getElementById("table_cohen_kappa_confusion_matrix");
+
+        // // Extract Data (create a workbook object from the table)
+        // var workbook = XLSX.utils.table_to_book(table_elt);
+
+        // // Process Data (add a new row)
+        // var ws_cohen = workbook.Sheets["Sheet1"];
+
+        // create each sheet
+        // sheet 1. the summary
+        // var ws_summary = XLSX.utils.json_to_sheet([{'a':1}]);
+        var ws_summary = iaa_calculator.get_iaa_report_summary_excelws(
+            this.iaa_dict,
+            this.dtd
+        );
+
+        // sheet 1.1 the cohen's kappa
+        var ws_cohen = iaa_calculator.get_iaa_report_cohen_kappa_excelws(
+            this.iaa_dict,
+            this.dtd
+        );
+
+        // sheet 2. the files
+        // var ws_files = XLSX.utils.json_to_sheet([{'a':1}]);
+        var ws_files = iaa_calculator.get_iaa_report_files_excelws(
+            this.iaa_dict,
+            this.dtd
+        );
+
+        // sheet 3. the tags
+        // var ws_tags = XLSX.utils.json_to_sheet([{'a':1}]);
+        var ws_tags = iaa_calculator.get_iaa_report_tags_excelws(
+            this.iaa_dict,
+            this.dtd
+        );
+
+        // sheet 4. the adjudication
+        var ws_adj = iaa_calculator.get_iaa_report_adjudication_excelws(
+            this.iaa_dict,
+            this.dtd
+        );
+
+        // create wb for download
+        var wb = {
+            SheetNames: [
+                "F1-Score",
+                "Cohen Kappa",
+                "Files",
+                "Tags",
+                "Adjudication"
+            ],
+            Sheets: {
+                "F1-Score": ws_summary,
+                "Cohen Kappa": ws_cohen,
+                Files: ws_files,
+                Tags: ws_tags,
+                Adjudication: ws_adj
+            }
+        };
+        console.log(wb);
+
+        // decide the file name for this export
+        var fn = this.dtd.name + '-iaa-report.xlsx';
+
+        // download this wb
+        XLSX.writeFile(wb, fn);
+    },
+
+    get_gs_zipfile_folder_name: function() {
+        return this.dtd.name + '-goldstandards';
+    },
+
+    count_gs_tags: function(ann_hashcode) {
+        if (this.iaa_display_tag_name == '__all__') {
+            return this.count_iaa_gs_notnull(this.iaa_gs_dict[ann_hashcode]);
+        } else {
+            return this.count_iaa_gs_tag_notnull(
+                this.iaa_gs_dict[ann_hashcode].rst[this.iaa_display_tag_name]
+            );
+        }
+    },
+
+    count_iaa_gs_notnull: function(ann_rst) {
+        var cnt = 0;
+        for (const tag_name in ann_rst.rst) {
+            if (Object.hasOwnProperty.call(ann_rst.rst, tag_name)) {
+                const tag_rst = ann_rst.rst[tag_name];
+                cnt += this.count_iaa_gs_tag_notnull(tag_rst);
+            }
+        }
+        return cnt;
+    },
+
+    count_iaa_gs_tag_notnull: function(tag_rst) {
+        var cnt = 0;
+        for (const cm in tag_rst) {
+            if (Object.hasOwnProperty.call(tag_rst, cm)) {
+                const tags = tag_rst[cm];
+                
+                for (let i = 0; i < tags.length; i++) {
+                    if (tags[i] != null) {
+                        cnt += 1;
+                    }
+                }
+            }
+        }
+        return cnt;
+    },
+
+    accept_iaa_tag: function(hashcode, tag_name, cm, tag_idx, from) {
+        console.log('* accept', hashcode, tag_name, cm, tag_idx, from);
+        this.iaa_gs_dict[hashcode].rst[tag_name][cm][tag_idx] = {
+            tag: this.iaa_dict.ann[hashcode].rst.tag[tag_name].cm.tags[cm][tag_idx][
+                {'A':0, 'B':1}[from]
+            ],
+            from: from
+        };
+        this.force_module_update = Math.random();
+    },
+
+    reject_iaa_tag: function(hashcode, tag_name, cm ,tag_idx) {
+        console.log('* reject', hashcode, tag_name, cm, tag_idx);
+        this.iaa_gs_dict[hashcode].rst[tag_name][cm][tag_idx] = null;
+        this.force_module_update = Math.random();
+    },
+
+    count_tags_in_anns: function(anns) {
+        var cnt = 0;
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            cnt += ann.tags.length;
+        }
+        return cnt;
+    },
+});
+
+// extend the App with converter
+/**
+ * This is an extension for converter 
+ */
+
+/////////////////////////////////////////////////////////////////
+// Corpus converter related variables
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_data, {
+    converter_corpus_task: 'medtagger',
+
+    // for medtagger
+    converter_corpus_medtagger_txt_files: [],
+    converter_corpus_medtagger_ann_files: [],
+    converter_corpus_medtagger_results: []
+});
+
+/////////////////////////////////////////////////////////////////
+// Corpus converter related functions
+/////////////////////////////////////////////////////////////////
+
+Object.assign(app_hotpot, {
+    // events for loading text files
+    bind_dropzone_converter_medtagger_txt: function() {
+        let filelist_dropzone = document.getElementById('mui_converter_medtagger_txt_filelist');
+        filelist_dropzone.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        }, false);
+
+        filelist_dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_converter_medtagger_txt, 
+            false
+        );
+    },
+
+    // callback for loading text files
+    on_drop_converter_medtagger_txt: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        // prevent other event
+        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
+            return;
+        }
+
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            if (isFSA_API_OK) {
+                // get this item as a FileSystemHandle Object
+                // this could be used for saving the content back
+                // let item = items[i].webkitGetAsEntry();
+                let item = items[i].getAsFileSystemHandle();
+
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind == 'file') {
+                        app_hotpot.parse_file_fh(
+                            fh, 
+                            app_hotpot.on_get_converter_medtagger_txt_file
+                        );
+                    } else {
+                        // so item is a directory?
+                        app_hotpot.parse_dir_fh(
+                            fh, 
+                            app_hotpot.on_get_converter_medtagger_txt_file
+                        );
+                    }
+                });
+            } else {
+                // do nothing without
+                console.log('* no FSA API');
+                return;
+            }
+            
+        }
+    },
+
+    on_get_converter_medtagger_txt_file: function(file) {
+        // check duplication
+        if (app_hotpot.vpp.exists_converter_corpus_file(
+            file.fh.name,
+            app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files
+        )) {
+            app_hotpot.toast('Skip [' + fh.name + '] due to duplicated file name');
+            return;
+        }
+        app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.push(file);
+    },
+
+    // events for loading ann files
+    bind_dropzone_converter_medtagger_ann: function() {
+        let filelist_dropzone = document.getElementById('mui_converter_medtagger_ann_filelist');
+        filelist_dropzone.addEventListener("dragover", function(event) {
+            event.preventDefault();
+        }, false);
+
+        filelist_dropzone.addEventListener(
+            "drop", 
+            app_hotpot.on_drop_converter_medtagger_ann, 
+            false
+        );
+    },
+
+    // callback for loading ann files
+    on_drop_converter_medtagger_ann: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        // prevent other event
+        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
+            return;
+        }
+
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            if (isFSA_API_OK) {
+                // get this item as a FileSystemHandle Object
+                // this could be used for saving the content back
+                // let item = items[i].webkitGetAsEntry();
+                let item = items[i].getAsFileSystemHandle();
+
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind == 'file') {
+                        app_hotpot.parse_file_fh(
+                            fh, 
+                            app_hotpot.on_get_converter_medtagger_ann_file
+                        );
+
+
+                    } else {
+                        // so item is a directory?
+                        app_hotpot.parse_dir_fh(
+                            fh, 
+                            app_hotpot.on_get_converter_medtagger_ann_file
+                        );
+                    }
+                });
+            } else {
+                // do nothing without
+                console.log('* no FSA API');
+                return;
+            }
+            
+        }
+    },
+
+    on_get_converter_medtagger_ann_file: function(file) {
+        // for ann, we need the lines
+        file.text = file.text.trim();
+        file.lines = file.text.split('\n');
+
+        // save this 
+        app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files.push(file);
+    }
+});
+
+
+Object.assign(app_hotpot.vpp_methods, {
+    switch_corpus: function(corpus_task) {
+        this.converter_corpus_task = corpus_task;
+    },
+
+    clear_converter_corpus_all: function() {
+        // remove the medtagger files
+        this.converter_corpus_medtagger_txt_files = [];
+        this.converter_corpus_medtagger_ann_files = [];
+        this.converter_corpus_medtagger_results = [];
+    },
+
+    exists_converter_corpus_file: function(fn, files) {
+        for (let i = 0; i < files.length; i++) {
+            const _f = files[i];
+            if (_f.fh.name == fn) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    convert_from_medtagger_txt_and_ann: function() {
+        if (this.dtd == null) {
+            app_hotpot.toast('Conversion is terminated. The annotation schema (.dtd) is needed for conversion. Please load the schema file first in the annotation tab', 'alert');
+            return;
+        }
+        if (this.converter_corpus_medtagger_txt_files.length == 0) {
+            app_hotpot.toast('Conversion is terminated. The .txt text files are needed for conversion.', 'alert');
+            return;
+        }
+        if (this.converter_corpus_medtagger_txt_files.length == 0) {
+            app_hotpot.toast('Conversion is terminated. The .ann output files are needed for conversion.', 'alert');
+            return;
+        }
+        this.converter_corpus_medtagger_results = medtagger_toolkit.convert_medtagger_files_to_anns(
+            this.converter_corpus_medtagger_txt_files,
+            this.converter_corpus_medtagger_ann_files,
+            this.dtd
+        );
+    },
+
+    download_converted_files_as_zip: function() {
+        if (this.converter_corpus_medtagger_results.length == 0) {
+            app_hotpot.toast('Download is terminated. No converted files are found for conversion.', 'alert');
+            return;
+        }
+
+        // get the results, which are the ann files 
+        var anns = [];
+        for (let i = 0; i < this.converter_corpus_medtagger_results.length; i++) {
+            const r = this.converter_corpus_medtagger_results[i];
+            // the medtator_ann contains the ann objects for MedTator
+            anns.push(r.medtator_ann);
+        }
+
+        // create filename
+        var fn = 'Converted-' + 
+            this.converter_corpus_task + 
+            '-' +
+            this.get_date_now() +
+            '.zip';
+        
+        var file_list = nlp_toolkit.download_dataset_raw(
+            anns,
+            this.dtd,
+            fn,
+            true
+        );
+        
+        console.log('* downloaded converted files as a zip:', file_list);   
+    },
+
+    show_converter_how_to_user: function() {
+        window.open(
+            'https://github.com/OHNLP/MedTator/wiki/Manual#converter-tab',
+            '_blank'
+        );
+    },
+});
 
 // The Tag Info Vue Module
 Vue.component('iaa-tag-info', {

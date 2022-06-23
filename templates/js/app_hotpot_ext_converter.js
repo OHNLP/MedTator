@@ -58,8 +58,6 @@ Object.assign(app_hotpot, {
                             fh, 
                             app_hotpot.on_get_converter_medtagger_txt_file
                         );
-
-
                     } else {
                         // so item is a directory?
                         app_hotpot.parse_dir_fh(
@@ -78,6 +76,14 @@ Object.assign(app_hotpot, {
     },
 
     on_get_converter_medtagger_txt_file: function(file) {
+        // check duplication
+        if (app_hotpot.vpp.exists_converter_corpus_file(
+            file.fh.name,
+            app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files
+        )) {
+            app_hotpot.toast('Skip [' + fh.name + '] due to duplicated file name');
+            return;
+        }
         app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.push(file);
     },
 
@@ -162,17 +168,28 @@ Object.assign(app_hotpot.vpp_methods, {
         this.converter_corpus_medtagger_results = [];
     },
 
+    exists_converter_corpus_file: function(fn, files) {
+        for (let i = 0; i < files.length; i++) {
+            const _f = files[i];
+            if (_f.fh.name == fn) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
     convert_from_medtagger_txt_and_ann: function() {
         if (this.dtd == null) {
-            app_hotpot.toast('Terminated. The annotation schema (.dtd) is needed for conversion. Please load the schema file first in the annotation tab', 'alert');
+            app_hotpot.toast('Conversion is terminated. The annotation schema (.dtd) is needed for conversion. Please load the schema file first in the annotation tab', 'alert');
             return;
         }
         if (this.converter_corpus_medtagger_txt_files.length == 0) {
-            app_hotpot.toast('Terminated. The .txt text files are needed for conversion.', 'alert');
+            app_hotpot.toast('Conversion is terminated. The .txt text files are needed for conversion.', 'alert');
             return;
         }
         if (this.converter_corpus_medtagger_txt_files.length == 0) {
-            app_hotpot.toast('Terminated. The .ann output files are needed for conversion.', 'alert');
+            app_hotpot.toast('Conversion is terminated. The .ann output files are needed for conversion.', 'alert');
             return;
         }
         this.converter_corpus_medtagger_results = medtagger_toolkit.convert_medtagger_files_to_anns(
@@ -184,7 +201,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
     download_converted_files_as_zip: function() {
         if (this.converter_corpus_medtagger_results.length == 0) {
-            app_hotpot.toast('Terminated. No converted files are found for conversion.', 'alert');
+            app_hotpot.toast('Download is terminated. No converted files are found for conversion.', 'alert');
             return;
         }
 

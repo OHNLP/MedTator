@@ -6,7 +6,7 @@
             <div class="box-header">
                 <h4>
                     <i class="fa fa-list-ul"></i>
-                    Input Files
+                    MedTagger Files
                 </h4>
             </div>
 
@@ -16,6 +16,7 @@
                 <p>
                     For converting the MedTagger format, 
                     you need to prepare the following two types of files.
+                    Please make sure the file names are matched.
                 </p>
 
                 <div class="d-flex flex-row h-100">
@@ -62,7 +63,7 @@
                             class="d-flex flex-column converter-file-list">
                             <div v-for="f in converter_corpus_medtagger_ann_files"
                                 class="converter-file-row">
-                                <span class="bg-green fg-white mr-1"
+                                <span class="bg-blue fg-white mr-1 pl-1"
                                     :title="f.lines.length + ' lines of records'">
                                     {{ f.lines.length }}
                                 </span>
@@ -90,13 +91,13 @@
                         </h5>
                         
                         <p>
-                            Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs
+                            Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs to xml files
                         </p>
 
                         <div class="d-flex flex-column converter-file-list">
                             <div v-for="obj in converter_corpus_medtagger_results"
                                 class="converter-file-row">
-                                <span class="bg-green fg-white mr-1"
+                                <span class="bg-green fg-white mr-1 pl-1"
                                     :title="'Converted ' + obj.medtator_ann.tags.length + ' tags'">
                                     {{ obj.medtator_ann.tags.length }}
                                 </span>
