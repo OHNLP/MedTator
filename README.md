@@ -103,6 +103,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 ### 1.2.xx (2022-07-07)
 
 - Added function for customizing sample text
+- Updated scripts for experimental tasks
 - Fixed ribbon menu resize bug
 
 ### 1.2.41 (2022-06-23)
