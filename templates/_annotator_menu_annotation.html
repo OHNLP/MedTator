@@ -407,8 +407,11 @@ v-bind:class="{'active': section=='annotation'}">
             <li class="divider"></li>
             <li title="Sample Text: COVID vaccine note for annotation test"
                 v-on:click="load_sample_txt">
-                
                 <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
+            </li>
+            <li title="Sample Text from user's input"
+                v-on:click="load_sample_txt_from_input">
+                <a href="javascript:void(0);">Customize a Sample Text</a>
             </li>
         </ul>
     </div>

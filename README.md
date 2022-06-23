@@ -100,6 +100,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.2.xx (2022-07-07)
+
+- Added function for customizing sample text
+
 ### 1.2.41 (2022-06-23)
 
 - Added meta-data structure for annotation file

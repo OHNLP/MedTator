@@ -847,6 +847,45 @@ var app_hotpot = {
             );
         },
 
+        load_sample_txt_from_input: function() {
+            if (this.dtd == null) {
+                app_hotpot.toast(
+                    'Please load annotation schema first',
+                    'warning'
+                );
+                return;
+            }
+            var txt = window.prompt(
+                'Please input text in the following input box.'
+            );
+        
+            if (txt == null) {
+                app_hotpot.toast(
+                    'Cancelled creating sample text.'
+                );
+                return;
+            }
+            
+            // just in case empty
+            txt = txt.trim();
+            if (txt.length == 0) {
+                app_hotpot.toast(
+                    'Failed to create a sample text from empty input.'
+                );
+                return;
+            }
+
+            var ann = this.add_sample_txt_as_ann(
+                txt
+            );
+
+            app_hotpot.toast(
+                'Loaded a sample text [' + 
+                ann._filename +
+                '] for test'
+            );
+        },
+
         open_dtd_file: function() {
             if (isFSA_API_OK) {
                 // the settings for dtd file
