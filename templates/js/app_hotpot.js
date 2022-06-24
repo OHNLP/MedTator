@@ -779,6 +779,39 @@ var app_hotpot = {
             );
         },
 
+        show_changelog: function() {
+            var html = [];
+            // parse the latest change log
+            var lines = jarvis.changelog_latest.split('\n');
+            for (let i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                line = line.trim();
+                if (line == '') {
+                    // nothing to do with empty line
+                    continue;
+                }
+                if (html.length == 0) {
+                    // this is the first line, the title
+                    html.push(
+                        '<h3 class="changelog-h3">' + 
+                        '<b>MedTator</b> v' + 
+                        line + 
+                        '</h3>'
+                    );
+                } else {
+                    html.push(
+                        '<p class="changelog-p">'+line+'</p>'
+                    );
+                }
+            }
+            // last line is the link
+            html.push(
+                '<p>For more details, check <a target="_blank" href="https://github.com/OHNLP/MedTator#change-log">the README on our GitHub repo</a>.</p>'
+            );
+            html = html.join('');
+            Metro.infobox.create(html);
+        },
+
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',

@@ -112,6 +112,12 @@
                 <i class="fa fa-cog"></i>
                 Settings
             </a> | 
+            <a title="MedTator Settings"
+                href="javascript:void(0);"
+                v-on:click="show_changelog">
+                <i class="fas fa-newspaper"></i>
+                Changelog
+            </a> | 
             <a target="_blank" 
                 title="MedTator Source Code at GitHub"
                 href="https://github.com/OHNLP/MedTator">
@@ -584,6 +590,10 @@ Sender's Comments:
 Based on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information
     `
 };
+
+jarvis.changelog_latest = `
+[[ data['changelog_latest'] ]]
+`;
 
 
 // extend the App with data if needed

@@ -1265,3 +1265,11 @@ ol[class], ul[class] {
     border-bottom: 1px dotted #cccccc;
     text-indent: 1em;
 }
+
+/* for changelog display */
+.changelog-h3 {
+    margin: 0.5em 0;
+}
+.changelog-p {
+    margin: 0;
+}
