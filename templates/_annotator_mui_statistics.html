@@ -17,11 +17,39 @@
 
                     <div v-for="stat_item in stat_summary"
                         class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            {{ stat_item[0] }}: 
+
+                        <!-- the stat label -->
+                        <div v-if="stat_item[2] == null"
+                            class="stat-item-label stat-item-label-lg">
+                            <span v-html="stat_item[0]"
+                                :title="stat_item[0]">
+                            </span>: 
                         </div>
-                        <div class="mr-2">
-                            {{ stat_item[1] }}
+                        <div v-else
+                            class="stat-item-label">
+                            <span v-html="stat_item[0]"
+                                :title="stat_item[0]">
+                            </span>: 
+                        </div>
+
+                        <!-- the stat result -->
+                        <div v-if="stat_item[2] == null"
+                            :title="stat_item[0] + ': ' + stat_item[1]"
+                            class="stat-item-value-sm mr-2 text-align">
+                            <span >
+                                {{ stat_item[1] }}
+                            </span>
+                        </div>
+                        <div v-else-if="stat_item[2].stat_type == 'tag_count'"
+                            :title="stat_item[0] + ': ' + stat_item[1]"
+                            class="stat-item-value mr-2 d-flex flex-row flex-align-center flex-justify-end">
+                            <div class="mr-1">
+                                {{ stat_item[1] }}
+                            </div>
+                            <div class="iaa-bar"
+                                v-bind:style="{width: (stat_value2width(stat_item[1], stat_docs_by_tags.stat.max_by_tag)+1) + 'px'}">
+                                
+                            </div>
                         </div>
                     </div>
                     
@@ -44,7 +72,7 @@
                     </div>
                     <div v-if="dtd != null && anns.length > 0"
                         class="box-body">
-                        <table class="doctag-table">
+                        <table class="doctag-table" style="float: left;">
                             <thead>
                                 <tr>
                                     <th>File Name</th>
@@ -70,7 +98,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="stat, stat_idx in stat_docs_by_tags">
+                                <tr v-for="stat, stat_idx in stat_docs_by_tags.rs">
                                     <td v-if="stat_idx == 0"
                                         class="td-summary">
                                         {{ stat.file_name }}
@@ -91,9 +119,11 @@
                                             {{ stat[tag_def.name] }}
                                         </span>
                                         <span v-else
-                                            class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            class="td-count cursor-pointer"
+                                            title="Click to check these tags"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]"
+                                            v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
                                             {{ stat[tag_def.name] }}
                                         </span>
                                     </td>
@@ -104,15 +134,72 @@
                                             {{ stat[tag_def.name] }}
                                         </span>
                                         <span v-else
-                                            class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
+                                            class="td-count cursor-pointer"
+                                            title="Click to check these tags"
+                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                            v-bind:class="'td-count-' + stat[tag_def.name]"
+                                            v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
                                             {{ stat[tag_def.name] }}
                                         </span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+                            class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
+                            style="float: left; ">
+                            <div class="stat-doc-sum-tags-header">
+                                <i class="fa fa-tags"></i>
+                                {{ display_stat_doc_sum_selected.file_name }} - 
+                                <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                                    <i class="fa fa-tag"
+                                        v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                                    </i>
+                                    {{ display_stat_doc_sum_selected.tag_name }}
+                                </span>
+                                <span>
+                                    {{ stat_doc_sum_selected_tags.length }} tags
+                                </span>
+                            </div>
+
+                            <div class="stat-doc-sum-tags-body">
+                                <div v-for="tag in stat_doc_sum_selected_tags"
+                                    class="d-flex flex-row flex-wrap flex-align-end mb-2">
+                                    <div class="iaa-tag-detail-info-text-ab mr-2">
+                                        <!-- <span class="mr-1"
+                                            v-bind:class="'mark-tag-' + tag.tag">
+                                            
+                                        </span> -->
+                                        {{ tag.id }}
+                                    </div>
+
+                                    <div class="mr-1 ml-1 d-flex flex-column">
+                                        <div class="iaa-tag-attlist-name">
+                                            {{ get_tag_spans_text(tag) }}:
+                                        </div> 
+                            
+                                        <div>
+                                            <b>{{ tag.text }}</b>
+                                        </div>
+                                    </div>
+
+                                    <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                                        v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                                        class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+                            
+                                        <div class="iaa-tag-attlist-name">
+                                            {{ attlist.name }}:
+                                        </div> 
+                            
+                                        <div>
+                                            {{ tag[attlist.name] }}&nbsp;
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -121,7 +208,7 @@
                     <div class="box-header">
                         <h4>
                             <i class="fa fa-list-ul"></i>
-                            Annotated Tags
+                            Annotated Entity Tags
                         </h4>
                     </div>
                     <div v-if="dtd != null && anns.length > 0"
@@ -188,7 +275,8 @@
                                         class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
                                         <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
                                             <span class="ruleset-tag-text-count"
-                                                v-bind:title="'Annotated ' + text_info.count + ' times'">
+                                                v-bind:title="'Annotated ' + text_info.count + ' times'"
+                                                :style="{ color: stat_value2ftcolor(hint_dict[tag_def.name].text_dict[text].count, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(hint_dict[tag_def.name].text_dict[text].count, stat_docs_by_tags.stat.max_by_tag) }">
                                                 <i v-if="text_info._is_shown"
                                                     class="fa fa-caret-down"></i>
                                                 <i v-else
@@ -204,7 +292,8 @@
                                             <div v-for="(fn_v, fn) in text_info.ann_fn_dict"
                                                 v-on:click="show_ann_file(fn)"
                                                 class="ruleset-tag-text-filelist-item">
-                                                <span class="ruleset-tag-text-filelist-item-count">
+                                                <span class="ruleset-tag-text-filelist-item-count"
+                                                :style="{ color: stat_value2ftcolor(fn_v, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(fn_v, stat_docs_by_tags.stat.max_by_tag) }">
                                                     {{ fn_v }}
                                                 </span>
                                                 <i class="fa fa-angle-right ml-1 mr-1"></i>

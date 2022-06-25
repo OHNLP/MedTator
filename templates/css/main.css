@@ -9,7 +9,9 @@ html,body {
     background-color: #eeeeee;
     font-size: 12px;
 }
-
+.cursor-pointer {
+    cursor: pointer;
+}
 /* a start screen for IE and hiding init */
 #start-screen {
     position: absolute;
@@ -119,12 +121,52 @@ html,body {
 #mui_ruleset_result {
     
 }
+.stat-doc-sum-tags-box {
+    border-left: 1px dotted #dedede; 
+    padding: 0 0 0 1em;
+}
+.stat-doc-sum-tags-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px solid #cccccc;
+    padding: 0.2em 0;
+    margin: 0 0 0.2em 0;
+}
+.stat-doc-sum-tags-body {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.stat-item-label {
+    width: 120px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stat-item-label-lg {
+    width: 180px !important;
+    max-width: 180px !important;
+}
+.stat-item-value {
+    width: 120px;
+    max-width: 120px;
+    text-align: right;
+}
+.stat-item-value-sm {
+    width: 70px;
+    max-width: 70px;
+    text-align: right;
+}
+
 #app_hotpot {
     margin-top: 2px;
 }
 .dropzone:hover {
-  border-color: rgb(0, 89, 255);
-  font-weight: bold;
+    border-color: rgb(0, 89, 255);
+    font-weight: bold;
 }
 .disabled-zone {
     opacity: .5;

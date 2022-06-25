@@ -50,6 +50,9 @@ var app_hotpot = {
         // for showing the tag by tag_name,
         display_tag_name: '__all__',
 
+        // statistics
+        display_stat_doc_sum_selected: null,
+
         // for the hints of current ann
         hints: [],
 
@@ -2359,7 +2362,29 @@ var app_hotpot = {
             return false;
         },
 
-        get_tags_by_type: function(ann, dtd, type='etag') {
+        get_tag_spans_text: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return 'DOCLEVEL';
+            } else {
+                return tag.spans;
+            }
+        },
+
+        get_tags_by_tag_name: function(ann, tag_name) {
+            var tags = [];
+            for (let i = 0; i < ann.tags.length; i++) {
+                const tag = ann.tags[i];
+                if (tag.tag == tag_name) {
+                    tags.push(tag);
+                }
+            }
+            return tags;
+        },
+
+        get_tags_by_type: function(ann, dtd) {
+            if (typeof(type) == 'undefined') {
+                type = 'etag';
+            }
             var tags = [];
             for (let i = 0; i < ann.tags.length; i++) {
                 const tag = ann.tags[i];
@@ -2461,13 +2486,52 @@ var app_hotpot = {
             return v.toFixed(2);
         },
 
-        to_width: function(v) {
+        val2width: function(val, max_val, max_width) {
+            if (typeof(val) == 'undefined' ||
+                val == null ||
+                isNaN(val)) {
+                val = 0;
+            }
+            if (typeof(max_val) == 'undefined' ||
+                max_val < 10) {
+                max_val = 10;
+            }
+            if (typeof(max_width) == 'undefined') {
+                // which means 100px
+                max_width = 100;
+            }
+
+            // very simple conversion
+            var width = val / max_val * max_width;
+
+            return width;
+        },
+
+        per2width: function(v) {
             if (typeof(v) == 'undefined' ||
                 v == null ||
                 isNaN(v)) {
                 return 1;
             }
             return v * 100;
+        },
+
+        has_doc_sum_selected_tags: function() {
+            if (this.has_included_ann_file(
+                this.display_stat_doc_sum_selected.file_name
+            )) {
+                return true;
+            }
+            return false;
+        },
+
+        on_click_stat_ann_tag: function(file_name, tag_name) {
+            this.display_stat_doc_sum_selected = {
+                file_name: file_name,
+                tag_name: tag_name
+            };
+
+            console.log('* display_stat_doc_sum_selected:', this.display_stat_doc_sum_selected);
         },
 
         has_FSA_API: function() {
@@ -2564,6 +2628,10 @@ var app_hotpot = {
             return false;
         },
 
+        stat_value2width: function(value, max_value) {
+            return this.val2width(value, max_value);
+        },
+
         stat_value2bgcolor: function(value, max_value, zero_color) {
             if (typeof(max_value)=='undefined') {
                 max_value = 10;
@@ -2646,6 +2714,23 @@ var app_hotpot = {
                         this.anns,
                         this.dtd
                     );
+                },
+
+                stat_doc_sum_selected_tags: function() {
+                    // find this ann
+                    var ann_idx = this.find_included(
+                        this.display_stat_doc_sum_selected.file_name,
+                        this.anns
+                    );
+
+                    // find the tags
+                    var tags = this.get_tags_by_tag_name(
+                        this.anns[ann_idx],
+                        this.display_stat_doc_sum_selected.tag_name
+                    );
+
+                    // last is just update tags
+                    return tags;
                 }
             },
 
@@ -3398,7 +3483,8 @@ var app_hotpot = {
     // https://colorbrewer2.org/#type=qualitative&scheme=Set3&n=12
     app_colors: [
         '#a6cee3',
-        '#1f78b4',
+        // '#1f78b4',
+        '#51a1d7',
         '#b2df8a',
         '#33a02c',
         '#fb9a99',

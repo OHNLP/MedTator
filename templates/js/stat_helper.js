@@ -2,29 +2,48 @@
  * A helper object for the statistics related functions
  */
 var stat_helper = {
+    /**
+     * Get statistics of given anns on dtd
+     * 
+     * The return item should contain 3 sub-items:
+     * [
+     *     label
+     *     value,
+     *     extend_data
+     * ]
+     * 
+     * The extend_data is an object
+     * @param {list} anns anns
+     * @param {Object} dtd dtd
+     * @returns a list of stat results
+     */
     get_stat_items: function(anns, dtd) {
         var items = [
             // the basic statistics
-            ['# of documents', anns.length],
-            ['# of tags in schema', dtd.etags.length],
-            ['# of annotations', this.count_all_tags(anns)],
+            ['# of documents', anns.length, null],
+            ['# of tags in schema', dtd.etags.length, null],
+            ['# of annotations', this.count_all_tags(anns), null],
 
             // the frequents
             [
                 '# of annotations per tag', 
-                this.calc_avg_tags_per_def(anns, dtd)
+                this.calc_avg_tags_per_def(anns, dtd),
+                null
             ],
             [
-                '# of annotations per document', 
-                this.calc_avg_tags_per_doc(anns)
+                '# of annotations per doc', 
+                this.calc_avg_tags_per_doc(anns),
+                null
             ],
             [
                 '# of sentences',
-                this.count_all_sentences(anns)
+                this.count_all_sentences(anns),
+                null
             ],
             [
-                '# of sentences per document',
-                this.calc_avg_sentences_per_doc(anns)
+                '# of sentences per doc',
+                this.calc_avg_sentences_per_doc(anns),
+                null
             ],
             
         ];
@@ -34,9 +53,14 @@ var stat_helper = {
         for (const tag_name in cnt) {
             if (Object.hasOwnProperty.call(cnt, tag_name)) {
                 const val = cnt[tag_name];
+
+                // create a html 
                 items.push([
-                    '# of tags ' + tag_name,
-                    val
+                    '# of ' + tag_name,
+                    val,
+                    {
+                        stat_type: 'tag_count'
+                    }
                 ]);
             }
         }
@@ -76,10 +100,16 @@ var stat_helper = {
     },
 
     get_stat_docs_by_tags_json: function(anns, dtd) {
-        var js = [{
-            'file_name': 'Summary',
-            '_total_tags': 0
-        }];
+        var js = {
+            stat: {
+                max_by_ann_tag: 0,
+                max_by_tag: 0
+            },
+            rs: [{
+                'file_name': 'Summary',
+                '_total_tags': 0
+            }]
+        };
 
         for (let i = 0; i < anns.length; i++) {
             // each ann is a document
@@ -99,8 +129,8 @@ var stat_helper = {
                 j[tag.name] = 0;
 
                 // init the first row if not 
-                if (!js[0].hasOwnProperty(tag.name)) {
-                    js[0][tag.name] = 0;
+                if (!js.rs[0].hasOwnProperty(tag.name)) {
+                    js.rs[0][tag.name] = 0;
                 }
             }
 
@@ -111,34 +141,47 @@ var stat_helper = {
                 j[tag.name] = 0;
 
                 // init the first row if not 
-                if (!js[0].hasOwnProperty(tag.name)) {
-                    js[0][tag.name] = 0;
+                if (!js.rs[0].hasOwnProperty(tag.name)) {
+                    js.rs[0][tag.name] = 0;
                 }
             }
 
             // now, we can count how many tags in this doc
             for (let k = 0; k < ann.tags.length; k++) {
                 const tag = ann.tags[k];
-                // update the count
+                // update the count for this tag
                 j[tag.tag] += 1;
+
+                // add a count for max result
+                if (j[tag.tag] > js.stat.max_by_ann_tag) {
+                    js.stat.max_by_ann_tag = j[tag.tag]
+                }
+
                 // update the total of this file
                 j['_total_tags'] += 1;
 
                 // update the summary of this concept
-                js[0][tag.tag] += 1;
+                js.rs[0][tag.tag] += 1;
+
+                // add a count for max result
+                if (js.rs[0][tag.tag] > js.stat.max_by_tag) {
+                    js.stat.max_by_tag = js.rs[0][tag.tag]
+                }
+
                 // update the summary of all
-                js[0]['_total_tags'] += 1;
+                js.rs[0]['_total_tags'] += 1;
             }
 
             // ok, done! let's put this j to js list
-            js.push(j);
+            js.rs.push(j);
         }
 
         return js;
     },
 
     get_stat_docs_by_tags_excelws: function(ann, dtd) {
-        var js = this.get_stat_docs_by_tags_json(ann, dtd);
+        var stat = this.get_stat_docs_by_tags_json(ann, dtd);
+        var js = stat.rs;
 
         var ws = XLSX.utils.json_to_sheet(js);
 

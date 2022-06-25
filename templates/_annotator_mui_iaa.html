@@ -34,7 +34,7 @@
                                 OVERALL
                             </div>
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start">
-                                <div v-bind:style="'width:' + to_width(iaa_dict.all.f1) + 'px'"
+                                <div v-bind:style="'width:' + per2width(iaa_dict.all.f1) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
@@ -61,7 +61,7 @@
                                 </span>
                             </div>
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(iaa_dict.tag[etag.name].f1) + 'px'"
+                                <div v-bind:style="'width:' + per2width(iaa_dict.tag[etag.name].f1) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
@@ -199,7 +199,7 @@
 
                         <div class="d-flex flex-column">
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
+                                <div v-bind:style="'width:' + per2width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
