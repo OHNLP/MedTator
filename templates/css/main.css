@@ -765,6 +765,13 @@ input[type=text].ipt-spinner-xs {
     min-width: 180px;
     border-left: 5px solid;
 }
+.ruleset-tag-name-str {
+    width: 140px;
+    min-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .ruleset-tag-text {
     padding: 0px 2px;
 }

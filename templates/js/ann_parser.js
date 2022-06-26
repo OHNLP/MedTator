@@ -22,6 +22,10 @@
 var ann_parser = {
     NON_CONSUMING_SPANS: '-1~-1',
 
+
+    ///////////////////////////////////////////////////////
+    // Annotation serialization/deserialization functions
+    ///////////////////////////////////////////////////////
     txt2ann: function(txt, dtd) {
         var ann = {
             text: txt,
@@ -462,12 +466,17 @@ var ann_parser = {
         return formatted;
     },
 
+
+    ///////////////////////////////////////////////////////
+    // Hint Dictionary related functions
+    ///////////////////////////////////////////////////////
+
     /**
      * Convert a list of anns to hints as tag name dict
      * @param {object} dtd annotation dtd object
      * @param {list} anns a list of annotation objects
      */
-     anns2hint_dict: function(dtd, anns) {
+    anns2hint_dict: function(dtd, anns) {
         var hint_dict = {};
 
         for (let i = 0; i < anns.length; i++) {
@@ -494,6 +503,7 @@ var ann_parser = {
                     _is_shown: false,
                 }, 
 
+                // just a list of texts
                 texts: []
             }
         }
@@ -689,6 +699,43 @@ var ann_parser = {
         return hint_list;
     },
 
+    get_stat_tokens_by_hint_dict: function(hint_dict) {
+        var stat = {
+            rs: []
+        };
+
+        for (const tag_name in hint_dict) {
+            if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                const hint_info = hint_dict[tag_name];
+                
+                for (const text in hint_info.text_dict) {
+                    if (Object.hasOwnProperty.call(hint_info.text_dict, text)) {
+                        const text_info = hint_info.text_dict[text];
+
+                        // how many anns/docs contain this text for this tag_name
+                        var n_anns = Object.keys(text_info.ann_fn_dict).length;
+
+                        // total count of this text for this tag_name in all anns/docs
+                        var n_count = text_info.count;
+
+                        // save this information
+                        stat.rs.push({
+                            text: text,
+                            tag_name: tag_name,
+                            n_count: n_count,
+                            n_anns: n_anns
+                        });
+                    }
+                }
+            }
+        }
+
+        return stat;
+    },
+
+    ///////////////////////////////////////////////////////
+    // Utils
+    ///////////////////////////////////////////////////////
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
         try {

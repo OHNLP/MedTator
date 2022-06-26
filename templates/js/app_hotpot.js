@@ -1699,6 +1699,27 @@ var app_hotpot = {
             // download this wb
             XLSX.writeFile(wb, fn);
         },
+
+        sort_text_dict_in_hint_dict: function(text_dict) {
+            var text_info_list = [];
+            for (const text in text_dict) {
+                if (Object.hasOwnProperty.call(text_dict, text)) {
+                    const dict = text_dict[text];
+                    text_info_list.push({
+                        text: text,
+                        // that's what we want to sort
+                        count: dict.count
+                    });
+                }
+            }
+
+            // sort desc
+            text_info_list.sort(function(a, b) {
+                return b.count - a.count;
+            });
+
+            return text_info_list;
+        },
         
         /////////////////////////////////////////////////////////////////
         // Corpus menu related functions

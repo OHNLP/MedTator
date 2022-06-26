@@ -103,6 +103,7 @@ var stat_helper = {
         var js = {
             stat: {
                 max_by_ann_tag: 0,
+                max_by_ann: 0,
                 max_by_tag: 0
             },
             rs: [{
@@ -170,6 +171,11 @@ var stat_helper = {
 
                 // update the summary of all
                 js.rs[0]['_total_tags'] += 1;
+            }
+
+            // update the max_by_ann
+            if (ann.tags.length > js.stat.max_by_ann) {
+                js.stat.max_by_ann = ann.tags.length;
             }
 
             // ok, done! let's put this j to js list
