@@ -1,5 +1,69 @@
 <div v-show="section=='statistics'" id="main_ui" 
     class="main-ui container-fluid">
+    <!-- the tag list of selected file and concept -->
+    <div v-show="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+    id="stat_doc_tag_detailbox"
+    class="d-flex flex-column ml-2 stat-doc-sum-tags-box">
+    <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+        class="stat-doc-sum-tags-header">
+        <i class="fa fa-tags"></i>
+        {{ display_stat_doc_sum_selected.file_name }} - 
+        <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+            <i class="fa fa-tag"
+                v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+            </i>
+            {{ display_stat_doc_sum_selected.tag_name }}
+        </span>
+        <span>
+            {{ stat_doc_sum_selected_tags.length }} tags
+        </span>
+
+        <button class="button mini ml-2"
+            title="Close this panel"
+            v-on:click="on_close_stat_ann_tag_box">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="stat-doc-sum-tags-body">
+        <div v-for="tag in stat_doc_sum_selected_tags"
+            class="d-flex flex-row flex-wrap flex-align-end mb-2">
+            <div class="iaa-tag-detail-info-text-ab mr-2">
+                <!-- <span class="mr-1"
+                    v-bind:class="'mark-tag-' + tag.tag">
+                    
+                </span> -->
+                {{ tag.id }}
+            </div>
+
+            <div class="mr-1 ml-1 d-flex flex-column">
+                <div class="iaa-tag-attlist-name">
+                    {{ get_tag_spans_text(tag) }}:
+                </div> 
+    
+                <div>
+                    <b>{{ tag.text }}</b>
+                </div>
+            </div>
+
+            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+    
+                <div class="iaa-tag-attlist-name">
+                    {{ attlist.name }}:
+                </div> 
+    
+                <div>
+                    {{ tag[attlist.name] }}&nbsp;
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
 <!-- stat summary -->
@@ -124,7 +188,7 @@
                                 title="Click to check these tags"
                                 v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
                                 v-bind:class="'td-count-' + stat[tag_def.name]"
-                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                v-on:click="on_click_stat_ann_tag_box($event, stat.file_name, tag_def.name)">
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
@@ -139,7 +203,7 @@
                                 title="Click to check these tags"
                                 v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
                                 v-bind:class="'td-count-' + stat[tag_def.name]"
-                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                v-on:click="on_click_stat_ann_tag_box($event, stat.file_name, tag_def.name)">
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
@@ -147,61 +211,7 @@
                 </tbody>
             </table>
 
-            <!-- the tag list of selected file and concept -->
-            <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
-                class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
-                style="float: left; position: sticky; top: 0;">
-                <div class="stat-doc-sum-tags-header">
-                    <i class="fa fa-tags"></i>
-                    {{ display_stat_doc_sum_selected.file_name }} - 
-                    <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                        <i class="fa fa-tag"
-                            v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                        </i>
-                        {{ display_stat_doc_sum_selected.tag_name }}
-                    </span>
-                    <span>
-                        {{ stat_doc_sum_selected_tags.length }} tags
-                    </span>
-                </div>
-
-                <div class="stat-doc-sum-tags-body">
-                    <div v-for="tag in stat_doc_sum_selected_tags"
-                        class="d-flex flex-row flex-wrap flex-align-end mb-2">
-                        <div class="iaa-tag-detail-info-text-ab mr-2">
-                            <!-- <span class="mr-1"
-                                v-bind:class="'mark-tag-' + tag.tag">
-                                
-                            </span> -->
-                            {{ tag.id }}
-                        </div>
-
-                        <div class="mr-1 ml-1 d-flex flex-column">
-                            <div class="iaa-tag-attlist-name">
-                                {{ get_tag_spans_text(tag) }}:
-                            </div> 
-                
-                            <div>
-                                <b>{{ tag.text }}</b>
-                            </div>
-                        </div>
-
-                        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                            v-if="!['id','spans','text','tag'].contains(attlist.name)"
-                            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
-                
-                            <div class="iaa-tag-attlist-name">
-                                {{ attlist.name }}:
-                            </div> 
-                
-                            <div>
-                                {{ tag[attlist.name] }}&nbsp;
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 

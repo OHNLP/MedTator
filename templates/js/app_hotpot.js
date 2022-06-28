@@ -2596,6 +2596,9 @@ var app_hotpot = {
         },
 
         has_doc_sum_selected_tags: function() {
+            if (this.display_stat_doc_sum_selected == null) {
+                return false;
+            }
             if (this.has_included_ann_file(
                 this.display_stat_doc_sum_selected.file_name
             )) {
@@ -2604,13 +2607,26 @@ var app_hotpot = {
             return false;
         },
 
-        on_click_stat_ann_tag: function(file_name, tag_name) {
+        on_click_stat_ann_tag_box: function(event, file_name, tag_name) {
+            // get the dom element
+            var elm = $(event.target);
+
+            // set the obj for this event
             this.display_stat_doc_sum_selected = {
                 file_name: file_name,
                 tag_name: tag_name
             };
 
             console.log('* display_stat_doc_sum_selected:', this.display_stat_doc_sum_selected);
+
+            // show the box
+            $('#stat_doc_tag_detailbox').css('top', elm.offset().top - 215);
+            $('#stat_doc_tag_detailbox').css('left', elm.offset().left + 25);
+        },
+
+        on_close_stat_ann_tag_box: function() {
+            this.display_stat_doc_sum_selected = null;
+            $('#stat_doc_tag_detailbox').hide();
         },
 
         has_FSA_API: function() {
@@ -2796,6 +2812,9 @@ var app_hotpot = {
                 },
 
                 stat_doc_sum_selected_tags: function() {
+                    if (this.display_stat_doc_sum_selected == null) {
+                        return null;
+                    }
                     // find this ann
                     var ann_idx = this.find_included(
                         this.display_stat_doc_sum_selected.file_name,

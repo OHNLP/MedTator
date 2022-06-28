@@ -121,10 +121,6 @@ html,body {
 #mui_ruleset_result {
     
 }
-.stat-doc-sum-tags-box {
-    border-left: 1px dotted #dedede; 
-    padding: 0 0 0 1em;
-}
 .stat-doc-sum-tags-header {
     font-size: 1.2em;
     font-weight: bold;
@@ -154,7 +150,6 @@ html,body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .stat-item-label-lg {
     width: 180px !important;
     max-width: 180px !important;
@@ -169,7 +164,18 @@ html,body {
     max-width: 70px;
     text-align: right;
 }
-
+#stat_doc_tag_detailbox {
+    z-index: 99;
+    position: absolute;
+    top: 0px;
+    background: white;
+    box-shadow: #eaeaea 5px 5px 5px;
+}
+.stat-doc-sum-tags-box {
+    border: 1px solid #efefef; 
+    padding: 0 1em 0 1em;
+}
+/* for slider */
 input[type=range] {
     height: 24px;
     -webkit-appearance: none;

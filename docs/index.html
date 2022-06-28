@@ -290,10 +290,6 @@ html,body {
 #mui_ruleset_result {
     
 }
-.stat-doc-sum-tags-box {
-    border-left: 1px dotted #dedede; 
-    padding: 0 0 0 1em;
-}
 .stat-doc-sum-tags-header {
     font-size: 1.2em;
     font-weight: bold;
@@ -323,7 +319,6 @@ html,body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .stat-item-label-lg {
     width: 180px !important;
     max-width: 180px !important;
@@ -338,7 +333,18 @@ html,body {
     max-width: 70px;
     text-align: right;
 }
-
+#stat_doc_tag_detailbox {
+    z-index: 99;
+    position: absolute;
+    top: 0px;
+    background: white;
+    box-shadow: #eaeaea 5px 5px 5px;
+}
+.stat-doc-sum-tags-box {
+    border: 1px solid #efefef; 
+    padding: 0 1em 0 1em;
+}
+/* for slider */
 input[type=range] {
     height: 24px;
     -webkit-appearance: none;
@@ -4424,6 +4430,70 @@ v-bind:class="{'active': section=='iaa'}">
     <!-- the ui for statistics -->
     <div v-show="section=='statistics'" id="main_ui" 
     class="main-ui container-fluid">
+    <!-- the tag list of selected file and concept -->
+    <div v-show="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+    id="stat_doc_tag_detailbox"
+    class="d-flex flex-column ml-2 stat-doc-sum-tags-box">
+    <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+        class="stat-doc-sum-tags-header">
+        <i class="fa fa-tags"></i>
+        {{ display_stat_doc_sum_selected.file_name }} - 
+        <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+            <i class="fa fa-tag"
+                v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+            </i>
+            {{ display_stat_doc_sum_selected.tag_name }}
+        </span>
+        <span>
+            {{ stat_doc_sum_selected_tags.length }} tags
+        </span>
+
+        <button class="button mini ml-2"
+            title="Close this panel"
+            v-on:click="on_close_stat_ann_tag_box">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="stat-doc-sum-tags-body">
+        <div v-for="tag in stat_doc_sum_selected_tags"
+            class="d-flex flex-row flex-wrap flex-align-end mb-2">
+            <div class="iaa-tag-detail-info-text-ab mr-2">
+                <!-- <span class="mr-1"
+                    v-bind:class="'mark-tag-' + tag.tag">
+                    
+                </span> -->
+                {{ tag.id }}
+            </div>
+
+            <div class="mr-1 ml-1 d-flex flex-column">
+                <div class="iaa-tag-attlist-name">
+                    {{ get_tag_spans_text(tag) }}:
+                </div> 
+    
+                <div>
+                    <b>{{ tag.text }}</b>
+                </div>
+            </div>
+
+            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+    
+                <div class="iaa-tag-attlist-name">
+                    {{ attlist.name }}:
+                </div> 
+    
+                <div>
+                    {{ tag[attlist.name] }}&nbsp;
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
 <!-- stat summary -->
@@ -4548,7 +4618,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 title="Click to check these tags"
                                 v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
                                 v-bind:class="'td-count-' + stat[tag_def.name]"
-                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                v-on:click="on_click_stat_ann_tag_box($event, stat.file_name, tag_def.name)">
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
@@ -4563,7 +4633,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 title="Click to check these tags"
                                 v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
                                 v-bind:class="'td-count-' + stat[tag_def.name]"
-                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                v-on:click="on_click_stat_ann_tag_box($event, stat.file_name, tag_def.name)">
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
@@ -4571,61 +4641,7 @@ v-bind:class="{'active': section=='iaa'}">
                 </tbody>
             </table>
 
-            <!-- the tag list of selected file and concept -->
-            <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
-                class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
-                style="float: left; position: sticky; top: 0;">
-                <div class="stat-doc-sum-tags-header">
-                    <i class="fa fa-tags"></i>
-                    {{ display_stat_doc_sum_selected.file_name }} - 
-                    <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                        <i class="fa fa-tag"
-                            v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                        </i>
-                        {{ display_stat_doc_sum_selected.tag_name }}
-                    </span>
-                    <span>
-                        {{ stat_doc_sum_selected_tags.length }} tags
-                    </span>
-                </div>
-
-                <div class="stat-doc-sum-tags-body">
-                    <div v-for="tag in stat_doc_sum_selected_tags"
-                        class="d-flex flex-row flex-wrap flex-align-end mb-2">
-                        <div class="iaa-tag-detail-info-text-ab mr-2">
-                            <!-- <span class="mr-1"
-                                v-bind:class="'mark-tag-' + tag.tag">
-                                
-                            </span> -->
-                            {{ tag.id }}
-                        </div>
-
-                        <div class="mr-1 ml-1 d-flex flex-column">
-                            <div class="iaa-tag-attlist-name">
-                                {{ get_tag_spans_text(tag) }}:
-                            </div> 
-                
-                            <div>
-                                <b>{{ tag.text }}</b>
-                            </div>
-                        </div>
-
-                        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                            v-if="!['id','spans','text','tag'].contains(attlist.name)"
-                            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
-                
-                            <div class="iaa-tag-attlist-name">
-                                {{ attlist.name }}:
-                            </div> 
-                
-                            <div>
-                                {{ tag[attlist.name] }}&nbsp;
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 
@@ -14226,6 +14242,9 @@ var app_hotpot = {
         },
 
         has_doc_sum_selected_tags: function() {
+            if (this.display_stat_doc_sum_selected == null) {
+                return false;
+            }
             if (this.has_included_ann_file(
                 this.display_stat_doc_sum_selected.file_name
             )) {
@@ -14234,13 +14253,26 @@ var app_hotpot = {
             return false;
         },
 
-        on_click_stat_ann_tag: function(file_name, tag_name) {
+        on_click_stat_ann_tag_box: function(event, file_name, tag_name) {
+            // get the dom element
+            var elm = $(event.target);
+
+            // set the obj for this event
             this.display_stat_doc_sum_selected = {
                 file_name: file_name,
                 tag_name: tag_name
             };
 
             console.log('* display_stat_doc_sum_selected:', this.display_stat_doc_sum_selected);
+
+            // show the box
+            $('#stat_doc_tag_detailbox').css('top', elm.offset().top - 215);
+            $('#stat_doc_tag_detailbox').css('left', elm.offset().left + 25);
+        },
+
+        on_close_stat_ann_tag_box: function() {
+            this.display_stat_doc_sum_selected = null;
+            $('#stat_doc_tag_detailbox').hide();
         },
 
         has_FSA_API: function() {
@@ -14426,6 +14458,9 @@ var app_hotpot = {
                 },
 
                 stat_doc_sum_selected_tags: function() {
+                    if (this.display_stat_doc_sum_selected == null) {
+                        return null;
+                    }
                     // find this ann
                     var ann_idx = this.find_included(
                         this.display_stat_doc_sum_selected.file_name,
