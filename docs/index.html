@@ -4434,6 +4434,8 @@ v-bind:class="{'active': section=='iaa'}">
     <div v-show="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
     id="stat_doc_tag_detailbox"
     class="d-flex flex-column ml-2 stat-doc-sum-tags-box">
+
+    <!-- the tag list for heatmap -->
     <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
         class="stat-doc-sum-tags-header">
         <i class="fa fa-tags"></i>
@@ -14272,7 +14274,9 @@ var app_hotpot = {
 
         on_close_stat_ann_tag_box: function() {
             this.display_stat_doc_sum_selected = null;
-            $('#stat_doc_tag_detailbox').hide();
+            // I'm not sure why, but there is a 26px bar left???
+            // so just move it out of view
+            $('#stat_doc_tag_detailbox').css('top', -1000);
         },
 
         has_FSA_API: function() {

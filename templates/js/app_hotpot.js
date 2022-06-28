@@ -2626,7 +2626,9 @@ var app_hotpot = {
 
         on_close_stat_ann_tag_box: function() {
             this.display_stat_doc_sum_selected = null;
-            $('#stat_doc_tag_detailbox').hide();
+            // I'm not sure why, but there is a 26px bar left???
+            // so just move it out of view
+            $('#stat_doc_tag_detailbox').css('top', -1000);
         },
 
         has_FSA_API: function() {
