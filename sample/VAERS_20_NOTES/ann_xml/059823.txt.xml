@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Both legs from knees down got swollen and were painful to touch, walk on, etc.; Both legs from knees down got swollen and were painful to touch, walk on, etc.; This is a spontaneous report from a contactable consumer (patient). A 66-years-old male patient received BNT162B2 Pfizer-BioNTech COVID-19 mRNA Vaccine, Lot number EX923, in hospital, via an unspecified route of administration in left arm from 19Jan2021 at 20:45 (at age of 66 years) at single dose for COVID-19 immunization. Medical history included spinal stenosis, arthritis and allergy to penicillin, all from an unknown date. The patient was not diagnosed with COVID-19 prior to vaccination and has not been tested for COVID-19 since the vaccination. Concomitant medication included gabapentin, meloxicam (MOBIC), zinc, ascorbic acid (VIT C), magnesium and cinnamomum verum stem bark/elettaria cardamomum fruit/syzygium aromaticum (CINNAMOL). On 24Jan2021 at 16:00 both patient's legs from knees down got swollen and were painful to touch, walk on, etc. The event resulted in doctor or other healthcare professional office/clinic visit. The patient was treated with steroids. The reported events were resolving at the time of the report.]]></TEXT>
+<TAGS>
+<Myalgia spans="30~37" text="swollen" id="M0" certainty="positive" comment=""/>
+<Myalgia spans="110~117" text="swollen" id="M1" certainty="positive" comment=""/>
+<Myalgia spans="970~977" text="swollen" id="M2" certainty="positive" comment=""/>
+<Other spans="542~549" text="allergy" id="O0" certainty="positive" comment=""/>
+<Vaccine spans="265~273" text="BNT162B2" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="274~289" text="PFIZER-BIONTECH" id="V1" certainty="positive" comment=""/>
+<Pain spans="47~54" text="painful" id="P0" certainty="positive" comment=""/>
+<Pain spans="127~134" text="painful" id="P1" certainty="positive" comment=""/>
+<Pain spans="987~994" text="painful" id="P2" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

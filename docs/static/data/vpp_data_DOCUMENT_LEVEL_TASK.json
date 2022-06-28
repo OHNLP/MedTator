@@ -99,7 +99,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -652,7 +652,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -1204,7 +1204,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -1848,20 +1848,236 @@
                 }
             ],
             "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+        },
+        {
+            "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
+            "dtd_name": "VAX_SYMPTOM",
+            "tags": [
+                {
+                    "tag": "PYREXIA",
+                    "id": "P0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "CHILL",
+                    "id": "C0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "HEADACHE",
+                    "id": "H0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "DIZZINESS",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_SYMP",
+                    "id": "O0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_01.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
+                    "spans": {
+                        "start": 0,
+                        "end": 85
+                    }
+                }
+            ],
+            "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+        },
+        {
+            "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
+            "dtd_name": "VAX_SYMPTOM",
+            "tags": [
+                {
+                    "tag": "DIZZINESS",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_SYMP",
+                    "id": "O0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_02.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Patient felt dizzy and sat on the floor.",
+                    "spans": {
+                        "start": 0,
+                        "end": 39
+                    }
+                },
+                {
+                    "text": "  She did not fall or lose consciousness.",
+                    "spans": {
+                        "start": 40,
+                        "end": 80
+                    }
+                }
+            ],
+            "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+        },
+        {
+            "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
+            "dtd_name": "VAX_SYMPTOM",
+            "tags": [
+                {
+                    "tag": "HEADACHE",
+                    "id": "H0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "FATIGUE",
+                    "id": "F0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_03.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
+                    "spans": {
+                        "start": 0,
+                        "end": 87
+                    }
+                }
+            ],
+            "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+        },
+        {
+            "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
+            "dtd_name": "VAX_SYMPTOM",
+            "tags": [
+                {
+                    "tag": "FATIGUE",
+                    "id": "F0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "OTHER_SYMP",
+                    "id": "O0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "SORENESS",
+                    "id": "S0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_04.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Skin rash and irritation, itching on forearms.",
+                    "spans": {
+                        "start": 0,
+                        "end": 45
+                    }
+                },
+                {
+                    "text": "  Fatigue/malaise lasting three days",
+                    "spans": {
+                        "start": 46,
+                        "end": 81
+                    }
+                }
+            ],
+            "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+        },
+        {
+            "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
+            "dtd_name": "VAX_SYMPTOM",
+            "tags": [
+                {
+                    "tag": "HEADACHE",
+                    "id": "H0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                },
+                {
+                    "tag": "PAIN",
+                    "id": "PA0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "B_doc_05.txt.xml",
+            "_has_saved": true,
+            "_sentences": [
+                {
+                    "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
+                    "spans": {
+                        "start": 0,
+                        "end": 81
+                    }
+                }
+            ],
+            "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
         }
     ],
     "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
+    "display_stat_doc_sum_selected": null,
+    "stat_filter_min_tokens": 0,
+    "stat_filter_token_text": true,
     "hints": [],
     "hint_dict": {
         "PYREXIA": {
             "text_dict": {},
             "nc_dict": {
-                "count": 2,
+                "count": 3,
                 "ann_fn_dict": {
                     "A_doc_01.txt.xml": 1,
-                    "A_doc_05.txt.xml": 1
+                    "A_doc_05.txt.xml": 1,
+                    "B_doc_01.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1870,9 +2086,10 @@
         "CHILL": {
             "text_dict": {},
             "nc_dict": {
-                "count": 1,
+                "count": 2,
                 "ann_fn_dict": {
-                    "A_doc_01.txt.xml": 1
+                    "A_doc_01.txt.xml": 1,
+                    "B_doc_01.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1881,11 +2098,14 @@
         "HEADACHE": {
             "text_dict": {},
             "nc_dict": {
-                "count": 3,
+                "count": 6,
                 "ann_fn_dict": {
                     "A_doc_01.txt.xml": 1,
                     "A_doc_03.txt.xml": 1,
-                    "A_doc_05.txt.xml": 1
+                    "A_doc_05.txt.xml": 1,
+                    "B_doc_01.txt.xml": 1,
+                    "B_doc_03.txt.xml": 1,
+                    "B_doc_05.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1894,9 +2114,11 @@
         "DIZZINESS": {
             "text_dict": {},
             "nc_dict": {
-                "count": 1,
+                "count": 3,
                 "ann_fn_dict": {
-                    "A_doc_02.txt.xml": 1
+                    "A_doc_02.txt.xml": 1,
+                    "B_doc_01.txt.xml": 1,
+                    "B_doc_02.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1905,9 +2127,11 @@
         "FATIGUE": {
             "text_dict": {},
             "nc_dict": {
-                "count": 1,
+                "count": 3,
                 "ann_fn_dict": {
-                    "A_doc_04.txt.xml": 1
+                    "A_doc_04.txt.xml": 1,
+                    "B_doc_03.txt.xml": 1,
+                    "B_doc_04.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1916,9 +2140,12 @@
         "OTHER_SYMP": {
             "text_dict": {},
             "nc_dict": {
-                "count": 1,
+                "count": 4,
                 "ann_fn_dict": {
-                    "A_doc_04.txt.xml": 1
+                    "A_doc_04.txt.xml": 1,
+                    "B_doc_01.txt.xml": 1,
+                    "B_doc_02.txt.xml": 1,
+                    "B_doc_04.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1927,9 +2154,21 @@
         "PAIN": {
             "text_dict": {},
             "nc_dict": {
+                "count": 2,
+                "ann_fn_dict": {
+                    "A_doc_05.txt.xml": 1,
+                    "B_doc_05.txt.xml": 1
+                },
+                "_is_shown": false
+            },
+            "texts": []
+        },
+        "SORENESS": {
+            "text_dict": {},
+            "nc_dict": {
                 "count": 1,
                 "ann_fn_dict": {
-                    "A_doc_05.txt.xml": 1
+                    "B_doc_04.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -1953,7 +2192,35 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.6158710475294749,
+    "force_module_update": 0.37656201046918714,
+    "cm": {
+        "display_mode": "document",
+        "mark_mode": "node",
+        "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
+        "enabled_links": true,
+        "enabled_link_name": true,
+        "enabled_link_complex": true,
+        "is_expire": false
+    },
+    "cfg": {
+        "is_show_settings": false,
+        "active_setting_tab": "import",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts"
+    },
+    "export_text": null,
+    "texts": {
+        "sentence_splitting_algorithm": {
+            "title": "Sentence Splitting Algorithm",
+            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        },
+        "linking_marks_selection": {
+            "title": "Linking marks selection",
+            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
+        }
+    },
     "iaa_ann_list": [
         {
             "anns": [
@@ -4861,11 +5128,12 @@
     "iaa_match_mode": "overlap",
     "iaa_overlap_ratio": 50,
     "iaa_overlap_ratio_default": 50,
-    "iaa_display_hashcode": "6879431567493863",
+    "iaa_display_hashcode": null,
     "iaa_display_tags_context": true,
     "iaa_display_tags_tp": false,
     "iaa_display_adj_panel": true,
     "iaa_display_adj_detail": false,
+    "iaa_sort_anns_by": "default",
     "iaa_gs_dict": {
         "6879431567493863": {
             "ann": {
@@ -5441,32 +5709,8 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
-    "cm": {
-        "display_mode": "document",
-        "mark_mode": "node",
-        "hint_mode": "simple",
-        "enabled_auto_hint_update": true,
-        "enabled_hints": true,
-        "enabled_links": true,
-        "enabled_link_name": true,
-        "enabled_link_complex": true,
-        "is_expire": false
-    },
-    "cfg": {
-        "is_show_settings": false,
-        "active_setting_tab": "import",
-        "sentence_splitting_algorithm": "simpledot",
-        "linking_marks_selection": "all_concepts"
-    },
-    "export_text": null,
-    "texts": {
-        "sentence_splitting_algorithm": {
-            "title": "Sentence Splitting Algorithm",
-            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
-        },
-        "linking_marks_selection": {
-            "title": "Linking marks selection",
-            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
-        }
-    }
+    "converter_corpus_task": "medtagger",
+    "converter_corpus_medtagger_txt_files": [],
+    "converter_corpus_medtagger_ann_files": [],
+    "converter_corpus_medtagger_results": []
 }

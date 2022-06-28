@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Around 06:00 pm, which was about 9 hours after having received the J&J vaccine, I began having a slight fever and chills.  The most pain I had was in the back of my legs.  Both of my calves felt as if they had both been kicked and were badly bruised.  It was painful to walk for about 48 hours/2 days (Sunday - Monday).  That was the first time in my life that I had that kind of pain in my back calves.  Never had before from running or walking.  Then around 09:00 pm on Tuesday, a reddish dot appeared on the left side of my cheek.  I thought it was just a big zit.  But the following day, the dot got bigger, and looked like a scratch.  On Wednesday, it was definitely a scratch-like shape (2 lines, less than an inch long) and had begun to feel itchy.  That was when I had realized that it had the same pus-like dotted features of a cold sore.  But oddly, it's not right next to either side of my lips.  Instead, it is further down, towards the left side of my chin.  It is very rare for me to get cold sores.  I can't remember when my last one was, as it was years ago.  So I am wondering if this cold sore is due to having received the vaccine.  The fever, chills, and leg pain have not returned after those first 2 days.]]></TEXT>
+<TAGS>
+<Vaccine spans="67~78" text="J&amp;J vaccine" id="V0" certainty="positive" comment=""/>
+<Fever spans="97~109" text="slight fever" id="F0" certainty="positive" comment=""/>
+<Chill spans="114~120" text="chills" id="C0" certainty="positive" comment=""/>
+<Pain spans="132~136" text="pain" id="P0" certainty="positive" comment=""/>
+<Pain spans="259~266" text="painful" id="P1" certainty="positive" comment=""/>
+<Other spans="242~249" text="bruised" id="O0" certainty="positive" comment=""/>
+<Fever spans="1156~1161" text="fever" id="F1" certainty="negated" comment=""/>
+<Chill spans="1163~1169" text="chills" id="C1" certainty="negated" comment=""/>
+<Pain spans="1179~1183" text="pain" id="P2" certainty="negated" comment=""/>
+<Pain spans="380~384" text="pain" id="P3" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

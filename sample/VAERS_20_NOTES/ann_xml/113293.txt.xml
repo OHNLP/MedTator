@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[fever/low grade fever; Headache; This is a spontaneous report from a Pfizer Sponsored Program  via a contactable nurse (patient). A 44-years-old female patient received the second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) (lot number: EV1685) via an unspecified route of administration in right deltoid on 13Jan2021 14:30 at single dose for COVID-19 immunisation. She received her first dose of BNT162B2 on 23Dec2020 13:30 (at age of 44 years old) for COVID-19 immunisation. There was no medical history. The patient's concomitant medications were not reported. The patient received the second dose of her Pfizer vaccine on 13Jan2021. She has a headache and fever (on Jan2021), which lasted a whole week. She still had a headache and a low grade fever and today is day 8th. Inquiring if that is a normal side effect, with the vaccine is it common or how long should she expect this. She received Advil and Tylenol as treatment. She had COVID test yesterday (20Jan2021) it was negative. Relatedness of drug to events headache and fever was reported as related by reporter because she had them since the second dose. Events outcome was not recovered.]]></TEXT>
+<TAGS>
+<Fever spans="746~761" text="low grade fever" id="F0" certainty="positive"/>
+<Vaccine spans="188~196" text="BNT162B2" id="V0" certainty="positive"/>
+<Vaccine spans="405~413" text="BNT162B2" id="V1" certainty="positive"/>
+<Vaccine spans="198~213" text="PFIZER-BIONTECH" id="V2" certainty="positive"/>
+<Vaccine spans="69~75" text="Pfizer" id="V3" certainty="positive"/>
+<Vaccine spans="616~622" text="Pfizer" id="V4" certainty="positive"/>
+<Fever spans="0~5" text="fever" id="F1" certainty="positive"/>
+<Fever spans="16~21" text="fever" id="F2" certainty="positive"/>
+<Fever spans="668~673" text="fever" id="F3" certainty="positive"/>
+<Fever spans="1039~1044" text="fever" id="F4" certainty="positive"/>
+<Headache spans="23~31" text="headache" id="H0" certainty="positive"/>
+<Headache spans="655~663" text="headache" id="H1" certainty="positive"/>
+<Headache spans="731~739" text="headache" id="H2" certainty="positive"/>
+<Headache spans="1026~1034" text="headache" id="H3" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

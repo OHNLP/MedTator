@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[3 near syncopal episodes; Arm soreness at injection site; Chills; muscle aches; This is Spontaneous report from a contactable Other Healthcare Professional reported for herself. A 49-years-old female patient received the second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE), Lot number=EL1283 via intramuscularly on 12Jan2021 10:30 at single dose Vaccine location: Right arm for covid-19 immunisation ,facility type vaccine: hospital. Medical history included hypertension and the first dose of BNT162B2 Lot number=EK5730 in Dec2020 10:00 Intramuscular, Vaccine location Right arm Facility type vaccine Hospital. Concomitant medication included hydrochlorothiazide (HYDROCHLOROTHIAZIDE) and multi-vitamin. On 12Jan2021 22:00 the patient experienced 3 near syncopal episodes, arm soreness at injection site, chills and muscle aches. No treatment received. The event outcome was recovered and action taken is not applicable.; Sender's Comments: Based on the time association, the possible contribution of suspect BNT162B2 to the event near syncope cannot be excluded. The impact of this report on the benefit/risk profile of the Pfizer product is evaluated as part of Pfizer procedures for safety evaluation, including the review and analysis of aggregate data for adverse events. Any safety concern identified as part of this review, as well as any appropriate action in response, will be promptly notified to Regulatory Authorities, Ethics Committees and Investigators, as appropriate.]]></TEXT>
+<TAGS>
+<Myalgia spans="30~38" text="soreness" id="M0" certainty="positive"/>
+<Myalgia spans="66~78" text="muscle aches" id="M1" certainty="positive"/>
+<Vaccine spans="236~244" text="BNT162B2" id="V0" certainty="positive"/>
+<Vaccine spans="246~261" text="PFIZER-BIONTECH" id="V1" certainty="positive"/>
+<Other spans="762~779" text="syncopal episodes" id="O0" certainty="positive"/>
+<Vaccine spans="1133~1139" text="Pfizer" id="V2" certainty="positive"/>
+<Vaccine spans="501~509" text="BNT162B2" id="V3" certainty="positive"/>
+<Vaccine spans="1017~1025" text="BNT162B2" id="V4" certainty="positive"/>
+<Vaccine spans="1172~1178" text="Pfizer" id="V5" certainty="positive"/>
+<Chill spans="58~64" text="chills" id="C0" certainty="positive"/>
+<Chill spans="813~819" text="chills" id="C1" certainty="positive"/>
+<Other spans="7~24" text="syncopal episodes" id="O1" certainty="positive"/>
+<Myalgia spans="785~793" text="soreness" id="M2" certainty="positive"/>
+<Myalgia spans="824~836" text="muscle aches" id="M3" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[sepsis; respiratory failure; Fever; Unresponsive; A spontaneous report was received from Pfizer concerning a 56-year old, female patient who received Moderna's COVID-19 vaccine (mRNA-1273) and experienced respiratory failure, sepsis, fever and sudden death.  The patient's medical history was not provided. No relevant concomitant medications were reported.    On 04 Jan 2021, the patient received their first of two planned doses of mRNA-1273 (lot/batch:  unknown) for prophylaxis of COVID-19 infection.  On 11 Jan 2021, the patient began to have a fever. She was sent to the emergency room for evaluation. That evening, she died. No treatment information was provided.   Action taken with mRNA-1273 in response to the events was not applicable.   The patient died on 11 Jan 2021. The cause of death was reported as respiratory failure and sepsis. Plans for an autopsy were unknown/not provided.; Reporter's Comments: This is a case of 56-year old, female patient who received Moderna's COVID-19 vaccine (mRNA-1273) and experienced sepsis, fever, respiratory failure and sudden death. Very limited information regarding this event has been provided at this time.  Further information has been requested.; Reported Cause(s) of Death: Respirtory Failure; Sepsis]]></TEXT>
+<TAGS>
+<Other spans="0~6" text="sepsis" id="O0" certainty="positive"/>
+<Dyspnea spans="205~224" text="respiratory failure" id="Dy0" certainty="positive"/>
+<Other spans="244~256" text="sudden death" id="O1" certainty="positive"/>
+<Other spans="626~630" text="died" id="O2" certainty="positive"/>
+<Dyspnea spans="1234~1252" text="Respirtory Failure" id="Dy1" certainty="positive"/>
+<Other spans="226~232" text="sepsis" id="O3" certainty="positive"/>
+<Other spans="841~847" text="sepsis" id="O4" certainty="positive"/>
+<Other spans="1033~1039" text="sepsis" id="O5" certainty="positive"/>
+<Other spans="1254~1260" text="sepsis" id="O6" certainty="positive"/>
+<Other spans="1072~1084" text="sudden death" id="O7" certainty="positive"/>
+<Other spans="761~765" text="died" id="O8" certainty="positive"/>
+<Vaccine spans="89~95" text="Pfizer" id="V0" certainty="positive"/>
+<Vaccine spans="178~187" text="mRNA-1273" id="V1" certainty="positive"/>
+<Vaccine spans="434~443" text="mRNA-1273" id="V2" certainty="positive"/>
+<Vaccine spans="691~700" text="mRNA-1273" id="V3" certainty="positive"/>
+<Vaccine spans="1006~1015" text="mRNA-1273" id="V4" certainty="positive"/>
+<Vaccine spans="150~157" text="Moderna" id="V5" certainty="positive"/>
+<Vaccine spans="978~985" text="Moderna" id="V6" certainty="positive"/>
+<Fever spans="29~34" text="fever" id="F0" certainty="positive"/>
+<Fever spans="234~239" text="fever" id="F1" certainty="positive"/>
+<Fever spans="550~555" text="fever" id="F2" certainty="positive"/>
+<Fever spans="1041~1046" text="fever" id="F3" certainty="positive"/>
+<Dyspnea spans="8~27" text="respiratory failure" id="Dy2" certainty="positive"/>
+<Dyspnea spans="817~836" text="respiratory failure" id="Dy3" certainty="positive"/>
+<Dyspnea spans="1048~1067" text="respiratory failure" id="Dy4" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

@@ -866,6 +866,41 @@ var app_hotpot = {
             );
         },
 
+        load_sample_ds_remote: function(ds_name) {
+            if (typeof(ds_name) == 'undefined') {
+                ds_name = 'MINIMAL_TASK';
+            }
+            // always try to load github repo
+            $.ajax({
+                // https://ohnlp.github.io/MedTator/static/data/vpp_data_MINIMAL_TASK.json?rnd=0.26234995297601804
+                // url: './static/data/vpp_data_'+ds_name+'.json', 
+                url: 'https://ohnlp.github.io/MedTator/static/data/vpp_data_'+ds_name+'.json', 
+                dataType: "json",
+                success: function(data, status, xhr) {
+                    // parse the data and load it
+                    Object.assign(app_hotpot.vpp.$data, data);
+                    app_hotpot.set_dtd(
+                        app_hotpot.vpp.$data.dtd
+                    );
+                    app_hotpot.vpp.set_ann_idx(0);
+
+                    // toast?
+                    app_hotpot.toast(
+                        'Loaded Sample Dataset',
+                        'info'
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+
+                    app_hotpot.toast(
+                        'Something wrong when loading the sample dataset, try later?',
+                        'warning'
+                    );
+                }
+            })
+        },
+
         load_sample_txt: function() {
             if (this.dtd == null) {
                 app_hotpot.toast(

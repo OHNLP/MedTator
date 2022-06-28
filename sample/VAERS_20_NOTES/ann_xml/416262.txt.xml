@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[headache; tiredness; muscle pain; fever; nausea; feeling unwell; Injection site pain; This is a spontaneous report from a contactable consumer. An 83-year-old female patient received second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection; Batch/lot number: EL9262;) via an unspecified route of administration on 26Jan2021 at single dose for covid-19 immunisation. Medical history included parkinson's disease ongoing. Concomitant medication included carbidopa monohydrate, levodopa (CARBIDOPA + LEVODOPA) for Parkinsons disease, clonazepam. The patient previously received first single dose of bnt162b2 for Covid-19 immunization (she had no side effects after the first dose of the vaccine). Patient had Parkinsons disease received the second dose of the Pfizer COVID-19 vaccine yesterday, 26Jan2021, and today she was experiencing most of the symptoms listed including: injection site pain in Jan2021, on 26Jan2021, had tiredness, headache (Had a headache, headache for the most part gone but still lingering), muscles pain, fever, nausea and feeling unwell. The caller states that she had no side effects after the first dose of the vaccine. The caller wants to know how long her symptoms are going to last. The outcome of the event Injection site pain was unknown, rest of the events was not recovered.]]></TEXT>
+<TAGS>
+<Headache spans="0~8" text="headache" id="H0" certainty="positive"/>
+<Fatigue spans="10~19" text="tiredness" id="Fa0" certainty="positive"/>
+<Vomiting spans="49~63" text="feeling unwell" id="Vo0" certainty="positive"/>
+<Other spans="416~435" text="parkinson's disease" id="O0" certainty="positive"/>
+<Other spans="536~554" text="Parkinsons disease" id="O1" certainty="positive"/>
+<Pain spans="1039~1051" text="muscles pain" id="P0" certainty="positive"/>
+<Vaccine spans="198~206" text="BNT162B2" id="V0" certainty="positive"/>
+<Vaccine spans="621~629" text="BNT162B2" id="V1" certainty="positive"/>
+<Vaccine spans="208~223" text="PFIZER-BIONTECH" id="V2" certainty="positive"/>
+<Vaccine spans="782~788" text="Pfizer" id="V3" certainty="positive"/>
+<Fever spans="34~39" text="fever" id="F0" certainty="positive"/>
+<Fever spans="1053~1058" text="fever" id="F1" certainty="positive"/>
+<Pain spans="28~32" text="pain" id="P1" certainty="positive"/>
+<Pain spans="80~84" text="pain" id="P2" certainty="positive"/>
+<Pain spans="913~917" text="pain" id="P3" certainty="positive"/>
+<Pain spans="1277~1281" text="pain" id="P4" certainty="positive"/>
+<Other spans="731~749" text="Parkinsons disease" id="O2" certainty="positive"/>
+<Fatigue spans="948~957" text="tiredness" id="Fa1" certainty="positive"/>
+<Nausea spans="41~47" text="nausea" id="Na0" certainty="positive"/>
+<Nausea spans="1060~1066" text="nausea" id="Na1" certainty="positive"/>
+<Headache spans="959~967" text="headache" id="H1" certainty="positive"/>
+<Headache spans="975~983" text="headache" id="H2" certainty="positive"/>
+<Headache spans="985~993" text="headache" id="H3" certainty="positive"/>
+<Vomiting spans="1071~1085" text="feeling unwell" id="Vo1" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

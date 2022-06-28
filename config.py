@@ -174,9 +174,9 @@ THIRD_PARTY_LIB_URL={
 # None item represents a seperate line
 TASK_SAMPLES = [
     ['MINIMAL_TASK', 'Minimal Annotation Task', 'A minimal annotation task'],
-    ['ENTITY_RELATION_TASK', 'Entity and Relation Annotation', 'A sample for entity and relation annotation'],
-    ['DOCUMENT_LEVEL_TASK', 'Document-Level Annotation', 'A sample for document level annotation samples'],
-    ['IAA_TASK', 'IAA Calculation', 'A sample for IAA calculation'],
+    ['ENTITY_RELATION_TASK', 'Entity and Relation Annotation Task', 'A sample for entity and relation annotation'],
+    ['DOCUMENT_LEVEL_TASK', 'Document-Level Annotation Task', 'A sample for document level annotation samples'],
+    ['IAA_TASK', 'IAA Calculation Task', 'A sample for IAA calculation'],
     # None,
     # ['AMIA21_WORKSHOP', 'AMIA 2021 Workshop', 'A sample task for AMIA 2021 workshop annotation presentation'],
 ]

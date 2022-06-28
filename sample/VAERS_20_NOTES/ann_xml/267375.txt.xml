@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Trouble lifting her arm; Nausea that came and went; Felt tired and fatigued; Vaccination site pain; Vaccine too high on her shoulder; A spontaneous report was received from a nurse concerning a 77-year-old, female patient, who received Moderna's COVID-19 vaccine (mRNA-1273) and experienced vaccine too high on her shoulder/product administered at inappropriate site, trouble lifting her arm/ movement disorder, nausea, fatigue and vaccination site pain.   The patient's medical history and concomitant medications were not reported by the reporter.    On 02 Feb 2021, prior to the onset of the events, the patient received their first of two planned doses of mRNA-1273 (Lot number: 012M20A ) in the left shoulder for prophylaxis of COVID-19 infection.   On 02 Feb 2021, patient believed the vaccine was given too high on her shoulder, and had nausea, fatigue and pain at the injection site (shoulder and arm) which increased with movements, radiating to the upper limb and had trouble sleeping, treated with Tylenol.   Action taken with mRNA-1273 in response to the events was unknown.   The outcome of events were unknown.; Reporter's Comments: Based on the current available information and temporal association between the use of the product and the start date of the event, a causal relationship cannot be excluded.]]></TEXT>
+<TAGS>
+<Fatigue spans="67~75" text="fatigued" id="Fa0" certainty="positive"/>
+<Fatigue spans="52~62" text="Felt tired" id="Fa1" certainty="positive"/>
+<Vaccine spans="264~273" text="mRNA-1273" id="V0" certainty="positive"/>
+<Myalgia spans="0~23" text="Trouble lifting her arm" id="M0" certainty="positive"/>
+<Nausea spans="412~418" text="nausea" id="Na0" certainty="positive"/>
+<Fatigue spans="420~427" text="fatigue" id="Fa2" certainty="positive"/>
+<Other spans="978~994" text="trouble sleeping" id="O0" certainty="positive"/>
+<Vaccine spans="236~243" text="Moderna" id="V1" certainty="positive"/>
+<Vaccine spans="660~669" text="mRNA-1273" id="V2" certainty="positive"/>
+<Vaccine spans="1038~1047" text="mRNA-1273" id="V3" certainty="positive"/>
+<Pain spans="94~98" text="pain" id="P0" certainty="positive"/>
+<Pain spans="449~453" text="pain" id="P1" certainty="positive"/>
+<Pain spans="864~868" text="pain" id="P2" certainty="positive"/>
+<Myalgia spans="368~391" text="Trouble lifting her arm" id="M1" certainty="positive"/>
+<Fatigue spans="852~859" text="fatigue" id="Fa3" certainty="positive"/>
+<Nausea spans="25~31" text="nausea" id="Na1" certainty="positive"/>
+<Nausea spans="844~850" text="nausea" id="Na2" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

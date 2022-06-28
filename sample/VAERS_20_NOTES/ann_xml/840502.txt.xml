@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Slight muscle ache in arm; Other vaccine same date vaccine; Other vaccine same date vaccine; This is a spontaneous report from a contactable consumer (patient). This non-pregnant 73-year-old female patient received BNT162B2 (PFIZER-BIONTECH COVID-19 MRNA VACCINE; lot number EN9581) via unspecified route of administration in the left arm on 05Feb2021 at 15:45 (at the age of 73-years-old) as a single dose for COVID-19 immunization. Medical history included sulfa allergy from an unknown date and unknown if ongoing. The patient did not have COVID prior to vaccination. Concomitant medications included ascorbic acid (VITA C), ergocalciferol (VITA D), biotin, fexofenadine hydrochloride (ALLERFEX), magnesium, and glucosamine hydrochloride (GLOCOSAMIN), all from unknown dates for unknown indications. The patient did not receive any other vaccines in the four weeks prior to the COVID vaccine. On 05Feb2021 at 22:00 the patient experienced slight muscle ache in arm during the first night; and on 05Feb2021 the patient experienced other vaccine same date vaccine. No treatment was provided for the events. The clinical outcome of slight muscle ache in arm was recovered in Feb2021; the clinical outcomes of other vaccine same date vaccine were recovered on 05Feb2021. It was also reported the patient was not COVID tested post vaccination.]]></TEXT>
+<TAGS>
+<Myalgia spans="7~18" text="muscle ache" id="M0" certainty="positive" comment=""/>
+<Myalgia spans="949~960" text="muscle ache" id="M1" certainty="positive" comment=""/>
+<Myalgia spans="1139~1150" text="muscle ache" id="M2" certainty="positive" comment=""/>
+<Other spans="465~472" text="allergy" id="O0" certainty="positive" comment=""/>
+<Vaccine spans="215~223" text="BNT162B2" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="225~240" text="PFIZER-BIONTECH" id="V1" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

@@ -2060,6 +2060,15 @@ v-bind:class="{'active': section=='annotation'}">
         <ul class="ribbon-dropdown text-left" 
             data-role="dropdown" 
             data-duration="100">
+            <li title="Sample Text: COVID vaccine note for annotation test"
+                v-on:click="load_sample_txt">
+                <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
+            </li>
+            <li title="Sample Text from user's input"
+                v-on:click="load_sample_txt_from_input">
+                <a href="javascript:void(0);">Customize a Sample Text</a>
+            </li>
+            <li class="divider"></li>
             
             
             <li title="A minimal annotation task"
@@ -2071,32 +2080,31 @@ v-bind:class="{'active': section=='annotation'}">
             
             <li title="A sample for entity and relation annotation"
                 v-on:click="load_sample_ds('ENTITY_RELATION_TASK');">
-                <a href="javascript:void(0);">Entity and Relation Annotation</a>
+                <a href="javascript:void(0);">Entity and Relation Annotation Task</a>
             </li>
             
             
             
             <li title="A sample for document level annotation samples"
                 v-on:click="load_sample_ds('DOCUMENT_LEVEL_TASK');">
-                <a href="javascript:void(0);">Document-Level Annotation</a>
+                <a href="javascript:void(0);">Document-Level Annotation Task</a>
             </li>
             
             
             
             <li title="A sample for IAA calculation"
                 v-on:click="load_sample_ds('IAA_TASK');">
-                <a href="javascript:void(0);">IAA Calculation</a>
+                <a href="javascript:void(0);">IAA Calculation Task</a>
             </li>
             
             
             <li class="divider"></li>
-            <li title="Sample Text: COVID vaccine note for annotation test"
-                v-on:click="load_sample_txt">
-                <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
-            </li>
-            <li title="Sample Text from user's input"
-                v-on:click="load_sample_txt_from_input">
-                <a href="javascript:void(0);">Customize a Sample Text</a>
+            <li title="A sample corpus of VAERS dataset for vaccine adverse events"
+                v-on:click="load_sample_ds_remote('VAERS_20_NOTES');">
+                <a href="javascript:void(0);">
+                    <i class="fab fa-github"></i>
+                    VAERS Adverse Event Annotation Task
+                </a>
             </li>
         </ul>
     </div>
@@ -2607,7 +2615,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s) or Folder
+            File(s)
         </div>
         <div v-else 
             class="zone-text">
@@ -2646,7 +2654,7 @@ v-bind:class="{'active': section=='iaa'}">
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s) or Folder
+            File(s)
         </div>
         <div v-else class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags
@@ -12486,6 +12494,41 @@ var app_hotpot = {
                 }, 
                 'json'
             );
+        },
+
+        load_sample_ds_remote: function(ds_name) {
+            if (typeof(ds_name) == 'undefined') {
+                ds_name = 'MINIMAL_TASK';
+            }
+            // always try to load github repo
+            $.ajax({
+                // https://ohnlp.github.io/MedTator/static/data/vpp_data_MINIMAL_TASK.json?rnd=0.26234995297601804
+                // url: './static/data/vpp_data_'+ds_name+'.json', 
+                url: 'https://ohnlp.github.io/MedTator/static/data/vpp_data_'+ds_name+'.json', 
+                dataType: "json",
+                success: function(data, status, xhr) {
+                    // parse the data and load it
+                    Object.assign(app_hotpot.vpp.$data, data);
+                    app_hotpot.set_dtd(
+                        app_hotpot.vpp.$data.dtd
+                    );
+                    app_hotpot.vpp.set_ann_idx(0);
+
+                    // toast?
+                    app_hotpot.toast(
+                        'Loaded Sample Dataset',
+                        'info'
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+
+                    app_hotpot.toast(
+                        'Something wrong when loading the sample dataset, try later?',
+                        'warning'
+                    );
+                }
+            })
         },
 
         load_sample_txt: function() {

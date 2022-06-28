@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[I already have some muscle pain and tummy upset; This is a spontaneous report from a contactable consumer (patient). A 77-year-old female patient received the first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Batch/lot number: EL0142, expiry date not reported), via an unspecified route of administration on 07Jan2021 09:30 at single dose on right arm for COVID-19 immunization. Medical history included none. There were no concomitant medications. 
+
+The patient reported that she received the first dose of the vaccine yesterday (Thursday, 07Jan2021) and is scheduled to have the 2nd dose on 28Jan2021. She is asking if she should delay her Aerobics class the next day after the 28th because she knows that there are flu like symptoms that are associated with the 2nd dose of the vaccine. The patient stated, "What are the side effects after the 2nd dose? I already have some muscle pain and tummy upset." 
+
+The patient also denied having any problems or symptoms after yesterday's shot (as reported, pending clarification). No other vaccine received that day and none in the 4 weeks prior. Not had any problems with the vaccines in past. When looking for name of vaccine states it was the one from Pfizer that was frozen, 170 degrees below zero. Mentions she is not a flu vaccine person and did not know if that matters. The adverse event did not require a visit to the Emergency Room or Physician Office. No relevant tests done. The outcome of the event was unknown.]]></TEXT>
+<TAGS>
+<Diarrhea spans="36~47" text="tummy upset" id="D0" certainty="positive"/>
+<Vaccine spans="173~181" text="BNT162B2" id="V0" certainty="positive"/>
+<Vaccine spans="183~198" text="PFIZER-BIONTECH" id="V1" certainty="positive"/>
+<Vaccine spans="1208~1214" text="Pfizer" id="V2" certainty="positive"/>
+<Pain spans="27~31" text="pain" id="P0" certainty="positive"/>
+<Pain spans="892~896" text="pain" id="P1" certainty="positive"/>
+<Diarrhea spans="901~912" text="tummy upset" id="D1" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

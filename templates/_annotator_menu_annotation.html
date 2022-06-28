@@ -394,6 +394,15 @@ v-bind:class="{'active': section=='annotation'}">
         <ul class="ribbon-dropdown text-left" 
             data-role="dropdown" 
             data-duration="100">
+            <li title="Sample Text: COVID vaccine note for annotation test"
+                v-on:click="load_sample_txt">
+                <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
+            </li>
+            <li title="Sample Text from user's input"
+                v-on:click="load_sample_txt_from_input">
+                <a href="javascript:void(0);">Customize a Sample Text</a>
+            </li>
+            <li class="divider"></li>
             {% for item in config['TASK_SAMPLES'] %}
             {% if item is none %}
             <li class="divider"></li>
@@ -405,13 +414,12 @@ v-bind:class="{'active': section=='annotation'}">
             {% endif %}
             {% endfor %}
             <li class="divider"></li>
-            <li title="Sample Text: COVID vaccine note for annotation test"
-                v-on:click="load_sample_txt">
-                <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
-            </li>
-            <li title="Sample Text from user's input"
-                v-on:click="load_sample_txt_from_input">
-                <a href="javascript:void(0);">Customize a Sample Text</a>
+            <li title="A sample corpus of VAERS dataset for vaccine adverse events"
+                v-on:click="load_sample_ds_remote('VAERS_20_NOTES');">
+                <a href="javascript:void(0);">
+                    <i class="fab fa-github"></i>
+                    VAERS Adverse Event Annotation Task
+                </a>
             </li>
         </ul>
     </div>

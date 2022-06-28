@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Throbbing at the injection site; muscle aches over whole body; This is a spontaneous report from a non-contactable other healthcare professional. A 37-year-old female patient received the second dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Lot number: Unknown), intramuscular at the right arm on 07Jan2021 11:30 at a single dose for COVID-19 immunization. Medical history included allergies: Penicillin, alcohol, salicylates. The patient's concomitant medications were not reported. The patient was not pregnant when she received the vaccination. The patient previously received the first dose of bnt162b2 for COVID-19 immunization. On 07Jan2021 at 10pm, the patient experienced throbbing at the injection site and muscle aches over whole body. The events were assessed as non-serious, did not result in death, not life threatening, did not cause/prolonged hospitalization, not disabling/incapacitating, did not cause congenital anomaly/birth defect. Treatment was not received for the adverse events. The patient has not received any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. The patient has not been tested for COVID-19 post vaccination. The outcome of the events was recovering.  No follow-up attempts are possible. Information about Lot/Batch number cannot be obtained. No further information is expected.]]></TEXT>
+<TAGS>
+<Pain spans="686~695" text="throbbing" id="P0" certainty="positive" comment=""/>
+<Myalgia spans="33~45" text="muscle aches" id="M0" certainty="positive" comment=""/>
+<Myalgia spans="722~734" text="muscle aches" id="M1" certainty="positive" comment=""/>
+<Vaccine spans="203~211" text="BNT162B2" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="604~612" text="BNT162B2" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="213~228" text="PFIZER-BIONTECH" id="V2" certainty="positive" comment=""/>
+<Pain spans="0~9" text="throbbing" id="P1" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

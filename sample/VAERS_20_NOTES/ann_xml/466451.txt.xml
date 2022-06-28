@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Sore arm; This is a spontaneous report from a contactable consumer (patient)¬. A 65-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 MRNA VACCINE), via an unspecified route of administration in the left arm, on 11Jan2021 at 12:00 (at the age of 65-years-old) at a single dose for COVID-19 immunisation. Medical history included osteoporosis, stroke history (35-years-old), significant lactose intolerance, gastrointestinal (GI) issues, and allergy to Caine family of drugs. The patient was not pregnant at the time of vaccination. Prior to the vaccination, the patient was not diagnosed with COVID-19. Concomitant medications, taken within two weeks of vaccination, included evolocumab (REPATHA SURECLICK) and lorazepam (MANUFACTURER UNKNOWN). The patient did not receive any other vaccines within four weeks prior to the vaccination. The patient experienced sore arm in 2021. The event was reported as non-serious. The patient did not receive any treatment for the event. The clinical outcome of sore arm was recovered in 2021. It was also reported that since the vaccination, the patient had not been tested for COVID-19.  The batch/lot number for the vaccine, BNT162B2, was not provided and will be requested during follow up.]]></TEXT>
+<TAGS>
+<Myalgia spans="0~8" text="Sore arm" id="M0" certainty="positive" comment=""/>
+<Other spans="379~393" text="stroke history" id="O0" certainty="possible" comment=""/>
+<Other spans="422~441" text="lactose intolerance" id="O1" certainty="positive" comment="we can add a history status"/>
+<Myalgia spans="896~904" text="Sore arm" id="M1" certainty="positive" comment=""/>
+<Myalgia spans="1034~1042" text="Sore arm" id="M2" certainty="positive" comment=""/>
+<Vaccine spans="1200~1208" text="BNT162B2" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="135~143" text="BNT162B2" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="145~160" text="PFIZER-BIONTECH" id="V2" certainty="positive" comment=""/>
+<Other spans="477~484" text="allergy" id="O2" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

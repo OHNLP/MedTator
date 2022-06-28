@@ -1,0 +1,86 @@
+<!ENTITY name "COVID-19">
+
+<!-- entity concept [Vaccine] -->
+<!ELEMENT Vaccine ( #PCDATA ) >
+<!ATTLIST Vaccine certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Vaccine comment #IMPLIED "" >
+
+<!-- entity concept [Fever] -->
+<!ELEMENT Fever ( #PCDATA ) >
+<!ATTLIST Fever certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Fever comment #IMPLIED "" >
+
+<!-- entity concept [Pain] -->
+<!ELEMENT Pain ( #PCDATA ) >
+<!ATTLIST Pain certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Pain comment #IMPLIED "" >
+
+<!-- entity concept [Headache] -->
+<!ELEMENT Headache ( #PCDATA ) >
+<!ATTLIST Headache certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Headache comment #IMPLIED "" >
+
+<!-- entity concept [Myalgia] -->
+<!ELEMENT Myalgia ( #PCDATA ) >
+<!ATTLIST Myalgia certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Myalgia comment #IMPLIED "" >
+
+<!-- entity concept [Fatigue] -->
+<!ELEMENT Fatigue ( #PCDATA ) >
+<!ATTLIST Fatigue certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Fatigue comment #IMPLIED "" >
+
+<!-- entity concept [Nasal_obstruction] -->
+<!ELEMENT Nasal_obstruction ( #PCDATA ) >
+<!ATTLIST Nasal_obstruction certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Nasal_obstruction comment #IMPLIED "" >
+
+<!-- entity concept [Diarrhea] -->
+<!ELEMENT Diarrhea ( #PCDATA ) >
+<!ATTLIST Diarrhea certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Diarrhea comment #IMPLIED "" >
+
+<!-- entity concept [Nausea] -->
+<!ELEMENT Nausea ( #PCDATA ) >
+<!ATTLIST Nausea certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Nausea comment #IMPLIED "" >
+
+<!-- entity concept [Vomiting] -->
+<!ELEMENT Vomiting ( #PCDATA ) >
+<!ATTLIST Vomiting certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Vomiting comment #IMPLIED "" >
+
+<!-- entity concept [Sore_throat] -->
+<!ELEMENT Sore_throat ( #PCDATA ) >
+<!ATTLIST Sore_throat certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Sore_throat comment #IMPLIED "" >
+
+<!-- entity concept [Dyspnea] -->
+<!ELEMENT Dyspnea ( #PCDATA ) >
+<!ATTLIST Dyspnea certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Dyspnea comment #IMPLIED "" >
+
+<!-- entity concept [Cough] -->
+<!ELEMENT Cough ( #PCDATA ) >
+<!ATTLIST Cough certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Cough comment #IMPLIED "" >
+
+<!-- entity concept [Chill] -->
+<!ELEMENT Chill ( #PCDATA ) >
+<!ATTLIST Chill certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Chill comment #IMPLIED "" >
+
+<!-- entity concept [Delirium] -->
+<!ELEMENT Delirium ( #PCDATA ) >
+<!ATTLIST Delirium certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Delirium comment #IMPLIED "" >
+
+<!-- entity concept [Hypersomnia] -->
+<!ELEMENT Hypersomnia ( #PCDATA ) >
+<!ATTLIST Hypersomnia certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Hypersomnia comment #IMPLIED "" >
+
+<!-- entity concept [Other] -->
+<!ELEMENT Other ( #PCDATA ) >
+<!ATTLIST Other certainty ( negated|possible|hypothetical|positive ) #IMPLIED "positive" >
+<!ATTLIST Other comment #IMPLIED "" >

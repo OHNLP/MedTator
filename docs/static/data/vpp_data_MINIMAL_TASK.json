@@ -493,6 +493,9 @@
     "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
+    "display_stat_doc_sum_selected": null,
+    "stat_filter_min_tokens": 0,
+    "stat_filter_token_text": true,
     "hints": [],
     "hint_dict": {
         "SYMP": {
@@ -660,32 +663,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.12195320026640144,
-    "iaa_ann_list": [
-        {
-            "anns": [],
-            "name": "A"
-        },
-        {
-            "anns": [],
-            "name": "B"
-        }
-    ],
-    "iaa_dict": null,
-    "iaa_display_tag_name": "__all__",
-    "iaa_match_mode": "overlap",
-    "iaa_overlap_ratio": 50,
-    "iaa_overlap_ratio_default": 50,
-    "iaa_display_hashcode": null,
-    "iaa_display_tags_context": true,
-    "iaa_display_tags_tp": false,
-    "iaa_display_adj_panel": true,
-    "iaa_display_adj_detail": false,
-    "iaa_gs_dict": null,
-    "iaa_use_attributes": false,
-    "iaa_remove_tag_b_when_low_overlap": true,
-    "iaa_use_tag_attrs": {},
-    "iaa_display_measure": "f1",
+    "force_module_update": 0.3214301870669547,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -713,5 +691,35 @@
             "title": "Linking marks selection",
             "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
         }
-    }
+    },
+    "iaa_ann_list": [
+        {
+            "anns": [],
+            "name": "A"
+        },
+        {
+            "anns": [],
+            "name": "B"
+        }
+    ],
+    "iaa_dict": null,
+    "iaa_display_tag_name": "__all__",
+    "iaa_match_mode": "overlap",
+    "iaa_overlap_ratio": 50,
+    "iaa_overlap_ratio_default": 50,
+    "iaa_display_hashcode": null,
+    "iaa_display_tags_context": true,
+    "iaa_display_tags_tp": false,
+    "iaa_display_adj_panel": true,
+    "iaa_display_adj_detail": false,
+    "iaa_sort_anns_by": "default",
+    "iaa_gs_dict": null,
+    "iaa_use_attributes": false,
+    "iaa_remove_tag_b_when_low_overlap": true,
+    "iaa_use_tag_attrs": {},
+    "iaa_display_measure": "f1",
+    "converter_corpus_task": "medtagger",
+    "converter_corpus_medtagger_txt_files": [],
+    "converter_corpus_medtagger_ann_files": [],
+    "converter_corpus_medtagger_results": []
 }

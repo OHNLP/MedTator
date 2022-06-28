@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Positive COVID-19 test with symptoms; 
+
+The patient had MS and was immune compromised; 
+
+This is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  
+
+Information on the batch/lot number has been requested.
+
+Sender's Comments: 
+
+Based on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information]]></TEXT>
+<TAGS>
+<Nasal_obstruction spans="446~456" text="runny nose" id="N0" certainty="positive"/>
+<Hypersomnia spans="458~464" text="groggy" id="Hy0" certainty="positive"/>
+<Vaccine spans="231~239" text="BNT162B2" id="V0" certainty="positive"/>
+<Vaccine spans="241~256" text="PFIZER-BIONTECH" id="V1" certainty="positive"/>
+<Myalgia spans="469~481" text="muscle aches" id="M0" certainty="positive"/>
+<Headache spans="436~444" text="headache" id="H0" certainty="positive"/>
+</TAGS>
+<META/>
+</COVID-19>

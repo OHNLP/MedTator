@@ -91,7 +91,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -646,7 +646,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -1199,7 +1199,7 @@
                     }
                 },
                 "style": {
-                    "color": "#1f78b4"
+                    "color": "#51a1d7"
                 },
                 "shortcut": "2"
             },
@@ -2516,6 +2516,9 @@
     "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
+    "display_stat_doc_sum_selected": null,
+    "stat_filter_min_tokens": 0,
+    "stat_filter_token_text": true,
     "hints": [
         {
             "id": "hint-PYREXIA-0-2",
@@ -2552,18 +2555,6 @@
             "tag": "VAX",
             "text": "BNT162B2",
             "spans": "423~431"
-        },
-        {
-            "id": "hint-VAX-1-0",
-            "tag": "VAX",
-            "text": "expiry",
-            "spans": "273~279"
-        },
-        {
-            "id": "hint-VAX-1-1",
-            "tag": "VAX",
-            "text": "expiry",
-            "spans": "464~470"
         }
     ],
     "hint_dict": {
@@ -2948,7 +2939,35 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.2027578315386116,
+    "force_module_update": 0.4508293679306985,
+    "cm": {
+        "display_mode": "document",
+        "mark_mode": "node",
+        "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
+        "enabled_links": true,
+        "enabled_link_name": true,
+        "enabled_link_complex": true,
+        "is_expire": false
+    },
+    "cfg": {
+        "is_show_settings": false,
+        "active_setting_tab": "import",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts"
+    },
+    "export_text": null,
+    "texts": {
+        "sentence_splitting_algorithm": {
+            "title": "Sentence Splitting Algorithm",
+            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        },
+        "linking_marks_selection": {
+            "title": "Linking marks selection",
+            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
+        }
+    },
     "iaa_ann_list": [
         {
             "anns": [
@@ -10729,32 +10748,8 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
-    "cm": {
-        "display_mode": "document",
-        "mark_mode": "node",
-        "hint_mode": "simple",
-        "enabled_auto_hint_update": true,
-        "enabled_hints": true,
-        "enabled_links": true,
-        "enabled_link_name": true,
-        "enabled_link_complex": true,
-        "is_expire": false
-    },
-    "cfg": {
-        "is_show_settings": false,
-        "active_setting_tab": "import",
-        "sentence_splitting_algorithm": "simpledot",
-        "linking_marks_selection": "all_concepts"
-    },
-    "export_text": null,
-    "texts": {
-        "sentence_splitting_algorithm": {
-            "title": "Sentence Splitting Algorithm",
-            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
-        },
-        "linking_marks_selection": {
-            "title": "Linking marks selection",
-            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
-        }
-    }
+    "converter_corpus_task": "medtagger",
+    "converter_corpus_medtagger_txt_files": [],
+    "converter_corpus_medtagger_ann_files": [],
+    "converter_corpus_medtagger_results": []
 }

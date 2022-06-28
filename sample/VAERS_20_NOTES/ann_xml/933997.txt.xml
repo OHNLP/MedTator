@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[17 year old received their first dose of the Moderna vaccine; Aches; A spontaneous report was received from a pharmacist concerning a 17-year-old patient who received their first dose of Moderna's COVID-19 vaccine (mRNA-1273)/ product administered to patient of inappropriate age and developed aches/myalgia.  The patient's medical history was not provided. Concomitant product use was not provided.  The patient received their first of two planned doses of mRNA-1273 (Batch number: 011L20A) between 11 Jan 2021 and 21 Jan 2021 (date not specified) intramuscularly for prophylaxis of COVID-19 infection.  Treatment information was not provided.  The patient was scheduled to receive the second dose in Feb 2021. Action taken with mRNA-1273 in response to the events was not provided.  The event, 17-year-old received their first dose of the Moderna vaccine, was considered resolved on the same day of vaccine administration (date not specified). The outcome of the event, aches, was not reported.; Reporter's Comments: This case report concerns a 17-year-old female patient who was administered mRNA-1273 vaccine Lot# 011L20A (inappropriate age at vaccine administration) and experienced aches. The event of aches is temporarily associated with the product use and a causal association cannot be excluded. The event of inappropriate age at vaccine administration is assessed as not applicable.; Sender's Comments:  US-MODERNATX, INC.-MOD-2021-011594:]]></TEXT>
+<TAGS>
+<Vaccine spans="215~224" text="mRNA-1273" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="458~467" text="mRNA-1273" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="730~739" text="mRNA-1273" id="V2" certainty="positive" comment=""/>
+<Vaccine spans="1095~1104" text="mRNA-1273" id="V3" certainty="positive" comment=""/>
+<Vaccine spans="45~52" text="Moderna" id="V4" certainty="positive" comment=""/>
+<Vaccine spans="187~194" text="Moderna" id="V5" certainty="positive" comment=""/>
+<Vaccine spans="841~848" text="Moderna" id="V6" certainty="positive" comment=""/>
+<Pain spans="972~977" text="aches" id="P0" certainty="positive" comment=""/>
+<Pain spans="62~67" text="aches" id="P1" certainty="positive" comment=""/>
+<Pain spans="294~299" text="aches" id="P2" certainty="positive" comment=""/>
+<Pain spans="1188~1193" text="aches" id="P3" certainty="positive" comment=""/>
+<Pain spans="1208~1213" text="aches" id="P4" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

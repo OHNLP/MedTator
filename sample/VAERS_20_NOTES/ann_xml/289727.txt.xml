@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.]]></TEXT>
+<TAGS>
+<Pain spans="371~381" text="Body Aches" id="P0" certainty="positive" comment=""/>
+<Diarrhea spans="405~413" text="diarrhea" id="D0" certainty="positive" comment=""/>
+<Diarrhea spans="418~429" text="dehydration" id="D1" certainty="positive" comment=""/>
+<Hypersomnia spans="590~602" text="Night sweats" id="Hy0" certainty="positive" comment=""/>
+<Nausea spans="718~742" text="Leary of taking anything" id="Na0" certainty="positive" comment=""/>
+<Sore_throat spans="873~879" text="thirst" id="S0" certainty="positive" comment=""/>
+<Headache spans="129~137" text="headache" id="H0" certainty="positive" comment=""/>
+<Headache spans="190~198" text="headache" id="H1" certainty="positive" comment=""/>
+<Headache spans="222~230" text="headache" id="H2" certainty="positive" comment=""/>
+<Headache spans="341~349" text="headache" id="H3" certainty="positive" comment=""/>
+<Headache spans="361~369" text="headache" id="H4" certainty="positive" comment=""/>
+<Pain spans="261~267" text="aching" id="P1" certainty="positive" comment=""/>
+<Pain spans="505~515" text="Body Aches" id="P2" certainty="negated" comment=""/>
+<Fatigue spans="383~390" text="fatigue" id="Fa0" certainty="positive" comment=""/>
+<Fatigue spans="552~559" text="fatigue" id="Fa1" certainty="positive" comment=""/>
+<Nausea spans="110~116" text="nausea" id="Na1" certainty="positive" comment=""/>
+<Nausea spans="248~254" text="nausea" id="Na2" certainty="positive" comment=""/>
+<Chill spans="392~398" text="chills" id="C0" certainty="positive" comment=""/>
+<Diarrhea spans="566~574" text="diarrhea" id="D2" certainty="positive" comment=""/>
+<Diarrhea spans="655~663" text="diarrhea" id="D3" certainty="positive" comment=""/>
+<Diarrhea spans="708~716" text="diarrhea" id="D4" certainty="positive" comment=""/>
+<Diarrhea spans="751~759" text="diarrhea" id="D5" certainty="positive" comment=""/>
+<Diarrhea spans="576~587" text="dehydration" id="D6" certainty="positive" comment=""/>
+<Headache spans="237~245" text="Migraine" id="H5" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

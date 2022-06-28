@@ -108,6 +108,8 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added tag details for corpus summary in statistics
 - Added filter options for token statistics
 - Added filtered count in token summaryies
+- Added a remote corpus sample
+- Updated all sample datasets
 - Updated the visual design for corpus summary in statistics
 - Updated the color encoding for annotated tags in statistics
 - Updated scripts for experimental tasks

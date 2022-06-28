@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Blood clots in arm; Arm was sore; A spontaneous report was received from a healthcare professional concerning a 67-year-old, female patient, who received Moderna's COVID-19 vaccine (mRNA-1273) and experienced sore arm/pain in arm and blood clot in her arm/thrombosis.  The patient's medical history, as provided by the reporter included diabetes. Concomitant medications were not included.  On 15 Feb 2021, prior to the onset of the events, the patient received their first of two planned doses of  mRNA-1273 (Lot number: 031M20A) in the left arm for prophylaxis of COVID-19 infection.   On 15 Feb 2021, post vaccination the patient experienced sore arm and her condition got worse. She was then taken to emergency room with blood clots in her arm.  Action taken with mRNA-1273 in response to the events were not reported.   The outcome of the events, sore arm and blood clot in her arm, were not known.; Reporter's Comments: This case concerns a 67-year-old, female patient, who experienced thrombosis and pain in arm. Based on the current available information and temporal association between the use of the product and the start date of the event, a causal relationship cannot be excluded.  The patient's medical history of diabetes is a risk factor. Further information has been requested.]]></TEXT>
+<TAGS>
+<Other spans="992~1002" text="thrombosis" id="O0" certainty="positive" comment=""/>
+<Myalgia spans="209~217" text="Sore arm" id="M0" certainty="positive" comment=""/>
+<Myalgia spans="645~653" text="Sore arm" id="M1" certainty="positive" comment=""/>
+<Myalgia spans="852~860" text="Sore arm" id="M2" certainty="positive" comment=""/>
+<Other spans="234~244" text="Blood clot" id="O1" certainty="positive" comment=""/>
+<Other spans="865~875" text="Blood clot" id="O2" certainty="positive" comment=""/>
+<Other spans="0~11" text="Blood clots" id="O3" certainty="positive" comment=""/>
+<Other spans="725~736" text="Blood clots" id="O4" certainty="positive" comment=""/>
+<Other spans="256~266" text="thrombosis" id="O5" certainty="positive" comment=""/>
+<Vaccine spans="182~191" text="mRNA-1273" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="499~508" text="mRNA-1273" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="768~777" text="mRNA-1273" id="V2" certainty="positive" comment=""/>
+<Vaccine spans="154~161" text="Moderna" id="V3" certainty="positive" comment=""/>
+<Pain spans="218~222" text="pain" id="P0" certainty="positive" comment=""/>
+<Pain spans="1007~1011" text="pain" id="P1" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

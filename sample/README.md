@@ -7,6 +7,7 @@ In this folder, there are some sample datasets for showing the schema and annota
 * `DOCUMENT_LEVEL_TASK`: a document-level annotation task for COVID-19 vaccine adverse events, which contains 11 entity tags.
 * `IAA_TASK`: a simple task for showing the IAA calculation result, which contains 8 entity tags and 1 relation tag.
 * `AMIA21_WORKSHOP`: a task for AMIA 2021 workshop, which contains 3 entity tags and 1 relation tag.
+* `VAERS_20_NOTES`: a task for showing statistics, which contains a lot of entity tags. Due the number of annotation files, this sample doesn't contain the raw text files.
 
 Each dataset folder contains the following file and directories:
 

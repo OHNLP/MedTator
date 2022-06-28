@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Feb 25th afternoon I started feeling pretty yucky. As the evening progressed I had chills, body aches, and fever. I thought I had covid. On the 26th I was worse. on the 27th I went to the ER, and the diagnosis was "unknown virus" I continued to get worse. On March 3rd I called the nurse and she said "I need to go to the ER, don't go to the  ER, go to the closest ER to you". I received the same diagnosis. I thought maybe my CPAP machine had bacteria and they tested for bacteria and it was negative. I went home. On march 8th I was really bad off, I had 103.7 fever still and O2 was 70-80. I was admitted to the hospital. they tested me again and I had bacterial pneumonia. 3 days later they were going to send me home but when I woke up that morning I felt like I had been kicked in the ribs on my right side. I sat in a chair and if I coughed, hiccuped or anything It felt like a knife through my chest. a CT scan showed a massive blood clot in my lung. I was put on medications and I was discharged on March 17th. My left lung had 100% pneumonia and the blood clot was in the right lung and my lungs were unable to help each other. With any exertion, my heart rate jumps and my O2 drops. I can only sit. The theory they had at the hospital is that the Moderna vaccine had the full attention of my immune system which allowed other infections to come into my body unchecked. Since the pandemic started I have left my house on my bicycle to the store and that is it. I have had almost no exposure.]]></TEXT>
+<TAGS>
+<Other spans="215~228" text="unknown virus" id="O0" certainty="positive" comment=""/>
+<Other spans="444~452" text="bacteria" id="O1" certainty="positive" comment=""/>
+<Other spans="656~675" text="bacterial pneumonia" id="O2" certainty="positive" comment=""/>
+<Cough spans="840~847" text="coughed" id="Co0" certainty="positive" comment=""/>
+<Delirium spans="883~907" text="a knife through my chest" id="De0" certainty="positive" comment=""/>
+<Other spans="928~946" text="massive blood clot" id="O3" certainty="positive" comment=""/>
+<Other spans="1042~1051" text="pneumonia" id="O4" certainty="positive" comment=""/>
+<Vaccine spans="1258~1265" text="Moderna" id="V0" certainty="positive" comment=""/>
+<Fever spans="107~112" text="fever" id="F0" certainty="positive" comment=""/>
+<Fever spans="563~568" text="fever" id="F1" certainty="positive" comment=""/>
+<Chill spans="83~89" text="chills" id="C0" certainty="positive" comment=""/>
+<Other spans="473~481" text="bacteria" id="O5" certainty="positive" comment=""/>
+<Pain spans="91~101" text="Body Aches" id="P0" certainty="positive" comment=""/>
+<Other spans="1060~1070" text="Blood clot" id="O6" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[Blood clot in his left lung and right lung; Blood clots in his right groin; Terrible pain on the left side of his upper body,It hurts so much; A spontaneous report was received from a consumer concerning a 78 years old male patient, who received Moderna's COVID-19 vaccine (mRNA-1273) and experienced terrible pain on the left side of his upper body, it hurt so much, blood clot in his left and right lung and blood clots in right groin.  The patient's medical history was reported by the reporter as high blood pressure, prediabetes and hepatitis C due to a bad blood transfusion (treated with Mavyret). Concomitant medication was not reported.  On 11 Feb 2021, three days prior to the onset of the event, the patient received their first of two planned doses of mRNA-1273 (Lot number: 031L20A) through an unknown route at left arm for prophylaxis of COVID-19 infection.  On 14 Feb 2021, 3 days after vaccination, patient had a terrible pain on the left side of his upper body and was hospitalized, the tests revealed blood clot in his left and right lung as well as in right groin, which was treated by Eliquis. Patient was observed overnight and discharged with a follow up in 3-6 months.   Action taken with mRNA-1273 in response to the events was unknown.  The reporting physician assessed the events as not related to the product, but did not recommend second of vaccine.  The outcome of events was unknown.; Reporter's Comments: Based on reporter's causality and history of diabetes and Hepatitis C infection, the event is assessed as unlikely related to mRNA-1273.]]></TEXT>
+<TAGS>
+<Other spans="0~10" text="Blood clot" id="O0" certainty="positive" comment=""/>
+<Other spans="44~55" text="Blood clots" id="O1" certainty="positive" comment=""/>
+<Other spans="368~378" text="Blood clot" id="O2" certainty="positive" comment=""/>
+<Other spans="1019~1029" text="Blood clot" id="O3" certainty="positive" comment=""/>
+<Other spans="410~421" text="Blood clots" id="O4" certainty="positive" comment=""/>
+<Vaccine spans="274~283" text="mRNA-1273" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="764~773" text="mRNA-1273" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="1212~1221" text="mRNA-1273" id="V2" certainty="positive" comment=""/>
+<Vaccine spans="1562~1571" text="mRNA-1273" id="V3" certainty="positive" comment=""/>
+<Vaccine spans="246~253" text="Moderna" id="V4" certainty="positive" comment=""/>
+<Pain spans="85~89" text="pain" id="P0" certainty="positive" comment=""/>
+<Pain spans="310~314" text="pain" id="P1" certainty="positive" comment=""/>
+<Pain spans="938~942" text="pain" id="P2" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID-19>
+<TEXT><![CDATA[swollen injection site; red injection site; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; This is a spontaneous report from a contactable healthcare professional (patient). A 21-year-old female patient received second dose of bnt162b2 (Pfizer-BioNTech COVID-19 mRNA vaccine), via an unspecified route of administration in the right arm on 15Jan2021 15:45 at a single dose for covid-19 immunization. The patient medical history was not reported. Concomitant medication included ethinylestradiol, ferrous fumarate, norethisterone acetate (LARIN FE). The patient received first dose of BNT162B2 on 28Dec2020 03:15 for covid-19 immunization. On 15Jan2021 08:15, the patient experienced swollen injection site and red injection site. The patient added that swollen area underneath armpit area feels like someone is pulling on a stitch type of pain. The patient has taken Benadryl and Tylenol Friday, Saturday, and Sunday as treatment for the events. The patient is not pregnant. The patient has not tested positive for covid post vaccination. The outcome of the events was unknown.  Information on the lot/batch number has been requested.]]></TEXT>
+<TAGS>
+<Myalgia spans="0~7" text="swollen" id="M0" certainty="positive" comment=""/>
+<Myalgia spans="44~51" text="swollen" id="M1" certainty="positive" comment=""/>
+<Myalgia spans="136~143" text="swollen" id="M2" certainty="positive" comment=""/>
+<Myalgia spans="820~827" text="swollen" id="M3" certainty="positive" comment=""/>
+<Myalgia spans="890~897" text="swollen" id="M4" certainty="positive" comment=""/>
+<Vaccine spans="364~372" text="BNT162B2" id="V0" certainty="positive" comment=""/>
+<Vaccine spans="721~729" text="BNT162B2" id="V1" certainty="positive" comment=""/>
+<Vaccine spans="374~389" text="PFIZER-BIONTECH" id="V2" certainty="positive" comment=""/>
+<Pain spans="130~134" text="pain" id="P0" certainty="positive" comment=""/>
+<Pain spans="222~226" text="pain" id="P1" certainty="positive" comment=""/>
+<Pain spans="976~980" text="pain" id="P2" certainty="positive" comment=""/>
+</TAGS>
+<META/>
+</COVID-19>
