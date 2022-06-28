@@ -106,6 +106,8 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added changelog information on UI
 - Added sorting for corpus token list in statistics
 - Added tag details for corpus summary in statistics
+- Added filter options for token statistics
+- Added filtered count in token summaryies
 - Updated the visual design for corpus summary in statistics
 - Updated the color encoding for annotated tags in statistics
 - Updated scripts for experimental tasks

@@ -38,4 +38,64 @@ v-bind:class="{'active': section=='statistics'}">
     <span class="title">Download</span>    
 </div>
 
+<div class="group">
+    <button class="ribbon-button" 
+        title="Reset all filters to default values"
+        :disabled="dtd == null"
+        v-on:click="reset_stat_filters">
+        <span class="icon">
+            <i class="fas fa-undo"></i>
+        </span>
+        <span class="caption">Reset All</span>
+    </button>
+
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+    <div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Token Text"
+            v-model="stat_filter_token_text"
+            v-bind:disabled="dtd == null"
+            @change="on_change_stat_filters">
+        <br>
+    </div>
+
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+    <div class="d-flex flex-column"
+        style="width: 90px;">
+        <div style="width: 100px;">
+            Show Token: 
+            <b v-if="stat_filter_min_tokens == 0">
+                ALL
+            </b>
+            <b v-else>
+                &leq;{{ stat_filter_min_tokens }}
+            </b>
+        </div>
+        <input v-model.number='stat_filter_min_tokens'
+            type="range" 
+            name="volume"
+            min="0" 
+            max="10"
+            style="width: 90px;">
+        <div class="d-flex flex-row flex-justify-between">
+            <div>
+                All
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                10
+            </div>
+        </div>
+
+    </div>
+
+    <span class="title">Filters</span>    
+</div>
+
 </div>

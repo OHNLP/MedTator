@@ -178,7 +178,9 @@ html,body {
     background-color: #eeeeee;
     font-size: 12px;
 }
-
+.cursor-pointer {
+    cursor: pointer;
+}
 /* a start screen for IE and hiding init */
 #start-screen {
     position: absolute;
@@ -288,12 +290,164 @@ html,body {
 #mui_ruleset_result {
     
 }
+.stat-doc-sum-tags-box {
+    border-left: 1px dotted #dedede; 
+    padding: 0 0 0 1em;
+}
+.stat-doc-sum-tags-header {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 1px solid #cccccc;
+    padding: 0.2em 0;
+    margin: 0 0 0.2em 0;
+}
+.stat-doc-sum-tags-body {
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.stat-tag-count {
+    white-space: nowrap;
+}
+.stat-item-row {
+
+}
+.stat-item-row:hover {
+    background-color: whitesmoke;
+}
+.stat-item-label {
+    width: 120px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stat-item-label-lg {
+    width: 180px !important;
+    max-width: 180px !important;
+}
+.stat-item-value {
+    width: 120px;
+    max-width: 120px;
+    text-align: right;
+}
+.stat-item-value-sm {
+    width: 70px;
+    max-width: 70px;
+    text-align: right;
+}
+
+input[type=range] {
+    height: 24px;
+    -webkit-appearance: none;
+    margin: 0;
+    width: 100%;
+    background: transparent;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E6E6E6;
+    border-radius: 4px;
+    border: 1px solid #A6A6A6;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 1px 1px 1px #828282;
+    border: 1px solid #8A8A8A;
+    height: 16px;
+    width: 16px;
+    border-radius: 7px;
+    background: #EBEBEB;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #E6E6E6;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: #E6E6E6;
+    border-radius: 4px;
+    border: 1px solid #A6A6A6;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #828282;
+    border: 1px solid #8A8A8A;
+    height: 16px;
+    width: 16px;
+    border-radius: 7px;
+    background: #EBEBEB;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #E6E6E6;
+    border: 1px solid #A6A6A6;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #E6E6E6;
+    border: 1px solid #A6A6A6;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 1px 1px 1px #828282;
+    border: 1px solid #8A8A8A;
+    height: 16px;
+    width: 16px;
+    border-radius: 7px;
+    background: #EBEBEB;
+    cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #E6E6E6;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #E6E6E6;
+}
+
 #app_hotpot {
     margin-top: 2px;
 }
 .dropzone:hover {
-  border-color: rgb(0, 89, 255);
-  font-weight: bold;
+    border-color: rgb(0, 89, 255);
+    font-weight: bold;
 }
 .disabled-zone {
     opacity: .5;
@@ -881,7 +1035,7 @@ input[type=text].ipt-spinner-xs {
 }
 
 .ruleset-tag-item {
-    cursor: pointer;
+    /* cursor: pointer; */
     border-bottom: 1px dotted #ececec;
 }
 .ruleset-tag-item:hover {
@@ -890,7 +1044,14 @@ input[type=text].ipt-spinner-xs {
 .ruleset-tag-name {
     width: 180px;
     min-width: 180px;
-    border-left: 5px solid;
+    border-left: 1px solid;
+}
+.ruleset-tag-name-str {
+    width: 140px;
+    min-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .ruleset-tag-text {
     padding: 0px 2px;
@@ -912,7 +1073,7 @@ input[type=text].ipt-spinner-xs {
     overflow-y: auto;
 }
 .ruleset-tag-text-filelist-item {
-    cursor: pointer;
+    /* cursor: pointer; */
     color: #333333;
     padding: 2px 0;
 }
@@ -1130,7 +1291,7 @@ input[type=text].ipt-spinner-xs {
     height: 30px;
 }
 .ribbon-menu {
-    min-width: 1240px;
+    min-width: 1340px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;
@@ -1433,6 +1594,14 @@ ol[class], ul[class] {
 .converter-file-row {
     border-bottom: 1px dotted #cccccc;
     text-indent: 1em;
+}
+
+/* for changelog display */
+.changelog-h3 {
+    margin: 0.5em 0;
+}
+.changelog-p {
+    margin: 0;
 }
 </style>
 
@@ -1923,8 +2092,11 @@ v-bind:class="{'active': section=='annotation'}">
             <li class="divider"></li>
             <li title="Sample Text: COVID vaccine note for annotation test"
                 v-on:click="load_sample_txt">
-                
                 <a href="javascript:void(0);">Sample Text: COVID Vaccine Note</a>
+            </li>
+            <li title="Sample Text from user's input"
+                v-on:click="load_sample_txt_from_input">
+                <a href="javascript:void(0);">Customize a Sample Text</a>
             </li>
         </ul>
     </div>
@@ -2227,6 +2399,66 @@ v-bind:class="{'active': section=='statistics'}">
     </button>
 
     <span class="title">Download</span>    
+</div>
+
+<div class="group">
+    <button class="ribbon-button" 
+        title="Reset all filters to default values"
+        :disabled="dtd == null"
+        v-on:click="reset_stat_filters">
+        <span class="icon">
+            <i class="fas fa-undo"></i>
+        </span>
+        <span class="caption">Reset All</span>
+    </button>
+
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+    <div>
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Token Text"
+            v-model="stat_filter_token_text"
+            v-bind:disabled="dtd == null"
+            @change="on_change_stat_filters">
+        <br>
+    </div>
+
+    <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div>
+
+    <div class="d-flex flex-column"
+        style="width: 90px;">
+        <div style="width: 100px;">
+            Show Token: 
+            <b v-if="stat_filter_min_tokens == 0">
+                ALL
+            </b>
+            <b v-else>
+                &leq;{{ stat_filter_min_tokens }}
+            </b>
+        </div>
+        <input v-model.number='stat_filter_min_tokens'
+            type="range" 
+            name="volume"
+            min="0" 
+            max="10"
+            style="width: 90px;">
+        <div class="d-flex flex-row flex-justify-between">
+            <div>
+                All
+            </div>
+            <div>
+                5
+            </div>
+            <div>
+                10
+            </div>
+        </div>
+
+    </div>
+
+    <span class="title">Filters</span>    
 </div>
 
 </div>
@@ -2719,6 +2951,12 @@ v-bind:class="{'active': section=='iaa'}">
                 v-on:click="cfg.is_show_settings = true">
                 <i class="fa fa-cog"></i>
                 Settings
+            </a> | 
+            <a title="MedTator Settings"
+                href="javascript:void(0);"
+                v-on:click="show_changelog">
+                <i class="fas fa-newspaper"></i>
+                Changelog
             </a> | 
             <a target="_blank" 
                 title="MedTator Source Code at GitHub"
@@ -3528,7 +3766,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 OVERALL
                             </div>
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start">
-                                <div v-bind:style="'width:' + to_width(iaa_dict.all.f1) + 'px'"
+                                <div v-bind:style="'width:' + per2width(iaa_dict.all.f1) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
@@ -3555,7 +3793,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 </span>
                             </div>
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(iaa_dict.tag[etag.name].f1) + 'px'"
+                                <div v-bind:style="'width:' + per2width(iaa_dict.tag[etag.name].f1) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
@@ -3693,7 +3931,7 @@ v-bind:class="{'active': section=='iaa'}">
 
                         <div class="d-flex flex-column">
                             <div class="iaa-bar-box d-flex flex-row flex-align-center flex-justify-start mr-1">
-                                <div v-bind:style="'width:' + to_width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
+                                <div v-bind:style="'width:' + per2width(get_rst(iaa_dict.ann[v_ann.ann_hashcode].rst)['f1']) + 'px'"
                                     class="iaa-bar">
                                     &nbsp;
                                 </div>
@@ -4178,233 +4416,345 @@ v-bind:class="{'active': section=='iaa'}">
     <!-- the ui for statistics -->
     <div v-show="section=='statistics'" id="main_ui" 
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+<div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
-        <div id="mui_stat_summary" class="d-flex h-100">
-            <div class="box w-100">
-                <div class="box-header">
-                    <h4>
-                        <i class="fa fa-list-ul"></i>
-                        Summary
-                    </h4>
-                </div>
-
-                <div v-if="dtd != null && anns.length != 0"
-                    class="box-body"
-                    style="overflow-y: auto;">
-
-                    <div v-for="stat_item in stat_summary"
-                        class="box-body-item d-flex flex-row flex-justify-between">
-                        <div>
-                            {{ stat_item[0] }}: 
-                        </div>
-                        <div class="mr-2">
-                            {{ stat_item[1] }}
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- /.box -->
+<!-- stat summary -->
+<div id="mui_stat_summary" class="d-flex h-100">
+    <div class="box w-100">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Corpus Summary
+            </h4>
         </div>
 
+        <div v-if="dtd != null && anns.length != 0"
+            class="box-body"
+            style="overflow-y: auto;">
 
-        <div id="mui_stat_details" class="d-flex ml-2">
+            <div v-for="stat_item in stat_summary"
+                class="stat-item-row box-body-item d-flex flex-row flex-justify-between">
 
-            <div class="w-100 d-flex flex-row flex-wrap h-100"
-                 style="overflow-y: auto;">
-                <div class="box w-100 mb-2">
-                    <div class="box-header">
-                        <h4>
-                            <i class="fas fa-table"></i>
-                            Document Summary
-                        </h4>
-                    </div>
-                    <div v-if="dtd != null && anns.length > 0"
-                        class="box-body">
-                        <table class="doctag-table">
-                            <thead>
-                                <tr>
-                                    <th>File Name</th>
-                                    <th>Total</th>
-                                    <th v-for="tag_def in dtd.etags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-tag"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th>
-                                    <th v-for="tag_def in dtd.ltags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-link"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="stat, stat_idx in stat_docs_by_tags">
-                                    <td v-if="stat_idx == 0"
-                                        class="td-summary">
-                                        {{ stat.file_name }}
-                                    </td>
-                                    <td v-else
-                                        class="td-filename"
-                                        title="Check this file in the Annotation tab"
-                                        v-on:click="show_ann_file(stat.file_name)">
-                                        {{ stat.file_name }}
-                                    </td>
-                                    <td>
-                                        {{ stat._total_tags }}
-                                    </td>
-                                    <td v-for="tag_def in dtd.etags">
-                                        <span v-if="stat_idx == 0"
-                                            class="td-count"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                        <span v-else
-                                            class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                    </td>
-                                    <td v-for="tag_def in dtd.ltags">
-                                        <span v-if="stat_idx == 0"
-                                            class="td-count"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                        <span v-else
-                                            class="td-count"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name]) + '; color:' + stat_value2ftcolor(stat[tag_def.name]) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- the stat label -->
+                <div v-if="stat_item[2] == null"
+                    class="stat-item-label stat-item-label-lg">
+                    <span v-html="stat_item[0]"
+                        :title="stat_item[0]">
+                    </span>: 
+                </div>
+                <div v-else
+                    class="stat-item-label">
+                    <span v-html="stat_item[0]"
+                        :title="stat_item[0]">
+                    </span>: 
                 </div>
 
-
-                <div class="box w-100">
-                    <div class="box-header">
-                        <h4>
-                            <i class="fa fa-list-ul"></i>
-                            Annotated Tags
-                        </h4>
+                <!-- the stat result -->
+                <div v-if="stat_item[2] == null"
+                    :title="stat_item[0] + ': ' + stat_item[1]"
+                    class="stat-item-value-sm mr-2 text-align">
+                    <span >
+                        {{ stat_item[1] }}
+                    </span>
+                </div>
+                <div v-else-if="stat_item[2].stat_type == 'tag_count'"
+                    :title="stat_item[0] + ': ' + stat_item[1]"
+                    class="stat-item-value mr-2 d-flex flex-row flex-align-center flex-justify-end">
+                    <div class="mr-1">
+                        {{ stat_item[1] }}
                     </div>
-                    <div v-if="dtd != null && anns.length > 0"
-                        class="box-body" style="overflow-y: auto;">
-                        <div class="d-flex flex-column w-100 h-100">
-        
-                            <div v-for="(tag_def, tag_def_idx) in dtd.etags"
-                                class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
-                                <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
-                                    v-bind:class="'border-tag-' + tag_def.name">
-                                    <div>
-                                        <i class="fa fa-tag"
-                                            v-bind:class="'fg-tag-' + tag_def.name">
-                                        </i>
-                                        {{ tag_def.name }}
-                                    </div>
-                                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                                        class="mr-2">
-                                        {{ hint_dict[tag_def.name].texts.length }}
-                                    </div>
-                                    <div v-else>
-                                        -
-                                    </div>
-                                </div>
-        
-                                <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                                    class="ruleset-tag-info d-flex flex-row flex-wrap">
+                    <div class="iaa-bar"
+                        v-bind:class="'mark-tag-' + stat_item[2].tag"
+                        v-bind:style="{width: stat_value2width(stat_item[1], stat_docs_by_tags.stat.max_by_tag) + 'px', }">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- /.box -->
+</div>
 
-                                    <!-- for the NC etags -->
-                                    <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
-                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
-                                        <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
-                                            <span class="ruleset-tag-text-count"
-                                                v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
-                                                <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
-                                                    class="fa fa-caret-down"></i>
-                                                <i v-else
-                                                    class="fa fa-caret-right"></i>
-                                                {{ hint_dict[tag_def.name].nc_dict.count }}
-                                            </span>
-                                            <span class="ruleset-tag-text-str">
-                                                <i class="far fa-file"></i>
-                                                DOC-LEVEL
-                                            </span>
-                                        </div>
-                                        <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
-                                            class="ruleset-tag-text-filelist">
-                                            <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
-                                                v-on:click="show_ann_file(fn)"
-                                                class="ruleset-tag-text-filelist-item">
-                                                <span class="ruleset-tag-text-filelist-item-count">
-                                                    {{ fn_v }}
-                                                </span>
-                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
-                                                <span>
-                                                    {{ fn }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+<!-- stat details -->
+<div id="mui_stat_details" class="d-flex ml-2">
 
-                                    <!-- for general etags -->
-                                    <div v-for="(text_info, text) in hint_dict[tag_def.name].text_dict"
-                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
-                                        <div v-on:click="hint_dict[tag_def.name].text_dict[text]._is_shown = !hint_dict[tag_def.name].text_dict[text]._is_shown">
-                                            <span class="ruleset-tag-text-count"
-                                                v-bind:title="'Annotated ' + text_info.count + ' times'">
-                                                <i v-if="text_info._is_shown"
-                                                    class="fa fa-caret-down"></i>
-                                                <i v-else
-                                                    class="fa fa-caret-right"></i>
-                                                {{ hint_dict[tag_def.name].text_dict[text].count }}
-                                            </span>
-                                            <span class="ruleset-tag-text-str">
-                                                {{ text }}
-                                            </span>
-                                        </div>
-                                        <div v-show="text_info._is_shown"
-                                            class="ruleset-tag-text-filelist">
-                                            <div v-for="(fn_v, fn) in text_info.ann_fn_dict"
-                                                v-on:click="show_ann_file(fn)"
-                                                class="ruleset-tag-text-filelist-item">
-                                                <span class="ruleset-tag-text-filelist-item-count">
-                                                    {{ fn_v }}
-                                                </span>
-                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
-                                                <span>
-                                                    {{ fn }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+<div class="w-100 d-flex flex-row flex-wrap h-100"
+        style="overflow-y: auto;">
+    <div class="box w-100 mb-2">
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-table"></i>
+                Annotation Overview
+            </h4>
+        </div>
+        <div v-if="dtd != null && anns.length > 0"
+            class="box-body">
+            <table class="doctag-table" style="float: left;">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Total</th>
+                        <th v-for="tag_def in dtd.etags"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                            <span class="rotate-90">
+                                <i class="fa fa-tag"
+                                    v-bind:class="'fg-tag-' + tag_def.name">
+                                </i>
+                                {{ tag_def.name }}
+                            </span>
+                        </th>
+                        <th v-for="tag_def in dtd.ltags"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                            <span class="rotate-90">
+                                <i class="fa fa-link"
+                                    v-bind:class="'fg-tag-' + tag_def.name">
+                                </i>
+                                {{ tag_def.name }}
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="stat, stat_idx in stat_docs_by_tags.rs">
+                        <td v-if="stat_idx == 0"
+                            class="td-summary">
+                            {{ stat.file_name }}
+                        </td>
+                        <td v-else
+                            class="td-filename"
+                            title="Check this file in the Annotation tab"
+                            v-on:click="show_ann_file(stat.file_name)">
+                            {{ stat.file_name }}
+                        </td>
+                        <td>
+                            {{ stat._total_tags }}
+                        </td>
+                        <td v-for="tag_def in dtd.etags">
+                            <span v-if="stat_idx == 0"
+                                class="td-count"
+                                v-bind:class="'td-count-' + stat[tag_def.name]">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                            <span v-else
+                                class="td-count cursor-pointer"
+                                title="Click to check these tags"
+                                v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                v-bind:class="'td-count-' + stat[tag_def.name]"
+                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                        </td>
+                        <td v-for="tag_def in dtd.ltags">
+                            <span v-if="stat_idx == 0"
+                                class="td-count"
+                                v-bind:class="'td-count-' + stat[tag_def.name]">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                            <span v-else
+                                class="td-count cursor-pointer"
+                                title="Click to check these tags"
+                                v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                v-bind:class="'td-count-' + stat[tag_def.name]"
+                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                                </div>
-        
+            <!-- the tag list of selected file and concept -->
+            <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+                class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
+                style="float: left; position: sticky; top: 0;">
+                <div class="stat-doc-sum-tags-header">
+                    <i class="fa fa-tags"></i>
+                    {{ display_stat_doc_sum_selected.file_name }} - 
+                    <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                        <i class="fa fa-tag"
+                            v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                        </i>
+                        {{ display_stat_doc_sum_selected.tag_name }}
+                    </span>
+                    <span>
+                        {{ stat_doc_sum_selected_tags.length }} tags
+                    </span>
+                </div>
+
+                <div class="stat-doc-sum-tags-body">
+                    <div v-for="tag in stat_doc_sum_selected_tags"
+                        class="d-flex flex-row flex-wrap flex-align-end mb-2">
+                        <div class="iaa-tag-detail-info-text-ab mr-2">
+                            <!-- <span class="mr-1"
+                                v-bind:class="'mark-tag-' + tag.tag">
+                                
+                            </span> -->
+                            {{ tag.id }}
+                        </div>
+
+                        <div class="mr-1 ml-1 d-flex flex-column">
+                            <div class="iaa-tag-attlist-name">
+                                {{ get_tag_spans_text(tag) }}:
+                            </div> 
+                
+                            <div>
+                                <b>{{ tag.text }}</b>
                             </div>
-        
+                        </div>
+
+                        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                            v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+                
+                            <div class="iaa-tag-attlist-name">
+                                {{ attlist.name }}:
+                            </div> 
+                
+                            <div>
+                                {{ tag[attlist.name] }}&nbsp;
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+
+    <div class="box w-100">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Token Summary
+            </h4>
+        </div>
+        <div v-if="dtd != null && anns.length > 0"
+            class="box-body" style="overflow-y: auto;">
+            <div class="d-flex flex-column w-100 h-100">
+
+                <div v-for="(tag_def, tag_def_idx) in dtd.etags"
+                    class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
+                    <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
+                        v-bind:class="'border-tag-' + tag_def.name">
+                        <div class="ruleset-tag-name-str"
+                            v-bind:title="tag_def.name">
+                            <i class="fa fa-tag"
+                                v-bind:class="'fg-tag-' + tag_def.name">
+                            </i>
+                            {{ tag_def.name }}
+                        </div>
+                        <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                            v-bind:title="'[' + tag_def.name + '] has ' + hint_dict[tag_def.name].texts.length + ' unique tokens'"
+                            class="mr-2 stat-tag-count">
+                            <span v-if="stat_filter_min_tokens == 0">
+                                {{ hint_dict[tag_def.name].texts.length }}
+                            </span>
+                            <span v-else>
+                                {{ count_texts_by_stat_fileter(tag_def) }}
+                                /
+                                {{ hint_dict[tag_def.name].texts.length }}
+                            </span>
+                        </div>
+                        <div v-else>
+                            -
+                        </div>
+                    </div>
+
+                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                        class="ruleset-tag-info d-flex flex-row flex-wrap">
+
+                        <!-- for the NC etags -->
+                        <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
+                            class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
+
+                            <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
+                                <span class="ruleset-tag-text-count"
+                                    v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
+                                    <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
+                                        class="fa fa-caret-down"></i>
+                                    <i v-else
+                                        class="fa fa-caret-right"></i>
+                                    {{ hint_dict[tag_def.name].nc_dict.count }}
+                                </span>
+                                <span class="ruleset-tag-text-str">
+                                    <i class="far fa-file"></i>
+                                    DOC-LEVEL
+                                </span>
+                            </div>
+
+                            <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
+                                class="ruleset-tag-text-filelist">
+                                <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
+                                    v-on:click="show_ann_file(fn)"
+                                    class="ruleset-tag-text-filelist-item">
+                                    <span class="ruleset-tag-text-filelist-item-count">
+                                        {{ fn_v }}
+                                    </span>
+                                    <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                    <span>
+                                        {{ fn }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- for general etags -->
+                        <div v-for="v_text_info in sort_text_dict_in_hint_dict(hint_dict[tag_def.name].text_dict)"
+                            v-if="stat_filter_min_tokens == 0 || hint_dict[tag_def.name].text_dict[v_text_info.text].count <= stat_filter_min_tokens"
+                            class="ruleset-tag-text mr-1 mb-1 d-flex flex-column">
+                            <div v-on:click="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown = !hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                class="cursor-pointer"
+                                title="Click to check which document contains this tag">
+                                <span class="ruleset-tag-text-count"
+                                    v-bind:title="'Annotated ['+v_text_info.text+'] ' + hint_dict[tag_def.name].text_dict[v_text_info.text].count + ' time(s)'"
+                                    :style="{ color: stat_value2ftcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag) }">
+                                    <i v-if="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                        v-show="stat_filter_token_text"
+                                        class="fa fa-caret-down"></i>
+                                    <i v-else
+                                        v-show="stat_filter_token_text"
+                                        class="fa fa-caret-right"></i>
+                                    {{ hint_dict[tag_def.name].text_dict[v_text_info.text].count }}
+                                </span>
+                                <span v-show="stat_filter_token_text"
+                                    class="ruleset-tag-text-str">
+                                    {{ v_text_info.text }}
+                                </span>
+                            </div>
+                            <div v-show="stat_filter_token_text && hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                class="ruleset-tag-text-filelist">
+                                <div v-for="(fn_v, fn) in hint_dict[tag_def.name].text_dict[v_text_info.text].ann_fn_dict"
+                                    v-on:click="show_ann_file(fn)"
+                                    v-bind:title="'Click to check this tag in ' + fn"
+                                    class="ruleset-tag-text-filelist-item cursor-pointer">
+                                    <span class="ruleset-tag-text-filelist-item-count"
+                                    :style="{ color: stat_value2ftcolor(fn_v, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(fn_v, stat_docs_by_tags.stat.max_by_tag) }">
+                                        {{ fn_v }}
+                                    </span>
+                                    <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                    <span>
+                                        {{ fn }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+</div>
+<!-- /#mui_stat_details -->
+
+</div>
+
+</div>
+<!-- /#main_ui -->
     
 
     <!-- the context menu -->
@@ -5885,6 +6235,10 @@ var dtd_parser = {
 var ann_parser = {
     NON_CONSUMING_SPANS: '-1~-1',
 
+
+    ///////////////////////////////////////////////////////
+    // Annotation serialization/deserialization functions
+    ///////////////////////////////////////////////////////
     txt2ann: function(txt, dtd) {
         var ann = {
             text: txt,
@@ -6325,12 +6679,17 @@ var ann_parser = {
         return formatted;
     },
 
+
+    ///////////////////////////////////////////////////////
+    // Hint Dictionary related functions
+    ///////////////////////////////////////////////////////
+
     /**
      * Convert a list of anns to hints as tag name dict
      * @param {object} dtd annotation dtd object
      * @param {list} anns a list of annotation objects
      */
-     anns2hint_dict: function(dtd, anns) {
+    anns2hint_dict: function(dtd, anns) {
         var hint_dict = {};
 
         for (let i = 0; i < anns.length; i++) {
@@ -6357,6 +6716,7 @@ var ann_parser = {
                     _is_shown: false,
                 }, 
 
+                // just a list of texts
                 texts: []
             }
         }
@@ -6552,6 +6912,43 @@ var ann_parser = {
         return hint_list;
     },
 
+    get_stat_tokens_by_hint_dict: function(hint_dict) {
+        var stat = {
+            rs: []
+        };
+
+        for (const tag_name in hint_dict) {
+            if (Object.hasOwnProperty.call(hint_dict, tag_name)) {
+                const hint_info = hint_dict[tag_name];
+                
+                for (const text in hint_info.text_dict) {
+                    if (Object.hasOwnProperty.call(hint_info.text_dict, text)) {
+                        const text_info = hint_info.text_dict[text];
+
+                        // how many anns/docs contain this text for this tag_name
+                        var n_anns = Object.keys(text_info.ann_fn_dict).length;
+
+                        // total count of this text for this tag_name in all anns/docs
+                        var n_count = text_info.count;
+
+                        // save this information
+                        stat.rs.push({
+                            text: text,
+                            tag_name: tag_name,
+                            n_count: n_count,
+                            n_anns: n_anns
+                        });
+                    }
+                }
+            }
+        }
+
+        return stat;
+    },
+
+    ///////////////////////////////////////////////////////
+    // Utils
+    ///////////////////////////////////////////////////////
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
         try {
@@ -6729,29 +7126,48 @@ var ann_parser = {
  * A helper object for the statistics related functions
  */
 var stat_helper = {
+    /**
+     * Get statistics of given anns on dtd
+     * 
+     * The return item should contain 3 sub-items:
+     * [
+     *     label
+     *     value,
+     *     extend_data
+     * ]
+     * 
+     * The extend_data is an object
+     * @param {list} anns anns
+     * @param {Object} dtd dtd
+     * @returns a list of stat results
+     */
     get_stat_items: function(anns, dtd) {
         var items = [
             // the basic statistics
-            ['# of documents', anns.length],
-            ['# of tags in schema', dtd.etags.length],
-            ['# of annotations', this.count_all_tags(anns)],
+            ['# of documents', anns.length, null],
+            ['# of tags in schema', dtd.etags.length, null],
+            ['# of annotations', this.count_all_tags(anns), null],
 
             // the frequents
             [
                 '# of annotations per tag', 
-                this.calc_avg_tags_per_def(anns, dtd)
+                this.calc_avg_tags_per_def(anns, dtd),
+                null
             ],
             [
-                '# of annotations per document', 
-                this.calc_avg_tags_per_doc(anns)
+                '# of annotations per doc', 
+                this.calc_avg_tags_per_doc(anns),
+                null
             ],
             [
                 '# of sentences',
-                this.count_all_sentences(anns)
+                this.count_all_sentences(anns),
+                null
             ],
             [
-                '# of sentences per document',
-                this.calc_avg_sentences_per_doc(anns)
+                '# of sentences per doc',
+                this.calc_avg_sentences_per_doc(anns),
+                null
             ],
             
         ];
@@ -6761,9 +7177,15 @@ var stat_helper = {
         for (const tag_name in cnt) {
             if (Object.hasOwnProperty.call(cnt, tag_name)) {
                 const val = cnt[tag_name];
+
+                // create a html 
                 items.push([
-                    '# of tags ' + tag_name,
-                    val
+                    '# of ' + tag_name,
+                    val,
+                    {
+                        stat_type: 'tag_count',
+                        tag: tag_name
+                    }
                 ]);
             }
         }
@@ -6803,10 +7225,17 @@ var stat_helper = {
     },
 
     get_stat_docs_by_tags_json: function(anns, dtd) {
-        var js = [{
-            'file_name': 'Summary',
-            '_total_tags': 0
-        }];
+        var js = {
+            stat: {
+                max_by_ann_tag: 0,
+                max_by_ann: 0,
+                max_by_tag: 0
+            },
+            rs: [{
+                'file_name': 'Summary',
+                '_total_tags': 0
+            }]
+        };
 
         for (let i = 0; i < anns.length; i++) {
             // each ann is a document
@@ -6826,8 +7255,8 @@ var stat_helper = {
                 j[tag.name] = 0;
 
                 // init the first row if not 
-                if (!js[0].hasOwnProperty(tag.name)) {
-                    js[0][tag.name] = 0;
+                if (!js.rs[0].hasOwnProperty(tag.name)) {
+                    js.rs[0][tag.name] = 0;
                 }
             }
 
@@ -6838,34 +7267,52 @@ var stat_helper = {
                 j[tag.name] = 0;
 
                 // init the first row if not 
-                if (!js[0].hasOwnProperty(tag.name)) {
-                    js[0][tag.name] = 0;
+                if (!js.rs[0].hasOwnProperty(tag.name)) {
+                    js.rs[0][tag.name] = 0;
                 }
             }
 
             // now, we can count how many tags in this doc
             for (let k = 0; k < ann.tags.length; k++) {
                 const tag = ann.tags[k];
-                // update the count
+                // update the count for this tag
                 j[tag.tag] += 1;
+
+                // add a count for max result
+                if (j[tag.tag] > js.stat.max_by_ann_tag) {
+                    js.stat.max_by_ann_tag = j[tag.tag]
+                }
+
                 // update the total of this file
                 j['_total_tags'] += 1;
 
                 // update the summary of this concept
-                js[0][tag.tag] += 1;
+                js.rs[0][tag.tag] += 1;
+
+                // add a count for max result
+                if (js.rs[0][tag.tag] > js.stat.max_by_tag) {
+                    js.stat.max_by_tag = js.rs[0][tag.tag]
+                }
+
                 // update the summary of all
-                js[0]['_total_tags'] += 1;
+                js.rs[0]['_total_tags'] += 1;
+            }
+
+            // update the max_by_ann
+            if (ann.tags.length > js.stat.max_by_ann) {
+                js.stat.max_by_ann = ann.tags.length;
             }
 
             // ok, done! let's put this j to js list
-            js.push(j);
+            js.rs.push(j);
         }
 
         return js;
     },
 
     get_stat_docs_by_tags_excelws: function(ann, dtd) {
-        var js = this.get_stat_docs_by_tags_json(ann, dtd);
+        var stat = this.get_stat_docs_by_tags_json(ann, dtd);
+        var js = stat.rs;
 
         var ws = XLSX.utils.json_to_sheet(js);
 
@@ -11225,6 +11672,11 @@ var app_hotpot = {
         // for showing the tag by tag_name,
         display_tag_name: '__all__',
 
+        // statistics
+        display_stat_doc_sum_selected: null,
+        stat_filter_min_tokens: 0,
+        stat_filter_token_text: true,
+
         // for the hints of current ann
         hints: [],
 
@@ -11954,6 +12406,39 @@ var app_hotpot = {
             );
         },
 
+        show_changelog: function() {
+            var html = [];
+            // parse the latest change log
+            var lines = jarvis.changelog_latest.split('\n');
+            for (let i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                line = line.trim();
+                if (line == '') {
+                    // nothing to do with empty line
+                    continue;
+                }
+                if (html.length == 0) {
+                    // this is the first line, the title
+                    html.push(
+                        '<h3 class="changelog-h3">' + 
+                        '<b>MedTator</b> v' + 
+                        line + 
+                        '</h3>'
+                    );
+                } else {
+                    html.push(
+                        '<p class="changelog-p">'+line+'</p>'
+                    );
+                }
+            }
+            // last line is the link
+            html.push(
+                '<p>For more details, check <a target="_blank" href="https://github.com/OHNLP/MedTator#change-log">the README on our GitHub repo</a>.</p>'
+            );
+            html = html.join('');
+            Metro.infobox.create(html);
+        },
+
         show_howtouse: function() {
             window.open(
                 'https://github.com/OHNLP/MedTator/wiki/Manual#how-to-use-the-exported-data',
@@ -12013,6 +12498,45 @@ var app_hotpot = {
             }
             var ann = this.add_sample_txt_as_ann(
                 jarvis.sample_text['covid_vax']
+            );
+
+            app_hotpot.toast(
+                'Loaded a sample text [' + 
+                ann._filename +
+                '] for test'
+            );
+        },
+
+        load_sample_txt_from_input: function() {
+            if (this.dtd == null) {
+                app_hotpot.toast(
+                    'Please load annotation schema first',
+                    'warning'
+                );
+                return;
+            }
+            var txt = window.prompt(
+                'Please input text in the following input box.'
+            );
+        
+            if (txt == null) {
+                app_hotpot.toast(
+                    'Cancelled creating sample text.'
+                );
+                return;
+            }
+            
+            // just in case empty
+            txt = txt.trim();
+            if (txt.length == 0) {
+                app_hotpot.toast(
+                    'Failed to create a sample text from empty input.'
+                );
+                return;
+            }
+
+            var ann = this.add_sample_txt_as_ann(
+                txt
             );
 
             app_hotpot.toast(
@@ -12799,6 +13323,48 @@ var app_hotpot = {
             // download this wb
             XLSX.writeFile(wb, fn);
         },
+
+        sort_text_dict_in_hint_dict: function(text_dict) {
+            var text_info_list = [];
+            for (const text in text_dict) {
+                if (Object.hasOwnProperty.call(text_dict, text)) {
+                    const dict = text_dict[text];
+                    text_info_list.push({
+                        text: text,
+                        // that's what we want to sort
+                        count: dict.count
+                    });
+                }
+            }
+
+            // sort desc
+            text_info_list.sort(function(a, b) {
+                return b.count - a.count;
+            });
+
+            return text_info_list;
+        },
+
+        reset_stat_filters: function() {
+            // reset stat_filter_min_tokens
+            this.stat_filter_min_tokens = 0;
+        },
+
+        count_texts_by_stat_fileter: function(tag_def) {
+            var cnt = 0;
+            
+            for (const text in this.hint_dict[tag_def.name].text_dict) {
+                // count each text
+                if (this.stat_filter_min_tokens == 0 || this.hint_dict[tag_def.name].text_dict[text].count <= this.stat_filter_min_tokens) {
+                    cnt += 1;
+                }
+            }
+            return cnt;
+        },
+
+        on_change_stat_filters: function() {
+
+        },
         
         /////////////////////////////////////////////////////////////////
         // Corpus menu related functions
@@ -13462,7 +14028,29 @@ var app_hotpot = {
             return false;
         },
 
-        get_tags_by_type: function(ann, dtd, type='etag') {
+        get_tag_spans_text: function(tag) {
+            if (tag.spans == '-1~-1') {
+                return 'DOCLEVEL';
+            } else {
+                return tag.spans;
+            }
+        },
+
+        get_tags_by_tag_name: function(ann, tag_name) {
+            var tags = [];
+            for (let i = 0; i < ann.tags.length; i++) {
+                const tag = ann.tags[i];
+                if (tag.tag == tag_name) {
+                    tags.push(tag);
+                }
+            }
+            return tags;
+        },
+
+        get_tags_by_type: function(ann, dtd) {
+            if (typeof(type) == 'undefined') {
+                type = 'etag';
+            }
             var tags = [];
             for (let i = 0; i < ann.tags.length; i++) {
                 const tag = ann.tags[i];
@@ -13564,13 +14152,52 @@ var app_hotpot = {
             return v.toFixed(2);
         },
 
-        to_width: function(v) {
+        val2width: function(val, max_val, max_width) {
+            if (typeof(val) == 'undefined' ||
+                val == null ||
+                isNaN(val)) {
+                val = 0;
+            }
+            if (typeof(max_val) == 'undefined' ||
+                max_val < 10) {
+                max_val = 10;
+            }
+            if (typeof(max_width) == 'undefined') {
+                // which means 100px
+                max_width = 100;
+            }
+
+            // very simple conversion
+            var width = val / max_val * max_width;
+
+            return width;
+        },
+
+        per2width: function(v) {
             if (typeof(v) == 'undefined' ||
                 v == null ||
                 isNaN(v)) {
                 return 1;
             }
             return v * 100;
+        },
+
+        has_doc_sum_selected_tags: function() {
+            if (this.has_included_ann_file(
+                this.display_stat_doc_sum_selected.file_name
+            )) {
+                return true;
+            }
+            return false;
+        },
+
+        on_click_stat_ann_tag: function(file_name, tag_name) {
+            this.display_stat_doc_sum_selected = {
+                file_name: file_name,
+                tag_name: tag_name
+            };
+
+            console.log('* display_stat_doc_sum_selected:', this.display_stat_doc_sum_selected);
         },
 
         has_FSA_API: function() {
@@ -13667,6 +14294,10 @@ var app_hotpot = {
             return false;
         },
 
+        stat_value2width: function(value, max_value) {
+            return this.val2width(value, max_value);
+        },
+
         stat_value2bgcolor: function(value, max_value, zero_color) {
             if (typeof(max_value)=='undefined') {
                 max_value = 10;
@@ -13749,6 +14380,23 @@ var app_hotpot = {
                         this.anns,
                         this.dtd
                     );
+                },
+
+                stat_doc_sum_selected_tags: function() {
+                    // find this ann
+                    var ann_idx = this.find_included(
+                        this.display_stat_doc_sum_selected.file_name,
+                        this.anns
+                    );
+
+                    // find the tags
+                    var tags = this.get_tags_by_tag_name(
+                        this.anns[ann_idx],
+                        this.display_stat_doc_sum_selected.tag_name
+                    );
+
+                    // last is just update tags
+                    return tags;
                 }
             },
 
@@ -14501,7 +15149,8 @@ var app_hotpot = {
     // https://colorbrewer2.org/#type=qualitative&scheme=Set3&n=12
     app_colors: [
         '#a6cee3',
-        '#1f78b4',
+        // '#1f78b4',
+        '#51a1d7',
         '#b2df8a',
         '#33a02c',
         '#fb9a99',
@@ -17458,6 +18107,26 @@ Sender's Comments:
 Based on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information
     `
 };
+
+jarvis.changelog_latest = `
+1.2.41 (2022-06-23)
+
+- Added meta-data structure for annotation file
+- Added color label to annotation file
+- Added functions for updating annotator for adjudication
+- Added download all tags for adjudication
+- Added sorting by label color
+- Added MedTagger ann format converter
+- Added UI for converting MedTagger results
+- Added folder drag and drop for converter
+- Added folder drag and drop for adjudication
+- Updated IAA drop box width
+- Updated code structure for better extension
+- Updated wiki pages
+- Fixed meta copy bug when generating adjudicated copy
+
+
+`;
 
 
 // extend the App with data if needed

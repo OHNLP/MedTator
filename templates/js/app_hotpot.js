@@ -52,6 +52,8 @@ var app_hotpot = {
 
         // statistics
         display_stat_doc_sum_selected: null,
+        stat_filter_min_tokens: 0,
+        stat_filter_token_text: true,
 
         // for the hints of current ann
         hints: [],
@@ -1719,6 +1721,27 @@ var app_hotpot = {
             });
 
             return text_info_list;
+        },
+
+        reset_stat_filters: function() {
+            // reset stat_filter_min_tokens
+            this.stat_filter_min_tokens = 0;
+        },
+
+        count_texts_by_stat_fileter: function(tag_def) {
+            var cnt = 0;
+            
+            for (const text in this.hint_dict[tag_def.name].text_dict) {
+                // count each text
+                if (this.stat_filter_min_tokens == 0 || this.hint_dict[tag_def.name].text_dict[text].count <= this.stat_filter_min_tokens) {
+                    cnt += 1;
+                }
+            }
+            return cnt;
+        },
+
+        on_change_stat_filters: function() {
+
         },
         
         /////////////////////////////////////////////////////////////////

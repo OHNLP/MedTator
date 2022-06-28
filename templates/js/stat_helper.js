@@ -59,7 +59,8 @@ var stat_helper = {
                     '# of ' + tag_name,
                     val,
                     {
-                        stat_type: 'tag_count'
+                        stat_type: 'tag_count',
+                        tag: tag_name
                     }
                 ]);
             }

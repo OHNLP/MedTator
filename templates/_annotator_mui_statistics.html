@@ -1,321 +1,341 @@
 <div v-show="section=='statistics'" id="main_ui" 
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+<div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
-        <div id="mui_stat_summary" class="d-flex h-100">
-            <div class="box w-100">
-                <div class="box-header">
-                    <h4>
-                        <i class="fa fa-list-ul"></i>
-                        Summary
-                    </h4>
+<!-- stat summary -->
+<div id="mui_stat_summary" class="d-flex h-100">
+    <div class="box w-100">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Corpus Summary
+            </h4>
+        </div>
+
+        <div v-if="dtd != null && anns.length != 0"
+            class="box-body"
+            style="overflow-y: auto;">
+
+            <div v-for="stat_item in stat_summary"
+                class="stat-item-row box-body-item d-flex flex-row flex-justify-between">
+
+                <!-- the stat label -->
+                <div v-if="stat_item[2] == null"
+                    class="stat-item-label stat-item-label-lg">
+                    <span v-html="stat_item[0]"
+                        :title="stat_item[0]">
+                    </span>: 
+                </div>
+                <div v-else
+                    class="stat-item-label">
+                    <span v-html="stat_item[0]"
+                        :title="stat_item[0]">
+                    </span>: 
                 </div>
 
-                <div v-if="dtd != null && anns.length != 0"
-                    class="box-body"
-                    style="overflow-y: auto;">
+                <!-- the stat result -->
+                <div v-if="stat_item[2] == null"
+                    :title="stat_item[0] + ': ' + stat_item[1]"
+                    class="stat-item-value-sm mr-2 text-align">
+                    <span >
+                        {{ stat_item[1] }}
+                    </span>
+                </div>
+                <div v-else-if="stat_item[2].stat_type == 'tag_count'"
+                    :title="stat_item[0] + ': ' + stat_item[1]"
+                    class="stat-item-value mr-2 d-flex flex-row flex-align-center flex-justify-end">
+                    <div class="mr-1">
+                        {{ stat_item[1] }}
+                    </div>
+                    <div class="iaa-bar"
+                        v-bind:class="'mark-tag-' + stat_item[2].tag"
+                        v-bind:style="{width: stat_value2width(stat_item[1], stat_docs_by_tags.stat.max_by_tag) + 'px', }">
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- /.box -->
+</div>
 
-                    <div v-for="stat_item in stat_summary"
-                        class="box-body-item d-flex flex-row flex-justify-between">
+<!-- stat details -->
+<div id="mui_stat_details" class="d-flex ml-2">
 
-                        <!-- the stat label -->
-                        <div v-if="stat_item[2] == null"
-                            class="stat-item-label stat-item-label-lg">
-                            <span v-html="stat_item[0]"
-                                :title="stat_item[0]">
-                            </span>: 
+<div class="w-100 d-flex flex-row flex-wrap h-100"
+        style="overflow-y: auto;">
+    <div class="box w-100 mb-2">
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-table"></i>
+                Annotation Overview
+            </h4>
+        </div>
+        <div v-if="dtd != null && anns.length > 0"
+            class="box-body">
+            <table class="doctag-table" style="float: left;">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Total</th>
+                        <th v-for="tag_def in dtd.etags"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                            <span class="rotate-90">
+                                <i class="fa fa-tag"
+                                    v-bind:class="'fg-tag-' + tag_def.name">
+                                </i>
+                                {{ tag_def.name }}
+                            </span>
+                        </th>
+                        <th v-for="tag_def in dtd.ltags"
+                            v-bind:class="'fg-tag-' + tag_def.name">
+                            <span class="rotate-90">
+                                <i class="fa fa-link"
+                                    v-bind:class="'fg-tag-' + tag_def.name">
+                                </i>
+                                {{ tag_def.name }}
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="stat, stat_idx in stat_docs_by_tags.rs">
+                        <td v-if="stat_idx == 0"
+                            class="td-summary">
+                            {{ stat.file_name }}
+                        </td>
+                        <td v-else
+                            class="td-filename"
+                            title="Check this file in the Annotation tab"
+                            v-on:click="show_ann_file(stat.file_name)">
+                            {{ stat.file_name }}
+                        </td>
+                        <td>
+                            {{ stat._total_tags }}
+                        </td>
+                        <td v-for="tag_def in dtd.etags">
+                            <span v-if="stat_idx == 0"
+                                class="td-count"
+                                v-bind:class="'td-count-' + stat[tag_def.name]">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                            <span v-else
+                                class="td-count cursor-pointer"
+                                title="Click to check these tags"
+                                v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                v-bind:class="'td-count-' + stat[tag_def.name]"
+                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                        </td>
+                        <td v-for="tag_def in dtd.ltags">
+                            <span v-if="stat_idx == 0"
+                                class="td-count"
+                                v-bind:class="'td-count-' + stat[tag_def.name]">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                            <span v-else
+                                class="td-count cursor-pointer"
+                                title="Click to check these tags"
+                                v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
+                                v-bind:class="'td-count-' + stat[tag_def.name]"
+                                v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
+                                {{ stat[tag_def.name] }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- the tag list of selected file and concept -->
+            <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
+                class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
+                style="float: left; position: sticky; top: 0;">
+                <div class="stat-doc-sum-tags-header">
+                    <i class="fa fa-tags"></i>
+                    {{ display_stat_doc_sum_selected.file_name }} - 
+                    <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                        <i class="fa fa-tag"
+                            v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
+                        </i>
+                        {{ display_stat_doc_sum_selected.tag_name }}
+                    </span>
+                    <span>
+                        {{ stat_doc_sum_selected_tags.length }} tags
+                    </span>
+                </div>
+
+                <div class="stat-doc-sum-tags-body">
+                    <div v-for="tag in stat_doc_sum_selected_tags"
+                        class="d-flex flex-row flex-wrap flex-align-end mb-2">
+                        <div class="iaa-tag-detail-info-text-ab mr-2">
+                            <!-- <span class="mr-1"
+                                v-bind:class="'mark-tag-' + tag.tag">
+                                
+                            </span> -->
+                            {{ tag.id }}
                         </div>
-                        <div v-else
-                            class="stat-item-label">
-                            <span v-html="stat_item[0]"
-                                :title="stat_item[0]">
-                            </span>: 
+
+                        <div class="mr-1 ml-1 d-flex flex-column">
+                            <div class="iaa-tag-attlist-name">
+                                {{ get_tag_spans_text(tag) }}:
+                            </div> 
+                
+                            <div>
+                                <b>{{ tag.text }}</b>
+                            </div>
                         </div>
 
-                        <!-- the stat result -->
-                        <div v-if="stat_item[2] == null"
-                            :title="stat_item[0] + ': ' + stat_item[1]"
-                            class="stat-item-value-sm mr-2 text-align">
-                            <span >
-                                {{ stat_item[1] }}
+                        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
+                            v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+                
+                            <div class="iaa-tag-attlist-name">
+                                {{ attlist.name }}:
+                            </div> 
+                
+                            <div>
+                                {{ tag[attlist.name] }}&nbsp;
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="box w-100">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Token Summary
+            </h4>
+        </div>
+        <div v-if="dtd != null && anns.length > 0"
+            class="box-body" style="overflow-y: auto;">
+            <div class="d-flex flex-column w-100 h-100">
+
+                <div v-for="(tag_def, tag_def_idx) in dtd.etags"
+                    class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
+                    <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
+                        v-bind:class="'border-tag-' + tag_def.name">
+                        <div class="ruleset-tag-name-str"
+                            v-bind:title="tag_def.name">
+                            <i class="fa fa-tag"
+                                v-bind:class="'fg-tag-' + tag_def.name">
+                            </i>
+                            {{ tag_def.name }}
+                        </div>
+                        <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                            v-bind:title="'[' + tag_def.name + '] has ' + hint_dict[tag_def.name].texts.length + ' unique tokens'"
+                            class="mr-2 stat-tag-count">
+                            <span v-if="stat_filter_min_tokens == 0">
+                                {{ hint_dict[tag_def.name].texts.length }}
+                            </span>
+                            <span v-else>
+                                {{ count_texts_by_stat_fileter(tag_def) }}
+                                /
+                                {{ hint_dict[tag_def.name].texts.length }}
                             </span>
                         </div>
-                        <div v-else-if="stat_item[2].stat_type == 'tag_count'"
-                            :title="stat_item[0] + ': ' + stat_item[1]"
-                            class="stat-item-value mr-2 d-flex flex-row flex-align-center flex-justify-end">
-                            <div class="mr-1">
-                                {{ stat_item[1] }}
-                            </div>
-                            <div class="iaa-bar"
-                                v-bind:style="{width: stat_value2width(stat_item[1], stat_docs_by_tags.stat.max_by_tag) + 'px', }">
-                                
-                            </div>
+                        <div v-else>
+                            -
                         </div>
                     </div>
-                    
-                </div>
-            </div>
-            <!-- /.box -->
-        </div>
 
+                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
+                        class="ruleset-tag-info d-flex flex-row flex-wrap">
 
-        <div id="mui_stat_details" class="d-flex ml-2">
+                        <!-- for the NC etags -->
+                        <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
+                            class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
 
-            <div class="w-100 d-flex flex-row flex-wrap h-100"
-                 style="overflow-y: auto;">
-                <div class="box w-100 mb-2">
-                    <div class="box-header">
-                        <h4>
-                            <i class="fas fa-table"></i>
-                            Document Summary
-                        </h4>
-                    </div>
-                    <div v-if="dtd != null && anns.length > 0"
-                        class="box-body">
-                        <table class="doctag-table" style="float: left;">
-                            <thead>
-                                <tr>
-                                    <th>File Name</th>
-                                    <th>Total</th>
-                                    <th v-for="tag_def in dtd.etags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-tag"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th>
-                                    <th v-for="tag_def in dtd.ltags"
-                                        v-bind:class="'fg-tag-' + tag_def.name">
-                                        <span class="rotate-90">
-                                            <i class="fa fa-link"
-                                                v-bind:class="'fg-tag-' + tag_def.name">
-                                            </i>
-                                            {{ tag_def.name }}
-                                        </span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="stat, stat_idx in stat_docs_by_tags.rs">
-                                    <td v-if="stat_idx == 0"
-                                        class="td-summary">
-                                        {{ stat.file_name }}
-                                    </td>
-                                    <td v-else
-                                        class="td-filename"
-                                        title="Check this file in the Annotation tab"
-                                        v-on:click="show_ann_file(stat.file_name)">
-                                        {{ stat.file_name }}
-                                    </td>
-                                    <td>
-                                        {{ stat._total_tags }}
-                                    </td>
-                                    <td v-for="tag_def in dtd.etags">
-                                        <span v-if="stat_idx == 0"
-                                            class="td-count"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                        <span v-else
-                                            class="td-count cursor-pointer"
-                                            title="Click to check these tags"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]"
-                                            v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                    </td>
-                                    <td v-for="tag_def in dtd.ltags">
-                                        <span v-if="stat_idx == 0"
-                                            class="td-count"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                        <span v-else
-                                            class="td-count cursor-pointer"
-                                            title="Click to check these tags"
-                                            v-bind:style="'background-color:'+ stat_value2bgcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + '; color:' + stat_value2ftcolor(stat[tag_def.name], stat_docs_by_tags.stat.max_by_ann_tag) + ';'"
-                                            v-bind:class="'td-count-' + stat[tag_def.name]"
-                                            v-on:click="on_click_stat_ann_tag(stat.file_name, tag_def.name)">
-                                            {{ stat[tag_def.name] }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- the tag list of selected file and concept -->
-                        <div v-if="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
-                            class="d-flex flex-column ml-2 stat-doc-sum-tags-box" 
-                            style="float: left; position: sticky; top: 0;">
-                            <div class="stat-doc-sum-tags-header">
-                                <i class="fa fa-tags"></i>
-                                {{ display_stat_doc_sum_selected.file_name }} - 
-                                <span v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                                    <i class="fa fa-tag"
-                                        v-bind:class="'fg-tag-' + display_stat_doc_sum_selected.tag_name">
-                                    </i>
-                                    {{ display_stat_doc_sum_selected.tag_name }}
+                            <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
+                                <span class="ruleset-tag-text-count"
+                                    v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
+                                    <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
+                                        class="fa fa-caret-down"></i>
+                                    <i v-else
+                                        class="fa fa-caret-right"></i>
+                                    {{ hint_dict[tag_def.name].nc_dict.count }}
                                 </span>
-                                <span>
-                                    {{ stat_doc_sum_selected_tags.length }} tags
+                                <span class="ruleset-tag-text-str">
+                                    <i class="far fa-file"></i>
+                                    DOC-LEVEL
                                 </span>
                             </div>
 
-                            <div class="stat-doc-sum-tags-body">
-                                <div v-for="tag in stat_doc_sum_selected_tags"
-                                    class="d-flex flex-row flex-wrap flex-align-end mb-2">
-                                    <div class="iaa-tag-detail-info-text-ab mr-2">
-                                        <!-- <span class="mr-1"
-                                            v-bind:class="'mark-tag-' + tag.tag">
-                                            
-                                        </span> -->
-                                        {{ tag.id }}
-                                    </div>
-
-                                    <div class="mr-1 ml-1 d-flex flex-column">
-                                        <div class="iaa-tag-attlist-name">
-                                            {{ get_tag_spans_text(tag) }}:
-                                        </div> 
-                            
-                                        <div>
-                                            <b>{{ tag.text }}</b>
-                                        </div>
-                                    </div>
-
-                                    <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                                        v-if="!['id','spans','text','tag'].contains(attlist.name)"
-                                        class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
-                            
-                                        <div class="iaa-tag-attlist-name">
-                                            {{ attlist.name }}:
-                                        </div> 
-                            
-                                        <div>
-                                            {{ tag[attlist.name] }}&nbsp;
-                                        </div>
-                                        
-                                    </div>
+                            <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
+                                class="ruleset-tag-text-filelist">
+                                <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
+                                    v-on:click="show_ann_file(fn)"
+                                    class="ruleset-tag-text-filelist-item">
+                                    <span class="ruleset-tag-text-filelist-item-count">
+                                        {{ fn_v }}
+                                    </span>
+                                    <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                    <span>
+                                        {{ fn }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-
-                <div class="box w-100">
-                    <div class="box-header">
-                        <h4>
-                            <i class="fa fa-list-ul"></i>
-                            Annotated Entity Tags
-                        </h4>
-                    </div>
-                    <div v-if="dtd != null && anns.length > 0"
-                        class="box-body" style="overflow-y: auto;">
-                        <div class="d-flex flex-column w-100 h-100">
-        
-                            <div v-for="(tag_def, tag_def_idx) in dtd.etags"
-                                class="ruleset-tag-item d-flex flex-row mb-1 pt-1 pb-1">
-                                <div class="ruleset-tag-name pl-2 d-flex flex-row flex-justify-between"
-                                    v-bind:class="'border-tag-' + tag_def.name">
-                                    <div class="ruleset-tag-name-str"
-                                        v-bind:title="tag_def.name">
-                                        <i class="fa fa-tag"
-                                            v-bind:class="'fg-tag-' + tag_def.name">
-                                        </i>
-                                        {{ tag_def.name }}
-                                    </div>
-                                    <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                                        v-bind:title="'[' + tag_def.name + '] has ' + hint_dict[tag_def.name].texts.length + ' unique tokens'"
-                                        class="mr-2">
-                                        {{ hint_dict[tag_def.name].texts.length }}
-                                    </div>
-                                    <div v-else>
-                                        -
-                                    </div>
-                                </div>
-        
-                                <div v-if="hint_dict.hasOwnProperty(tag_def.name)"
-                                    class="ruleset-tag-info d-flex flex-row flex-wrap">
-
-                                    <!-- for the NC etags -->
-                                    <div v-if="hint_dict[tag_def.name].nc_dict.count > 0"
-                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
-                                        <div v-on:click="hint_dict[tag_def.name].nc_dict._is_shown = !hint_dict[tag_def.name].nc_dict._is_shown">
-                                            <span class="ruleset-tag-text-count"
-                                                v-bind:title="'Annotated ' + hint_dict[tag_def.name].nc_dict.count + ' times'">
-                                                <i v-if="hint_dict[tag_def.name].nc_dict._is_shown"
-                                                    class="fa fa-caret-down"></i>
-                                                <i v-else
-                                                    class="fa fa-caret-right"></i>
-                                                {{ hint_dict[tag_def.name].nc_dict.count }}
-                                            </span>
-                                            <span class="ruleset-tag-text-str">
-                                                <i class="far fa-file"></i>
-                                                DOC-LEVEL
-                                            </span>
-                                        </div>
-                                        <div v-show="hint_dict[tag_def.name].nc_dict._is_shown"
-                                            class="ruleset-tag-text-filelist">
-                                            <div v-for="(fn_v, fn) in hint_dict[tag_def.name].nc_dict.ann_fn_dict"
-                                                v-on:click="show_ann_file(fn)"
-                                                class="ruleset-tag-text-filelist-item">
-                                                <span class="ruleset-tag-text-filelist-item-count">
-                                                    {{ fn_v }}
-                                                </span>
-                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
-                                                <span>
-                                                    {{ fn }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- for general etags -->
-                                    <div v-for="v_text_info in sort_text_dict_in_hint_dict(hint_dict[tag_def.name].text_dict)"
-                                        class="ruleset-tag-text mr-2 mb-2 d-flex flex-column">
-                                        <div v-on:click="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown = !hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown">
-                                            <span class="ruleset-tag-text-count"
-                                                v-bind:title="'Annotated ' + hint_dict[tag_def.name].text_dict[v_text_info.text].count + ' times'"
-                                                :style="{ color: stat_value2ftcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag) }">
-                                                <i v-if="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
-                                                    class="fa fa-caret-down"></i>
-                                                <i v-else
-                                                    class="fa fa-caret-right"></i>
-                                                {{ hint_dict[tag_def.name].text_dict[v_text_info.text].count }}
-                                            </span>
-                                            <span class="ruleset-tag-text-str">
-                                                {{ v_text_info.text }}
-                                            </span>
-                                        </div>
-                                        <div v-show="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
-                                            class="ruleset-tag-text-filelist">
-                                            <div v-for="(fn_v, fn) in hint_dict[tag_def.name].text_dict[v_text_info.text].ann_fn_dict"
-                                                v-on:click="show_ann_file(fn)"
-                                                class="ruleset-tag-text-filelist-item">
-                                                <span class="ruleset-tag-text-filelist-item-count"
-                                                :style="{ color: stat_value2ftcolor(fn_v, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(fn_v, stat_docs_by_tags.stat.max_by_tag) }">
-                                                    {{ fn_v }}
-                                                </span>
-                                                <i class="fa fa-angle-right ml-1 mr-1"></i>
-                                                <span>
-                                                    {{ fn }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-        
+                        <!-- for general etags -->
+                        <div v-for="v_text_info in sort_text_dict_in_hint_dict(hint_dict[tag_def.name].text_dict)"
+                            v-if="stat_filter_min_tokens == 0 || hint_dict[tag_def.name].text_dict[v_text_info.text].count <= stat_filter_min_tokens"
+                            class="ruleset-tag-text mr-1 mb-1 d-flex flex-column">
+                            <div v-on:click="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown = !hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                class="cursor-pointer"
+                                title="Click to check which document contains this tag">
+                                <span class="ruleset-tag-text-count"
+                                    v-bind:title="'Annotated ['+v_text_info.text+'] ' + hint_dict[tag_def.name].text_dict[v_text_info.text].count + ' time(s)'"
+                                    :style="{ color: stat_value2ftcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(hint_dict[tag_def.name].text_dict[v_text_info.text].count, stat_docs_by_tags.stat.max_by_tag) }">
+                                    <i v-if="hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                        v-show="stat_filter_token_text"
+                                        class="fa fa-caret-down"></i>
+                                    <i v-else
+                                        v-show="stat_filter_token_text"
+                                        class="fa fa-caret-right"></i>
+                                    {{ hint_dict[tag_def.name].text_dict[v_text_info.text].count }}
+                                </span>
+                                <span v-show="stat_filter_token_text"
+                                    class="ruleset-tag-text-str">
+                                    {{ v_text_info.text }}
+                                </span>
                             </div>
-        
+                            <div v-show="stat_filter_token_text && hint_dict[tag_def.name].text_dict[v_text_info.text]._is_shown"
+                                class="ruleset-tag-text-filelist">
+                                <div v-for="(fn_v, fn) in hint_dict[tag_def.name].text_dict[v_text_info.text].ann_fn_dict"
+                                    v-on:click="show_ann_file(fn)"
+                                    v-bind:title="'Click to check this tag in ' + fn"
+                                    class="ruleset-tag-text-filelist-item cursor-pointer">
+                                    <span class="ruleset-tag-text-filelist-item-count"
+                                    :style="{ color: stat_value2ftcolor(fn_v, stat_docs_by_tags.stat.max_by_tag), backgroundColor: stat_value2bgcolor(fn_v, stat_docs_by_tags.stat.max_by_tag) }">
+                                        {{ fn_v }}
+                                    </span>
+                                    <i class="fa fa-angle-right ml-1 mr-1"></i>
+                                    <span>
+                                        {{ fn }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
         </div>
-
     </div>
 </div>
+</div>
+<!-- /#mui_stat_details -->
+
+</div>
+
+</div>
+<!-- /#main_ui -->
