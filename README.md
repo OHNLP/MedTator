@@ -83,7 +83,7 @@ python web.py --mode build --lib local --fn standalone.html
 Then, you can create a release zip file:
 
 ```bash
-python web.py --mode release
+python web.py --mode build --lib local --fn standalone.html
 ```
 
 ## License
@@ -100,7 +100,14 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-07-07)
+### 1.2.xx (2022-07-21)
+
+- Support of read/write JSON/YAML format schema
+- Support of tokenization exceptions
+- Update the sample schemas with JSON/YAML format
+- Update the code structure to reduce file size
+
+### 1.2.48 (2022-07-07)
 
 - Added function for customizing sample text
 - Added changelog information on UI

@@ -1,5 +1,5 @@
 /**
- * DTD schema file parser
+ * Annotation schema file parser
  */
 var dtd_parser = {
     regex: {
@@ -165,7 +165,53 @@ var dtd_parser = {
         return dtd;
     },
 
-    parse: function(text) {
+    /**
+     * Parse the given text into the schema object
+     * 
+     * @param {string} text the annotation schema content
+     * @param {string} format the format of schema, dtd/json/yaml
+     * @returns the dtd object
+     */
+    parse: function(text, format) {
+        if (typeof(format)=='undefined') {
+            format == 'dtd';
+        }
+
+        if (format == 'dtd') {
+            return this.parse_dtd(text);
+
+        } else if (format == 'json') {
+            return this.parse_json(text);
+
+        } else if (format == 'yaml') {
+            return this.parse_yaml(text);
+
+        } else {
+            // what???
+            return null;
+        }
+
+    },
+
+    /**
+     * Parse the given JSON format string
+     * 
+     * @param {string} text a JSON string that contains schema
+     * @returns the dtd object
+     */
+    parse_json: function(text) {
+        var dtd = null;
+
+        return dtd;
+    },
+
+    parse_yaml: function(text) {
+        var dtd = null;
+
+        return dtd;
+    },
+
+    parse_dtd: function(text) {
         var lines = text.split('\n');
 
         var dtd = {
