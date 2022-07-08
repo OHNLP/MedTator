@@ -106,6 +106,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Support of tokenization exceptions
 - Update the sample schemas with JSON/YAML format
 - Update the code structure to reduce file size
+- Updated license files of imported libraries
 
 ### 1.2.48 (2022-07-07)
 
