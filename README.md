@@ -83,7 +83,7 @@ python web.py --mode build --lib local --fn standalone.html
 Then, you can create a release zip file:
 
 ```bash
-python web.py --mode build --lib local --fn standalone.html
+python web.py --mode release
 ```
 
 ## License

@@ -174,7 +174,7 @@ var dtd_parser = {
      */
     parse: function(text, format) {
         if (typeof(format)=='undefined') {
-            format == 'dtd';
+            format = 'dtd';
         }
 
         if (format == 'dtd') {
