@@ -97,16 +97,16 @@ Vue.component('iaa-tag-info', {
             </span>
         </div>
         
-        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-            v-if="!['id','spans','text','tag'].contains(attlist.name)"
-            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+        <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+            v-if="!['id','spans','text','tag'].contains(attr.name)"
+            class="iaa-tag-attr mr-1 ml-1 d-flex flex-column">
 
-            <div class="iaa-tag-attlist-name">
-                &nbsp;{{ attlist.name }}:
+            <div class="iaa-tag-attr-name">
+                &nbsp;{{ attr.name }}:
             </div> 
 
             <div>
-                &nbsp;{{ tag[attlist.name] }}
+                &nbsp;{{ tag[attr.name] }}
             </div>
             
         </div>

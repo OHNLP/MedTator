@@ -2,16 +2,30 @@ var app_hotpot = {
     // metro app toast
     metro_toast: Metro.toast.create,
 
+    // for tracking how many anns
+    n_anns: 0,
+
+    // the magic number for MedTator World Peace
+    // (no need to force update)
+    cnt_no_more_anns: 0,
+
+    // the threshold of number of anns for a small project
+    n_anns_small_project: 100,
+
     // for tour
     tour: {
         annotation: null,
     },
+
+    // waiting for closing 
+    seconds_before_closing_loading_anns_panel: 3,
 
     // vue app
     vpp: null,
     vpp_id: '#app_hotpot',
 
     vpp_data: {
+
         // for the section control
         section: 'annotation',
 
@@ -24,6 +38,19 @@ var app_hotpot = {
 
         // for the ann files in the file list
         anns: [],
+
+        // pagination
+        pg_index: 0,
+        pg_total: 1,
+        pg_numpp: 100,
+
+        // for loading many anns
+        is_loading_anns: false,
+        is_loaded_anns: false,
+        msg_loading_anns: '',
+        n_anns_droped: 0,
+        n_anns_loaded: 0,
+        n_anns_error: 0,
 
         // sort anns
         // - default: how the anns are imported into tool
@@ -153,6 +180,7 @@ var app_hotpot = {
     },
 
     vpp_methods: {
+
         /////////////////////////////////////////////////////////////////
         // Settings related functions
         /////////////////////////////////////////////////////////////////
@@ -177,8 +205,240 @@ var app_hotpot = {
         },
 
         /////////////////////////////////////////////////////////////////
-        // Annotation section related functions
+        // Loading files related functions
         /////////////////////////////////////////////////////////////////
+        on_dragover_prevent_default: function(event) {
+            event.preventDefault();
+        },
+
+        on_click_open_dtd_file: function() {
+            // the settings for dtd file
+            var pickerOpts = {
+                types: [
+                    {
+                        description: 'Annotation Schema File',
+                        accept: {
+                            'text/dtd': ['.dtd', '.json', '.yaml']
+                        }
+                    },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: false
+            };
+
+            // get the file handles
+            var promise_fileHandles = fs_open_files(pickerOpts);
+
+            promise_fileHandles.then(function(fileHandles) {
+                // read the fh and set dtd
+                // in fact, there is only one file for this dtd
+                for (let i = 0; i < fileHandles.length; i++) {
+                    const fh = fileHandles[i];
+
+                    // read the file
+                    var p_dtd = fs_read_dtd_file_handle(fh);
+
+                    p_dtd.then((function(){
+                        return function(dtd) {
+                            if (dtd == null) {
+                                // must be something wrong
+                                app_hotpot.msg(
+                                    'Something wrong with the selected file, please check the schema format.', 
+                                    'warning'
+                                );
+                                return;
+                            }
+                            // just set the dtd
+                            app_hotpot.set_dtd(dtd);
+                        }
+                    })());
+                    
+                    // just one file
+                    break;
+                }
+            });
+            
+        },
+
+        on_drop_dropzone_dtd: function(event) {
+            // prevent the default download event
+            event.preventDefault();
+
+            if (!isFSA_API_OK) {
+                app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
+                return;
+            }
+
+            let items = event.dataTransfer.items;
+
+            // user should only upload one folder or a file
+            if (items.length>1) {
+                console.log('* selected more than 1 item!');
+                app_hotpot.msg('Please just drop only one schema file', 'warning');
+                return;
+            }
+
+            let item = items[0].getAsFileSystemHandle();
+            console.log('* using FSA API to load item as dtd');
+            
+            // read this handle
+            item.then(function(fh) {
+                if (fh.kind != 'file') { return null; }
+
+                // get the dtd object
+                var p_dtd = fs_read_dtd_file_handle(fh);
+
+                // handle the response
+                // we just create a function agent
+                // for support other parameters in future if possible
+                p_dtd.then((function(){
+                    return function(dtd) {
+                        if (dtd == null) {
+                            // must be something wrong
+                            app_hotpot.msg(
+                                'Something wrong with the dropped file, please check the schema format.', 
+                                'warning'
+                            );
+                            return;
+                        }
+                        // just set the dtd
+                        app_hotpot.set_dtd(dtd);
+                    }
+                })());
+            });
+        },
+        
+        on_drop_dropzone_ann: function(event) {
+            // prevent the default download event
+            event.preventDefault();
+            
+            if (!isFSA_API_OK) {
+                app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
+                return;
+            }
+
+            // get all items
+            let items = event.dataTransfer.items;
+            for (let i=0; i<items.length; i++) {
+                // get this item as a FileSystemHandle Object
+                // this could be used for saving the content back
+                let item = items[i].getAsFileSystemHandle();
+
+                // read this handle
+                item.then(function(fh) {
+                    if (fh.kind == 'file') {
+                        // so the item is a file
+                        app_hotpot.parse_ann_file_fh(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
+                    } else {
+                        // so item is a directory?
+                        app_hotpot.parse_ann_dir_fh(
+                            fh, 
+                            app_hotpot.vpp.$data.dtd
+                        );
+                    }
+                });
+            }
+        },
+
+        on_drop_filelist: function(event) {
+            // prevent the default download event
+            event.preventDefault();
+            const items = event.dataTransfer.items;
+            console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+            // first, set to loading status and init the values
+            this.reset_loading_anns_status();
+            this.is_loading_anns = true;
+            this.msg_loading_anns = 'Reading files ...';
+
+            var promise_files = fs_get_file_texts(
+                items,
+                function(fn) {
+                    if (app_hotpot.is_file_ext_txt(fn)) {
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_xml(fn)) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+            promise_files.then(function(files) {
+                app_hotpot.vpp.add_files_to_anns(files);
+            });
+        },
+
+        add_files_to_anns: function(files) {
+            // now we know how many files are droped
+            this.n_anns_droped = files.length;
+
+            // let's parse all files
+            var anns = [];
+            this.msg_loading_anns = 'Parsing files ...'
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                var ann = app_hotpot.parse_file2ann(
+                    file,
+                    this.dtd
+                );
+                
+                // it is possible that something wrong
+                if (ann == null) {
+                    this.n_anns_error += 1;
+                }
+
+                // ok, let's save this ann
+                anns[anns.length] = ann;
+                this.n_anns_loaded += 1;
+            }
+
+            // update the status
+            this.msg_loading_anns = 'Updating file list ...'
+
+            // last step! add to
+            this.add_anns(anns);
+            this.msg_loading_anns = 'Loaded all annotation files!'
+
+            this.is_loaded_anns = true;
+
+            setTimeout(
+                'app_hotpot.vpp.reset_loading_anns_status()', 
+                app_hotpot.seconds_before_closing_loading_anns_panel * 1000
+            );
+        },
+
+        add_ann: function(ann) {
+            // this.anns.push(ann);
+            this.anns[this.anns.length] = ann;
+            // update the hint_dict by this ann
+            ann_parser.add_ann_to_hint_dict(
+                ann,
+                this.hint_dict
+            );
+        },
+
+        add_anns: function(anns) {
+            for (let i = 0; i < anns.length; i++) {
+                this.add_ann(anns[i]);
+            }
+        },
+
+        reset_loading_anns_status: function() {
+            this.is_loading_anns = false;
+            this.is_loaded_anns = false;
+            this.msg_loading_anns = '';
+            this.n_anns_droped = 0;
+            this.n_anns_loaded = 0;
+            this.n_anns_error = 0;
+        },
+
+        goto_anns_page: function(new_pg_index) {
+            this.pg_index = new_pg_index;
+        },
+
         save_xml_by_ann: function(ann) {
             var idx = this.find_included(
                 ann._filename,
@@ -316,7 +576,6 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // "Save as" related functions
         /////////////////////////////////////////////////////////////////
-        
         save_as_xml: function() {
             // convert to xml
             var xmlDoc = ann_parser.ann2xml(
@@ -359,17 +618,18 @@ var app_hotpot = {
         },
 
         download_schema_as_dtd: function() {
-            if (this.dtd.hasOwnProperty('text')) {
-                // get the current file name
-                var fn = this.dtd.name + '.dtd';
+            // if (this.dtd.hasOwnProperty('text')) {
+            //     // get the current file name
+            //     var fn = this.dtd.name + '.dtd';
 
-                // download this dtd text
-                var blob = new Blob([this.dtd.text], {type: "text/txt;charset=utf-8"});
-                saveAs(blob, fn);
-            } else {
-                // what???
-                return;
-            }
+            //     // download this dtd text
+            //     var blob = new Blob([this.dtd.text], {type: "text/txt;charset=utf-8"});
+            //     saveAs(blob, fn);
+            // } else {
+            //     // what???
+            //     return;
+            // }
+            
         },
         
         download_copy_as_xml: function() {
@@ -423,7 +683,7 @@ var app_hotpot = {
         },
 
         /////////////////////////////////////////////////////////////////
-        // Show URL related functions
+        // Search related functions
         /////////////////////////////////////////////////////////////////
 
         show_search_bar: function() {
@@ -437,6 +697,10 @@ var app_hotpot = {
         clear_filter_box: function() {
             this.fn_pattern = '';
         },
+
+        /////////////////////////////////////////////////////////////////
+        // Help related functions
+        /////////////////////////////////////////////////////////////////
 
         show_wiki: function() {
             // app_hotpot.start_tour_annotation();
@@ -634,115 +898,70 @@ var app_hotpot = {
                 '] for test'
             );
         },
-
-        open_dtd_file: function() {
-            if (isFSA_API_OK) {
-                // the settings for dtd file
-                var pickerOpts = {
-                    types: [
-                        {
-                            description: 'DTD File',
-                            accept: {
-                                'text/dtd': ['.dtd']
-                            }
-                        },
-                    ],
-                    excludeAcceptAllOption: true,
-                    multiple: false
-                };
-
-                // get the file handles
-                var promise_fileHandles = fs_open_files(pickerOpts);
-
-                promise_fileHandles.then(function(fileHandles) {
-                    // read the fh and set dtd
-                    // in fact, there is only one file for this dtd
-                    for (let i = 0; i < fileHandles.length; i++) {
-                        const fh = fileHandles[i];
-                        if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
-                            app_hotpot.msg('Please select a .dtd file', 'warning');
-                            return;
-                        }
-
-                        // read the file
-                        var p_dtd = fs_read_dtd_file_handle(fh);
-
-                        p_dtd.then((function(){
-                            return function(dtd) {
-                                // just set the dtd
-                                app_hotpot.set_dtd(dtd);
-                            }
-                        })());
-                        
-                        // just one file
-                        break;
-                    }
-                });
-
-            } else {
-                console.log('* Not support FileSystemAccess API');
-            }
-            
-        },
         
-        open_ann_files: function() {
-            if (!isFSA_API_OK) {
-                console.log('* Not support FileSystemAccess API');
-                return;
-            }
+        // open_ann_files: function() {
+        //     if (!isFSA_API_OK) {
+        //         console.log('* Not support FileSystemAccess API');
+        //         return;
+        //     }
 
-            // the settings for annotation file
-            var pickerOpts = {
-                types: [
-                    {
-                        description: 'Annotation File',
-                        accept: {
-                            'text/xml': ['.xml', '.txt']
-                        }
-                    },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: true
-            };
+        //     // the settings for annotation file
+        //     var pickerOpts = {
+        //         types: [
+        //             {
+        //                 description: 'Annotation File',
+        //                 accept: {
+        //                     'text/xml': ['.xml', '.txt']
+        //                 }
+        //             },
+        //         ],
+        //         excludeAcceptAllOption: true,
+        //         multiple: true
+        //     };
 
-            // get the file handles
-            var promise_fileHandles = fs_open_files(pickerOpts);
+        //     // get the file handles
+        //     var promise_fileHandles = fs_open_files(pickerOpts);
 
-            promise_fileHandles.then(function(fileHandles) {
-                // bind the content
-                for (let i = 0; i < fileHandles.length; i++) {
-                    const fh = fileHandles[i];
+        //     promise_fileHandles.then(function(fileHandles) {
+        //         // bind the content
+        //         for (let i = 0; i < fileHandles.length; i++) {
+        //             const fh = fileHandles[i];
 
-                    if (fh.kind != 'file') {
-                        // skip directory or others
-                        continue;
-                    }
+        //             if (fh.kind != 'file') {
+        //                 // skip directory or others
+        //                 continue;
+        //             }
 
-                    // check exists
-                    if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                        // exists? skip this file
-                        app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                        continue;
-                    }
+        //             // check exists
+        //             if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
+        //                 // exists? skip this file
+        //                 app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
+        //                 continue;
+        //             }
 
-                    if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                        // parse this txt file
-                        app_hotpot.parse_ann_txt_file_fh(
-                            fh,
-                            app_hotpot.vpp.$data.dtd
-                        );
-                        continue;
-                    }
+        //             if (app_hotpot.is_file_ext(fh.name, 'txt')) {
+        //                 // parse this txt file
+        //                 app_hotpot.parse_ann_txt_file_fh(
+        //                     fh,
+        //                     app_hotpot.vpp.$data.dtd
+        //                 );
+        //                 continue;
+        //             }
                     
-                    // parse this ann fh
-                    app_hotpot.parse_ann_xml_file_fh(
-                        fh,
-                        app_hotpot.vpp.$data.dtd
-                    );
-                }
-            });
-        },
+        //             // parse this ann fh
+        //             app_hotpot.parse_ann_xml_file_fh(
+        //                 fh,
+        //                 app_hotpot.vpp.$data.dtd
+        //             );
+        //         }
+        //     });
+        // },
 
+
+        /////////////////////////////////////////////////////////////////
+        // Concept List related functions
+        /////////////////////////////////////////////////////////////////
+        
         update_tag_table: function(tag) {
             // update the display tag
             if (typeof(tag) == 'undefined') {
@@ -761,6 +980,10 @@ var app_hotpot = {
                 app_hotpot.cm_update_marks();
             }
         },
+
+        /////////////////////////////////////////////////////////////////
+        // File list related functions
+        /////////////////////////////////////////////////////////////////
 
         sort_filelist_by: function(sort_by) {
             this.sort_anns_by = sort_by;
@@ -786,22 +1009,36 @@ var app_hotpot = {
             }[sort_by];
         },
 
-        sort_v_anns: function(anns) {
+        get_sorted_v_anns: function() {
             var sort_by = this.get_sort_by();
+            var current_ann_idx = this.ann_idx;
+
+            const start = performance.now();
 
             // a virtual list of ann, just contain the file name
             // this is prepared for sorting only
             // because the sort is an in-place sort
             // we can't modify the order in the original anns
             var v_anns = [];
-            for (let i = 0; i < anns.length; i++) {
-                const ann = anns[i];
+            for (let i = 0; i < this.anns.length; i++) {
+                var ann = this.anns.at(i);
+
+                // add filter logic here
+                if (!this.is_match_filename(ann._filename)) {
+                    continue;
+                }
+
+                // add style logic here
+                var css_class = '';
+                if (i == current_ann_idx) {
+                    css_class = 'file-selected';
+                }
 
                 var ann_label = 'zunisha';
                 if (this.has_any_label(ann)) {
                     ann_label = ann.meta.label[0].color;
                 }
-                v_anns.push({
+                v_anns[v_anns.length] = {
                     // file name
                     _filename: ann._filename,
 
@@ -812,12 +1049,15 @@ var app_hotpot = {
                     label: ann_label,
 
                     // the true idx
-                    idx: i
-                });
+                    idx: i,
+
+                    // special style
+                    css_class: css_class
+                };
             }
 
             if (sort_by == 'default') {
-                return v_anns;
+                // OK, just default anns
 
             } else if (sort_by == 'alphabet') {
                 v_anns.sort(function(a, b) {
@@ -825,7 +1065,6 @@ var app_hotpot = {
                         b._filename
                     )
                 });
-                return v_anns;
 
             } else if (sort_by == 'alphabet_r') {
                 v_anns.sort(function(a, b) {
@@ -833,19 +1072,16 @@ var app_hotpot = {
                         b._filename
                     )
                 });
-                return v_anns;
                 
             } else if (sort_by == 'tags') {
                 v_anns.sort(function(a, b) {
                     return a.n_tags - b.n_tags
                 });
-                return v_anns;
 
             } else if (sort_by == 'tags_r') {
                 v_anns.sort(function(a, b) {
                     return b.n_tags - a.n_tags
                 });
-                return v_anns;
                 
             } else if (sort_by == 'label') {
                 // blue
@@ -858,7 +1094,6 @@ var app_hotpot = {
                         b.label
                     )
                 });
-                return v_anns;
 
             } else if (sort_by == 'label_r') {
                 v_anns.sort(function(a, b) {
@@ -866,11 +1101,14 @@ var app_hotpot = {
                         a.label
                     )
                 });
-                return v_anns;
 
             } else {
-                return v_anns;
+                // ???
             }
+
+            const duration = performance.now() - start;
+            console.log('* sorted v_anns in ' +  duration);
+            return v_anns;
         },
 
         set_current_ann: function(ann) {
@@ -925,7 +1163,7 @@ var app_hotpot = {
 
         show_ann_file: function(fn) {
             // first, find the ann_idx
-            var idx = this.fn2idx(fn);
+            var idx = this.find_included(fn, this.anns);
 
             if (idx < 0) {
                 // no such file
@@ -933,7 +1171,7 @@ var app_hotpot = {
                 return;
             }
 
-            // then switch to annotation
+            // then switch to annotation to ensure the UI logic
             this.switch_mui('annotation');
 
             // then show the idx
@@ -943,24 +1181,12 @@ var app_hotpot = {
             this.cm.is_expire = true;
         },
 
-        fn2idx: function(fn) {
-            for (let i = 0; i < this.anns.length; i++) {
-                if (this.anns[i]._filename == fn) {
-                    return i;
-                }                
-            }
-            return -1;
-        },
-
         remove_ann_file_by_ann: function(ann) {
             var idx = this.find_included(
                 ann._filename,
                 this.anns
             );
-            this.remove_ann_file(idx);
-        },
-
-        remove_ann_file: function(idx) {
+            
             // delete this first
             this.anns.splice(idx, 1);
 
@@ -994,7 +1220,14 @@ var app_hotpot = {
                     this.anns = [];
                 }
             }
+            // also remove the loading if any
+            this.reset_loading_anns_status();
         },
+
+
+        /////////////////////////////////////////////////////////////////
+        // Tag list related functions
+        /////////////////////////////////////////////////////////////////
 
         on_click_tag_table_row: function(tag) {
             if (!this.is_etag(tag)) {
@@ -1013,10 +1246,10 @@ var app_hotpot = {
                 tag, 
                 this.anns[this.ann_idx]
             );
-            // 2. highlight the tag
-            app_hotpot.highlight_editor_tag(tag.id);
+            // 2. highlight the tag in editor
+            app_hotpot.cm_highlight_editor_tag(tag.id);
 
-            // in the tag table, highlight
+            // 3. in the tag table, highlight the row
             app_hotpot.highlight_tag_table_row(tag.id);
         },
 
@@ -1039,13 +1272,14 @@ var app_hotpot = {
         },
 
         on_change_display_mode: function(event) {
-            console.log(event.target.value);
+            // console.log();
             // need to set ann again,
             // it will display according to the mode
             app_hotpot.cm_set_ann(
                 this.anns[this.ann_idx]
             );
             app_hotpot.cm_update_marks();
+            console.log('* changed display mode to ' + event.target.value);
         },
 
         on_change_mark_mode: function(event) {
@@ -1064,7 +1298,7 @@ var app_hotpot = {
 
         on_change_link_settings: function(event) {
             console.log(event.target.value);
-            // app_hotpot.cm_clear_ltag_marks();
+            // app_hotpot.cm_clear_rtag_marks();
 
             // have to update all marks ...
             app_hotpot.cm_update_marks();
@@ -1287,18 +1521,18 @@ var app_hotpot = {
             // ok, that's all?
         },
 
-        add_empty_ltag: function(ltag_def) {
-            var ltag = app_hotpot.make_empty_ltag_by_tag_def(ltag_def);
+        add_empty_rtag: function(rtag_def) {
+            var rtag = app_hotpot.make_empty_rtag_by_tag_def(rtag_def);
 
             // create an tag_id
             var tag_id = ann_parser.get_next_tag_id(
                 this.anns[this.ann_idx],
-                ltag_def
+                rtag_def
             );
-            ltag.id = tag_id;
+            rtag.id = tag_id;
 
             // add to list
-            this.anns[this.ann_idx].tags.push(ltag);
+            this.anns[this.ann_idx].tags.push(rtag);
 
             // mark _has_saved
             this.anns[this.ann_idx]._has_saved = false;
@@ -1306,9 +1540,9 @@ var app_hotpot = {
             // ok, that's all?
         },
 
-        del_tag: function(tag_id) {
+        delete_tag: function(tag_id) {
             // delete the clicked tag id
-            app_hotpot.del_tag(
+            app_hotpot.delete_tag(
                 tag_id, 
                 this.anns[this.ann_idx]
             );
@@ -1346,446 +1580,23 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Statistics related functions
         /////////////////////////////////////////////////////////////////
-
-        update_hint_dict: function() {
-            app_hotpot.update_hint_dict_by_anns();
-        },
-
-        download_stat_summary: function() {
-            var json = [];
-
-            var stat_items = stat_helper.get_stat_items(
-                this.anns,
-                this.dtd
-            );
-
-            for (let i = 0; i < stat_items.length; i++) {
-                const stat_item = stat_items[i];
-                json.push({
-                    item: stat_item[0],
-                    result: stat_item[1]
-                });
-            }
-
-            // then convert the json to csv
-            var csv = Papa.unparse(json, {
-            });
-
-            // download this csv
-            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            var fn = this.get_ruleset_base_name() + '-statistics.csv';
-            saveAs(blob, fn);
-        },
-
-        download_stat_details: function() {
-            // create each sheet 
-            // sheet 1. the summary
-            var ws_summary = stat_helper.get_stat_summary_excelws(
-                stat_helper.get_stat_items(
-                    this.anns,
-                    this.dtd
-                )
-            );
-
-            // sheet 2. the tags
-            var ws_docbtag = stat_helper.get_stat_docs_by_tags_excelws(
-                this.anns,
-                this.dtd
-            );
-
-            // create the wb for download
-            var wb = {
-                SheetNames: [
-                    "Summary",
-                    "Documents"
-                ],
-                Sheets: {
-                    Summary: ws_summary,
-                    Documents: ws_docbtag
-                }
-            };
-            console.log(wb);
-
-            // decide the file name for this export
-            var fn = this.dtd.name + '-annotation-statistics.xlsx';
-
-            // download this wb
-            XLSX.writeFile(wb, fn);
-        },
-
-        sort_text_dict_in_hint_dict: function(text_dict) {
-            var text_info_list = [];
-            for (const text in text_dict) {
-                if (Object.hasOwnProperty.call(text_dict, text)) {
-                    const dict = text_dict[text];
-                    text_info_list.push({
-                        text: text,
-                        // that's what we want to sort
-                        count: dict.count
-                    });
-                }
-            }
-
-            // sort desc
-            text_info_list.sort(function(a, b) {
-                return b.count - a.count;
-            });
-
-            return text_info_list;
-        },
-
-        reset_stat_filters: function() {
-            // reset stat_filter_min_tokens
-            this.stat_filter_min_tokens = 0;
-        },
-
-        count_texts_by_stat_fileter: function(tag_def) {
-            var cnt = 0;
-            
-            for (const text in this.hint_dict[tag_def.name].text_dict) {
-                // count each text
-                if (this.stat_filter_min_tokens == 0 || this.hint_dict[tag_def.name].text_dict[text].count <= this.stat_filter_min_tokens) {
-                    cnt += 1;
-                }
-            }
-            return cnt;
-        },
-
-        on_change_stat_filters: function() {
-
-        },
+        // see app_hotpot_ext_statistics.js
         
-        /////////////////////////////////////////////////////////////////
-        // Corpus menu related functions
-        /////////////////////////////////////////////////////////////////
-
-        clear_corpus_all: function() {
-            this.txt_anns = [];
-            this.txt_xmls = [];
-        },
-
-        open_txt_files: function() {
-            // the settings for raw text file
-            var pickerOpts = {
-                types: [
-                    {
-                        description: 'Raw Text File',
-                        accept: {
-                            'text/txt': ['.txt']
-                        }
-                    },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: true
-            };
-
-            // get the file handles
-            var promise_fileHandles = fs_open_files(pickerOpts);
-
-            promise_fileHandles.then(function(fileHandles) {
-                // bind the content
-                for (let i = 0; i < fileHandles.length; i++) {
-                    const fh = fileHandles[i];
-
-                    // check exists
-                    if (app_hotpot.vpp.has_included_txt_ann_file(fh.name)) {
-                        // exists? skip this file
-                        return;
-                    }
-                    
-                    // read the file
-                    var p_txt_ann = fs_read_txt_file_handle(
-                        fh,
-                        app_hotpot.vpp.$data.dtd
-                    );
-                    p_txt_ann.then(function(txt_ann) {
-                        // now check the sentence split
-                        // just use the simplest
-                        var r = nlp_toolkit.sent_tokenize(
-                            txt_ann.text,
-                            app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-                        );
-                        txt_ann._sentences = r.sentences;
-                        txt_ann._sentences_text = r.sentences_text;
-
-                        // add this ann
-                        app_hotpot.vpp.add_txt(txt_ann);
-                    });
-                    
-                }
-            });
-        },
-
-        add_txt: function(txt_ann) {
-            // update the dtd name here
-            txt_ann.dtd_name = this.dtd.name;
-    
-            // put this to the list
-            this.txt_anns.push(txt_ann);
-        },
-
-        add_sample_txt_as_ann: function(text) {
-
-            // first, create an ann
-            var ann = ann_parser.txt2ann(text, this.dtd);
-
-            // bind the fh
-            ann._fh = null;
-
-            // bind the filename seperately
-            ann._filename = 'sample-'+
-                (Math.random() + 1).toString(36).substring(7)+
-                '.xml';
-
-            // bind a status
-            ann._has_saved = true;
-
-            // bind the sentences variable
-            ann._sentences = null;
-            ann._sentences_text = null;
-
-            // sentencize
-            var r = nlp_toolkit.sent_tokenize(
-                ann.text,
-                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-            );
-            ann._sentences = r.sentences;
-            ann._sentences_text = r.sentences_text;
-
-            // add this ann
-            app_hotpot.add_ann(ann);
-            
-            return ann;
-        },
-
-        convert_txt_anns_to_xmls: function() {
-            // clear the current txt_xmls
-            this.txt_xmls = [];
-
-            for (let i = 0; i < this.txt_anns.length; i++) {
-                const txt_ann = this.txt_anns[i];
-                
-                // create new filename
-                var fn = txt_ann._filename;
-
-                // get the xml string
-                var xml = ann_parser.ann2xml(txt_ann, this.dtd);
-                var str = ann_parser.xml2str(xml);
-
-                // create an object for display
-                var txt_xml = {
-                    fn: fn,
-                    text: str
-                };
-
-                this.txt_xmls.push(txt_xml);
-            }
-        },
-
-        get_new_xml_filename: function(fn, ext='.xml') {
-            var prefix = this.txt_xml_prefix.trim();
-            var suffix = this.txt_xml_suffix.trim();
-            var new_fn = fn;
-
-            // add prefix
-            if (prefix == '') {
-                // nothing to do
-            } else {
-                new_fn = prefix + '_' + new_fn;
-            }
-
-            // add suffix
-            if (suffix == '') {
-                // nothing to do
-                new_fn = new_fn + ext;
-            } else {
-                new_fn = new_fn + '_' + suffix + ext;
-            }
-
-            return new_fn;
-        },
-
-        get_new_xmls_zipfile_folder_name: function() {
-            var fn = this.dtd.name + '-' + this.txt_anns.length;
-            fn = this.get_new_xml_filename(fn, '');
-            return fn + '-xmls';
-        },
-
-        download_txt_xml: function(txt_ann_idx) {
-            var txt_xml = this.txt_xmls[txt_ann_idx];
-            var fn = this.get_new_xml_filename(txt_xml.fn);
-            var blob = new Blob([txt_xml.text], {type: "text/xml;charset=utf-8"});
-            saveAs(blob, fn);
-        },
-
-        download_txt_xmls_as_zip: function() {
-            // create an empty zip pack
-            var zip = new JSZip();
-            var folder_name = this.get_new_xmls_zipfile_folder_name();
-
-            // add files to zip pack
-            for (let i = 0; i < this.txt_xmls.length; i++) {
-                const txt_xml = this.txt_xmls[i];
-                var fn = this.get_new_xml_filename(txt_xml.fn);
-                var ffn = folder_name + '/' + fn;
-
-                // add to zip
-                zip.file(ffn, txt_xml.text);
-                
-                console.log('* added xml file ' + fn);
-            }
-
-            // create zip file
-            zip.generateAsync({ type: "blob" }).then(function (content) {
-                saveAs(content, app_hotpot.vpp.get_new_xmls_zipfile_folder_name() + '.zip');
-            });
-        },
 
         /////////////////////////////////////////////////////////////////
         // IAA Related
         /////////////////////////////////////////////////////////////////
         // see app_hotpot_ext_iaa.js
 
-        /////////////////////////////////////////////////////////////////
-        // Ruleset Related
-        /////////////////////////////////////////////////////////////////
-
-        get_ruleset_base_name: function() {
-            var fn = this.dtd.name + '-' + this.anns.length;
-            return fn;
-        },
-
-        download_text_tsv: function() {
-            var fn = this.get_ruleset_base_name() + '_text.tsv';
-            var txt_tsv = nlp_toolkit.download_text_tsv(
-                this.anns,
-                this.dtd,
-                this.hint_dict,
-                fn
-            );
-
-            // update the text
-            this.export_text = txt_tsv;
-        },
-
-        download_text_sent_tsv: function() {
-            var fn = this.get_ruleset_base_name() + '_text_sentence.tsv';
-            
-            // convert the hint dict to a json obj
-            var json = [];
-
-            for (let i = 0; i < this.anns.length; i++) {
-                const ann = this.anns[i];
-                for (let j = 0; j < ann.tags.length; j++) {
-                    const tag = ann.tags[j];
-                    // now mapping the span to token index
-                    if (!tag.hasOwnProperty('spans')) {
-                        // this is not an entity tag
-                        continue;
-                    }
-                    // there maybe multiple spans
-                    // var spans = tag.spans.split(',');
-                    var locs = ann_parser.spans2locs(tag.spans);
-
-                    for (let k = 0; k < locs.length; k++) {
-                        // const _span = spans[k];
-                        // const span = nlp_toolkit.txt2span(_span);
-                        const span = locs[k];
-                        if (span[0] == -1 || span[1] == -1) {
-                            // which means this tag is just a non-consuming tag
-                            // at present, we won't use this kind of tag 
-                            continue;
-                        }
-
-                        // find the offset in a sentence
-                        var loc0 = nlp_toolkit.find_linech(
-                            span[0], 
-                            ann._sentences
-                        );
-                        if (loc0 == null) {
-                            // something wrong?
-                            continue;
-                        }
-                        // find the location for the right part
-                        // var loc1 = this.find_linech(span[1], ann._sentences);
-                        var loc1 = Object.assign({}, loc0);
-                        loc1.ch += (span[1] - span[0]);
-
-                        // create a new row/item in the output data
-                        json.push({
-                            concept: tag.tag,
-                            text: tag.text,
-                            doc_span: span,
-                            sen_span: [
-                                loc0.ch,
-                                loc1.ch
-                            ],
-                            document: ann._filename,
-                            sentence: ann._sentences[loc0.line].text
-                        });
-                    }
-                }
-            }
-
-            // then convert the json to csv
-            var csv = Papa.unparse(json, {
-                delimiter: '\t'
-            });
-
-            // update the text
-            this.export_text = csv;
-
-            // download this csv
-            var blob = new Blob([csv], {type: "text/tsv;charset=utf-8"});
-            saveAs(blob, fn);
-        },
-
-        download_dataset_iob2: function() {
-            var txt_dataset = nlp_toolkit.download_dataset_bio(
-                this.anns,
-                this.dtd,
-                'dataset-' + this.get_ruleset_base_name() + '-BIO.zip'
-            );
-
-            // update the text
-            this.export_text = txt_dataset;
-        },
-
-        download_dataset_bioc: function() {
-            var txt_dataset = bioc_parser.download_dataset_bioc(
-                this.anns,
-                this.dtd,
-                'dataset-' + this.get_ruleset_base_name() + '-BioC.xml'
-            );
-
-            // update the text
-            this.export_text = txt_dataset;
-        },
-
-        download_ruleset_medtagger_zip: function() {
-            var rulepack = erp_toolkit.download_anns_as_zip(
-                this.anns,
-                this.dtd,
-                'ruleset-medtagger-' + this.get_ruleset_base_name() + '.zip'
-            );
-
-            // update the text
-            this.export_text = "Please unzip the file and check details";
-        },
-
-        download_ruleset_spacy_jsonl: function() {
-            var text = spacy_toolkit.download_anns_as_jsonl(
-                this.anns,
-                this.dtd,
-                'ruleset-spacy-' + this.get_ruleset_base_name() + '.jsonl'
-            );
-
-            // update the text
-            this.export_text = text;
-        },
 
         /////////////////////////////////////////////////////////////////
-        // Menu Related
+        // Exporter Related
+        /////////////////////////////////////////////////////////////////
+        // see app_hotpot_ext_exporter.js
+
+
+        /////////////////////////////////////////////////////////////////
+        // Context Menu Related
         /////////////////////////////////////////////////////////////////
         get_nc_etags: function() {
             var nc_etags = [];
@@ -1800,21 +1611,6 @@ var app_hotpot = {
                 }
             }
             return nc_etags;
-        },
-
-        switch_mui: function(section) {
-            console.log('* switch to section', section);
-            this.section = section;
-
-            if (section == 'annotation') {
-                // refresh the code mirror
-                this.set_ann_idx(this.ann_idx);
-
-                // trick for cm late update
-                this.cm.is_expire = true;
-            }
-
-            app_hotpot.resize();
         },
 
         close_ctxmenu: function() {
@@ -1851,7 +1647,7 @@ var app_hotpot = {
             app_hotpot.highlight_tag_table_row(tag_id);
 
             // then highlight this item in editor
-            app_hotpot.highlight_editor_tag(tag_id);
+            app_hotpot.cm_highlight_editor_tag(tag_id);
         },
 
         on_enter_tag: function(event) {
@@ -1875,8 +1671,9 @@ var app_hotpot = {
 
         popmenu_del_tag: function() {
             // delete the clicked tag id
-            app_hotpot.del_tag(
-                this.clicked_tag_id, this.anns[this.ann_idx]
+            app_hotpot.delete_tag(
+                this.clicked_tag_id, 
+                this.anns[this.ann_idx]
             );
 
             // hide the menu 
@@ -1886,22 +1683,22 @@ var app_hotpot = {
             this.clicked_tag_id = null;
         },
 
-        popmenu_start_linking: function(ltag_def) {
+        popmenu_start_linking: function(rtag_def) {
             // first, set the working mode
             this.is_linking = true;
 
             // set the linking tag_def
-            this.linking_tag_def = ltag_def;
+            this.linking_tag_def = rtag_def;
 
-            // create a ltag
-            this.linking_tag = app_hotpot.make_empty_ltag_by_tag_def(ltag_def);
+            // create a rtag
+            this.linking_tag = app_hotpot.make_empty_rtag_by_tag_def(rtag_def);
 
-            // then get the linking atts for this ltag
-            // this list contains all atts for this ltag
+            // then get the linking atts for this rtag
+            // this list contains all atts for this rtag
             // and during the linking, we will remove those linked att out
-            this.linking_atts = this.get_idref_attlists(ltag_def);
+            this.linking_atts = this.get_idref_attrs(rtag_def);
 
-            // let's set the first idref attlist
+            // let's set the first idref attr
             // pop the first att from atts
             var att = this.linking_atts[0];
             this.linking_atts.splice(0, 1)
@@ -1909,7 +1706,7 @@ var app_hotpot = {
             
             // maybe we could show a float panel
             // for showing the current annotation
-            console.log('* start linking', ltag_def.name, 
+            console.log('* start linking', rtag_def.name, 
                 'on attr [', att.name,
                 '] =', this.clicked_tag_id
             );
@@ -1942,7 +1739,7 @@ var app_hotpot = {
                 this.anns[this.ann_idx]._has_saved = false;
 
                 // then, we could show this new link in cm
-                app_hotpot.cm_draw_ltag(
+                app_hotpot.cm_draw_rtag(
                     this.linking_tag,
                     this.linking_tag_def,
                     this.anns[this.ann_idx]
@@ -1970,7 +1767,7 @@ var app_hotpot = {
             this.anns[this.ann_idx]._has_saved = false;
 
             // then, we could show this new link in cm
-            app_hotpot.cm_draw_ltag(
+            app_hotpot.cm_draw_rtag(
                 this.linking_tag,
                 this.linking_tag_def,
                 this.anns[this.ann_idx]
@@ -2015,6 +1812,45 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Other utils
         /////////////////////////////////////////////////////////////////
+
+        switch_mui: function(section) {
+            console.log('* switch to section', section);
+            this.section = section;
+
+            if (section == 'annotation') {
+                // refresh the code mirror
+                this.set_ann_idx(this.ann_idx);
+
+                // trick for cm late update
+                this.cm.is_expire = true;
+
+                // bind drop zone for dtd
+                // app_hotpot.bind_dropzone_dtd();
+
+                // bind drop zone for annotation xml/txt files
+                // app_hotpot.bind_dropzone_ann();
+
+                // bind global click event for annotation
+                app_hotpot.bind_click_event();
+
+                // bind global key event for annotation
+                app_hotpot.bind_keypress_event();
+
+                // resize?
+                app_hotpot.resize();
+
+            } else if (section == 'iaa') {
+
+                // bind drop zone for anns
+                app_hotpot.bind_dropzone_iaa();
+
+            } else if (section == 'corpus') {
+                // need something?
+
+            }
+
+        },
+
         make_html_bold_tag_name: function(tag) {
             var html = '<span class="tag-list-row-name-id-prefix">' + tag.id_prefix + '</span>';
             var name = tag.name;
@@ -2052,11 +1888,10 @@ var app_hotpot = {
         },
 
         is_match_filename: function(fn) {
-            let p = this.fn_pattern.trim();
-            if (p == '') {
+            if (this.fn_pattern == '') {
                 return true;
             }
-            if (fn.lastIndexOf(p) >= 0) {
+            if (fn.lastIndexOf(this.fn_pattern) >= 0) {
                 return true;
             } else {
                 return false;
@@ -2074,6 +1909,7 @@ var app_hotpot = {
         },
 
         has_included: function(fn, anns) {
+            // return false;
             for (let i = 0; i < anns.length; i++) {
                 if (anns[i]._filename == fn) {
                     return true;
@@ -2088,17 +1924,18 @@ var app_hotpot = {
         },
 
         get_new_ann_fn_by_txt_fn: function(txt_fn) {
-            var new_fn = txt_fn + '.xml';
-            var i = 1;
-            while (true) {
-                if (this.has_included_ann_file(new_fn)) {
-                    new_fn = txt_fn + '_' + i + '.xml';
-                    i += 1;
-                } else {
-                    break;
-                }
-            }
-            return new_fn;
+            // var new_fn = txt_fn + '.xml';
+            // var i = 1;
+            // while (true) {
+            //     if (this.has_included_ann_file(new_fn)) {
+            //         new_fn = txt_fn + '_' + i + '.xml';
+            //         i += 1;
+            //     } else {
+            //         break;
+            //     }
+            // }
+            // return new_fn;
+            return app_hotpot.get_new_ann_fn_by_txt_fn(txt_fn);
         },
 
         has_included_txt_ann_file: function(fn) {
@@ -2207,29 +2044,29 @@ var app_hotpot = {
             }
         },
 
-        get_idref_attlist_by_seq: function(ltag_def, seq=0) {
+        get_idref_attr_by_seq: function(rtag_def, seq=0) {
             var cnt = -1;
-            for (let i = 0; i < ltag_def.attlists.length; i++) {
-                if (ltag_def.attlists[i].vtype == 'idref') {
+            for (let i = 0; i < rtag_def.attrs.length; i++) {
+                if (rtag_def.attrs[i].vtype == 'idref') {
                     cnt += 1;
                     if (cnt == seq) {
-                        // great! we get the attlist we want
-                        return ltag_def.attlists[i];
+                        // great! we get the attr we want
+                        return rtag_def.attrs[i];
                     }
                 }
             }
             return null;
         },
 
-        get_idref_attlists: function(ltag_def) {
-            var attlists = [];
-            for (let i = 0; i < ltag_def.attlists.length; i++) {
-                const att = ltag_def.attlists[i];
+        get_idref_attrs: function(rtag_def) {
+            var attrs = [];
+            for (let i = 0; i < rtag_def.attrs.length; i++) {
+                const att = rtag_def.attrs[i];
                 if (att.vtype == 'idref') {
-                    attlists.push(att);
+                    attrs.push(att);
                 }
             }
-            return attlists;
+            return attrs;
         },
 
         to_fixed: function(v) {
@@ -2371,7 +2208,7 @@ var app_hotpot = {
          */
         is_tag_related_to_tag_name: function(tag, tag_names, ann) {
             // find the 
-            var related_tags = ann_parser.get_linked_ltags(
+            var related_tags = ann_parser.get_linked_rtags(
                 tag.id,
                 ann
             );
@@ -2445,6 +2282,101 @@ var app_hotpot = {
 
         get_datetime_now: function() {
             return dayjs().format('YYYY-MM-DD_HH.mm.ss');
+        },
+
+        get_n_pages_by_total: function(total) {
+            return Math.ceil(total / this.pg_numpp);
+        },
+
+        get_pages_by_total: function(total) {
+            return [...Array(this.get_n_pages_by_total(total)).keys()];
+        }
+    },
+
+    vpp_computed: {
+        pages_of_anns_total: function() {
+            return Math.ceil(this.anns.length / this.pg_numpp);
+        },
+
+        pages_of_anns: function() {
+            return [...Array(Math.ceil(this.anns.length / this.pg_numpp)).keys()];
+        },
+
+        virtual_anns: function() {
+            if (this.section == 'annotation') {
+                var v_anns = this.get_sorted_v_anns();
+                var v_anns_paged = v_anns;
+                // get the page of current
+                if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {
+                    v_anns_paged = v_anns.slice(
+                        this.pg_index * this.pg_numpp,
+                        (this.pg_index + 1) * this.pg_numpp
+                    );
+                }
+
+                return {
+                    v_anns: v_anns,
+                    v_anns_paged: v_anns_paged
+                };
+                
+            } else {
+                return {
+                    v_anns: [],
+                    v_anns_paged: []
+                };
+            }
+        },
+
+        stat_docs_by_tags: function() {
+            if (this.section == 'statistics') {
+                return stat_helper.get_stat_docs_by_tags_json(
+                    this.anns,
+                    this.dtd
+                );
+            } else {
+                // don't update if not in stat section
+                return stat_helper.get_stat_docs_by_tags_json(
+                    [],
+                    this.dtd
+                );
+            }
+        },
+
+        stat_summary: function() {
+            if (this.section == 'statistics') {
+                return stat_helper.get_stat_items(
+                    this.anns,
+                    this.dtd
+                );
+            } else {
+                // don't update if not in stat section
+                return [];
+            }
+        },
+
+        stat_doc_sum_selected_tags: function() {
+            if (this.section == 'statistics') {
+                if (this.display_stat_doc_sum_selected == null) {
+                    return null;
+                }
+                // find this ann
+                var ann_idx = this.find_included(
+                    this.display_stat_doc_sum_selected.file_name,
+                    this.anns
+                );
+
+                // find the tags
+                var tags = this.get_tags_by_tag_name(
+                    this.anns[ann_idx],
+                    this.display_stat_doc_sum_selected.tag_name
+                );
+
+                // last is just update tags
+                return tags;
+            } else {
+                // don't update if not in stat section
+                return [];
+            }
         }
     },
 
@@ -2464,6 +2396,59 @@ var app_hotpot = {
     // the popup menu for tag
     popmenu_tag: null,
 
+    // interval update
+    interval_force_update: null,
+    // the seconds for interval
+    interval_force_update_duration: 1,
+
+    start_interval_force_update: function() {
+        if (this.interval_force_update != null) {
+            // which means it is already started
+            return;
+        }
+        // start !
+        app_hotpot.interval_force_update = setTimeout(
+            "app_hotpot.exec_interval_force_update()", 
+            app_hotpot.interval_force_update_duration * 1000
+        );
+        console.log('* started auto interval force update')
+    },
+
+    exec_interval_force_update: function() {
+        if (app_hotpot.n_anns == app_hotpot.vpp.$data.anns.length) {
+            if (app_hotpot.cnt_no_more_anns >= 3) {
+                // ok, nothing to do now
+                // let's stop the interval
+                app_hotpot.cnt_no_more_anns = 0;
+                app_hotpot.interval_force_update = null;
+                console.log('* cleared auto interval force update');
+
+            } else {
+                // just double check later
+                app_hotpot.cnt_no_more_anns += 1;
+            }
+        } else {
+            // force update
+            app_hotpot.n_anns = app_hotpot.vpp.$data.anns.length;
+            app_hotpot.vpp.$forceUpdate();
+            console.log('* force-updated app_hotpot vpp!');
+        }
+
+        if (app_hotpot.interval_force_update == null) {
+            // that's great!
+            // no need to check later
+        } else {
+            app_hotpot.interval_force_update = setTimeout(
+                "app_hotpot.exec_interval_force_update()", 
+                app_hotpot.interval_force_update_duration * 1000
+            );
+            console.log(
+                '* scheduled interval force update in ' + 
+                app_hotpot.interval_force_update_duration + ' second(s).'
+            );
+        }
+    },
+
     init: function() {
         this.vpp = new Vue({
             el: this.vpp_id,
@@ -2474,41 +2459,7 @@ var app_hotpot = {
                 Metro.init();
             },
 
-            computed: {
-                stat_docs_by_tags: function() {
-                    return stat_helper.get_stat_docs_by_tags_json(
-                        this.anns,
-                        this.dtd
-                    );
-                },
-
-                stat_summary: function() {
-                    return stat_helper.get_stat_items(
-                        this.anns,
-                        this.dtd
-                    );
-                },
-
-                stat_doc_sum_selected_tags: function() {
-                    if (this.display_stat_doc_sum_selected == null) {
-                        return null;
-                    }
-                    // find this ann
-                    var ann_idx = this.find_included(
-                        this.display_stat_doc_sum_selected.file_name,
-                        this.anns
-                    );
-
-                    // find the tags
-                    var tags = this.get_tags_by_tag_name(
-                        this.anns[ann_idx],
-                        this.display_stat_doc_sum_selected.tag_name
-                    );
-
-                    // last is just update tags
-                    return tags;
-                }
-            },
+            computed: this.vpp_computed,
 
             updated: function() {
                 this.$nextTick(function () {
@@ -2525,55 +2476,13 @@ var app_hotpot = {
         });
 
         // the code mirror
-        this.init_codemirror();
+        this.cm_init();
 
         // the global event
         this.bind_events();
 
         // set the resize
         this.resize();
-    },
-
-    init_codemirror: function() {
-        // init the code mirror instance
-        this.codemirror = CodeMirror(
-            document.getElementById('cm_editor'), {
-                lineNumbers: true,
-                lineWrapping: true,
-                readOnly: true,
-                // readOnly: 'nocursor',
-                // styleActiveLine: true,
-                extraKeys: {"Alt-F": "find"}
-            }
-        );
-
-        this.codemirror.on('contextmenu', function(inst, evt) {
-            evt.preventDefault();
-
-            // update the selection texts
-            var selection = app_hotpot.cm_get_selection(inst);
-            if (selection.sel_txts == '') {
-                // if there is/are non-consuming tags
-                // which makes it a document-level annotation
-                // show the menu here
-                if (app_hotpot.vpp.get_nc_etags().length>0) {
-                    // show
-                    var mouseX = evt.clientX;
-                    var mouseY = evt.clientY;
-                    app_hotpot.show_nce_ctxmenu(mouseX, mouseY);
-                    return;
-
-                } else {
-                    // nothing selected and there is no NC etag
-                    return;
-                }
-
-            }
-            // show the menu
-            var mouseX = evt.clientX;
-            var mouseY = evt.clientY;
-            app_hotpot.show_tag_ctxmenu(mouseX, mouseY);
-        });
     },
 
     /**
@@ -2605,12 +2514,9 @@ var app_hotpot = {
     },
 
     clear_ann_all: function() {
-        this.txt_anns = [];
-        this.txt_xmls = [];
-
+        // clean all annotations and related data
         this.anns = [];
         this.ann_idx = null;
-
         this.hint_dict = {};
     },
 
@@ -2622,29 +2528,72 @@ var app_hotpot = {
 
     add_ann: function(ann, is_switch_to_this_ann) {
         // check the schema first
-        if (ann.dtd_name != this.vpp.$data.dtd.name) {
-            console.log('* skip unmatched ann', ann);
-            app_hotpot.msg('Skipped unmatched file ' + ann._filename, 'warning');
-            return;
-        }
+        // if (ann.dtd_name != this.vpp.$data.dtd.name) {
+        //     console.log('* skip unmatched ann', ann);
+        //     app_hotpot.msg('Skipped unmatched file ' + ann._filename, 'warning');
+        //     return;
+        // }
 
-        this.vpp.$data.anns.push(ann);
+        /**
+         * 2022-07-13: performance issue when large dataset
+         * 
+         * When there are just a few files (<500),
+         * .push() can handle smoothly and the file count
+         * can be updataed instantly without intervention.
+         * But when the number of files increase,
+         * the loading will take extremely long time.
+         * 
+         * After debugging, there are mainly three reasons:
+         * 
+         * 1. `anns.push(ann)` takes very long time.
+         * it seems the .push() method runs much slower while size increases.
+         * the only way I know is to change to `anns[anns.length] = ann`
+         * 
+         * 2. `$forceUpdate()` or automatic refresh.
+         * When the data in Vue app is changed, 
+         * the binded UI will also be redrawn.
+         * But as the number of files increase, 
+         * the relevent calculation needs more time, 
+         * and most of the calcuation is redundant.
+         * 
+         * 3. `update_hint_dict_by_anns()` batch update.
+         * To get the statistics on the anns,
+         * this function is called whenever anns changes.
+         * But in fact, it's not necessary at all (I think).
+         * If the user doesn't want to use hint,
+         * or only a few things are updated,
+         * it's not necessary to update the whole dictionary from all anns.
+         * 
+         * To address these issues ...
+         * 
+         * Pagination!
+         */
+        if (this.vpp.$data.anns.length < this.n_anns_small_project) {
+            this.vpp.$data.anns.push(ann);
+        } else {
+            this.vpp.$data.anns[
+                this.vpp.$data.anns.length
+            ] = ann;
+            // this.start_interval_force_update();
+        }
 
         // update hint_dict when add new ann file
-        this.update_hint_dict_by_anns();
+        this.update_hint_dict_by_ann(ann);
 
-        if (is_switch_to_this_ann || this.vpp.$data.anns.length == 1) {
-            this.vpp.$data.ann_idx = this.vpp.$data.anns.length - 1;
+        // if (is_switch_to_this_ann || this.vpp.$data.anns.length == 1) {
+        //     this.vpp.$data.ann_idx = this.vpp.$data.anns.length - 1;
 
-            // update the text display
-            this.cm_set_ann(
-                this.vpp.$data.anns[this.vpp.$data.ann_idx]
-            );
+        //     // update the text display
+        //     this.cm_set_ann(
+        //         this.vpp.$data.anns[this.vpp.$data.ann_idx]
+        //     );
     
-            // update the marks
-            this.cm_update_marks();
-        }
-        console.log("* added ann", ann);
+        //     // update the marks
+        //     this.cm_update_marks();
+        // }
+
+        // this.vpp.$forceUpdate();
+        // console.log("* added ann", ann._filename);
     },
 
     /////////////////////////////////////////////////////////////////
@@ -2652,28 +2601,22 @@ var app_hotpot = {
     /////////////////////////////////////////////////////////////////
 
     bind_events: function() {
+        // init bind for annotation
+
         // bind drop zone for dtd
-        this.bind_dropzone_dtd();
+        // this.bind_dropzone_dtd();
 
         // bind drop zone for annotation xml/txt files
-        this.bind_dropzone_ann();
+        // this.bind_dropzone_ann();
 
-        // bind drop zone for batch import text file
-        // this.bind_dropzone_txt();
-
-        // bind drop zone for converter
-        this.bind_dropzone_converter_medtagger_txt();
-        this.bind_dropzone_converter_medtagger_ann();
-
-        // bind drop zone for anns
-        this.bind_dropzone_iaa();
-
-        // bind global click event
+        // bind global click event for annotation
         this.bind_click_event();
 
-        // bind global key event
+        // bind global key event for annotation
         this.bind_keypress_event();
 
+
+        // global bind
         // bind the closing event
         this.bind_unload_event();
     },
@@ -2751,367 +2694,64 @@ var app_hotpot = {
         });
     },
 
-    bind_dropzone_dtd: function() {
-        let dropzone = document.getElementById("dropzone_dtd");
-
-        dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        dropzone.addEventListener("drop", function(event) {
-            // prevent the default download event
-            event.preventDefault();
-            let items = event.dataTransfer.items;
-        
-            // user should only upload one folder or a file
-            if (items.length>1) {
-                console.log('* selected more than 1 item!');
-                app_hotpot.msg('Please just drop only one .dtd file', 'warning');
-                return;
-            }
-            // console.log('* found dropped items', items);
-
-            if (isFSA_API_OK) {
-                // use FSA API to access
-                let item = items[0].getAsFileSystemHandle();
-                console.log('* using FSA API to load item as dtd');
-
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind != 'file') { return null; }
-
-                    if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
-                        app_hotpot.msg('Please drop a .dtd file', 'warning');
-                        return;
-                    }
-
-                    // get the text content
-                    var p_dtd = fs_read_dtd_file_handle(fh);
-
-                    // handle the response
-                    // we just create a function agent
-                    // for support other parameters in future if possible
-                    p_dtd.then((function(){
-                        return function(dtd) {
-                            // just set the dtd
-                            app_hotpot.set_dtd(dtd);
-                        }
-                    })());
-                });
-
-            } else {
-                // if there is not FSA_API, just use default API
-                let item = items[0].webkitGetAsEntry();
-                console.log('* using webkit Entry API to load item as dtd', item);
-        
-                if (item) {
-                    // ok, user select a folder ???
-                    if (item.isDirectory) {
-                        // show something?
-
-                    } else {
-                        // should be a dtd file
-                        console.log('* dropped a dtd file', item);
-
-                        // so item is a fileEntry
-                        app_hotpot.parse_dtd_file_entry(item);
-                    }
-                } else {
-                    console.log('* something wrong with dtd item', item);
-                }
-            }
-
-            // for (let i=0; i<items.length; i++) {
-            //     let item = items[i].webkitGetAsEntry();
-        
-            //     if (item) {
-            //         // ok, user select a folder ???
-            //         if (item.isDirectory) {
-            //             // show something?
-
-            //         } else {
-            //             // should be a dtd file
-            //             // so item is a fileEntry
-            //             app_hotpot.parse_dtd_file_entry(item);
-            //         }
-            //     }
-
-            //     // just detect one item, folder or zip
-            //     break;
-            // }
-
-        }, false);
-    },
-
-    bind_dropzone_ann: function() {
-        // bind basic dropzone in the top
-        let dropzone = document.getElementById("dropzone_ann");
-        dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        dropzone.addEventListener(
-            "drop", 
-            app_hotpot.on_drop_dropzone_ann, 
-            false
-        );
-
-        // bind second dropzone
-        let filelist_dropzone = document.getElementById('mui_filelist');
-        filelist_dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        filelist_dropzone.addEventListener(
-            "drop", 
-            app_hotpot.on_drop_dropzone_ann, 
-            false
-        );
-    },
-
-    on_drop_dropzone_ann: function(event) {
-        // prevent the default download event
-        event.preventDefault();
-        
-        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
-            return;
-        }
-
-        let items = event.dataTransfer.items;
-        for (let i=0; i<items.length; i++) {
-            if (isFSA_API_OK) {
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
-
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        app_hotpot.parse_ann_file_fh(
-                            fh, 
-                            app_hotpot.vpp.$data.dtd
-                        );
-
-                        // // show something if this file exists
-                        // // check if this file name exists
-                        // if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-                        //     // exists? skip this file
-                        //     app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-                        //     return;
-                        // }
-
-                        // // if drop a txt!
-                        // if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-                        //     // parse this txt file
-                        //     app_hotpot.parse_ann_txt_file_fh(
-                        //         fh,
-                        //         app_hotpot.vpp.$data.dtd
-                        //     );
-                        //     return;
-                        // }
-
-                        // // should be a ann txt/xml file
-                        // app_hotpot.parse_ann_xml_file_fh(
-                        //     fh,
-                        //     app_hotpot.vpp.$data.dtd
-                        // );
-
-                    } else {
-                        // so item is a directory?
-                        // console.log(fh);
-                        
-                        fs_read_ann_dir_handle(
-                            fh, 
-                            app_hotpot.vpp.$data.dtd
-                        );
-
-                        // p_ents.then(function(ents) {
-                        //     console.log('* ents:', ents);
-                        //     // ents.forEach(function(item, index, array) {
-                        //     //     console.log(item, index)
-                        //     //   });
-                        //     for (let i = 0; i < ents.length; i++) {
-                        //         const ent = ents[i];
-                        //         console.log(i, ent);
-                        //     }
-                        // });
-                    }
-                });
-            } else {
-                // just load the file 
-                let item = items[i].webkitGetAsEntry();
-                console.log(item);
-                if (item) {
-                    // ok, user select a folder ???
-                    if (item.isDirectory) {
-                        // show something?
-
-                    } else {
-                        // so item is a fileEntry
-                        app_hotpot.parse_ann_file_entry(item);
-                    }
-                }
-            }
-            
-            
-        }
-
-    },
-
-    bind_dropzone_txt: function() {
-        let dropzone = document.getElementById("dropzone_txt");
-
-        dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        dropzone.addEventListener("drop", function(event) {
-            let items = event.dataTransfer.items;
-            // stop the download event
-            event.preventDefault();
-
-            for (let i=0; i<items.length; i++) {
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
-        
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        // check exists
-                        if (app_hotpot.vpp.has_included_txt_ann_file(fh.name)) {
-                            // exists? skip this file
-                            return;
-                        }
-
-                        // read the file
-                        var p_txt_ann = fs_read_txt_file_handle(
-                            fh,
-                            app_hotpot.vpp.$data.dtd
-                        );
-                        p_txt_ann.then(function(txt_ann) {
-                            // split the sentence
-                            // just use the simplest
-                            var r = nlp_toolkit.sent_tokenize(
-                                txt_ann.text,
-                                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-                            );
-                            txt_ann._sentences = r.sentences;
-                            txt_ann._sentences_text = r.sentences_text;
-                            
-                            app_hotpot.vpp.add_txt(txt_ann);
-                        });
-                        
-                    } else {
-                        // what to do with a directory
-                    }
-                })
-                .catch(function(error) {
-                    console.log('* error when drop txt', error);
-                });
-            }
-
-        }, false);
-    },
-
     resize: function() {
+        var w = $(window).width();
         var h = $(window).height();
         $('.main-ui').css('height', h - 145);
 
         // due the svg issue, when resizing the window,
-        // redraw all ltag marks
-        this.cm_clear_ltag_marks();
+        // redraw all rtag marks
+        this.cm_clear_rtag_marks();
 
         // redraw all marks
         this.cm_update_tag_marks();
+
+        console.log('* resized windows to ' + w + 'x' + h);
     },
 
-    parse_dtd_file_entry: function(fileEntry) {
-        app_hotpot.read_file_async(fileEntry, function(evt) {
-            var text = evt.target.result;
-            // console.log('* read dtd', text);
+    parse_file2ann: function(file, dtd) {
+        var ann = null;
+        if (app_hotpot.is_file_ext_txt(file.fh.name)) {
+            // this is a text file
+            ann = ann_parser.txt2ann(
+                file.text,
+                dtd
+            );
 
-            // try to parse this dtd file
-            var dtd = dtd_parser.parse(text);
-            
-            // ok, set the dtd for annotator
-            app_hotpot.set_dtd(dtd);
-        });
-    },
+            // bind fh, but txt has no real fh
+            ann._fh = null;
+            // bind the filename seperately
+            // create a file name 
+            ann._filename = app_hotpot.get_new_ann_fn_by_txt_fn(
+                file.fh.name
+            );
+            // bind a status
+            ann._has_saved = true;
+            // bind the sentences variable
+            ann._sentences = [];
+            ann._sentences_text = '';
 
-    parse_ann_file_entry: function(fileEntry) {
-        // first, decide type
-        if (app_hotpot.is_file_ext(fileEntry.name, 'txt')) {
-            // so, just read this file and get the content
-            // to create new file name
-            var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fileEntry.name);
+        } else if (app_hotpot.is_file_ext_xml(file.fh.name)) {
+            // this is a xml file
+            ann = ann_parser.xml2ann(
+                file.text,
+                dtd
+            );
 
-            app_hotpot.read_file_async(fileEntry, (function(new_fn){
-                return function(evt) {
-                    var text = evt.target.result;
-    
-                    // try to parse this txt file
-                    var ann = ann_parser.txt2ann(
-                        text, 
-                        app_hotpot.vpp.$data.dtd
-                    );
-
-                    // post processing
-                    ann._fh = null;
-                    ann._filename = new_fn;
-                    ann._has_saved = true;
-                    var result = nlp_toolkit.sent_tokenize(ann.text);
-                    ann._sentences = result.sentences;
-                    ann._sentences_text = result.sentences_text;
-
-                    // show some message
-                    app_hotpot.msg("Created a new annotation file " + new_fn);
-                    
-                    // ok, add this the dtd for annotator
-                    app_hotpot.add_ann(ann);
-                }
-            })(new_fn));
-
-        } else if (app_hotpot.is_file_ext(fileEntry.name, 'xml')) {
-            // ok, this is an xml file, usually it's what we want
-            // check existance first
-            if (app_hotpot.vpp.has_included_ann_file(fileEntry.name)) {
-                // exists? skip this file
-                app_hotpot.msg('Skipped same name or duplicated ' + fileEntry.name);
-                return;
-            }
-
-            // then create 
-            var new_fn = fileEntry.name;
-            app_hotpot.read_file_async(fileEntry, (function(new_fn){
-                return function(evt) {
-                    var xml = evt.target.result;
-    
-                    // try to parse this xml file
-                    var ann = ann_parser.xml2ann(
-                        xml, 
-                        app_hotpot.vpp.$data.dtd
-                    );
-
-                    // post processing
-                    // we don't have fh due to using fileEntry
-                    ann._fh = null;
-                    ann._filename = new_fn;
-                    ann._has_saved = true;
-                    var result = nlp_toolkit.sent_tokenize(ann.text);
-                    ann._sentences = result.sentences;
-                    ann._sentences_text = result.sentences_text;
-                    
-                    // ok, add this the dtd for annotator
-                    app_hotpot.add_ann(ann);
-                }
-            })(new_fn));
-            
-        } else {
-            // what???
-            app_hotpot.msg('Skipped unknown format file ' + fileEntry.name);
-            return;
+            // bind the fh
+            ann._fh = file.fh;
+            // bind the filename seperately
+            ann._filename = file.fh.name;
+            // bind a status
+            ann._has_saved = true;
+            // bind the sentences
+            ann._sentences = [];
+            ann._sentences_text = '';
         }
+
+        return ann;
     },
+
 
     read_file_async: function(fileEntry, callback) {
         fileEntry.file(function(file) {
@@ -3152,85 +2792,93 @@ var app_hotpot = {
         console.log('* skip unknown format file', fh.name);
     },
 
-    parse_ann_txt_file_fh: function(fh, dtd) {
-        // create a new file name
-        var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
+    parse_ann_dir_fh: function(fh, dtd) {
+        fs_read_ann_dir_handle(fh, dtd);
+    },
 
-        // create a empty ann
-        var p_txt_ann = fs_read_txt_file_handle(
-            fh, 
-            dtd
-        );
+    // parse_ann_txt_file_fh: function(fh, dtd) {
+    //     // create a new file name
+    //     var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
 
-        // load this ann
-        p_txt_ann.then((function(new_fn){
-            return function(txt_ann) {
-                // now check the sentence detection
-                // just use the simplest
-                var r = nlp_toolkit.sent_tokenize(
-                    txt_ann.text,
-                    app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-                );
-                txt_ann._sentences = r.sentences;
-                txt_ann._sentences_text = r.sentences_text;
+    //     // create a empty ann
+    //     var p_txt_ann = fs_read_txt_file_handle(
+    //         fh, 
+    //         dtd
+    //     );
+
+    //     // load this ann
+    //     p_txt_ann.then((function(new_fn){
+    //         return function(txt_ann) {
+    //             // now check the sentence detection
+    //             // just use the simplest
+    //             // var r = nlp_toolkit.sent_tokenize(
+    //             //     txt_ann.text,
+    //             //     app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+    //             // );
+    //             // txt_ann._sentences = r.sentences;
+    //             // txt_ann._sentences_text = r.sentences_text;
+    //             txt_ann._sentences = [];
+    //             txt_ann._sentences_text = '';
                 
-                // modify the txt_ann _fh
-                // we couldn't save to an txt
-                txt_ann._fh = null;
+    //             // modify the txt_ann _fh
+    //             // we couldn't save to an txt
+    //             txt_ann._fh = null;
 
-                // update the _filename
-                txt_ann._filename = new_fn;
+    //             // update the _filename
+    //             txt_ann._filename = new_fn;
 
-                // show some message
-                app_hotpot.msg("Created a new annotation file " + new_fn);
+    //             // show some message
+    //             // app_hotpot.msg("Created a new annotation file " + new_fn);
 
-                // add this ann
-                app_hotpot.add_ann(txt_ann);
-            }
-        })(new_fn));
-    },
+    //             // add this ann
+    //             app_hotpot.add_ann(txt_ann);
+    //         }
+    //     })(new_fn));
+    // },
 
-    parse_ann_xml_file_fh: function(fh, dtd) {
-        // get the ann file
-        var p_ann = fs_read_ann_file_handle(
-            fh, 
-            dtd
-        );
+    // parse_ann_xml_file_fh: function(fh, dtd) {
+    //     // get the ann file
+    //     var p_ann = fs_read_ann_file_handle(
+    //         fh, 
+    //         dtd
+    //     );
 
-        // the callback function
-        p_ann.then(function(ann) {
-            // add the sentences
-            var r = nlp_toolkit.sent_tokenize(
-                ann.text,
-                app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-            );
-            ann._sentences = r.sentences;
-            ann._sentences_text = r.sentences_text;
+    //     // the callback function
+    //     p_ann.then(function(ann) {
+    //         // add the sentences
+    //         var r = nlp_toolkit.sent_tokenize(
+    //             ann.text,
+    //             app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+    //         );
+    //         ann._sentences = r.sentences;
+    //         ann._sentences_text = r.sentences_text;
 
-            // add this ann to vpp
-            app_hotpot.add_ann(ann);
+    //         // add this ann to vpp
+    //         app_hotpot.add_ann(ann);
 
-        }).catch(
-            function(fh){return function(error) {
-                app_hotpot.msg(
-                    "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
-                    error.name + 
-                    ": " + error.message + "",
-                    'warning');
-                console.error(error);
-            }}(fh)
-        );
-    },
+    //     }).catch(
+    //         function(fh){return function(error) {
+    //             app_hotpot.msg(
+    //                 "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
+    //                 error.name + 
+    //                 ": " + error.message + "",
+    //                 'warning');
+    //             console.error(error);
+    //         }}(fh)
+    //     );
+    // },
 
-    parse_file_fh: function(fh, callback) {
+    parse_file_fh: function(fh, callback, filter) {
         if (fh.name.startsWith('.')) {
             // no need to parse hidden file
             return;
         }
 
-        var p_file = fs_read_file_handle(
-            fh
-        );
+        if (!filter(fh.name)) {
+            return;
+        }
+
+        var p_file = fs_read_file_handle(fh);
 
         // the callback function
         p_file.then(callback).catch(
@@ -3245,11 +2893,35 @@ var app_hotpot = {
         );
     },
 
-    parse_dir_fh: function(fh, callback) {
-        fs_read_dir_handle(
-            fh,
-            callback
+    parse_dir_fh: function(fh, callback, filter) {
+        var p_files = fs_read_dir_handle(fh, filter);
+
+        p_files.then(callback).catch(
+            function(fh){return function(error) {
+                app_hotpot.msg(
+                    "Couldn't read files in folder ["+ fh.name +"]. <br>" + 
+                    error.name + 
+                    ": " + error.message + "",
+                    'warning');
+                console.error(error);
+            }}(fh)
         );
+    },
+
+    get_new_ann_fn_by_txt_fn: function(txt_fn) {
+        return txt_fn + '.xml';
+    },
+
+    update_ann_sentences: function(ann) {
+        var r = nlp_toolkit.sent_tokenize(
+            ann.text,
+            app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
+        );
+        ann._sentences = r.sentences;
+        ann._sentences_text = r.sentences_text;
+
+        console.log('* updated sentences for ann', ann._filename);
+        return ann;
     },
 
     /////////////////////////////////////////////////////////////////
@@ -3452,25 +3124,146 @@ var app_hotpot = {
         });
     },
 
-    del_tag: function(tag_id, ann, is_check_ltag=true, is_update_marks=true) {
+    update_hint_dict_by_ann: function(ann) {
+        this.vpp.hint_dict = ann_parser.add_ann_to_hint_dict(
+            ann,
+            this.vpp.hint_dict
+        );
+    },
+
+    update_hint_dict_by_tag: function(ann, tag) {
+        this.vpp.hint_dict = ann_parser.add_tag_to_hint_dict(
+            ann, 
+            tag, 
+            this.vpp.hint_dict
+        );
+        //console.log('* updated hint_dict by a tag', this.vpp.hint_dict, tag);
+    },
+
+    /////////////////////////////////////////////////////////////////
+    // Tag Related
+    /////////////////////////////////////////////////////////////////
+    make_etag: function(basic_tag, tag_def, ann) {
+        // first, add the tag name
+        basic_tag['tag'] = tag_def.name;
+
+        // find the id number
+        // var n = 0;
+        // for (let i = 0; i < ann.tags.length; i++) {
+        //     if (ann.tags[i].tag == tag_def.name) {
+        //         // get the id number of this tag
+        //         var _id = parseInt(ann.tags[i].id.replace(tag_def.id_prefix, ''));
+        //         if (_id >= n) {
+        //             n = _id + 1;
+        //         }
+        //     }
+        // }
+        // basic_tag['id'] = tag_def.id_prefix + n;
+        basic_tag['id'] = ann_parser.get_next_tag_id(ann, tag_def);
+
+        // add other attr defined in the tag_dee from schema (.dtd)
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
+
+            if (att.name == 'spans') {
+                // special rule for spans attr
+                // which means it could be a non-consuming tag?
+            } else {
+                // set the default value
+                basic_tag[att.name] = att.default_value;
+            }
+        }
+
+        return basic_tag;
+    },
+
+    make_rtag: function() {
+
+    },
+
+    make_empty_etag_by_tag_def: function(tag_def) {
+        var etag = {
+            id: '',
+            tag: tag_def.name,
+            spans: '',
+            text: ''
+        };
+
+        // then add other attr
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
+
+            if (att.name == 'spans') {
+                // special rule for spans attr
+                etag.spans = dtd_parser.NON_CONSUMING_SPANS;
+            } else {
+                // set the default value
+                etag[att.name] = att.default_value;
+            }
+        }
+
+        return etag;
+    },
+
+    make_empty_rtag_by_tag_def: function(tag_def) {
+        var rtag = {
+            id: '',
+            tag: tag_def.name
+        };
+
+        // then add other attr
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
+
+            if (att.name == 'spans') {
+                // special rule for spans attr
+            } else {
+                // set the default value
+                rtag[att.name] = att.default_value;
+            }
+        }
+
+        return rtag;
+    },
+    
+    remove_tag_from_ann: function(tag_id, ann) {
+        var tag_idx = -1;
+        for (let i = 0; i < ann.tags.length; i++) {
+            if (ann.tags[i].id == tag_id) {
+                tag_idx = i;
+                break;
+            }            
+        }
+
+        // delete the found tag idx
+        if (tag_idx == -1) {
+            // ???
+        } else {
+            ann.tags.splice(tag_idx, 1); 
+        }
+
+        return ann;
+    },
+
+    delete_tag: function(tag_id, ann, is_check_rtag=true, is_update_marks=true) {
         if (typeof(ann) == 'undefined') {
             ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
         }
 
-        if (is_check_ltag) {
-            // when deleting etag, need to check if there is linked ltag
-            var linked_ltags = ann_parser.get_linked_ltags(tag_id, ann);
+        if (is_check_rtag) {
+            // when deleting etag, need to check if there is linked rtag
+            var linked_rtags = ann_parser.get_linked_rtags(tag_id, ann);
 
-            if (linked_ltags.length == 0) {
+            if (linked_rtags.length == 0) {
                 // great! no links!
                 // just keep going
             } else {
                 // ok, are you sure?
                 // let's make a long message
-                var msg = ['There are ' + linked_ltags.length + ' link tag(s) related to [' + tag_id + ']:\n'];
-                for (let i = 0; i < linked_ltags.length; i++) {
-                    const ltag = linked_ltags[i];
-                    msg.push('- ' + ltag.id + ' (' + ltag.tag + ') ' + '\n');
+                var msg = ['There are ' + linked_rtags.length + ' link tag(s) related to [' + tag_id + ']:\n'];
+                for (let i = 0; i < linked_rtags.length; i++) {
+                    const rtag = linked_rtags[i];
+                    msg.push('- ' + rtag.id + ' (' + rtag.tag + ') ' + '\n');
                 }
                 msg.push('\nDeleting [' + tag_id + '] will also delete the above link tag(s).\n');
                 msg.push('Are you sure to continue?');
@@ -3480,10 +3273,15 @@ var app_hotpot = {
 
                 if (ret) {
                     // ok, let's delete the links first
-                    for (let i = 0; i < linked_ltags.length; i++) {
-                        const ltag = linked_ltags[i];
+                    for (let i = 0; i < linked_rtags.length; i++) {
+                        const rtag = linked_rtags[i];
                         // save some time when running this inner deletion
-                        this.del_tag(ltag.id, ann, false, false);
+                        this.delete_tag(
+                            rtag.id, 
+                            ann, 
+                            false, 
+                            false
+                        );
                     }
                 } else {
                     // nice choice! keep them all!
@@ -3514,757 +3312,9 @@ var app_hotpot = {
         );
     },
 
-    update_hint_dict_by_anns: function() {
-        if (this.vpp.$data.anns.length == 0) {
-            this.vpp.hint_dict = {};
-            return;
-        }
-        var hint_dict = ann_parser.anns2hint_dict(
-            this.vpp.$data.dtd, 
-            this.vpp.$data.anns
-        );
-        this.vpp.hint_dict = hint_dict;
-        console.log('* updated hint_dict by anns', this.vpp.hint_dict);
-    },
-
-    update_hint_dict_by_tag: function(ann, tag) {
-        this.vpp.hint_dict = ann_parser.add_tag_to_hint_dict(
-            ann, tag, this.vpp.hint_dict
-        );
-        console.log('* updated hint_dict by a tag', this.vpp.hint_dict, tag);
-    },
-
     /////////////////////////////////////////////////////////////////
-    // Tag Related
+    // Annotation Related
     /////////////////////////////////////////////////////////////////
-    make_etag: function(basic_tag, tag_def, ann) {
-        // first, add the tag name
-        basic_tag['tag'] = tag_def.name;
-
-        // find the id number
-        // var n = 0;
-        // for (let i = 0; i < ann.tags.length; i++) {
-        //     if (ann.tags[i].tag == tag_def.name) {
-        //         // get the id number of this tag
-        //         var _id = parseInt(ann.tags[i].id.replace(tag_def.id_prefix, ''));
-        //         if (_id >= n) {
-        //             n = _id + 1;
-        //         }
-        //     }
-        // }
-        // basic_tag['id'] = tag_def.id_prefix + n;
-        basic_tag['id'] = ann_parser.get_next_tag_id(ann, tag_def);
-
-        // add other attr defined in the tag_dee from schema (.dtd)
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
-
-            if (att.name == 'spans') {
-                // special rule for spans attr
-                // which means it could be a non-consuming tag?
-            } else {
-                // set the default value
-                basic_tag[att.name] = att.default_value;
-            }
-        }
-
-        return basic_tag;
-    },
-
-    make_ltag: function() {
-
-    },
-
-    make_empty_etag_by_tag_def: function(tag_def) {
-        var etag = {
-            id: '',
-            tag: tag_def.name,
-            spans: '',
-            text: ''
-        };
-
-        // then add other attr
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
-
-            if (att.name == 'spans') {
-                // special rule for spans attr
-                etag.spans = dtd_parser.NON_CONSUMING_SPANS;
-            } else {
-                // set the default value
-                etag[att.name] = att.default_value;
-            }
-        }
-
-        return etag;
-    },
-
-    make_empty_ltag_by_tag_def: function(tag_def) {
-        var ltag = {
-            id: '',
-            tag: tag_def.name
-        };
-
-        // then add other attr
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
-
-            if (att.name == 'spans') {
-                // special rule for spans attr
-            } else {
-                // set the default value
-                ltag[att.name] = att.default_value;
-            }
-        }
-
-        return ltag;
-    },
-    
-    remove_tag_from_ann: function(tag_id, ann) {
-        var tag_idx = -1;
-        for (let i = 0; i < ann.tags.length; i++) {
-            if (ann.tags[i].id == tag_id) {
-                tag_idx = i;
-                break;
-            }            
-        }
-
-        // delete the found tag idx
-        if (tag_idx == -1) {
-            // ???
-        } else {
-            ann.tags.splice(tag_idx, 1); 
-        }
-
-        return ann;
-    },
-
-    /////////////////////////////////////////////////////////////////
-    // Code Mirror Related
-    /////////////////////////////////////////////////////////////////
-    cm_set_ann: function(ann) {
-        // make sure all clear
-        // clear all etag markers
-        this.cm_clear_etag_marks();
-
-        // clear all link tags
-        this.cm_clear_ltag_marks();
-
-        // first, if ann is null, just remove everything in the editor
-        if (ann == null) {
-            this.codemirror.setValue('');
-            return;
-        }
-
-        // if the current mode is 
-        if (this.vpp.$data.cm.display_mode == 'document') {
-            this.codemirror.setValue(
-                ann.text
-            );
-
-        } else if (this.vpp.$data.cm.display_mode == 'sentences') {
-            this.codemirror.setValue(
-                ann._sentences_text
-            );
-        } else {
-            this.codemirror.setValue('');
-        }
-    },
-
-    cm_get_selection: function(inst) {
-        if (typeof(inst) == 'undefined') {
-            inst = this.codemirror;
-        }
-        // update the selection
-        var selection = {
-            sel_txts: inst.getSelections(),
-            sel_locs: inst.listSelections()
-        };
-        this.selection = selection;
-        // console.log("* found selection:", app_hotpot.selection);
-        return selection;
-    },
-
-    cm_clear_selection: function(to_anchor=true) {
-        var new_anchor = null;
-        if (to_anchor) {
-            new_anchor = this.selection.sel_locs[0].anchor;
-        } else {
-            new_anchor = this.selection.sel_locs[0].head;
-        }
-        this.codemirror.setSelection(new_anchor);
-    },
-
-    cm_make_basic_etag_from_selection: function() {
-        var locs = [];
-        var txts = [];
-
-        // usually there is only one tag
-        for (let i = 0; i < app_hotpot.selection.sel_locs.length; i++) {
-            var sel_loc = app_hotpot.selection.sel_locs[i];
-            var sel_txt = app_hotpot.selection.sel_txts[i];
-            locs.push(
-                app_hotpot.cm_range2spans(
-                    sel_loc, 
-                    this.vpp.$data.anns[this.vpp.$data.ann_idx]
-                )
-            );
-            txts.push(sel_txt);
-        }
-        
-        // now push new ann tag
-        var tag = {
-            'spans': locs.join(','),
-            'text': txts.join(' ... ')
-        };
-
-        return tag;
-    },
-
-    cm_update_marks: function() {
-        // clear all etag markers
-        this.cm_clear_etag_marks();
-
-        // clear all link tags
-        this.cm_clear_ltag_marks();
-
-        // update the hint marks
-        this.cm_update_hint_marks();
-
-        // update the tag marks
-        this.cm_update_tag_marks();
-
-        // force update UI, well ... maybe not work
-        this.vpp.$forceUpdate();
-    },
-
-    cm_clear_etag_marks: function() {
-        var marks = this.codemirror.getAllMarks();
-        for (let i = marks.length - 1; i >= 0; i--) {
-            marks[i].clear();
-        }
-    },
-
-    cm_clear_ltag_marks: function() {
-        // first, check if there is a layer for the plots
-        if ($('#cm_svg_plots').length == 0) {
-            $('.CodeMirror-sizer').prepend(`
-            <div class="CodeMirror-plots">
-            <svg id="cm_svg_plots">
-                <defs>
-                    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5"
-                        markerWidth="6" markerHeight="6"
-                        orient="auto-start-reverse">
-                        <path d="M 0 0 L 10 5 L 0 10 z" />
-                    </marker>
-                </defs>
-            </svg>
-            </div>
-        `);
-        } else {
-            $('#cm_svg_plots').html(`
-                <defs>
-                    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5"
-                        markerWidth="6" markerHeight="6"
-                        orient="auto-start-reverse">
-                        <path d="M 0 0 L 10 5 L 0 10 z" />
-                    </marker>
-                </defs>
-            `);
-        }
-    },
-
-    cm_update_hint_marks: function() {
-        if (this.vpp.$data.ann_idx == null) {
-            // nothing to do for empty
-            return;
-        }
-
-        if (!this.vpp.$data.cm.enabled_hints ||
-            this.vpp.$data.cm.hint_mode == 'off') {
-            // nothing to do when turn off hint
-            return;
-        }
-
-        if (this.vpp.$data.dtd == null) {
-            // nothing to do if no dtd given
-            return;
-        }
-
-        var focus_tags = null;
-        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
-
-        } else {
-            if (this.vpp.$data.display_tag_name == '__all__') {
-                // search all tag
-            } else {
-                // ok, only search this tag
-                focus_tags = [ this.vpp.$data.display_tag_name ];
-            }
-        }
-
-        // find markable hints for this ann
-        var hints = ann_parser.search_hints_in_ann(
-            this.vpp.hint_dict,
-            this.vpp.$data.anns[this.vpp.$data.ann_idx],
-            focus_tags
-        );
-        console.log('* found hints', hints);
-
-        // bind the hints to vpp
-        this.vpp.$data.hints = hints;
-
-        for (let i = 0; i < hints.length; i++) {
-            const hint = hints[i];
-            // console.log('* rendering hint', hint);
-            this.cm_mark_hint_in_text(
-                hint,
-                this.vpp.$data.anns[this.vpp.$data.ann_idx]
-            );
-        }
-    },
-
-    cm_update_tag_marks: function() {
-        if (this.vpp.$data.ann_idx == null) {
-            // nothing to do for empty
-            return;
-        }
-
-        // to ensure the link tag could be draw correctly,
-        // draw the etags first
-        this.cm_update_etag_marks();
-
-        // since all etags have been rendered,
-        // it's safe to render the link tags
-        this.cm_update_ltag_marks();
-    },
-
-    cm_update_etag_marks: function() {
-        if (this.vpp.$data.ann_idx == null) {
-            // nothing to do for empty
-            return;
-        }
-
-        // update the new marks
-        var working_ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
-        for (let i = 0; i < working_ann.tags.length; i++) {
-            var tag = working_ann.tags[i];
-            var tag_def = this.vpp.get_tag_def(tag.tag);
-            if (tag_def.type == 'etag') {
-                var ret = this.cm_mark_ann_etag_in_text(tag, tag_def, working_ann);
-                // console.log('* finished rendering', ret, tag);
-            }
-        }
-    },
-
-    cm_update_ltag_marks: function() {
-        if (this.vpp.$data.ann_idx == null) {
-            // nothing to do for empty
-            return;
-        }
-        if (this.vpp.$data.cm.enabled_links) {
-            // ok! show links
-        } else {
-            // well, if user doesn't want to show links,
-            // it's ok
-            return;
-        }
-        // update the new marks
-        var working_ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
-        for (let i = 0; i < working_ann.tags.length; i++) {
-            var tag = working_ann.tags[i];
-            var tag_def = this.vpp.get_tag_def(tag.tag);
-            if (tag_def.type == 'ltag') {
-                this.cm_mark_ann_ltag_in_text(tag, tag_def, working_ann);
-            }
-        }
-    },
-
-    /**
-     * Mark the hint in the code mirror
-     * @param {object} hint it contains the range for rendering
-     */
-    cm_mark_hint_in_text: function(hint, ann) {
-        var range = this.cm_spans2range(hint.spans, ann);
-        // console.log("* marking hint", hint, 'on', range);
-
-        // a hover message
-        var descr = [
-            "" + hint.tag
-        ].join('\n');
-        
-        if (this.vpp.$data.cm.mark_mode == 'node') {
-            var hint_tag_id_prefix = dtd_parser.get_id_prefix(
-                hint.tag, 
-                this.vpp.$data.dtd
-            );
-            var markHTML = [
-                '<span class="mark-hint mark-hint-'+hint.tag+'" id="mark-id-'+hint.id+'" onclick="app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')" title="Click to add this to tags" data-descr="'+descr+'">',
-                '<span class="mark-hint-info mark-tag-'+hint.tag+'">',
-                    hint_tag_id_prefix,
-                '</span>',
-                '<span class="mark-hint-text" hint_id="'+hint.id+'">',
-                    hint.text,
-                '</span>',
-                '</span>'
-            ].join('');
-
-            // convert this HTML to DOMElement
-            var placeholder = document.createElement('div');
-            placeholder.innerHTML = markHTML;
-            var markNode = placeholder.firstElementChild;
-
-            try {
-                this.codemirror.markText(
-                    range.anchor,
-                    range.head,
-                    {
-                        className: 'mark-hint mark-hint-' + hint.tag,
-                        replacedWith: markNode,
-                        attributes: {
-                            hint_id: hint.id,
-    
-                        }
-                    }
-                );
-            } catch (error) {
-                // sometimes, replacing DOM node may fail due to
-                // Error: Inserting collapsed marker partially overlapping an existing one
-                // so, just skip this for now
-                console.error("! can't mark conflict hint", hint)
-            }
-            
-        } else if (this.vpp.$data.cm.mark_mode == 'span') {
-            
-            this.codemirror.markText(
-                range.anchor,
-                range.head,
-                {
-                    className: 'mark-hint mark-hint-' + hint.tag,
-                    attributes: {
-                        hint_id: hint.id,
-                        onclick: 'app_hotpot.vpp.add_tag_by_hint(\''+hint.id+'\')',
-                        'data-descr': descr
-                    }
-                }
-            );
-        }
-    },
-
-    cm_mark_ann_tag_in_text: function(tag, tag_def, ann) {
-        if (tag_def.type == 'etag') {
-            return this.cm_mark_ann_etag_in_text(tag, tag_def, ann);
-        } else {
-            return this.cm_mark_ann_ltag_in_text(tag, tag_def, ann);
-        }
-    },
-
-    cm_mark_ann_ltag_in_text: function(tag, tag_def, ann) {
-        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
-            // ok, let's render all tags here
-        } else {
-            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-                // ok
-            } else {
-                return [-1];
-            }
-        }
-
-        this.cm_draw_ltag(tag, tag_def, ann);
-    },
-
-    cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
-        var raw_spans = tag['spans'];
-        // before rendering this tag
-        // we need to check whether it should be rendered
-
-        // 1. something wrong with the spans information?
-        if (raw_spans == '' || raw_spans == null) { 
-            return [-1]; 
-        }
-
-        // 2. document-level tag, nothing to do or render differently
-        if (raw_spans == dtd_parser.NON_CONSUMING_SPANS) {
-            return [-2];
-        }
-
-        // 3. is current setting to render all or only selected?
-        if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
-            // ok, nothing to worry, just render this tag
-        } else {
-            // is display this tag by the tag list filter?
-            if (app_hotpot.vpp.is_display_tag_name(tag.tag)) {
-                // ok
-            } else {
-                // the second case is quite complex.
-                // to render the link tags,
-                // the related entity tags are also needed to render
-                // so the question is, is this tag belong to current link tag?
-                if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
-                    // only check this for only showing link tag.
-                    // otherwise it will cost unnecessary computation
-                    if (app_hotpot.vpp.is_tag_related_to_tag_name(
-                        tag, 
-                        [app_hotpot.vpp.$data.display_tag_name],
-                        app_hotpot.vpp.$data.anns[app_hotpot.vpp.$data.ann_idx]
-                    )) {
-                        // ok, I don't which one, but it does belong to which link
-                        // just goto render
-
-                    } else {
-                        // great, no need to render
-                        return [-3];
-                    }
-                } else {
-                    // great, no need to render
-                    return [-4];
-                }
-            }
-        }
-
-        // the spans may contains multiple parts
-        // split them first
-        var spans_arr = raw_spans.split(',');
-        var text_arr = tag.text.split('...');
-
-        // hover message
-        var descr = [
-            "" + tag.tag + ' - ' + tag.id,
-            "spans: " + tag.spans
-        ];
-        descr = descr.join('\n');
-        
-        // render every part of the spans
-        for (let i = 0; i < spans_arr.length; i++) {
-            const spans = spans_arr[i];
-            const spans_text = text_arr[i];
-            var range = this.cm_spans2range(spans, ann);
-
-            if (this.vpp.$data.cm.mark_mode == 'node') {
-                // the second step is to enhance the mark tag with more info
-                var markHTML = [
-                    '<span class="mark-tag mark-tag-'+tag.tag+'" '+
-                        'id="mark-etag-id-'+tag.id+'" '+
-                        'tag_id="'+tag.id+'" '+
-                        'data-descr="'+descr+'" '+
-                        'onmouseenter="app_hotpot.vpp.on_enter_tag(event)" '+
-                        'onmouseleave="app_hotpot.vpp.on_leave_tag(event)">',
-                    '<span onclick="app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')">',
-                    '<span class="mark-tag-info">',
-                        '<span class="mark-tag-info-inline fg-tag-'+tag.tag+'">',
-                        tag.id,
-                        '</span>',
-                    '</span>',
-                    '<span class="mark-tag-text" tag_id="'+tag.id+'">',
-                        spans_text,
-                    '</span>',
-                    '</span>',
-                    '<span class="mark-tag-info-offset" title="Delete tag '+tag.id+'" onclick="app_hotpot.del_tag(\''+tag.id+'\');">',
-                        '<i class="fa fa-times-circle"></i>',
-                    '</span>',
-                    '</span>'
-                ].join('');
-
-                // convert this HTML to DOMElement
-                var placeholder = document.createElement('div');
-                placeholder.innerHTML = markHTML;
-                var markNode = placeholder.firstElementChild;
-
-                // add mark to text
-                try {
-                    this.codemirror.markText(
-                        range.anchor,
-                        range.head,
-                        {
-                            className: 'mark-tag mark-tag-' + tag.tag,
-                            replacedWith: markNode,
-                            attributes: {
-                                tag_id: tag.id
-                            }
-                        }
-                    );
-                } catch (error) {
-                    console.error("! can't mark conflict tag", tag)
-                }
-
-            } else if (this.vpp.$data.cm.mark_mode == 'span') {
-                this.codemirror.markText(
-                    range.anchor,
-                    range.head,
-                    {
-                        className: 'mark-tag mark-tag-' + tag.tag + '',
-                        attributes: {
-                            id: 'mark-etag-id-' + tag.id,
-                            tag_id: tag.id,
-                            onclick: 'app_hotpot.vpp.on_click_editor_tag(event, \''+tag.id+'\')',
-                            'data-descr': descr,
-                            onmouseenter: 'app_hotpot.vpp.on_enter_tag(event)',
-                            onmouseleave: 'app_hotpot.vpp.on_leave_tag(event)',
-                        }
-                    }
-                );
-                // add a cap of annotator for adjudication
-                if (tag.hasOwnProperty('_annotator')) {
-                    this.cm_draw_etag_cap(
-                        tag, 
-                        ann, 
-                        tag._annotator.toLocaleUpperCase()
-                    );
-                }
-            }
-        }
-
-        return [0];
-    },
-
-    cm_jump2tag: function(tag, ann) {
-        // first, get the anchor location
-        var range = this.cm_spans2range(
-            tag.spans, ann
-        );
-
-        // set the anchor
-        this.codemirror.doc.setCursor(
-            range.anchor
-        );
-    },
-
-    cm_spans2range: function(spans, ann) {
-        // if the current mode is 
-        if (this.vpp.$data.cm.display_mode == 'document') {
-            return this.cm_doc_spans2range(spans, ann);
-
-        } else if (this.vpp.$data.cm.display_mode == 'sentences') {
-            return this.cm_sen_spans2range(spans, ann);
-
-        } else {
-            return this.cm_doc_spans2range(spans, ann);
-        }
-    },
-
-    cm_range2spans: function(spans, ann) {
-        // if the current mode is 
-        if (this.vpp.$data.cm.display_mode == 'document') {
-            return this.cm_doc_range2spans(spans, ann);
-
-        } else if (this.vpp.$data.cm.display_mode == 'sentences') {
-            return this.cm_sen_range2spans(spans, ann);
-
-        } else {
-            return this.cm_doc_range2spans(spans, ann);
-        }
-    },
-
-    cm_sen_range2spans: function(sel_loc, ann) {
-        var span0 = 0;
-
-        // first, get the start span of this line
-        var line_span0 = ann._sentences[
-            sel_loc.anchor.line
-        ].spans.start;
-        var line_span1 = ann._sentences[
-            sel_loc.head.line
-        ].spans.start;
-
-        // then move to the span of this line
-        span0 = line_span0 + sel_loc.anchor.ch;
-        span1 = line_span1 + sel_loc.head.ch;
-
-        // the selection maybe from different direction
-        if (span0 <= span1) {
-            return span0 + '~' + span1;
-        } else {
-            return span1 + '~' + span0;
-        }
-    },
-
-    cm_sen_spans2range: function(spans, ann) {
-        var span_pos_0 = parseInt(spans.split('~')[0]);
-        var span_pos_1 = parseInt(spans.split('~')[1]);
-
-        // find the line number of span0
-        var anchor = nlp_toolkit.find_linech(span_pos_0, ann._sentences);
-        var head = nlp_toolkit.find_linech(span_pos_1, ann._sentences);
-
-        return {
-            anchor: anchor,
-            head: head
-        }
-    },
-
-    cm_doc_range2spans: function(sel_loc, ann) {
-        var full_text = ann.text;
-        // console.log('* calc doc range2spans: ');
-        // console.log(sel_loc);
-        var lines = full_text.split('\n');
-        var span0 = 0;
-        for (let i = 0; i < sel_loc.anchor.line; i++) {
-            span0 += lines[i].length + 1;
-        }
-        span0 += sel_loc.anchor.ch;
-        var span1 = 0;
-        for (let i = 0; i < sel_loc.head.line; i++) {
-            span1 += lines[i].length + 1;
-        }
-        span1 += sel_loc.head.ch;
-        // console.log('* span0: ' + span0 + ', span1: ' + span1);
-
-        if (span0 <= span1) {
-            return span0 + '~' + span1;
-        } else {
-            return span1 + '~' + span0;
-        }
-    },
-
-    cm_doc_spans2range: function(spans, ann) {
-        var full_text = ann.text;
-
-        // console.log('* calc doc spans2range: ');
-        var span_pos_0 = parseInt(spans.split('~')[0]);
-        var span_pos_1 = parseInt(spans.split('~')[1]);
-
-        // calculate the line number
-        var ln0 = full_text.substring(0, span_pos_0).split('\n').length - 1;
-        var ln1 = full_text.substring(0, span_pos_1).split('\n').length - 1;
-
-        // calculate the char location
-        var ch0 = span_pos_0;
-        for (let i = 1; i < span_pos_0; i++) {
-            if (full_text[span_pos_0 - i] == '\n') {
-                ch0 = i - 1;
-                break;
-            }
-        }
-
-        // TODO fix the potential cross lines bug
-        var ch1 = ch0 + (span_pos_1 - span_pos_0);
-
-        // return [ [ln0, ch0], [ln1, ch1] ];
-        return {
-            anchor: {line: ln0, ch: ch0},
-            head:   {line: ln1, ch: ch1}
-        }
-    },
-
-    cm_spans2coords: function(spans, ann) {
-        var range = this.cm_spans2range(spans, ann);
-
-        var coords_l = this.codemirror.charCoords(
-            // { line: range[0][0], ch: range[0][1] },
-            range.anchor,
-            'local'
-        );
-        var coords_r = this.codemirror.charCoords(
-            // { line: range[1][0], ch: range[1][1] },
-            range.head,
-            'local'
-        );
-
-        return { 
-            l: coords_l, 
-            r: coords_r 
-        };
-    },
 
     scroll_annlist_to_bottom: function() {
         var objDiv = document.getElementById("mui_annlist");
@@ -4292,7 +3342,6 @@ var app_hotpot = {
     },
 
     highlight_tag_table_row: function(tag_id) {
-
         // get the row of this tag
         var tagr = $('#tag-table-row-' + tag_id);
         if (tagr.length != 1) {
@@ -4314,329 +3363,9 @@ var app_hotpot = {
         // tagr.animate({backgroundColor: 'yellow'}, 300)
         // .animate({backgroundColor: 'white'}, 700);
     },
-
-    highlight_editor_tag: function(tag_id) {
-        // get this tag in editor
-        var elm = $('#mark-etag-id-' + tag_id);
-        if (elm.length != 1) {
-            // which means no such element
-            return; 
-        }
-        var flag_actived = elm.hasClass('mark-tag-active');
-
-        // remove other class
-        $('.mark-tag-active').removeClass('mark-tag-active');
-
-        // add a class to this dom
-        if (flag_actived) {
-
-        } else {
-            elm.addClass('mark-tag-active');
-        }
-    },
-
-    cm_draw_ltag: function(ltag, ltag_def, ann) {
-        // for showing the ltag, we need:
-        // 1. the atts for accessing the ltag
-        // 2. the values of att_a and att_b, which are tag_id for etag
-        // 3. get the tag, then call cm_draw_polyline
-
-        // so, get all attlists
-        var atts = this.vpp.get_idref_attlists(ltag_def);
-
-        // next, get the values fron this ltag
-        var etags = [];
-        for (let i = 0; i < atts.length; i++) {
-            var att = atts[i];
-            var etag_id = ltag[att.name];
-
-            if (typeof(etag_id) == 'undefined' || 
-                etag_id == null || 
-                etag_id == '') {
-                // this att is just empty
-                continue;
-            }
-
-            // check this etag
-            var etag = this.vpp.get_tag_by_tag_id(etag_id, ann);
-            if (etag == null) { 
-                continue; 
-            }
-            if (etag.spans == dtd_parser.NON_CONSUMING_SPANS) {
-                continue;
-            }
-
-            // ok, save this etag for later use
-            etags.push(etag);
-        }
-        // then, check if there are more than two etags
-        console.log('* found ' + etags.length + ' etags available for this link');
-
-        // first, draw dots
-        for (let i = 0; i < etags.length; i++) {
-            const etag = etags[i];
-            this.cm_draw_ltag_id(ltag, etag, ann);
-        }
-
-        if (!this.vpp.$data.cm.enabled_link_complex) {
-            return;
-        }
-
-        // second, draw polyline
-        if (etags.length < 2) {
-            // which means not enough etag for drawing line
-            return;
-        }
-        var tag_a = etags[0];
-        var tag_b = etags[1];
-
-        console.log(
-            '* try to draw line ['+ltag.id+'] between', 
-            '['+tag_a.id+']-', 
-            '['+tag_a.id+']'
-        );
-
-        // last, draw!
-        this.cm_draw_polyline(
-            ltag, tag_a, tag_b, ann
-        );
-    },
-
-    // cm_draw_ltag_first_two: function(ltag, ltag_def, ann) {
-    //     // for showing the polyline, we need:
-    //     // 1. the att_a and att_b for accessing the ltag
-    //     // 2. the values of att_a and att_b, which are tag_id for etag
-    //     // 3. get the tag, then call cm_draw_polyline
-
-    //     // so, get the att_a and att_b first
-    //     var att_a = this.vpp.get_idref_attlist_by_seq(ltag_def, 0);
-    //     var att_b = this.vpp.get_idref_attlist_by_seq(ltag_def, 1);
-
-    //     // next, get the values
-    //     var etag_a_id = ltag[att_a.name];
-    //     var etag_b_id = ltag[att_b.name];
-    //     // console.log(
-    //     //     '* try to draw line ['+ltag.id+'] between', 
-    //     //     att_a.name, '['+etag_a_id+']-', 
-    //     //     att_b.name, '['+etag_b_id+']'
-    //     // );
-
-    //     // if the value is null or empty, just skip
-    //     if (etag_a_id == null || etag_a_id == '') { return; }
-    //     if (etag_b_id == null || etag_b_id == '') { return; }
-
-    //     // convert the tag_id to tag
-    //     var tag_a = this.vpp.get_tag_by_tag_id(etag_a_id, ann);
-    //     var tag_b = this.vpp.get_tag_by_tag_id(etag_b_id, ann);
-
-    //     // if the tag is not available, just skip
-    //     if (tag_a == null || tag_b == null) { return; }
-
-    //     // if one of the tags is non-consuming tag, just skip
-    //     if (tag_a.spans == dtd_parser.NON_CONSUMING_SPANS ||
-    //         tag_b.spans == dtd_parser.NON_CONSUMING_SPANS) {
-    //         return;
-    //     }
-
-    //     // last, draw!
-    //     this.cm_draw_polyline(
-    //         ltag, tag_a, tag_b, ann
-    //     );
-    // },
-
-    cm_draw_etag_cap: function(etag, ann, cap) {
-        // then get the coords
-        var coords = this.cm_spans2coords(etag.spans, ann);
-        // console.log('* found etag coords:', coords);
-
-        // the basic x is just the tag left position
-        var x = coords.l.left;
-        // the basic y is a little higher
-        var y = coords.l.top + 2.5;
-
-        // find existing cap on this tag if there is
-        // var tagcaps = $('#cm_svg_plots .tag-cap-' + etag.id);
-        // for (let i = 0; i < tagcaps.length; i++) {
-        //     const elem = tagcaps[i];
-        //     var shape = this.get_elem_shape(elem);
-        //     x += shape.width + 1;
-        // }
-        // find the relative x
-        // var el = document.querySelector('#mark-etag-id-' + etag.id);
-        // x = el.offsetLeft;
-
-        // make a cap for this etag
-        var svg_text = document.createElementNS(
-            'http://www.w3.org/2000/svg', 'text'
-        );
-        svg_text.setAttribute('id', 'mark-tag-cap-id-' + etag.id);
-        svg_text.setAttribute('text-anchor', 'left');
-        svg_text.setAttribute('alignment-baseline', 'middle');
-        svg_text.setAttribute('x', x);
-        svg_text.setAttribute('y', y);
-        svg_text.setAttribute('class', 
-            "tag-cap border-tag-" + etag.tag + 
-            " tag-cap-id-" + etag.id +
-            " tag-cap-" + cap
-        );
-        // put the text in this cap
-        var text_node_content = cap;
-        svg_text.append(document.createTextNode(text_node_content));
-
-        $('#cm_svg_plots').append(
-            svg_text
-        );
-    },
-
-    cm_draw_ltag_id: function(ltag, tag, ann) {
-        // then get the coords
-        var coords = this.cm_spans2coords(tag.spans, ann);
-        // console.log('* found etag coords:', coords);
-
-        // the basic x is just the tag left position
-        var x = coords.l.left;
-        // move to middle
-        x += (coords.l.right - coords.l.left) / 2 + 1;
-
-        // the basic y is a little higher
-        var y = coords.l.top + 2;
-
-        // find existing linkdot on this tag if there is
-        var linkdots = $('#cm_svg_plots .tag-linkdot-' + tag.id);
-
-        // add offset to x
-        for (let i = 0; i < linkdots.length; i++) {
-            const elem = linkdots[i];
-            var shape = this.get_elem_shape(elem);
-            x += shape.width + 1;
-        }
-
-        // make a text
-        var svg_text = document.createElementNS(
-            'http://www.w3.org/2000/svg', 'text'
-        );
-        svg_text.setAttribute('id', 'mark-link-dot-id-' + ltag.id + '-' + tag.id);
-        svg_text.setAttribute('text-anchor', 'left');
-        svg_text.setAttribute('alignment-baseline', 'middle');
-        svg_text.setAttribute('x', x);
-        svg_text.setAttribute('y', y);
-        svg_text.setAttribute('class', "tag-linkdot border-tag-" + tag.tag + " tag-linkdot-" + tag.id);
-
-        // put the text
-        var text_node_content = " ";
-        if (this.vpp.$data.cm.enabled_link_name) {
-            text_node_content = " " + ltag.id;
-        }
-        svg_text.append(document.createTextNode(text_node_content));
-
-        $('#cm_svg_plots').append(
-            svg_text
-        );
-
-        // this.make_svg_text_bg(svg_text, 'svgmark-tag-' + ltag.tag);
-    },
-
-    cm_draw_polyline: function(ltag, tag_a, tag_b, ann) {
-        // then get the coords of both tags
-        var coords_a = this.cm_spans2coords(tag_a.spans, ann);
-        var coords_b = this.cm_spans2coords(tag_b.spans, ann);
-
-        // the setting for the polyline
-        var delta_height = 2;
-        var delta_width = 0;
-
-        // get the upper coords, which is the lower one
-        var upper_top = coords_a.l.top < coords_b.l.top ? 
-            coords_a.l.top : coords_b.l.top;
-        upper_top = upper_top - delta_height;
-
-        // get the sign for relative location
-        var sign = coords_b.l.left - coords_a.l.left > 0 ? 1 : -1;
-
-        // then calc the points for the polyline
-        var xys = [
-            // point, start
-            [
-                (coords_a.l.left + coords_a.r.left)/2,
-                (coords_a.l.top + 4)
-            ],
-            // point joint 1
-            [
-                (coords_a.l.left + coords_a.r.left)/2 + sign * delta_width,
-                upper_top
-            ],
-            // point, joint 2
-            [
-                ((coords_b.l.left + coords_b.r.left)/2 - sign * delta_width),
-                upper_top
-            ],
-            // point, end
-            [
-                (coords_b.l.left + coords_b.r.left)/2,
-                (coords_b.l.top + 3)
-            ]
-        ];
-
-        // put all points togather
-        var points = [];
-        for (let i = 0; i < xys.length; i++) {
-            const xy = xys[i];
-            // convert to int for better display
-            var x = Math.floor(xy[0]);
-            var y = Math.floor(xy[1]);
-            points.push(x + ',' + y);
-        }
-
-        // convert to a string
-        points = points.join(' ');
-
-        // create a poly line and add to svg
-        // Thanks to the post!
-        // https://stackoverflow.com/questions/15980648/jquery-added-svg-elements-do-not-show-up
-        var svg_polyline = document.createElementNS(
-            'http://www.w3.org/2000/svg', 'polyline'
-        );
-        svg_polyline.setAttribute('id', 'mark-link-line-id-' + ltag.id);
-        svg_polyline.setAttribute('points', points);
-        svg_polyline.setAttribute('class', "tag-polyline");
-        // svg_polyline.setAttribute('marker-end', "url(#arrow)");
-
-        $('#cm_svg_plots').append(
-            svg_polyline
-        );
-
-        // NEXT, draw a text
-        var svg_text = document.createElementNS(
-            'http://www.w3.org/2000/svg', 'text'
-        );
-        svg_text.setAttribute('id', 'mark-link-text-id-' + ltag.id);
-        svg_text.setAttribute('text-anchor', 'middle');
-        svg_text.setAttribute('alignment-baseline', 'middle');
-        svg_text.setAttribute('x', (xys[0][0] + xys[3][0]) / 2);
-        svg_text.setAttribute('y', xys[1][1] + delta_height);
-        svg_text.setAttribute('class', "tag-linktext");
-
-        // put the text
-        var text_node_content = ltag.id;
-        // if (this.vpp.$data.cm.enabled_link_name) {
-        //     text_node_content = ltag.tag + ': ' + ltag.id;
-        // }
-        svg_text.append(document.createTextNode(text_node_content));
-
-        $('#cm_svg_plots').append(
-            svg_text
-        );
-
-        // then create a background color
-        this.make_svg_text_bg(svg_text, 'svgmark-tag-' + ltag.tag);
-    },
-
-    cm_calc_points: function(coords_a, coords_b) {
-
-    },
     
     /////////////////////////////////////////////////////////////////
-    // Utils
+    // Shared utils for all functions
     /////////////////////////////////////////////////////////////////
     is_same_dtd: function(dtd_a, dtd_b, level) {
         if (typeof(level) == 'undefined') {
@@ -4662,6 +3391,14 @@ var app_hotpot = {
         }
 
         return false;
+    },
+
+    is_file_ext_txt: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'txt');
+    },
+
+    is_file_ext_xml: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'xml');
     },
 
     toast: function(msg, cls, timeout) {
@@ -4761,76 +3498,16 @@ var app_hotpot = {
         elem.parentNode.insertBefore(bg, elem);
     },
 
-    start_tour_annotation: function() {
-        if (this.tour.annotation == null) {
-            this.tour.annotation = new Shepherd.Tour({
-                defaultStepOptions: {
-                    classes: '',
-                    scrollTo: true
-                }
-            });
 
-            // add step for dtd
-            this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'Welcome! 🎉 🎉 🎉  This tool is very easy to use!<br>First, we could drop a schema (.dtd) file here.<br>The schema file defines all of the concepts you want to annotate in the documents.',
-                attachTo: {
-                  element: '#dropzone_dtd',
-                  on: 'right'
-                },
-                classes: '',
-                buttons: [{
-                    text: 'Close',
-                    classes: 'bg-gray', 
-                    action: this.tour.annotation.complete
-                }, {
-                    text: 'Next <i class="fa fa-arrow-right"></i>',
-                    action: this.tour.annotation.next
-                }]
-            });
+    /////////////////////////////////////////////////////////////////
+    // Code Mirror Related
+    /////////////////////////////////////////////////////////////////
+    // see app_hotpot_ext_codemirror.js
 
-            // add step for text
-            this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'Second, you need to drop some annotation files here.<br>You could drop raw text files (.txt) to start and add more anytime. Our tool will automatically convert the text files to xml format when saving. Then, next time you could drop those saved xml files here directly.',
-                attachTo: {
-                  element: '#dropzone_ann',
-                  on: 'right'
-                },
-                classes: '',
-                buttons: [{
-                    text: 'Close',
-                    classes: 'bg-gray', 
-                    action: this.tour.annotation.complete
-                }, {
-                    text: '<i class="fa fa-arrow-left"></i> Prev',
-                    action: this.tour.annotation.back
-                }, {
-                    text: 'Next <i class="fa fa-arrow-right"></i>',
-                    action: this.tour.annotation.next
-                }]
-            });
+    
+    /////////////////////////////////////////////////////////////////
+    // Tour Related
+    /////////////////////////////////////////////////////////////////
+    // see app_hotpot_ext_tour.js
 
-            // add step for text
-            this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'That\'s all to start a new annotation task!<br>If you are not sure what each button does, here is a sample dataset for you to try. You could play with this sample data freely to see how each function works for annotation.<br>Have fun! 😁',
-                attachTo: {
-                  element: '#btn_annotation_load_sample',
-                  on: 'left'
-                },
-                classes: '',
-                buttons: [{
-                    text: '<i class="fa fa-arrow-left"></i> Prev',
-                    action: this.tour.annotation.back
-                }, {
-                    text: 'Close',
-                    classes: 'bg-gray', 
-                    action: this.tour.annotation.complete
-                }]
-            });
-        }
-
-        this.tour.annotation.start();
-    }
 };

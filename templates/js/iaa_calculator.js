@@ -647,8 +647,8 @@ var iaa_calculator = {
 
                                 // next need to put all attributes to this
                                 // this depends on the schema
-                                for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
-                                    const etag_att = etag.attlists[att_idx];
+                                for (let att_idx = 0; att_idx < etag.attrs.length; att_idx++) {
+                                    const etag_att = etag.attrs[att_idx];
                                     
                                     // the attribute name should be the same
                                     // since it is used as the column name.
@@ -824,8 +824,8 @@ var iaa_calculator = {
                             
                             // next need to put all attributes to this
                             // this depends on the schema
-                            // for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
-                            //     const etag_att = etag.attlists[att_idx];
+                            // for (let att_idx = 0; att_idx < etag.attrs.length; att_idx++) {
+                            //     const etag_att = etag.attrs[att_idx];
                                 
                             //     // the attribute name should be the same
                             //     // since it is used as the column name.

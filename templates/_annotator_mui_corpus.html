@@ -1,4 +1,4 @@
-<div v-show="section=='corpus'" id="main_ui" 
+<div v-if="section=='corpus'" id="main_ui" 
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
@@ -23,19 +23,26 @@
 
 
                     <div id="mui_converter_medtagger_txt_filelist"
+                        v-on:dragover="on_dragover_prevent_default"
+                        v-on:drop="on_drop_converter_medtagger_txt"
                         class="converter-dropzone mr-2">
                         <h5>
                             <i class="far fa-file-alt"></i>
                             Raw .txt Text Files
                         </h5>
-                        <p v-if="converter_corpus_medtagger_txt_files.length == 0">
+                        <p v-if="is_converter_loading_medtagger_txt_files">
+                            Loading files ... <br>
+                            Please wait for a little while. <br>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </p>
+                        <p v-else-if="converter_corpus_medtagger_txt_files.length == 0">
                             Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
                         </p>
                         <p v-else>
                             Loaded <b>{{ converter_corpus_medtagger_txt_files.length }} </b> text files (.txt)
                         </p>
 
-                        <div v-if="converter_corpus_medtagger_txt_files.length != 0"
+                        <div v-if="!is_converter_loading_medtagger_txt_files"
                             class="d-flex flex-column converter-file-list">
                             <div v-for="f in converter_corpus_medtagger_txt_files"
                                 class="converter-file-row">
@@ -47,6 +54,8 @@
 
 
                     <div id="mui_converter_medtagger_ann_filelist"
+                        v-on:dragover="on_dragover_prevent_default"
+                        v-on:drop="on_drop_converter_medtagger_ann"
                         class="converter-dropzone mr-2">
                         <h5>
                             <i class="far fa-file-code"></i>

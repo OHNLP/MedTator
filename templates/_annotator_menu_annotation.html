@@ -7,11 +7,13 @@ v-bind:class="{'active': section=='annotation'}">
     <div id="dropzone_dtd" 
         class="dropzone"
         title="Drop a schema file (.dtd) that contains the annotation task"
-        v-on:click="open_dtd_file">
+        v-on:click="on_click_open_dtd_file"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_dtd">
         <div v-if="dtd != null" class="zone-text">
             <b>{{ dtd.name }}</b><br>
             {{ dtd.etags.length }} Entity Tags<br>
-            {{ dtd.ltags.length }} Link Tags
+            {{ dtd.rtags.length }} Link Tags
         </div>
         <div v-else>
             Drop a <b>Schema</b> File Here
@@ -19,7 +21,7 @@ v-bind:class="{'active': section=='annotation'}">
     </div>
 
     <!-- <button class="ribbon-button"
-        v-on:click="open_dtd_file">
+        v-on:click="on_click_open_dtd_file">
         <span class="icon">
             <i class="far fa-file"></i>
         </span>
@@ -28,7 +30,7 @@ v-bind:class="{'active': section=='annotation'}">
 
     <span class="title">
 
-        Schema File (.dtd)
+        Schema File (.yaml / json / dtd)
 
         <span v-if="dtd != null">
             <a href="javascript:void(0);"
@@ -46,6 +48,8 @@ v-bind:class="{'active': section=='annotation'}">
     <div id="dropzone_ann" 
         title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
         v-on:click="open_ann_files"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_ann"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
         <div v-if="ann_idx != null" class="zone-text">
             <b>{{ anns[ann_idx]._filename }}</b><br>

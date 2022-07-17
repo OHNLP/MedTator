@@ -49,7 +49,7 @@ var brat_parser = {
                 cnt.T++;
                 new_ID = 'T'+cnt.T;
 
-            } else if (dtd.tag_dict[tag.tag].type == 'ltag') {
+            } else if (dtd.tag_dict[tag.tag].type == 'rtag') {
                 cnt.R++;
                 new_ID = 'R'+cnt.R;
             }

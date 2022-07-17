@@ -100,12 +100,18 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.2.xx (2022-07-21)
+### 1.3.xx (2022-07-21)
 
 - Support of read/write JSON/YAML format schema
 - Support of tokenization exceptions
 - Update the sample schemas with JSON/YAML format
 - Update the code structure to reduce file size
+- Added pagination for large dataset
+- Added loading dataset annimation
+- Refactored file reading workflow for better performance
+- Refactored annotation file loading workflow
+- Refactored code structure to reduce code size
+- Updated event handlers for drag and drop events
 - Updated license files of imported libraries
 
 ### 1.2.48 (2022-07-07)

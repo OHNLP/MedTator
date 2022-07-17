@@ -136,9 +136,9 @@ var stat_helper = {
                 }
             }
 
-            // then, init all ltags
-            for (let k = 0; k < dtd.ltags.length; k++) {
-                const tag = dtd.ltags[k];
+            // then, init all rtags
+            for (let k = 0; k < dtd.rtags.length; k++) {
+                const tag = dtd.rtags[k];
                 // init this tag count
                 j[tag.name] = 0;
 

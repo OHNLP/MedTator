@@ -122,7 +122,7 @@
             </div>
 
             <div class="d-flex flex-column">
-                <div v-for="tags, idx in [se_dtd.etags, se_dtd.ltags]"
+                <div v-for="tags, idx in [se_dtd.etags, se_dtd.rtags]"
                     class="d-flex flex-column mb-4">
                     <h5 class="mt-0 mb-2 pt-2 pb-2 bg-light">
                         <span v-if="idx == 0">
@@ -194,7 +194,7 @@
                         </div>
                         <div class="d-flex flex-row flex-wrap">
 
-                            <div v-for="att, att_idx in tag_def.attlists"
+                            <div v-for="att, att_idx in tag_def.attrs"
                                 v-show="att.vtype != 'dfix'"
                                 class="se-tag-attr-cell mr-2 mb-2 p-1">
                                 <div class="mb-2 d-flex flex-row">

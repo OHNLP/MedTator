@@ -161,8 +161,8 @@ var ann_parser = {
                 if (dtd.tag_dict.hasOwnProperty(tag_name)) {
                     // one more step, sometimes the attr in XML doesn't contain
                     // what defined in the dtd, so we need to give a value
-                    for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
-                        const att = dtd.tag_dict[tag_name].attlists[k];
+                    for (let k = 0; k < dtd.tag_dict[tag_name].attrs.length; k++) {
+                        const att = dtd.tag_dict[tag_name].attrs[k];
                         if (tag.hasOwnProperty(att.name)) {
                             // ok, that's what it should be
                         } else {
@@ -297,19 +297,19 @@ var ann_parser = {
                     node_tag.setAttribute(attr, tag[attr]);
                     continue;
 
-                } else if (dtd.tag_dict[tag.tag].type == 'ltag') {
+                } else if (dtd.tag_dict[tag.tag].type == 'rtag') {
                     // for link tag, spans and text are not required
                     if (attr == 'spans') { continue; }
                     if (attr == 'text') { continue; }
 
                     // due to schema version issue, 
                     // the attribute may not exist in current schema
-                    if (!dtd.tag_dict[tag.tag].attlist_dict.hasOwnProperty(attr)) {
+                    if (!dtd.tag_dict[tag.tag].attr_dict.hasOwnProperty(attr)) {
                         continue;
                     }
                 
                     // for those link tag, need to check 
-                    if (dtd.tag_dict[tag.tag].attlist_dict[attr].vtype == 'idref') {
+                    if (dtd.tag_dict[tag.tag].attr_dict[attr].vtype == 'idref') {
                         // so, this attr is a id ref,
                         // the value is a tag_id of an etag
                         // to be compatible with MAE format,
@@ -482,15 +482,45 @@ var ann_parser = {
         for (let i = 0; i < anns.length; i++) {
             const ann = anns[i];
             for (let j = 0; j < ann.tags.length; j++) {
-                const tag = ann.tags[j];
-                this.add_tag_to_hint_dict(ann, tag, hint_dict);
+                this.add_tag_to_hint_dict(
+                    ann, 
+                    ann.tags[j], 
+                    hint_dict
+                );
             }
         }
 
         return hint_dict;
     },
 
+    /**
+     * Add an annotation to hint
+     * 
+     * @param {Object} ann annotation object
+     * @param {Object} hint_dict hint
+     * @returns hint_dict
+     */
+    add_ann_to_hint_dict: function(ann, hint_dict) {
+        for (let i = 0; i < ann.tags.length; i++) {
+            this.add_tag_to_hint_dict(
+                ann,
+                ann.tags[i],
+                hint_dict
+            );
+        }
+        return hint_dict;
+    },
+
+    /**
+     * Add one tag to hint_dict
+     * 
+     * @param {Object} ann annotation object
+     * @param {Object} tag annotated tag
+     * @param {Object} hint_dict hints
+     * @returns 
+     */
     add_tag_to_hint_dict: function(ann, tag, hint_dict) {
+        // create this tag if not exists
         if (!hint_dict.hasOwnProperty(tag.tag)) {
             hint_dict[tag.tag] = {
                 // text only
@@ -517,6 +547,8 @@ var ann_parser = {
         // now get the text and trim it
         var text = tag.text;
         text = text.trim();
+
+        // for empty text, need to further check
         if (text == '') {
             // need to check if is a NC etag
             if (tag.spans == this.NON_CONSUMING_SPANS) {
@@ -869,7 +901,7 @@ var ann_parser = {
         return null;
     },
 
-    get_linked_ltags: function(tag_id, ann) {
+    get_linked_rtags: function(tag_id, ann) {
         var tags = [];
         for (let i = 0; i < ann.tags.length; i++) {
             const tag = ann.tags[i];

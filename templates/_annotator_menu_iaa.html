@@ -163,14 +163,14 @@ v-bind:class="{'active': section=='iaa'}">
                 <a href="javascript:void(0);" class="dropdown-toggle">
                     {{ tag.name }}:
                     
-                    <span v-for="att in tag.attlists"
+                    <span v-for="att in tag.attrs"
                         v-show="iaa_use_tag_attrs[tag.name][att.name]"
                         class="mr-1 iaa-tag-attr-name">
                         {{ att.name }}
                     </span>
                 </a>
                 <ul class="ribbon-dropdown" data-role="dropdown">
-                    <li v-for="att in tag.attlists"
+                    <li v-for="att in tag.attrs"
                         v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
                         <a href="javascript:void(0);" 
                             v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">

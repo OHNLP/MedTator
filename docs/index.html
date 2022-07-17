@@ -1232,10 +1232,10 @@ input[type=text].ipt-spinner-xs {
 .iaa-tag-detail-oper {
     display: block;
 }
-.iaa-tag-attlist {
+.iaa-tag-attr {
     border-bottom: 1px solid #aaaaaa;
 }
-.iaa-tag-attlist-name {
+.iaa-tag-attr-name {
     font-size: 0.8em;
 }
 .iaa-tag-context {
@@ -1328,21 +1328,21 @@ ol[class], ul[class] {
 #pan_working_tag_title:active {
     cursor: grabbing;
 }
-.ltag-attr-name {
+.rtag-attr-name {
     align-items: center;
     min-width: 100px;
     max-width: 200px;
 }
-.ltag-attr-value {
+.rtag-attr-value {
     max-width: 150px;
 }
-.ltag-attr-row:hover {
+.rtag-attr-row:hover {
     background-color: rgb(211, 211, 211) !important;
 }
-.ltag-attr-row:nth-child(even) {
+.rtag-attr-row:nth-child(even) {
     background-color: white;
 }
-.ltag-attr-row:nth-child(odd) {
+.rtag-attr-row:nth-child(odd) {
     background-color: whitesmoke;
 }
 
@@ -1683,7 +1683,7 @@ v-bind:class="{'active': section=='annotation'}">
         <div v-if="dtd != null" class="zone-text">
             <b>{{ dtd.name }}</b><br>
             {{ dtd.etags.length }} Entity Tags<br>
-            {{ dtd.ltags.length }} Link Tags
+            {{ dtd.rtags.length }} Link Tags
         </div>
         <div v-else>
             Drop a <b>Schema</b> File Here
@@ -2756,14 +2756,14 @@ v-bind:class="{'active': section=='iaa'}">
                 <a href="javascript:void(0);" class="dropdown-toggle">
                     {{ tag.name }}:
                     
-                    <span v-for="att in tag.attlists"
+                    <span v-for="att in tag.attrs"
                         v-show="iaa_use_tag_attrs[tag.name][att.name]"
                         class="mr-1 iaa-tag-attr-name">
                         {{ att.name }}
                     </span>
                 </a>
                 <ul class="ribbon-dropdown" data-role="dropdown">
-                    <li v-for="att in tag.attlists"
+                    <li v-for="att in tag.attrs"
                         v-bind:class="{'checked': iaa_use_tag_attrs[tag.name][att.name] }">
                         <a href="javascript:void(0);" 
                             v-on:click="toggle_iaa_tag_attrs(tag.name, att.name)">
@@ -3301,19 +3301,19 @@ v-bind:class="{'active': section=='iaa'}">
                 </li>
 
                 <!-- show all link tags -->
-                <li v-for="ltag in dtd.ltags"
+                <li v-for="rtag in dtd.rtags"
                     class="tag-list-row d-flex flex-row flex-justify-between"
-                    v-bind:class="{'tag-list-row-actived':display_tag_name == ltag.name}">
+                    v-bind:class="{'tag-list-row-actived':display_tag_name == rtag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="update_tag_table(ltag)">
+                        v-on:click="update_tag_table(rtag)">
                         <i class="fa fa-link"
-                            v-bind:class="'fg-tag-' + ltag.name">
+                            v-bind:class="'fg-tag-' + rtag.name">
                         </i>
-                        <span v-if="ltag.hasOwnProperty('shortcut')"
+                        <span v-if="rtag.hasOwnProperty('shortcut')"
                             class="badge-shortcut mr-1">
-                            {{ ltag.shortcut }}
+                            {{ rtag.shortcut }}
                         </span>
-                        <span v-html="make_html_bold_tag_name(ltag)">
+                        <span v-html="make_html_bold_tag_name(rtag)">
                             
                         </span>
                     </div>
@@ -3322,12 +3322,12 @@ v-bind:class="{'active': section=='iaa'}">
                             class="mr-2">
                             <button class="btn-xs"
                                 title="Add an empty link tag"
-                                v-on:click="add_empty_ltag(ltag)">
+                                v-on:click="add_empty_rtag(rtag)">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
-                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(ltag)">
-                            {{ count_n_tags(ltag) }}
+                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(rtag)">
+                            {{ count_n_tags(rtag) }}
                         </div>
                     </div>
 
@@ -3455,12 +3455,12 @@ v-bind:class="{'active': section=='iaa'}">
                         </td>
 
                         <td class="d-flex flex-row flex-justify-start flex-align-start flex-wrap">
-                            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                                v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                            <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+                                v-if="!['id','spans','text','tag'].contains(attr.name)"
                                 class="tag-attr-box mr-1 d-flex flex-column">
                                 <div class="tag-attr-name">
-                                    {{ attlist.name }}
-                                    <span v-if="attlist.require == 'REQUIRED'"
+                                    {{ attr.name }}
+                                    <span v-if="attr.require == 'REQUIRED'"
                                         class="clr-red">
                                         *
                                     </span>
@@ -3469,29 +3469,29 @@ v-bind:class="{'active': section=='iaa'}">
                                     </span>
                                 </div>
                                 
-                                <div v-if="attlist.vtype == 'list'">
+                                <div v-if="attr.vtype == 'list'">
                                     <select class="tag-attr-select"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @change="on_change_attr_value">
-                                        <option v-for="val in attlist.values"
+                                        <option v-for="val in attr.values"
                                             v-bind:value="val">
                                             {{ val }}
                                         </option>
                                         <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
-                                <div v-else-if="attlist.vtype == 'text'">
+                                <div v-else-if="attr.vtype == 'text'">
                                     <input type="text"
                                         class="tag-attr-input"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @input="on_input_attr_value">
                                 </div>
-                                <div v-else-if="attlist.vtype == 'idref'">
+                                <div v-else-if="attr.vtype == 'idref'">
                                     <select class="tag-attr-select"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @change="on_change_idref_value">
                                         <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
                                             v-bind:value="s_etag.id">
@@ -3507,8 +3507,8 @@ v-bind:class="{'active': section=='iaa'}">
                                 <div v-else>
                                     <input type="text"
                                         class="tag-attr-input"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @input="on_input_attr_value">
                                 </div>
                             </div>
@@ -3546,17 +3546,17 @@ v-bind:class="{'active': section=='iaa'}">
             </button>
         </div>
         <div class="d-flex flex-column p-1 pr-2">
-            <div v-for="attlist in linking_tag_def.attlists"
-                class="d-flex flex-row ltag-attr-row p-1 mb-1">
-                <div class="d-flex ltag-attr-name pr-1">
+            <div v-for="attr in linking_tag_def.attrs"
+                class="d-flex flex-row rtag-attr-row p-1 mb-1">
+                <div class="d-flex rtag-attr-name pr-1">
                     &nbsp;- 
-                    {{ attlist.name }}
+                    {{ attr.name }}
                 </div>
-                <div class="d-flex ltag-attr-value">
-                    <div v-if="attlist.vtype == 'idref'"
+                <div class="d-flex rtag-attr-value">
+                    <div v-if="attr.vtype == 'idref'"
                         class="w-100">
                         <select class="tag-attr-select"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                             <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
                                 v-bind:value="s_etag.id">
                                 {{ s_etag.id }}
@@ -3568,17 +3568,17 @@ v-bind:class="{'active': section=='iaa'}">
                             <option value="">-- EMPTY --</option>
                         </select>
                     </div>
-                    <div v-else-if="attlist.vtype == 'text'"
+                    <div v-else-if="attr.vtype == 'text'"
                         class="w-100">
                         <input type="text"
                             class="tag-attr-input"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                     </div>
-                    <div v-else-if="attlist.vtype == 'list'"
+                    <div v-else-if="attr.vtype == 'list'"
                         class="w-100">
                         <select class="tag-attr-select"
-                            v-model="linking_tag[attlist.name]">
-                            <option v-for="val in attlist.values"
+                            v-model="linking_tag[attr.name]">
+                            <option v-for="val in attr.values"
                                 v-bind:value="val">
                                 {{ val }}
                             </option>
@@ -3589,7 +3589,7 @@ v-bind:class="{'active': section=='iaa'}">
                         class="w-100">
                         <input type="text"
                             class="tag-attr-input"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                     </div>
                 </div>
             </div>
@@ -4333,7 +4333,7 @@ v-bind:class="{'active': section=='iaa'}">
                     </span>
                 </th>
                 <!-- 
-                <th v-for="tag_def in dtd.ltags"
+                <th v-for="tag_def in dtd.rtags"
                     v-bind:class="'fg-tag-' + tag_def.name">
                     <span class="rotate-90">
                         <i class="fa fa-link"
@@ -4469,7 +4469,7 @@ v-bind:class="{'active': section=='iaa'}">
             </div>
 
             <div class="mr-1 ml-1 d-flex flex-column">
-                <div class="iaa-tag-attlist-name">
+                <div class="iaa-tag-attr-name">
                     {{ get_tag_spans_text(tag) }}:
                 </div> 
     
@@ -4478,16 +4478,16 @@ v-bind:class="{'active': section=='iaa'}">
                 </div>
             </div>
 
-            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                v-if="!['id','spans','text','tag'].contains(attlist.name)"
-                class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+            <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+                v-if="!['id','spans','text','tag'].contains(attr.name)"
+                class="iaa-tag-attr mr-1 ml-1 d-flex flex-column">
     
-                <div class="iaa-tag-attlist-name">
-                    {{ attlist.name }}:
+                <div class="iaa-tag-attr-name">
+                    {{ attr.name }}:
                 </div> 
     
                 <div>
-                    {{ tag[attlist.name] }}&nbsp;
+                    {{ tag[attr.name] }}&nbsp;
                 </div>
                 
             </div>
@@ -4583,7 +4583,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 {{ tag_def.name }}
                             </span>
                         </th>
-                        <th v-for="tag_def in dtd.ltags"
+                        <th v-for="tag_def in dtd.rtags"
                             v-bind:class="'fg-tag-' + tag_def.name">
                             <span class="rotate-90">
                                 <i class="fa fa-link"
@@ -4624,7 +4624,7 @@ v-bind:class="{'active': section=='iaa'}">
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
-                        <td v-for="tag_def in dtd.ltags">
+                        <td v-for="tag_def in dtd.rtags">
                             <span v-if="stat_idx == 0"
                                 class="td-count"
                                 v-bind:class="'td-count-' + stat[tag_def.name]">
@@ -4877,15 +4877,15 @@ v-bind:class="{'active': section=='iaa'}">
 
         <div v-else>
             <li class="ctxmenu-item"
-                v-for="ltag, ltag_idx in dtd.ltags"
-                v-on:click="popmenu_start_linking(ltag)">
+                v-for="rtag, rtag_idx in dtd.rtags"
+                v-on:click="popmenu_start_linking(rtag)">
                 <div>
                     <i class="fa fa-link"
-                        v-bind:class="'fg-tag-' + ltag.name">
+                        v-bind:class="'fg-tag-' + rtag.name">
                     </i>
-                    <b>{{ ltag.name }}</b>
+                    <b>{{ rtag.name }}</b>
                     -
-                    <i>{{ get_idref_attlist_by_seq(ltag).name }}</i>
+                    <i>{{ get_idref_attr_by_seq(rtag).name }}</i>
                 </div>
             </li>
         </div>
@@ -5048,7 +5048,7 @@ v-bind:class="{'active': section=='iaa'}">
             </div>
 
             <div class="d-flex flex-column">
-                <div v-for="tags, idx in [se_dtd.etags, se_dtd.ltags]"
+                <div v-for="tags, idx in [se_dtd.etags, se_dtd.rtags]"
                     class="d-flex flex-column mb-4">
                     <h5 class="mt-0 mb-2 pt-2 pb-2 bg-light">
                         <span v-if="idx == 0">
@@ -5120,7 +5120,7 @@ v-bind:class="{'active': section=='iaa'}">
                         </div>
                         <div class="d-flex flex-row flex-wrap">
 
-                            <div v-for="att, att_idx in tag_def.attlists"
+                            <div v-for="att, att_idx in tag_def.attrs"
                                 v-show="att.vtype != 'dfix'"
                                 class="se-tag-attr-cell mr-2 mb-2 p-1">
                                 <div class="mb-2 d-flex flex-row">
@@ -5558,12 +5558,12 @@ var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
         element: /^\<\!ELEMENT\s+([a-zA-Z\-0-9\_]+)\s.+/gmi,
-        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
-        attlist_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
-        attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
-        attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
-        // attlist_cdata_default_value: /(?<=").*?(?=")/gm
-        attlist_cdata_default_value: /\s+\"(.*)\"/g
+        attr: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
+        attr_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
+        attr_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
+        attr_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
+        // attr_cdata_default_value: /(?<=").*?(?=")/gm
+        attr_cdata_default_value: /\s+\"(.*)\"/g
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -5600,7 +5600,7 @@ var dtd_parser = {
         for (let _t = 0; _t < 2; _t++) {
             var tags = {
                 0: dtd.etags,
-                1: dtd.ltags
+                1: dtd.rtags
             }[_t];
 
             for (let i = 0; i < tags.length; i++) {
@@ -5628,8 +5628,8 @@ var dtd_parser = {
                 }
     
                 // check each attr
-                for (let j = 0; j < tag.attlists.length; j++) {
-                    const att = tag.attlists[j];
+                for (let j = 0; j < tag.attrs.length; j++) {
+                    const att = tag.attrs[j];
                     
                     var att_req = '#IMPLIED'
                     if (att.require == 'REQUIRED') {
@@ -5663,32 +5663,32 @@ var dtd_parser = {
     extend_base_dtd: function(base_dtd) {
         var dtd = JSON.parse(JSON.stringify(base_dtd));
 
-        // first, update the attlist_dict for each tag
+        // first, update the attr_dict for each tag
         for (let _t = 0; _t < 2; _t++) {
             var el = {
                 0: 'etags',
-                1: 'ltags'
+                1: 'rtags'
             }[_t];
 
             for (let i = 0; i < dtd[el].length; i++) {
-                // init the attlist dict
-                dtd[el][i].attlist_dict = {};
+                // init the attr dict
+                dtd[el][i].attr_dict = {};
                 
-                // fill the attlist dict
-                for (let j = 0; j < dtd[el][i].attlists.length; j++) {
-                    var att = dtd[el][i].attlists[j];
-                    dtd[el][i].attlist_dict[att.name] = att;
+                // fill the attr dict
+                for (let j = 0; j < dtd[el][i].attrs.length; j++) {
+                    var att = dtd[el][i].attrs[j];
+                    dtd[el][i].attr_dict[att.name] = att;
                 }
             }
         }
 
-        // then, need to decide the `id_prefixd` and update the tag_dict
-        dtd.id_prefixd = {};
+        // then, need to decide the `id_prefix_dict` and update the tag_dict
+        dtd.id_prefix_dict = {};
         dtd.tag_dict = {};
         for (let _t = 0; _t < 2; _t++) {
             var el = {
                 0: 'etags',
-                1: 'ltags'
+                1: 'rtags'
             }[_t];
 
             for (let i = 0; i < dtd[el].length; i++) {
@@ -5697,7 +5697,7 @@ var dtd_parser = {
                 
                 // search if it is available now
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(dtd[el][i].id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(dtd[el][i].id_prefix)) {
                         dtd[el][i].id_prefix = this.get_next_id_prefix(dtd[el][i]);
                     } else {
                         break;
@@ -5705,7 +5705,7 @@ var dtd_parser = {
                 }
                 
                 // yes found at last
-                dtd.id_prefixd[dtd[el][i].id_prefix] = dtd[el][i];
+                dtd.id_prefix_dict[dtd[el][i].id_prefix] = dtd[el][i];
 
                 // and update the tag_dict
                 dtd.tag_dict[dtd[el][i].name] = dtd[el][i];
@@ -5775,10 +5775,10 @@ var dtd_parser = {
             etags: [],
 
             // the list of relation tags
-            ltags: [],
+            rtags: [],
 
             // a dictionary for quick access tags by id_prefix
-            id_prefixd: {},
+            id_prefix_dict: {},
 
             // a dictionary for quick access tags by tag name
             tag_dict: {},
@@ -5804,30 +5804,30 @@ var dtd_parser = {
             } else if (ret.type == 'etag') {
                 // check the id by a looping
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(ret.id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(ret.id_prefix)) {
                         ret.id_prefix = this.get_next_id_prefix(ret);
                     } else {
                         break;
                     }
                 }
-                dtd.id_prefixd[ret.id_prefix] = ret;
+                dtd.id_prefix_dict[ret.id_prefix] = ret;
                 dtd.tag_dict[ret.name] = ret;
 
-            } else if (ret.type == 'ltag') {
+            } else if (ret.type == 'rtag') {
                 // check the id
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(ret.id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(ret.id_prefix)) {
                         ret.id_prefix = this.get_next_id_prefix(ret);
                     } else {
                         break;
                     }
                 }
-                dtd.id_prefixd[ret.id_prefix] = ret;
+                dtd.id_prefix_dict[ret.id_prefix] = ret;
                 dtd.tag_dict[ret.name] = ret;
 
             } else if (ret.type == 'attr') {
                 // put this attr to an element
-                dtd.tag_dict[ret.element].attlists.push(
+                dtd.tag_dict[ret.element].attrs.push(
                     ret
                 );
 
@@ -5840,9 +5840,9 @@ var dtd_parser = {
         for (const name in dtd.tag_dict) {
             if (Object.hasOwnProperty.call(dtd.tag_dict, name)) {
                 if (dtd.tag_dict[name].type == 'etag') { 
-                    // check the attlist to make sure no missing
-                    for (let i = 0; i < dtd.tag_dict[name].attlists.length; i++) {
-                        if (dtd.tag_dict[name].attlists[i].vtype == 'dfix') {
+                    // check the attr to make sure no missing
+                    for (let i = 0; i < dtd.tag_dict[name].attrs.length; i++) {
+                        if (dtd.tag_dict[name].attrs[i].vtype == 'dfix') {
                             // which means this is a non-consuming tag
                             dtd.tag_dict[name].is_non_consuming = true;
                         }
@@ -5850,10 +5850,10 @@ var dtd_parser = {
 
                 }  else {
 
-                    // for link tag, need to check how many attlists are found
+                    // for link tag, need to check how many attrs are found
                     var cnt_idrefs = 0;
-                    for (let i = 0; i < dtd.tag_dict[name].attlists.length; i++) {
-                        if (dtd.tag_dict[name].attlists[i].vtype == 'idref') {
+                    for (let i = 0; i < dtd.tag_dict[name].attrs.length; i++) {
+                        if (dtd.tag_dict[name].attrs[i].vtype == 'idref') {
                             cnt_idrefs += 1;
                         }
                     }
@@ -5861,12 +5861,12 @@ var dtd_parser = {
                     // if there is not idref, just create two:
                     if (cnt_idrefs == 0) {
                         // create from and to
-                        var attlist_from = this.mk_attlist(name, 'from', 'idref');
-                        var attlist_to = this.mk_attlist(name, 'to', 'idref');
-                        dtd.tag_dict[name].attlists = [attlist_from, attlist_to].concat(
-                            dtd.tag_dict[name].attlists
+                        var attr_from = this.mk_base_attr(name, 'from', 'idref');
+                        var attr_to = this.mk_base_attr(name, 'to', 'idref');
+                        dtd.tag_dict[name].attrs = [attr_from, attr_to].concat(
+                            dtd.tag_dict[name].attrs
                         );
-                        console.log('* added from+to to the attlist of ' + name);
+                        console.log('* added from+to to the attr of ' + name);
                     }
                 }
                 
@@ -5876,8 +5876,8 @@ var dtd_parser = {
         // split the tags
         for (const name in dtd.tag_dict) {
             if (Object.hasOwnProperty.call(dtd.tag_dict, name)) {
-                // now, create a attlist_dict for each tag
-                dtd.tag_dict[name].attlist_dict = this.make_attlist_dict(
+                // now, create a attr_dict for each tag
+                dtd.tag_dict[name].attr_dict = this.make_attr_dict(
                     dtd.tag_dict[name]
                 );
 
@@ -5886,7 +5886,7 @@ var dtd_parser = {
                 if (element.type == 'etag') {
                     dtd.etags.push(element);
                 } else {
-                    dtd.ltags.push(element);
+                    dtd.rtags.push(element);
                 }
             }
         }
@@ -5906,8 +5906,8 @@ var dtd_parser = {
         ret = this.get_element(line);
         if (ret != null) { return ret; }
 
-        // try attlist
-        ret = this.get_attlist(line);
+        // try attr
+        ret = this.get_attr(line);
 
         return ret;
     },
@@ -5951,7 +5951,7 @@ var dtd_parser = {
                 type: 'etag',
                 id_prefix: '',
                 is_non_consuming: false,
-                attlists: []
+                attrs: []
             };
 
             // The result can be accessed through the `m`-variable.
@@ -5966,7 +5966,7 @@ var dtd_parser = {
         
             // check the element type
             if (line.lastIndexOf('EMPTY')>=0) {
-                element.type = 'ltag';
+                element.type = 'rtag';
             }
 
             ret = element;
@@ -5976,71 +5976,71 @@ var dtd_parser = {
 
     },
 
-    get_attlist: function(line) {
+    get_attr: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist;
+        let regex = this.regex.attr;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
-            var attlist = this.mk_attlist();
+            var attr = this.mk_base_attr();
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the element name
-                    attlist.element = match;
+                    attr.element = match;
 
                 } else if (groupIndex == 2) {
                     // which means it is the attr of this element
-                    attlist.name = match;
+                    attr.name = match;
 
                     // special rule for some attrs
                     if (match == 'spans') {
                         // for attr `spans`, need to update the elememt
-                        attlist.vtype = 'dfix';
-                        attlist.default_value = this.NON_CONSUMING_SPANS;
+                        attr.vtype = 'dfix';
+                        attr.default_value = this.NON_CONSUMING_SPANS;
                     }
 
                 } else if (groupIndex == 3) {
                     if (match == 'CDATA') {
                         // ok, it's just a text content
-                        attlist.vtype = 'text';
+                        attr.vtype = 'text';
                         
                         // then get the default value
-                        attlist.default_value = this.get_attlist_cdata_default_value(line);
+                        attr.default_value = this.get_attr_cdata_default_value(line);
 
                     } else if (match == '(') {
                         // this is a list
-                        attlist.vtype = 'list';
+                        attr.vtype = 'list';
 
                         // get the values
-                        attlist.values = this.get_attlist_values(line);
+                        attr.values = this.get_attr_values(line);
 
                     } else if (match == 'IDREF') {
                         // it's an attr for link tag
-                        attlist.vtype = 'idref';
+                        attr.vtype = 'idref';
 
-                        if (this.is_argN(attlist.name)) {
+                        if (this.is_argN(attr.name)) {
                             // ok
                         } else {
                             // IDREF's default name must argX
                             // but ... why?
-                            console.error('* error name for this "', line, '", attlist name should be argX format');
+                            console.error('* error name for this "', line, '", attr name should be argX format');
                         }
 
                         // then, check if there is prefix
-                        var prefix = this.get_attlist_prefix(line);
+                        var prefix = this.get_attr_prefix(line);
                         if (prefix == null) {
-                            // which means this attlist doesn't have a prefix
+                            // which means this attr doesn't have a prefix
                             // for renaming the extraction
                         } else {
                             // use the prefix to replace this name
-                            attlist.name = prefix;
+                            attr.name = prefix;
                         }
                     }
                 } else {
@@ -6049,31 +6049,31 @@ var dtd_parser = {
             });
 
             // before end, check the require info
-            var require = this.get_attlist_require(line);
+            var require = this.get_attr_require(line);
                         
             if (require.length == 0) {
-                // which means this attlist has nothing
+                // which means this attr has nothing
 
             } else if (require.length == 1) {
                 // which means just has the require name it self
-                attlist.require = require[0];
+                attr.require = require[0];
 
             } else if (require.length == 2) {
                 // which means it has the default value!
-                attlist.require = require[0];
-                attlist.default_value = require[1];
+                attr.require = require[0];
+                attr.default_value = require[1];
             }
 
-            ret = attlist;
+            ret = attr;
         }
 
         return ret;
     },
 
-    get_attlist_values: function(line) {
+    get_attr_values: function(line) {
         let m;
         var ret = [];
-        let regex = this.regex.attlist_values;
+        let regex = this.regex.attr_values;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -6083,7 +6083,7 @@ var dtd_parser = {
             var values = [];
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist values match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr values match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the element name
@@ -6102,10 +6102,10 @@ var dtd_parser = {
         return ret;
     },
 
-    get_attlist_require: function(line) {
+    get_attr_require: function(line) {
         let m;
         var ret = [];
-        let regex = this.regex.attlist_require;
+        let regex = this.regex.attr_require;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -6118,7 +6118,7 @@ var dtd_parser = {
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist require match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr require match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the require name
@@ -6142,10 +6142,10 @@ var dtd_parser = {
         return ret;
     },
 
-    get_attlist_prefix: function(line) {
+    get_attr_prefix: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist_prefix;
+        let regex = this.regex.attr_prefix;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -6170,10 +6170,10 @@ var dtd_parser = {
         return ret;
     },    
 
-    get_attlist_cdata_default_value: function(line) {
+    get_attr_cdata_default_value: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist_cdata_default_value;
+        let regex = this.regex.attr_cdata_default_value;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -6198,14 +6198,14 @@ var dtd_parser = {
         return ret;
     },    
 
-    make_attlist_dict: function(tag) {
-        let attlist_dict = {};
+    make_attr_dict: function(tag) {
+        let attr_dict = {};
 
-        for (let i = 0; i < tag.attlists.length; i++) {
-            attlist_dict[tag.attlists[i].name] = tag.attlists[i];
+        for (let i = 0; i < tag.attrs.length; i++) {
+            attr_dict[tag.attrs[i].name] = tag.attrs[i];
         }
 
-        return attlist_dict;
+        return attr_dict;
     },
 
     get_next_id_prefix: function(element) {
@@ -6236,7 +6236,7 @@ var dtd_parser = {
         return false;
     },
 
-    mk_attlist: function(element='', name='', vtype='') {
+    mk_base_attr: function(element='', name='', vtype='') {
         return {
             element: element,
             name: name,
@@ -6254,11 +6254,11 @@ var dtd_parser = {
             name: tag_name,
             type: tag_type,
             is_non_consuming: false,
-            attlists: [],
+            attrs: [],
 
             // the followings are decided when extending
-            attlist_dict: null,
-            id_prefixd: null,
+            attr_dict: null,
+            id_prefix_dict: null,
 
             // the followings are decided when importing
             shortcut: null,
@@ -6272,10 +6272,10 @@ var dtd_parser = {
         return {
             name: dtd_name,
             etags: [],
-            ltags: [],
+            rtags: [],
 
             // the followings are left null for extending later
-            id_prefixd: null,
+            id_prefix_dict: null,
             tag_dict: null,
             text: null
         }
@@ -6446,8 +6446,8 @@ var ann_parser = {
                 if (dtd.tag_dict.hasOwnProperty(tag_name)) {
                     // one more step, sometimes the attr in XML doesn't contain
                     // what defined in the dtd, so we need to give a value
-                    for (let k = 0; k < dtd.tag_dict[tag_name].attlists.length; k++) {
-                        const att = dtd.tag_dict[tag_name].attlists[k];
+                    for (let k = 0; k < dtd.tag_dict[tag_name].attrs.length; k++) {
+                        const att = dtd.tag_dict[tag_name].attrs[k];
                         if (tag.hasOwnProperty(att.name)) {
                             // ok, that's what it should be
                         } else {
@@ -6582,19 +6582,19 @@ var ann_parser = {
                     node_tag.setAttribute(attr, tag[attr]);
                     continue;
 
-                } else if (dtd.tag_dict[tag.tag].type == 'ltag') {
+                } else if (dtd.tag_dict[tag.tag].type == 'rtag') {
                     // for link tag, spans and text are not required
                     if (attr == 'spans') { continue; }
                     if (attr == 'text') { continue; }
 
                     // due to schema version issue, 
                     // the attribute may not exist in current schema
-                    if (!dtd.tag_dict[tag.tag].attlist_dict.hasOwnProperty(attr)) {
+                    if (!dtd.tag_dict[tag.tag].attr_dict.hasOwnProperty(attr)) {
                         continue;
                     }
                 
                     // for those link tag, need to check 
-                    if (dtd.tag_dict[tag.tag].attlist_dict[attr].vtype == 'idref') {
+                    if (dtd.tag_dict[tag.tag].attr_dict[attr].vtype == 'idref') {
                         // so, this attr is a id ref,
                         // the value is a tag_id of an etag
                         // to be compatible with MAE format,
@@ -7154,7 +7154,7 @@ var ann_parser = {
         return null;
     },
 
-    get_linked_ltags: function(tag_id, ann) {
+    get_linked_rtags: function(tag_id, ann) {
         var tags = [];
         for (let i = 0; i < ann.tags.length; i++) {
             const tag = ann.tags[i];
@@ -7332,9 +7332,9 @@ var stat_helper = {
                 }
             }
 
-            // then, init all ltags
-            for (let k = 0; k < dtd.ltags.length; k++) {
-                const tag = dtd.ltags[k];
+            // then, init all rtags
+            for (let k = 0; k < dtd.rtags.length; k++) {
+                const tag = dtd.rtags[k];
                 // init this tag count
                 j[tag.name] = 0;
 
@@ -7700,7 +7700,7 @@ var bioc_parser = {
                         elem_passage.appendChild(elem_ann);
                     }
 
-                } else if (tag_def.type == 'ltag') {
+                } else if (tag_def.type == 'rtag') {
                     // ok, it is a link tag
 
                     // each link tag is an relation element 
@@ -7719,7 +7719,7 @@ var bioc_parser = {
                             }
                             
                             // for other key, need to check attr type first
-                            var att_def = tag_def.attlist_dict[key];
+                            var att_def = tag_def.attr_dict[key];
 
                             if (att_def.vtype == 'idref') {
                                 // for idref type, need to create node
@@ -9614,8 +9614,8 @@ var iaa_calculator = {
 
                                 // next need to put all attributes to this
                                 // this depends on the schema
-                                for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
-                                    const etag_att = etag.attlists[att_idx];
+                                for (let att_idx = 0; att_idx < etag.attrs.length; att_idx++) {
+                                    const etag_att = etag.attrs[att_idx];
                                     
                                     // the attribute name should be the same
                                     // since it is used as the column name.
@@ -9791,8 +9791,8 @@ var iaa_calculator = {
                             
                             // next need to put all attributes to this
                             // this depends on the schema
-                            // for (let att_idx = 0; att_idx < etag.attlists.length; att_idx++) {
-                            //     const etag_att = etag.attlists[att_idx];
+                            // for (let att_idx = 0; att_idx < etag.attrs.length; att_idx++) {
+                            //     const etag_att = etag.attrs[att_idx];
                                 
                             //     // the attribute name should be the same
                             //     // since it is used as the column name.
@@ -11577,8 +11577,8 @@ var nlp_toolkit = {
 
                 // one more step, the MedTagger output won't contain attrs
                 // which are defined in the dtd, so we need to set them
-                for (let k = 0; k < tag_def.attlists.length; k++) {
-                    const att = tag_def.attlists[k];
+                for (let k = 0; k < tag_def.attrs.length; k++) {
+                    const att = tag_def.attrs[k];
                     if (tag.hasOwnProperty(att.name)) {
                         // ok, that's what it should be
                     } else {
@@ -11669,7 +11669,7 @@ var nlp_toolkit = {
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist require match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr require match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the key
@@ -12758,7 +12758,7 @@ var app_hotpot = {
 
         on_change_link_settings: function(event) {
             console.log(event.target.value);
-            // app_hotpot.cm_clear_ltag_marks();
+            // app_hotpot.cm_clear_rtag_marks();
 
             // have to update all marks ...
             app_hotpot.cm_update_marks();
@@ -12981,18 +12981,18 @@ var app_hotpot = {
             // ok, that's all?
         },
 
-        add_empty_ltag: function(ltag_def) {
-            var ltag = app_hotpot.make_empty_ltag_by_tag_def(ltag_def);
+        add_empty_rtag: function(rtag_def) {
+            var rtag = app_hotpot.make_empty_rtag_by_tag_def(rtag_def);
 
             // create an tag_id
             var tag_id = ann_parser.get_next_tag_id(
                 this.anns[this.ann_idx],
-                ltag_def
+                rtag_def
             );
-            ltag.id = tag_id;
+            rtag.id = tag_id;
 
             // add to list
-            this.anns[this.ann_idx].tags.push(ltag);
+            this.anns[this.ann_idx].tags.push(rtag);
 
             // mark _has_saved
             this.anns[this.ann_idx]._has_saved = false;
@@ -13580,22 +13580,22 @@ var app_hotpot = {
             this.clicked_tag_id = null;
         },
 
-        popmenu_start_linking: function(ltag_def) {
+        popmenu_start_linking: function(rtag_def) {
             // first, set the working mode
             this.is_linking = true;
 
             // set the linking tag_def
-            this.linking_tag_def = ltag_def;
+            this.linking_tag_def = rtag_def;
 
-            // create a ltag
-            this.linking_tag = app_hotpot.make_empty_ltag_by_tag_def(ltag_def);
+            // create a rtag
+            this.linking_tag = app_hotpot.make_empty_rtag_by_tag_def(rtag_def);
 
-            // then get the linking atts for this ltag
-            // this list contains all atts for this ltag
+            // then get the linking atts for this rtag
+            // this list contains all atts for this rtag
             // and during the linking, we will remove those linked att out
-            this.linking_atts = this.get_idref_attlists(ltag_def);
+            this.linking_atts = this.get_idref_attrs(rtag_def);
 
-            // let's set the first idref attlist
+            // let's set the first idref attr
             // pop the first att from atts
             var att = this.linking_atts[0];
             this.linking_atts.splice(0, 1)
@@ -13603,7 +13603,7 @@ var app_hotpot = {
             
             // maybe we could show a float panel
             // for showing the current annotation
-            console.log('* start linking', ltag_def.name, 
+            console.log('* start linking', rtag_def.name, 
                 'on attr [', att.name,
                 '] =', this.clicked_tag_id
             );
@@ -13636,7 +13636,7 @@ var app_hotpot = {
                 this.anns[this.ann_idx]._has_saved = false;
 
                 // then, we could show this new link in cm
-                app_hotpot.cm_draw_ltag(
+                app_hotpot.cm_draw_rtag(
                     this.linking_tag,
                     this.linking_tag_def,
                     this.anns[this.ann_idx]
@@ -13664,7 +13664,7 @@ var app_hotpot = {
             this.anns[this.ann_idx]._has_saved = false;
 
             // then, we could show this new link in cm
-            app_hotpot.cm_draw_ltag(
+            app_hotpot.cm_draw_rtag(
                 this.linking_tag,
                 this.linking_tag_def,
                 this.anns[this.ann_idx]
@@ -13901,29 +13901,29 @@ var app_hotpot = {
             }
         },
 
-        get_idref_attlist_by_seq: function(ltag_def, seq=0) {
+        get_idref_attr_by_seq: function(rtag_def, seq=0) {
             var cnt = -1;
-            for (let i = 0; i < ltag_def.attlists.length; i++) {
-                if (ltag_def.attlists[i].vtype == 'idref') {
+            for (let i = 0; i < rtag_def.attrs.length; i++) {
+                if (rtag_def.attrs[i].vtype == 'idref') {
                     cnt += 1;
                     if (cnt == seq) {
-                        // great! we get the attlist we want
-                        return ltag_def.attlists[i];
+                        // great! we get the attr we want
+                        return rtag_def.attrs[i];
                     }
                 }
             }
             return null;
         },
 
-        get_idref_attlists: function(ltag_def) {
-            var attlists = [];
-            for (let i = 0; i < ltag_def.attlists.length; i++) {
-                const att = ltag_def.attlists[i];
+        get_idref_attrs: function(rtag_def) {
+            var attrs = [];
+            for (let i = 0; i < rtag_def.attrs.length; i++) {
+                const att = rtag_def.attrs[i];
                 if (att.vtype == 'idref') {
-                    attlists.push(att);
+                    attrs.push(att);
                 }
             }
-            return attlists;
+            return attrs;
         },
 
         to_fixed: function(v) {
@@ -14065,7 +14065,7 @@ var app_hotpot = {
          */
         is_tag_related_to_tag_name: function(tag, tag_names, ann) {
             // find the 
-            var related_tags = ann_parser.get_linked_ltags(
+            var related_tags = ann_parser.get_linked_rtags(
                 tag.id,
                 ann
             );
@@ -14712,8 +14712,8 @@ var app_hotpot = {
         $('.main-ui').css('height', h - 145);
 
         // due the svg issue, when resizing the window,
-        // redraw all ltag marks
-        this.cm_clear_ltag_marks();
+        // redraw all rtag marks
+        this.cm_clear_rtag_marks();
 
         // redraw all marks
         this.cm_update_tag_marks();
@@ -15146,25 +15146,25 @@ var app_hotpot = {
         });
     },
 
-    del_tag: function(tag_id, ann, is_check_ltag=true, is_update_marks=true) {
+    del_tag: function(tag_id, ann, is_check_rtag=true, is_update_marks=true) {
         if (typeof(ann) == 'undefined') {
             ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
         }
 
-        if (is_check_ltag) {
-            // when deleting etag, need to check if there is linked ltag
-            var linked_ltags = ann_parser.get_linked_ltags(tag_id, ann);
+        if (is_check_rtag) {
+            // when deleting etag, need to check if there is linked rtag
+            var linked_rtags = ann_parser.get_linked_rtags(tag_id, ann);
 
-            if (linked_ltags.length == 0) {
+            if (linked_rtags.length == 0) {
                 // great! no links!
                 // just keep going
             } else {
                 // ok, are you sure?
                 // let's make a long message
-                var msg = ['There are ' + linked_ltags.length + ' link tag(s) related to [' + tag_id + ']:\n'];
-                for (let i = 0; i < linked_ltags.length; i++) {
-                    const ltag = linked_ltags[i];
-                    msg.push('- ' + ltag.id + ' (' + ltag.tag + ') ' + '\n');
+                var msg = ['There are ' + linked_rtags.length + ' link tag(s) related to [' + tag_id + ']:\n'];
+                for (let i = 0; i < linked_rtags.length; i++) {
+                    const rtag = linked_rtags[i];
+                    msg.push('- ' + rtag.id + ' (' + rtag.tag + ') ' + '\n');
                 }
                 msg.push('\nDeleting [' + tag_id + '] will also delete the above link tag(s).\n');
                 msg.push('Are you sure to continue?');
@@ -15174,10 +15174,10 @@ var app_hotpot = {
 
                 if (ret) {
                     // ok, let's delete the links first
-                    for (let i = 0; i < linked_ltags.length; i++) {
-                        const ltag = linked_ltags[i];
+                    for (let i = 0; i < linked_rtags.length; i++) {
+                        const rtag = linked_rtags[i];
                         // save some time when running this inner deletion
-                        this.del_tag(ltag.id, ann, false, false);
+                        this.del_tag(rtag.id, ann, false, false);
                     }
                 } else {
                     // nice choice! keep them all!
@@ -15250,8 +15250,8 @@ var app_hotpot = {
         basic_tag['id'] = ann_parser.get_next_tag_id(ann, tag_def);
 
         // add other attr defined in the tag_dee from schema (.dtd)
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
 
             if (att.name == 'spans') {
                 // special rule for spans attr
@@ -15265,7 +15265,7 @@ var app_hotpot = {
         return basic_tag;
     },
 
-    make_ltag: function() {
+    make_rtag: function() {
 
     },
 
@@ -15278,8 +15278,8 @@ var app_hotpot = {
         };
 
         // then add other attr
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
 
             if (att.name == 'spans') {
                 // special rule for spans attr
@@ -15293,25 +15293,25 @@ var app_hotpot = {
         return etag;
     },
 
-    make_empty_ltag_by_tag_def: function(tag_def) {
-        var ltag = {
+    make_empty_rtag_by_tag_def: function(tag_def) {
+        var rtag = {
             id: '',
             tag: tag_def.name
         };
 
         // then add other attr
-        for (let i = 0; i < tag_def.attlists.length; i++) {
-            const att = tag_def.attlists[i];
+        for (let i = 0; i < tag_def.attrs.length; i++) {
+            const att = tag_def.attrs[i];
 
             if (att.name == 'spans') {
                 // special rule for spans attr
             } else {
                 // set the default value
-                ltag[att.name] = att.default_value;
+                rtag[att.name] = att.default_value;
             }
         }
 
-        return ltag;
+        return rtag;
     },
     
     remove_tag_from_ann: function(tag_id, ann) {
@@ -15342,7 +15342,7 @@ var app_hotpot = {
         this.cm_clear_etag_marks();
 
         // clear all link tags
-        this.cm_clear_ltag_marks();
+        this.cm_clear_rtag_marks();
 
         // first, if ann is null, just remove everything in the editor
         if (ann == null) {
@@ -15420,7 +15420,7 @@ var app_hotpot = {
         this.cm_clear_etag_marks();
 
         // clear all link tags
-        this.cm_clear_ltag_marks();
+        this.cm_clear_rtag_marks();
 
         // update the hint marks
         this.cm_update_hint_marks();
@@ -15439,7 +15439,7 @@ var app_hotpot = {
         }
     },
 
-    cm_clear_ltag_marks: function() {
+    cm_clear_rtag_marks: function() {
         // first, check if there is a layer for the plots
         if ($('#cm_svg_plots').length == 0) {
             $('.CodeMirror-sizer').prepend(`
@@ -15530,7 +15530,7 @@ var app_hotpot = {
 
         // since all etags have been rendered,
         // it's safe to render the link tags
-        this.cm_update_ltag_marks();
+        this.cm_update_rtag_marks();
     },
 
     cm_update_etag_marks: function() {
@@ -15551,7 +15551,7 @@ var app_hotpot = {
         }
     },
 
-    cm_update_ltag_marks: function() {
+    cm_update_rtag_marks: function() {
         if (this.vpp.$data.ann_idx == null) {
             // nothing to do for empty
             return;
@@ -15568,8 +15568,8 @@ var app_hotpot = {
         for (let i = 0; i < working_ann.tags.length; i++) {
             var tag = working_ann.tags[i];
             var tag_def = this.vpp.get_tag_def(tag.tag);
-            if (tag_def.type == 'ltag') {
-                this.cm_mark_ann_ltag_in_text(tag, tag_def, working_ann);
+            if (tag_def.type == 'rtag') {
+                this.cm_mark_ann_rtag_in_text(tag, tag_def, working_ann);
             }
         }
     },
@@ -15649,11 +15649,11 @@ var app_hotpot = {
         if (tag_def.type == 'etag') {
             return this.cm_mark_ann_etag_in_text(tag, tag_def, ann);
         } else {
-            return this.cm_mark_ann_ltag_in_text(tag, tag_def, ann);
+            return this.cm_mark_ann_rtag_in_text(tag, tag_def, ann);
         }
     },
 
-    cm_mark_ann_ltag_in_text: function(tag, tag_def, ann) {
+    cm_mark_ann_rtag_in_text: function(tag, tag_def, ann) {
         if (app_hotpot.vpp.is_render_tags_of_all_concepts()) {
             // ok, let's render all tags here
         } else {
@@ -15664,7 +15664,7 @@ var app_hotpot = {
             }
         }
 
-        this.cm_draw_ltag(tag, tag_def, ann);
+        this.cm_draw_rtag(tag, tag_def, ann);
     },
 
     cm_mark_ann_etag_in_text: function(tag, tag_def, ann) {
@@ -15694,7 +15694,7 @@ var app_hotpot = {
                 // to render the link tags,
                 // the related entity tags are also needed to render
                 // so the question is, is this tag belong to current link tag?
-                if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'ltag') {
+                if (app_hotpot.vpp.get_tag_def(app_hotpot.vpp.$data.display_tag_name).type == 'rtag') {
                     // only check this for only showing link tag.
                     // otherwise it will cost unnecessary computation
                     if (app_hotpot.vpp.is_tag_related_to_tag_name(
@@ -16029,20 +16029,20 @@ var app_hotpot = {
         }
     },
 
-    cm_draw_ltag: function(ltag, ltag_def, ann) {
-        // for showing the ltag, we need:
-        // 1. the atts for accessing the ltag
+    cm_draw_rtag: function(rtag, rtag_def, ann) {
+        // for showing the rtag, we need:
+        // 1. the atts for accessing the rtag
         // 2. the values of att_a and att_b, which are tag_id for etag
         // 3. get the tag, then call cm_draw_polyline
 
-        // so, get all attlists
-        var atts = this.vpp.get_idref_attlists(ltag_def);
+        // so, get all attrs
+        var atts = this.vpp.get_idref_attrs(rtag_def);
 
-        // next, get the values fron this ltag
+        // next, get the values fron this rtag
         var etags = [];
         for (let i = 0; i < atts.length; i++) {
             var att = atts[i];
-            var etag_id = ltag[att.name];
+            var etag_id = rtag[att.name];
 
             if (typeof(etag_id) == 'undefined' || 
                 etag_id == null || 
@@ -16069,7 +16069,7 @@ var app_hotpot = {
         // first, draw dots
         for (let i = 0; i < etags.length; i++) {
             const etag = etags[i];
-            this.cm_draw_ltag_id(ltag, etag, ann);
+            this.cm_draw_rtag_id(rtag, etag, ann);
         }
 
         if (!this.vpp.$data.cm.enabled_link_complex) {
@@ -16085,32 +16085,32 @@ var app_hotpot = {
         var tag_b = etags[1];
 
         console.log(
-            '* try to draw line ['+ltag.id+'] between', 
+            '* try to draw line ['+rtag.id+'] between', 
             '['+tag_a.id+']-', 
             '['+tag_a.id+']'
         );
 
         // last, draw!
         this.cm_draw_polyline(
-            ltag, tag_a, tag_b, ann
+            rtag, tag_a, tag_b, ann
         );
     },
 
-    // cm_draw_ltag_first_two: function(ltag, ltag_def, ann) {
+    // cm_draw_rtag_first_two: function(rtag, rtag_def, ann) {
     //     // for showing the polyline, we need:
-    //     // 1. the att_a and att_b for accessing the ltag
+    //     // 1. the att_a and att_b for accessing the rtag
     //     // 2. the values of att_a and att_b, which are tag_id for etag
     //     // 3. get the tag, then call cm_draw_polyline
 
     //     // so, get the att_a and att_b first
-    //     var att_a = this.vpp.get_idref_attlist_by_seq(ltag_def, 0);
-    //     var att_b = this.vpp.get_idref_attlist_by_seq(ltag_def, 1);
+    //     var att_a = this.vpp.get_idref_attr_by_seq(rtag_def, 0);
+    //     var att_b = this.vpp.get_idref_attr_by_seq(rtag_def, 1);
 
     //     // next, get the values
-    //     var etag_a_id = ltag[att_a.name];
-    //     var etag_b_id = ltag[att_b.name];
+    //     var etag_a_id = rtag[att_a.name];
+    //     var etag_b_id = rtag[att_b.name];
     //     // console.log(
-    //     //     '* try to draw line ['+ltag.id+'] between', 
+    //     //     '* try to draw line ['+rtag.id+'] between', 
     //     //     att_a.name, '['+etag_a_id+']-', 
     //     //     att_b.name, '['+etag_b_id+']'
     //     // );
@@ -16134,7 +16134,7 @@ var app_hotpot = {
 
     //     // last, draw!
     //     this.cm_draw_polyline(
-    //         ltag, tag_a, tag_b, ann
+    //         rtag, tag_a, tag_b, ann
     //     );
     // },
 
@@ -16182,7 +16182,7 @@ var app_hotpot = {
         );
     },
 
-    cm_draw_ltag_id: function(ltag, tag, ann) {
+    cm_draw_rtag_id: function(rtag, tag, ann) {
         // then get the coords
         var coords = this.cm_spans2coords(tag.spans, ann);
         // console.log('* found etag coords:', coords);
@@ -16209,7 +16209,7 @@ var app_hotpot = {
         var svg_text = document.createElementNS(
             'http://www.w3.org/2000/svg', 'text'
         );
-        svg_text.setAttribute('id', 'mark-link-dot-id-' + ltag.id + '-' + tag.id);
+        svg_text.setAttribute('id', 'mark-link-dot-id-' + rtag.id + '-' + tag.id);
         svg_text.setAttribute('text-anchor', 'left');
         svg_text.setAttribute('alignment-baseline', 'middle');
         svg_text.setAttribute('x', x);
@@ -16219,7 +16219,7 @@ var app_hotpot = {
         // put the text
         var text_node_content = " ";
         if (this.vpp.$data.cm.enabled_link_name) {
-            text_node_content = " " + ltag.id;
+            text_node_content = " " + rtag.id;
         }
         svg_text.append(document.createTextNode(text_node_content));
 
@@ -16227,10 +16227,10 @@ var app_hotpot = {
             svg_text
         );
 
-        // this.make_svg_text_bg(svg_text, 'svgmark-tag-' + ltag.tag);
+        // this.make_svg_text_bg(svg_text, 'svgmark-tag-' + rtag.tag);
     },
 
-    cm_draw_polyline: function(ltag, tag_a, tag_b, ann) {
+    cm_draw_polyline: function(rtag, tag_a, tag_b, ann) {
         // then get the coords of both tags
         var coords_a = this.cm_spans2coords(tag_a.spans, ann);
         var coords_b = this.cm_spans2coords(tag_b.spans, ann);
@@ -16290,7 +16290,7 @@ var app_hotpot = {
         var svg_polyline = document.createElementNS(
             'http://www.w3.org/2000/svg', 'polyline'
         );
-        svg_polyline.setAttribute('id', 'mark-link-line-id-' + ltag.id);
+        svg_polyline.setAttribute('id', 'mark-link-line-id-' + rtag.id);
         svg_polyline.setAttribute('points', points);
         svg_polyline.setAttribute('class', "tag-polyline");
         // svg_polyline.setAttribute('marker-end', "url(#arrow)");
@@ -16303,7 +16303,7 @@ var app_hotpot = {
         var svg_text = document.createElementNS(
             'http://www.w3.org/2000/svg', 'text'
         );
-        svg_text.setAttribute('id', 'mark-link-text-id-' + ltag.id);
+        svg_text.setAttribute('id', 'mark-link-text-id-' + rtag.id);
         svg_text.setAttribute('text-anchor', 'middle');
         svg_text.setAttribute('alignment-baseline', 'middle');
         svg_text.setAttribute('x', (xys[0][0] + xys[3][0]) / 2);
@@ -16311,9 +16311,9 @@ var app_hotpot = {
         svg_text.setAttribute('class', "tag-linktext");
 
         // put the text
-        var text_node_content = ltag.id;
+        var text_node_content = rtag.id;
         // if (this.vpp.$data.cm.enabled_link_name) {
-        //     text_node_content = ltag.tag + ': ' + ltag.id;
+        //     text_node_content = rtag.tag + ': ' + rtag.id;
         // }
         svg_text.append(document.createTextNode(text_node_content));
 
@@ -16322,7 +16322,7 @@ var app_hotpot = {
         );
 
         // then create a background color
-        this.make_svg_text_bg(svg_text, 'svgmark-tag-' + ltag.tag);
+        this.make_svg_text_bg(svg_text, 'svgmark-tag-' + rtag.tag);
     },
 
     cm_calc_points: function(coords_a, coords_b) {
@@ -16946,8 +16946,8 @@ Object.assign(app_hotpot.vpp_methods, {
                 this.iaa_use_tag_attrs[tag_name] = {};
 
                 // update all the attributes
-                for (let i = 0; i < tag.attlists.length; i++) {
-                    const att = tag.attlists[i];
+                for (let i = 0; i < tag.attrs.length; i++) {
+                    const att = tag.attrs[i];
                     // set all to true
                     this.iaa_use_tag_attrs[tag_name][att.name] = true;
                 }
@@ -17814,20 +17814,20 @@ Object.assign(app_hotpot.vpp_methods, {
         }
     },
 
-    add_se_dtd_tag: function(dtd, etag_or_ltag) {
-        if (typeof(etag_or_ltag) == 'undefined') {
+    add_se_dtd_tag: function(dtd, etag_or_rtag) {
+        if (typeof(etag_or_rtag) == 'undefined') {
             // 0: etag
-            // 1: ltag
-            etag_or_ltag = 0;
+            // 1: rtag
+            etag_or_rtag = 0;
         }
 
         var tag_type = '';
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             tag_type = 'etag';
             tag_name = 'NEW_ETAG_' + (dtd.etags.length+1);
         } else {
-            tag_type = 'ltag';
-            tag_name = 'NEW_LTAG_' + (dtd.ltags.length+1);
+            tag_type = 'rtag';
+            tag_name = 'NEW_RTAG_' + (dtd.rtags.length+1);
         }
 
         var  base_tag = dtd_parser.mk_base_tag(
@@ -17836,26 +17836,26 @@ Object.assign(app_hotpot.vpp_methods, {
         );
 
         // add to dtd directly?
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             dtd.etags.push(base_tag);
 
         } else {
-            dtd.ltags.push(base_tag);
+            dtd.rtags.push(base_tag);
         }
     },
 
     add_se_dtd_tag_attr: function(dtd, tag_def) {
-        var att = dtd_parser.mk_attlist(
+        var att = dtd_parser.mk_base_attr(
             dtd.name,
-            'new_attr_' + (tag_def.attlists.length+1),
+            'new_attr_' + (tag_def.attrs.length+1),
             'text'
         )
         
         // add to the given tag??
-        tag_def.attlists.push(att);
+        tag_def.attrs.push(att);
     },
 
-    remove_se_dtd_tag: function(dtd, tag_def, etag_or_ltag, tag_idx) {
+    remove_se_dtd_tag: function(dtd, tag_def, etag_or_rtag, tag_idx) {
         var ret = window.confirm('Are you sure to remove the tag [' + tag_def.name + ']?');
 
         if (ret) {
@@ -17864,16 +17864,16 @@ Object.assign(app_hotpot.vpp_methods, {
             return;
         }
 
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             // etag
             dtd.etags.splice(tag_idx, 1);
 
         } else {
-            dtd.ltags.splice(tag_idx, 1);
+            dtd.rtags.splice(tag_idx, 1);
         }
     },
 
-    remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_ltag, tag_idx, att_idx) {
+    remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_rtag, tag_idx, att_idx) {
         if (att.vtype == 'list') {
             var ret = window.confirm('This attribute contains a list of values ['+att.values.join('|')+']. Are you sure to remove the attribute [' + tag_def.name + '.' + att.name + ']?');
 
@@ -17883,12 +17883,12 @@ Object.assign(app_hotpot.vpp_methods, {
                 return;
             }
         }
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             // etag
-            dtd.etags[tag_idx].attlists.splice(att_idx, 1);
+            dtd.etags[tag_idx].attrs.splice(att_idx, 1);
 
         } else {
-            dtd.ltags[tag_idx].attlists.splice(att_idx, 1);
+            dtd.rtags[tag_idx].attrs.splice(att_idx, 1);
         }
     },
 
@@ -18021,16 +18021,16 @@ Vue.component('iaa-tag-info', {
             </span>
         </div>
         
-        <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-            v-if="!['id','spans','text','tag'].contains(attlist.name)"
-            class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+        <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+            v-if="!['id','spans','text','tag'].contains(attr.name)"
+            class="iaa-tag-attr mr-1 ml-1 d-flex flex-column">
 
-            <div class="iaa-tag-attlist-name">
-                &nbsp;{{ attlist.name }}:
+            <div class="iaa-tag-attr-name">
+                &nbsp;{{ attr.name }}:
             </div> 
 
             <div>
-                &nbsp;{{ tag[attlist.name] }}
+                &nbsp;{{ tag[attr.name] }}
             </div>
             
         </div>

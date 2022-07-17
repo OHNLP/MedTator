@@ -88,6 +88,9 @@ THIRD_PARTY_LIB_URL={
     },
     'D3': {
         'JS': './static/lib/d3/d3-v7.2.1.js'
+    },
+    'JS_YAML': {
+        "JS": "./static/lib/js-yaml/js-yaml.4.1.0.min.js"
     }
 },
 'cdn': {
@@ -163,6 +166,9 @@ THIRD_PARTY_LIB_URL={
     },
     'D3': {
         'JS': 'https://cdn.jsdelivr.net/npm/d3@7'
+    },
+    'JS_YAML': {
+        "JS": "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"
     }
 }}
 

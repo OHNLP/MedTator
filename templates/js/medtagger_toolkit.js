@@ -112,8 +112,8 @@
 
                 // one more step, the MedTagger output won't contain attrs
                 // which are defined in the dtd, so we need to set them
-                for (let k = 0; k < tag_def.attlists.length; k++) {
-                    const att = tag_def.attlists[k];
+                for (let k = 0; k < tag_def.attrs.length; k++) {
+                    const att = tag_def.attrs[k];
                     if (tag.hasOwnProperty(att.name)) {
                         // ok, that's what it should be
                     } else {
@@ -204,7 +204,7 @@
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist require match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr require match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the key

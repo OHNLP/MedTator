@@ -8,7 +8,7 @@
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -28,7 +28,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -58,7 +58,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "CHILL",
                         "name": "spans",
@@ -78,7 +78,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "CHILL",
                         "name": "spans",
@@ -108,7 +108,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -128,7 +128,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -158,7 +158,7 @@
                 "type": "etag",
                 "id_prefix": "PA",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PAIN",
                         "name": "spans",
@@ -178,7 +178,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PAIN",
                         "name": "spans",
@@ -208,7 +208,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -228,7 +228,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -258,7 +258,7 @@
                 "type": "etag",
                 "id_prefix": "CO",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "COUGH",
                         "name": "spans",
@@ -278,7 +278,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "COUGH",
                         "name": "spans",
@@ -308,7 +308,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -328,7 +328,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -358,7 +358,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "SORENESS",
                         "name": "spans",
@@ -378,7 +378,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "SORENESS",
                         "name": "spans",
@@ -408,7 +408,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -428,7 +428,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -458,7 +458,7 @@
                 "type": "etag",
                 "id_prefix": "DI",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -478,7 +478,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -508,7 +508,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "OTHER_SYMP",
                         "name": "spans",
@@ -528,7 +528,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "OTHER_SYMP",
                         "name": "spans",
@@ -554,14 +554,14 @@
                 "shortcut": "a"
             }
         ],
-        "ltags": [],
-        "id_prefixd": {
+        "rtags": [],
+        "id_prefix_dict": {
             "P": {
                 "name": "PYREXIA",
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -581,7 +581,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -611,7 +611,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "CHILL",
                         "name": "spans",
@@ -631,7 +631,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "CHILL",
                         "name": "spans",
@@ -661,7 +661,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -681,7 +681,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -711,7 +711,7 @@
                 "type": "etag",
                 "id_prefix": "PA",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PAIN",
                         "name": "spans",
@@ -731,7 +731,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PAIN",
                         "name": "spans",
@@ -761,7 +761,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -781,7 +781,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -811,7 +811,7 @@
                 "type": "etag",
                 "id_prefix": "CO",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "COUGH",
                         "name": "spans",
@@ -831,7 +831,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "COUGH",
                         "name": "spans",
@@ -861,7 +861,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -881,7 +881,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -911,7 +911,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "SORENESS",
                         "name": "spans",
@@ -931,7 +931,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "SORENESS",
                         "name": "spans",
@@ -961,7 +961,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -981,7 +981,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -1011,7 +1011,7 @@
                 "type": "etag",
                 "id_prefix": "DI",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -1031,7 +1031,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -1061,7 +1061,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "OTHER_SYMP",
                         "name": "spans",
@@ -1081,7 +1081,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "OTHER_SYMP",
                         "name": "spans",
@@ -1113,7 +1113,7 @@
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -1133,7 +1133,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PYREXIA",
                         "name": "spans",
@@ -1163,7 +1163,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "CHILL",
                         "name": "spans",
@@ -1183,7 +1183,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "CHILL",
                         "name": "spans",
@@ -1213,7 +1213,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -1233,7 +1233,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "FATIGUE",
                         "name": "spans",
@@ -1263,7 +1263,7 @@
                 "type": "etag",
                 "id_prefix": "PA",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "PAIN",
                         "name": "spans",
@@ -1283,7 +1283,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "PAIN",
                         "name": "spans",
@@ -1313,7 +1313,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -1333,7 +1333,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "HEADACHE",
                         "name": "spans",
@@ -1363,7 +1363,7 @@
                 "type": "etag",
                 "id_prefix": "CO",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "COUGH",
                         "name": "spans",
@@ -1383,7 +1383,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "COUGH",
                         "name": "spans",
@@ -1413,7 +1413,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -1433,7 +1433,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIZZINESS",
                         "name": "spans",
@@ -1463,7 +1463,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "SORENESS",
                         "name": "spans",
@@ -1483,7 +1483,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "SORENESS",
                         "name": "spans",
@@ -1513,7 +1513,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -1533,7 +1533,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "NAUSEA",
                         "name": "spans",
@@ -1563,7 +1563,7 @@
                 "type": "etag",
                 "id_prefix": "DI",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -1583,7 +1583,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "DIARRHEA",
                         "name": "spans",
@@ -1613,7 +1613,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": true,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "OTHER_SYMP",
                         "name": "spans",
@@ -1633,7 +1633,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "spans": {
                         "element": "OTHER_SYMP",
                         "name": "spans",

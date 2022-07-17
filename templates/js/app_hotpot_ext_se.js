@@ -226,48 +226,48 @@ Object.assign(app_hotpot.vpp_methods, {
         }
     },
 
-    add_se_dtd_tag: function(dtd, etag_or_ltag) {
-        if (typeof(etag_or_ltag) == 'undefined') {
+    add_se_dtd_tag: function(dtd, etag_or_rtag) {
+        if (typeof(etag_or_rtag) == 'undefined') {
             // 0: etag
-            // 1: ltag
-            etag_or_ltag = 0;
+            // 1: rtag
+            etag_or_rtag = 0;
         }
 
         var tag_type = '';
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             tag_type = 'etag';
             tag_name = 'NEW_ETAG_' + (dtd.etags.length+1);
         } else {
-            tag_type = 'ltag';
-            tag_name = 'NEW_LTAG_' + (dtd.ltags.length+1);
+            tag_type = 'rtag';
+            tag_name = 'NEW_RTAG_' + (dtd.rtags.length+1);
         }
 
-        var  base_tag = dtd_parser.mk_base_tag(
+        var base_tag = dtd_parser.mk_base_tag(
             tag_name, 
             tag_type
         );
 
         // add to dtd directly?
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             dtd.etags.push(base_tag);
 
         } else {
-            dtd.ltags.push(base_tag);
+            dtd.rtags.push(base_tag);
         }
     },
 
     add_se_dtd_tag_attr: function(dtd, tag_def) {
-        var att = dtd_parser.mk_attlist(
+        var att = dtd_parser.mk_base_attr(
             dtd.name,
-            'new_attr_' + (tag_def.attlists.length+1),
+            'new_attr_' + (tag_def.attrs.length+1),
             'text'
         )
         
         // add to the given tag??
-        tag_def.attlists.push(att);
+        tag_def.attrs.push(att);
     },
 
-    remove_se_dtd_tag: function(dtd, tag_def, etag_or_ltag, tag_idx) {
+    remove_se_dtd_tag: function(dtd, tag_def, etag_or_rtag, tag_idx) {
         var ret = window.confirm('Are you sure to remove the tag [' + tag_def.name + ']?');
 
         if (ret) {
@@ -276,16 +276,16 @@ Object.assign(app_hotpot.vpp_methods, {
             return;
         }
 
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             // etag
             dtd.etags.splice(tag_idx, 1);
 
         } else {
-            dtd.ltags.splice(tag_idx, 1);
+            dtd.rtags.splice(tag_idx, 1);
         }
     },
 
-    remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_ltag, tag_idx, att_idx) {
+    remove_se_dtd_tag_attr: function(dtd, tag_def, att, etag_or_rtag, tag_idx, att_idx) {
         if (att.vtype == 'list') {
             var ret = window.confirm('This attribute contains a list of values ['+att.values.join('|')+']. Are you sure to remove the attribute [' + tag_def.name + '.' + att.name + ']?');
 
@@ -295,12 +295,12 @@ Object.assign(app_hotpot.vpp_methods, {
                 return;
             }
         }
-        if (etag_or_ltag == 0) {
+        if (etag_or_rtag == 0) {
             // etag
-            dtd.etags[tag_idx].attlists.splice(att_idx, 1);
+            dtd.etags[tag_idx].attrs.splice(att_idx, 1);
 
         } else {
-            dtd.ltags[tag_idx].attlists.splice(att_idx, 1);
+            dtd.rtags[tag_idx].attrs.splice(att_idx, 1);
         }
     },
 

@@ -1,4 +1,4 @@
-<div v-show="section=='statistics'" id="main_ui" 
+<div v-if="section=='statistics'" id="main_ui" 
     class="main-ui container-fluid">
     <!-- the tag list of selected file and concept -->
     <div v-show="display_stat_doc_sum_selected != null && has_doc_sum_selected_tags()"
@@ -39,7 +39,7 @@
             </div>
 
             <div class="mr-1 ml-1 d-flex flex-column">
-                <div class="iaa-tag-attlist-name">
+                <div class="iaa-tag-attr-name">
                     {{ get_tag_spans_text(tag) }}:
                 </div> 
     
@@ -48,16 +48,16 @@
                 </div>
             </div>
 
-            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                v-if="!['id','spans','text','tag'].contains(attlist.name)"
-                class="iaa-tag-attlist mr-1 ml-1 d-flex flex-column">
+            <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+                v-if="!['id','spans','text','tag'].contains(attr.name)"
+                class="iaa-tag-attr mr-1 ml-1 d-flex flex-column">
     
-                <div class="iaa-tag-attlist-name">
-                    {{ attlist.name }}:
+                <div class="iaa-tag-attr-name">
+                    {{ attr.name }}:
                 </div> 
     
                 <div>
-                    {{ tag[attlist.name] }}&nbsp;
+                    {{ tag[attr.name] }}&nbsp;
                 </div>
                 
             </div>
@@ -153,7 +153,7 @@
                                 {{ tag_def.name }}
                             </span>
                         </th>
-                        <th v-for="tag_def in dtd.ltags"
+                        <th v-for="tag_def in dtd.rtags"
                             v-bind:class="'fg-tag-' + tag_def.name">
                             <span class="rotate-90">
                                 <i class="fa fa-link"
@@ -194,7 +194,7 @@
                                 {{ stat[tag_def.name] }}
                             </span>
                         </td>
-                        <td v-for="tag_def in dtd.ltags">
+                        <td v-for="tag_def in dtd.rtags">
                             <span v-if="stat_idx == 0"
                                 class="td-count"
                                 v-bind:class="'td-count-' + stat[tag_def.name]">

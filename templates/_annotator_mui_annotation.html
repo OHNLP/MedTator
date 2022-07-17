@@ -65,7 +65,7 @@
                     </span>
                 
                     <span v-if="anns.length > 0">
-                        {{ anns.length }} 
+                        {{ virtual_anns.v_anns.length }} 
                         <span class="txt-sm">files</span>
                     </span>
                 </div>
@@ -79,14 +79,41 @@
                     </button>
                 </div>
             </div>
-            <div id="mui_filelist_list" 
-                v-if="anns.length > 0"
+            <div v-if="is_loading_anns"
+                id="mui_filelist_list" 
+                v-on:dragover="on_dragover_prevent_default"
+                v-on:drop="on_drop_filelist"
+                class="d-flex text-center flex-align-center flex-justify-center w-100 h-100">
+                <p>
+                    <b>
+                        <i v-if="is_loaded_anns" class="fas fa-hand-sparkles"></i>
+                        <i v-else class="fas fa-spinner fa-spin"></i>
+                        {{ msg_loading_anns }}
+                    </b>
+                    <br>
+                    <span v-if="n_anns_droped != 0">
+                        Loaded: <b>{{ n_anns_loaded }}</b> files
+                    </span>
+                    <br>
+                    <span v-if="is_loaded_anns">
+                        <button class="mt-1"
+                            title="Close the statistics of loading and show all annotation files"
+                            v-on:click="reset_loading_anns_status">
+                            Show All <br>
+                            Annotation Files
+                        </button>
+                    </span>
+                </p>
+            </div>
+            <div v-else-if="anns.length > 0"
+                id="mui_filelist_list" 
+                v-on:dragover="on_dragover_prevent_default"
+                v-on:drop="on_drop_filelist"
                 class="d-flex flex-column flex-justify-start flex-align-start w-100 h-100">
                 <ul class="w-100 file-list">
-                    <li v-for="v_ann in sort_v_anns(anns)"
-                        v-show="is_current_ann(v_ann) || is_match_filename(v_ann._filename)"
-                        v-bind:class="{'file-selected':is_current_ann(v_ann)}"
-                        class="file-list-item">
+                    <li v-for="v_ann in virtual_anns.v_anns_paged"
+                        class="file-list-item"
+                        v-bind:class="v_ann.css_class">
                         <div class="d-flex flex-row flex-justify-between">
                             <div class="file-list-item-name"
                                 style="flex-grow: 1;"
@@ -95,18 +122,18 @@
                                 v-bind:class="{'file-list-item-name-unsaved':!anns[v_ann.idx]._has_saved}">
 
                                 <a href="javascript:void(0);"
-                                    v-show="!anns[v_ann.idx]._has_saved" 
+                                    v-if="!anns[v_ann.idx]._has_saved" 
                                     v-on:click="save_xml_by_ann(v_ann)"
                                     title="Save this annotation file"
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
                                 </a>
-                                <span v-if="has_any_label(anns[v_ann.idx])">
+                                <!-- <span v-if="has_any_label(anns[v_ann.idx])">
                                     <span v-for="ann_label in anns[v_ann.idx].meta.label"
                                         :class="'label-' + ann_label.color">
                                         <i class="fas fa-bookmark"></i>
                                     </span>
-                                </span>
+                                </span> -->
                                 <span>
                                     {{ v_ann._filename }}
                                 </span>
@@ -118,7 +145,7 @@
                                     {{ anns[v_ann.idx].tags.length }}
                                 </div>
 
-                                <div v-bind:title="'Remove ' + v_ann._filename">
+                                <div title="Remove this annotation file">
                                     <a v-on:click="remove_ann_file_by_ann(v_ann)"
                                         class="btn btn-red btn-xs"
                                         href="javascript:void(0);">
@@ -129,10 +156,44 @@
                         </div>
                     </li>
                 </ul>
+
+                <div id="mui_filelist_pager"
+                    class="d-flex flex-row w-100 flex-justify-between"
+                    v-if="get_n_pages_by_total(virtual_anns.v_anns.length) > 1">
+
+                    <div style="margin: 0 auto;">
+                        <button class="btn-xs mr-1"
+                            v-bind:disabled="pg_index == 0"
+                            v-on:click="goto_anns_page(pg_index - 1)">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+
+                        <select v-model="pg_index"
+                            class="select-xs page-current-index">
+                            <option v-for="pg in get_pages_by_total(virtual_anns.v_anns.length)"
+                                v-bind:value="pg">
+                                {{ pg + 1 }}
+                            </option>
+                        </select>
+                        <span class="mr-2 page-total-number"
+                            v-bind:title="'Each page contains ' + pg_numpp + ' files'">
+                            /
+                            {{ get_n_pages_by_total(virtual_anns.v_anns.length) }} Pages
+                        </span>
+
+                        <button class="btn-xs"
+                            v-bind:disabled="pg_index == (get_n_pages_by_total(virtual_anns.v_anns.length) - 1)"
+                            v-on:click="goto_anns_page(pg_index + 1)">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div id="mui_filelist_list"
-                class="d-flex text-center flex-align-center flex-justify-center w-100"
-                v-else>
+            <div v-else 
+                id="mui_filelist_list"
+                v-on:dragover="on_dragover_prevent_default"
+                v-on:drop="on_drop_filelist"
+                class="d-flex text-center flex-align-center flex-justify-center w-100">
                 
                     
                 <p v-if="dtd == null"
@@ -214,19 +275,19 @@
                 </li>
 
                 <!-- show all link tags -->
-                <li v-for="ltag in dtd.ltags"
+                <li v-for="rtag in dtd.rtags"
                     class="tag-list-row d-flex flex-row flex-justify-between"
-                    v-bind:class="{'tag-list-row-actived':display_tag_name == ltag.name}">
+                    v-bind:class="{'tag-list-row-actived':display_tag_name == rtag.name}">
                     <div class="tag-list-row-name"
-                        v-on:click="update_tag_table(ltag)">
+                        v-on:click="update_tag_table(rtag)">
                         <i class="fa fa-link"
-                            v-bind:class="'fg-tag-' + ltag.name">
+                            v-bind:class="'fg-tag-' + rtag.name">
                         </i>
-                        <span v-if="ltag.hasOwnProperty('shortcut')"
+                        <span v-if="rtag.hasOwnProperty('shortcut')"
                             class="badge-shortcut mr-1">
-                            {{ ltag.shortcut }}
+                            {{ rtag.shortcut }}
                         </span>
-                        <span v-html="make_html_bold_tag_name(ltag)">
+                        <span v-html="make_html_bold_tag_name(rtag)">
                             
                         </span>
                     </div>
@@ -235,12 +296,12 @@
                             class="mr-2">
                             <button class="btn-xs"
                                 title="Add an empty link tag"
-                                v-on:click="add_empty_ltag(ltag)">
+                                v-on:click="add_empty_rtag(rtag)">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
-                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(ltag)">
-                            {{ count_n_tags(ltag) }}
+                        <div v-bind:class="'tag-list-row-count-'+count_n_tags(rtag)">
+                            {{ count_n_tags(rtag) }}
                         </div>
                     </div>
 
@@ -287,7 +348,7 @@
                                 <div class="mr-2">
                                     <button class="btn btn-xs btn-red"
                                         title="Delete this tag"
-                                        v-on:click="del_tag(tag.id)">
+                                        v-on:click="delete_tag(tag.id)">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
@@ -368,12 +429,12 @@
                         </td>
 
                         <td class="d-flex flex-row flex-justify-start flex-align-start flex-wrap">
-                            <div v-for="(attlist, attlist_idx) in dtd.tag_dict[tag.tag].attlists"
-                                v-if="!['id','spans','text','tag'].contains(attlist.name)"
+                            <div v-for="(attr, attr_idx) in dtd.tag_dict[tag.tag].attrs"
+                                v-if="!['id','spans','text','tag'].contains(attr.name)"
                                 class="tag-attr-box mr-1 d-flex flex-column">
                                 <div class="tag-attr-name">
-                                    {{ attlist.name }}
-                                    <span v-if="attlist.require == 'REQUIRED'"
+                                    {{ attr.name }}
+                                    <span v-if="attr.require == 'REQUIRED'"
                                         class="clr-red">
                                         *
                                     </span>
@@ -382,29 +443,29 @@
                                     </span>
                                 </div>
                                 
-                                <div v-if="attlist.vtype == 'list'">
+                                <div v-if="attr.vtype == 'list'">
                                     <select class="tag-attr-select"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @change="on_change_attr_value">
-                                        <option v-for="val in attlist.values"
+                                        <option v-for="val in attr.values"
                                             v-bind:value="val">
                                             {{ val }}
                                         </option>
                                         <option value="">-- EMPTY --</option>
                                     </select>
                                 </div>
-                                <div v-else-if="attlist.vtype == 'text'">
+                                <div v-else-if="attr.vtype == 'text'">
                                     <input type="text"
                                         class="tag-attr-input"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name"
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name"
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @input="on_input_attr_value">
                                 </div>
-                                <div v-else-if="attlist.vtype == 'idref'">
+                                <div v-else-if="attr.vtype == 'idref'">
                                     <select class="tag-attr-select"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @change="on_change_idref_value">
                                         <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
                                             v-bind:value="s_etag.id">
@@ -420,8 +481,8 @@
                                 <div v-else>
                                     <input type="text"
                                         class="tag-attr-input"
-                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attlist.name" 
-                                        v-model="anns[ann_idx].tags[tag_idx][attlist.name]"
+                                        v-bind:id="'form-'+ann_idx+'-' + anns[ann_idx].tags[tag_idx].id + '-' + attr.name" 
+                                        v-model="anns[ann_idx].tags[tag_idx][attr.name]"
                                         @input="on_input_attr_value">
                                 </div>
                             </div>
@@ -459,17 +520,17 @@
             </button>
         </div>
         <div class="d-flex flex-column p-1 pr-2">
-            <div v-for="attlist in linking_tag_def.attlists"
-                class="d-flex flex-row ltag-attr-row p-1 mb-1">
-                <div class="d-flex ltag-attr-name pr-1">
+            <div v-for="attr in linking_tag_def.attrs"
+                class="d-flex flex-row rtag-attr-row p-1 mb-1">
+                <div class="d-flex rtag-attr-name pr-1">
                     &nbsp;- 
-                    {{ attlist.name }}
+                    {{ attr.name }}
                 </div>
-                <div class="d-flex ltag-attr-value">
-                    <div v-if="attlist.vtype == 'idref'"
+                <div class="d-flex rtag-attr-value">
+                    <div v-if="attr.vtype == 'idref'"
                         class="w-100">
                         <select class="tag-attr-select"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                             <option v-for="s_etag, s_etag_idx in get_tags_by_type(anns[ann_idx], dtd, 'etag')"
                                 v-bind:value="s_etag.id">
                                 {{ s_etag.id }}
@@ -481,17 +542,17 @@
                             <option value="">-- EMPTY --</option>
                         </select>
                     </div>
-                    <div v-else-if="attlist.vtype == 'text'"
+                    <div v-else-if="attr.vtype == 'text'"
                         class="w-100">
                         <input type="text"
                             class="tag-attr-input"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                     </div>
-                    <div v-else-if="attlist.vtype == 'list'"
+                    <div v-else-if="attr.vtype == 'list'"
                         class="w-100">
                         <select class="tag-attr-select"
-                            v-model="linking_tag[attlist.name]">
-                            <option v-for="val in attlist.values"
+                            v-model="linking_tag[attr.name]">
+                            <option v-for="val in attr.values"
                                 v-bind:value="val">
                                 {{ val }}
                             </option>
@@ -502,7 +563,7 @@
                         class="w-100">
                         <input type="text"
                             class="tag-attr-input"
-                            v-model="linking_tag[attlist.name]">
+                            v-model="linking_tag[attr.name]">
                     </div>
                 </div>
             </div>

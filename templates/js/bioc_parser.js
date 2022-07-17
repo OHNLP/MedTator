@@ -121,7 +121,7 @@ var bioc_parser = {
                         elem_passage.appendChild(elem_ann);
                     }
 
-                } else if (tag_def.type == 'ltag') {
+                } else if (tag_def.type == 'rtag') {
                     // ok, it is a link tag
 
                     // each link tag is an relation element 
@@ -140,7 +140,7 @@ var bioc_parser = {
                             }
                             
                             // for other key, need to check attr type first
-                            var att_def = tag_def.attlist_dict[key];
+                            var att_def = tag_def.attr_dict[key];
 
                             if (att_def.vtype == 'idref') {
                                 // for idref type, need to create node

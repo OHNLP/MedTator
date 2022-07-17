@@ -8,7 +8,7 @@
                 "type": "etag",
                 "id_prefix": "V",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -33,7 +33,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -68,7 +68,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fever",
                         "name": "certainty",
@@ -93,7 +93,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fever",
                         "name": "certainty",
@@ -128,7 +128,7 @@
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Pain",
                         "name": "certainty",
@@ -153,7 +153,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Pain",
                         "name": "certainty",
@@ -188,7 +188,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Headache",
                         "name": "certainty",
@@ -213,7 +213,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Headache",
                         "name": "certainty",
@@ -248,7 +248,7 @@
                 "type": "etag",
                 "id_prefix": "M",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -273,7 +273,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -308,7 +308,7 @@
                 "type": "etag",
                 "id_prefix": "Fa",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -333,7 +333,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -368,7 +368,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -393,7 +393,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -428,7 +428,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -453,7 +453,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -488,7 +488,7 @@
                 "type": "etag",
                 "id_prefix": "Na",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nausea",
                         "name": "certainty",
@@ -513,7 +513,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nausea",
                         "name": "certainty",
@@ -548,7 +548,7 @@
                 "type": "etag",
                 "id_prefix": "Vo",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -573,7 +573,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -608,7 +608,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -633,7 +633,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -668,7 +668,7 @@
                 "type": "etag",
                 "id_prefix": "Dy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -693,7 +693,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -728,7 +728,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Cough",
                         "name": "certainty",
@@ -753,7 +753,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Cough",
                         "name": "certainty",
@@ -788,7 +788,7 @@
                 "type": "etag",
                 "id_prefix": "Ch",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Chill",
                         "name": "certainty",
@@ -813,7 +813,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Chill",
                         "name": "certainty",
@@ -848,7 +848,7 @@
                 "type": "etag",
                 "id_prefix": "De",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Delirium",
                         "name": "certainty",
@@ -873,7 +873,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Delirium",
                         "name": "certainty",
@@ -908,7 +908,7 @@
                 "type": "etag",
                 "id_prefix": "Hy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -933,7 +933,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -968,7 +968,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Other",
                         "name": "certainty",
@@ -993,7 +993,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Other",
                         "name": "certainty",
@@ -1024,14 +1024,14 @@
                 "shortcut": "x"
             }
         ],
-        "ltags": [],
-        "id_prefixd": {
+        "rtags": [],
+        "id_prefix_dict": {
             "V": {
                 "name": "Vaccine",
                 "type": "etag",
                 "id_prefix": "V",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -1056,7 +1056,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -1091,7 +1091,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fever",
                         "name": "certainty",
@@ -1116,7 +1116,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fever",
                         "name": "certainty",
@@ -1151,7 +1151,7 @@
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Pain",
                         "name": "certainty",
@@ -1176,7 +1176,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Pain",
                         "name": "certainty",
@@ -1211,7 +1211,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Headache",
                         "name": "certainty",
@@ -1236,7 +1236,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Headache",
                         "name": "certainty",
@@ -1271,7 +1271,7 @@
                 "type": "etag",
                 "id_prefix": "M",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -1296,7 +1296,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -1331,7 +1331,7 @@
                 "type": "etag",
                 "id_prefix": "Fa",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -1356,7 +1356,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -1391,7 +1391,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -1416,7 +1416,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -1451,7 +1451,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -1476,7 +1476,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -1511,7 +1511,7 @@
                 "type": "etag",
                 "id_prefix": "Na",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nausea",
                         "name": "certainty",
@@ -1536,7 +1536,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nausea",
                         "name": "certainty",
@@ -1571,7 +1571,7 @@
                 "type": "etag",
                 "id_prefix": "Vo",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -1596,7 +1596,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -1631,7 +1631,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -1656,7 +1656,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -1691,7 +1691,7 @@
                 "type": "etag",
                 "id_prefix": "Dy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -1716,7 +1716,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -1751,7 +1751,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Cough",
                         "name": "certainty",
@@ -1776,7 +1776,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Cough",
                         "name": "certainty",
@@ -1811,7 +1811,7 @@
                 "type": "etag",
                 "id_prefix": "Ch",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Chill",
                         "name": "certainty",
@@ -1836,7 +1836,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Chill",
                         "name": "certainty",
@@ -1871,7 +1871,7 @@
                 "type": "etag",
                 "id_prefix": "De",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Delirium",
                         "name": "certainty",
@@ -1896,7 +1896,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Delirium",
                         "name": "certainty",
@@ -1931,7 +1931,7 @@
                 "type": "etag",
                 "id_prefix": "Hy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -1956,7 +1956,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -1991,7 +1991,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Other",
                         "name": "certainty",
@@ -2016,7 +2016,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Other",
                         "name": "certainty",
@@ -2053,7 +2053,7 @@
                 "type": "etag",
                 "id_prefix": "V",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -2078,7 +2078,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vaccine",
                         "name": "certainty",
@@ -2113,7 +2113,7 @@
                 "type": "etag",
                 "id_prefix": "F",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fever",
                         "name": "certainty",
@@ -2138,7 +2138,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fever",
                         "name": "certainty",
@@ -2173,7 +2173,7 @@
                 "type": "etag",
                 "id_prefix": "P",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Pain",
                         "name": "certainty",
@@ -2198,7 +2198,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Pain",
                         "name": "certainty",
@@ -2233,7 +2233,7 @@
                 "type": "etag",
                 "id_prefix": "H",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Headache",
                         "name": "certainty",
@@ -2258,7 +2258,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Headache",
                         "name": "certainty",
@@ -2293,7 +2293,7 @@
                 "type": "etag",
                 "id_prefix": "M",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -2318,7 +2318,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Myalgia",
                         "name": "certainty",
@@ -2353,7 +2353,7 @@
                 "type": "etag",
                 "id_prefix": "Fa",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -2378,7 +2378,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Fatigue",
                         "name": "certainty",
@@ -2413,7 +2413,7 @@
                 "type": "etag",
                 "id_prefix": "N",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -2438,7 +2438,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nasal_obstruction",
                         "name": "certainty",
@@ -2473,7 +2473,7 @@
                 "type": "etag",
                 "id_prefix": "D",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -2498,7 +2498,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Diarrhea",
                         "name": "certainty",
@@ -2533,7 +2533,7 @@
                 "type": "etag",
                 "id_prefix": "Na",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Nausea",
                         "name": "certainty",
@@ -2558,7 +2558,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Nausea",
                         "name": "certainty",
@@ -2593,7 +2593,7 @@
                 "type": "etag",
                 "id_prefix": "Vo",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -2618,7 +2618,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Vomiting",
                         "name": "certainty",
@@ -2653,7 +2653,7 @@
                 "type": "etag",
                 "id_prefix": "S",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -2678,7 +2678,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Sore_throat",
                         "name": "certainty",
@@ -2713,7 +2713,7 @@
                 "type": "etag",
                 "id_prefix": "Dy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -2738,7 +2738,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Dyspnea",
                         "name": "certainty",
@@ -2773,7 +2773,7 @@
                 "type": "etag",
                 "id_prefix": "C",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Cough",
                         "name": "certainty",
@@ -2798,7 +2798,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Cough",
                         "name": "certainty",
@@ -2833,7 +2833,7 @@
                 "type": "etag",
                 "id_prefix": "Ch",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Chill",
                         "name": "certainty",
@@ -2858,7 +2858,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Chill",
                         "name": "certainty",
@@ -2893,7 +2893,7 @@
                 "type": "etag",
                 "id_prefix": "De",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Delirium",
                         "name": "certainty",
@@ -2918,7 +2918,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Delirium",
                         "name": "certainty",
@@ -2953,7 +2953,7 @@
                 "type": "etag",
                 "id_prefix": "Hy",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -2978,7 +2978,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Hypersomnia",
                         "name": "certainty",
@@ -3013,7 +3013,7 @@
                 "type": "etag",
                 "id_prefix": "O",
                 "is_non_consuming": false,
-                "attlists": [
+                "attrs": [
                     {
                         "element": "Other",
                         "name": "certainty",
@@ -3038,7 +3038,7 @@
                         "default_value": ""
                     }
                 ],
-                "attlist_dict": {
+                "attr_dict": {
                     "certainty": {
                         "element": "Other",
                         "name": "certainty",

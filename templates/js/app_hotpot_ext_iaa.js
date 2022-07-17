@@ -387,8 +387,8 @@ Object.assign(app_hotpot.vpp_methods, {
                 this.iaa_use_tag_attrs[tag_name] = {};
 
                 // update all the attributes
-                for (let i = 0; i < tag.attlists.length; i++) {
-                    const att = tag.attlists[i];
+                for (let i = 0; i < tag.attrs.length; i++) {
+                    const att = tag.attrs[i];
                     // set all to true
                     this.iaa_use_tag_attrs[tag_name][att.name] = true;
                 }

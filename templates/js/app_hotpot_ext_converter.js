@@ -9,6 +9,8 @@ Object.assign(app_hotpot.vpp_data, {
     converter_corpus_task: 'medtagger',
 
     // for medtagger
+    convert_rnd: 0,
+    is_converter_loading_medtagger_txt_files: false,
     converter_corpus_medtagger_txt_files: [],
     converter_corpus_medtagger_ann_files: [],
     converter_corpus_medtagger_results: []
@@ -19,61 +21,6 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 
 Object.assign(app_hotpot, {
-    // events for loading text files
-    bind_dropzone_converter_medtagger_txt: function() {
-        let filelist_dropzone = document.getElementById('mui_converter_medtagger_txt_filelist');
-        filelist_dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        filelist_dropzone.addEventListener(
-            "drop", 
-            app_hotpot.on_drop_converter_medtagger_txt, 
-            false
-        );
-    },
-
-    // callback for loading text files
-    on_drop_converter_medtagger_txt: function(event) {
-        // prevent the default download event
-        event.preventDefault();
-
-        // prevent other event
-        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
-            return;
-        }
-
-        let items = event.dataTransfer.items;
-        for (let i=0; i<items.length; i++) {
-            if (isFSA_API_OK) {
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
-
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        app_hotpot.parse_file_fh(
-                            fh, 
-                            app_hotpot.on_get_converter_medtagger_txt_file
-                        );
-                    } else {
-                        // so item is a directory?
-                        app_hotpot.parse_dir_fh(
-                            fh, 
-                            app_hotpot.on_get_converter_medtagger_txt_file
-                        );
-                    }
-                });
-            } else {
-                // do nothing without
-                console.log('* no FSA API');
-                return;
-            }
-            
-        }
-    },
 
     on_get_converter_medtagger_txt_file: function(file) {
         // check duplication
@@ -84,65 +31,10 @@ Object.assign(app_hotpot, {
             app_hotpot.toast('Skip [' + fh.name + '] due to duplicated file name');
             return;
         }
-        app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.push(file);
-    },
-
-    // events for loading ann files
-    bind_dropzone_converter_medtagger_ann: function() {
-        let filelist_dropzone = document.getElementById('mui_converter_medtagger_ann_filelist');
-        filelist_dropzone.addEventListener("dragover", function(event) {
-            event.preventDefault();
-        }, false);
-
-        filelist_dropzone.addEventListener(
-            "drop", 
-            app_hotpot.on_drop_converter_medtagger_ann, 
-            false
-        );
-    },
-
-    // callback for loading ann files
-    on_drop_converter_medtagger_ann: function(event) {
-        // prevent the default download event
-        event.preventDefault();
-
-        // prevent other event
-        if (event.srcElement.nodeName.toLocaleUpperCase() != 'DIV') {
-            return;
-        }
-
-        let items = event.dataTransfer.items;
-        for (let i=0; i<items.length; i++) {
-            if (isFSA_API_OK) {
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                // let item = items[i].webkitGetAsEntry();
-                let item = items[i].getAsFileSystemHandle();
-
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        app_hotpot.parse_file_fh(
-                            fh, 
-                            app_hotpot.on_get_converter_medtagger_ann_file
-                        );
-
-
-                    } else {
-                        // so item is a directory?
-                        app_hotpot.parse_dir_fh(
-                            fh, 
-                            app_hotpot.on_get_converter_medtagger_ann_file
-                        );
-                    }
-                });
-            } else {
-                // do nothing without
-                console.log('* no FSA API');
-                return;
-            }
-            
-        }
+        app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files[
+            app_hotpot.vpp.$data.converter_corpus_medtagger_txt_files.length
+        ] = file;
+        // console.log('* added', file);
     },
 
     on_get_converter_medtagger_ann_file: function(file) {
@@ -151,12 +43,90 @@ Object.assign(app_hotpot, {
         file.lines = file.text.split('\n');
 
         // save this 
-        app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files.push(file);
+        app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files[
+            app_hotpot.vpp.$data.converter_corpus_medtagger_ann_files.length
+        ] = file;
     }
 });
 
 
 Object.assign(app_hotpot.vpp_methods, {
+    on_drop_converter_medtagger_txt: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            // get this item as a FileSystemHandle Object
+            // this could be used for saving the content back
+            // let item = items[i].webkitGetAsEntry();
+            let item = items[i].getAsFileSystemHandle();
+            app_hotpot.vpp.$data.is_converter_loading_medtagger_txt_files = true;
+
+            // read this handle
+            item.then(function(fh) {
+                if (fh.kind == 'file') {
+                    app_hotpot.parse_file_fh(
+                        fh, 
+                        function(file) {
+                            app_hotpot.on_get_converter_medtagger_txt_file(file);
+                            app_hotpot.vpp.$data.is_converter_loading_medtagger_txt_files = false;
+                            app_hotpot.vpp.$data.convert_rnd = Math.random();
+                        },
+                        app_hotpot.is_file_ext_txt
+                    );
+
+                } else {
+                    // so item is a directory?
+                    app_hotpot.parse_dir_fh(
+                        fh, 
+                        function(files) {
+                            for (let i = 0; i < files.length; i++) {
+                                const file = files[i];
+                                app_hotpot.on_get_converter_medtagger_txt_file(file);
+                            }
+                            console.log('* parsed all '+ files.length +' files in folder');
+                            // then we can update GUI
+                            app_hotpot.vpp.$data.is_converter_loading_medtagger_txt_files = false;
+                        },
+                        app_hotpot.is_file_ext_txt
+                    );
+                }
+            });
+        }
+    },
+
+    // callback for loading ann files
+    on_drop_converter_medtagger_ann: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+
+        let items = event.dataTransfer.items;
+        for (let i=0; i<items.length; i++) {
+            // get this item as a FileSystemHandle Object
+            // this could be used for saving the content back
+            // let item = items[i].webkitGetAsEntry();
+            let item = items[i].getAsFileSystemHandle();
+
+            // read this handle
+            item.then(function(fh) {
+                if (fh.kind == 'file') {
+                    app_hotpot.parse_file_fh(
+                        fh, 
+                        app_hotpot.on_get_converter_medtagger_ann_file
+                    );
+                } else {
+                    // so item is a directory?
+                    app_hotpot.parse_dir_fh(
+                        fh, 
+                        app_hotpot.on_get_converter_medtagger_ann_file
+                    );
+                }
+            });
+        }
+    },
+
     switch_corpus: function(corpus_task) {
         this.converter_corpus_task = corpus_task;
     },

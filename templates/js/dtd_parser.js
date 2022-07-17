@@ -5,12 +5,12 @@ var dtd_parser = {
     regex: {
         entity: /\<\!ENTITY\ name\ "([a-zA-Z\-0-9\_]+)"\>/gmi,
         element: /^\<\!ELEMENT\s+([a-zA-Z\-0-9\_]+)\s.+/gmi,
-        attlist: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
-        attlist_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
-        attlist_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
-        attlist_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
-        // attlist_cdata_default_value: /(?<=").*?(?=")/gm
-        attlist_cdata_default_value: /\s+\"(.*)\"/g
+        attr: /^\<\!ATTLIST\s+([a-zA-Z\-0-9\_]+)\s+([a-zA-Z0-9\_]+)\s+(\S+)\s/gmi,
+        attr_values: /\(([a-zA-Z0-9\_\ \|\-]+)\)/gmi,
+        attr_require: /#([A-Z]+)+(\b["a-zA-Z0-9\-\_\ ]+|\>)/gm,
+        attr_prefix: /prefix="([a-zA-Z0-9\_]+)"/gm,
+        // attr_cdata_default_value: /(?<=").*?(?=")/gm
+        attr_cdata_default_value: /\s+\"(.*)\"/g
     },
 
     NON_CONSUMING_SPANS: '-1~-1',
@@ -26,9 +26,13 @@ var dtd_parser = {
 
         if (format == 'dtd') {
             return this.stringify_dtd(dtd);
+        } else if (format == 'json') {
+            return this.stringify_json(dtd);
+        } else if (format == 'yaml') {
+            return this.stringify_yaml(dtd);
+        } else {
+            return this.stringify_dtd(dtd);
         }
-
-        return this.stringify_dtd(dtd);
     },
 
     stringify_dtd: function(dtd) {
@@ -47,7 +51,7 @@ var dtd_parser = {
         for (let _t = 0; _t < 2; _t++) {
             var tags = {
                 0: dtd.etags,
-                1: dtd.ltags
+                1: dtd.rtags
             }[_t];
 
             for (let i = 0; i < tags.length; i++) {
@@ -75,8 +79,8 @@ var dtd_parser = {
                 }
     
                 // check each attr
-                for (let j = 0; j < tag.attlists.length; j++) {
-                    const att = tag.attlists[j];
+                for (let j = 0; j < tag.attrs.length; j++) {
+                    const att = tag.attrs[j];
                     
                     var att_req = '#IMPLIED'
                     if (att.require == 'REQUIRED') {
@@ -107,35 +111,89 @@ var dtd_parser = {
         return txt.join('\n');
     },
 
-    extend_base_dtd: function(base_dtd) {
-        var dtd = JSON.parse(JSON.stringify(base_dtd));
+    stringify_json: function(dtd) {
+        // make a copy 
+        var j = JSON.parse(JSON.stringify(dtd));
 
-        // first, update the attlist_dict for each tag
-        for (let _t = 0; _t < 2; _t++) {
-            var el = {
-                0: 'etags',
-                1: 'ltags'
-            }[_t];
+        // remove some attrs
+        delete j['id_prefix_dict'];
+        delete j['tag_dict'];
+        delete j['text'];
 
-            for (let i = 0; i < dtd[el].length; i++) {
-                // init the attlist dict
-                dtd[el][i].attlist_dict = {};
-                
-                // fill the attlist dict
-                for (let j = 0; j < dtd[el][i].attlists.length; j++) {
-                    var att = dtd[el][i].attlists[j];
-                    dtd[el][i].attlist_dict[att.name] = att;
+        // remove some attrs in etags
+        for (let i = 0; i < j.etags.length; i++) {
+            delete j.etags[i]['attr_dict'];
+            delete j.etags[i]['shortcut'];
+            delete j.etags[i]['style'];
+            delete j.etags[i]['type'];
+
+            // remove some attrs in attrs
+            for (let k = 0; k < j.etags[i].attrs.length; k++) {
+                delete j.etags[i].attrs[k]['element'];
+                delete j.etags[i].attrs[k]['type'];
+                if (j.etags[i].attrs[k]['vtype'] == 'text') {
+                    delete j.etags[i].attrs[k]['values'];
                 }
             }
         }
 
-        // then, need to decide the `id_prefixd` and update the tag_dict
-        dtd.id_prefixd = {};
+        // remove some attrs in rtags
+        for (let i = 0; i < j.rtags.length; i++) {
+            delete j.rtags[i]['attr_dict'];
+            delete j.rtags[i]['shortcut'];
+            delete j.rtags[i]['style'];
+            delete j.rtags[i]['type'];
+
+            // remove some attrs in attrs
+            for (let k = 0; k < j.rtags[i].attrs.length; k++) {
+                delete j.rtags[i].attrs[k]['element'];
+                delete j.rtags[i].attrs[k]['type'];
+                if (j.rtags[i].attrs[k]['vtype'] == 'text') {
+                    delete j.etags[i].attrs[k]['values'];
+                }
+                if (j.rtags[i].attrs[k]['vtype'] == 'idref') {
+                    delete j.etags[i].attrs[k]['values'];
+                }
+            }
+        }
+
+        var j_str = JSON.stringify(j, null, 4);
+        return j_str;
+    },
+
+    stringify_yaml: function(dtd) {
+
+    },
+
+    extend_base_dtd: function(base_dtd) {
+        var dtd = JSON.parse(JSON.stringify(base_dtd));
+
+        // first, update the attr_dict for each tag
+        for (let _t = 0; _t < 2; _t++) {
+            var el = {
+                0: 'etags',
+                1: 'rtags'
+            }[_t];
+
+            for (let i = 0; i < dtd[el].length; i++) {
+                // init the attr dict
+                dtd[el][i].attr_dict = {};
+                
+                // fill the attr dict
+                for (let j = 0; j < dtd[el][i].attrs.length; j++) {
+                    var att = dtd[el][i].attrs[j];
+                    dtd[el][i].attr_dict[att.name] = att;
+                }
+            }
+        }
+
+        // then, need to decide the `id_prefix_dict` and update the tag_dict
+        dtd.id_prefix_dict = {};
         dtd.tag_dict = {};
         for (let _t = 0; _t < 2; _t++) {
             var el = {
                 0: 'etags',
-                1: 'ltags'
+                1: 'rtags'
             }[_t];
 
             for (let i = 0; i < dtd[el].length; i++) {
@@ -144,7 +202,7 @@ var dtd_parser = {
                 
                 // search if it is available now
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(dtd[el][i].id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(dtd[el][i].id_prefix)) {
                         dtd[el][i].id_prefix = this.get_next_id_prefix(dtd[el][i]);
                     } else {
                         break;
@@ -152,7 +210,7 @@ var dtd_parser = {
                 }
                 
                 // yes found at last
-                dtd.id_prefixd[dtd[el][i].id_prefix] = dtd[el][i];
+                dtd.id_prefix_dict[dtd[el][i].id_prefix] = dtd[el][i];
 
                 // and update the tag_dict
                 dtd.tag_dict[dtd[el][i].name] = dtd[el][i];
@@ -200,7 +258,160 @@ var dtd_parser = {
      * @returns the dtd object
      */
     parse_json: function(text) {
-        var dtd = null;
+        // create an empty dtd
+        var dtd = this.mk_base_dtd('');
+
+        // bind the text just as backup?
+        // it won't be used
+        dtd.text = text;
+        
+        // get the basic 
+        var tmp = null;
+        try {
+            tmp = JSON.parse(text);
+        } catch (error) {
+            console.log('* invalid JSON content');
+            return null;
+        }
+
+        // validate the basic elements
+        if (!tmp.hasOwnProperty('name')) {
+            console.log('* missing name in the given schema');
+            return null;
+        }
+        dtd.name = tmp.name;
+
+        // the schema should contain entity
+        if (!tmp.hasOwnProperty('etags')) {
+            tmp['etags'] = [];
+        }
+
+        // the schema should contain relation but this is optional
+        if (!tmp.hasOwnProperty('rtags')) {
+            tmp['rtags'] = [];
+        }
+        
+        // loop each entity
+        for (let i = 0; i < tmp.etags.length; i++) {
+            // get the obj
+            var tmp_tag = tmp.etags[i];
+
+            if (!tmp_tag.hasOwnProperty('name')) {
+                console.log('* skipped unparsable tag', tmp_tag);
+                continue;
+            }
+
+            // make an empty tag
+            var tag = this.mk_base_tag(tmp_tag.name, 'etag');
+
+            // parse the attrs
+            if (!tmp_tag.hasOwnProperty('attrs')) {
+                // just set empty attrs
+                tmp_tag['attrs'] = [];
+            }
+
+            // get all attrs
+            for (let i = 0; i < tmp_tag['attrs'].length; i++) {
+                var tmp_attr = tmp_tag['attrs'][i];
+                
+                // create an attr obj by using the tmp_attr
+                var attr = this.mk_attr_by_tmp_attr(tmp_tag, tmp_attr);
+                
+                if (attr == null) {
+                    console.log('* skipped unparsable attr', tmp_attr);
+                    continue;
+                }
+
+                // add this attr to tag
+                tag.attrs.push(attr);
+                
+                // update the tag dict
+                tag.attr_dict[attr.name] = attr;
+            }
+            
+            // build by passing values
+            if (tmp_tag.hasOwnProperty('is_non_consuming')) {
+                // default entity tag is span-based
+                tag.is_non_consuming = tmp_tag.is_non_consuming;
+            }
+
+            // the last thing for a tag
+            if (tmp_tag.hasOwnProperty('id_prefix')) {
+                // just set as null, will generate it later
+                tag.id_prefix = tmp_tag.id_prefix;
+            } else {
+                tag.id_prefix = this.get_valid_id_prefix(
+                    tag.name,
+                    dtd
+                );
+            }
+            // no matter what id prefix is selected,
+            dtd.id_prefix_dict[tag.id_prefix] = tag;
+
+            // and update the tag_dict
+            dtd.tag_dict[tag.name] = tag;
+
+            // add this tag
+            dtd.etags.push(tag);
+        }
+
+
+        // loop relation tags
+        for (let i = 0; i < tmp.rtags.length; i++) {
+            // get the obj
+            var tmp_tag = tmp.rtags[i];
+
+            if (!tmp_tag.hasOwnProperty('name')) {
+                console.log('* skipped unparsable tag', tmp_tag);
+                continue;
+            }
+            // make an empty tag
+            var tag = this.mk_base_tag(tmp_tag.name, 'rtag');
+
+            // parse the attrs
+            if (!tmp_tag.hasOwnProperty('attrs')) {
+                // just set empty attrs
+                tmp_tag['attrs'] = [];
+            }
+
+            // get all attrs
+            for (let i = 0; i < tmp_tag['attrs'].length; i++) {
+                var tmp_attr = tmp_tag['attrs'][i];
+                
+                // create an attr obj by using the tmp_attr
+                var attr = this.mk_attr_by_tmp_attr(tmp_tag, tmp_attr);
+                
+                if (attr == null) {
+                    console.log('* skipped unparsable attr', tmp_attr);
+                    continue;
+                }
+
+                // add this attr to tag
+                tag.attrs.push(attr);
+                
+                // update the tag dict
+                tag.attr_dict[attr.name] = attr;
+            }
+
+            // the last thing for a tag
+            if (tmp_tag.hasOwnProperty('id_prefix')) {
+                // just set as null, will generate it later
+                tag.id_prefix = tmp_tag.id_prefix;
+            } else {
+                tag.id_prefix = this.get_valid_id_prefix(
+                    tag.name,
+                    dtd
+                );
+            }
+            // no matter what id prefix is selected,
+            dtd.id_prefix_dict[tag.id_prefix] = tag;
+
+            // and update the tag_dict
+            dtd.tag_dict[tag.name] = tag;
+
+            // add to dtd
+            dtd.rtags.push(tag);
+        }
 
         return dtd;
     },
@@ -222,10 +433,10 @@ var dtd_parser = {
             etags: [],
 
             // the list of relation tags
-            ltags: [],
+            rtags: [],
 
-            // a dictionary for quick access tags by id_prefix
-            id_prefixd: {},
+            // a dictionary for quick access tags by id_prefix_dict
+            id_prefix_dict: {},
 
             // a dictionary for quick access tags by tag name
             tag_dict: {},
@@ -251,30 +462,30 @@ var dtd_parser = {
             } else if (ret.type == 'etag') {
                 // check the id by a looping
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(ret.id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(ret.id_prefix)) {
                         ret.id_prefix = this.get_next_id_prefix(ret);
                     } else {
                         break;
                     }
                 }
-                dtd.id_prefixd[ret.id_prefix] = ret;
+                dtd.id_prefix_dict[ret.id_prefix] = ret;
                 dtd.tag_dict[ret.name] = ret;
 
-            } else if (ret.type == 'ltag') {
+            } else if (ret.type == 'rtag') {
                 // check the id
                 while (true) {
-                    if (dtd.id_prefixd.hasOwnProperty(ret.id_prefix)) {
+                    if (dtd.id_prefix_dict.hasOwnProperty(ret.id_prefix)) {
                         ret.id_prefix = this.get_next_id_prefix(ret);
                     } else {
                         break;
                     }
                 }
-                dtd.id_prefixd[ret.id_prefix] = ret;
+                dtd.id_prefix_dict[ret.id_prefix] = ret;
                 dtd.tag_dict[ret.name] = ret;
 
             } else if (ret.type == 'attr') {
                 // put this attr to an element
-                dtd.tag_dict[ret.element].attlists.push(
+                dtd.tag_dict[ret.element].attrs.push(
                     ret
                 );
 
@@ -287,9 +498,9 @@ var dtd_parser = {
         for (const name in dtd.tag_dict) {
             if (Object.hasOwnProperty.call(dtd.tag_dict, name)) {
                 if (dtd.tag_dict[name].type == 'etag') { 
-                    // check the attlist to make sure no missing
-                    for (let i = 0; i < dtd.tag_dict[name].attlists.length; i++) {
-                        if (dtd.tag_dict[name].attlists[i].vtype == 'dfix') {
+                    // check the attr to make sure no missing
+                    for (let i = 0; i < dtd.tag_dict[name].attrs.length; i++) {
+                        if (dtd.tag_dict[name].attrs[i].vtype == 'dfix') {
                             // which means this is a non-consuming tag
                             dtd.tag_dict[name].is_non_consuming = true;
                         }
@@ -297,10 +508,10 @@ var dtd_parser = {
 
                 }  else {
 
-                    // for link tag, need to check how many attlists are found
+                    // for link tag, need to check how many attrs are found
                     var cnt_idrefs = 0;
-                    for (let i = 0; i < dtd.tag_dict[name].attlists.length; i++) {
-                        if (dtd.tag_dict[name].attlists[i].vtype == 'idref') {
+                    for (let i = 0; i < dtd.tag_dict[name].attrs.length; i++) {
+                        if (dtd.tag_dict[name].attrs[i].vtype == 'idref') {
                             cnt_idrefs += 1;
                         }
                     }
@@ -308,12 +519,12 @@ var dtd_parser = {
                     // if there is not idref, just create two:
                     if (cnt_idrefs == 0) {
                         // create from and to
-                        var attlist_from = this.mk_attlist(name, 'from', 'idref');
-                        var attlist_to = this.mk_attlist(name, 'to', 'idref');
-                        dtd.tag_dict[name].attlists = [attlist_from, attlist_to].concat(
-                            dtd.tag_dict[name].attlists
+                        var attr_from = this.mk_base_attr(name, 'from', 'idref');
+                        var attr_to = this.mk_base_attr(name, 'to', 'idref');
+                        dtd.tag_dict[name].attrs = [attr_from, attr_to].concat(
+                            dtd.tag_dict[name].attrs
                         );
-                        console.log('* added from+to to the attlist of ' + name);
+                        console.log('* added from+to to the attr of ' + name);
                     }
                 }
                 
@@ -323,8 +534,8 @@ var dtd_parser = {
         // split the tags
         for (const name in dtd.tag_dict) {
             if (Object.hasOwnProperty.call(dtd.tag_dict, name)) {
-                // now, create a attlist_dict for each tag
-                dtd.tag_dict[name].attlist_dict = this.make_attlist_dict(
+                // now, create a attr_dict for each tag
+                dtd.tag_dict[name].attr_dict = this.make_attr_dict(
                     dtd.tag_dict[name]
                 );
 
@@ -333,7 +544,7 @@ var dtd_parser = {
                 if (element.type == 'etag') {
                     dtd.etags.push(element);
                 } else {
-                    dtd.ltags.push(element);
+                    dtd.rtags.push(element);
                 }
             }
         }
@@ -353,8 +564,8 @@ var dtd_parser = {
         ret = this.get_element(line);
         if (ret != null) { return ret; }
 
-        // try attlist
-        ret = this.get_attlist(line);
+        // try attr
+        ret = this.get_attr(line);
 
         return ret;
     },
@@ -398,7 +609,7 @@ var dtd_parser = {
                 type: 'etag',
                 id_prefix: '',
                 is_non_consuming: false,
-                attlists: []
+                attrs: []
             };
 
             // The result can be accessed through the `m`-variable.
@@ -413,7 +624,7 @@ var dtd_parser = {
         
             // check the element type
             if (line.lastIndexOf('EMPTY')>=0) {
-                element.type = 'ltag';
+                element.type = 'rtag';
             }
 
             ret = element;
@@ -423,71 +634,71 @@ var dtd_parser = {
 
     },
 
-    get_attlist: function(line) {
+    get_attr: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist;
+        let regex = this.regex.attr;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
-            var attlist = this.mk_attlist();
+            var attr = this.mk_base_attr('', '', '');
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the element name
-                    attlist.element = match;
+                    attr.element = match;
 
                 } else if (groupIndex == 2) {
                     // which means it is the attr of this element
-                    attlist.name = match;
+                    attr.name = match;
 
                     // special rule for some attrs
                     if (match == 'spans') {
                         // for attr `spans`, need to update the elememt
-                        attlist.vtype = 'dfix';
-                        attlist.default_value = this.NON_CONSUMING_SPANS;
+                        attr.vtype = 'dfix';
+                        attr.default_value = this.NON_CONSUMING_SPANS;
                     }
 
                 } else if (groupIndex == 3) {
                     if (match == 'CDATA') {
                         // ok, it's just a text content
-                        attlist.vtype = 'text';
+                        attr.vtype = 'text';
                         
                         // then get the default value
-                        attlist.default_value = this.get_attlist_cdata_default_value(line);
+                        attr.default_value = this.get_attr_cdata_default_value(line);
 
                     } else if (match == '(') {
                         // this is a list
-                        attlist.vtype = 'list';
+                        attr.vtype = 'list';
 
                         // get the values
-                        attlist.values = this.get_attlist_values(line);
+                        attr.values = this.get_attr_values(line);
 
                     } else if (match == 'IDREF') {
                         // it's an attr for link tag
-                        attlist.vtype = 'idref';
+                        attr.vtype = 'idref';
 
-                        if (this.is_argN(attlist.name)) {
+                        if (this.is_argN(attr.name)) {
                             // ok
                         } else {
                             // IDREF's default name must argX
                             // but ... why?
-                            console.error('* error name for this "', line, '", attlist name should be argX format');
+                            console.error('* error name for this "', line, '", attr name should be argX format');
                         }
 
                         // then, check if there is prefix
-                        var prefix = this.get_attlist_prefix(line);
+                        var prefix = this.get_attr_prefix(line);
                         if (prefix == null) {
-                            // which means this attlist doesn't have a prefix
+                            // which means this attr doesn't have a prefix
                             // for renaming the extraction
                         } else {
                             // use the prefix to replace this name
-                            attlist.name = prefix;
+                            attr.name = prefix;
                         }
                     }
                 } else {
@@ -496,31 +707,31 @@ var dtd_parser = {
             });
 
             // before end, check the require info
-            var require = this.get_attlist_require(line);
+            var require = this.get_attr_require(line);
                         
             if (require.length == 0) {
-                // which means this attlist has nothing
+                // which means this attr has nothing
 
             } else if (require.length == 1) {
                 // which means just has the require name it self
-                attlist.require = require[0];
+                attr.require = require[0];
 
             } else if (require.length == 2) {
                 // which means it has the default value!
-                attlist.require = require[0];
-                attlist.default_value = require[1];
+                attr.require = require[0];
+                attr.default_value = require[1];
             }
 
-            ret = attlist;
+            ret = attr;
         }
 
         return ret;
     },
 
-    get_attlist_values: function(line) {
+    get_attr_values: function(line) {
         let m;
         var ret = [];
-        let regex = this.regex.attlist_values;
+        let regex = this.regex.attr_values;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -530,7 +741,7 @@ var dtd_parser = {
             var values = [];
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist values match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr values match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the element name
@@ -549,10 +760,10 @@ var dtd_parser = {
         return ret;
     },
 
-    get_attlist_require: function(line) {
+    get_attr_require: function(line) {
         let m;
         var ret = [];
-        let regex = this.regex.attlist_require;
+        let regex = this.regex.attr_require;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -565,7 +776,7 @@ var dtd_parser = {
 
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
-                // console.log(`Found attlist require match, group ${groupIndex}: ${match}`);
+                // console.log(`Found attr require match, group ${groupIndex}: ${match}`);
                 // group 0 is the leading text
                 if (groupIndex == 1) {
                     // which is the require name
@@ -589,10 +800,10 @@ var dtd_parser = {
         return ret;
     },
 
-    get_attlist_prefix: function(line) {
+    get_attr_prefix: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist_prefix;
+        let regex = this.regex.attr_prefix;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -617,10 +828,10 @@ var dtd_parser = {
         return ret;
     },    
 
-    get_attlist_cdata_default_value: function(line) {
+    get_attr_cdata_default_value: function(line) {
         let m;
         var ret = null;
-        let regex = this.regex.attlist_cdata_default_value;
+        let regex = this.regex.attr_cdata_default_value;
 
         while ((m = regex.exec(line)) !== null) {
             // This is necessary to avoid infinite loops with zero-width matches
@@ -645,14 +856,14 @@ var dtd_parser = {
         return ret;
     },    
 
-    make_attlist_dict: function(tag) {
-        let attlist_dict = {};
+    make_attr_dict: function(tag) {
+        let attr_dict = {};
 
-        for (let i = 0; i < tag.attlists.length; i++) {
-            attlist_dict[tag.attlists[i].name] = tag.attlists[i];
+        for (let i = 0; i < tag.attrs.length; i++) {
+            attr_dict[tag.attrs[i].name] = tag.attrs[i];
         }
 
-        return attlist_dict;
+        return attr_dict;
     },
 
     get_next_id_prefix: function(element) {
@@ -662,6 +873,24 @@ var dtd_parser = {
         );
 
         return ret;
+    },
+
+    get_valid_id_prefix: function(tag_name, dtd) {
+        // starts with the first letter of the tag_name
+        var id_prefix = tag_name.substring(0, 1);
+
+        while (true) {
+            if (dtd.id_prefix_dict.hasOwnProperty(id_prefix)) {
+                id_prefix = tag_name.substring(
+                    0,
+                    id_prefix.length + 1
+                );
+            } else {
+                break;
+            }
+        }
+
+        return id_prefix;
     },
 
     ///////////////////////////////////////////////////////
@@ -683,16 +912,54 @@ var dtd_parser = {
         return false;
     },
 
-    mk_attlist: function(element='', name='', vtype='') {
+    mk_base_attr: function(element, name, vtype) {
         return {
-            element: element,
             name: name,
-            type: 'attr',
             vtype: vtype,
             require: '',
             values: [],
             default_value: '',
+
+            // element is the tag name
+            element: element,
+            type: 'attr',
         };
+    },
+
+    mk_attr_by_tmp_attr: function(tag, tmp_attr) {
+        // name is needed for an attr
+        if (!tmp_attr.hasOwnProperty('name')) {
+            return null;
+        }
+
+        // vtype is needed for an attr
+        if (!tmp_attr.hasOwnProperty('vtype')) {
+            return null;
+        }
+
+        // make an empty attr
+        var attr = this.mk_base_attr(
+            tag.name,
+            tmp_attr.name,
+            tmp_attr.vtype
+        );
+
+        // set the default value
+        if (tmp_attr.hasOwnProperty('require')) {
+            attr['require'] = tmp_attr['require'];
+        }
+
+        // set the values
+        if (tmp_attr.hasOwnProperty('values')) {
+            attr['values'] = tmp_attr['values'];
+        }
+
+        // set the default value
+        if (tmp_attr.hasOwnProperty('default_value')) {
+            attr['default_value'] = tmp_attr['default_value'];
+        }
+
+        return attr;
     },
 
     mk_base_tag: function(tag_name, tag_type) {
@@ -701,11 +968,11 @@ var dtd_parser = {
             name: tag_name,
             type: tag_type,
             is_non_consuming: false,
-            attlists: [],
+            attrs: [],
 
             // the followings are decided when extending
-            attlist_dict: null,
-            id_prefixd: null,
+            attr_dict: {},
+            id_prefix: {},
 
             // the followings are decided when importing
             shortcut: null,
@@ -719,11 +986,11 @@ var dtd_parser = {
         return {
             name: dtd_name,
             etags: [],
-            ltags: [],
+            rtags: [],
 
             // the followings are left null for extending later
-            id_prefixd: null,
-            tag_dict: null,
+            id_prefix_dict: {},
+            tag_dict: {},
             text: null
         }
     }

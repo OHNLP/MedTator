@@ -240,15 +240,15 @@
 
         <div v-else>
             <li class="ctxmenu-item"
-                v-for="ltag, ltag_idx in dtd.ltags"
-                v-on:click="popmenu_start_linking(ltag)">
+                v-for="rtag, rtag_idx in dtd.rtags"
+                v-on:click="popmenu_start_linking(rtag)">
                 <div>
                     <i class="fa fa-link"
-                        v-bind:class="'fg-tag-' + ltag.name">
+                        v-bind:class="'fg-tag-' + rtag.name">
                     </i>
-                    <b>{{ ltag.name }}</b>
+                    <b>{{ rtag.name }}</b>
                     -
-                    <i>{{ get_idref_attlist_by_seq(ltag).name }}</i>
+                    <i>{{ get_idref_attr_by_seq(rtag).name }}</i>
                 </div>
             </li>
         </div>
@@ -411,6 +411,8 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['XLSX_JS_STYLE']['JS'] ]]"></script>
 <!-- d3 for data visualization -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['D3']['JS'] ]]"></script>
+<!-- dump/parse YAML library -->
+<script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['JS_YAML']['JS'] ]]"></script>
 <script>
 
 // The file helper 
@@ -449,6 +451,15 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 // extend the App
 {% include 'js/app_hotpot_ext_texts.js' %}
 
+// extend the App with codemirror editor
+{% include 'js/app_hotpot_ext_codemirror.js' %}
+
+// extend the App with statistics
+{% include 'js/app_hotpot_ext_statistics.js' %}
+
+// extend the App with exporter
+{% include 'js/app_hotpot_ext_exporter.js' %}
+
 // extend the App with IAA
 {% include 'js/app_hotpot_ext_iaa.js' %}
 
@@ -457,6 +468,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // extend the App with schema editor
 {% include 'js/app_hotpot_ext_se.js' %}
+
+// extend the App with tour
+{% include 'js/app_hotpot_ext_tour.js' %}
 
 // The Tag Info Vue Module
 {% include 'js/vpp_iaa_tag_info.js' %}

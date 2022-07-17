@@ -74,6 +74,12 @@ html,body {
     height: calc(100% - 32px);
     overflow-y: auto;
 }
+#mui_filelist_pager {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 1px 0;
+}
 #mui_texteditor {
     width: calc(100% - 250px); 
     height: 100%;
@@ -299,7 +305,7 @@ input[type=range]:focus::-ms-fill-upper {
     white-space: nowrap;
 }
 #dropzone_dtd {
-    width: 170px;
+    width: 190px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -308,7 +314,7 @@ input[type=range]:focus::-ms-fill-upper {
     border-radius: 4px;
 }
 #dropzone_ann {
-    width: 170px;
+    width: 180px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -802,6 +808,27 @@ select.tag-attr-select {
 .btn-xs {
     font-size: .9em;
 }
+.select-xs {
+    font-size: .9em;
+    padding: 0 3px;
+    width: auto;
+    max-width: 120px;
+    line-height: 1.5em;
+    height: 2em;
+    display: inline;
+}
+.page-current-index {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    font-weight: bold;
+}
+.page-total-number {
+    font-size: .9em;
+    line-height: 2em;
+    height: 2em;
+    display: inline;
+}
 .btn-dense {
     padding: 1px 2px !important;
 }
@@ -1063,10 +1090,10 @@ input[type=text].ipt-spinner-xs {
 .iaa-tag-detail-oper {
     display: block;
 }
-.iaa-tag-attlist {
+.iaa-tag-attr {
     border-bottom: 1px solid #aaaaaa;
 }
-.iaa-tag-attlist-name {
+.iaa-tag-attr-name {
     font-size: 0.8em;
 }
 .iaa-tag-context {
@@ -1128,7 +1155,7 @@ input[type=text].ipt-spinner-xs {
     height: 30px;
 }
 .ribbon-menu {
-    min-width: 1340px;
+    min-width: 1380px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;
@@ -1159,21 +1186,21 @@ ol[class], ul[class] {
 #pan_working_tag_title:active {
     cursor: grabbing;
 }
-.ltag-attr-name {
+.rtag-attr-name {
     align-items: center;
     min-width: 100px;
     max-width: 200px;
 }
-.ltag-attr-value {
+.rtag-attr-value {
     max-width: 150px;
 }
-.ltag-attr-row:hover {
+.rtag-attr-row:hover {
     background-color: rgb(211, 211, 211) !important;
 }
-.ltag-attr-row:nth-child(even) {
+.rtag-attr-row:nth-child(even) {
     background-color: white;
 }
-.ltag-attr-row:nth-child(odd) {
+.rtag-attr-row:nth-child(odd) {
     background-color: whitesmoke;
 }
 
