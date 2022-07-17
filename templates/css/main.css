@@ -305,7 +305,8 @@ input[type=range]:focus::-ms-fill-upper {
     white-space: nowrap;
 }
 #dropzone_dtd {
-    width: 190px;
+    /* width: 190px; */
+    width: 245px;
     height: 60px;
     line-height: 60px;
     text-align: center;

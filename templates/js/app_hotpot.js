@@ -38,6 +38,7 @@ var app_hotpot = {
 
         // for the ann files in the file list
         anns: [],
+        mn4anns: 0.1,
 
         // pagination
         pg_index: 0,
@@ -424,6 +425,9 @@ var app_hotpot = {
             for (let i = 0; i < anns.length; i++) {
                 this.add_ann(anns[i]);
             }
+
+            // just for trigger the vue's computed prop
+            this.mn4anns = Math.random();
         },
 
         reset_loading_anns_status: function() {
@@ -2303,28 +2307,30 @@ var app_hotpot = {
         },
 
         virtual_anns: function() {
-            if (this.section == 'annotation') {
-                var v_anns = this.get_sorted_v_anns();
-                var v_anns_paged = v_anns;
-                // get the page of current
-                if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {
-                    v_anns_paged = v_anns.slice(
-                        this.pg_index * this.pg_numpp,
-                        (this.pg_index + 1) * this.pg_numpp
-                    );
-                }
+            if (this.section == 'annotation' && 
+                this.mn4anns>0) {
+                if (this.anns.length > 1) {
+                    var v_anns = this.get_sorted_v_anns();
+                    var v_anns_paged = v_anns;
+                    // get the page of current
+                    if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {
+                        v_anns_paged = v_anns.slice(
+                            this.pg_index * this.pg_numpp,
+                            (this.pg_index + 1) * this.pg_numpp
+                        );
+                    }
 
-                return {
-                    v_anns: v_anns,
-                    v_anns_paged: v_anns_paged
-                };
-                
-            } else {
-                return {
-                    v_anns: [],
-                    v_anns_paged: []
-                };
+                    return {
+                        v_anns: v_anns,
+                        v_anns_paged: v_anns_paged
+                    };
+                }   
             }
+            // for all other cases
+            return {
+                v_anns: [],
+                v_anns_paged: []
+            };
         },
 
         stat_docs_by_tags: function() {
