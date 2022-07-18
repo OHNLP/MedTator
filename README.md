@@ -106,6 +106,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Refactored annotation file loading workflow
 - Refactored code structure to reduce code size
 - Designed JSON/YAML format schema
+- Added tokenization exceptions
 - Added pagination for large dataset
 - Added loading dataset annimation
 - Added drag and drop folder for adjudication
@@ -120,7 +121,6 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Updated converter with support of viewing contents
 - Updated event handlers for drag and drop events
 - Updated license files of imported libraries
-- Support of tokenization exceptions
 - Updated the sample schemas with JSON/YAML format
 
 ### 1.2.48 (2022-07-07)

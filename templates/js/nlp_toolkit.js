@@ -1,4 +1,93 @@
 var nlp_toolkit = {
+    sent_tlb_syms: ' `!@#$%^&*()_+-=[]{}|\\:";\'<>?,/',
+    sent_exceptions: new Set([
+        // time
+        'a.m.',
+        'p.m.',
+        'mon.',
+        'tue.',
+        'wed.',
+        'thu.',
+        'fri.',
+        'sat.',
+        'sun.',
+        'jan.',
+        'feb.',
+        'mar.',
+        'apr.',
+        'jun.',
+        'jul.',
+        'aug.',
+        'sep.',
+        'oct.',
+        'nov.',
+        'dec.',
+
+        // geo
+        'ark.',
+        'ala.',
+        'ariz.',
+        'calif.',
+        'colo.',
+        'conn.',
+        'fla.',
+        'ga.',
+        'ia.',
+        'id.',
+        'ill.',
+        'ind.',
+        'kan.',
+        'kans.',
+        'ky.',
+        'mass.',
+        'n.c.',
+        'n.d.',
+        'n.h.',
+        'n.j.',
+        'n.m.',
+        'n.y.',
+        'neb.',
+        'nebr.',
+        'nev.',
+        'okla.',
+        'ore.',
+        'pa.',
+        's.c.',
+        'tenn.',
+        'va.',
+        'wash.',
+        'wis.',
+        'd.c.',
+
+        // title and names
+        'jr.',
+        'st.',
+        'mr.',
+        'mrs.',
+        'ms.',
+        'dr.',
+        'm.d.',
+        'ph.d.',
+        'prof.',
+        'bros.',
+        'adm.',
+
+        // other
+        '#.',
+        'no.',
+        'e.g.',
+        'ie.',
+        'i.e.',
+        'inc.',
+        'ltd.',
+        'co.',
+        'corp.',
+        'vs.',
+        'v.s.',
+        'gov.',
+        'gen.',
+        'n.e.r.v.', // EVANGELION ! :)
+    ]),
 
     sent_tokenize: function(text, backend) {
         if (typeof(backend) == 'undefined') {
@@ -7,7 +96,8 @@ var nlp_toolkit = {
         // console.log('* sentencizing text by ' + backend);
 
         if (backend == 'simpledot') {
-            return this.sent_tokenize_by_simpledot(text);
+            // return this.sent_tokenize_by_simpledot(text);
+            return this.sent_tokenize_by_simpledot_v2(text);
         }
 
         if (backend == 'compromise') {
@@ -253,6 +343,351 @@ var nlp_toolkit = {
 
                 // move the spans_start to spans_end
                 spans_start = spans_end + 1;
+            }
+        }
+
+        // ok, let's check if the sentence collection is empty
+        if (sentence.length > 0) {
+            // there is a last sentence
+            var _sentence = sentence.join('');
+
+            // create a new sentence obj
+            sentences.push({
+                text: _sentence, 
+                spans: {
+                    start: spans_start, 
+                    end: spans_end
+                }
+            });
+
+            // put the text
+            sentences_text.push(_sentence);
+        }
+
+        return { 
+            sentences: sentences,
+            sentences_text: sentences_text.join('\n')
+        };
+    },
+
+
+
+    /**
+     * Sentencize a given text by a simple method v2
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
+    sent_tokenize_by_simpledot_v2: function(text, cfg) {
+        if (typeof(cfg) == 'undefined') {
+            cfg = {}
+        }
+        // get all sentences and spans
+        var sentences = [];
+
+        // get all sentence trimed text
+        var sentences_text = [];
+
+        // a temp sentence
+        var sentence = [];
+
+        // locate the sentence start
+        var spans_start = 0;
+
+        // locate the sentence end
+        var spans_end = 0;
+        
+        // flag for a sentence end
+        var flag_sent = false;
+
+        for (let i = 0; i < text.length; i++) {
+            // get the current char
+            const c = text[i];
+
+            // set the end to current char
+            spans_end = i;
+            
+            // before checking, set the flag to false
+            flag_sent = false;
+
+            // detect if this is a sentence break
+            // a fake loop for quick break
+            // searching for spans_end
+            while(1) {
+                if (c == '.') {
+                    // but there are some corner cases
+                    if (i+1 < text.length && text[i+1].trim() != '') {
+                        // 1. this case is simple.
+                        // which means next char is not empty
+                        // this dot is not for a sentence
+                        // for example: 192.168.1.200 
+                        // this is an IP, not four sentences
+                        sentence.push(c);
+                        break;
+
+                    } 
+                    // look back the whole token
+                    var dot_token_start = i;
+                    for (let bi = i-1; bi >= 0; bi--) {
+                        if (this.sent_tlb_syms.includes(text[bi])) {
+                            // ok, we found the break of a token
+                            dot_token_start = bi + 1;
+                            break;
+                        }
+                    }
+                    // get the token with dot, for example:
+                    // 
+                    // 0123456789................
+                    // when Mr. Anderson wakes up,
+                    //     b^ i 
+                    // 
+                    // the c is at 7,
+                    // the bi will find 4,
+                    // the dot_token_start ^ will be 5
+                    // then the dot_token is Mr.
+                    var dot_token = text.substring(
+                        dot_token_start,
+                        i+1
+                    );
+                    var dot_token_lower = dot_token.toLocaleLowerCase();
+
+                    // now find check this dot token
+                    if (this.sent_exceptions.has(dot_token_lower)) {
+                        // ok, this token is a special exception
+                        // just skip
+                        sentence.push(c);
+                        break;
+                    }
+                    
+                    // for everthing else
+                    // this is an end of sentence
+                    flag_sent = true;
+                    // collect the char
+                    sentence.push(c);
+                    break;
+                    
+                } else if ( c == '?' || c == '!' || c == ';') {
+                    flag_sent = true;
+                    // collect the char
+                    sentence.push(c);
+                    break;
+        
+                } else if ( c == '\n') {
+                    flag_sent = true;
+                    // no need to collect
+                    // sentence.push(c);
+                    break;
+
+                } else {
+                    // collect the char
+                    sentence.push(c);
+                    break;
+                }
+            }
+
+            if (flag_sent) {
+                // ok, this is a sentence.
+                var _sentence = sentence.join('');
+
+                // clear the collection
+                sentence = [];
+
+                // create a new sentence obj
+                sentences.push({
+                    text: _sentence, 
+                    spans: {
+                        start: spans_start, 
+                        end: spans_end
+                    }
+                });
+
+                // put the text
+                sentences_text.push(_sentence);
+
+                // move the spans_start to spans_end for temp location
+                spans_start = spans_end + 1;
+            }
+        }
+
+        // ok, let's check if the sentence collection is empty
+        if (sentence.length > 0) {
+            // there is a last sentence
+            var _sentence = sentence.join('');
+
+            // create a new sentence obj
+            sentences.push({
+                text: _sentence, 
+                spans: {
+                    start: spans_start, 
+                    end: spans_end
+                }
+            });
+
+            // put the text
+            sentences_text.push(_sentence);
+        }
+
+        return { 
+            sentences: sentences,
+            sentences_text: sentences_text.join('\n')
+        };
+    },
+
+
+
+    /**
+     * Sentencize a given text by a simple method v3
+     * @param {String} text the content to be sentencized
+     * @returns Object of sentences
+     */
+    sent_tokenize_by_simpledot_v3: function(text, cfg) {
+        if (typeof(cfg) == 'undefined') {
+            cfg = {}
+        }
+        // get all sentences and spans
+        var sentences = [];
+
+        // get all sentence trimed text
+        var sentences_text = [];
+
+        // a temp sentence
+        var sentence = [];
+
+        // locate the sentence start
+        var spans_start = 0;
+
+        // locate the sentence end
+        var spans_end = 0;
+        
+        // flag for a sentence end
+        var flag_sent = false;
+
+        // flag for searching sentence start
+        var flag_sfss = false;
+
+        for (let i = 0; i < text.length; i++) {
+            // get the current char
+            const c = text[i];
+
+            // set the end to current char
+            spans_end = i;
+            
+            // before checking, set the flag to false
+            flag_sent = false;
+
+            // detect if this is a sentence break
+            // a fake loop for quick break
+            if (flag_sfss) {
+                // searching for spans_start
+                if (c == ' ') {
+                    // event it's blank, just move the start
+                    spans_start = i;
+                } else {
+                    // if non-white space char,
+                    // it's a sentence
+                    flag_sfss = false;
+                    spans_start = i;
+                    sentence.push(c);
+                }
+
+            } else {
+                // searching for spans_end
+                while(1) {
+                    if (c == '.') {
+                        // but there are some corner cases
+                        if (i+1 < text.length && text[i+1].trim() != '') {
+                            // 1. this case is simple.
+                            // which means next char is not empty
+                            // this dot is not for a sentence
+                            // for example: 192.168.1.200 
+                            // this is an IP, not four sentences
+                            sentence.push(c);
+                            break;
+    
+                        } 
+                        // look back the whole token
+                        var dot_token_start = i;
+                        for (let bi = i-1; bi >= 0; bi--) {
+                            if (this.sent_tlb_syms.includes(text[bi])) {
+                                // ok, we found the break of a token
+                                dot_token_start = bi + 1;
+                                break;
+                            }
+                        }
+                        // get the token with dot, for example:
+                        // 
+                        // 0123456789................
+                        // when Mr. Anderson wakes up,
+                        //     b^ i 
+                        // 
+                        // the c is at 7,
+                        // the bi will find 4,
+                        // the dot_token_start ^ will be 5
+                        // then the dot_token is Mr.
+                        var dot_token = text.substring(
+                            dot_token_start,
+                            i+1
+                        );
+                        var dot_token_lower = dot_token.toLocaleLowerCase();
+    
+                        // now find check this dot token
+                        if (this.sent_exceptions.has(dot_token_lower)) {
+                            // ok, this token is a special exception
+                            // just skip
+                            sentence.push(c);
+                            break;
+                        }
+                        
+                        // for everthing else
+                        // this is an end of sentence
+                        flag_sent = true;
+                        // collect the char
+                        sentence.push(c);
+                        break;
+                        
+                    } else if ( c == '?' || c == '!' || c == ';') {
+                        flag_sent = true;
+                        // collect the char
+                        sentence.push(c);
+                        break;
+            
+                    } else if ( c == '\n') {
+                        flag_sent = true;
+                        // no need to collect
+                        // sentence.push(c);
+                        break;
+    
+                    } else {
+                        // collect the char
+                        sentence.push(c);
+                        break;
+                    }
+                }
+            }
+
+
+            if (flag_sent) {
+                // ok, this is a sentence.
+                var _sentence = sentence.join('');
+
+                // clear the collection
+                sentence = [];
+
+                // create a new sentence obj
+                sentences.push({
+                    text: _sentence, 
+                    spans: {
+                        start: spans_start, 
+                        end: spans_end
+                    }
+                });
+
+                // put the text
+                sentences_text.push(_sentence);
+
+                // move the spans_start to spans_end for temp location
+                spans_start = spans_end + 1;
+                // set flag for searching start
+                flag_sfss = true;
             }
         }
 
