@@ -20,14 +20,6 @@ v-bind:class="{'active': section=='annotation'}">
         </div>
     </div>
 
-    <!-- <button class="ribbon-button"
-        v-on:click="on_click_open_dtd_file">
-        <span class="icon">
-            <i class="far fa-file"></i>
-        </span>
-        <span class="caption">Open DTD</span>
-    </button> -->
-
     <span class="title">
 
         Schema File (.yaml / json / dtd)
@@ -42,13 +34,12 @@ v-bind:class="{'active': section=='annotation'}">
         </span>
     </span>
 </div>
-<!-- 
-<div class="group">
 
+<div class="group">
     <div id="dropzone_ann" 
         title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
         v-on:dragover="on_dragover_prevent_default"
-        v-on:drop="on_drop_dropzone_ann"
+        v-on:drop="on_drop_filelist"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
         <div v-if="ann_idx != null" class="zone-text">
             <b>{{ anns[ann_idx]._filename }}</b><br>
@@ -68,8 +59,8 @@ v-bind:class="{'active': section=='annotation'}">
         </div>
     </div>
 
-    <span class="title">Annotation File (.xml/.txt)</span>
-</div> -->
+    <span class="title">Annotation File (.xml)</span>
+</div>
 
 <div v-if="ann_idx != null"
     class="group">
@@ -480,10 +471,7 @@ v-bind:class="{'active': section=='annotation'}">
 
     <div class="ribbon-split-button">
         <button class="ribbon-main"
-            title="MedTator document"
-            data-role="popover"
-            data-popover-position="right"
-            data-popover-text="MedTator wiki that includes quick start, <br>manual, and technical details."
+            title="MedTator wiki that includes quick start, manual, and technical details."
             v-on:click="show_wiki">
             <span class="icon">
                 <i class="fa fa-info"></i>

@@ -16,18 +16,31 @@ v-bind:class="{'active': section=='corpus'}">
 </div>
 
 <div class="group">
+    
+    <button class="ribbon-button" 
+        title="Set the input format as raw text"
+        v-on:click="switch_corpus('raw')"
+        v-bind:class="{'active': converter_corpus_task=='raw'}">
+        <span class="icon">
+            <i class="far fa-file-alt"></i>
+        </span>
+        <span class="caption">
+            Raw Text
+        </span>
+    </button>
 
-    <div class="d-flex flex-column">
 
-        <button class="ribbon-icon-button"
-            title="Set the input format as MedTagger .ann format"
-            v-on:click="switch_corpus('medtagger')">
-            <span class="icon">
-                <i class="far fa-file-code"></i>
-            </span>
-            <span class="caption">MedTagger <i>.ann</i> Format</span>
-        </button>
-    </div>
+    <button class="ribbon-button" 
+        title="Set the input format as MedTagger .ann format"
+        v-on:click="switch_corpus('medtagger')"
+        v-bind:class="{'active': converter_corpus_task=='medtagger'}">
+        <span class="icon">
+            <i class="far fa-file-code"></i>
+        </span>
+        <span class="caption">
+            MedTagger
+        </span>
+    </button>
 
     <!-- 
     <button class="ribbon-button"
@@ -36,7 +49,9 @@ v-bind:class="{'active': section=='corpus'}">
         <span class="icon">
             <i class="far fa-file-code"></i>
         </span>
-        <span class="caption">Brat Format</span>
+        <span class="caption">
+            Brat
+        </span>
     </button>
     -->
 
@@ -49,8 +64,9 @@ v-bind:class="{'active': section=='corpus'}">
 <div class="group">
 
     <button class="ribbon-button"
+        v-bind:disabled="dtd == null"
         title="Convert the loaded files to MedTator format"
-        v-on:click="convert_from_medtagger_txt_and_ann">
+        v-on:click="convert_corpus_to_medtator_format">
         <span class="icon">
             <i class="fas fa-mortar-pestle"></i>
         </span>
@@ -64,7 +80,8 @@ v-bind:class="{'active': section=='corpus'}">
 
     <button class="ribbon-button"
         title="Download the converted MedTator format files as a zip file"
-        v-on:click="download_converted_files_as_zip">
+        v-bind:disabled="dtd == null"
+        v-on:click="download_converted_results_as_zip">
         <span class="icon">
             <i class="fas fa-download"></i>
         </span>

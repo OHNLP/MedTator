@@ -2,7 +2,7 @@
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
-        <div class="box w-100">
+        <div v-if="converter_corpus_task == 'medtagger'">
             <div class="box-header">
                 <h4>
                     <i class="fa fa-list-ul"></i>
@@ -10,13 +10,10 @@
                 </h4>
             </div>
 
-            <div v-if="converter_corpus_task == 'medtagger'"
-                class="box-body" 
+            <div class="box-body" 
                 style="overflow-y: auto; height: 100%;">
                 <p>
-                    For converting the MedTagger format, 
-                    you need to prepare the following two types of files.
-                    Please make sure the file names are matched.
+                    You need to prepare matched .txt and .ann files.
                 </p>
 
                 <div class="d-flex flex-row h-100">
@@ -46,7 +43,11 @@
                             class="d-flex flex-column converter-file-list">
                             <div v-for="f in converter_corpus_medtagger_txt_files"
                                 class="converter-file-row">
-                                {{ f.fh.name }}
+
+                                <a v-on:click="qv_converter_txt($event, f)"
+                                href="javascript:void(0);">
+                                    {{ f.fh.name }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -61,7 +62,12 @@
                             <i class="far fa-file-code"></i>
                             MedTagger .ann Files
                         </h5>
-                        <p v-if="converter_corpus_medtagger_ann_files.length == 0">
+                        <p v-if="is_converter_loading_medtagger_ann_files">
+                            Loading files ... <br>
+                            Please wait for a little while. <br>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </p>
+                        <p v-else-if="converter_corpus_medtagger_ann_files.length == 0">
                             Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box
                         </p>
                         <p v-else>
@@ -76,49 +82,133 @@
                                     :title="f.lines.length + ' lines of records'">
                                     {{ f.lines.length }}
                                 </span>
-                                {{ f.fh.name }}
+                                <a v-on:click="qv_converter_txt($event, f)"
+                                    href="javascript:void(0);">
+                                    {{ f.fh.name }}
+                                </a>
                             </div>
                         </div>
                     </div>
-<!-- 
-                    <div>
-                        <button class="converter-button"
-                            v-on:click="convert_from_medtagger_txt_and_ann">
-                            Convert 
-                            <br>
-                            the given files to 
-                            <br>
-                            <b>MedTator XML</b> Format
-                        </button>
-                    </div>
-     -->
-                    <div v-if="converter_corpus_medtagger_results.length != 0"
-                        class="converter-dropzone mr-2 bd-green">
-                        <h5 class="fg-green">
-                            <i class="far fa-file-code"></i>
-                            Generated MedTator XML Files
+                    
+
+                </div>
+            </div>
+        </div>
+        <!-- /div for medtagger -->
+        
+
+
+        <div v-if="converter_corpus_task == 'raw'">
+            <div class="box-header">
+                <h4>
+                    <i class="fa fa-list-ul"></i>
+                    Raw Text Files
+                </h4>
+            </div>
+
+            <div class="box-body" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    You only need to prepare the .txt files. 
+                </p>
+
+                <div class="d-flex flex-row h-100">
+
+                    <div id="mui_converter_raw_txt_filelist"
+                        v-on:dragover="on_dragover_prevent_default"
+                        v-on:drop="on_drop_converter_raw_txt"
+                        class="converter-dropzone mr-2">
+                        <h5>
+                            <i class="far fa-file-alt"></i>
+                            Raw .txt Text Files
                         </h5>
-                        
-                        <p>
-                            Converted <b>{{ converter_corpus_medtagger_results.length }} </b> pairs to xml files
+                        <p v-if="is_converter_loading_raw_txt_files">
+                            Loading files ... <br>
+                            Please wait for a little while. <br>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </p>
+                        <p v-else-if="converter_corpus_raw_txt_files.length == 0">
+                            Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ converter_corpus_raw_txt_files.length }} </b> text files (.txt)
                         </p>
 
-                        <div class="d-flex flex-column converter-file-list">
-                            <div v-for="obj in converter_corpus_medtagger_results"
+                        <div v-if="!is_converter_loading_raw_txt_files"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_raw_txt_files"
                                 class="converter-file-row">
-                                <span class="bg-green fg-white mr-1 pl-1"
-                                    :title="'Converted ' + obj.medtator_ann.tags.length + ' tags'">
-                                    {{ obj.medtator_ann.tags.length }}
-                                </span>
-                                {{ obj.medtator_ann._filename }} 
+                                <a v-on:click="qv_converter_txt($event, f)"
+                                href="javascript:void(0);">
+                                    {{ f.fh.name }}
+                                </a>
                             </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /div for raw -->
+
+
+
+        <div class="converter-result-box">
+
+            <div class="box-header">
+                <h4>
+                    <i class="far fa-file-code"></i>
+                    Conversion Results
+                </h4>
+            </div>
+
+
+            <div class="box-body" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    Click "
+                    <i class="fas fa-mortar-pestle"></i>
+                    Convert Files
+                    "
+                    to start conversion.
+                </p>
+
+                <div class="converter-dropzone mr-2 bd-green">
+                    <h5 class="fg-green"> 
+                        <i class="far fa-file-code"></i>
+                        Generated MedTator XML Files
+                    </h5>
+                    
+                    <p>
+                        Converted <b>{{ converter_results.length }} </b> xml files
+                    </p>
+        
+                    <div class="d-flex flex-column converter-file-list">
+                        <div v-for="ann in converter_results"
+                            class="converter-file-row">
+                            <span class="mr-1 cursor-pointer converter-result-download"
+                                title="Download this file seperately"
+                                v-on:click="download_converted_result(ann)">
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </span>
+
+                            <span class="bg-green fg-white mr-1 pl-1"
+                                :title="'Converted ' + ann.tags.length + ' tags'">
+                                {{ ann.tags.length }}
+                            </span>
+                            
+                            <a v-on:click="qv_converter_result_ann($event, ann)"
+                                href="javascript:void(0);">
+                                {{ ann._filename }} 
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /.box -->
+        <!-- /div for results -->
         
-
     </div>
 </div>

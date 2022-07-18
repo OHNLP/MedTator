@@ -111,8 +111,7 @@ var dtd_parser = {
         return txt.join('\n');
     },
 
-    stringify_json: function(dtd) {
-        // make a copy 
+    minimize_dtd_json: function(dtd) {
         var j = JSON.parse(JSON.stringify(dtd));
 
         // remove some attrs
@@ -126,15 +125,24 @@ var dtd_parser = {
             delete j.etags[i]['shortcut'];
             delete j.etags[i]['style'];
             delete j.etags[i]['type'];
+            delete j.etags[i]['id_prefix'];
 
             // remove some attrs in attrs
             for (let k = 0; k < j.etags[i].attrs.length; k++) {
                 delete j.etags[i].attrs[k]['element'];
                 delete j.etags[i].attrs[k]['type'];
+                delete j.etags[i].attrs[k]['require'];
+
+                // delete the values for text attr
                 if (j.etags[i].attrs[k]['vtype'] == 'text') {
                     delete j.etags[i].attrs[k]['values'];
                 }
             }
+        }
+
+        // delete etags if empty
+        if (j.etags.length == 0) {
+            delete j['etags'];
         }
 
         // remove some attrs in rtags
@@ -143,26 +151,57 @@ var dtd_parser = {
             delete j.rtags[i]['shortcut'];
             delete j.rtags[i]['style'];
             delete j.rtags[i]['type'];
+            delete j.etags[i]['id_prefix'];
 
             // remove some attrs in attrs
             for (let k = 0; k < j.rtags[i].attrs.length; k++) {
                 delete j.rtags[i].attrs[k]['element'];
                 delete j.rtags[i].attrs[k]['type'];
+                delete j.etags[i].attrs[k]['require'];
+
+                // delete the values for text attr
                 if (j.rtags[i].attrs[k]['vtype'] == 'text') {
                     delete j.etags[i].attrs[k]['values'];
                 }
+
+                // delete the values for idref
                 if (j.rtags[i].attrs[k]['vtype'] == 'idref') {
                     delete j.etags[i].attrs[k]['values'];
                 }
             }
         }
 
+        // delete rtags if empty
+        if (j.rtags.length == 0) {
+            delete j['rtags'];
+        }
+        
+        return j;
+    },
+
+    stringify_json: function(dtd) {
+        // make a copy 
+        var j = this.minimize_dtd_json(dtd);
+
+        // convert to string
         var j_str = JSON.stringify(j, null, 4);
         return j_str;
     },
 
     stringify_yaml: function(dtd) {
+        // make a copy 
+        var j = this.minimize_dtd_json(dtd);
 
+        // convert to yaml string
+        var y_str = jsyaml.dump(j);
+
+        // add a title
+        y_str = "# Annotation Schema: " + dtd.name + "\n" + 
+            "# For more information schema design, you can check MedTator Wiki:\n" +
+            "# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema \n" +
+            y_str;
+
+        return y_str;
     },
 
     extend_base_dtd: function(base_dtd) {
@@ -258,13 +297,6 @@ var dtd_parser = {
      * @returns the dtd object
      */
     parse_json: function(text) {
-        // create an empty dtd
-        var dtd = this.mk_base_dtd('');
-
-        // bind the text just as backup?
-        // it won't be used
-        dtd.text = text;
-        
         // get the basic 
         var tmp = null;
         try {
@@ -274,11 +306,49 @@ var dtd_parser = {
             return null;
         }
 
+        // parse the dtd
+        var dtd = this._parse_tmp_dtd(tmp);
+        // bind the text just as backup?
+        // it won't be used
+        dtd.text = text;
+
+        // that's it?
+        return dtd;
+    },
+
+    parse_yaml: function(text) {
+        // get the basic 
+        var tmp = null;
+        try {
+            tmp = jsyaml.load(text);
+
+        } catch (error) {
+            console.log('* invalid YAML content');
+            return null;
+        }
+
+        // parse the dtd
+        var dtd = this._parse_tmp_dtd(tmp);
+        // bind the text just as backup?
+        // it won't be used
+        dtd.text = text;
+
+        // that's it?
+        return dtd;
+    },
+
+    _parse_tmp_dtd: function(tmp) {
         // validate the basic elements
         if (!tmp.hasOwnProperty('name')) {
             console.log('* missing name in the given schema');
             return null;
         }
+
+        // OK! let's start!
+        // create an empty dtd
+        var dtd = this.mk_base_dtd('');
+
+        // set the dtd name
         dtd.name = tmp.name;
 
         // the schema should contain entity
@@ -412,12 +482,6 @@ var dtd_parser = {
             // add to dtd
             dtd.rtags.push(tag);
         }
-
-        return dtd;
-    },
-
-    parse_yaml: function(text) {
-        var dtd = null;
 
         return dtd;
     },

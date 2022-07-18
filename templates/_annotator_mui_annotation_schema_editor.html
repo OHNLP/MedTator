@@ -34,21 +34,25 @@
             </div>
             
             <ul class="h-menu horizontal">
-                <li class="border-right bd-gray"
-                    title="Create a new annotation schema"
-                    v-on:click="create_new_se_dtd">
-                    <a href="javascript:void(0);">
-                    <i class="far fa-file"></i>
-                    <span class="caption">New</span>
-                </a></li>
+                <li class="mr-1">
+                    <button class="button se-button"
+                        title="Create a new annotation schema"
+                        v-on:click="create_new_se_dtd">
+                        <i class="far fa-file"></i>
+                        New
+                    </button>
+                </li>
 
-                <li class="mr-1 border-right bd-gray"
-                    title="Open local annotation schema"
-                    v-on:click="open_se_dtd">
-                    <a href="javascript:void(0);">
-                    <i class="far fa-folder-open"></i>
-                    <span class="caption">Open</span>
-                </a></li>
+                <li class="mr-1">
+                    <button class="button se-button"
+                        title="Open local annotation schema"
+                        v-on:click="open_se_dtd">
+                        <i class="far fa-folder-open"></i>
+                        Open
+                    </button>
+                </li>
+
+                <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
 
                 <li>
                     <select style="width: 120px; height: 30px; line-height: 30px;"
@@ -68,48 +72,79 @@
                     </select>
                 </li>
 
-                <li v-on:click="load_se_dtd_sample"
-                    class="border-right bd-gray"
-                    title="Load the selected sample schema">
-                    <a href="javascript:void(0);">
-                    <i class="far fa-folder-open"></i>
-                    <span class="caption">Load</span>
-                </a></li>
+                <li class="mr-1">
+                    <button class="button se-button"
+                        title="Load the selected sample schema"
+                        v-on:click="load_se_dtd_sample">
+                        <i class="far fa-folder-open"></i>
+                        Load
+                    </button>
+                </li>
 
+                <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
                 
                 <li v-if="se_dtd != null" 
-                    v-on:click="use_se_dtd_for_annotation(se_dtd)"
-                    class=""
-                    title="Use this schema for annotation">
-                    <a href="javascript:void(0);">
-                    <span class="mif-rocket icon"></span>
-                    <span class="caption">Use</span>
-                </a></li>
-                
-                <li v-if="se_dtd != null" 
-                    class="border-right bd-gray"
-                    title="Download current schema file"
-                    v-on:click="download_se_dtd(se_dtd)">
-                    <a href="javascript:void(0);">
-                    <span class="mif-download icon"></span>
-                    <span class="caption">Download</span>
-                </a></li>
+                    class="mr-1">
+                    <button class="button se-button"
+                        title="Use this schema for annotation"
+                        v-on:click="use_se_dtd_for_annotation(se_dtd)">
+                        <span class="mif-rocket icon"></span>
+                        Use
+                    </button>
+                </li>
 
-                <li class="border-right bd-gray"
-                    title="Show how to use schema editor"
-                    v-on:click="show_se_help">
-                    <a href="javascript:void(0);">
-                    <span class="mif-question icon"></span>
-                    <span class="caption">Help</span>
-                </a></li>
+                <li v-if="se_dtd != null" 
+                    class="split-button mr-1"
+                    style="height: 30px;">
+                    <button class="button se-button"
+                        title="Download current schema file as a YAML format file"
+                        v-on:click="download_se_dtd(se_dtd)">
+                        <span class="mif-download icon"></span>
+                        Download
+                    </button>
+                    <button class="split dropdown-toggle se-button" style="width: 0; min-width: 0;"></button>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li v-on:click="download_se_dtd_as_yaml(se_dtd)">
+                            <a class="se-button" href="javascript:void(0);">
+                                <i class="fas fa-file-download"></i>
+                                Download as YAML
+                            </a>
+                        </li>
+                        <li v-on:click="download_se_dtd_as_json(se_dtd)">
+                            <a class="se-button" href="javascript:void(0);">
+                                <i class="fas fa-file-download"></i>
+                                Download as JSON
+                            </a>
+                        </li>
+                        <li v-on:click="download_se_dtd_as_dtd(se_dtd)">
+                            <a class="se-button" href="javascript:void(0);">
+                                <i class="fas fa-file-download"></i>
+                                Download as DTD
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mr-1">
+                    <button class="button se-button"
+                        title="Show how to use schema editor"
+                        v-on:click="show_se_help">
+                        <i class="far fa-question-circle"></i>
+                        Help
+                    </button>
+                </li>
+                
+                <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
                 
                 <li class="mr-1"
                     title="Close schema editor"
-                    v-on:click="close_schema_editor"
-                    ><a href="javascript:void(0);">
-                    <span class="mif-cross icon"></span>
-                    <span class="caption">Close</span>
-                </a></li>
+                    v-on:click="close_schema_editor">
+                    <a href="javascript:void(0);">
+                        <span class="mif-cross icon"></span>
+                        <span class="caption">Close</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
 

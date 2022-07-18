@@ -14,8 +14,8 @@
 
             // add step for dtd
             this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'Welcome! 🎉 🎉 🎉  This tool is very easy to use!<br>First, we could drop a schema (.dtd) file here.<br>The schema file defines all of the concepts you want to annotate in the documents.',
+                id: 'tour-step1',
+                text: 'Welcome! 🎉 🎉 🎉  MedTator is very easy to use!<br>First, you can drop a schema file here (.yaml/.json/.dtd) .<br>The schema file defines all of the concepts you want to annotate in the documents.',
                 attachTo: {
                   element: '#dropzone_dtd',
                   on: 'right'
@@ -33,10 +33,10 @@
 
             // add step for text
             this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'Second, you need to drop some annotation files here.<br>You could drop raw text files (.txt) to start and add more anytime. Our tool will automatically convert the text files to xml format when saving. Then, next time you could drop those saved xml files here directly.',
+                id: 'tour-step2',
+                text: 'Second, you need to drop some annotation files here.<br>You can drop MedTator XML format files to start annotation. <br>MedTator can save your annotations in those xml files directly.<br>Moreover, you can also drop raw text files (.txt), <br>or use the <b><i class="fas fa-mortar-pestle"></i> Converter</b> Tab to convert .txt files to XML format.',
                 attachTo: {
-                  element: '#dropzone_ann',
+                  element: '#mui_filelist_list',
                   on: 'right'
                 },
                 classes: '',
@@ -55,8 +55,8 @@
 
             // add step for text
             this.tour.annotation.addStep({
-                id: 'example-step',
-                text: 'That\'s all to start a new annotation task!<br>If you are not sure what each button does, here is a sample dataset for you to try. You could play with this sample data freely to see how each function works for annotation.<br>Have fun! 😁',
+                id: 'tour-step3',
+                text: "That's all to start a new annotation task!<br>If you are not sure what each button does, here are some sample datasets for you to try all the functions. You could play with the sample datasets freely to see how each function works.<br>Have fun! 😁 <br><br>And if you have any questions or issues, please feel free to <a target='_blank' href='https://github.com/OHNLP/MedTator/issues'>let us know</a>!",
                 attachTo: {
                   element: '#btn_annotation_load_sample',
                   on: 'left'

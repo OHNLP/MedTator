@@ -18,17 +18,25 @@ v-bind:class="{'active': section=='iaa'}">
 
 <div class="group">
 
-    <div id="dropzone_iaa_0" class="dropzone-iaa"
+    <div id="dropzone_iaa_0"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_iaa($event, 0)"
+        class="dropzone-iaa"
         iaa_id="0">
         <div v-if="dtd == null" 
             class="zone-text">
             Load DTD file first<br>
             in the Annotation Tab
         </div>
+        <div v-else-if="iaa_loading_status == 0" 
+            class="zone-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Reading File ...
+        </div>
         <div v-else-if="iaa_ann_list[0].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) / Folder
         </div>
         <div v-else 
             class="zone-text">
@@ -58,16 +66,24 @@ v-bind:class="{'active': section=='iaa'}">
 
     <!-- <div class="h-splitter-menu ml-2 mr-2">&nbsp;</div> -->
 
-    <div id="dropzone_iaa_1" class="dropzone-iaa"
+    <div id="dropzone_iaa_1" 
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_iaa($event, 1)"
+        class="dropzone-iaa"
         iaa_id="1">
         <div v-if="dtd == null" class="zone-text">
             Load DTD file first<br>
             in the Annotation Tab
         </div>
+        <div v-else-if="iaa_loading_status == 1" 
+            class="zone-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Reading File ...
+        </div>
         <div v-else-if="iaa_ann_list[1].anns.length == 0" 
             class="zone-text">
             Drop Annotation <br>
-            File(s)
+            File(s) / Folder
         </div>
         <div v-else class="zone-text">
             Annotated {{ count_tags_in_anns(iaa_ann_list[1].anns) }} Tags

@@ -32,6 +32,13 @@ var ann_parser = {
             dtd_name: dtd.name,
             tags: [],
             meta: {},  // the meta data of this annotation
+            
+            // other info
+            _fh: null,
+            _filename: null,
+            _has_saved: true,
+            _sentences: [],
+            _sentences_text: ''
         };
 
         return ann;
@@ -50,6 +57,13 @@ var ann_parser = {
             dtd_name: '',
             tags: [],
             meta: {},  // the meta data of this annotation
+            
+            // other info
+            _fh: null,
+            _filename: null,
+            _has_saved: true,
+            _sentences: [],
+            _sentences_text: ''
         };
 
         // first, get the dtd name

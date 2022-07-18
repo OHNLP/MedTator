@@ -108,7 +108,7 @@
             MedTator [[ config.MEDTATOR_VERSION ]] | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
-                v-on:click="cfg.is_show_settings = true">
+                v-on:click="cfg.enable_show_settings = true">
                 <i class="fa fa-cog"></i>
                 Settings
             </a> | 
@@ -284,6 +284,34 @@
             
             <div v-html="get_tag_desc_html(hovered_tag)">
             </div>
+        </div>
+    </div>
+
+    <div v-show="show_text_quick_viewer"
+        v-bind:style="{top: tqv_pos_y + 'px', left: tqv_pos_x + 'px'}"
+        v-on:drag="on_drag_tqv"
+        class="tq-viewer-box">
+        <div class="tq-viewer-header">
+            <span class="mr-2 cursor-pointer"
+                title="Close quick viewer"
+                v-on:click="hide_tqv">
+                <i class="fas fa-times"></i>
+            </span>
+            <i class="fas fa-paragraph"></i>
+            <span class="ml-1">
+                {{ tqv_header }}
+            </span>
+        </div>
+        <!-- <div class="tq-viewer-oper">
+
+        </div> -->
+        <textarea class="tq-viewer-content" 
+            readonly
+            v-bind:value="tqv_content"></textarea>
+        <div class="tq-viewer-footer">
+            <span class="mr-1">
+                {{ tqv_footer }}
+            </span>
         </div>
     </div>
 
@@ -468,6 +496,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // extend the App with schema editor
 {% include 'js/app_hotpot_ext_se.js' %}
+
+// extend the App with text quick viewer
+{% include 'js/app_hotpot_ext_tqv.js' %}
 
 // extend the App with tour
 {% include 'js/app_hotpot_ext_tour.js' %}

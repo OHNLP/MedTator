@@ -54,52 +54,52 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     open_se_dtd: function() {
-        if (isFSA_API_OK) {
-            // the settings for dtd file
-            var pickerOpts = {
-                types: [
-                    {
-                        description: 'DTD File',
-                        accept: {
-                            'text/dtd': ['.dtd']
-                        }
-                    },
-                ],
-                excludeAcceptAllOption: true,
-                multiple: false
-            };
-
-            // get the file handles
-            var promise_fileHandles = fs_open_files(pickerOpts);
-
-            promise_fileHandles.then(function(fileHandles) {
-                // read the fh and set dtd
-                // in fact, there is only one file for this dtd
-                for (let i = 0; i < fileHandles.length; i++) {
-                    const fh = fileHandles[i];
-                    if (!app_hotpot.is_file_ext(fh.name, 'dtd')) {
-                        app_hotpot.msg('Please select a .dtd file', 'warning');
-                        return;
+        // the settings for dtd file
+        var pickerOpts = {
+            types: [
+                {
+                    description: 'Annotation Schema File',
+                    accept: {
+                        'text/dtd': ['.dtd', '.json', 'yaml']
                     }
+                },
+            ],
+            excludeAcceptAllOption: true,
+            multiple: false
+        };
 
-                    // read the file
-                    var p_dtd = fs_read_dtd_file_handle(fh);
+        // get the file handles
+        var promise_fileHandles = fs_open_files(pickerOpts);
 
-                    p_dtd.then((function(){
-                        return function(dtd) {
-                            // just set the dtd
-                            app_hotpot.vpp.set_se_dtd(dtd);
+        promise_fileHandles.then(function(fileHandles) {
+            // read the fh and set dtd
+            // in fact, there is only one file for this dtd
+            for (let i = 0; i < fileHandles.length; i++) {
+                const fh = fileHandles[i];
+
+                // read the file
+                var p_dtd = fs_read_dtd_file_handle(fh);
+
+                p_dtd.then((function(){
+                    return function(dtd) {
+                        if (dtd == null) {
+                            // must be something wrong
+                            app_hotpot.msg(
+                                'Something wrong with the dropped file, please check the schema format.', 
+                                'warning'
+                            );
+                            return;
                         }
-                    })());
-                    
-                    // just one file
-                    break;
-                }
-            });
+                        // just set the dtd
+                        app_hotpot.vpp.set_se_dtd(dtd);
+                    }
+                })());
+                
+                // just one file
+                break;
+            }
+        });
 
-        } else {
-            console.log('* Not support FileSystemAccess API');
-        }
     },
 
     load_se_dtd_sample: function() {
@@ -192,8 +192,44 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     download_se_dtd: function(base_dtd) {
+        this.download_se_dtd_as_yaml(base_dtd);
+    },
+
+    download_se_dtd_as_yaml: function(base_dtd) {
         // first, convert the base_dtd to text
-        var text = dtd_parser.stringify(base_dtd);
+        var text = dtd_parser.stringify_yaml(
+            base_dtd
+        );
+
+        // then save it
+        // get the current file name
+        var fn = base_dtd.name + '.yaml';
+
+        // download this dtd text
+        var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+        saveAs(blob, fn);
+    },
+
+    download_se_dtd_as_json: function(base_dtd) {
+        // first, convert the base_dtd to text
+        var text = dtd_parser.stringify_json(
+            base_dtd
+        );
+
+        // then save it
+        // get the current file name
+        var fn = base_dtd.name + '.json';
+
+        // download this dtd text
+        var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+        saveAs(blob, fn);
+    },
+
+    download_se_dtd_as_dtd: function(base_dtd) {
+        // first, convert the base_dtd to text
+        var text = dtd_parser.stringify(
+            base_dtd
+        );
 
         // then save it
         // get the current file name
@@ -202,6 +238,7 @@ Object.assign(app_hotpot.vpp_methods, {
         // download this dtd text
         var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
         saveAs(blob, fn);
+
     },
 
     close_schema_editor: function() {

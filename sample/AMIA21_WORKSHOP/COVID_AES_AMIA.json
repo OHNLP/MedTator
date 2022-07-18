@@ -1,0 +1,69 @@
+{
+  "name": "COVID_AE_AMIA",
+  "etags": [
+    {
+      "name": "Fever",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "Positive",
+            "Negated",
+            "Hypothetic",
+            "Possible"
+          ],
+          "default_value": "Positive"
+        }
+      ]
+    },
+    {
+      "name": "Pain",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "Positive",
+            "Negated",
+            "Hypothetic",
+            "Possible"
+          ],
+          "default_value": "Positive"
+        }
+      ]
+    },
+    {
+      "name": "Severity",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "Not bothersome",
+            "Mild",
+            "Moderate",
+            "Severe",
+            "NA"
+          ],
+          "default_value": "NA"
+        }
+      ]
+    }
+  ],
+  "rtags": [
+    {
+        "name": "AE_lk",
+        "attrs": [
+          {
+            "name": "Pain",
+            "vtype": "idref"
+          },
+          {
+            "name": "Pain_Severity",
+            "vtype": "idref"
+          }
+        ]
+      }
+  ]
+}

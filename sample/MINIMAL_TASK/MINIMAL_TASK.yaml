@@ -1,17 +1,16 @@
 # A sample YAML format schema for the COVID_VAX_SYMP task
----
-  name: "COVID_VAX_SYMP"
-  etags:
-    # entity tag `SYMP` for symptoms of vaccine
-    - name: SYMP
-      attrs: 
-      - name: certainty
-        vtype: list
-        values:
-        - positive
-        - negated
-        - possible
-        default_value: positive
-      - name: comment
-        vtype: text
-        default_value: 'NA'
+name: COVID_VAX_SYMP
+etags:
+  # entity tag `SYMP` for symptoms of vaccine
+  - name: SYMP
+    attrs: 
+    - name: certainty
+      vtype: list
+      values:
+      - positive
+      - negated
+      - possible
+      default_value: positive
+    - name: comment
+      vtype: text
+      default_value: NA

@@ -1,0 +1,345 @@
+{
+  "name": "COVID-19",
+  "etags": [
+    {
+      "name": "Vaccine",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Fever",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Pain",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Headache",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Myalgia",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Fatigue",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Nasal_obstruction",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Diarrhea",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Nausea",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Vomiting",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Sore_throat",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Dyspnea",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Cough",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Chill",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Delirium",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Hypersomnia",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    },
+    {
+      "name": "Other",
+      "attrs": [
+        {
+          "name": "certainty",
+          "vtype": "list",
+          "values": [
+            "negated",
+            "possible",
+            "hypothetical",
+            "positive"
+          ],
+          "default_value": "positive"
+        },
+        {
+          "name": "comment",
+          "vtype": "text"
+        }
+      ]
+    }
+  ]
+}

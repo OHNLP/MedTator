@@ -306,7 +306,8 @@ input[type=range]:focus::-ms-fill-upper {
 }
 #dropzone_dtd {
     /* width: 190px; */
-    width: 245px;
+    /* width: 245px; */
+    width: 180px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -1331,6 +1332,16 @@ ol[class], ul[class] {
     top: 0;
     z-index: 100;
     border-bottom: 1px solid #cccccc;
+    min-width: 830px !important;
+}
+.se-button {
+    height: 30px !important;
+    line-height: 30px !important;
+    font-size: 1em;
+}
+.se-menu-sep-line {
+    height: 30px;
+    line-height: 30px;
 }
 .se-tag-row {
 
@@ -1442,8 +1453,8 @@ ol[class], ul[class] {
     border: 1px solid #999999;
     padding: 5px;
     width: 300px;
-    height: calc(100% - 20px);
-    max-height: 400px;
+    height: calc(100% - 50px);
+    min-height: 300px;
 }
 .converter-dropzone h5 {
     background-color: white;
@@ -1458,7 +1469,19 @@ ol[class], ul[class] {
 }
 .converter-file-row {
     border-bottom: 1px dotted #cccccc;
-    text-indent: 1em;
+    padding: 0 0 0 5px;
+}
+.converter-result-box {
+    padding: 0 0 0 1em;
+    /* border-left: 1px dotted #cccccc; */
+}
+.converter-result-download {
+    padding: 0 2px;
+    color: white;
+    background-color: #99d8b3;
+}
+.converter-result-download:hover {
+    background-color: #23911b;
 }
 
 /* for changelog display */
@@ -1467,4 +1490,40 @@ ol[class], ul[class] {
 }
 .changelog-p {
     margin: 0;
+}
+
+/* for text quick viewer */
+.tq-viewer-box {
+    position: absolute;
+    border: 1px solid #cacaca;
+    background-color: white;
+    width: 500px;
+    box-shadow: 3px 3px #eaeaea;
+}
+.tq-viewer-header {
+    height: 2em;
+    line-height: 2em;
+    font-weight: bold;
+    padding: 0 5px;
+    color: #333333;
+    background-color: whitesmoke;
+    cursor: grab;
+}
+.tq-viewer-footer {
+    height: 2em;
+    font-size: 0.9em;
+    color: #333333;
+    padding: 3px 5px;
+    text-align: right;
+}
+.tq-viewer-oper {
+    height: 1.5em;
+}
+.tq-viewer-content {
+    border: 0;
+    border-bottom: 1px solid #999999;
+    min-height: 180px;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
 }

@@ -11,11 +11,25 @@ Object.assign(app_hotpot.vpp_data, {
         {anns: [], name: 'A'}, // for annotator A
         {anns: [], name: 'B'}, // for annotator B
     ],
+
+    // loading status
+    // null: nothing
+    // 0: loading iaa a
+    // 1: loading iaa b
+    iaa_loading_status: null,
+
+    // iaa results
     iaa_dict: null,
+
+    // display which tag(concept)
     iaa_display_tag_name: '__all__',
+
+    // match entity by overlap or exact match?
     iaa_match_mode: 'overlap', // overlap / exact
     iaa_overlap_ratio: 50,
     iaa_overlap_ratio_default: 50,
+
+    // result display settings
     iaa_display_hashcode: null,
     iaa_display_tags_context: true,
     iaa_display_tags_tp: false,
@@ -213,8 +227,52 @@ Object.assign(app_hotpot.vpp_methods, {
         this.iaa_display_hashcode = null;
     },
 
-    add_iaa_ann: function(ann, iaa_id) {
-        this.iaa_ann_list[iaa_id].anns.push(ann);
+    on_drop_dropzone_iaa: function(event, iaa_id) {
+        // stop the download event
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+
+        // set loading status
+        this.iaa_loading_status = iaa_id;
+
+        // set loading iaa_id
+        var promise_files = fs_get_file_texts(
+            items,
+            // only accept xml for iaa
+            function(fn) {
+                if (app_hotpot.is_file_ext_xml(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+        promise_files.then(function(files) {
+            app_hotpot.vpp.add_files_to_iaa_anns(files, iaa_id);
+        });
+    },
+
+    add_files_to_iaa_anns: function(files, iaa_id) {
+        console.log('* adding '+files.length+' files to iaa anns ' + iaa_id);
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            var ann = app_hotpot.parse_file2ann(
+                file,
+                this.dtd
+            );
+
+            // it is possible that something wrong
+            if (ann == null) {
+                continue;
+            }
+
+            // save this ann
+            this.iaa_ann_list[iaa_id].anns[
+                this.iaa_ann_list[iaa_id].anns.length
+            ] = ann;
+        }
+
+        // done
+        this.iaa_loading_status = null;
     },
 
     calc_iaa: function() {

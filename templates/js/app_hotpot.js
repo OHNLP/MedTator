@@ -157,7 +157,10 @@ var app_hotpot = {
         // general cfg
         cfg: {
             // display the setting panel or not
-            is_show_settings: false,
+            enable_show_settings: false,
+
+            // display the old menu dropzone
+            enable_display_menu_dropzone_ann: false,
 
             // active tab
             active_setting_tab: 'import',
@@ -309,40 +312,40 @@ var app_hotpot = {
             });
         },
         
-        on_drop_dropzone_ann: function(event) {
-            // prevent the default download event
-            event.preventDefault();
+        // on_drop_dropzone_ann: function(event) {
+        //     // prevent the default download event
+        //     event.preventDefault();
             
-            if (!isFSA_API_OK) {
-                app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
-                return;
-            }
+        //     if (!isFSA_API_OK) {
+        //         app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
+        //         return;
+        //     }
 
-            // get all items
-            let items = event.dataTransfer.items;
-            for (let i=0; i<items.length; i++) {
-                // get this item as a FileSystemHandle Object
-                // this could be used for saving the content back
-                let item = items[i].getAsFileSystemHandle();
+        //     // get all items
+        //     let items = event.dataTransfer.items;
+        //     for (let i=0; i<items.length; i++) {
+        //         // get this item as a FileSystemHandle Object
+        //         // this could be used for saving the content back
+        //         let item = items[i].getAsFileSystemHandle();
 
-                // read this handle
-                item.then(function(fh) {
-                    if (fh.kind == 'file') {
-                        // so the item is a file
-                        app_hotpot.parse_ann_file_fh(
-                            fh, 
-                            app_hotpot.vpp.$data.dtd
-                        );
-                    } else {
-                        // so item is a directory?
-                        app_hotpot.parse_ann_dir_fh(
-                            fh, 
-                            app_hotpot.vpp.$data.dtd
-                        );
-                    }
-                });
-            }
-        },
+        //         // read this handle
+        //         item.then(function(fh) {
+        //             if (fh.kind == 'file') {
+        //                 // so the item is a file
+        //                 app_hotpot.parse_ann_file_fh(
+        //                     fh, 
+        //                     app_hotpot.vpp.$data.dtd
+        //                 );
+        //             } else {
+        //                 // so item is a directory?
+        //                 app_hotpot.parse_ann_dir_fh(
+        //                     fh, 
+        //                     app_hotpot.vpp.$data.dtd
+        //                 );
+        //             }
+        //         });
+        //     }
+        // },
 
         on_drop_filelist: function(event) {
             // prevent the default download event
@@ -421,7 +424,50 @@ var app_hotpot = {
             );
         },
 
+        add_ann_by_push: function(ann) {
+            this.anns.push(ann);
+            // update the hint_dict by this ann
+            ann_parser.add_ann_to_hint_dict(
+                ann,
+                this.hint_dict
+            );
+        },
+
         add_anns: function(anns) {
+            /**
+             * 2022-07-13: performance issue when large dataset
+             * 
+             * When there are just a few files (<500),
+             * .push() can handle smoothly and the file count
+             * can be updataed instantly without intervention.
+             * But when the number of files increase,
+             * the loading will take extremely long time.
+             * 
+             * After debugging, there are mainly three reasons:
+             * 
+             * 1. `anns.push(ann)` takes very long time.
+             * it seems the .push() method runs much slower while size increases.
+             * the only way I know is to change to `anns[anns.length] = ann`
+             * 
+             * 2. `$forceUpdate()` or automatic refresh.
+             * When the data in Vue app is changed, 
+             * the binded UI will also be redrawn.
+             * But as the number of files increase, 
+             * the relevent calculation needs more time, 
+             * and most of the calcuation is redundant.
+             * 
+             * 3. `update_hint_dict_by_anns()` batch update.
+             * To get the statistics on the anns,
+             * this function is called whenever anns changes.
+             * But in fact, it's not necessary at all (I think).
+             * If the user doesn't want to use hint,
+             * or only a few things are updated,
+             * it's not necessary to update the whole dictionary from all anns.
+             * 
+             * To address these issues ...
+             * 
+             * Pagination!
+             */
             for (let i = 0; i < anns.length; i++) {
                 this.add_ann(anns[i]);
             }
@@ -901,6 +947,22 @@ var app_hotpot = {
                 ann._filename +
                 '] for test'
             );
+        },
+
+        add_sample_txt_as_ann: function(text) {
+
+            // first, create an ann
+            var ann = ann_parser.txt2ann(text, this.dtd);
+
+            // bind the filename seperately
+            ann._filename = 'sample-'+
+                (Math.random() + 1).toString(36).substring(7)+
+                '.xml';
+
+            // add this ann
+            this.add_ann_by_push(ann);
+            
+            return ann;
         },
         
         // open_ann_files: function() {
@@ -1846,7 +1908,7 @@ var app_hotpot = {
             } else if (section == 'iaa') {
 
                 // bind drop zone for anns
-                app_hotpot.bind_dropzone_iaa();
+                // app_hotpot.bind_dropzone_iaa();
 
             } else if (section == 'corpus') {
                 // need something?
@@ -2294,7 +2356,8 @@ var app_hotpot = {
 
         get_pages_by_total: function(total) {
             return [...Array(this.get_n_pages_by_total(total)).keys()];
-        }
+        },
+        
     },
 
     vpp_computed: {
@@ -2540,51 +2603,17 @@ var app_hotpot = {
         //     return;
         // }
 
-        /**
-         * 2022-07-13: performance issue when large dataset
-         * 
-         * When there are just a few files (<500),
-         * .push() can handle smoothly and the file count
-         * can be updataed instantly without intervention.
-         * But when the number of files increase,
-         * the loading will take extremely long time.
-         * 
-         * After debugging, there are mainly three reasons:
-         * 
-         * 1. `anns.push(ann)` takes very long time.
-         * it seems the .push() method runs much slower while size increases.
-         * the only way I know is to change to `anns[anns.length] = ann`
-         * 
-         * 2. `$forceUpdate()` or automatic refresh.
-         * When the data in Vue app is changed, 
-         * the binded UI will also be redrawn.
-         * But as the number of files increase, 
-         * the relevent calculation needs more time, 
-         * and most of the calcuation is redundant.
-         * 
-         * 3. `update_hint_dict_by_anns()` batch update.
-         * To get the statistics on the anns,
-         * this function is called whenever anns changes.
-         * But in fact, it's not necessary at all (I think).
-         * If the user doesn't want to use hint,
-         * or only a few things are updated,
-         * it's not necessary to update the whole dictionary from all anns.
-         * 
-         * To address these issues ...
-         * 
-         * Pagination!
-         */
-        if (this.vpp.$data.anns.length < this.n_anns_small_project) {
-            this.vpp.$data.anns.push(ann);
-        } else {
-            this.vpp.$data.anns[
-                this.vpp.$data.anns.length
-            ] = ann;
-            // this.start_interval_force_update();
-        }
+        // if (this.vpp.$data.anns.length < this.n_anns_small_project) {
+        //     this.vpp.$data.anns.push(ann);
+        // } else {
+        //     this.vpp.$data.anns[
+        //         this.vpp.$data.anns.length
+        //     ] = ann;
+        //     // this.start_interval_force_update();
+        // }
 
         // update hint_dict when add new ann file
-        this.update_hint_dict_by_ann(ann);
+        // this.update_hint_dict_by_ann(ann);
 
         // if (is_switch_to_this_ann || this.vpp.$data.anns.length == 1) {
         //     this.vpp.$data.ann_idx = this.vpp.$data.anns.length - 1;
@@ -2621,6 +2650,8 @@ var app_hotpot = {
         // bind global key event for annotation
         this.bind_keypress_event();
 
+        // bind a dragable for tqv
+        this.bind_tqv_dragable();
 
         // global bind
         // bind the closing event
@@ -2705,12 +2736,14 @@ var app_hotpot = {
         var h = $(window).height();
         $('.main-ui').css('height', h - 145);
 
-        // due the svg issue, when resizing the window,
-        // redraw all rtag marks
-        this.cm_clear_rtag_marks();
+        if (this.vpp.$data.section == 'annotation') {
+            // due the svg issue, when resizing the window,
+            // redraw all rtag marks only when annotation 
+            this.cm_clear_rtag_marks();
 
-        // redraw all marks
-        this.cm_update_tag_marks();
+            // redraw all marks
+            this.cm_update_tag_marks();
+        }
 
         console.log('* resized windows to ' + w + 'x' + h);
     },
@@ -2731,11 +2764,6 @@ var app_hotpot = {
             ann._filename = app_hotpot.get_new_ann_fn_by_txt_fn(
                 file.fh.name
             );
-            // bind a status
-            ann._has_saved = true;
-            // bind the sentences variable
-            ann._sentences = [];
-            ann._sentences_text = '';
 
         } else if (app_hotpot.is_file_ext_xml(file.fh.name)) {
             // this is a xml file
@@ -2748,11 +2776,6 @@ var app_hotpot = {
             ann._fh = file.fh;
             // bind the filename seperately
             ann._filename = file.fh.name;
-            // bind a status
-            ann._has_saved = true;
-            // bind the sentences
-            ann._sentences = [];
-            ann._sentences_text = '';
         }
 
         return ann;
@@ -3389,6 +3412,17 @@ var app_hotpot = {
         return true;
     },
 
+    is_fn_existed_in_files: function(fn, files) {
+        for (let i = 0; i < files.length; i++) {
+            const _f = files[i];
+            if (_f.fh.name == fn) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
     is_file_ext: function(filename, ext) {
         var fn_lower = filename.toLocaleLowerCase();
 
@@ -3405,6 +3439,10 @@ var app_hotpot = {
 
     is_file_ext_xml: function(fn) {
         return app_hotpot.is_file_ext(fn, 'xml');
+    },
+
+    is_file_ext_ann: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'ann');
     },
 
     toast: function(msg, cls, timeout) {

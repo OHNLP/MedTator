@@ -11,7 +11,11 @@ In this folder, there are some sample datasets for showing the schema and annota
 
 Each dataset folder contains the following file and directories:
 
-* `DTD_NAME.dtd`: the annotation schema for this annotation task. You can use any text editor (e.g., Sublime Text, TextMate, or VIM) to edit it.
+* `DTD_NAME.yaml` (Recommended): the annotation schema of YAML format for this annotation task. You can use any text editor (e.g., Sublime Text, TextMate, or VIM) to edit it.
+
+* `DTD_NAME.json`: the annotation schema of JSON format for this annotation task. You can use any text editor (e.g., Sublime Text, TextMate, or VIM) to edit it.
+
+* `DTD_NAME.dtd`: the annotation schema of original DTD format for this annotation task. You can use any text editor (e.g., Sublime Text, TextMate, or VIM) to edit it.
 * `raw_txt/`: the raw text files for annotation.
 * `ann_xml/`: the annotation data files, which contain the text and annotated tags. Some file names have a prefix `A_` or `B_`, which represent different annotators.
 

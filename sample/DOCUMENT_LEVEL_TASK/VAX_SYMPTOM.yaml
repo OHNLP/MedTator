@@ -1,0 +1,68 @@
+# A sample YAML format schema
+name: VAX_SYMPTOM
+etags:
+- name: PYREXIA
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: CHILL
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: FATIGUE
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: PAIN
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: HEADACHE
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: COUGH
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: DIZZINESS
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: SORENESS
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: NAUSEA
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: DIARRHEA
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text
+
+- name: OTHER_SYMP
+  is_non_consuming: true
+  attrs:
+  - name: comment
+    vtype: text

@@ -17,7 +17,7 @@
         }
 
         // then, work on each txt
-        var ret = [];
+        var mt_anns = [];
 
         for (let i = 0; i < txts.length; i++) {
             const txt = txts[i];
@@ -44,33 +44,26 @@
                 dtd
             );
 
-            var r = {
-                txt: txt,
-                ann: ann,
-                ann_rs: ann_rs,
-                medtator_ann: mt_ann
-            }
-
-            ret.push(r);
+            mt_anns.push(mt_ann);
         }
 
-        return ret;
+        return mt_anns;
     },
 
-    to_medtator_ann: function(txt, ann_rs, dtd) {
+    to_medtator_ann: function(file, ann_rs, dtd) {
         // this is an empty medtator ann
         var ann = {
-            text: txt.text,
+            text: file.text,
             dtd_name: dtd.name,
             tags: [],
             meta: {},
 
             // other info
             _fh: null,
-            _filename: txt.fh.name + '.xml',
+            _filename: file.fh.name + '.xml',
             _has_saved: true,
-            _sentences: null,
-            _sentences_text: null
+            _sentences: [],
+            _sentences_text: ''
         };
 
         for (let i = 0; i < ann_rs.length; i++) {
