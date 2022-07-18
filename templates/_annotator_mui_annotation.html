@@ -79,7 +79,7 @@
                     </button>
                 </div>
             </div>
-            
+
             <div v-if="is_loading_anns"
                 id="mui_filelist_list" 
                 v-on:dragover="on_dragover_prevent_default"
@@ -284,12 +284,11 @@
                         <i class="fa fa-link"
                             v-bind:class="'fg-tag-' + rtag.name">
                         </i>
-                        <span v-if="rtag.hasOwnProperty('shortcut')"
+                        <span v-if="rtag.hasOwnProperty('shortcut') && rtag.shortcut != null"
                             class="badge-shortcut mr-1">
                             {{ rtag.shortcut }}
                         </span>
                         <span v-html="make_html_bold_tag_name(rtag)">
-                            
                         </span>
                     </div>
                     <div class="mr-1 d-flex flex-row">

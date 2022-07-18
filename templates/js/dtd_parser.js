@@ -119,6 +119,7 @@ var dtd_parser = {
         delete j['tag_dict'];
         delete j['text'];
 
+
         // remove some attrs in etags
         for (let i = 0; i < j.etags.length; i++) {
             delete j.etags[i]['attr_dict'];
@@ -127,11 +128,23 @@ var dtd_parser = {
             delete j.etags[i]['type'];
             delete j.etags[i]['id_prefix'];
 
+            if (j.etags[i]['is_non_consuming']) {
+                // which means this is a document-level tag
+            } else {
+                delete j.etags[i]['is_non_consuming'];
+            }
+
             // remove some attrs in attrs
             for (let k = 0; k < j.etags[i].attrs.length; k++) {
                 delete j.etags[i].attrs[k]['element'];
                 delete j.etags[i].attrs[k]['type'];
-                delete j.etags[i].attrs[k]['require'];
+                
+                if (j.etags[i].attrs[k].hasOwnProperty('require') && 
+                    (j.etags[i].attrs[k]['require'] == '' ||
+                     j.etags[i].attrs[k]['require'] == 'IMPLIED')) {
+                    // when this attr value is optional, delete
+                    delete j.etags[i].attrs[k]['require'];
+                }
 
                 // delete the values for text attr
                 if (j.etags[i].attrs[k]['vtype'] == 'text') {
@@ -151,22 +164,31 @@ var dtd_parser = {
             delete j.rtags[i]['shortcut'];
             delete j.rtags[i]['style'];
             delete j.rtags[i]['type'];
-            delete j.etags[i]['id_prefix'];
+            delete j.rtags[i]['id_prefix'];
+            delete j.rtags[i]['is_non_consuming']
 
             // remove some attrs in attrs
             for (let k = 0; k < j.rtags[i].attrs.length; k++) {
                 delete j.rtags[i].attrs[k]['element'];
                 delete j.rtags[i].attrs[k]['type'];
-                delete j.etags[i].attrs[k]['require'];
+                
+                if (j.rtags[i].attrs[k].hasOwnProperty('require') && 
+                    (j.rtags[i].attrs[k]['require'] == '' ||
+                     j.rtags[i].attrs[k]['require'] == 'IMPLIED')) {
+                    // when this attr value is optional, delete
+                    delete j.rtags[i].attrs[k]['require'];
+                }
 
                 // delete the values for text attr
                 if (j.rtags[i].attrs[k]['vtype'] == 'text') {
-                    delete j.etags[i].attrs[k]['values'];
+                    delete j.rtags[i].attrs[k]['values'];
                 }
 
                 // delete the values for idref
                 if (j.rtags[i].attrs[k]['vtype'] == 'idref') {
-                    delete j.etags[i].attrs[k]['values'];
+                    // for 
+                    delete j.rtags[i].attrs[k]['values'];
+                    delete j.rtags[i].attrs[k]['default_value']
                 }
             }
         }

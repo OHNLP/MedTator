@@ -206,7 +206,10 @@ Object.assign(app_hotpot.vpp_methods, {
         var fn = base_dtd.name + '.yaml';
 
         // download this dtd text
-        var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+        var blob = new Blob(
+            [text], 
+            {type: "text/txt;charset=utf-8"}
+        );
         saveAs(blob, fn);
     },
 
@@ -221,7 +224,10 @@ Object.assign(app_hotpot.vpp_methods, {
         var fn = base_dtd.name + '.json';
 
         // download this dtd text
-        var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+        var blob = new Blob(
+            [text], 
+            {type: "text/txt;charset=utf-8"}
+        );
         saveAs(blob, fn);
     },
 
@@ -236,7 +242,10 @@ Object.assign(app_hotpot.vpp_methods, {
         var fn = base_dtd.name + '.dtd';
 
         // download this dtd text
-        var blob = new Blob([text], {type: "text/txt;charset=utf-8"});
+        var blob = new Blob(
+            [text], 
+            {type: "text/txt;charset=utf-8"}
+        );
         saveAs(blob, fn);
 
     },

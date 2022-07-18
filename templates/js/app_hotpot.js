@@ -684,6 +684,21 @@ var app_hotpot = {
             //     return;
             // }
             
+            // first, convert the base_dtd to text
+            var text = dtd_parser.stringify_yaml(
+                this.dtd
+            );
+
+            // then save it
+            // get the current file name
+            var fn = this.dtd.name + '.yaml';
+
+            // download this dtd text
+            var blob = new Blob(
+                [text], 
+                {type: "text/txt;charset=utf-8"}
+            );
+            saveAs(blob, fn);
         },
         
         download_copy_as_xml: function() {
@@ -1608,6 +1623,7 @@ var app_hotpot = {
             this.anns[this.ann_idx]._has_saved = false;
 
             // ok, that's all?
+            app_hotpot.toast('Added a new relation tag [' + rtag.id + ']');
         },
 
         delete_tag: function(tag_id) {
