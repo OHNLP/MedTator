@@ -7,19 +7,6 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_read_file_system_handle(fh) {
-    // get the file obj
-    const file = await fh.getFile();
-    // get the text content
-    const text = await file.text();
-
-    // return the content and fh
-    return {
-        fh: fh,
-        text: text
-    };
-}
-
 async function fs_get_file_system_handles(items, filter) {
     if (typeof(filter) == 'undefined') {
         filter = function(fn) {
@@ -92,6 +79,20 @@ async function fs_get_file_texts(items, filter) {
     
     console.log('* has read ' + files.length + ' files');
     return files;
+}
+
+async function fs_read_file_system_handle(fh) {
+    // get the file obj
+    const file = await fh.getFile();
+    
+    // get the text content
+    const text = await file.text();
+
+    // return the content and fh
+    return {
+        fh: fh,
+        text: text
+    };
 }
 
 ///////////////////////////////////////////////////////////
