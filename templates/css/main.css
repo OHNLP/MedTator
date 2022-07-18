@@ -1453,8 +1453,7 @@ ol[class], ul[class] {
     border: 1px solid #999999;
     padding: 5px;
     width: 300px;
-    height: calc(100% - 50px);
-    min-height: 300px;
+    min-height: 250px;
 }
 .converter-dropzone h5 {
     background-color: white;
@@ -1464,12 +1463,19 @@ ol[class], ul[class] {
     line-height: 1.2em;
 }
 .converter-file-list {
-    height: calc(100% - 50px);
+    max-height: 300px;
     overflow-y: auto;
 }
 .converter-file-row {
     border-bottom: 1px dotted #cccccc;
     padding: 0 0 0 5px;
+    display: flex;
+    flex-direction: row;
+}
+.converter-file-row a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .converter-result-box {
     padding: 0 0 0 1em;

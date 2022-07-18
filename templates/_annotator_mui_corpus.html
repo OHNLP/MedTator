@@ -2,6 +2,69 @@
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
+
+        <div v-if="converter_corpus_task == 'raw'">
+            <div class="box-header">
+                <h4>
+                    <i class="fa fa-list-ul"></i>
+                    Raw Text Files
+                </h4>
+            </div>
+
+            <div class="box-body" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    You only need to prepare the .txt files. 
+                </p>
+
+                <div class="d-flex flex-row">
+
+                    <div id="mui_converter_raw_txt_filelist"
+                        v-on:dragover="on_dragover_prevent_default"
+                        v-on:drop="on_drop_converter_raw_txt"
+                        class="converter-dropzone mr-2">
+                        <h5>
+                            <i class="far fa-file-alt"></i>
+                            Raw .txt Text Files
+                        </h5>
+                        <p v-if="is_converter_loading_raw_txt_files">
+                            Loading files ... <br>
+                            Please wait for a little while. <br>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </p>
+                        <p v-else-if="n_converter_corpus_raw_txt_files == 0">
+                            Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box.
+                        </p>
+                        <p v-else>
+                            Loaded <b>{{ n_converter_corpus_raw_txt_files }} </b> text files (.txt).
+                            <span v-if="n_converter_corpus_raw_txt_files > max_converter_display_files">
+                                As too many files are loaded, only show the first {{ max_converter_display_files }}.
+                            </span>
+                        </p>
+
+                        <div v-if="!is_converter_loading_raw_txt_files && converter_corpus_raw_txt_files.length > 0"
+                            class="d-flex flex-column converter-file-list">
+                            <div v-for="f in converter_corpus_raw_txt_files"
+                                class="converter-file-row">
+                                <a v-on:click="qv_converter_txt($event, f)"
+                                    v-bind:title="f.fh.name"
+                                    href="javascript:void(0);">
+                                    {{ f.fh.name }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /div for raw -->
+
+
+
+
         <div v-if="converter_corpus_task == 'medtagger'">
             <div class="box-header">
                 <h4>
@@ -11,13 +74,12 @@
             </div>
 
             <div class="box-body" 
-                style="overflow-y: auto; height: 100%;">
+                style="overflow-y: auto;">
                 <p>
                     You need to prepare matched .txt and .ann files.
                 </p>
 
-                <div class="d-flex flex-row h-100">
-
+                <div class="d-flex flex-row">
 
                     <div id="mui_converter_medtagger_txt_filelist"
                         v-on:dragover="on_dragover_prevent_default"
@@ -36,22 +98,27 @@
                             Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
                         </p>
                         <p v-else>
-                            Loaded <b>{{ converter_corpus_medtagger_txt_files.length }} </b> text files (.txt)
+                            Loaded <b>{{ n_converter_corpus_medtagger_txt_files }} </b> text files (.txt).
+                            <span v-if="n_converter_corpus_medtagger_txt_files > max_converter_display_files">
+                                As too many files are loaded, only show the first {{ max_converter_display_files }}.
+                            </span>
                         </p>
 
-                        <div v-if="!is_converter_loading_medtagger_txt_files"
+                        <div v-if="!is_converter_loading_medtagger_txt_files && converter_corpus_medtagger_txt_files.length > 0"
                             class="d-flex flex-column converter-file-list">
+
                             <div v-for="f in converter_corpus_medtagger_txt_files"
                                 class="converter-file-row">
 
                                 <a v-on:click="qv_converter_txt($event, f)"
-                                href="javascript:void(0);">
+                                    v-bind:title="f.fh.name"
+                                    href="javascript:void(0);">
                                     {{ f.fh.name }}
                                 </a>
+
                             </div>
                         </div>
                     </div>
-    
 
 
                     <div id="mui_converter_medtagger_ann_filelist"
@@ -68,21 +135,25 @@
                             <i class="fas fa-spinner fa-spin"></i>
                         </p>
                         <p v-else-if="converter_corpus_medtagger_ann_files.length == 0">
-                            Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box
+                            Drag and drop the <b>.ann</b> files or the folder contains <b>.ann</b> files in this box.
                         </p>
                         <p v-else>
-                            Loaded <b>{{ converter_corpus_medtagger_ann_files.length }} </b> MedTagger files (.ann)
+                            Loaded <b>{{ n_converter_corpus_medtagger_ann_files }} </b> MedTagger files (.ann).
+                            <span v-if="n_converter_corpus_medtagger_ann_files > max_converter_display_files">
+                                As too many files are loaded, only show the first {{ max_converter_display_files }}.
+                            </span>
                         </p>
 
-                        <div v-if="converter_corpus_medtagger_ann_files.length != 0"
+                        <div v-if="!is_converter_loading_medtagger_ann_files && converter_corpus_medtagger_ann_files.length != 0"
                             class="d-flex flex-column converter-file-list">
                             <div v-for="f in converter_corpus_medtagger_ann_files"
                                 class="converter-file-row">
-                                <span class="bg-blue fg-white mr-1 pl-1"
+                                <span class="bg-blue fg-white mr-1 pl-1 pr-1"
                                     :title="f.lines.length + ' lines of records'">
                                     {{ f.lines.length }}
                                 </span>
                                 <a v-on:click="qv_converter_txt($event, f)"
+                                    v-bind:title="f.fh.name"
                                     href="javascript:void(0);">
                                     {{ f.fh.name }}
                                 </a>
@@ -95,63 +166,7 @@
             </div>
         </div>
         <!-- /div for medtagger -->
-        
 
-
-        <div v-if="converter_corpus_task == 'raw'">
-            <div class="box-header">
-                <h4>
-                    <i class="fa fa-list-ul"></i>
-                    Raw Text Files
-                </h4>
-            </div>
-
-            <div class="box-body" 
-                style="overflow-y: auto; height: 100%;">
-                <p>
-                    You only need to prepare the .txt files. 
-                </p>
-
-                <div class="d-flex flex-row h-100">
-
-                    <div id="mui_converter_raw_txt_filelist"
-                        v-on:dragover="on_dragover_prevent_default"
-                        v-on:drop="on_drop_converter_raw_txt"
-                        class="converter-dropzone mr-2">
-                        <h5>
-                            <i class="far fa-file-alt"></i>
-                            Raw .txt Text Files
-                        </h5>
-                        <p v-if="is_converter_loading_raw_txt_files">
-                            Loading files ... <br>
-                            Please wait for a little while. <br>
-                            <i class="fas fa-spinner fa-spin"></i>
-                        </p>
-                        <p v-else-if="converter_corpus_raw_txt_files.length == 0">
-                            Drag and drop the <b>.txt</b> files or the folder contains <b>.txt</b> files in this box
-                        </p>
-                        <p v-else>
-                            Loaded <b>{{ converter_corpus_raw_txt_files.length }} </b> text files (.txt)
-                        </p>
-
-                        <div v-if="!is_converter_loading_raw_txt_files"
-                            class="d-flex flex-column converter-file-list">
-                            <div v-for="f in converter_corpus_raw_txt_files"
-                                class="converter-file-row">
-                                <a v-on:click="qv_converter_txt($event, f)"
-                                href="javascript:void(0);">
-                                    {{ f.fh.name }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!-- /div for raw -->
 
 
 
@@ -182,10 +197,15 @@
                     </h5>
                     
                     <p>
-                        Converted <b>{{ converter_results.length }} </b> xml files
+                        Converted <b>{{ n_converter_results }} </b> xml files.
+                        <span v-if="n_converter_results > max_converter_display_files">
+                            As too many files are converted, only show the first {{ max_converter_display_files }}.
+                        </span>
                     </p>
         
-                    <div class="d-flex flex-column converter-file-list">
+                    <div v-if="converter_results.length > 0"
+                        class="d-flex flex-column converter-file-list">
+
                         <div v-for="ann in converter_results"
                             class="converter-file-row">
                             <span class="mr-1 cursor-pointer converter-result-download"
@@ -194,17 +214,20 @@
                                 <i class="fas fa-cloud-download-alt"></i>
                             </span>
 
-                            <span class="bg-green fg-white mr-1 pl-1"
+                            <span class="bg-green fg-white mr-1 pl-1 pr-1"
                                 :title="'Converted ' + ann.tags.length + ' tags'">
                                 {{ ann.tags.length }}
                             </span>
                             
                             <a v-on:click="qv_converter_result_ann($event, ann)"
+                                v-bind:title="ann._filename"
                                 href="javascript:void(0);">
                                 {{ ann._filename }} 
                             </a>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

@@ -1925,6 +1925,14 @@ var app_hotpot = {
             return html;
         },
 
+        get_smaller_value: function(a, b) {
+            return Math.min(a, b);
+        },
+
+        get_bigger_value: function(a, b) {
+            return Math.max(a, b);
+        },
+
         count_n_tags: function(tag) {
             if (this.ann_idx == null) {
                 return '';
@@ -2821,9 +2829,9 @@ var app_hotpot = {
         console.log('* skip unknown format file', fh.name);
     },
 
-    parse_ann_dir_fh: function(fh, dtd) {
-        fs_read_ann_dir_handle(fh, dtd);
-    },
+    // parse_ann_dir_fh: function(fh, dtd) {
+    //     fs_read_ann_dir_handle(fh, dtd);
+    // },
 
     // parse_ann_txt_file_fh: function(fh, dtd) {
     //     // create a new file name
@@ -2897,45 +2905,45 @@ var app_hotpot = {
     //     );
     // },
 
-    parse_file_fh: function(fh, callback, filter) {
-        if (fh.name.startsWith('.')) {
-            // no need to parse hidden file
-            return;
-        }
+    // parse_file_fh: function(fh, callback, filter) {
+    //     if (fh.name.startsWith('.')) {
+    //         // no need to parse hidden file
+    //         return;
+    //     }
 
-        if (!filter(fh.name)) {
-            return;
-        }
+    //     if (!filter(fh.name)) {
+    //         return;
+    //     }
 
-        var p_file = fs_read_file_handle(fh);
+    //     var p_file = fs_read_file_system_handle(fh);
 
-        // the callback function
-        p_file.then(callback).catch(
-            function(fh){return function(error) {
-                app_hotpot.msg(
-                    "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
-                    error.name + 
-                    ": " + error.message + "",
-                    'warning');
-                console.error(error);
-            }}(fh)
-        );
-    },
+    //     // the callback function
+    //     p_file.then(callback).catch(
+    //         function(fh){return function(error) {
+    //             app_hotpot.msg(
+    //                 "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
+    //                 error.name + 
+    //                 ": " + error.message + "",
+    //                 'warning');
+    //             console.error(error);
+    //         }}(fh)
+    //     );
+    // },
 
-    parse_dir_fh: function(fh, callback, filter) {
-        var p_files = fs_read_dir_handle(fh, filter);
+    // parse_dir_fh: function(fh, callback, filter) {
+    //     var p_files = fs_read_dir_handle(fh, filter);
 
-        p_files.then(callback).catch(
-            function(fh){return function(error) {
-                app_hotpot.msg(
-                    "Couldn't read files in folder ["+ fh.name +"]. <br>" + 
-                    error.name + 
-                    ": " + error.message + "",
-                    'warning');
-                console.error(error);
-            }}(fh)
-        );
-    },
+    //     p_files.then(callback).catch(
+    //         function(fh){return function(error) {
+    //             app_hotpot.msg(
+    //                 "Couldn't read files in folder ["+ fh.name +"]. <br>" + 
+    //                 error.name + 
+    //                 ": " + error.message + "",
+    //                 'warning');
+    //             console.error(error);
+    //         }}(fh)
+    //     );
+    // },
 
     get_new_ann_fn_by_txt_fn: function(txt_fn) {
         return txt_fn + '.xml';
@@ -3540,6 +3548,24 @@ var app_hotpot = {
         bg.setAttribute("class", 'tag-linktext-bg ' + cls);
 
         elem.parentNode.insertBefore(bg, elem);
+    },
+
+
+    hard_slice: function(a, n) {
+        if (typeof(n) == 'undefined') {
+            n = 10;
+        }
+
+        if (n>a.length) {
+            n = a.length;
+        }
+
+        var b = [];
+        for (let i = 0; i < n; i++) {
+            b.push(a[i]);
+        }
+
+        return b;
     },
 
 
