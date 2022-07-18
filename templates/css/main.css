@@ -67,7 +67,9 @@ html,body {
     width: 250px;
 }
 #mui_filelist_toolbar {
-    height: 32px;
+    height: 30px;
+    min-height: 30px;
+    max-height: 30px;
     border-bottom: 1px solid #cccccc;
 }
 #mui_filelist_list {
