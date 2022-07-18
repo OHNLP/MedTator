@@ -221,7 +221,7 @@ Object.assign(app_hotpot, {
 
         // create filename
         var fn = this.vpp.$data.dtd.name + '-' +
-            this.converter_corpus_task + '-' +
+            this.vpp.converter_corpus_task + '-' +
             this.vpp.get_date_now() +
             '.zip';
         

@@ -9,7 +9,7 @@ import random
 # from tqdm import tqdm
 
 # the number of files
-n_files = 500
+n_files = 5000
 
 # the number of words in a doc
 n_words_per_doc = 100
