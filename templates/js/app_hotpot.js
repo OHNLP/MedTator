@@ -1917,6 +1917,8 @@ var app_hotpot = {
             // no matter what tab, resize the UI
             app_hotpot.resize();
 
+            // maybe need to close the tqv
+            this.hide_tqv();
         },
 
         make_html_bold_tag_name: function(tag) {
