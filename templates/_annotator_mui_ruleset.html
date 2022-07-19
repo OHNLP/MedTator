@@ -2,7 +2,7 @@
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
         <div id="mui_ruleset_result" class="d-flex w-100 h-100">
-            <div class="box w-100">
+            <div class="box w-100 h-100">
                 <div class="box-header">
                     <h4>
                         <i class="far fa-file-alt"></i>
@@ -13,7 +13,9 @@
                 <div v-if="export_text != null"
                     class="box-body h-100">
 
-                    <textarea v-model="export_text" class="w-100 h-100" style="font-family: 'Courier New', Courier, monospace;"></textarea>
+                    <textarea v-model="export_text" 
+                        class="w-100 h-100" 
+                        style="font-family: 'Courier New', Courier, monospace;"></textarea>
                     
                 </div>
             </div>

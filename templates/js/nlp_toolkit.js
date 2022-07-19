@@ -893,6 +893,80 @@ var nlp_toolkit = {
         return tsv;
     },
 
+
+    download_sentence_tsv: function(anns, dtd, fn) {
+        // convert the hint dict to a json obj
+        var json = [];
+
+        for (let i = 0; i < anns.length; i++) {
+            var ann = anns[i];
+
+            // fix the sentence
+            ann = app_hotpot.update_ann_sentences(ann);
+
+            for (let j = 0; j < ann.tags.length; j++) {
+                const tag = ann.tags[j];
+                // now mapping the span to token index
+                if (!tag.hasOwnProperty('spans')) {
+                    // this is not an entity tag
+                    continue;
+                }
+                // there maybe multiple spans
+                // var spans = tag.spans.split(',');
+                var locs = ann_parser.spans2locs(tag.spans);
+
+                for (let k = 0; k < locs.length; k++) {
+                    // const _span = spans[k];
+                    // const span = nlp_toolkit.txt2span(_span);
+                    const span = locs[k];
+                    if (span[0] == -1 || span[1] == -1) {
+                        // which means this tag is just a non-consuming tag
+                        // at present, we won't use this kind of tag 
+                        continue;
+                    }
+
+                    // find the offset in a sentence
+                    var loc0 = this.find_linech(
+                        span[0], 
+                        ann._sentences
+                    );
+                    if (loc0 == null) {
+                        // something wrong?
+                        continue;
+                    }
+                    // find the location for the right part
+                    // var loc1 = this.find_linech(span[1], ann._sentences);
+                    var loc1 = Object.assign({}, loc0);
+                    loc1.ch += (span[1] - span[0]);
+
+                    // create a new row/item in the output data
+                    json.push({
+                        concept: tag.tag,
+                        text: tag.text,
+                        doc_span: span,
+                        sen_span: [
+                            loc0.ch,
+                            loc1.ch
+                        ],
+                        document: ann._filename,
+                        sentence: ann._sentences[loc0.line].text
+                    });
+                }
+            }
+        }
+
+        // then convert the json to tsv
+        var tsv = Papa.unparse(json, {
+            delimiter: '\t'
+        });
+
+        // download this tsv
+        var blob = new Blob([tsv], {type: "text/tsv;charset=utf-8"});
+        saveAs(blob, fn);
+
+        return tsv;
+    },
+
     /**
      * Download the anns as raw XML format
      * @param {list} anns the list of ann objects

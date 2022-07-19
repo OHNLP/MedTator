@@ -175,7 +175,7 @@ var app_hotpot = {
         // for statistics
 
         // for export
-        export_text: null,
+        export_text: '',
 
         // for texts
         // this variable would be replaced by the 
@@ -1904,15 +1904,6 @@ var app_hotpot = {
                 // bind drop zone for annotation xml/txt files
                 // app_hotpot.bind_dropzone_ann();
 
-                // bind global click event for annotation
-                app_hotpot.bind_click_event();
-
-                // bind global key event for annotation
-                app_hotpot.bind_keypress_event();
-
-                // resize?
-                app_hotpot.resize();
-
             } else if (section == 'iaa') {
 
                 // bind drop zone for anns
@@ -1922,6 +1913,9 @@ var app_hotpot = {
                 // need something?
 
             }
+
+            // no matter what tab, resize the UI
+            app_hotpot.resize();
 
         },
 
@@ -2864,127 +2858,20 @@ var app_hotpot = {
         console.log('* skip unknown format file', fh.name);
     },
 
-    // parse_ann_dir_fh: function(fh, dtd) {
-    //     fs_read_ann_dir_handle(fh, dtd);
-    // },
-
-    // parse_ann_txt_file_fh: function(fh, dtd) {
-    //     // create a new file name
-    //     var new_fn = app_hotpot.vpp.get_new_ann_fn_by_txt_fn(fh.name);
-
-    //     // create a empty ann
-    //     var p_txt_ann = fs_read_txt_file_handle(
-    //         fh, 
-    //         dtd
-    //     );
-
-    //     // load this ann
-    //     p_txt_ann.then((function(new_fn){
-    //         return function(txt_ann) {
-    //             // now check the sentence detection
-    //             // just use the simplest
-    //             // var r = nlp_toolkit.sent_tokenize(
-    //             //     txt_ann.text,
-    //             //     app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-    //             // );
-    //             // txt_ann._sentences = r.sentences;
-    //             // txt_ann._sentences_text = r.sentences_text;
-    //             txt_ann._sentences = [];
-    //             txt_ann._sentences_text = '';
-                
-    //             // modify the txt_ann _fh
-    //             // we couldn't save to an txt
-    //             txt_ann._fh = null;
-
-    //             // update the _filename
-    //             txt_ann._filename = new_fn;
-
-    //             // show some message
-    //             // app_hotpot.msg("Created a new annotation file " + new_fn);
-
-    //             // add this ann
-    //             app_hotpot.add_ann(txt_ann);
-    //         }
-    //     })(new_fn));
-    // },
-
-    // parse_ann_xml_file_fh: function(fh, dtd) {
-    //     // get the ann file
-    //     var p_ann = fs_read_ann_file_handle(
-    //         fh, 
-    //         dtd
-    //     );
-
-    //     // the callback function
-    //     p_ann.then(function(ann) {
-    //         // add the sentences
-    //         var r = nlp_toolkit.sent_tokenize(
-    //             ann.text,
-    //             app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
-    //         );
-    //         ann._sentences = r.sentences;
-    //         ann._sentences_text = r.sentences_text;
-
-    //         // add this ann to vpp
-    //         app_hotpot.add_ann(ann);
-
-    //     }).catch(
-    //         function(fh){return function(error) {
-    //             app_hotpot.msg(
-    //                 "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
-    //                 error.name + 
-    //                 ": " + error.message + "",
-    //                 'warning');
-    //             console.error(error);
-    //         }}(fh)
-    //     );
-    // },
-
-    // parse_file_fh: function(fh, callback, filter) {
-    //     if (fh.name.startsWith('.')) {
-    //         // no need to parse hidden file
-    //         return;
-    //     }
-
-    //     if (!filter(fh.name)) {
-    //         return;
-    //     }
-
-    //     var p_file = fs_read_file_system_handle(fh);
-
-    //     // the callback function
-    //     p_file.then(callback).catch(
-    //         function(fh){return function(error) {
-    //             app_hotpot.msg(
-    //                 "Couldn't read annotation in ["+ fh.name +"]. <br>" + 
-    //                 error.name + 
-    //                 ": " + error.message + "",
-    //                 'warning');
-    //             console.error(error);
-    //         }}(fh)
-    //     );
-    // },
-
-    // parse_dir_fh: function(fh, callback, filter) {
-    //     var p_files = fs_read_dir_handle(fh, filter);
-
-    //     p_files.then(callback).catch(
-    //         function(fh){return function(error) {
-    //             app_hotpot.msg(
-    //                 "Couldn't read files in folder ["+ fh.name +"]. <br>" + 
-    //                 error.name + 
-    //                 ": " + error.message + "",
-    //                 'warning');
-    //             console.error(error);
-    //         }}(fh)
-    //     );
-    // },
-
     get_new_ann_fn_by_txt_fn: function(txt_fn) {
         return txt_fn + '.xml';
     },
 
-    update_ann_sentences: function(ann) {
+    update_ann_sentences: function(ann, skip_existed) {
+        if (typeof(force_update) == 'undefined') {
+            force_update = false;
+        }
+
+        if (ann._sentences_text != '') {
+            if (skip_existed) {
+                return;
+            }
+        }
         var r = nlp_toolkit.sent_tokenize(
             ann.text,
             app_hotpot.vpp.$data.cfg.sentence_splitting_algorithm
