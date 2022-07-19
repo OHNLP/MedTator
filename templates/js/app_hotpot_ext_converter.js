@@ -89,7 +89,7 @@ Object.assign(app_hotpot, {
                 file.text,
                 this.vpp.$data.dtd
             );
-            ann._filename = file.fh.name + '.xml';
+            ann._filename = file.fn + '.xml';
 
             this.converter_results[
                 this.converter_results.length
@@ -114,13 +114,8 @@ Object.assign(app_hotpot, {
         console.log('* adding '+files.length+' files to converter medtagger txts');
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
-            // if (app_hotpot.is_fn_existed_in_files(
-            //     file.fh.name,
-            //     this.converter_corpus_medtagger_txt_files
-            // )) {
-            //     app_hotpot.toast('Skip [' + file.fh.name + '] due to duplicated file name');
-            //     return;
-            // }
+            
+            // save this file
             this.converter_corpus_medtagger_txt_files[
                 this.converter_corpus_medtagger_txt_files.length
             ] = file;
@@ -147,13 +142,8 @@ Object.assign(app_hotpot, {
             // add more information for ann
             file.text = file.text.trim();
             file.lines = file.text.split('\n');
-            // if (app_hotpot.is_fn_existed_in_files(
-            //     file.fh.name,
-            //     this.converter_corpus_medtagger_ann_files
-            // )) {
-            //     app_hotpot.toast('Skip [' + file.fh.name + '] due to duplicated file name');
-            //     return;
-            // }
+            
+            // save this file
             this.converter_corpus_medtagger_ann_files[
                 this.converter_corpus_medtagger_ann_files.length
             ] = file;
@@ -363,7 +353,7 @@ Object.assign(app_hotpot.vpp_methods, {
             file.text,
             x,
             y,
-            file.fh.name,
+            file.fn,
             'File Size: ' + (file.text.length / 1024).toFixed(2) + 'kb'
         );
     },

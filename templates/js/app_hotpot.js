@@ -996,64 +996,6 @@ var app_hotpot = {
             return ann;
         },
         
-        // open_ann_files: function() {
-        //     if (!isFSA_API_OK) {
-        //         console.log('* Not support FileSystemAccess API');
-        //         return;
-        //     }
-
-        //     // the settings for annotation file
-        //     var pickerOpts = {
-        //         types: [
-        //             {
-        //                 description: 'Annotation File',
-        //                 accept: {
-        //                     'text/xml': ['.xml', '.txt']
-        //                 }
-        //             },
-        //         ],
-        //         excludeAcceptAllOption: true,
-        //         multiple: true
-        //     };
-
-        //     // get the file handles
-        //     var promise_fileHandles = fs_open_files(pickerOpts);
-
-        //     promise_fileHandles.then(function(fileHandles) {
-        //         // bind the content
-        //         for (let i = 0; i < fileHandles.length; i++) {
-        //             const fh = fileHandles[i];
-
-        //             if (fh.kind != 'file') {
-        //                 // skip directory or others
-        //                 continue;
-        //             }
-
-        //             // check exists
-        //             if (app_hotpot.vpp.has_included_ann_file(fh.name)) {
-        //                 // exists? skip this file
-        //                 app_hotpot.msg('Skipped same name or duplicated ' + fh.name);
-        //                 continue;
-        //             }
-
-        //             if (app_hotpot.is_file_ext(fh.name, 'txt')) {
-        //                 // parse this txt file
-        //                 app_hotpot.parse_ann_txt_file_fh(
-        //                     fh,
-        //                     app_hotpot.vpp.$data.dtd
-        //                 );
-        //                 continue;
-        //             }
-                    
-        //             // parse this ann fh
-        //             app_hotpot.parse_ann_xml_file_fh(
-        //                 fh,
-        //                 app_hotpot.vpp.$data.dtd
-        //             );
-        //         }
-        //     });
-        // },
-
 
         /////////////////////////////////////////////////////////////////
         // Concept List related functions

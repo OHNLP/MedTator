@@ -91,6 +91,7 @@ async function fs_read_file_system_handle(fh) {
     // return the content and fh
     return {
         fh: fh,
+        fn: fh.name,
         text: text
     };
 }

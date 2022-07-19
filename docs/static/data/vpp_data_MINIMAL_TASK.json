@@ -192,7 +192,7 @@
             ]
         }
     },
-    "ann_idx": 0,
+    "ann_idx": 1,
     "anns": [
         {
             "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.",
@@ -373,7 +373,7 @@
             "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.7376154965344397,
+    "mn4anns": 0.5973467564593147,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -391,36 +391,77 @@
     "stat_filter_token_text": true,
     "hints": [
         {
-            "id": "hint-SYMP-2-0",
+            "id": "hint-SYMP-1-0",
             "tag": "SYMP",
-            "text": "headaches",
-            "spans": "116~125"
+            "text": "headache",
+            "spans": "129~137"
         },
         {
-            "id": "hint-SYMP-6-0",
+            "id": "hint-SYMP-1-1",
             "tag": "SYMP",
-            "text": "no convulsions",
-            "spans": "333~347"
+            "text": "headache",
+            "spans": "190~198"
+        },
+        {
+            "id": "hint-SYMP-1-2",
+            "tag": "SYMP",
+            "text": "headache",
+            "spans": "222~230"
+        },
+        {
+            "id": "hint-SYMP-1-3",
+            "tag": "SYMP",
+            "text": "headache",
+            "spans": "341~349"
+        },
+        {
+            "id": "hint-SYMP-1-4",
+            "tag": "SYMP",
+            "text": "headache",
+            "spans": "361~369"
+        },
+        {
+            "id": "hint-SYMP-8-1",
+            "tag": "SYMP",
+            "text": "Nausea",
+            "spans": "248~254"
+        },
+        {
+            "id": "hint-SYMP-9-1",
+            "tag": "SYMP",
+            "text": "Fatigue",
+            "spans": "552~559"
+        },
+        {
+            "id": "hint-SYMP-11-1",
+            "tag": "SYMP",
+            "text": "diarrhea",
+            "spans": "566~574"
+        },
+        {
+            "id": "hint-SYMP-11-2",
+            "tag": "SYMP",
+            "text": "diarrhea",
+            "spans": "655~663"
+        },
+        {
+            "id": "hint-SYMP-12-1",
+            "tag": "SYMP",
+            "text": "dehydration",
+            "spans": "576~587"
         }
     ],
     "hint_dict": {
         "SYMP": {
             "text_dict": {
                 "lightheadedness": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "headache": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "headaches": {
                     "count": 1,
                     "ann_fn_dict": {
                         "doc_01.txt.xml": 1
@@ -428,27 +469,20 @@
                     "_is_shown": false
                 },
                 "neck pain": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "seizures": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "no loss of consciousness": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "no convulsions": {
                     "count": 1,
                     "ann_fn_dict": {
                         "doc_01.txt.xml": 1
@@ -456,74 +490,74 @@
                     "_is_shown": false
                 },
                 "bladder": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "bowel incontinence": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "dizziness": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_01.txt.xml": 2
+                        "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Nausea": {
-                    "count": 4,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2,
-                        "doc_03.txt.xml": 2
+                        "doc_02.txt.xml": 1,
+                        "doc_03.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Fatigue": {
-                    "count": 4,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2,
-                        "doc_03.txt.xml": 2
+                        "doc_02.txt.xml": 1,
+                        "doc_03.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "chills": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2
+                        "doc_02.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "diarrhea": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2
+                        "doc_02.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "dehydration": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2
+                        "doc_02.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "head and body aches": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2
+                        "doc_02.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Night sweats": {
-                    "count": 2,
+                    "count": 1,
                     "ann_fn_dict": {
-                        "doc_02.txt.xml": 2
+                        "doc_02.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -536,11 +570,9 @@
             "texts": [
                 "lightheadedness",
                 "headache",
-                "headaches",
                 "neck pain",
                 "seizures",
                 "no loss of consciousness",
-                "no convulsions",
                 "bladder",
                 "bowel incontinence",
                 "dizziness",
@@ -571,7 +603,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.8347376081471671,
+    "force_module_update": 0.39934680615913853,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -641,14 +673,17 @@
     "converter_corpus_raw_txt_files": [
         {
             "fh": {},
+            "fn": "doc_01.txt",
             "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications."
         },
         {
             "fh": {},
+            "fn": "doc_02.txt",
             "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left."
         },
         {
             "fh": {},
+            "fn": "doc_03.txt",
             "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)"
         }
     ],
@@ -691,10 +726,9 @@
     "se_dtd": null,
     "se_dtd_tpl_id": null,
     "show_text_quick_viewer": false,
-    "tqv_header": "doc_01.txt.xml",
-    "tqv_content": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<COVID_VAX_SYMP>\n<TEXT><![CDATA[The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.]]></TEXT>\n<TAGS/>\n<META/>\n</COVID_VAX_SYMP>",
-    "tqv_footer": "File Size: 0.66kb",
-    "tqv_pos_x": 433,
-    "tqv_pos_y": 245,
-    "converter_corpus_medtagger_results": []
+    "tqv_header": "",
+    "tqv_content": "",
+    "tqv_footer": "",
+    "tqv_pos_x": -999,
+    "tqv_pos_y": -999
 }

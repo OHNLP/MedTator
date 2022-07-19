@@ -47,9 +47,9 @@
                             <div v-for="f in converter_corpus_raw_txt_files"
                                 class="converter-file-row">
                                 <a v-on:click="qv_converter_txt($event, f)"
-                                    v-bind:title="f.fh.name"
+                                    v-bind:title="f.fn"
                                     href="javascript:void(0);">
-                                    {{ f.fh.name }}
+                                    {{ f.fn }}
                                 </a>
                             </div>
                         </div>
@@ -111,9 +111,9 @@
                                 class="converter-file-row">
 
                                 <a v-on:click="qv_converter_txt($event, f)"
-                                    v-bind:title="f.fh.name"
+                                    v-bind:title="f.fn"
                                     href="javascript:void(0);">
-                                    {{ f.fh.name }}
+                                    {{ f.fn }}
                                 </a>
 
                             </div>
@@ -153,9 +153,9 @@
                                     {{ f.lines.length }}
                                 </span>
                                 <a v-on:click="qv_converter_txt($event, f)"
-                                    v-bind:title="f.fh.name"
+                                    v-bind:title="f.fn"
                                     href="javascript:void(0);">
-                                    {{ f.fh.name }}
+                                    {{ f.fn }}
                                 </a>
                             </div>
                         </div>
