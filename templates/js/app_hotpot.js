@@ -498,6 +498,10 @@ var app_hotpot = {
             this.pg_index = new_pg_index;
         },
 
+        reset_anns_page: function() {
+            this.pg_index = 0;
+        },
+
         save_xml_by_ann: function(ann) {
             var idx = this.find_included(
                 ann._filename,
@@ -1315,6 +1319,8 @@ var app_hotpot = {
             }
             // also remove the loading if any
             this.reset_loading_anns_status();
+            // also reset page number
+            this.reset_anns_page();
         },
 
 
