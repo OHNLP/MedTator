@@ -1,0 +1,36 @@
+# Annotation Schema: OLEA_TASK
+# For more information schema design, you can check MedTator Wiki:
+# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema 
+#
+# This is a sample of values defined in other language.
+# As the tag name and attribute name will be used in XML,
+# they need to be defined using a-zA-Z0-9 and underscore.
+# The values can be defined in other language.
+name: OLEA_TASK
+etags:
+  - name: Symptom
+    attrs:
+      - name: data_type
+        vtype: list
+        values:
+          - 病例
+          - 材料
+          - 无
+        default_value: 无
+      - name: comment
+        vtype: text
+        default_value: 无
+
+  - name: DataSource
+    is_non_consuming: true
+    attrs:
+      - name: ds_type
+        vtype: list
+        values:
+          - 医疗机构
+          - 政府单位
+          - 其它组织
+        default_value: 其它组织
+      - name: comment
+        vtype: text
+        default_value: 无

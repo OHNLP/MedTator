@@ -6,552 +6,354 @@
             {
                 "name": "PYREXIA",
                 "type": "etag",
-                "id_prefix": "P",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "P",
+                "shortcut": "1",
                 "style": {
                     "color": "#a6cee3"
-                },
-                "shortcut": "1"
+                }
             },
             {
                 "name": "CHILL",
                 "type": "etag",
-                "id_prefix": "C",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "C",
+                "shortcut": "2",
                 "style": {
                     "color": "#51a1d7"
-                },
-                "shortcut": "2"
+                }
             },
             {
                 "name": "FATIGUE",
                 "type": "etag",
-                "id_prefix": "F",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "F",
+                "shortcut": "3",
                 "style": {
                     "color": "#b2df8a"
-                },
-                "shortcut": "3"
+                }
             },
             {
                 "name": "PAIN",
                 "type": "etag",
-                "id_prefix": "PA",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "PA",
+                "shortcut": "4",
                 "style": {
                     "color": "#33a02c"
-                },
-                "shortcut": "4"
+                }
             },
             {
                 "name": "HEADACHE",
                 "type": "etag",
-                "id_prefix": "H",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "H",
+                "shortcut": "5",
                 "style": {
                     "color": "#fb9a99"
-                },
-                "shortcut": "5"
+                }
             },
             {
                 "name": "COUGH",
                 "type": "etag",
-                "id_prefix": "CO",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "CO",
+                "shortcut": "q",
                 "style": {
                     "color": "#e31a1c"
-                },
-                "shortcut": "q"
+                }
             },
             {
                 "name": "DIZZINESS",
                 "type": "etag",
-                "id_prefix": "D",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "D",
+                "shortcut": "w",
                 "style": {
                     "color": "#fdbf6f"
-                },
-                "shortcut": "w"
+                }
             },
             {
                 "name": "SORENESS",
                 "type": "etag",
-                "id_prefix": "S",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "S",
+                "shortcut": "e",
                 "style": {
                     "color": "#ff7f00"
-                },
-                "shortcut": "e"
+                }
             },
             {
                 "name": "NAUSEA",
                 "type": "etag",
-                "id_prefix": "N",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "N",
+                "shortcut": "r",
                 "style": {
                     "color": "#cab2d6"
-                },
-                "shortcut": "r"
+                }
             },
             {
                 "name": "DIARRHEA",
                 "type": "etag",
-                "id_prefix": "DI",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "DI",
+                "shortcut": "t",
                 "style": {
                     "color": "#9654dc"
-                },
-                "shortcut": "t"
+                }
             },
             {
                 "name": "OTHER_SYMP",
                 "type": "etag",
-                "id_prefix": "O",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "O",
+                "shortcut": "a",
                 "style": {
                     "color": "#d0aa3d"
-                },
-                "shortcut": "a"
+                }
             }
         ],
         "rtags": [],
@@ -559,1110 +361,712 @@
             "P": {
                 "name": "PYREXIA",
                 "type": "etag",
-                "id_prefix": "P",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "P",
+                "shortcut": "1",
                 "style": {
                     "color": "#a6cee3"
-                },
-                "shortcut": "1"
+                }
             },
             "C": {
                 "name": "CHILL",
                 "type": "etag",
-                "id_prefix": "C",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "C",
+                "shortcut": "2",
                 "style": {
                     "color": "#51a1d7"
-                },
-                "shortcut": "2"
+                }
             },
             "F": {
                 "name": "FATIGUE",
                 "type": "etag",
-                "id_prefix": "F",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "F",
+                "shortcut": "3",
                 "style": {
                     "color": "#b2df8a"
-                },
-                "shortcut": "3"
+                }
             },
             "PA": {
                 "name": "PAIN",
                 "type": "etag",
-                "id_prefix": "PA",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "PA",
+                "shortcut": "4",
                 "style": {
                     "color": "#33a02c"
-                },
-                "shortcut": "4"
+                }
             },
             "H": {
                 "name": "HEADACHE",
                 "type": "etag",
-                "id_prefix": "H",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "H",
+                "shortcut": "5",
                 "style": {
                     "color": "#fb9a99"
-                },
-                "shortcut": "5"
+                }
             },
             "CO": {
                 "name": "COUGH",
                 "type": "etag",
-                "id_prefix": "CO",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "CO",
+                "shortcut": "q",
                 "style": {
                     "color": "#e31a1c"
-                },
-                "shortcut": "q"
+                }
             },
             "D": {
                 "name": "DIZZINESS",
                 "type": "etag",
-                "id_prefix": "D",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "D",
+                "shortcut": "w",
                 "style": {
                     "color": "#fdbf6f"
-                },
-                "shortcut": "w"
+                }
             },
             "S": {
                 "name": "SORENESS",
                 "type": "etag",
-                "id_prefix": "S",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "S",
+                "shortcut": "e",
                 "style": {
                     "color": "#ff7f00"
-                },
-                "shortcut": "e"
+                }
             },
             "N": {
                 "name": "NAUSEA",
                 "type": "etag",
-                "id_prefix": "N",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "N",
+                "shortcut": "r",
                 "style": {
                     "color": "#cab2d6"
-                },
-                "shortcut": "r"
+                }
             },
             "DI": {
                 "name": "DIARRHEA",
                 "type": "etag",
-                "id_prefix": "DI",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "DI",
+                "shortcut": "t",
                 "style": {
                     "color": "#9654dc"
-                },
-                "shortcut": "t"
+                }
             },
             "O": {
                 "name": "OTHER_SYMP",
                 "type": "etag",
-                "id_prefix": "O",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "O",
+                "shortcut": "a",
                 "style": {
                     "color": "#d0aa3d"
-                },
-                "shortcut": "a"
+                }
             }
         },
         "tag_dict": {
             "PYREXIA": {
                 "name": "PYREXIA",
                 "type": "etag",
-                "id_prefix": "P",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PYREXIA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PYREXIA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PYREXIA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "P",
+                "shortcut": "1",
                 "style": {
                     "color": "#a6cee3"
-                },
-                "shortcut": "1"
+                }
             },
             "CHILL": {
                 "name": "CHILL",
                 "type": "etag",
-                "id_prefix": "C",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "CHILL",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "CHILL",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "CHILL",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "C",
+                "shortcut": "2",
                 "style": {
                     "color": "#51a1d7"
-                },
-                "shortcut": "2"
+                }
             },
             "FATIGUE": {
                 "name": "FATIGUE",
                 "type": "etag",
-                "id_prefix": "F",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "FATIGUE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "FATIGUE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "FATIGUE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "F",
+                "shortcut": "3",
                 "style": {
                     "color": "#b2df8a"
-                },
-                "shortcut": "3"
+                }
             },
             "PAIN": {
                 "name": "PAIN",
                 "type": "etag",
-                "id_prefix": "PA",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "PAIN",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "PAIN",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "PAIN",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "PA",
+                "shortcut": "4",
                 "style": {
                     "color": "#33a02c"
-                },
-                "shortcut": "4"
+                }
             },
             "HEADACHE": {
                 "name": "HEADACHE",
                 "type": "etag",
-                "id_prefix": "H",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "HEADACHE",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "HEADACHE",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "HEADACHE",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "H",
+                "shortcut": "5",
                 "style": {
                     "color": "#fb9a99"
-                },
-                "shortcut": "5"
+                }
             },
             "COUGH": {
                 "name": "COUGH",
                 "type": "etag",
-                "id_prefix": "CO",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "COUGH",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "COUGH",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "COUGH",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "CO",
+                "shortcut": "q",
                 "style": {
                     "color": "#e31a1c"
-                },
-                "shortcut": "q"
+                }
             },
             "DIZZINESS": {
                 "name": "DIZZINESS",
                 "type": "etag",
-                "id_prefix": "D",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIZZINESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIZZINESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIZZINESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "D",
+                "shortcut": "w",
                 "style": {
                     "color": "#fdbf6f"
-                },
-                "shortcut": "w"
+                }
             },
             "SORENESS": {
                 "name": "SORENESS",
                 "type": "etag",
-                "id_prefix": "S",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "SORENESS",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "SORENESS",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "SORENESS",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "S",
+                "shortcut": "e",
                 "style": {
                     "color": "#ff7f00"
-                },
-                "shortcut": "e"
+                }
             },
             "NAUSEA": {
                 "name": "NAUSEA",
                 "type": "etag",
-                "id_prefix": "N",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "NAUSEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "NAUSEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "NAUSEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "N",
+                "shortcut": "r",
                 "style": {
                     "color": "#cab2d6"
-                },
-                "shortcut": "r"
+                }
             },
             "DIARRHEA": {
                 "name": "DIARRHEA",
                 "type": "etag",
-                "id_prefix": "DI",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "DIARRHEA",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "DIARRHEA",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "DIARRHEA",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "DI",
+                "shortcut": "t",
                 "style": {
                     "color": "#9654dc"
-                },
-                "shortcut": "t"
+                }
             },
             "OTHER_SYMP": {
                 "name": "OTHER_SYMP",
                 "type": "etag",
-                "id_prefix": "O",
                 "is_non_consuming": true,
                 "attrs": [
                     {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
-                    {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 ],
                 "attr_dict": {
-                    "spans": {
-                        "element": "OTHER_SYMP",
-                        "name": "spans",
-                        "type": "attr",
-                        "vtype": "dfix",
-                        "require": "IMPLIED",
-                        "values": [],
-                        "default_value": ""
-                    },
                     "comment": {
-                        "element": "OTHER_SYMP",
                         "name": "comment",
-                        "type": "attr",
                         "vtype": "text",
                         "require": "",
                         "values": [],
-                        "default_value": ""
+                        "default_value": "",
+                        "element": "OTHER_SYMP",
+                        "type": "attr"
                     }
                 },
+                "id_prefix": "O",
+                "shortcut": "a",
                 "style": {
                     "color": "#d0aa3d"
-                },
-                "shortcut": "a"
+                }
             }
         },
-        "text": "<!ENTITY name \"VAX_SYMPTOM\">\n\n<!-- document-level annotation -->\n<!ELEMENT PYREXIA ( #PCDATA ) >\n<!ATTLIST PYREXIA spans #IMPLIED >\n<!ATTLIST PYREXIA comment CDATA \"\" >\n\n\n<!ELEMENT CHILL ( #PCDATA ) >\n<!ATTLIST CHILL spans #IMPLIED >\n<!ATTLIST CHILL comment CDATA \"\" >\n\n\n<!ELEMENT FATIGUE ( #PCDATA ) >\n<!ATTLIST FATIGUE spans #IMPLIED >\n<!ATTLIST FATIGUE comment CDATA \"\" >\n\n\n<!ELEMENT PAIN ( #PCDATA ) >\n<!ATTLIST PAIN spans #IMPLIED >\n<!ATTLIST PAIN comment CDATA \"\" >\n\n\n<!ELEMENT HEADACHE ( #PCDATA ) >\n<!ATTLIST HEADACHE spans #IMPLIED >\n<!ATTLIST HEADACHE comment CDATA \"\" >\n\n\n<!ELEMENT COUGH ( #PCDATA ) >\n<!ATTLIST COUGH spans #IMPLIED >\n<!ATTLIST COUGH comment CDATA \"\" >\n\n\n<!ELEMENT DIZZINESS ( #PCDATA ) >\n<!ATTLIST DIZZINESS spans #IMPLIED >\n<!ATTLIST DIZZINESS comment CDATA \"\" >\n\n\n<!ELEMENT SORENESS ( #PCDATA ) >\n<!ATTLIST SORENESS spans #IMPLIED >\n<!ATTLIST SORENESS comment CDATA \"\" >\n\n\n<!ELEMENT NAUSEA ( #PCDATA ) >\n<!ATTLIST NAUSEA spans #IMPLIED >\n<!ATTLIST NAUSEA comment CDATA \"\" >\n\n\n<!ELEMENT DIARRHEA ( #PCDATA ) >\n<!ATTLIST DIARRHEA spans #IMPLIED >\n<!ATTLIST DIARRHEA comment CDATA \"\" >\n\n\n<!ELEMENT OTHER_SYMP ( #PCDATA ) >\n<!ATTLIST OTHER_SYMP spans #IMPLIED >\n<!ATTLIST OTHER_SYMP comment CDATA \"\" >\n"
+        "text": "# A sample YAML format schema\nname: VAX_SYMPTOM\netags:\n- name: PYREXIA\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: CHILL\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: FATIGUE\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: PAIN\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: HEADACHE\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: COUGH\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: DIZZINESS\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: SORENESS\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: NAUSEA\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: DIARRHEA\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text\n\n- name: OTHER_SYMP\n  is_non_consuming: true\n  attrs:\n  - name: comment\n    vtype: text"
     },
-    "se_dtd": null,
-    "se_dtd_tpl_id": null,
     "ann_idx": 0,
     "anns": [
         {
@@ -1695,16 +1099,8 @@
             "_fh": {},
             "_filename": "A_doc_01.txt.xml",
             "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                    "spans": {
-                        "start": 0,
-                        "end": 85
-                    }
-                }
-            ],
-            "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+            "_sentences": [],
+            "_sentences_text": ""
         },
         {
             "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
@@ -1722,23 +1118,8 @@
             "_fh": {},
             "_filename": "A_doc_02.txt.xml",
             "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Patient felt dizzy and sat on the floor.",
-                    "spans": {
-                        "start": 0,
-                        "end": 39
-                    }
-                },
-                {
-                    "text": "  She did not fall or lose consciousness.",
-                    "spans": {
-                        "start": 40,
-                        "end": 80
-                    }
-                }
-            ],
-            "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+            "_sentences": [],
+            "_sentences_text": ""
         },
         {
             "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
@@ -1756,16 +1137,8 @@
             "_fh": {},
             "_filename": "A_doc_03.txt.xml",
             "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                    "spans": {
-                        "start": 0,
-                        "end": 87
-                    }
-                }
-            ],
-            "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+            "_sentences": [],
+            "_sentences_text": ""
         },
         {
             "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
@@ -1790,23 +1163,8 @@
             "_fh": {},
             "_filename": "A_doc_04.txt.xml",
             "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Skin rash and irritation, itching on forearms.",
-                    "spans": {
-                        "start": 0,
-                        "end": 45
-                    }
-                },
-                {
-                    "text": "  Fatigue/malaise lasting three days",
-                    "spans": {
-                        "start": 46,
-                        "end": 81
-                    }
-                }
-            ],
-            "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+            "_sentences": [],
+            "_sentences_text": ""
         },
         {
             "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
@@ -1838,230 +1196,20 @@
             "_fh": {},
             "_filename": "A_doc_05.txt.xml",
             "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                    "spans": {
-                        "start": 0,
-                        "end": 81
-                    }
-                }
-            ],
-            "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
-        },
-        {
-            "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-            "dtd_name": "VAX_SYMPTOM",
-            "tags": [
-                {
-                    "tag": "PYREXIA",
-                    "id": "P0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "CHILL",
-                    "id": "C0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "HEADACHE",
-                    "id": "H0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "DIZZINESS",
-                    "id": "D0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "OTHER_SYMP",
-                    "id": "O0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "B_doc_01.txt.xml",
-            "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                    "spans": {
-                        "start": 0,
-                        "end": 85
-                    }
-                }
-            ],
-            "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
-        },
-        {
-            "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
-            "dtd_name": "VAX_SYMPTOM",
-            "tags": [
-                {
-                    "tag": "DIZZINESS",
-                    "id": "D0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "OTHER_SYMP",
-                    "id": "O0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "B_doc_02.txt.xml",
-            "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Patient felt dizzy and sat on the floor.",
-                    "spans": {
-                        "start": 0,
-                        "end": 39
-                    }
-                },
-                {
-                    "text": "  She did not fall or lose consciousness.",
-                    "spans": {
-                        "start": 40,
-                        "end": 80
-                    }
-                }
-            ],
-            "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
-        },
-        {
-            "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-            "dtd_name": "VAX_SYMPTOM",
-            "tags": [
-                {
-                    "tag": "HEADACHE",
-                    "id": "H0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "FATIGUE",
-                    "id": "F0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "B_doc_03.txt.xml",
-            "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                    "spans": {
-                        "start": 0,
-                        "end": 87
-                    }
-                }
-            ],
-            "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
-        },
-        {
-            "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
-            "dtd_name": "VAX_SYMPTOM",
-            "tags": [
-                {
-                    "tag": "FATIGUE",
-                    "id": "F0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "OTHER_SYMP",
-                    "id": "O0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "SORENESS",
-                    "id": "S0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "B_doc_04.txt.xml",
-            "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Skin rash and irritation, itching on forearms.",
-                    "spans": {
-                        "start": 0,
-                        "end": 45
-                    }
-                },
-                {
-                    "text": "  Fatigue/malaise lasting three days",
-                    "spans": {
-                        "start": 46,
-                        "end": 81
-                    }
-                }
-            ],
-            "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
-        },
-        {
-            "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-            "dtd_name": "VAX_SYMPTOM",
-            "tags": [
-                {
-                    "tag": "HEADACHE",
-                    "id": "H0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                },
-                {
-                    "tag": "PAIN",
-                    "id": "PA0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "B_doc_05.txt.xml",
-            "_has_saved": true,
-            "_sentences": [
-                {
-                    "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                    "spans": {
-                        "start": 0,
-                        "end": 81
-                    }
-                }
-            ],
-            "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+            "_sentences": [],
+            "_sentences_text": ""
         }
     ],
+    "mn4anns": 0.9442731039828896,
+    "pg_index": 0,
+    "pg_total": 1,
+    "pg_numpp": 100,
+    "is_loading_anns": false,
+    "is_loaded_anns": false,
+    "msg_loading_anns": "",
+    "n_anns_droped": 0,
+    "n_anns_loaded": 0,
+    "n_anns_error": 0,
     "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
@@ -2073,11 +1221,10 @@
         "PYREXIA": {
             "text_dict": {},
             "nc_dict": {
-                "count": 3,
+                "count": 2,
                 "ann_fn_dict": {
                     "A_doc_01.txt.xml": 1,
-                    "A_doc_05.txt.xml": 1,
-                    "B_doc_01.txt.xml": 1
+                    "A_doc_05.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2086,10 +1233,9 @@
         "CHILL": {
             "text_dict": {},
             "nc_dict": {
-                "count": 2,
+                "count": 1,
                 "ann_fn_dict": {
-                    "A_doc_01.txt.xml": 1,
-                    "B_doc_01.txt.xml": 1
+                    "A_doc_01.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2098,14 +1244,11 @@
         "HEADACHE": {
             "text_dict": {},
             "nc_dict": {
-                "count": 6,
+                "count": 3,
                 "ann_fn_dict": {
                     "A_doc_01.txt.xml": 1,
                     "A_doc_03.txt.xml": 1,
-                    "A_doc_05.txt.xml": 1,
-                    "B_doc_01.txt.xml": 1,
-                    "B_doc_03.txt.xml": 1,
-                    "B_doc_05.txt.xml": 1
+                    "A_doc_05.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2114,11 +1257,9 @@
         "DIZZINESS": {
             "text_dict": {},
             "nc_dict": {
-                "count": 3,
+                "count": 1,
                 "ann_fn_dict": {
-                    "A_doc_02.txt.xml": 1,
-                    "B_doc_01.txt.xml": 1,
-                    "B_doc_02.txt.xml": 1
+                    "A_doc_02.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2127,11 +1268,9 @@
         "FATIGUE": {
             "text_dict": {},
             "nc_dict": {
-                "count": 3,
+                "count": 1,
                 "ann_fn_dict": {
-                    "A_doc_04.txt.xml": 1,
-                    "B_doc_03.txt.xml": 1,
-                    "B_doc_04.txt.xml": 1
+                    "A_doc_04.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2140,12 +1279,9 @@
         "OTHER_SYMP": {
             "text_dict": {},
             "nc_dict": {
-                "count": 4,
+                "count": 1,
                 "ann_fn_dict": {
-                    "A_doc_04.txt.xml": 1,
-                    "B_doc_01.txt.xml": 1,
-                    "B_doc_02.txt.xml": 1,
-                    "B_doc_04.txt.xml": 1
+                    "A_doc_04.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2154,21 +1290,9 @@
         "PAIN": {
             "text_dict": {},
             "nc_dict": {
-                "count": 2,
-                "ann_fn_dict": {
-                    "A_doc_05.txt.xml": 1,
-                    "B_doc_05.txt.xml": 1
-                },
-                "_is_shown": false
-            },
-            "texts": []
-        },
-        "SORENESS": {
-            "text_dict": {},
-            "nc_dict": {
                 "count": 1,
                 "ann_fn_dict": {
-                    "B_doc_04.txt.xml": 1
+                    "A_doc_05.txt.xml": 1
                 },
                 "_is_shown": false
             },
@@ -2192,7 +1316,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.37656201046918714,
+    "force_module_update": 0.22030947657888955,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -2205,7 +1329,8 @@
         "is_expire": false
     },
     "cfg": {
-        "is_show_settings": false,
+        "enable_show_settings": false,
+        "enable_display_menu_dropzone_ann": false,
         "active_setting_tab": "import",
         "sentence_splitting_algorithm": "simpledot",
         "linking_marks_selection": "all_concepts"
@@ -2254,16 +1379,8 @@
                     "_fh": {},
                     "_filename": "A_doc_01.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                            "spans": {
-                                "start": 0,
-                                "end": 85
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
@@ -2281,23 +1398,8 @@
                     "_fh": {},
                     "_filename": "A_doc_02.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Patient felt dizzy and sat on the floor.",
-                            "spans": {
-                                "start": 0,
-                                "end": 39
-                            }
-                        },
-                        {
-                            "text": "  She did not fall or lose consciousness.",
-                            "spans": {
-                                "start": 40,
-                                "end": 80
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
@@ -2315,16 +1417,8 @@
                     "_fh": {},
                     "_filename": "A_doc_03.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                            "spans": {
-                                "start": 0,
-                                "end": 87
-                            }
-                        }
-                    ],
-                    "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
@@ -2349,23 +1443,8 @@
                     "_fh": {},
                     "_filename": "A_doc_04.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Skin rash and irritation, itching on forearms.",
-                            "spans": {
-                                "start": 0,
-                                "end": 45
-                            }
-                        },
-                        {
-                            "text": "  Fatigue/malaise lasting three days",
-                            "spans": {
-                                "start": 46,
-                                "end": 81
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
@@ -2397,16 +1476,8 @@
                     "_fh": {},
                     "_filename": "A_doc_05.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                            "spans": {
-                                "start": 0,
-                                "end": 81
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 }
             ],
             "name": "A"
@@ -2457,16 +1528,8 @@
                     "_fh": {},
                     "_filename": "B_doc_01.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                            "spans": {
-                                "start": 0,
-                                "end": 85
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
@@ -2491,23 +1554,8 @@
                     "_fh": {},
                     "_filename": "B_doc_02.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Patient felt dizzy and sat on the floor.",
-                            "spans": {
-                                "start": 0,
-                                "end": 39
-                            }
-                        },
-                        {
-                            "text": "  She did not fall or lose consciousness.",
-                            "spans": {
-                                "start": 40,
-                                "end": 80
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
@@ -2532,16 +1580,8 @@
                     "_fh": {},
                     "_filename": "B_doc_03.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                            "spans": {
-                                "start": 0,
-                                "end": 87
-                            }
-                        }
-                    ],
-                    "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
@@ -2573,23 +1613,8 @@
                     "_fh": {},
                     "_filename": "B_doc_04.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Skin rash and irritation, itching on forearms.",
-                            "spans": {
-                                "start": 0,
-                                "end": 45
-                            }
-                        },
-                        {
-                            "text": "  Fatigue/malaise lasting three days",
-                            "spans": {
-                                "start": 46,
-                                "end": 81
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 },
                 {
                     "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
@@ -2614,21 +1639,14 @@
                     "_fh": {},
                     "_filename": "B_doc_05.txt.xml",
                     "_has_saved": true,
-                    "_sentences": [
-                        {
-                            "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                            "spans": {
-                                "start": 0,
-                                "end": 81
-                            }
-                        }
-                    ],
-                    "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+                    "_sentences": [],
+                    "_sentences_text": ""
                 }
             ],
             "name": "B"
         }
     ],
+    "iaa_loading_status": null,
     "iaa_dict": {
         "ann": {
             "6879431567493863": {
@@ -2663,16 +1681,8 @@
                         "_fh": {},
                         "_filename": "A_doc_01.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 85
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     },
                     {
                         "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
@@ -2718,16 +1728,8 @@
                         "_fh": {},
                         "_filename": "B_doc_01.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 85
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     }
                 ],
                 "rst": {
@@ -3139,23 +2141,8 @@
                         "_fh": {},
                         "_filename": "A_doc_02.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Patient felt dizzy and sat on the floor.",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 39
-                                }
-                            },
-                            {
-                                "text": "  She did not fall or lose consciousness.",
-                                "spans": {
-                                    "start": 40,
-                                    "end": 80
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+                        "_sentences": [],
+                        "_sentences_text": ""
                     },
                     {
                         "text": "Patient felt dizzy and sat on the floor.  She did not fall or lose consciousness.",
@@ -3180,23 +2167,8 @@
                         "_fh": {},
                         "_filename": "B_doc_02.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Patient felt dizzy and sat on the floor.",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 39
-                                }
-                            },
-                            {
-                                "text": "  She did not fall or lose consciousness.",
-                                "spans": {
-                                    "start": 40,
-                                    "end": 80
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness."
+                        "_sentences": [],
+                        "_sentences_text": ""
                     }
                 ],
                 "rst": {
@@ -3563,16 +2535,8 @@
                         "_fh": {},
                         "_filename": "A_doc_03.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 87
-                                }
-                            }
-                        ],
-                        "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     },
                     {
                         "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
@@ -3597,16 +2561,8 @@
                         "_fh": {},
                         "_filename": "B_doc_03.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 87
-                                }
-                            }
-                        ],
-                        "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     }
                 ],
                 "rst": {
@@ -3980,23 +2936,8 @@
                         "_fh": {},
                         "_filename": "A_doc_04.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Skin rash and irritation, itching on forearms.",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 45
-                                }
-                            },
-                            {
-                                "text": "  Fatigue/malaise lasting three days",
-                                "spans": {
-                                    "start": 46,
-                                    "end": 81
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     },
                     {
                         "text": "Skin rash and irritation, itching on forearms.  Fatigue/malaise lasting three days",
@@ -4028,23 +2969,8 @@
                         "_fh": {},
                         "_filename": "B_doc_04.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Skin rash and irritation, itching on forearms.",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 45
-                                }
-                            },
-                            {
-                                "text": "  Fatigue/malaise lasting three days",
-                                "spans": {
-                                    "start": 46,
-                                    "end": 81
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     }
                 ],
                 "rst": {
@@ -4442,16 +3368,8 @@
                         "_fh": {},
                         "_filename": "A_doc_05.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 81
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     },
                     {
                         "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
@@ -4476,16 +3394,8 @@
                         "_fh": {},
                         "_filename": "B_doc_05.txt.xml",
                         "_has_saved": true,
-                        "_sentences": [
-                            {
-                                "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                                "spans": {
-                                    "start": 0,
-                                    "end": 81
-                                }
-                            }
-                        ],
-                        "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night"
+                        "_sentences": [],
+                        "_sentences_text": ""
                     }
                 ],
                 "rst": {
@@ -5143,16 +4053,8 @@
                 "meta": {},
                 "_filename": "G__doc_01.txt.xml_1.xml",
                 "_has_saved": true,
-                "_sentences": [
-                    {
-                        "text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
-                        "spans": {
-                            "start": 0,
-                            "end": 85
-                        }
-                    }
-                ],
-                "_sentences_text": "Fever of 101.9, muscle aches, headaches, chills and sweats, light headed and dizziness",
+                "_sentences": [],
+                "_sentences_text": "",
                 "_has_star": false
             },
             "rst": {
@@ -5276,23 +4178,8 @@
                 "meta": {},
                 "_filename": "G__doc_02.txt.xml_2.xml",
                 "_has_saved": true,
-                "_sentences": [
-                    {
-                        "text": "Patient felt dizzy and sat on the floor.",
-                        "spans": {
-                            "start": 0,
-                            "end": 39
-                        }
-                    },
-                    {
-                        "text": "  She did not fall or lose consciousness.",
-                        "spans": {
-                            "start": 40,
-                            "end": 80
-                        }
-                    }
-                ],
-                "_sentences_text": "Patient felt dizzy and sat on the floor.\n  She did not fall or lose consciousness.",
+                "_sentences": [],
+                "_sentences_text": "",
                 "_has_star": false
             },
             "rst": {
@@ -5383,16 +4270,8 @@
                 "meta": {},
                 "_filename": "G__doc_03.txt.xml_3.xml",
                 "_has_saved": true,
-                "_sentences": [
-                    {
-                        "text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
-                        "spans": {
-                            "start": 0,
-                            "end": 87
-                        }
-                    }
-                ],
-                "_sentences_text": "1/11 evening after 2nd injection nagging headache frontal, fatigue X 2 days took tylenol",
+                "_sentences": [],
+                "_sentences_text": "",
                 "_has_star": false
             },
             "rst": {
@@ -5483,23 +4362,8 @@
                 "meta": {},
                 "_filename": "G__doc_04.txt.xml_4.xml",
                 "_has_saved": true,
-                "_sentences": [
-                    {
-                        "text": "Skin rash and irritation, itching on forearms.",
-                        "spans": {
-                            "start": 0,
-                            "end": 45
-                        }
-                    },
-                    {
-                        "text": "  Fatigue/malaise lasting three days",
-                        "spans": {
-                            "start": 46,
-                            "end": 81
-                        }
-                    }
-                ],
-                "_sentences_text": "Skin rash and irritation, itching on forearms.\n  Fatigue/malaise lasting three days",
+                "_sentences": [],
+                "_sentences_text": "",
                 "_has_star": false
             },
             "rst": {
@@ -5601,16 +4465,8 @@
                 "meta": {},
                 "_filename": "G__doc_05.txt.xml_5.xml",
                 "_has_saved": true,
-                "_sentences": [
-                    {
-                        "text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
-                        "spans": {
-                            "start": 0,
-                            "end": 81
-                        }
-                    }
-                ],
-                "_sentences_text": "Headache, body ache, low grade fever, fatigue , leg pains / cramps the whole night",
+                "_sentences": [],
+                "_sentences_text": "",
                 "_has_star": false
             },
             "rst": {
@@ -5709,8 +4565,25 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
-    "converter_corpus_task": "medtagger",
+    "converter_corpus_task": "raw",
+    "max_converter_display_files": 100,
+    "is_converter_loading_medtagger_txt_files": false,
+    "is_converter_loading_medtagger_ann_files": false,
+    "n_converter_corpus_medtagger_txt_files": 0,
+    "n_converter_corpus_medtagger_ann_files": 0,
     "converter_corpus_medtagger_txt_files": [],
     "converter_corpus_medtagger_ann_files": [],
-    "converter_corpus_medtagger_results": []
+    "is_converter_loading_raw_txt_files": false,
+    "n_converter_corpus_raw_txt_files": 0,
+    "converter_corpus_raw_txt_files": [],
+    "n_converter_results": 0,
+    "converter_results": [],
+    "se_dtd": null,
+    "se_dtd_tpl_id": null,
+    "show_text_quick_viewer": false,
+    "tqv_header": "",
+    "tqv_content": "",
+    "tqv_footer": "",
+    "tqv_pos_x": -999,
+    "tqv_pos_y": -999
 }

@@ -55,4 +55,7 @@ I did place phone call to patient to discuss and give their advice. They had jus
 <AE spans="5166~5170" text="pain" id="A23" certainty="positive" comment="NA"/>
 <SVRT spans="5083~5087" text="mild" id="S2" severity="NA" comment="NA"/>
 </TAGS>
+<META>
+<label color="green"/>
+</META>
 </COVID_VAX_AE>

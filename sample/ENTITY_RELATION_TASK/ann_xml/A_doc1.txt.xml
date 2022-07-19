@@ -3,16 +3,20 @@
 <TEXT><![CDATA[A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation. The patient's medical history and concomitant medications were not reported. The patient previously had a flu and shingles shot. The patient asked the side effects after the second shot compared to the first in older people. She wanted to known if they need to be monitored more after the second shot. The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day. The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot. The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever. The consumer also stated, "Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm. Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question." The outcome of the event mild pain at the site of injection was recovered while other event was unknown.  Information on the Lot/Batch Number has been requested.
 ]]></TEXT>
 <TAGS>
-<SVRT spans="691~695" text="mild" id="S2" severity="NA" comment="NA"/>
+<SVRT spans="691~695" text="mild" id="S2" severity="severe" comment="NA"/>
 <AE spans="696~700" text="pain" id="A0" certainty="positive" comment="NA"/>
-<LK_AE_SVRT id="L0" comment="NA" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="mild"/>
 <AE spans="775~779" text="pain" id="A1" certainty="positive" comment="NA"/>
 <AE spans="1789~1793" text="pain" id="A2" certainty="positive" comment="NA"/>
 <SVRT spans="1784~1788" text="mild" id="S3" severity="NA" comment="NA"/>
 <AE spans="1102~1110" text="headache" id="A3" certainty="positive" comment="NA"/>
 <AE spans="1115~1120" text="fever" id="A4" certainty="positive" comment="NA"/>
 <AE spans="1432~1440" text="sore arm" id="A5" certainty="positive" comment="NA"/>
-<LK_AE_SVRT id="L1" link_AEID="A2" link_AEText="pain" link_SVRTID="S3" link_SVRTText="mild" comment="NA"/>
+<LK_AE_SVRT id="L1" link_SVRTID="S3" link_SVRTText="mild" comment="I'm not sure about this" link_AEID="A2" link_AEText="pain"/>
 <SVRT spans="784~791" text="similar" id="S4" severity="NA" comment="NA"/>
+<LK_AE_SVRT id="L2" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="mild" comment="NA"/>
+<LK_AE_SVRT id="L3" link_AEID="A1" link_AEText="pain" link_SVRTID="S4" link_SVRTText="similar" comment="NA"/>
 </TAGS>
+<META>
+<label color="yellow"/>
+</META>
 </COVID_VAX_AE>

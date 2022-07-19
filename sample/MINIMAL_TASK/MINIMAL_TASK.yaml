@@ -1,16 +1,22 @@
-# A sample YAML format schema for the COVID_VAX_SYMP task
+# Annotation Schema: COVID_VAX_SYMP
+# For more information schema design, you can check MedTator Wiki:
+# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema 
 name: COVID_VAX_SYMP
 etags:
-  # entity tag `SYMP` for symptoms of vaccine
   - name: SYMP
-    attrs: 
-    - name: certainty
-      vtype: list
-      values:
-      - positive
-      - negated
-      - possible
-      default_value: positive
-    - name: comment
-      vtype: text
-      default_value: NA
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - positive
+          - negated
+          - possible
+        default_value: positive
+      - name: comment
+        vtype: text
+        default_value: NA
+meta:
+  sentencize_exceptions:
+    - Pos.
+    - Neg.
+    - Psb.

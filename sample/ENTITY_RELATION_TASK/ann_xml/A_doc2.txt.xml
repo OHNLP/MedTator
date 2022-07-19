@@ -10,4 +10,7 @@
 <AE spans="348~357" text="allergies" id="A2" certainty="positive" comment="NA"/>
 <AE spans="294~300" text="asthma" id="A3" certainty="positive" comment="NA"/>
 </TAGS>
+<META>
+<label color="yellow"/>
+</META>
 </COVID_VAX_AE>

@@ -1,6 +1,6 @@
 var nlp_toolkit = {
     sent_tlb_syms: ' `!@#$%^&*()_+-=[]{}|\\:";\'<>?,/',
-    sent_exceptions: new Set([
+    sentencize_exceptions: new Set([
         // time
         'a.m.',
         'p.m.',
@@ -451,7 +451,7 @@ var nlp_toolkit = {
                     var dot_token_lower = dot_token.toLocaleLowerCase();
 
                     // now find check this dot token
-                    if (this.sent_exceptions.has(dot_token_lower)) {
+                    if (this.sentencize_exceptions.has(dot_token_lower)) {
                         // ok, this token is a special exception
                         // just skip
                         sentence.push(c);
@@ -630,7 +630,7 @@ var nlp_toolkit = {
                         var dot_token_lower = dot_token.toLocaleLowerCase();
     
                         // now find check this dot token
-                        if (this.sent_exceptions.has(dot_token_lower)) {
+                        if (this.sentencize_exceptions.has(dot_token_lower)) {
                             // ok, this token is a special exception
                             // just skip
                             sentence.push(c);

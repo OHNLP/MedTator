@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OLEA_TASK>
+<TEXT><![CDATA[2019 冠状病毒病（COVID-19）可引起多种体征和症状。最常见的症状是发热、干咳和疲乏。其他症状包括气短或呼吸困难、肌肉疼痛、寒战、咽喉疼痛、头痛或胸部疼痛。但是 COVID-19 也会引起您可能想不到的症状，包括：
+
+- 胃肠道症状。COVID-19 可能会引起轻微的胃肠道症状，包括食欲不振、恶心、呕吐和腹泻。这些症状可能只会持续一天。有些 COVID-19 病患者在出现发热和呼吸道症状之前会出现腹泻和恶心。
+- 嗅觉或味觉丧失。COVID-19 可能会导致新的嗅觉或味觉丧失，没有鼻塞。这些症状通常持续 9 到 14 天。一些研究表明，嗅觉或味觉的丧失可能是 COVID-19 的早期预测因素。
+- 皮肤变化。COVID-19 病症不太严重的年龄较小者可能会出现手脚疼痛、发痒的病变，与冻疮这种炎症性皮肤病有些类似。这种症状有时被称为 COVID 脚趾，通常持续 12 天左右。不过，新的研究表明，这些病变可能仅仅是由封锁期间的久坐行为和未穿暖和鞋袜而引起的冻疮，而并非由 COVID-19 引起。
+- 意识混乱。据报道，COVID-19 会引起老年人意识混乱，尤其是那些严重感染的老年人。
+- 眼睛问题。COVID-19 可能会导致眼睛问题，如血管增大、发红、眼睑肿胀、过度饮水和分泌物增多。感染也可能引起光敏和刺激。这些症状在严重感染的人中更常见。
+
+COVID-19 的症状和体征可能在暴露于病毒后 2-14 天出现，范围从轻度到重度不等。如果您认为您可能有 COVID-19 症状，请打电话给医生。
+
+
+Document Link: https://www.mayoclinic.org/zh-hans/diseases-conditions/coronavirus/expert-answers/coronavirus-unusual-symptoms/faq-20487367]]></TEXT>
+<TAGS>
+<Symptom spans="53~60" text="气短或呼吸困难" id="S0" data_type="无" comment="无"/>
+<Symptom spans="61~65" text="肌肉疼痛" id="S1" data_type="无" comment="无"/>
+<Symptom spans="66~68" text="寒战" id="S2" data_type="无" comment="无"/>
+<Symptom spans="69~73" text="咽喉疼痛" id="S3" data_type="无" comment="无"/>
+<Symptom spans="74~76" text="头痛" id="S4" data_type="无" comment="无"/>
+<Symptom spans="77~81" text="胸部疼痛" id="S5" data_type="无" comment="无"/>
+<Symptom spans="115~120" text="胃肠道症状" id="S6" data_type="无" comment="无"/>
+<Symptom spans="146~150" text="食欲不振" id="S7" data_type="无" comment="无"/>
+<Symptom spans="151~153" text="恶心" id="S8" data_type="无" comment="无"/>
+<Symptom spans="154~159" text="呕吐和腹泻" id="S9" data_type="无" comment="无"/>
+<Symptom spans="213~220" text="嗅觉或味觉丧失" id="S10" data_type="无" comment="无"/>
+<Symptom spans="247~249" text="鼻塞" id="S11" data_type="无" comment="无"/>
+<Symptom spans="307~311" text="皮肤变化" id="S12" data_type="无" comment="无"/>
+<Symptom spans="338~345" text="手脚疼痛、发痒" id="S13" data_type="无" comment="无"/>
+<Symptom spans="459~463" text="意识混乱" id="S14" data_type="无" comment="无"/>
+<Symptom spans="530~534" text="血管增大" id="S15" data_type="无" comment="无"/>
+<Symptom spans="535~537" text="发红" id="S16" data_type="无" comment="无"/>
+<Symptom spans="538~542" text="眼睑肿胀" id="S17" data_type="无" comment="无"/>
+<DataSource id="D0" spans="-1~-1" text="" ds_type="医疗机构" comment="Mayo Clinic"/>
+</TAGS>
+<META/>
+</OLEA_TASK>

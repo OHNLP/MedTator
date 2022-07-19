@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OLEA_TASK>
+<TEXT><![CDATA[COVID-19感染者报告出现了广泛的症状，从轻症到重病症状。症状可能在接触病毒后2-14天出现。任何人都可能出现轻症到重症。出现下列这些症状的人可能感染了COVID-19:
+
+- 发烧或寒战
+- 咳嗽
+- 气短或呼吸困难
+- 疲劳
+- 肌肉或身体酸痛
+- 头疼
+- 近期丧失味觉或嗅觉
+- 喉咙痛
+- 鼻塞或流鼻涕
+- 恶心或呕吐
+- 腹泻
+
+本列表不包括所有可能的症状。随着我们进一步了解COVID-19，CDC将继续更新此列表。老年人和患有心脏病、肺病或糖尿病等严重基础疾病的人似乎因感染COVID-19而出现更严重并发症的风险更高。
+
+Document linK: https://chinese.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html]]></TEXT>
+<TAGS>
+<Symptom spans="91~93" text="发烧" id="S0" data_type="无" comment="无"/>
+<DataSource id="D0" spans="-1~-1" text="" ds_type="政府单位" comment="CDC"/>
+<Symptom spans="94~96" text="寒战" id="S1" data_type="无" comment="无"/>
+<Symptom spans="99~101" text="咳嗽" id="S2" data_type="无" comment="无"/>
+<Symptom spans="104~106" text="气短" id="S3" data_type="无" comment="无"/>
+<Symptom spans="107~111" text="呼吸困难" id="S4" data_type="无" comment="无"/>
+<Symptom spans="114~116" text="疲劳" id="S5" data_type="无" comment="无"/>
+<Symptom spans="119~126" text="肌肉或身体酸痛" id="S6" data_type="无" comment="无"/>
+<Symptom spans="129~131" text="头疼" id="S7" data_type="无" comment="无"/>
+<Symptom spans="136~143" text="丧失味觉或嗅觉" id="S8" data_type="无" comment="无"/>
+<Symptom spans="146~149" text="喉咙痛" id="S9" data_type="无" comment="无"/>
+<Symptom spans="152~158" text="鼻塞或流鼻涕" id="S10" data_type="无" comment="无"/>
+<Symptom spans="161~166" text="恶心或呕吐" id="S11" data_type="无" comment="无"/>
+<Symptom spans="169~171" text="腹泻" id="S12" data_type="无" comment="无"/>
+</TAGS>
+<META/>
+</OLEA_TASK>

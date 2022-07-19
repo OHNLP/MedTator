@@ -129,12 +129,12 @@
                                     class="icon-fg-unsaved mr-1">
                                     <i class="fa fa-save"></i>
                                 </a>
-                                <!-- <span v-if="has_any_label(anns[v_ann.idx])">
+                                <span v-if="has_any_label(anns[v_ann.idx])">
                                     <span v-for="ann_label in anns[v_ann.idx].meta.label"
                                         :class="'label-' + ann_label.color">
                                         <i class="fas fa-bookmark"></i>
                                     </span>
-                                </span> -->
+                                </span>
                                 <span>
                                     {{ v_ann._filename }}
                                 </span>
@@ -348,7 +348,7 @@
                                 <div class="mr-2">
                                     <button class="btn btn-xs btn-red"
                                         title="Delete this tag"
-                                        v-on:click="delete(tag.id)">
+                                        v-on:click="delete_tag(tag.id)">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>

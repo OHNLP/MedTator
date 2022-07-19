@@ -1,24 +1,32 @@
 {
     "name": "COVID_VAX_SYMP",
-    "meta": {
-        "sentencizer_exceptions": [],
-        "gui_config": {}
-    },
-    "etags": [{
+    "etags": [
+      {
         "name": "SYMP",
-        "attrs": [{
+        "attrs": [
+          {
             "name": "certainty",
             "vtype": "list",
             "values": [
-                "positive",
-                "negated",
-                "possible"
+              "positive",
+              "negated",
+              "possible"
             ],
             "default_value": "positive"
-        }, {
+          },
+          {
             "name": "comment",
             "vtype": "text",
             "default_value": "NA"
-        }]
-    }]
-}
+          }
+        ]
+      }
+    ],
+    "meta": {
+      "sentencize_exceptions": [
+        "Pos.",
+        "Neg.",
+        "Psb."
+      ]
+    }
+  }

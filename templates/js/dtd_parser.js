@@ -119,6 +119,7 @@ var dtd_parser = {
         delete j['tag_dict'];
         delete j['text'];
 
+        // make sure the meta is saved
 
         // remove some attrs in etags
         for (let i = 0; i < j.etags.length; i++) {
@@ -447,7 +448,6 @@ var dtd_parser = {
             dtd.etags.push(tag);
         }
 
-
         // loop relation tags
         for (let i = 0; i < tmp.rtags.length; i++) {
             // get the obj
@@ -503,6 +503,12 @@ var dtd_parser = {
 
             // add to dtd
             dtd.rtags.push(tag);
+        }
+
+        // a speciall rule for meta,
+        // just copy everything
+        if (tmp.hasOwnProperty('meta')) {
+            dtd.meta = JSON.parse(JSON.stringify(tmp.meta));
         }
 
         return dtd;

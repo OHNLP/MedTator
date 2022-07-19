@@ -2,15 +2,14 @@
 <COVID_VAX_SYMP>
 <TEXT><![CDATA[The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.]]></TEXT>
 <TAGS>
-<SYMP spans="45~60" text="lightheadedness" id="S1" certainty="positive" comment="NA"/>
+<SYMP spans="45~60" text="lightheadedness" id="S1" certainty="possible" comment="NA"/>
 <SYMP spans="81~89" text="headache" id="S2" certainty="positive" comment="NA"/>
-<SYMP spans="116~125" text="headaches" id="S3" certainty="positive" comment="NA"/>
 <SYMP spans="202~211" text="neck pain" id="S4" certainty="positive" comment="NA"/>
 <SYMP spans="242~250" text="seizures" id="S5" certainty="positive" comment="NA"/>
 <SYMP spans="307~331" text="no loss of consciousness" id="S6" certainty="negated" comment="NA"/>
-<SYMP spans="333~347" text="no convulsions" id="S7" certainty="negated" comment="NA"/>
 <SYMP spans="356~363" text="bladder" id="S8" certainty="negated" comment="NA"/>
 <SYMP spans="367~385" text="bowel incontinence" id="S9" certainty="negated" comment="NA"/>
 <SYMP spans="26~35" text="dizziness" id="S10" certainty="positive" comment="NA"/>
 </TAGS>
+<META/>
 </COVID_VAX_SYMP>

@@ -1,0 +1,1052 @@
+{
+    "section": "annotation",
+    "dtd": {
+        "name": "OLEA_TASK",
+        "etags": [
+            {
+                "name": "Symptom",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "data_type": {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "S",
+                "shortcut": "1",
+                "style": {
+                    "color": "#a6cee3"
+                }
+            },
+            {
+                "name": "DataSource",
+                "type": "etag",
+                "is_non_consuming": true,
+                "attrs": [
+                    {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "ds_type": {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "2",
+                "style": {
+                    "color": "#51a1d7"
+                }
+            }
+        ],
+        "rtags": [],
+        "id_prefix_dict": {
+            "S": {
+                "name": "Symptom",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "data_type": {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "S",
+                "shortcut": "1",
+                "style": {
+                    "color": "#a6cee3"
+                }
+            },
+            "D": {
+                "name": "DataSource",
+                "type": "etag",
+                "is_non_consuming": true,
+                "attrs": [
+                    {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "ds_type": {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "2",
+                "style": {
+                    "color": "#51a1d7"
+                }
+            }
+        },
+        "tag_dict": {
+            "Symptom": {
+                "name": "Symptom",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "data_type": {
+                        "name": "data_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "病例",
+                            "材料",
+                            "无"
+                        ],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "Symptom",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "S",
+                "shortcut": "1",
+                "style": {
+                    "color": "#a6cee3"
+                }
+            },
+            "DataSource": {
+                "name": "DataSource",
+                "type": "etag",
+                "is_non_consuming": true,
+                "attrs": [
+                    {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "ds_type": {
+                        "name": "ds_type",
+                        "vtype": "list",
+                        "require": "",
+                        "values": [
+                            "医疗机构",
+                            "政府单位",
+                            "其它组织"
+                        ],
+                        "default_value": "其它组织",
+                        "element": "DataSource",
+                        "type": "attr"
+                    },
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "无",
+                        "element": "DataSource",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "2",
+                "style": {
+                    "color": "#51a1d7"
+                }
+            }
+        },
+        "text": "# Annotation Schema: OLEA_TASK\n# For more information schema design, you can check MedTator Wiki:\n# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema \n#\n# This is a sample of values defined in other language.\n# As the tag name and attribute name will be used in XML,\n# they need to be defined using a-zA-Z0-9 and underscore.\n# The values can be defined in other language.\nname: OLEA_TASK\netags:\n  - name: Symptom\n    attrs:\n      - name: data_type\n        vtype: list\n        values:\n          - 病例\n          - 材料\n          - 无\n        default_value: 无\n      - name: comment\n        vtype: text\n        default_value: 无\n\n  - name: DataSource\n    is_non_consuming: true\n    attrs:\n      - name: ds_type\n        vtype: list\n        values:\n          - 医疗机构\n          - 政府单位\n          - 其它组织\n        default_value: 其它组织\n      - name: comment\n        vtype: text\n        default_value: 无\n"
+    },
+    "ann_idx": 1,
+    "anns": [
+        {
+            "text": "COVID-19感染者报告出现了广泛的症状，从轻症到重病症状。症状可能在接触病毒后2-14天出现。任何人都可能出现轻症到重症。出现下列这些症状的人可能感染了COVID-19:\n\n- 发烧或寒战\n- 咳嗽\n- 气短或呼吸困难\n- 疲劳\n- 肌肉或身体酸痛\n- 头疼\n- 近期丧失味觉或嗅觉\n- 喉咙痛\n- 鼻塞或流鼻涕\n- 恶心或呕吐\n- 腹泻\n\n本列表不包括所有可能的症状。随着我们进一步了解COVID-19，CDC将继续更新此列表。老年人和患有心脏病、肺病或糖尿病等严重基础疾病的人似乎因感染COVID-19而出现更严重并发症的风险更高。\n\nDocument linK: https://chinese.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html",
+            "dtd_name": "OLEA_TASK",
+            "tags": [
+                {
+                    "tag": "Symptom",
+                    "spans": "91~93",
+                    "text": "发烧",
+                    "id": "S0",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "DataSource",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "ds_type": "政府单位",
+                    "comment": "CDC"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "94~96",
+                    "text": "寒战",
+                    "id": "S1",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "99~101",
+                    "text": "咳嗽",
+                    "id": "S2",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "104~106",
+                    "text": "气短",
+                    "id": "S3",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "107~111",
+                    "text": "呼吸困难",
+                    "id": "S4",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "114~116",
+                    "text": "疲劳",
+                    "id": "S5",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "119~126",
+                    "text": "肌肉或身体酸痛",
+                    "id": "S6",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "129~131",
+                    "text": "头疼",
+                    "id": "S7",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "136~143",
+                    "text": "丧失味觉或嗅觉",
+                    "id": "S8",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "146~149",
+                    "text": "喉咙痛",
+                    "id": "S9",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "152~158",
+                    "text": "鼻塞或流鼻涕",
+                    "id": "S10",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "161~166",
+                    "text": "恶心或呕吐",
+                    "id": "S11",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "169~171",
+                    "text": "腹泻",
+                    "id": "S12",
+                    "data_type": "无",
+                    "comment": "无"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "doc-01-cdc-gov.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "2019 冠状病毒病（COVID-19）可引起多种体征和症状。最常见的症状是发热、干咳和疲乏。其他症状包括气短或呼吸困难、肌肉疼痛、寒战、咽喉疼痛、头痛或胸部疼痛。但是 COVID-19 也会引起您可能想不到的症状，包括：\n\n- 胃肠道症状。COVID-19 可能会引起轻微的胃肠道症状，包括食欲不振、恶心、呕吐和腹泻。这些症状可能只会持续一天。有些 COVID-19 病患者在出现发热和呼吸道症状之前会出现腹泻和恶心。\n- 嗅觉或味觉丧失。COVID-19 可能会导致新的嗅觉或味觉丧失，没有鼻塞。这些症状通常持续 9 到 14 天。一些研究表明，嗅觉或味觉的丧失可能是 COVID-19 的早期预测因素。\n- 皮肤变化。COVID-19 病症不太严重的年龄较小者可能会出现手脚疼痛、发痒的病变，与冻疮这种炎症性皮肤病有些类似。这种症状有时被称为 COVID 脚趾，通常持续 12 天左右。不过，新的研究表明，这些病变可能仅仅是由封锁期间的久坐行为和未穿暖和鞋袜而引起的冻疮，而并非由 COVID-19 引起。\n- 意识混乱。据报道，COVID-19 会引起老年人意识混乱，尤其是那些严重感染的老年人。\n- 眼睛问题。COVID-19 可能会导致眼睛问题，如血管增大、发红、眼睑肿胀、过度饮水和分泌物增多。感染也可能引起光敏和刺激。这些症状在严重感染的人中更常见。\n\nCOVID-19 的症状和体征可能在暴露于病毒后 2-14 天出现，范围从轻度到重度不等。如果您认为您可能有 COVID-19 症状，请打电话给医生。\n\n\nDocument Link: https://www.mayoclinic.org/zh-hans/diseases-conditions/coronavirus/expert-answers/coronavirus-unusual-symptoms/faq-20487367",
+            "dtd_name": "OLEA_TASK",
+            "tags": [
+                {
+                    "tag": "Symptom",
+                    "spans": "53~60",
+                    "text": "气短或呼吸困难",
+                    "id": "S0",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "61~65",
+                    "text": "肌肉疼痛",
+                    "id": "S1",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "66~68",
+                    "text": "寒战",
+                    "id": "S2",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "69~73",
+                    "text": "咽喉疼痛",
+                    "id": "S3",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "74~76",
+                    "text": "头痛",
+                    "id": "S4",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "77~81",
+                    "text": "胸部疼痛",
+                    "id": "S5",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "115~120",
+                    "text": "胃肠道症状",
+                    "id": "S6",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "146~150",
+                    "text": "食欲不振",
+                    "id": "S7",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "151~153",
+                    "text": "恶心",
+                    "id": "S8",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "154~159",
+                    "text": "呕吐和腹泻",
+                    "id": "S9",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "213~220",
+                    "text": "嗅觉或味觉丧失",
+                    "id": "S10",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "247~249",
+                    "text": "鼻塞",
+                    "id": "S11",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "307~311",
+                    "text": "皮肤变化",
+                    "id": "S12",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "338~345",
+                    "text": "手脚疼痛、发痒",
+                    "id": "S13",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "459~463",
+                    "text": "意识混乱",
+                    "id": "S14",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "530~534",
+                    "text": "血管增大",
+                    "id": "S15",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "535~537",
+                    "text": "发红",
+                    "id": "S16",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "538~542",
+                    "text": "眼睑肿胀",
+                    "id": "S17",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "DataSource",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "ds_type": "医疗机构",
+                    "comment": "Mayo Clinic"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "doc-02-mc-org.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "如果 COVID-19 检测呈阳性，即便无症状或接种了疫苗，也会传染给其他人。与他人分开（隔离）并遵循以下建议至关重要。\n\n与他人分开（隔离）\n\n您在开始出现症状后应当居家并远离他人（隔离）至少五天。如果您没有症状，请在接受检测后居家五天。以下内容可让您更好地了解您可能需要居家多长时间。\n▪ 需要与他人在一起时，佩戴合适的口罩，即便是在家里。\n▪ 尽可能与其他家庭成员分房居住。\n▪ 尽可能使用单独的浴室。\n▪ 尽可能采取措施让家中空气流通更加顺畅。\n▪ 避免与其他家庭成员和宠物接触。\n▪ 如果您是老年人，免疫系统减弱，或者患有某些疾病，则告知您的医疗保健服务提供者您患有COVID-19。他们会向您推荐治疗方案或提供具体的建议。\n▪ 告知您的密切接触者，他们可能已经接触过 COVID-19。\n\nDocument Link: https://www.health.state.mn.us/diseases/coronavirus/casechinese.pdf",
+            "dtd_name": "OLEA_TASK",
+            "tags": [
+                {
+                    "tag": "DataSource",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "ds_type": "政府单位",
+                    "comment": "Minnesota Department of Health"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "doc-03-mn.us.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        }
+    ],
+    "mn4anns": 0.9409155839367223,
+    "pg_index": 0,
+    "pg_total": 1,
+    "pg_numpp": 100,
+    "is_loading_anns": false,
+    "is_loaded_anns": false,
+    "msg_loading_anns": "",
+    "n_anns_droped": 0,
+    "n_anns_loaded": 0,
+    "n_anns_error": 0,
+    "sort_anns_by": "default",
+    "annotation_tab_working_mode": "annotation",
+    "display_tag_name": "__all__",
+    "display_stat_doc_sum_selected": null,
+    "stat_filter_min_tokens": 0,
+    "stat_filter_token_text": true,
+    "hints": [],
+    "hint_dict": {
+        "Symptom": {
+            "text_dict": {
+                "发烧": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "寒战": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1,
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "咳嗽": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "气短": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "呼吸困难": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "疲劳": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "肌肉或身体酸痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "头疼": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "丧失味觉或嗅觉": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "喉咙痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "鼻塞或流鼻涕": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "恶心或呕吐": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "腹泻": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "气短或呼吸困难": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "肌肉疼痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "咽喉疼痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "头痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "胸部疼痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "胃肠道症状": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "食欲不振": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "恶心": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "呕吐和腹泻": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "嗅觉或味觉丧失": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "鼻塞": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "皮肤变化": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "手脚疼痛、发痒": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "意识混乱": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "血管增大": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "发红": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "眼睑肿胀": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "发烧",
+                "寒战",
+                "咳嗽",
+                "气短",
+                "呼吸困难",
+                "疲劳",
+                "肌肉或身体酸痛",
+                "头疼",
+                "丧失味觉或嗅觉",
+                "喉咙痛",
+                "鼻塞或流鼻涕",
+                "恶心或呕吐",
+                "腹泻",
+                "气短或呼吸困难",
+                "肌肉疼痛",
+                "咽喉疼痛",
+                "头痛",
+                "胸部疼痛",
+                "胃肠道症状",
+                "食欲不振",
+                "恶心",
+                "呕吐和腹泻",
+                "嗅觉或味觉丧失",
+                "鼻塞",
+                "皮肤变化",
+                "手脚疼痛、发痒",
+                "意识混乱",
+                "血管增大",
+                "发红",
+                "眼睑肿胀"
+            ]
+        },
+        "DataSource": {
+            "text_dict": {},
+            "nc_dict": {
+                "count": 3,
+                "ann_fn_dict": {
+                    "doc-01-cdc-gov.txt.xml": 1,
+                    "doc-02-mc-org.txt.xml": 1,
+                    "doc-03-mn.us.txt.xml": 1
+                },
+                "_is_shown": false
+            },
+            "texts": []
+        }
+    },
+    "clicked_tag_id": null,
+    "hovered_tag": null,
+    "is_linking": false,
+    "linking_tag_def": null,
+    "linking_tag": null,
+    "linking_atts": [],
+    "pan_working_tag": {
+        "pos": {
+            "movementX": 0,
+            "movementY": 0
+        }
+    },
+    "txt_anns": [],
+    "txt_xmls": [],
+    "txt_xml_prefix": "",
+    "txt_xml_suffix": "",
+    "fn_pattern": "",
+    "force_module_update": 0.50313465574623,
+    "cm": {
+        "display_mode": "document",
+        "mark_mode": "span",
+        "hint_mode": "simple",
+        "enabled_auto_hint_update": true,
+        "enabled_hints": true,
+        "enabled_links": true,
+        "enabled_link_name": true,
+        "enabled_link_complex": true,
+        "is_expire": false
+    },
+    "cfg": {
+        "enable_show_settings": false,
+        "enable_display_menu_dropzone_ann": false,
+        "active_setting_tab": "import",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts"
+    },
+    "export_text": null,
+    "texts": {
+        "sentence_splitting_algorithm": {
+            "title": "Sentence Splitting Algorithm",
+            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
+        },
+        "linking_marks_selection": {
+            "title": "Linking marks selection",
+            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
+        }
+    },
+    "iaa_ann_list": [
+        {
+            "anns": [],
+            "name": "A"
+        },
+        {
+            "anns": [],
+            "name": "B"
+        }
+    ],
+    "iaa_loading_status": null,
+    "iaa_dict": null,
+    "iaa_display_tag_name": "__all__",
+    "iaa_match_mode": "overlap",
+    "iaa_overlap_ratio": 50,
+    "iaa_overlap_ratio_default": 50,
+    "iaa_display_hashcode": null,
+    "iaa_display_tags_context": true,
+    "iaa_display_tags_tp": false,
+    "iaa_display_adj_panel": true,
+    "iaa_display_adj_detail": false,
+    "iaa_sort_anns_by": "default",
+    "iaa_gs_dict": null,
+    "iaa_use_attributes": false,
+    "iaa_remove_tag_b_when_low_overlap": true,
+    "iaa_use_tag_attrs": {},
+    "iaa_display_measure": "f1",
+    "converter_corpus_task": "raw",
+    "max_converter_display_files": 100,
+    "is_converter_loading_medtagger_txt_files": false,
+    "is_converter_loading_medtagger_ann_files": false,
+    "n_converter_corpus_medtagger_txt_files": 0,
+    "n_converter_corpus_medtagger_ann_files": 0,
+    "converter_corpus_medtagger_txt_files": [],
+    "converter_corpus_medtagger_ann_files": [],
+    "is_converter_loading_raw_txt_files": false,
+    "n_converter_corpus_raw_txt_files": 0,
+    "converter_corpus_raw_txt_files": [],
+    "n_converter_results": 0,
+    "converter_results": [],
+    "se_dtd": null,
+    "se_dtd_tpl_id": null,
+    "show_text_quick_viewer": false,
+    "tqv_header": "",
+    "tqv_content": "",
+    "tqv_footer": "",
+    "tqv_pos_x": -999,
+    "tqv_pos_y": -999
+}

@@ -476,6 +476,11 @@ var app_hotpot = {
                 this.add_ann(anns[i]);
             }
 
+            // ok, now update v_ann
+            this.refresh_v_anns();
+        },
+        
+        refresh_v_anns: function() {
             // just for trigger the vue's computed prop
             this.mn4anns = Math.random();
         },
@@ -551,6 +556,7 @@ var app_hotpot = {
                 // but it may change ...
                 // using the given ann to replace the current ann
                 app_hotpot.vpp.set_current_ann(ann);
+                app_hotpot.vpp.refresh_v_anns();
                 app_hotpot.toast('Successfully saved ' + ann._filename);
             })
             .catch(function(error) {
@@ -607,6 +613,7 @@ var app_hotpot = {
 
             // mark this file is changed and needs to be saved
             ann._has_saved = false;
+            this.set_ann_unsaved(ann);
 
             // update the UI
             this.$forceUpdate();
@@ -622,6 +629,7 @@ var app_hotpot = {
 
             // mark this file is changed and needs to be saved
             ann._has_saved = false;
+            this.set_ann_unsaved(ann);
 
             // update the UI
             this.$forceUpdate();
@@ -1340,19 +1348,23 @@ var app_hotpot = {
 
         on_change_attr_value: function(event) {
             // just mark current ann as unsaved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_current_ann_unsaved();
             console.log('* changed attr in', event.target);
         },
 
         on_change_idref_value: function(event) {
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            // need to notify v_ann update
+            this.set_current_ann_unsaved();
             // then, need to update this value
             this.on_change_link_settings(event);
         },
 
         on_input_attr_value: function(event) {
             // just mark current ann as unsaved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_current_ann_unsaved();
             console.log('* changed input attr to', event.target.value);
         },
 
@@ -1463,7 +1475,8 @@ var app_hotpot = {
             this.anns[this.ann_idx].tags.push(tag);
 
             // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_current_ann_unsaved();
             console.log('* added tag by hint, ' + tag_name + ' on ' + hint.text);
 
             // update the hint_dict
@@ -1545,6 +1558,23 @@ var app_hotpot = {
             console.log('* added tag by shortcut, ' + tag_def.name + ' on ' + _tag.text);
         },
 
+        /////////////////////////////////////////////////////////////////
+        // Ann and tag related functions
+        /////////////////////////////////////////////////////////////////
+
+        set_ann_unsaved: function(ann) {
+            // set status
+            ann._has_saved = false;
+            // notify the virutal anns to be refreshed
+            this.refresh_v_anns();
+        },
+
+        set_current_ann_unsaved: function() {
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
+        },
+
         add_etag: function(basic_tag, tag_def) {
             // create a new tag
             var tag = app_hotpot.make_etag(
@@ -1557,7 +1587,8 @@ var app_hotpot = {
             this.anns[this.ann_idx].tags.push(tag);
 
             // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_ann_unsaved(this.anns[this.ann_idx]);
 
             // add this new tag to hint_dict
             app_hotpot.update_hint_dict_by_tag(this.anns[this.ann_idx], tag);
@@ -1583,9 +1614,11 @@ var app_hotpot = {
             this.anns[this.ann_idx].tags.push(etag);
 
             // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_ann_unsaved(this.anns[this.ann_idx]);
 
             // ok, that's all?
+            app_hotpot.toast('Added a new document-leve tag [' + etag.id + ']');
         },
 
         add_empty_etag: function(etag_def) {
@@ -1601,9 +1634,10 @@ var app_hotpot = {
             this.anns[this.ann_idx].tags.push(etag);
 
             // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
-
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_ann_unsaved(this.anns[this.ann_idx]);
             // ok, that's all?
+            app_hotpot.toast('Added a new entity tag [' + etag.id + ']');
         },
 
         add_empty_rtag: function(rtag_def) {
@@ -1620,7 +1654,8 @@ var app_hotpot = {
             this.anns[this.ann_idx].tags.push(rtag);
 
             // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_ann_unsaved(this.anns[this.ann_idx]);
 
             // ok, that's all?
             app_hotpot.toast('Added a new relation tag [' + rtag.id + ']');
@@ -1655,7 +1690,8 @@ var app_hotpot = {
             }
 
             // mark this file is changed and needs to be saved
-            ann._has_saved = false;
+            // ann._has_saved = false;
+            this.set_ann_unsaved(ann);
 
             console.log('* set annotator to tag: ', 
                 tag_id + '._annotator = ' + annotator);
@@ -1821,8 +1857,10 @@ var app_hotpot = {
                 );
                 this.linking_tag.id = tag_id;
                 this.anns[this.ann_idx].tags.push(this.linking_tag);
+
                 // mark _has_saved
-                this.anns[this.ann_idx]._has_saved = false;
+                // this.anns[this.ann_idx]._has_saved = false;
+                this.set_ann_unsaved(this.anns[this.ann_idx]);
 
                 // then, we could show this new link in cm
                 app_hotpot.cm_draw_rtag(
@@ -1849,8 +1887,10 @@ var app_hotpot = {
             );
             this.linking_tag.id = tag_id;
             this.anns[this.ann_idx].tags.push(this.linking_tag);
-            // mark _has_saved
-            this.anns[this.ann_idx]._has_saved = false;
+
+            // mark unsaved
+            // this.anns[this.ann_idx]._has_saved = false;
+            this.set_ann_unsaved(this.anns[this.ann_idx]);
 
             // then, we could show this new link in cm
             app_hotpot.cm_draw_rtag(
@@ -2606,8 +2646,35 @@ var app_hotpot = {
         // update the pop menu
         this.update_tag_popmenu();
 
+        // special rule for dtd meta
+        if (dtd.hasOwnProperty('meta')) {
+            console.log('* found meta in annotation schema', dtd.meta);
+            this.set_meta_from_dtd(dtd);
+        }
+
         // force update
         this.vpp.$forceUpdate();
+    },
+
+    set_meta_from_dtd: function(dtd) {
+        if (dtd.meta.hasOwnProperty('sentencize_exceptions')) {
+            this.set_meta_of_sentencize_exceptions(dtd.meta.sentencize_exceptions);
+        }
+    },
+
+    set_meta_of_sentencize_exceptions: function(sentencize_exceptions) {
+        // this is for the nlp_toolkit
+        for (let i = 0; i < sentencize_exceptions.length; i++) {
+            var se = sentencize_exceptions[i];
+            var se_lower = se.toLocaleLowerCase();
+
+            // add to the nlp_toolkit sentencize_exceptions
+            nlp_toolkit.sentencize_exceptions.add(se_lower);
+        }
+        this.toast('Updated NLP Toolkit sentencize_exceptions with ' + 
+            sentencize_exceptions.length + ' tokens.',
+            'info'
+        );
     },
 
     clear_ann_all: function() {
@@ -3246,6 +3313,12 @@ var app_hotpot = {
             text: ''
         };
 
+        // for non-consuming tag (doc-level tag)
+        if (tag_def.hasOwnProperty('is_non_consuming') &&
+            tag_def.is_non_consuming) {
+            etag.spans = dtd_parser.NON_CONSUMING_SPANS;
+        }
+
         // then add other attr
         for (let i = 0; i < tag_def.attrs.length; i++) {
             const att = tag_def.attrs[i];
@@ -3253,6 +3326,7 @@ var app_hotpot = {
             if (att.name == 'spans') {
                 // special rule for spans attr
                 etag.spans = dtd_parser.NON_CONSUMING_SPANS;
+
             } else {
                 // set the default value
                 etag[att.name] = att.default_value;
@@ -3302,9 +3376,15 @@ var app_hotpot = {
         return ann;
     },
 
-    delete_tag: function(tag_id, ann, is_check_rtag=true, is_update_marks=true) {
+    delete_tag: function(tag_id, ann, is_check_rtag, is_update_marks) {
         if (typeof(ann) == 'undefined') {
             ann = this.vpp.$data.anns[this.vpp.$data.ann_idx];
+        }
+        if (typeof(is_check_rtag) == 'undefined') {
+            is_check_rtag = true;
+        }
+        if (typeof(is_update_marks) == 'undefined') {
+            is_update_marks = true;
         }
 
         if (is_check_rtag) {
@@ -3351,7 +3431,9 @@ var app_hotpot = {
         this.vpp.$data.anns[this.vpp.$data.ann_idx] = this.remove_tag_from_ann(tag_id, ann);
 
         // mark _has_saved
-        this.vpp.$data.anns[this.vpp.$data.ann_idx]._has_saved = false;
+        // this.vpp.$data.anns[this.vpp.$data.ann_idx]._has_saved = false;
+        this.vpp.set_current_ann_unsaved();
+
         console.log('* deleted tag ' + tag_id);
 
         // remove the hover box

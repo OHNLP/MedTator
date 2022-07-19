@@ -1,54 +1,54 @@
 {
-  "name": "COVID_VAX_AE",
-  "etags": [
-    {
-      "name": "AE",
-      "attrs": [
-        {
-          "name": "certainty",
-          "vtype": "list",
-          "values": [
-            "positive",
-            "negated",
-            "possible"
-          ],
-          "default_value": "positive"
-        },
-        {
-          "name": "comment",
-          "vtype": "text",
-          "default_value": "NA"
-        }
-      ]
-    },
-    {
-      "name": "SVRT",
-      "attrs": [
-        {
-          "name": "severity",
-          "vtype": "list",
-          "values": [
-            "mild",
-            "moderate",
-            "severe",
-            "NA"
-          ],
-          "default_value": "NA"
-        },
-        {
-          "name": "comment",
-          "vtype": "text",
-          "default_value": "NA"
-        }
-      ]
-    }
-  ],
-  "rtags": [
-    {
+    "name": "COVID_VAX_AE",
+    "etags": [
+      {
+        "name": "AE",
+        "attrs": [
+          {
+            "name": "certainty",
+            "vtype": "list",
+            "values": [
+              "positive",
+              "negated",
+              "possible"
+            ],
+            "default_value": "positive"
+          },
+          {
+            "name": "comment",
+            "vtype": "text",
+            "default_value": "NA"
+          }
+        ]
+      },
+      {
+        "name": "SVRT",
+        "attrs": [
+          {
+            "name": "severity",
+            "vtype": "list",
+            "values": [
+              "mild",
+              "moderate",
+              "severe",
+              "NA"
+            ],
+            "default_value": "NA"
+          },
+          {
+            "name": "comment",
+            "vtype": "text",
+            "default_value": "NA"
+          }
+        ]
+      }
+    ],
+    "rtags": [
+      {
         "name": "LK_AE_SVRT",
         "attrs": [
           {
-            "name": "LK_AE_SVRT",
+            "name": "link_AE",
             "vtype": "idref"
           },
           {
@@ -62,5 +62,12 @@
           }
         ]
       }
-  ]
-}
+    ],
+    "meta": {
+      "sentencize_exceptions": [
+        "Pos.",
+        "Neg.",
+        "Psb."
+      ]
+    }
+  }
