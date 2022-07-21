@@ -5,7 +5,7 @@ MedTator is a serverless text annotation tool for corpus development. It is buil
 No Java, no Python, no PHP, no Docker, no MySQL, and no need to install any server or client runtime for corpus annotation!
 [Check Here to Start Annotation Now!](https://ohnlp.github.io/MedTator/?st=yes)
 
-![MedTator Demo](https://raw.githubusercontent.com/wiki/OHNLP/MedTator/img/MedTator-demo-211221.gif)
+![MedTator Demo](https://raw.githubusercontent.com/wiki/OHNLP/MedTator/img/MedTator-demo-1.3.0.gif)
 
 If you're having trouble using MedTator, you can use [Issues](https://github.com/OHNLP/MedTator/issues) to tell us about the issue you're experiencing.
 
