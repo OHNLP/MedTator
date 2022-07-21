@@ -13448,6 +13448,15 @@ var app_hotpot = {
         on_drop_filelist: function(event) {
             // prevent the default download event
             event.preventDefault();
+
+            if (this.dtd == null) {
+                app_hotpot.msg(
+                    "Please load the annotation schema first.",
+                    "warning"
+                );
+                return;
+            }
+
             const items = event.dataTransfer.items;
             console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
 
