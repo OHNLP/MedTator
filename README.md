@@ -100,7 +100,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.xx (2022-07-21)
+### 1.3.00 (2022-07-21)
 
 - Refactored file reading workflow with asynchronous processing
 - Refactored annotation file loading workflow
@@ -115,6 +115,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added a float text content viewer
 - Added reading JSON/YAML for schema editor
 - Added JSON/YAML download option for schema editor
+- Added cmd/ctrl + s shortcut key for saving current file
 - Updated annotation UI design for bigger drag&drop area
 - Updated converter UI design for bigger buttons
 - Updated converter for downloading individual result file

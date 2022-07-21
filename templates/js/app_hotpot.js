@@ -20,6 +20,9 @@ var app_hotpot = {
     // waiting for closing 
     seconds_before_closing_loading_anns_panel: 3,
 
+    // for key event
+    has_pressed_ctrl_meta: false,
+
     // vue app
     vpp: null,
     vpp_id: '#app_hotpot',
@@ -532,11 +535,21 @@ var app_hotpot = {
                 // OK, go go go
             } else {
                 // well ... it's ok ...
-                app_hotpot.msg('The browser you are using does not support File System Access API. You can use "Download XML" function instead.', 'warning');
+                app_hotpot.msg(
+                    'The browser you are using does not support File System Access API. You can use "Download XML" function instead.', 
+                    'warning'
+                );
                 return;
             }
             // before saving, need to check the _fh
             var p_ann = null;
+            if (this.ann_idx == null) {
+                app_hotpot.msg(
+                    'Please open an annotation file for saving.',
+                    'warning'
+                );
+                return;
+            }
             if (!this.anns[this.ann_idx].hasOwnProperty('_fh') || 
                 this.anns[this.ann_idx]._fh === null ||
                 typeof(this.anns[this.ann_idx]._fh.createWritable)==='undefined') {
@@ -2757,6 +2770,25 @@ var app_hotpot = {
                 );
             }
         );
+
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey ||
+                event.metaKey || 
+                event.which === 19) {
+                app_hotpot.has_pressed_ctrl_meta = true;
+                timer = Date.now();
+            }
+            if (app_hotpot.has_pressed_ctrl_meta && 
+                event.which === 83 && 
+                Date.now()-timer<100){
+                event.preventDefault();
+                app_hotpot.has_pressed_ctrl_meta = false;
+
+                // ok, let's do saving
+                console.log('* pressed Cmd/Ctrl + S for saving the current annotation')
+                app_hotpot.vpp.save_xml();
+            }
+          });
     },
 
     bind_unload_event: function() {

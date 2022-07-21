@@ -65,7 +65,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div v-if="ann_idx != null"
     class="group">
     <button class="ribbon-button"
-        title="Save the current editing annotation file to local disk"
+        title="Save the current editing annotation file to local disk (Ctrl + S)"
         v-if="has_FSA_API()"
         v-on:click="save_xml">
         <span class="icon">
