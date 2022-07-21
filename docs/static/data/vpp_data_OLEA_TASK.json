@@ -359,132 +359,8 @@
         },
         "text": "# Annotation Schema: OLEA_TASK\n# For more information schema design, you can check MedTator Wiki:\n# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema \n#\n# This is a sample of values defined in other language.\n# As the tag name and attribute name will be used in XML,\n# they need to be defined using a-zA-Z0-9 and underscore.\n# The values can be defined in other language.\nname: OLEA_TASK\netags:\n  - name: Symptom\n    attrs:\n      - name: data_type\n        vtype: list\n        values:\n          - 病例\n          - 材料\n          - 无\n        default_value: 无\n      - name: comment\n        vtype: text\n        default_value: 无\n\n  - name: DataSource\n    is_non_consuming: true\n    attrs:\n      - name: ds_type\n        vtype: list\n        values:\n          - 医疗机构\n          - 政府单位\n          - 其它组织\n        default_value: 其它组织\n      - name: comment\n        vtype: text\n        default_value: 无\n"
     },
-    "ann_idx": 1,
+    "ann_idx": 0,
     "anns": [
-        {
-            "text": "COVID-19感染者报告出现了广泛的症状，从轻症到重病症状。症状可能在接触病毒后2-14天出现。任何人都可能出现轻症到重症。出现下列这些症状的人可能感染了COVID-19:\n\n- 发烧或寒战\n- 咳嗽\n- 气短或呼吸困难\n- 疲劳\n- 肌肉或身体酸痛\n- 头疼\n- 近期丧失味觉或嗅觉\n- 喉咙痛\n- 鼻塞或流鼻涕\n- 恶心或呕吐\n- 腹泻\n\n本列表不包括所有可能的症状。随着我们进一步了解COVID-19，CDC将继续更新此列表。老年人和患有心脏病、肺病或糖尿病等严重基础疾病的人似乎因感染COVID-19而出现更严重并发症的风险更高。\n\nDocument linK: https://chinese.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html",
-            "dtd_name": "OLEA_TASK",
-            "tags": [
-                {
-                    "tag": "Symptom",
-                    "spans": "91~93",
-                    "text": "发烧",
-                    "id": "S0",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "DataSource",
-                    "id": "D0",
-                    "spans": "-1~-1",
-                    "text": "",
-                    "ds_type": "政府单位",
-                    "comment": "CDC"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "94~96",
-                    "text": "寒战",
-                    "id": "S1",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "99~101",
-                    "text": "咳嗽",
-                    "id": "S2",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "104~106",
-                    "text": "气短",
-                    "id": "S3",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "107~111",
-                    "text": "呼吸困难",
-                    "id": "S4",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "114~116",
-                    "text": "疲劳",
-                    "id": "S5",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "119~126",
-                    "text": "肌肉或身体酸痛",
-                    "id": "S6",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "129~131",
-                    "text": "头疼",
-                    "id": "S7",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "136~143",
-                    "text": "丧失味觉或嗅觉",
-                    "id": "S8",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "146~149",
-                    "text": "喉咙痛",
-                    "id": "S9",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "152~158",
-                    "text": "鼻塞或流鼻涕",
-                    "id": "S10",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "161~166",
-                    "text": "恶心或呕吐",
-                    "id": "S11",
-                    "data_type": "无",
-                    "comment": "无"
-                },
-                {
-                    "tag": "Symptom",
-                    "spans": "169~171",
-                    "text": "腹泻",
-                    "id": "S12",
-                    "data_type": "无",
-                    "comment": "无"
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "doc-01-cdc-gov.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
         {
             "text": "2019 冠状病毒病（COVID-19）可引起多种体征和症状。最常见的症状是发热、干咳和疲乏。其他症状包括气短或呼吸困难、肌肉疼痛、寒战、咽喉疼痛、头痛或胸部疼痛。但是 COVID-19 也会引起您可能想不到的症状，包括：\n\n- 胃肠道症状。COVID-19 可能会引起轻微的胃肠道症状，包括食欲不振、恶心、呕吐和腹泻。这些症状可能只会持续一天。有些 COVID-19 病患者在出现发热和呼吸道症状之前会出现腹泻和恶心。\n- 嗅觉或味觉丧失。COVID-19 可能会导致新的嗅觉或味觉丧失，没有鼻塞。这些症状通常持续 9 到 14 天。一些研究表明，嗅觉或味觉的丧失可能是 COVID-19 的早期预测因素。\n- 皮肤变化。COVID-19 病症不太严重的年龄较小者可能会出现手脚疼痛、发痒的病变，与冻疮这种炎症性皮肤病有些类似。这种症状有时被称为 COVID 脚趾，通常持续 12 天左右。不过，新的研究表明，这些病变可能仅仅是由封锁期间的久坐行为和未穿暖和鞋袜而引起的冻疮，而并非由 COVID-19 引起。\n- 意识混乱。据报道，COVID-19 会引起老年人意识混乱，尤其是那些严重感染的老年人。\n- 眼睛问题。COVID-19 可能会导致眼睛问题，如血管增大、发红、眼睑肿胀、过度饮水和分泌物增多。感染也可能引起光敏和刺激。这些症状在严重感染的人中更常见。\n\nCOVID-19 的症状和体征可能在暴露于病毒后 2-14 天出现，范围从轻度到重度不等。如果您认为您可能有 COVID-19 症状，请打电话给医生。\n\n\nDocument Link: https://www.mayoclinic.org/zh-hans/diseases-conditions/coronavirus/expert-answers/coronavirus-unusual-symptoms/faq-20487367",
             "dtd_name": "OLEA_TASK",
@@ -650,6 +526,130 @@
             "_sentences_text": ""
         },
         {
+            "text": "COVID-19感染者报告出现了广泛的症状，从轻症到重病症状。症状可能在接触病毒后2-14天出现。任何人都可能出现轻症到重症。出现下列这些症状的人可能感染了COVID-19:\n\n- 发烧或寒战\n- 咳嗽\n- 气短或呼吸困难\n- 疲劳\n- 肌肉或身体酸痛\n- 头疼\n- 近期丧失味觉或嗅觉\n- 喉咙痛\n- 鼻塞或流鼻涕\n- 恶心或呕吐\n- 腹泻\n\n本列表不包括所有可能的症状。随着我们进一步了解COVID-19，CDC将继续更新此列表。老年人和患有心脏病、肺病或糖尿病等严重基础疾病的人似乎因感染COVID-19而出现更严重并发症的风险更高。\n\nDocument linK: https://chinese.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html",
+            "dtd_name": "OLEA_TASK",
+            "tags": [
+                {
+                    "tag": "Symptom",
+                    "spans": "91~93",
+                    "text": "发烧",
+                    "id": "S0",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "DataSource",
+                    "id": "D0",
+                    "spans": "-1~-1",
+                    "text": "",
+                    "ds_type": "政府单位",
+                    "comment": "CDC"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "94~96",
+                    "text": "寒战",
+                    "id": "S1",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "99~101",
+                    "text": "咳嗽",
+                    "id": "S2",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "104~106",
+                    "text": "气短",
+                    "id": "S3",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "107~111",
+                    "text": "呼吸困难",
+                    "id": "S4",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "114~116",
+                    "text": "疲劳",
+                    "id": "S5",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "119~126",
+                    "text": "肌肉或身体酸痛",
+                    "id": "S6",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "129~131",
+                    "text": "头疼",
+                    "id": "S7",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "136~143",
+                    "text": "丧失味觉或嗅觉",
+                    "id": "S8",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "146~149",
+                    "text": "喉咙痛",
+                    "id": "S9",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "152~158",
+                    "text": "鼻塞或流鼻涕",
+                    "id": "S10",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "161~166",
+                    "text": "恶心或呕吐",
+                    "id": "S11",
+                    "data_type": "无",
+                    "comment": "无"
+                },
+                {
+                    "tag": "Symptom",
+                    "spans": "169~171",
+                    "text": "腹泻",
+                    "id": "S12",
+                    "data_type": "无",
+                    "comment": "无"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "doc-01-cdc-gov.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
             "text": "如果 COVID-19 检测呈阳性，即便无症状或接种了疫苗，也会传染给其他人。与他人分开（隔离）并遵循以下建议至关重要。\n\n与他人分开（隔离）\n\n您在开始出现症状后应当居家并远离他人（隔离）至少五天。如果您没有症状，请在接受检测后居家五天。以下内容可让您更好地了解您可能需要居家多长时间。\n▪ 需要与他人在一起时，佩戴合适的口罩，即便是在家里。\n▪ 尽可能与其他家庭成员分房居住。\n▪ 尽可能使用单独的浴室。\n▪ 尽可能采取措施让家中空气流通更加顺畅。\n▪ 避免与其他家庭成员和宠物接触。\n▪ 如果您是老年人，免疫系统减弱，或者患有某些疾病，则告知您的医疗保健服务提供者您患有COVID-19。他们会向您推荐治疗方案或提供具体的建议。\n▪ 告知您的密切接触者，他们可能已经接触过 COVID-19。\n\nDocument Link: https://www.health.state.mn.us/diseases/coronavirus/casechinese.pdf",
             "dtd_name": "OLEA_TASK",
             "tags": [
@@ -670,7 +670,7 @@
             "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.9409155839367223,
+    "mn4anns": 0.07199987462029811,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -690,98 +690,6 @@
     "hint_dict": {
         "Symptom": {
             "text_dict": {
-                "发烧": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "寒战": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1,
-                        "doc-02-mc-org.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "咳嗽": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "气短": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "呼吸困难": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "疲劳": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "肌肉或身体酸痛": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "头疼": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "丧失味觉或嗅觉": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "喉咙痛": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "鼻塞或流鼻涕": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "恶心或呕吐": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "腹泻": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc-01-cdc-gov.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
                 "气短或呼吸困难": {
                     "count": 1,
                     "ann_fn_dict": {
@@ -793,6 +701,14 @@
                     "count": 1,
                     "ann_fn_dict": {
                         "doc-02-mc-org.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "寒战": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc-02-mc-org.txt.xml": 1,
+                        "doc-01-cdc-gov.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -900,6 +816,90 @@
                         "doc-02-mc-org.txt.xml": 1
                     },
                     "_is_shown": false
+                },
+                "发烧": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "咳嗽": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "气短": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "呼吸困难": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "疲劳": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "肌肉或身体酸痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "头疼": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "丧失味觉或嗅觉": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "喉咙痛": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "鼻塞或流鼻涕": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "恶心或呕吐": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "腹泻": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc-01-cdc-gov.txt.xml": 1
+                    },
+                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -908,21 +908,9 @@
                 "_is_shown": false
             },
             "texts": [
-                "发烧",
-                "寒战",
-                "咳嗽",
-                "气短",
-                "呼吸困难",
-                "疲劳",
-                "肌肉或身体酸痛",
-                "头疼",
-                "丧失味觉或嗅觉",
-                "喉咙痛",
-                "鼻塞或流鼻涕",
-                "恶心或呕吐",
-                "腹泻",
                 "气短或呼吸困难",
                 "肌肉疼痛",
+                "寒战",
                 "咽喉疼痛",
                 "头痛",
                 "胸部疼痛",
@@ -937,7 +925,19 @@
                 "意识混乱",
                 "血管增大",
                 "发红",
-                "眼睑肿胀"
+                "眼睑肿胀",
+                "发烧",
+                "咳嗽",
+                "气短",
+                "呼吸困难",
+                "疲劳",
+                "肌肉或身体酸痛",
+                "头疼",
+                "丧失味觉或嗅觉",
+                "喉咙痛",
+                "鼻塞或流鼻涕",
+                "恶心或呕吐",
+                "腹泻"
             ]
         },
         "DataSource": {
@@ -945,8 +945,8 @@
             "nc_dict": {
                 "count": 3,
                 "ann_fn_dict": {
-                    "doc-01-cdc-gov.txt.xml": 1,
                     "doc-02-mc-org.txt.xml": 1,
+                    "doc-01-cdc-gov.txt.xml": 1,
                     "doc-03-mn.us.txt.xml": 1
                 },
                 "_is_shown": false
@@ -971,7 +971,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.50313465574623,
+    "force_module_update": 0.2616141601505424,
     "cm": {
         "display_mode": "document",
         "mark_mode": "span",
@@ -990,7 +990,7 @@
         "sentence_splitting_algorithm": "simpledot",
         "linking_marks_selection": "all_concepts"
     },
-    "export_text": null,
+    "export_text": "",
     "texts": {
         "sentence_splitting_algorithm": {
             "title": "Sentence Splitting Algorithm",

@@ -100,7 +100,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.00 (2022-07-21)
+### 1.3.0 (2022-07-21)
 
 - Refactored file reading workflow with asynchronous processing
 - Refactored annotation file loading workflow
