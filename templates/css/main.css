@@ -129,6 +129,10 @@ html,body {
 #mui_ruleset_result {
     
 }
+#iaa_display_tab {
+    margin-top: 5px;
+}
+
 .stat-doc-sum-tags-header {
     font-size: 1.2em;
     font-weight: bold;

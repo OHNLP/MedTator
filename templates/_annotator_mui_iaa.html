@@ -1,19 +1,50 @@
 <div v-if="section=='iaa'" id="main_ui" 
     class="main-ui container-fluid">
+
+    <!-- <ul data-role="tabs" data-expand="true">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Links</a></li>
+    </ul> -->
+
+    <ul id="iaa_display_tab"
+        v-if="dtd != null && iaa_dict != null"
+        data-role="tabs" 
+        data-expand="true">
+        <li v-on:click="iaa_display_measure = 'f1'"
+            :class="{active: iaa_display_measure == 'f1'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-calculator mr-1"></i>
+                F1 Score
+            </a>
+        </li>
+        <li v-on:click="iaa_display_measure = 'cohen_kappa'"
+            :class="{active: iaa_display_measure == 'cohen_kappa'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-bezier-curve mr-1"></i>
+                Cohen's Kappa
+            </a>
+        </li>
+        <!-- <li v-on:click="iaa_display_measure = 'f1'"
+            :class="{active: iaa_display_measure == 'f1'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-car-crash mr-1"></i>
+                Error Analysis
+            </a>
+        </li> -->
+    </ul>
+
     <div v-if="iaa_display_measure == 'f1'"
         class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
         <div id="mui_iaa_summary" class="d-flex h-100 mr-1">
             <div v-if="dtd != null && iaa_dict != null" class="box h-100">
-                <div class="box-header">
+                <!-- <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        IAA: 
+                        F1 Score Results
                     </h4>
-                    <div>
-                        {% include '_annotator_mui_iaa_select_measure.html' %}
-                    </div>
-                </div>
+                </div> -->
                 <div class="box-body">
 
                     <div>
@@ -480,16 +511,12 @@
         <div id="mui_iaa_cohenk_summary"
             class="d-flex h-100 mr-1">
             <div v-if="dtd != null && iaa_dict != null && iaa_dict.all.hasOwnProperty('cohen_kappa')" class="box h-100">
-                <div class="box-header">
+                <!-- <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        IAA: 
+                        Cohen's Kappa Coefficient
                     </h4>
-                    
-                    <div>
-                        {% include '_annotator_mui_iaa_select_measure.html' %}
-                    </div>
-                </div>
+                </div> -->
 
                 <div class="box-body d-flex flex-column">
                     {% include '_annotator_mui_iaa_cohenkappa.html' %}
