@@ -7,7 +7,71 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_get_file_system_handles(items, filter) {
+async function fs_get_file_system_handles_by_fhs(fhs, filter) {
+    if (typeof(filter) == 'undefined') {
+        filter = function(fn) {
+            return true;
+        }
+    }
+    // the final fshs
+    var fshs = [];
+
+    for (let i = 0; i < fhs.length; i++) {
+        const fh = fhs[i];
+        
+        if (fh.kind == 'file') {
+            if (!filter(fh.name)) {
+                continue;
+            }
+            fshs.push(fh);
+
+        } else if (fh.kind == 'directory') {
+            for await (const sub_fsh of fh.values()) {
+                if (sub_fsh.kind != 'file') {
+                    continue;
+                }
+        
+                // exclude hidden file
+                if (sub_fsh.name.startsWith('.')) {
+                    continue;
+                }
+
+                // exclude other files
+                if (!filter(sub_fsh.name)) {
+                    continue;
+                }
+
+                // ok, put this sub_fsh
+                fshs.push(sub_fsh);
+            }
+        }
+    }
+    console.log('* got ' + fshs.length + ' file_system_handles');
+
+    return fshs;
+}
+
+async function fs_get_file_texts_by_fhs(fhs, filter) {
+    if (typeof(filter) == 'undefined') {
+        filter = function(fn) {
+            return true;
+        }
+    }
+    // the items is the event.dataTransfer.items
+    const fshs = await fs_get_file_system_handles_by_fhs(fhs, filter);
+
+    var files = [];
+
+    for await (const file of fshs.map(fh=>fs_read_file_system_handle(fh))) {
+        files.push(file);
+    }
+    // console.log(files);
+    
+    console.log('* has read ' + files.length + ' files');
+    return files;
+}
+
+async function fs_get_file_system_handles_by_items(items, filter) {
     if (typeof(filter) == 'undefined') {
         filter = function(fn) {
             return true;
@@ -61,14 +125,14 @@ async function fs_get_file_system_handles(items, filter) {
     return fshs;
 }
 
-async function fs_get_file_texts(items, filter) {
+async function fs_get_file_texts_by_items(items, filter) {
     if (typeof(filter) == 'undefined') {
         filter = function(fn) {
             return true;
         }
     }
     // the items is the event.dataTransfer.items
-    const fshs = await fs_get_file_system_handles(items, filter);
+    const fshs = await fs_get_file_system_handles_by_items(items, filter);
 
     var files = [];
 

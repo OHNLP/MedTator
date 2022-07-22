@@ -38,6 +38,7 @@ v-bind:class="{'active': section=='annotation'}">
 <div class="group">
     <div id="dropzone_ann" 
         title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+        v-on:click="on_click_open_ann_files"
         v-on:dragover="on_dragover_prevent_default"
         v-on:drop="on_drop_filelist"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">

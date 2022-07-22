@@ -314,41 +314,48 @@ var app_hotpot = {
                 })());
             });
         },
-        
-        // on_drop_dropzone_ann: function(event) {
-        //     // prevent the default download event
-        //     event.preventDefault();
-            
-        //     if (!isFSA_API_OK) {
-        //         app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
-        //         return;
-        //     }
 
-        //     // get all items
-        //     let items = event.dataTransfer.items;
-        //     for (let i=0; i<items.length; i++) {
-        //         // get this item as a FileSystemHandle Object
-        //         // this could be used for saving the content back
-        //         let item = items[i].getAsFileSystemHandle();
+        on_click_open_ann_files: function() {
+            if (this.dtd == null) {
+                app_hotpot.msg(
+                    "Please load the annotation schema first.",
+                    "warning"
+                );
+                return;
+            }
+            var pickerOpts = {
+                types: [
+                    {
+                        description: 'Annotation Files',
+                        accept: {
+                            'text/dtd': ['.xml', '.txt']
+                        }
+                    },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: true
+            };
 
-        //         // read this handle
-        //         item.then(function(fh) {
-        //             if (fh.kind == 'file') {
-        //                 // so the item is a file
-        //                 app_hotpot.parse_ann_file_fh(
-        //                     fh, 
-        //                     app_hotpot.vpp.$data.dtd
-        //                 );
-        //             } else {
-        //                 // so item is a directory?
-        //                 app_hotpot.parse_ann_dir_fh(
-        //                     fh, 
-        //                     app_hotpot.vpp.$data.dtd
-        //                 );
-        //             }
-        //         });
-        //     }
-        // },
+            var p_fhs = fs_open_files(pickerOpts);
+
+            p_fhs.then(function(fhs) {
+                var p_files = fs_get_file_texts_by_fhs(
+                    fhs,
+                    function(fn) {
+                        if (app_hotpot.is_file_ext_txt(fn)) {
+                            return true;
+                        }
+                        if (app_hotpot.is_file_ext_xml(fn)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                )
+                p_files.then(function(files) {
+                    app_hotpot.vpp.add_files_to_anns(files);
+                });
+            });
+        },
 
         on_drop_filelist: function(event) {
             // prevent the default download event
@@ -370,7 +377,7 @@ var app_hotpot = {
             this.is_loading_anns = true;
             this.msg_loading_anns = 'Reading files ...';
 
-            var promise_files = fs_get_file_texts(
+            var promise_files = fs_get_file_texts_by_items(
                 items,
                 function(fn) {
                     if (app_hotpot.is_file_ext_txt(fn)) {

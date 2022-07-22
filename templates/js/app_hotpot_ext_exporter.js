@@ -44,7 +44,7 @@ Object.assign(app_hotpot.vpp_methods, {
     download_dataset_bioc: function() {
         var txt_dataset = bioc_parser.download_dataset_bioc(
             this.anns,
-            this.dtd,
+            this.dtd,   
             'dataset-' + this.get_ruleset_base_name() + '-BioC.xml'
         );
 

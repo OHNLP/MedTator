@@ -241,7 +241,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_raw_txt_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
@@ -268,7 +268,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_medtagger_txt_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
@@ -293,7 +293,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_medtagger_ann_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {

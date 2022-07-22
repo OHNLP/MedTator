@@ -107,7 +107,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.iaa_loading_status = iaa_id;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
