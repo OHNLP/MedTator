@@ -473,6 +473,35 @@ Object.assign(app_hotpot.vpp_methods, {
         );
     },
 
+    get_new_xml_filename: function(fn, ext='.xml') {
+        var prefix = this.txt_xml_prefix.trim();
+        var suffix = this.txt_xml_suffix.trim();
+        var new_fn = fn;
+
+        // add prefix
+        if (prefix == '') {
+            // nothing to do
+        } else {
+            new_fn = prefix + '_' + new_fn;
+        }
+
+        // add suffix
+        if (suffix == '') {
+            // nothing to do
+            new_fn = new_fn + ext;
+        } else {
+            new_fn = new_fn + '_' + suffix + ext;
+        }
+
+        return new_fn;
+    },
+
+    get_new_xmls_zipfile_folder_name: function() {
+        var fn = this.dtd.name + '-' + this.txt_anns.length;
+        fn = this.get_new_xml_filename(fn, '');
+        return fn + '-xmls';
+    },
+
     download_gs_file: function(hashcode) {
         // get this gs
         const ann_rst = this.iaa_gs_dict[hashcode];
