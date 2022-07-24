@@ -298,6 +298,10 @@ html,body {
 #mui_ruleset_result {
     
 }
+#iaa_display_tab {
+    margin-top: 5px;
+}
+
 .stat-doc-sum-tags-header {
     font-size: 1.2em;
     font-weight: bold;
@@ -1802,32 +1806,44 @@ v-bind:class="{'active': section=='annotation'}">
     </span>
 </div>
 
+
 <div class="group">
     <div id="dropzone_ann" 
         title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+        v-on:click="on_click_open_ann_files"
         v-on:dragover="on_dragover_prevent_default"
         v-on:drop="on_drop_filelist"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
-        <div v-if="ann_idx != null" class="zone-text">
-            <b>{{ anns[ann_idx]._filename }}</b><br>
-            {{ anns[ann_idx].text.length }} chars<br>
-            {{ anns[ann_idx].tags.length }} tags
+
+        <div v-if="dtd == null"
+            title="Load the schema for annotation task first">
+            <i class="fa fa-arrow-left"></i>
+            Load schema file first
         </div>
-        <div v-else-if="dtd != null"
+        <div v-else-if="virtual_anns.v_anns.length == 0" 
             title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
             class="zone-text">
             Drop <b>Annotation</b> <br>
             File(s) / Folder Here
         </div>
+        <div v-else-if="ann_idx == null"
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            Select <b>Annotation File</b> <br>
+            in the File List
+        </div>
         <div v-else
-            title="Load the schema for annotation task first">
-            <i class="fa fa-arrow-left"></i>
-            Load schema file first
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            <b>{{ anns[ann_idx]._filename }}</b><br>
+            {{ anns[ann_idx].text.length }} chars<br>
+            {{ anns[ann_idx].tags.length }} tags
         </div>
     </div>
 
     <span class="title">Annotation File (.xml)</span>
 </div>
+
 
 <div v-if="ann_idx != null"
     class="group">
@@ -3152,12 +3168,12 @@ v-bind:class="{'active': section=='iaa'}">
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v1">Simple Method (Default)</label>
                     </li>
-                    <li>
+                    <!-- <li>
                         <input type="radio" id="cfg_ssa_v2" 
                             value="compromise" 
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v2">Compromise NLP</label>
-                    </li>
+                    </li> -->
                     <li>
                         <input type="radio" id="cfg_ssa_v3" 
                             value="wink_nlp" 
@@ -3312,7 +3328,7 @@ v-bind:class="{'active': section=='iaa'}">
                     </span>
                 </p>
             </div>
-            <div v-else-if="anns.length > 0"
+            <div v-else-if="virtual_anns.v_anns.length > 0"
                 id="mui_filelist_list" 
                 v-on:dragover="on_dragover_prevent_default"
                 v-on:drop="on_drop_filelist"
@@ -3416,7 +3432,7 @@ v-bind:class="{'active': section=='iaa'}">
                     class="txt-hover-bold">
                     Drop <b>Annotation</b> File(s) / Folder Here
                     <br>
-                    (.xml / .txt)
+                    (.xml)
                 </p>
                
             </div>
@@ -4049,24 +4065,51 @@ v-bind:class="{'active': section=='iaa'}">
     <!-- the ui for iaa -->
     <div v-if="section=='iaa'" id="main_ui" 
     class="main-ui container-fluid">
+
+    <!-- <ul data-role="tabs" data-expand="true">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Links</a></li>
+    </ul> -->
+
+    <ul id="iaa_display_tab"
+        v-if="dtd != null && iaa_dict != null"
+        data-role="tabs" 
+        data-expand="true">
+        <li v-on:click="iaa_display_measure = 'f1'"
+            :class="{active: iaa_display_measure == 'f1'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-calculator mr-1"></i>
+                F1 Score
+            </a>
+        </li>
+        <li v-on:click="iaa_display_measure = 'cohen_kappa'"
+            :class="{active: iaa_display_measure == 'cohen_kappa'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-bezier-curve mr-1"></i>
+                Cohen's Kappa
+            </a>
+        </li>
+        <!-- <li v-on:click="iaa_display_measure = 'f1'"
+            :class="{active: iaa_display_measure == 'f1'}">
+            <a href="javascript:void(0);">
+                <i class="fas fa-car-crash mr-1"></i>
+                Error Analysis
+            </a>
+        </li> -->
+    </ul>
+
     <div v-if="iaa_display_measure == 'f1'"
         class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
 
         <div id="mui_iaa_summary" class="d-flex h-100 mr-1">
             <div v-if="dtd != null && iaa_dict != null" class="box h-100">
-                <div class="box-header">
+                <!-- <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        IAA: 
+                        F1 Score Results
                     </h4>
-                    <div>
-                        <select class="iaa-select-sm"
-    v-model="iaa_display_measure">
-    <option value="f1">F1 Score</option>
-    <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
-</select>
-                    </div>
-                </div>
+                </div> -->
                 <div class="box-body">
 
                     <div>
@@ -4533,20 +4576,12 @@ v-bind:class="{'active': section=='iaa'}">
         <div id="mui_iaa_cohenk_summary"
             class="d-flex h-100 mr-1">
             <div v-if="dtd != null && iaa_dict != null && iaa_dict.all.hasOwnProperty('cohen_kappa')" class="box h-100">
-                <div class="box-header">
+                <!-- <div class="box-header">
                     <h4>
                         <i class="fa fa-list-ul"></i>
-                        IAA: 
+                        Cohen's Kappa Coefficient
                     </h4>
-                    
-                    <div>
-                        <select class="iaa-select-sm"
-    v-model="iaa_display_measure">
-    <option value="f1">F1 Score</option>
-    <option value="cohen_kappa">Cohen's Kappa Coefficient</option>
-</select>
-                    </div>
-                </div>
+                </div> -->
 
                 <div class="box-body d-flex flex-column">
                     <div>
@@ -5694,7 +5729,7 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <!-- numjs -->
 <!-- <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script> -->
 <!-- compromise -->
-<script src="https://unpkg.com/compromise"></script>
+<!-- <script src="https://unpkg.com/compromise"></script> -->
 <!-- chart.js -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 <!-- PapaParse -->
@@ -5729,7 +5764,71 @@ async function fs_open_files(pickerOpts) {
     return fhs;
 }
 
-async function fs_get_file_system_handles(items, filter) {
+async function fs_get_file_system_handles_by_fhs(fhs, filter) {
+    if (typeof(filter) == 'undefined') {
+        filter = function(fn) {
+            return true;
+        }
+    }
+    // the final fshs
+    var fshs = [];
+
+    for (let i = 0; i < fhs.length; i++) {
+        const fh = fhs[i];
+        
+        if (fh.kind == 'file') {
+            if (!filter(fh.name)) {
+                continue;
+            }
+            fshs.push(fh);
+
+        } else if (fh.kind == 'directory') {
+            for await (const sub_fsh of fh.values()) {
+                if (sub_fsh.kind != 'file') {
+                    continue;
+                }
+        
+                // exclude hidden file
+                if (sub_fsh.name.startsWith('.')) {
+                    continue;
+                }
+
+                // exclude other files
+                if (!filter(sub_fsh.name)) {
+                    continue;
+                }
+
+                // ok, put this sub_fsh
+                fshs.push(sub_fsh);
+            }
+        }
+    }
+    console.log('* got ' + fshs.length + ' file_system_handles');
+
+    return fshs;
+}
+
+async function fs_get_file_texts_by_fhs(fhs, filter) {
+    if (typeof(filter) == 'undefined') {
+        filter = function(fn) {
+            return true;
+        }
+    }
+    // the items is the event.dataTransfer.items
+    const fshs = await fs_get_file_system_handles_by_fhs(fhs, filter);
+
+    var files = [];
+
+    for await (const file of fshs.map(fh=>fs_read_file_system_handle(fh))) {
+        files.push(file);
+    }
+    // console.log(files);
+    
+    console.log('* has read ' + files.length + ' files');
+    return files;
+}
+
+async function fs_get_file_system_handles_by_items(items, filter) {
     if (typeof(filter) == 'undefined') {
         filter = function(fn) {
             return true;
@@ -5783,14 +5882,14 @@ async function fs_get_file_system_handles(items, filter) {
     return fshs;
 }
 
-async function fs_get_file_texts(items, filter) {
+async function fs_get_file_texts_by_items(items, filter) {
     if (typeof(filter) == 'undefined') {
         filter = function(fn) {
             return true;
         }
     }
     // the items is the event.dataTransfer.items
-    const fshs = await fs_get_file_system_handles(items, filter);
+    const fshs = await fs_get_file_system_handles_by_items(items, filter);
 
     var files = [];
 
@@ -11771,9 +11870,9 @@ var nlp_toolkit = {
             return this.sent_tokenize_by_simpledot_v2(text);
         }
 
-        if (backend == 'compromise') {
-            return this.sent_tokenize_by_compromise(text);
-        }
+        // if (backend == 'compromise') {
+        //     return this.sent_tokenize_by_compromise(text);
+        // }
 
         if (backend == 'wink_nlp') {
             return this.sent_tokenize_by_wink_nlp(text);
@@ -13409,41 +13508,51 @@ var app_hotpot = {
                 })());
             });
         },
-        
-        // on_drop_dropzone_ann: function(event) {
-        //     // prevent the default download event
-        //     event.preventDefault();
-            
-        //     if (!isFSA_API_OK) {
-        //         app_hotpot.msg('Please use modern web browser for reading local file', 'warning');
-        //         return;
-        //     }
 
-        //     // get all items
-        //     let items = event.dataTransfer.items;
-        //     for (let i=0; i<items.length; i++) {
-        //         // get this item as a FileSystemHandle Object
-        //         // this could be used for saving the content back
-        //         let item = items[i].getAsFileSystemHandle();
+        on_click_open_ann_files: function() {
+            if (this.dtd == null) {
+                app_hotpot.msg(
+                    "Please load the annotation schema first.",
+                    "warning"
+                );
+                return;
+            }
+            var pickerOpts = {
+                types: [
+                    {
+                        description: 'Annotation Files',
+                        accept: {
+                            'text/dtd': ['.xml', '.txt']
+                        }
+                    },
+                ],
+                excludeAcceptAllOption: true,
+                multiple: true
+            };
 
-        //         // read this handle
-        //         item.then(function(fh) {
-        //             if (fh.kind == 'file') {
-        //                 // so the item is a file
-        //                 app_hotpot.parse_ann_file_fh(
-        //                     fh, 
-        //                     app_hotpot.vpp.$data.dtd
-        //                 );
-        //             } else {
-        //                 // so item is a directory?
-        //                 app_hotpot.parse_ann_dir_fh(
-        //                     fh, 
-        //                     app_hotpot.vpp.$data.dtd
-        //                 );
-        //             }
-        //         });
-        //     }
-        // },
+            var p_fhs = fs_open_files(pickerOpts);
+
+            p_fhs.then(function(fhs) {
+                var p_files = fs_get_file_texts_by_fhs(
+                    fhs,
+                    function(fn) {
+                        if (app_hotpot.is_file_ext_txt(fn)) {
+                            return true;
+                        }
+                        if (app_hotpot.is_file_ext_xml(fn)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                )
+                p_files.then(function(files) {
+                    app_hotpot.vpp.add_files_to_anns(files);
+
+                    // fix the missing?
+                    // app_hotpot.vpp.refresh_v_anns();
+                });
+            });
+        },
 
         on_drop_filelist: function(event) {
             // prevent the default download event
@@ -13465,7 +13574,7 @@ var app_hotpot = {
             this.is_loading_anns = true;
             this.msg_loading_anns = 'Reading files ...';
 
-            var promise_files = fs_get_file_texts(
+            var promise_files = fs_get_file_texts_by_items(
                 items,
                 function(fn) {
                     if (app_hotpot.is_file_ext_txt(fn)) {
@@ -13514,6 +13623,7 @@ var app_hotpot = {
             this.msg_loading_anns = 'Loaded all annotation files!'
 
             this.is_loaded_anns = true;
+            console.log('* has added ' + anns.length + ' annotation files');
 
             if (anns.length > this.pg_numpp) {
                 setTimeout(
@@ -17868,7 +17978,7 @@ Object.assign(app_hotpot.vpp_methods, {
     download_dataset_bioc: function() {
         var txt_dataset = bioc_parser.download_dataset_bioc(
             this.anns,
-            this.dtd,
+            this.dtd,   
             'dataset-' + this.get_ruleset_base_name() + '-BioC.xml'
         );
 
@@ -18009,7 +18119,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.iaa_loading_status = iaa_id;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
@@ -18373,6 +18483,35 @@ Object.assign(app_hotpot.vpp_methods, {
         this.iaa_gs_dict = iaa_calculator.get_default_gs_dict(
             this.dtd, this.iaa_dict
         );
+    },
+
+    get_new_xml_filename: function(fn, ext='.xml') {
+        var prefix = this.txt_xml_prefix.trim();
+        var suffix = this.txt_xml_suffix.trim();
+        var new_fn = fn;
+
+        // add prefix
+        if (prefix == '') {
+            // nothing to do
+        } else {
+            new_fn = prefix + '_' + new_fn;
+        }
+
+        // add suffix
+        if (suffix == '') {
+            // nothing to do
+            new_fn = new_fn + ext;
+        } else {
+            new_fn = new_fn + '_' + suffix + ext;
+        }
+
+        return new_fn;
+    },
+
+    get_new_xmls_zipfile_folder_name: function() {
+        var fn = this.dtd.name + '-' + this.txt_anns.length;
+        fn = this.get_new_xml_filename(fn, '');
+        return fn + '-xmls';
     },
 
     download_gs_file: function(hashcode) {
@@ -18860,7 +18999,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_raw_txt_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
@@ -18887,7 +19026,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_medtagger_txt_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
@@ -18912,7 +19051,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.is_converter_loading_medtagger_ann_files = true;
 
         // set loading iaa_id
-        var promise_files = fs_get_file_texts(
+        var promise_files = fs_get_file_texts_by_items(
             items,
             // only accept xml for iaa
             function(fn) {
