@@ -100,9 +100,9 @@ var nlp_toolkit = {
             return this.sent_tokenize_by_simpledot_v2(text);
         }
 
-        if (backend == 'compromise') {
-            return this.sent_tokenize_by_compromise(text);
-        }
+        // if (backend == 'compromise') {
+        //     return this.sent_tokenize_by_compromise(text);
+        // }
 
         if (backend == 'wink_nlp') {
             return this.sent_tokenize_by_wink_nlp(text);

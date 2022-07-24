@@ -353,6 +353,9 @@ var app_hotpot = {
                 )
                 p_files.then(function(files) {
                     app_hotpot.vpp.add_files_to_anns(files);
+
+                    // fix the missing?
+                    // app_hotpot.vpp.refresh_v_anns();
                 });
             });
         },
@@ -426,6 +429,7 @@ var app_hotpot = {
             this.msg_loading_anns = 'Loaded all annotation files!'
 
             this.is_loaded_anns = true;
+            console.log('* has added ' + anns.length + ' annotation files');
 
             if (anns.length > this.pg_numpp) {
                 setTimeout(

@@ -103,6 +103,9 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 ### 1.3.x (2022-08-04)
 
 - Updated the UI design for adjudication tab
+- Updated the packaged used to reduce loading time
+- Fixed open annotation files dialog bug
+- Fixed IAA download bug
 
 ### 1.3.0 (2022-07-21)
 

@@ -35,6 +35,7 @@ v-bind:class="{'active': section=='annotation'}">
     </span>
 </div>
 
+
 <div class="group">
     <div id="dropzone_ann" 
         title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
@@ -42,26 +43,36 @@ v-bind:class="{'active': section=='annotation'}">
         v-on:dragover="on_dragover_prevent_default"
         v-on:drop="on_drop_filelist"
         v-bind:class="{'disabled-zone': dtd == null, 'dropzone': dtd != null}">
-        <div v-if="ann_idx != null" class="zone-text">
-            <b>{{ anns[ann_idx]._filename }}</b><br>
-            {{ anns[ann_idx].text.length }} chars<br>
-            {{ anns[ann_idx].tags.length }} tags
+
+        <div v-if="dtd == null"
+            title="Load the schema for annotation task first">
+            <i class="fa fa-arrow-left"></i>
+            Load schema file first
         </div>
-        <div v-else-if="dtd != null"
+        <div v-else-if="virtual_anns.v_anns.length == 0" 
             title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
             class="zone-text">
             Drop <b>Annotation</b> <br>
             File(s) / Folder Here
         </div>
+        <div v-else-if="ann_idx == null"
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            Select <b>Annotation File</b> <br>
+            in the File List
+        </div>
         <div v-else
-            title="Load the schema for annotation task first">
-            <i class="fa fa-arrow-left"></i>
-            Load schema file first
+            title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
+            class="zone-text">
+            <b>{{ anns[ann_idx]._filename }}</b><br>
+            {{ anns[ann_idx].text.length }} chars<br>
+            {{ anns[ann_idx].tags.length }} tags
         </div>
     </div>
 
     <span class="title">Annotation File (.xml)</span>
 </div>
+
 
 <div v-if="ann_idx != null"
     class="group">
