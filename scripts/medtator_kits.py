@@ -4,12 +4,9 @@ Annotation XML Kits
 This is for operating the annotation files
 '''
 
-from ast import For
 import os
 import argparse
-from xml.dom import minidom
 from xml.dom.minidom import parse
-
 
 def parse_xmls(path):
     '''
