@@ -2917,8 +2917,8 @@ var app_hotpot = {
     },
 
     update_ann_sentences: function(ann, skip_existed) {
-        if (typeof(force_update) == 'undefined') {
-            force_update = false;
+        if (typeof(skip_existed) == 'undefined') {
+            skip_existed = true;
         }
 
         if (ann._sentences_text != '') {

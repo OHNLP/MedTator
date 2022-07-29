@@ -67,7 +67,7 @@ Object.assign(app_hotpot, {
 
         } else if (this.vpp.$data.cm.display_mode == 'sentences') {
             // update the sentences if not available
-            if (ann._sentences == '') {
+            if (ann._sentences_text == '') {
                 ann = app_hotpot.update_ann_sentences(ann);
             }
             this.codemirror.setValue(

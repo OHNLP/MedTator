@@ -1195,6 +1195,57 @@ var nlp_toolkit = {
             parseInt(ps[0]),
             parseInt(ps[1])
         ]
+    },
+
+    /**
+     * Get the sentence offset of a given spans in document's sentences
+     * 
+     * @param {string} spans offsets in a document, like 123~124
+     * @param {list} sentences a list of `sentence` {spans: {start:, end:}, text:''}
+     * @returns a list of possible locations
+     */
+    get_sen_span: function(spans, sentences) {
+        var locs = ann_parser.spans2locs(spans);
+
+        // the ret is a list of results
+        var ret = [];
+
+        for (let k = 0; k < locs.length; k++) {
+            // const _span = spans[k];
+            // const span = nlp_toolkit.txt2span(_span);
+            const loc = locs[k];
+            if (loc[0] == -1 || loc[1] == -1) {
+                // which means this tag is just a non-consuming tag
+                // at present, we won't use this kind of tag 
+                continue;
+            }
+
+            // find the offset in a sentence
+            var loc0 = this.find_linech(
+                loc[0], 
+                sentences
+            );
+            if (loc0 == null) {
+                // something wrong?
+                continue;
+            }
+            // find the location for the right part
+            // var loc1 = this.find_linech(span[1], ann._sentences);
+            var loc1 = Object.assign({}, loc0);
+            loc1.ch += (loc[1] - loc[0]);
+
+            // create a new row/item in the output data
+            ret.push({
+                doc_span: loc,
+                sen_span: [
+                    loc0.ch,
+                    loc1.ch
+                ],
+                sentence: sentences[loc0.line].text
+            });
+        }
+
+        return ret;
     }
 
 };

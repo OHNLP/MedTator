@@ -1799,5 +1799,148 @@ var iaa_calculator = {
 
         return str1.substr(index-max + 1, max)
     },
+
+
+    /**
+     * Get the error tags (FP, FN) for error analysis
+     * 
+     * @param {Object} iaa_dict the dict for IAA results
+     */
+    get_iaa_error_tags: function(iaa_dict, dtd) {
+        // the final results
+        var tags = [];
+        var doc_dict = {};
+
+        // we only check the fp and fn tags
+        var cms = ['fp', 'fn'];
+
+        // check each ann
+        for (const fnhash in iaa_dict.ann) {
+            var ann_rst = iaa_dict.ann[fnhash];
+
+            // now need to check each tag in this ann_rst
+            for (let i = 0; i < dtd.etags.length; i++) {
+                var etag = dtd.etags[i];
+                
+                // now need to check each cm
+                for (let j = 0; j < cms.length; j++) {
+                    var cm = cms[j];
+                    // get the index for the cm tags
+                    // for fp, use 0
+                    // for fn, use 1
+                    var idx = {'fp': 0, 'fn': 1}[cm];
+
+                    // now need to check each item in this
+                    var cm_tags = ann_rst.rst.tag[etag.name].cm.tags[cm];
+
+                    for (let k = 0; k < cm_tags.length; k++) {
+                        // ok, put each tag to the js
+                        var cm_tag = cm_tags[k];
+                        
+                        for (let anter_idx = 0; anter_idx < 2; anter_idx++) {
+                            if (cm_tag[anter_idx] == null) {
+                                // no such tag, skip
+                                continue
+                            }
+                            // where the tags comes from depends on
+                            // the index, which is coded in the parsing iaa
+                            var src = {0: 'A', 1: 'B'}[anter_idx];
+
+                            // add this tag to final list
+                            // create a text for generating uid
+                            var uid_text = 'UID-' +
+                                ann_rst.anns[idx]._filename + "|" +
+                                etag.name + "|" + 
+                                cm + "|" +
+                                cm_tag[anter_idx].id + "|" +
+                                cm_tag[anter_idx].spans + "|" +
+                                cm_tag[anter_idx].text;
+                            var uid = this.hash(uid_text);
+
+                            // this ann may not have sentences
+                            iaa_dict.ann[fnhash].anns[idx] = this._update_ann_sentences(
+                                iaa_dict.ann[fnhash].anns[idx]
+                            );
+                            // get the sentence of this tag
+                            // and calc the spans of this tags in this sentence
+                            var sen_spans = nlp_toolkit.get_sen_span(
+                                cm_tag[anter_idx].spans,
+                                ann_rst.anns[idx]._sentences
+                            );
+
+                            if (sen_spans.length>1) {
+                                console.log('* !!! multi-loc spans found??', sen_spans);
+                            }
+
+                            // create a base json to hold everything
+                            var json = {
+                                'uid': uid,
+                                'id': cm_tag[anter_idx].id,
+                                'spans': cm_tag[anter_idx].spans,
+                                'sentence': sen_spans[0].sentence,
+                                'sentence_spans': 
+                                    sen_spans[0].sen_span[0] + '~' +
+                                    sen_spans[0].sen_span[1],
+                                'tag': etag.name,
+                                'text': cm_tag[anter_idx].text,
+                                'file_name': ann_rst.anns[idx]._filename,
+                                '_annotator': src,
+                                '_judgement': cm.toUpperCase(),
+                            };
+
+                            // next need to put all attributes to this
+                            // this depends on the schema
+                            for (let att_idx = 0; att_idx < etag.attrs.length; att_idx++) {
+                                const etag_att = etag.attrs[att_idx];
+
+                                // the attribute name should be the same
+                                var col_att_key = etag_att.name;
+                                var col_att_val = cm_tag[anter_idx][etag_att.name];
+
+                                // then put this two columns to the json
+                                json[col_att_key] = col_att_val;
+                            }
+
+                            // put to tags
+                            tags.push(json);
+
+                            // put doc to docs
+                            if (!doc_dict.hasOwnProperty(ann_rst.anns[idx]._filename)) {
+                                // just put the text of this file in doc dictionary
+                                doc_dict[ann_rst.anns[idx]._filename] = ann_rst.anns[idx].text;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // ok, let's create return
+        var ret = {
+            tags: tags,
+            docs: doc_dict
+        };
+
+        return ret;
+    },
+
+    /**
+     * (internal) Update the ann's sentences
+     * 
+     * @param {Object} ann ann object
+     * @returns updated ann
+     */
+    _update_ann_sentences: function(ann) {
+        if (ann._sentences_text != '') {
+            // if has updated, just skip
+            return ann;
+        }
+        var r = nlp_toolkit.sent_tokenize(ann.text);
+        ann._sentences = r.sentences;
+        ann._sentences_text = r.sentences_text;
+
+        console.log('* updated sentences for ann', ann._filename);
+        return ann;
+    },
     
 };
