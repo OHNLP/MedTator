@@ -108,7 +108,12 @@ var error_analyzer = {
 
         // stat by relations
         var stat_by_rel = {
-            
+            // column 1: error 
+            c_error: { FP: { 'UNK': [] }, FN: { 'UNK': [] } },
+            // column 2: error category
+            c_category: { 'UNK': { 'UNK': [] }},
+            // column 3: error type
+            c_type: { 'UNK': {} }
         };
 
         // check each tag
@@ -134,18 +139,122 @@ var error_analyzer = {
                         };
                     }
                     stat_by_err[err.type][err._judgement].push(uid);
+
+                    // update the relationship
+                    // col 1-2
+                    if (!stat_by_rel.c_error[err._judgement].hasOwnProperty(err.category)) {
+                        // init it as a list
+                        stat_by_rel.c_error[err._judgement][err.category] = {};
+                    }
+                    stat_by_rel.c_error[err._judgement][err.category].push(uid);
+
+                    // col 2-3
+                    if (!stat_by_rel.c_category.hasOwnProperty(err.category)) {
+                        // init it as a obj
+                        stat_by_rel.c_category[err.category] = {};
+                    }
+                    if (!stat_by_rel.c_category[err.category].hasOwnProperty(err.type)) {
+                        // init it as a list
+                        stat_by_rel.c_category[err.category][err.type] = [];
+                    }
+                    stat_by_rel.c_category[err.category][err.type].push(uid);
+
+                    // col 3-4
+                    if (!stat_by_rel.c_type.hasOwnProperty(err.type)) {
+                        // init it as a obj
+                        stat_by_rel.c_type[err.type] = {};
+                    }
+                    if (!stat_by_rel.c_type[err.type].hasOwnProperty(err.tag)) {
+                        // init it as a list
+                        stat_by_rel.c_type[err.type][err.tag] = [];
+                    }
+                    stat_by_rel.c_type[err.type][err.tag].push(uid);
+
                 }
             } else {
                 // oh, this err doesn't have any information
                 // just send to UNK
                 stat_by_err['UNK'][err._judgement].push(uid);
+
+                // update the relationship
+                // col 1
+                stat_by_rel.c_error[err._judgement].UNK.push(uid);
+                // col 2
+                stat_by_rel.c_category.UNK.UNK.push(uid);
+                // col 3
+                if (!stat_by_rel.c_type.UNK.hasOwnProperty(err.tag)) {
+                    // init it as a list
+                    stat_by_rel.c_type.UNK[err.tag] = [];
+                }
+                stat_by_rel.c_type.UNK[err.tag].push(uid);
             }
         }
 
         // build a ret object
         var ret = {
             by_dtd: stat_by_dtd,
-            by_err: stat_by_err
+            by_err: stat_by_err,
+            by_rel: stat_by_rel
+        };
+
+        return ret;
+    },
+
+    get_sankey_data: function(stat_by_rel) {
+        var nodes = {};
+        var links = [];
+
+        // build col 1
+        var cols = ['c_error', 'c_category', 'c_type'];
+        for (let i = 0; i < cols.length; i++) {
+            const col = cols[i];
+            for (const nLeft in stat_by_rel[col]) {
+                for (const nRight in stat_by_rel[col][nLeft]) {
+                    var uids = stat_by_rel[col][nLeft][nRight];
+    
+                    // update the left node
+                    if (!nodes.hasOwnProperty(nLeft)) {
+                        // add this node
+                        nodes[nLeft] = {
+                            id: nLeft,
+                            name: nLeft,
+                            value: 0,
+                            layer: i,
+                        }
+                    }
+                    // update node value
+                    nodes[nLeft].value += uids.length;
+    
+                    // update the right node
+                    if (!nodes.hasOwnProperty(nRight)) {
+                        // add this node
+                        nodes[nRight] = {
+                            id: nRight,
+                            name: nRight,
+                            value: 0,
+                            layer: i + 1
+                        }
+                    }
+                    // update the right node
+                    nodes[nRight].value += uids.length;
+                    
+                    // update the link
+                    links.push({
+                        source: nLeft,
+                        target: nRight,
+                        value: uids.length,
+                        column: i
+                    });
+                }
+            }
+        }
+        
+        // convert nodes to node list
+        nodes = Object.values(nodes);
+
+        var ret = {
+            nodes: nodes,
+            links: links,
         };
 
         return ret;
