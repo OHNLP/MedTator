@@ -21,7 +21,7 @@ v-bind:class="{'active': section=='iaa'}">
     <div id="dropzone_iaa_0"
         v-on:dragover="on_dragover_prevent_default"
         v-on:drop="on_drop_dropzone_iaa($event, 0)"
-        class="dropzone-iaa"
+        class="dropzone-menu-box"
         iaa_id="0">
         <div v-if="dtd == null" 
             class="zone-text">
@@ -69,7 +69,7 @@ v-bind:class="{'active': section=='iaa'}">
     <div id="dropzone_iaa_1" 
         v-on:dragover="on_dragover_prevent_default"
         v-on:drop="on_drop_dropzone_iaa($event, 1)"
-        class="dropzone-iaa"
+        class="dropzone-menu-box"
         iaa_id="1">
         <div v-if="dtd == null" class="zone-text">
             Load DTD file first<br>

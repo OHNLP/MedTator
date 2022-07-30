@@ -200,6 +200,12 @@ var error_analyzer = {
         return ret;
     },
 
+    /**
+     * Get the Sankey Diagram Data
+     * 
+     * @param {Object} stat_by_rel statistics on the relationship
+     * @returns sankey data object
+     */
     get_sankey_data: function(stat_by_rel) {
         var nodes = {};
         var links = [];

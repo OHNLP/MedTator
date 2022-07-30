@@ -339,7 +339,7 @@ input[type=range]:focus::-ms-fill-upper {
     border: 1px dotted rgb(17, 61, 110);
     border-radius: 4px;
 }
-.dropzone-iaa {
+.dropzone-menu-box {
     width: 166px;
     height: 60px;
     line-height: 60px;

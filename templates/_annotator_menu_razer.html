@@ -1,0 +1,121 @@
+<div class="section" id="section-1-3"
+v-bind:class="{'active': section=='razer'}">
+
+<div class="group">
+
+    <div id="dropzone_razer_0"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_razer($event, 0)"
+        title="The Gold Standard Corpus"
+        class="dropzone-menu-box">
+        <div v-if="dtd == null" 
+            class="zone-text">
+            Load DTD file first<br>
+            in the Annotation Tab
+        </div>
+        <div v-else-if="razer_loading_status == 0" 
+            class="zone-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Reading File ...
+        </div>
+        <div v-else-if="razer_ann_list[0].anns.length == 0" 
+            class="zone-text">
+            Drop Corpus <br>
+            File(s) / Folder
+        </div>
+        <div v-else 
+            class="zone-text">
+            {{ count_tags_in_anns(razer_ann_list[0].anns) }} Tags
+            <br>
+            in {{ razer_ann_list[0].anns.length }} Files
+        </div>
+
+    </div>
+
+    <span class="title">
+        Gold Standard Corpus
+    </span>
+
+</div>
+
+
+<div class="group">
+
+    <div id="dropzone_razer_1"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_razer($event, 1)"
+        title="The dataset for error analysis"
+        class="dropzone-menu-box">
+        <div v-if="dtd == null" 
+            class="zone-text">
+            Load DTD file first<br>
+            in the Annotation Tab
+        </div>
+        <div v-else-if="razer_loading_status == 0" 
+            class="zone-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Reading File ...
+        </div>
+        <div v-else-if="razer_ann_list[1].anns.length == 0" 
+            class="zone-text">
+            Drop Corpus <br>
+            File(s) / Folder
+        </div>
+        <div v-else 
+            class="zone-text">
+            {{ count_tags_in_anns(razer_ann_list[1].anns) }} Tags
+            <br>
+            in {{ razer_ann_list[1].anns.length }} Files
+        </div>
+
+    </div>
+
+    <span class="title">
+        Dataset
+    </span>
+
+</div>
+
+<div class="group">
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_ann_list[0].anns.length == 0 || razer_ann_list[1].anns.length == 0"
+        title="Analyze the given dataset"
+        v-on:click="razer_analyze">
+        <span class="icon">
+            <i class="fas fa-cash-register"></i>
+        </span>
+        <span class="caption">Analyze</span>
+    </button>
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Download current analysis result report"
+        v-on:click="razer_export_report">
+        <span class="icon">
+            <i class="fa fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Report</span>
+    </button>
+
+    <span class="title">Error Analysis</span>
+
+
+</div>
+
+
+<div class="group">
+    <button class="ribbon-button"
+        title="Clear all datasets"
+        v-on:click="">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
+
+    <span class="title">&nbsp;</span>
+</div>
+
+</div>

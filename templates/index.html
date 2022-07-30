@@ -59,6 +59,7 @@
                     Annotation
                 </a>
             </li>
+
             <li v-on:click="switch_mui('statistics')"
                 v-bind:class="{'active': section=='statistics'}">
                 <a href="#section-1-5">
@@ -66,6 +67,7 @@
                     Statistics
                 </a>
             </li>
+
             <li v-on:click="switch_mui('ruleset')"
                 v-bind:class="{'active': section=='ruleset'}">
                 <a href="#section-1-4">
@@ -73,11 +75,20 @@
                     Export
                 </a>
             </li>
+
             <li v-on:click="switch_mui('iaa')"
                 v-bind:class="{'active': section=='iaa'}">
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
                     Adjudication
+                </a>
+            </li>
+
+            <li v-on:click="switch_mui('razer')"
+                v-bind:class="{'active': section=='razer'}">
+                <a href="#section-1-3">
+                    <i class="fas fa-car-crash"></i>
+                    Error Analysis
                 </a>
             </li>
 
@@ -101,6 +112,8 @@
             {% include '_annotator_menu_ruleset.html' %}
 
             {% include '_annotator_menu_iaa.html' %}
+
+            {% include '_annotator_menu_razer.html' %}
 
         </div>
 
@@ -141,6 +154,9 @@
 
     <!-- the ui for iaa -->
     {% include '_annotator_mui_iaa.html' %}
+
+    <!-- the ui for error analysis -->
+    {% include '_annotator_mui_razer.html' %}
     
     <!-- the ui for statistics -->
     {% include '_annotator_mui_statistics.html' %}
@@ -498,6 +514,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // extend the App with IAA
 {% include 'js/app_hotpot_ext_iaa.js' %}
+
+// extend the App with error analysis
+{% include 'js/app_hotpot_ext_razer.js' %}
 
 // extend the App with converter
 {% include 'js/app_hotpot_ext_converter.js' %}

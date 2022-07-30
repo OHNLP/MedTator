@@ -19,13 +19,6 @@
                 Cohen's Kappa
             </a>
         </li>
-        <li v-on:click="iaa_display_measure = 'error_analysis'"
-            :class="{active: iaa_display_measure == 'error_analysis'}">
-            <a href="javascript:void(0);">
-                <i class="fas fa-car-crash mr-1"></i>
-                Error Analysis
-            </a>
-        </li>
     </ul>
 
 
@@ -56,12 +49,6 @@
         </div>
     </div>
 
-
-
-    <div v-if="iaa_display_measure == 'error_analysis'"
-        class="w-100 d-flex flex-row" style="height: calc(100% - 30px);">
-        {% include '_annotator_mui_iaa_error_analysis.html' %}
-    </div>
 
     
 </div>
