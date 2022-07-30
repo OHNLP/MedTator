@@ -439,6 +439,8 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['XLSX_JS_STYLE']['JS'] ]]"></script>
 <!-- d3 for data visualization -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['D3']['JS'] ]]"></script>
+<!-- d3-sankey for data visualization -->
+<script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['D3']['JS_SANKEY'] ]]"></script>
 <!-- dump/parse YAML library -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['JS_YAML']['JS'] ]]"></script>
 <script>
@@ -472,6 +474,12 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // The MedTagger toolkit
 {% include 'js/medtagger_toolkit.js' %}
+
+// The Error Analyzer
+{% include 'js/error_analyzer.js' %}
+
+// The Sankey Diagram based on D3.js
+{% include 'js/fig_sankey.js' %}
 
 // The Vue App
 {% include 'js/app_hotpot.js' %}

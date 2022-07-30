@@ -734,11 +734,6 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     count_tags_in_anns: function(anns) {
-        var cnt = 0;
-        for (let i = 0; i < anns.length; i++) {
-            const ann = anns[i];
-            cnt += ann.tags.length;
-        }
-        return cnt;
+        return iaa_calculator.count_tags_in_anns(anns);
     },
 });

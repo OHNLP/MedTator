@@ -1808,7 +1808,7 @@ var iaa_calculator = {
      */
     get_iaa_error_tags: function(iaa_dict, dtd) {
         // the final results
-        var tags = [];
+        var err_dict = {};
         var doc_dict = {};
 
         // we only check the fp and fn tags
@@ -1902,7 +1902,7 @@ var iaa_calculator = {
                             }
 
                             // put to tags
-                            tags.push(json);
+                            err_dict[json.uid] = json;
 
                             // put doc to docs
                             if (!doc_dict.hasOwnProperty(ann_rst.anns[idx]._filename)) {
@@ -1917,8 +1917,8 @@ var iaa_calculator = {
 
         // ok, let's create return
         var ret = {
-            tags: tags,
-            docs: doc_dict
+            err_dict: err_dict,
+            doc_dict: doc_dict
         };
 
         return ret;
@@ -1941,6 +1941,15 @@ var iaa_calculator = {
 
         console.log('* updated sentences for ann', ann._filename);
         return ann;
+    },
+
+    count_tags_in_anns: function(anns) {
+        var cnt = 0;
+        for (let i = 0; i < anns.length; i++) {
+            const ann = anns[i];
+            cnt += ann.tags.length;
+        }
+        return cnt;
     },
     
 };

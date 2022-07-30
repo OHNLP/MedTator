@@ -36,9 +36,37 @@ def fake_error_analysis(data):
     Please implement a real error analysis instead
     '''
     import random
-    err_cates = {
-        'FP': ['Homonym', 'Hypothetical', 'Negative', 'Ambiguous Context', 'Other'],
-        'FN': ['Human Error', 'Rare Expression', 'Complex Sentence Structure', 'Negation', 'Other']
+    err_cate_types = {
+        "Liguistic": [
+            "Lexicon",
+            "Orthographic",
+            "Morphologic",
+            "Syntactic",
+            "Semantic",
+        ], 
+        "Contextual": [
+            "Section",
+            "Certainty",
+            "Status",
+            "Temporality",
+            "Subject",
+            "Absence of Context",
+            "Exclusion",
+        ], 
+        "Logic": [
+            "Pattern and Rule",
+        ], 
+        "Annotation": [
+            "Missing Annotation",
+            "Insufficent Context",
+            "Extrapolation of Evidence",
+            "Non-defined Concept",
+        ],
+        "Concept Definition": [
+            "Ambiguity",
+            "Source Evidence",
+            "Change of Status",
+        ]
     }
 
     # just a shortcut
@@ -47,11 +75,43 @@ def fake_error_analysis(data):
 
     # save the ret
     ret = []
+    errors = []
+
+    # just for remove duplicates
+    error_set = []
+
+    # get a random count of errors, most of time only 1 error
+    n_errors = random.choice([
+        # very rare
+        3, 
+        # rare
+        2, 2, 2, 
+        # not rare
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+    ])
+
+    for i in range(n_errors):
+
+        # just for finding a non-used error
+        while(True):
+            err_cate = random.choice(list(err_cate_types.keys()))
+            err_type = random.choice(err_cate_types[err_cate])
+            err_str = err_cate + err_type
+            if err_str in error_set:
+                continue
+
+            error_set.append(err_str)
+            break
+
+        errors.append({
+            "category": err_cate,
+            "type": err_type,
+        })
+
     for tag in tags:
         r = {
             'uid': tag['uid'],
-            "error_type": tag['_judgement'],
-            "error_category": random.choice(err_cates[tag['_judgement']]),
+            "errors": errors
         }
         ret.append(r)
 
@@ -79,13 +139,13 @@ PAGE_EVA_TAGS = """<html>
         "uid": "8x9iju7xs2",        
         "id": "AE1",                
         "spans": "82~87",           
+        "sentence": "I went to go check on her and she stated that she felt as though she was going to faint.",
         "sentence_spans": "82~87",  
         "tag": "AE",                
         "text": "faint",            
         "certainty": "Positive",    
         "comment": "Are you sure?", 
-        "raw_text_file_name": "12345.txt",
-        "sentence": "I went to go check on her and she stated that she felt as though she was going to faint.",
+        "_filename": "12345.txt",
         "_annotator": "B",
         "_judgement": "FP" 
     }],
