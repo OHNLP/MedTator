@@ -1539,3 +1539,36 @@ ol[class], ul[class] {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.8em;
 }
+.razer-hbar {
+    width: 100%;
+    margin-bottom: 2px;
+}
+.razer-hbar-label {
+    margin-right: 5px;
+    width: 100px;
+    min-width: 100px;
+    height: 1.2em;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.razer-hbar-bar-box {
+    width: 110px;
+    min-width: 110px;
+    display: flex;
+    flex-direction: row;
+}
+.razer-hbar-bar {
+    height: 1.3em;
+}
+.razer-hbar-bar-FP {
+    background-color: #F98686;
+}
+.razer-hbar-bar-FN {
+    background-color: #56B3F6;
+}
+.razer-hbar-bar-num {
+    font-size: 0.8em;
+    margin-left: 2px;
+}

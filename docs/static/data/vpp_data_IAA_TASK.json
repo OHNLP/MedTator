@@ -1,5 +1,5 @@
 {
-    "section": "iaa",
+    "section": "razer",
     "dtd": {
         "name": "VAX_AE_MED",
         "etags": [
@@ -1675,7 +1675,7 @@
             ]
         }
     },
-    "ann_idx": 0,
+    "ann_idx": null,
     "anns": [
         {
             "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
@@ -1778,6 +1778,66 @@
             "_sentences_text": ""
         },
         {
+            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
+            "dtd_name": "VAX_AE_MED",
+            "tags": [
+                {
+                    "tag": "HEADACHE",
+                    "spans": "129~137",
+                    "text": "headache",
+                    "id": "H0",
+                    "comment": "",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "248~254",
+                    "text": "Nausea",
+                    "id": "O0",
+                    "comment": "should be another AE",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "PAIN",
+                    "spans": "256~267",
+                    "text": "Body aching",
+                    "id": "P0",
+                    "comment": "",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "FATIGUE",
+                    "spans": "552~559",
+                    "text": "fatigue",
+                    "id": "F0",
+                    "comment": "",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "566~574",
+                    "text": "diarrhea",
+                    "id": "O1",
+                    "comment": "",
+                    "certainty": "Positive"
+                },
+                {
+                    "tag": "OTHER_AE",
+                    "spans": "576~587",
+                    "text": "dehydration",
+                    "id": "O2",
+                    "comment": "",
+                    "certainty": "Positive"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "A_doc_3.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
             "text": "running a fever; This is a spontaneous report from a contactable consumer (patient's mother). A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization. The patient's medical history and concomitant medications were not reported. The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021. The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning. The fever was mostly in the morning and at night around 7-8 pm. Fever in the morning lasts until 10 -11 am. The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM. The mother wanted to know if this was a typical response to the vaccine (i.e. the duration of the fever). The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol. The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine. The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate. However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider. The outcome of the event was not recovered.  Information about the lot/batch number has been requested.",
             "dtd_name": "VAX_AE_MED",
             "tags": [
@@ -1850,66 +1910,6 @@
             "meta": {},
             "_fh": {},
             "_filename": "A_doc_2.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
-            "dtd_name": "VAX_AE_MED",
-            "tags": [
-                {
-                    "tag": "HEADACHE",
-                    "spans": "129~137",
-                    "text": "headache",
-                    "id": "H0",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "OTHER_AE",
-                    "spans": "248~254",
-                    "text": "Nausea",
-                    "id": "O0",
-                    "comment": "should be another AE",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "PAIN",
-                    "spans": "256~267",
-                    "text": "Body aching",
-                    "id": "P0",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "FATIGUE",
-                    "spans": "552~559",
-                    "text": "fatigue",
-                    "id": "F0",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "OTHER_AE",
-                    "spans": "566~574",
-                    "text": "diarrhea",
-                    "id": "O1",
-                    "comment": "",
-                    "certainty": "Positive"
-                },
-                {
-                    "tag": "OTHER_AE",
-                    "spans": "576~587",
-                    "text": "dehydration",
-                    "id": "O2",
-                    "comment": "",
-                    "certainty": "Positive"
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "A_doc_3.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -2033,7 +2033,7 @@
             "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.8728362764288304,
+    "mn4anns": 0.9464051911391482,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -2051,68 +2051,35 @@
     "stat_filter_token_text": true,
     "hints": [
         {
-            "id": "hint-PYREXIA-0-2",
-            "tag": "PYREXIA",
-            "text": "feverish",
-            "spans": "1276~1284"
-        },
-        {
-            "id": "hint-OTHER_AE-0-1",
+            "id": "hint-OTHER_AE-12-0",
             "tag": "OTHER_AE",
-            "text": "Soreness",
-            "spans": "1119~1127"
+            "text": "chills",
+            "spans": "441~447"
         },
         {
-            "id": "hint-OTHER_AE-0-2",
+            "id": "hint-OTHER_AE-16-1",
             "tag": "OTHER_AE",
-            "text": "Soreness",
-            "spans": "1308~1316"
-        },
-        {
-            "id": "hint-OTHER_AE-1-1",
-            "tag": "OTHER_AE",
-            "text": "tenderness",
-            "spans": "1132~1142"
-        },
-        {
-            "id": "hint-OTHER_AE-1-2",
-            "tag": "OTHER_AE",
-            "text": "tenderness",
-            "spans": "1321~1331"
-        },
-        {
-            "id": "hint-VAX-0-1",
-            "tag": "VAX",
-            "text": "BNT162B2",
-            "spans": "423~431"
-        },
-        {
-            "id": "hint-VAX-1-0",
-            "tag": "VAX",
-            "text": "expiry",
-            "spans": "273~279"
-        },
-        {
-            "id": "hint-VAX-1-1",
-            "tag": "VAX",
-            "text": "expiry",
-            "spans": "464~470"
+            "text": "infection",
+            "spans": "406~415"
         }
     ],
     "hint_dict": {
         "PYREXIA": {
             "text_dict": {
                 "feverish": {
-                    "count": 2,
+                    "count": 7,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 2
+                        "A_doc_1.txt.xml": 4,
+                        "sys_doc_1.txt.xml": 3
                     },
                     "_is_shown": false
                 },
                 "fever": {
-                    "count": 2,
+                    "count": 13,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 2
+                        "A_doc_2.txt.xml": 4,
+                        "sys_doc_2.txt.xml": 6,
+                        "sys_doc_5.txt.xml": 3
                     },
                     "_is_shown": false
                 }
@@ -2130,72 +2097,132 @@
         "OTHER_AE": {
             "text_dict": {
                 "Soreness": {
-                    "count": 1,
+                    "count": 5,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 3
                     },
                     "_is_shown": false
                 },
                 "tenderness": {
-                    "count": 1,
+                    "count": 5,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 3
                     },
                     "_is_shown": false
                 },
                 "Nausea": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "diarrhea": {
-                    "count": 1,
+                    "count": 7,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 2,
+                        "sys_doc_3.txt.xml": 5
                     },
                     "_is_shown": false
                 },
                 "dehydration": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 2,
+                        "sys_doc_3.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "anxiety": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "nervousness": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "not feeling well": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "unresponsive completely": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "faint": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc_4.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "thirst": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "sys_doc_3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "shivering": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "chills": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Night sweats": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "face was very red": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "eyes were bulging slightly": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "infection": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "vigilant": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2215,23 +2242,46 @@
                 "nervousness",
                 "not feeling well",
                 "unresponsive completely",
-                "faint"
+                "faint",
+                "thirst",
+                "shivering",
+                "chills",
+                "Night sweats",
+                "face was very red",
+                "eyes were bulging slightly",
+                "infection",
+                "vigilant"
             ]
         },
         "VAX": {
             "text_dict": {
                 "BNT162B2": {
-                    "count": 2,
+                    "count": 6,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1,
-                        "A_doc_2.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "A_doc_2.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "expiry": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc_2.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "PFIZER": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 1
+                        "sys_doc_1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "EL1284": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2243,92 +2293,163 @@
             },
             "texts": [
                 "BNT162B2",
-                "expiry"
+                "expiry",
+                "PFIZER",
+                "EL1284"
             ]
         },
         "MEDICATION": {
             "text_dict": {
                 "cetirizine hydrochloride": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "atorvastatin": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "levothyroxine": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "tamiflu": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Motrin": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Therapeutic": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_1.txt.xml": 1
+                        "A_doc_1.txt.xml": 2,
+                        "sys_doc_1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Tylenol": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 1
+                        "A_doc_2.txt.xml": 2,
+                        "sys_doc_2.txt.xml": 1,
+                        "sys_doc_3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "ibuprofen": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 1
+                        "A_doc_2.txt.xml": 2,
+                        "sys_doc_2.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Antipyretic": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 1
+                        "A_doc_2.txt.xml": 2,
+                        "sys_doc_2.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "acetaminophen": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_2.txt.xml": 1
+                        "A_doc_2.txt.xml": 2,
+                        "sys_doc_2.txt.xml": 1,
+                        "sys_doc_5.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "EpiPen": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2,
+                        "sys_doc_4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "ice pack": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "A_doc_4.txt.xml": 2,
+                        "sys_doc_4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "ZYRTEC": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "sys_doc_1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "analgesic": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_2.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "non-steroidal anti-inflammatory drugs": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_2.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "single dose": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_2.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "antipyretics": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_2.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Advil": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "ice pack and water": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "water": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2350,7 +2471,15 @@
                 "Antipyretic",
                 "acetaminophen",
                 "EpiPen",
-                "ice pack"
+                "ice pack",
+                "ZYRTEC",
+                "analgesic",
+                "non-steroidal anti-inflammatory drugs",
+                "single dose",
+                "antipyretics",
+                "Advil",
+                "ice pack and water",
+                "water"
             ]
         },
         "TREATMENT": {
@@ -2365,10 +2494,19 @@
         "HEADACHE": {
             "text_dict": {
                 "headache": {
-                    "count": 2,
+                    "count": 8,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1,
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_3.txt.xml": 2,
+                        "A_doc_5.txt.xml": 2,
+                        "sys_doc_3.txt.xml": 2,
+                        "sys_doc_5.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "Migraine": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2379,29 +2517,38 @@
                 "_is_shown": false
             },
             "texts": [
-                "headache"
+                "headache",
+                "Migraine"
             ]
         },
         "PAIN": {
             "text_dict": {
                 "Body aching": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "A_doc_3.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "aches": {
-                    "count": 1,
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 2
                     },
                     "_is_shown": false
                 },
                 "muscle aches": {
-                    "count": 1,
+                    "count": 4,
                     "ann_fn_dict": {
-                        "A_doc_5.txt.xml": 1
+                        "A_doc_5.txt.xml": 2,
+                        "sys_doc_5.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "Body aches": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "sys_doc_3.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -2414,15 +2561,24 @@
             "texts": [
                 "Body aching",
                 "aches",
-                "muscle aches"
+                "muscle aches",
+                "Body aches"
             ]
         },
         "FATIGUE": {
             "text_dict": {
                 "fatigue": {
+                    "count": 4,
+                    "ann_fn_dict": {
+                        "A_doc_3.txt.xml": 2,
+                        "sys_doc_3.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "blank stare": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_3.txt.xml": 1
+                        "sys_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2433,22 +2589,32 @@
                 "_is_shown": false
             },
             "texts": [
-                "fatigue"
+                "fatigue",
+                "blank stare"
             ]
         },
         "DIZZINESS": {
             "text_dict": {
                 "dizzy": {
-                    "count": 1,
+                    "count": 3,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "A_doc_4.txt.xml": 2,
+                        "sys_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "lightheaded": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "A_doc_4.txt.xml": 2,
+                        "sys_doc_4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "mouth was slightly open": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc_4.txt.xml": 1
+                        "sys_doc_4.txt.xml": 1
                     },
                     "_is_shown": false
                 }
@@ -2460,7 +2626,27 @@
             },
             "texts": [
                 "dizzy",
-                "lightheaded"
+                "lightheaded",
+                "mouth was slightly open"
+            ]
+        },
+        "NAUSEA": {
+            "text_dict": {
+                "albeit milder": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "sys_doc_5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "albeit milder"
             ]
         }
     },
@@ -7852,6 +8038,1362 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
+    "razer_loading_status": null,
+    "razer_ann_list": [
+        {
+            "anns": [
+                {
+                    "text": "The fever broke this morning (1/10/21) so a rough estimate of the time course is 32 h. The fever was also reduced with acetaminophen. The headache still persists, albeit milder. The muscle aches resolved with the fever, so a time course for that would also be 32 h.  I recently had a COVID19 infection (symptom onset was 12/25/20), but had cleared my isolation date of 1/4/21. The symptoms from my COVID19 infection (headache, muscle aches, chills) had virtually resolved by 1/8/21 before I received the vaccine.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "138~146",
+                            "text": "headache",
+                            "id": "H0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "417~425",
+                            "text": "headache",
+                            "id": "H1",
+                            "certainty": "Negated",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "427~439",
+                            "text": "muscle aches",
+                            "id": "P0",
+                            "certainty": "Positive",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "189~194",
+                            "text": "aches",
+                            "id": "P1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "182~194",
+                            "text": "muscle aches",
+                            "id": "P2",
+                            "certainty": "Negated",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "4~9",
+                            "text": "fever",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "91~96",
+                            "text": "fever",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "G__doc_5.txt.xml_5.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "129~137",
+                            "text": "headache",
+                            "id": "H0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "361~369",
+                            "text": "headache",
+                            "id": "H1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "341~349",
+                            "text": "headache",
+                            "id": "H2",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "256~267",
+                            "text": "Body aching",
+                            "id": "P0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "371~381",
+                            "text": "Body aches",
+                            "id": "P1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "505~515",
+                            "text": "Body aches",
+                            "id": "P2",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "FATIGUE",
+                            "spans": "552~559",
+                            "text": "fatigue",
+                            "id": "F0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "FATIGUE",
+                            "spans": "383~390",
+                            "text": "fatigue",
+                            "id": "F1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "566~574",
+                            "text": "diarrhea",
+                            "id": "O0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "576~587",
+                            "text": "dehydration",
+                            "id": "O1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "248~254",
+                            "text": "Nausea",
+                            "id": "O2",
+                            "comment": "should be another AE",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "405~413",
+                            "text": "diarrhea",
+                            "id": "O3",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "418~429",
+                            "text": "dehydration",
+                            "id": "O4",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "708~716",
+                            "text": "diarrhea",
+                            "id": "O5",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "655~663",
+                            "text": "diarrhea",
+                            "id": "O6",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "751~759",
+                            "text": "diarrhea",
+                            "id": "O7",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "873~879",
+                            "text": "thirst",
+                            "id": "O8",
+                            "certainty": "Positive",
+                            "comment": "Maybe not?",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "318~325",
+                            "text": "Tylenol",
+                            "id": "M0",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "306~311",
+                            "text": "Advil",
+                            "id": "M1",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "479~484",
+                            "text": "Advil",
+                            "id": "M2",
+                            "comment": "",
+                            "_annotator": "B"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "G__doc_3.txt.xml_3.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "running a fever; This is a spontaneous report from a contactable consumer (patient's mother). A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization. The patient's medical history and concomitant medications were not reported. The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021. The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning. The fever was mostly in the morning and at night around 7-8 pm. Fever in the morning lasts until 10 -11 am. The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM. The mother wanted to know if this was a typical response to the vaccine (i.e. the duration of the fever). The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol. The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine. The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate. However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider. The outcome of the event was not recovered.  Information about the lot/batch number has been requested.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "VAX",
+                            "spans": "168~176",
+                            "text": "BNT162B2",
+                            "id": "V0",
+                            "comment": "",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "VAX",
+                            "spans": "251~257",
+                            "text": "expiry",
+                            "id": "V1",
+                            "comment": "",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1058~1063",
+                            "text": "fever",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "10~15",
+                            "text": "fever",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "837~842",
+                            "text": "fever",
+                            "id": "PY2",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "887~892",
+                            "text": "fever",
+                            "id": "PY3",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "743~748",
+                            "text": "fever",
+                            "id": "PY4",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "683~688",
+                            "text": "fever",
+                            "id": "PY5",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "595~600",
+                            "text": "fever",
+                            "id": "PY6",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1108~1115",
+                            "text": "Tylenol",
+                            "id": "M0",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1094~1103",
+                            "text": "ibuprofen",
+                            "id": "M1",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1299~1310",
+                            "text": "Antipyretic",
+                            "id": "M2",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1343~1356",
+                            "text": "acetaminophen",
+                            "id": "M3",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1314~1323",
+                            "text": "analgesic",
+                            "id": "M4",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1358~1395",
+                            "text": "non-steroidal anti-inflammatory drugs",
+                            "id": "M5",
+                            "comment": "",
+                            "_annotator": "B"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "G__doc_2.txt.xml_2.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine. Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded. The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well. I went to go check on her and she stated that she felt as though she was going to faint. I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety). I brought her the ice pack, she held it on her chest and head and said it felt nice. After about a minute I stepped out again to ask a technician to get a water for her. When I came back, the patient was still seated but had a blank stare and her mouth was slightly open. I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely. I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation). I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy. I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to. I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\". EMS arrived extremely fast and was there a few minutes after using the EpiPen. She was then taken by ambulance to the hospital. Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise. Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up. That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "DIZZINESS",
+                            "spans": "199~204",
+                            "text": "dizzy",
+                            "id": "D0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "DIZZINESS",
+                            "spans": "209~220",
+                            "text": "lightheaded",
+                            "id": "D1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "86~93",
+                            "text": "anxiety",
+                            "id": "O0",
+                            "comment": "It may not relate to adverse event, check later",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "94~105",
+                            "text": "nervousness",
+                            "id": "O1",
+                            "comment": "Not sure",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "306~322",
+                            "text": "not feeling well",
+                            "id": "O2",
+                            "comment": "Not sure",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "989~1012",
+                            "text": "unresponsive completely",
+                            "id": "O3",
+                            "comment": "check later",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "406~411",
+                            "text": "faint",
+                            "id": "O4",
+                            "comment": "may merge to dizzy",
+                            "certainty": "Positive",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1407~1424",
+                            "text": "face was very red",
+                            "id": "O5",
+                            "comment": "or red?",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1430~1456",
+                            "text": "eyes were bulging slightly",
+                            "id": "O6",
+                            "comment": "or just bulging?",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1568~1574",
+                            "text": "EpiPen",
+                            "id": "M0",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "470~478",
+                            "text": "ice pack",
+                            "id": "M1",
+                            "comment": "",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "470~488",
+                            "text": "ice pack and water",
+                            "id": "M2",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1143~1149",
+                            "text": "EpiPen",
+                            "id": "M3",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "643~651",
+                            "text": "ice pack",
+                            "id": "M4",
+                            "comment": "",
+                            "_annotator": "B"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "G__doc_4.txt.xml_4.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "VAX",
+                            "spans": "196~204",
+                            "text": "BNT162B2",
+                            "id": "V0",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "VAX",
+                            "spans": "423~431",
+                            "text": "BNT162B2",
+                            "id": "V1",
+                            "comment": "",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "7~15",
+                            "text": "feverish",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1087~1095",
+                            "text": "feverish",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1276~1284",
+                            "text": "feverish",
+                            "id": "PY2",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "39~47",
+                            "text": "Soreness",
+                            "id": "O0",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "52~62",
+                            "text": "tenderness",
+                            "id": "O1",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1119~1127",
+                            "text": "Soreness",
+                            "id": "O2",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1132~1142",
+                            "text": "tenderness",
+                            "id": "O3",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1308~1316",
+                            "text": "Soreness",
+                            "id": "O4",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1321~1331",
+                            "text": "tenderness",
+                            "id": "O5",
+                            "comment": "",
+                            "certainty": "Positive",
+                            "_annotator": "B"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "758~765",
+                            "text": "tamiflu",
+                            "id": "M0",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1201~1207",
+                            "text": "Motrin",
+                            "id": "M1",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1222~1233",
+                            "text": "Therapeutic",
+                            "id": "M2",
+                            "comment": "",
+                            "_annotator": "AB"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "666~690",
+                            "text": "cetirizine hydrochloride",
+                            "id": "M3",
+                            "comment": "",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "701~713",
+                            "text": "atorvastatin",
+                            "id": "M4",
+                            "comment": "",
+                            "_annotator": "A"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "715~728",
+                            "text": "levothyroxine",
+                            "id": "M5",
+                            "comment": "",
+                            "_annotator": "A"
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "G__doc_1.txt.xml_1.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                }
+            ],
+            "name": "Gold Standard Corpus"
+        },
+        {
+            "anns": [
+                {
+                    "text": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine. Patient was given her injection and within 1-2 minutes, she began feeling dizzy and lightheaded. The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well. I went to go check on her and she stated that she felt as though she was going to faint. I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety). I brought her the ice pack, she held it on her chest and head and said it felt nice. After about a minute I stepped out again to ask a technician to get a water for her. When I came back, the patient was still seated but had a blank stare and her mouth was slightly open. I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely. I immediately looked for the red emergency kit in the consultation room but did not see one (I later found out that there was an EpiPen on the table in the room, but I did not see it at the time due to the urgency of the situation). I rushed back into the pharmacy, told the technicians to call 911, and took an EpiPen off the shelf in the pharmacy. I ran back into the room and the patient's face was very red, her eyes were bulging slightly, and it looked like she was trying to reach her hand up or move it, but was unable to. I injected her with the EpiPen immediately, and within roughly 5 seconds she came back to consciousness and looked at me and said \"I'm sorry\". EMS arrived extremely fast and was there a few minutes after using the EpiPen. She was then taken by ambulance to the hospital. Patient had a friend, with her at the store who was scheduled to receive the vaccine as well, but after the incident she decided otherwise. Later that evening I gave patient's friend a phone call to check and see how patient was doing, and to also let her know that patient's vaccination card was at the pharmacy if she wanted to pick it up. That evening around 6:30-7pm, patient's husband came to the pharmacy to get her card, he updated us that she was being discharged from the hospital and that she was okay.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1143~1149",
+                            "text": "EpiPen",
+                            "id": "M0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "DIZZINESS",
+                            "spans": "199~204",
+                            "text": "dizzy",
+                            "id": "D0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "DIZZINESS",
+                            "spans": "209~220",
+                            "text": "lightheaded",
+                            "id": "D1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1407~1424",
+                            "text": "face was very red",
+                            "id": "O0",
+                            "comment": "or red?",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1430~1456",
+                            "text": "eyes were bulging slightly",
+                            "id": "O1",
+                            "comment": "or just bulging?",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1568~1574",
+                            "text": "EpiPen",
+                            "id": "M1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "TREATMENT",
+                            "id": "T0",
+                            "link_AE": "O0",
+                            "link_MED": "M1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "470~488",
+                            "text": "ice pack and water",
+                            "id": "M2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "643~651",
+                            "text": "ice pack",
+                            "id": "M3",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "780~785",
+                            "text": "water",
+                            "id": "M4",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "543~551",
+                            "text": "vigilant",
+                            "id": "O2",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "FATIGUE",
+                            "spans": "852~863",
+                            "text": "blank stare",
+                            "id": "F0",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "DIZZINESS",
+                            "spans": "872~895",
+                            "text": "mouth was slightly open",
+                            "id": "D2",
+                            "certainty": "Positive",
+                            "comment": ""
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "sys_doc_4.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "361~369",
+                            "text": "headache",
+                            "id": "H0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "371~381",
+                            "text": "Body aches",
+                            "id": "P0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "FATIGUE",
+                            "spans": "383~390",
+                            "text": "fatigue",
+                            "id": "F0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "405~413",
+                            "text": "diarrhea",
+                            "id": "O0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "418~429",
+                            "text": "dehydration",
+                            "id": "O1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "505~515",
+                            "text": "Body aches",
+                            "id": "P1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "708~716",
+                            "text": "diarrhea",
+                            "id": "O2",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "655~663",
+                            "text": "diarrhea",
+                            "id": "O3",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "751~759",
+                            "text": "diarrhea",
+                            "id": "O4",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "566~574",
+                            "text": "diarrhea",
+                            "id": "O5",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "FATIGUE",
+                            "spans": "552~559",
+                            "text": "fatigue",
+                            "id": "F1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "576~587",
+                            "text": "dehydration",
+                            "id": "O6",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "318~325",
+                            "text": "Tylenol",
+                            "id": "M0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "341~349",
+                            "text": "headache",
+                            "id": "H1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "306~311",
+                            "text": "Advil",
+                            "id": "M1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "479~484",
+                            "text": "Advil",
+                            "id": "M2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "873~879",
+                            "text": "thirst",
+                            "id": "O7",
+                            "certainty": "Positive",
+                            "comment": "Maybe not?"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "176~185",
+                            "text": "shivering",
+                            "id": "O8",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "392~398",
+                            "text": "chills",
+                            "id": "O9",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "590~602",
+                            "text": "Night sweats",
+                            "id": "O10",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "237~245",
+                            "text": "Migraine",
+                            "id": "H2",
+                            "certainty": "Positive",
+                            "comment": ""
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "sys_doc_3.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "running a fever; This is a spontaneous report from a contactable consumer (patient's mother). A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization. The patient's medical history and concomitant medications were not reported. The patient's mother stated that the patient got the second dose of the Covid-19 vaccine on Saturday, 09Jan2021. The patient has been running a fever since possibly Saturday night 09Jan2021, but definitely since Sunday morning. The fever was mostly in the morning and at night around 7-8 pm. Fever in the morning lasts until 10 -11 am. The mother added that today was the first day the fever has lasted all day, and the patient had the fever at 3PM. The mother wanted to know if this was a typical response to the vaccine (i.e. the duration of the fever). The mother was concerned about the duration of the fever and she has given the patient ibuprofen and Tylenol. The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine. The mother was responded per the interim guidelines, \"Antipyretic or analgesic medications (e.g., acetaminophen, non-steroidal anti-inflammatory drugs) may be taken for the treatment of post-vaccination local or systemic symptoms, if medically appropriate. However, routine prophylactic administration of these medications for the purpose of preventing post-vaccination symptoms is not currently recommended, as information on the impact of such use on Pfizer-BioNTech COVID-19 vaccine-induced antibody responses is not available at this time.\" The mother was told to discuss this with her healthcare provider. The outcome of the event was not recovered.  Information about the lot/batch number has been requested.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1108~1115",
+                            "text": "Tylenol",
+                            "id": "M0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1058~1063",
+                            "text": "fever",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1094~1103",
+                            "text": "ibuprofen",
+                            "id": "M1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "837~842",
+                            "text": "fever",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "887~892",
+                            "text": "fever",
+                            "id": "PY2",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "743~748",
+                            "text": "fever",
+                            "id": "PY3",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "683~688",
+                            "text": "fever",
+                            "id": "PY4",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "595~600",
+                            "text": "fever",
+                            "id": "PY5",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1299~1310",
+                            "text": "Antipyretic",
+                            "id": "M2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1314~1323",
+                            "text": "analgesic",
+                            "id": "M3",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1343~1356",
+                            "text": "acetaminophen",
+                            "id": "M4",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1358~1395",
+                            "text": "non-steroidal anti-inflammatory drugs",
+                            "id": "M5",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "334~345",
+                            "text": "single dose",
+                            "id": "M6",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1161~1173",
+                            "text": "antipyretics",
+                            "id": "M7",
+                            "comment": ""
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "sys_doc_2.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "The fever broke this morning (1/10/21) so a rough estimate of the time course is 32 h. The fever was also reduced with acetaminophen. The headache still persists, albeit milder. The muscle aches resolved with the fever, so a time course for that would also be 32 h.  I recently had a COVID19 infection (symptom onset was 12/25/20), but had cleared my isolation date of 1/4/21. The symptoms from my COVID19 infection (headache, muscle aches, chills) had virtually resolved by 1/8/21 before I received the vaccine.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "4~9",
+                            "text": "fever",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "91~96",
+                            "text": "fever",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "417~425",
+                            "text": "headache",
+                            "id": "H0",
+                            "certainty": "Negated",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "427~439",
+                            "text": "muscle aches",
+                            "id": "P0",
+                            "certainty": "Negated",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PAIN",
+                            "spans": "182~194",
+                            "text": "muscle aches",
+                            "id": "P1",
+                            "certainty": "Negated",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "213~218",
+                            "text": "fever",
+                            "id": "PY2",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "119~132",
+                            "text": "acetaminophen",
+                            "id": "M0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "HEADACHE",
+                            "spans": "138~146",
+                            "text": "headache",
+                            "id": "H1",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "292~301",
+                            "text": "infection",
+                            "id": "O0",
+                            "certainty": "Positive",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "NAUSEA",
+                            "spans": "163~176",
+                            "text": "albeit milder",
+                            "id": "N0",
+                            "certainty": "Positive",
+                            "comment": ""
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "sys_doc_5.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                },
+                {
+                    "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
+                    "dtd_name": "VAX_AE_MED",
+                    "tags": [
+                        {
+                            "tag": "VAX",
+                            "spans": "423~431",
+                            "text": "BNT162B2",
+                            "id": "V0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "VAX",
+                            "spans": "196~204",
+                            "text": "BNT162B2",
+                            "id": "V1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1087~1095",
+                            "text": "feverish",
+                            "id": "PY0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1119~1127",
+                            "text": "Soreness",
+                            "id": "O0",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1132~1142",
+                            "text": "tenderness",
+                            "id": "O1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1201~1207",
+                            "text": "Motrin",
+                            "id": "M0",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "1222~1233",
+                            "text": "Therapeutic",
+                            "id": "M1",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "1276~1284",
+                            "text": "feverish",
+                            "id": "PY1",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1308~1316",
+                            "text": "Soreness",
+                            "id": "O2",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "1321~1331",
+                            "text": "tenderness",
+                            "id": "O3",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "758~765",
+                            "text": "tamiflu",
+                            "id": "M2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "PYREXIA",
+                            "spans": "7~15",
+                            "text": "feverish",
+                            "id": "PY2",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "39~47",
+                            "text": "Soreness",
+                            "id": "O4",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "OTHER_AE",
+                            "spans": "52~62",
+                            "text": "tenderness",
+                            "id": "O5",
+                            "comment": "",
+                            "certainty": "Positive"
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "692~698",
+                            "text": "ZYRTEC",
+                            "id": "M3",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "701~713",
+                            "text": "atorvastatin",
+                            "id": "M4",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "MEDICATION",
+                            "spans": "715~728",
+                            "text": "levothyroxine",
+                            "id": "M5",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "VAX",
+                            "spans": "206~212",
+                            "text": "PFIZER",
+                            "id": "V2",
+                            "comment": ""
+                        },
+                        {
+                            "tag": "VAX",
+                            "spans": "265~271",
+                            "text": "EL1284",
+                            "id": "V3",
+                            "comment": ""
+                        }
+                    ],
+                    "meta": {},
+                    "_fh": {},
+                    "_filename": "sys_doc_1.txt.xml",
+                    "_has_saved": true,
+                    "_sentences": [],
+                    "_sentences_text": ""
+                }
+            ],
+            "name": "Dataset 1"
+        }
+    ],
+    "razer_idx": 1,
+    "razer_dict": null,
     "converter_corpus_task": "raw",
     "max_converter_display_files": 100,
     "is_converter_loading_medtagger_txt_files": false,

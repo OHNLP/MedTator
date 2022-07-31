@@ -78,13 +78,33 @@ var error_analyzer = {
         ]
      * }
      * 
+     * @param {Object} iaa_dict a dict of iaa result
      * @param {Object} err_dict a dict of error tags by the uid of error tag
      * @param {Object} dtd annotation schema
      */
-    get_err_stat: function(err_dict, dtd) {
+    get_err_stat: function(iaa_dict, err_dict, dtd) {
         // there are several things we want
-        // 1. basic count by concept
+        // 1. basic count by results and concept
         // 2. error type and cate stat
+
+        // using basic number in iaa
+        var stat_by_iaa = {
+            n_FP: iaa_dict.all.cm.fp,
+            n_FN: iaa_dict.all.cm.fn,
+            error_rate: this.get_error_rate(
+                iaa_dict.all.cm.tp,
+                iaa_dict.all.cm.fp,
+                iaa_dict.all.cm.fn
+            ),
+            accuracy: this.get_accuracy(
+                iaa_dict.all.cm.tp,
+                iaa_dict.all.cm.fp,
+                iaa_dict.all.cm.fn
+            ),
+            recall: iaa_dict.all.recall,
+            precision: iaa_dict.all.precision,
+            f1: iaa_dict.all.f1,
+        };
 
         // stat by dtd
         var stat_by_dtd = {};
@@ -190,11 +210,32 @@ var error_analyzer = {
             }
         }
 
+        // get max values for dtd, start from 10
+        var max_val = 10;
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const etag = dtd.etags[i];
+            var _max_val = stat_by_dtd[etag.name].FP.length + 
+                stat_by_dtd[etag.name].FN.length;
+            if (_max_val > max_val) {
+                max_val = _max_val;
+            }
+        }
+        // get the max value for err type
+        for (const err_type in stat_by_err) {
+            var _max_val = stat_by_err[err_type].FP.length + 
+            stat_by_err[err_type].FN.length;
+            if (_max_val > max_val) {
+                max_val = _max_val;
+            }
+        }
+
         // build a ret object
         var ret = {
+            by_iaa: stat_by_iaa,
             by_dtd: stat_by_dtd,
             by_err: stat_by_err,
-            by_rel: stat_by_rel
+            by_rel: stat_by_rel,
+            max_val: max_val
         };
 
         return ret;
@@ -264,5 +305,21 @@ var error_analyzer = {
         };
 
         return ret;
+    },
+
+    get_error_rate: function(tp, fp, fn) {
+        var sum = tp + fp + fn;
+        if (sum == 0) {
+            return NaN;
+        }
+        return (fp + fn) / sum;
+    },
+
+    get_accuracy: function(tp, fp, fn) {
+        var sum = tp + fp + fn;
+        if (sum == 0) {
+            return NaN;
+        }
+        return tp / sum;
     }
 };

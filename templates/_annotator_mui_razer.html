@@ -5,7 +5,8 @@
 <div class="d-flex h-100 mr-1">
 
     <!-- first column for summary -->
-    <div class="box">
+    <div v-if="get_razer_rst() != null"
+        class="box">
 
         <div class="box-header">
             <h4>
@@ -15,15 +16,110 @@
         </div>
 
         <div class="box-body">
-            <h6>
+            <h5>
                 Statistics
-            </h6>
-            <ul>
+            </h5>
+            <ul class="">
                 <li>
-                    
+                    FP Tags: 
+                    <b>
+                        {{ get_razer_rst().err_stat.by_iaa.n_FP }}
+                    </b>
                 </li>
+                <li>
+                    FN Tags: 
+                    <b>
+                        {{ get_razer_rst().err_stat.by_iaa.n_FN }}
+                    </b>
+                </li>
+                <li>
+                    Error Rate: 
+                    <b>
+                        {{ to_fixed(100 * get_razer_rst().err_stat.by_iaa.error_rate) }}%
+                    </b>
+                </li>
+                <li>
+                    Accuracy: 
+                    <b>
+                        {{ to_fixed(100 * get_razer_rst().err_stat.by_iaa.accuracy) }}%
+                    </b>
+                </li>
+                <li>
+                    Precision: 
+                    <b>
+                        {{ to_fixed(100 * get_razer_rst().err_stat.by_iaa.precision) }}%
+                    </b>
+                </li>
+                <li>
+                    Recall: 
+                    <b>
+                        {{ to_fixed(100 * get_razer_rst().err_stat.by_iaa.recall) }}%
+                    </b>
+                </li>
+                <li>
+                    F1-Score: 
+                    <b>
+                        {{ to_fixed(get_razer_rst().err_stat.by_iaa.f1) }}
+                    </b>
+                </li>
+
             </ul>
         </div>
+
+        <div class="box-body">
+            <h5>
+                Summary by Concepts
+            </h5>
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
+                    class="d-flex flex-row razer-hbar">
+                    <div class="razer-hbar-label">
+                        {{ etag_name }}
+                    </div>
+                    <div class="razer-hbar-bar-box">
+                        <div class="razer-hbar-bar razer-hbar-bar-FP"
+                            :style="{width: stat_value2width(stat.FP.length, get_razer_rst().err_stat.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar razer-hbar-bar-FN"
+                            :style="{width: stat_value2width(stat.FN.length, get_razer_rst().err_stat.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar-num">
+                            {{ stat.FP.length + stat.FN.length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="box-body">
+            <h5>
+                Summary by Error Types
+            </h5>
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
+                    class="d-flex flex-row razer-hbar">
+                    <div class="razer-hbar-label">
+                        {{ etag_name }}
+                    </div>
+                    <div class="razer-hbar-bar-box">
+                        <div class="razer-hbar-bar razer-hbar-bar-FP"
+                            :style="{width: stat_value2width(stat.FP.length, get_razer_rst().err_stat.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar razer-hbar-bar-FN"
+                            :style="{width: stat_value2width(stat.FN.length, get_razer_rst().err_stat.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar-num">
+                            {{ stat.FP.length + stat.FN.length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
 
 </div>

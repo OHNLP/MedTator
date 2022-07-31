@@ -76,6 +76,25 @@ v-bind:class="{'active': section=='razer'}">
 
 </div>
 
+
+
+
+<div class="group">
+    <button class="ribbon-button"
+        title="Clear all datasets"
+        v-on:click="clear_razer_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
+
+    <span class="title">&nbsp;</span>
+</div>
+
+
+
+
 <div class="group">
 
 
@@ -102,20 +121,6 @@ v-bind:class="{'active': section=='razer'}">
     <span class="title">Error Analysis</span>
 
 
-</div>
-
-
-<div class="group">
-    <button class="ribbon-button"
-        title="Clear all datasets"
-        v-on:click="">
-        <span class="icon">
-            <i class="far fa-times-circle"></i>
-        </span>
-        <span class="caption">Clear All</span>
-    </button>
-
-    <span class="title">&nbsp;</span>
 </div>
 
 </div>

@@ -46,6 +46,25 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot.vpp_methods, {
 
+    get_razer_rst: function() {
+        if (this.razer_dict == null) {
+            return null;
+        } else {
+            return this.razer_dict[this.razer_idx];
+        }
+    },
+
+    clear_razer_all: function() {
+        this.razer_ann_list = [
+            // the first one must be the GSC
+            { anns: [], name: 'Gold Standard Corpus' },
+            // others follow the same structure
+            { anns: [], name: 'Dataset 1' }
+        ];
+        this.razer_idx = 1;
+        this.razer_dict = null;
+    },
+
     on_drop_dropzone_razer: function(event, rid) {
         // stop the download event
         event.preventDefault();
@@ -122,8 +141,13 @@ Object.assign(app_hotpot.vpp_methods, {
         );
 
         // then, get the stat
+        var err_stat = error_analyzer.get_err_stat(
+            iaa_dict,
+            err_doc.err_dict,
+            this.dtd
+        );
 
-        // last, set
+        // last, set to razer_dict
         if (this.razer_dict == null) {
             this.razer_dict = {};
         }
@@ -131,7 +155,8 @@ Object.assign(app_hotpot.vpp_methods, {
             this.razer_idx
         ] = {
             iaa_dict: iaa_dict,
-            err_dict: err_doc.err_dict
+            err_dict: err_doc.err_dict,
+            err_stat: err_stat
         };
     },
 

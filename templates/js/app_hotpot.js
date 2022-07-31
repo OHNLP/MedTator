@@ -2189,6 +2189,17 @@ var app_hotpot = {
             return v.toFixed(2);
         },
 
+        to_comma: function(v) {
+            if (typeof(v) == 'undefined' ||
+                v == null || 
+                isNaN(v)) {
+                return 'NA';
+            }
+            // format as number
+            var _v = parseFloat("" + v);
+            return _v.toLocaleString("en-US");
+        },
+
         val2width: function(val, max_val, max_width) {
             if (typeof(val) == 'undefined' ||
                 val == null ||
