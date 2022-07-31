@@ -44,8 +44,8 @@ var error_analyzer = {
         ]
     },
 
-    UNK_ERR_TYPE: 'UNK',
-    UNK_ERR_CATE: 'UNK',
+    UNK_ERR_TYPE: 'UNKNOWN',
+    UNK_ERR_CATE: 'UNKNOWN',
 
     /**
      * Get statistics on the given tags
@@ -119,8 +119,8 @@ var error_analyzer = {
 
         // stat by err
         var stat_by_err = {
-            // the only type is UNK at present
-            'UNK': {
+            // the only type is UNKNOWN at present
+            'UNKNOWN': {
                 FP: [],
                 FN: []
             }
@@ -129,11 +129,11 @@ var error_analyzer = {
         // stat by relations
         var stat_by_rel = {
             // column 1: error 
-            c_error: { FP: { 'UNK': [] }, FN: { 'UNK': [] } },
+            c_error: { FP: { 'UNKNOWN': [] }, FN: { 'UNKNOWN': [] } },
             // column 2: error category
-            c_category: { 'UNK': { 'UNK': [] }},
+            c_category: { 'UNKNOWN': { 'UNKNOWN': [] }},
             // column 3: error type
-            c_type: { 'UNK': {} }
+            c_type: { 'UNKNOWN': {} }
         };
 
         // check each tag
@@ -193,20 +193,20 @@ var error_analyzer = {
                 }
             } else {
                 // oh, this err doesn't have any information
-                // just send to UNK
-                stat_by_err['UNK'][err._judgement].push(uid);
+                // just send to UNKNOWN
+                stat_by_err['UNKNOWN'][err._judgement].push(uid);
 
                 // update the relationship
                 // col 1
-                stat_by_rel.c_error[err._judgement].UNK.push(uid);
+                stat_by_rel.c_error[err._judgement].UNKNOWN.push(uid);
                 // col 2
-                stat_by_rel.c_category.UNK.UNK.push(uid);
+                stat_by_rel.c_category.UNKNOWN.UNKNOWN.push(uid);
                 // col 3
-                if (!stat_by_rel.c_type.UNK.hasOwnProperty(err.tag)) {
+                if (!stat_by_rel.c_type.UNKNOWN.hasOwnProperty(err.tag)) {
                     // init it as a list
-                    stat_by_rel.c_type.UNK[err.tag] = [];
+                    stat_by_rel.c_type.UNKNOWN[err.tag] = [];
                 }
-                stat_by_rel.c_type.UNK[err.tag].push(uid);
+                stat_by_rel.c_type.UNKNOWN[err.tag].push(uid);
             }
         }
 

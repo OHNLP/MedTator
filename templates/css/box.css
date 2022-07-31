@@ -119,6 +119,16 @@
     font-weight: bold;
 }
 
+.box-body h6 {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+    height: 1.2em;
+    line-height: 1.2em;
+    margin: 1px 0;
+    font-weight: bold;
+}
+
 .box-p {
     width: 100%;
     padding: 0;

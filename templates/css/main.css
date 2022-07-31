@@ -1542,12 +1542,18 @@ ol[class], ul[class] {
 .razer-hbar {
     width: 100%;
     margin-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+.razer-hbar:hover {
+    background-color: #eaeaea;
+    border-bottom-color: #777777;
 }
 .razer-hbar-label {
     margin-right: 5px;
     width: 100px;
     min-width: 100px;
     height: 1.2em;
+    line-height: 1.2em;
     text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1570,5 +1576,11 @@ ol[class], ul[class] {
 }
 .razer-hbar-bar-num {
     font-size: 0.8em;
+    line-height: 1.8em;
+    height: 1.3em;
     margin-left: 2px;
+}
+.razer-hbar-group {
+    padding: 0 0 0 3px;
+    border-bottom: 1px dotted #cccccc;
 }

@@ -1,6 +1,22 @@
 <div class="section" id="section-1-3"
 v-bind:class="{'active': section=='razer'}">
 
+
+<div class="group">
+    <button class="ribbon-button"
+        title="Clear all datasets"
+        v-on:click="clear_razer_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All</span>
+    </button>
+
+    <span class="title">&nbsp;</span>
+</div>
+
+
+
 <div class="group">
 
     <div id="dropzone_razer_0"
@@ -74,22 +90,6 @@ v-bind:class="{'active': section=='razer'}">
         Dataset
     </span>
 
-</div>
-
-
-
-
-<div class="group">
-    <button class="ribbon-button"
-        title="Clear all datasets"
-        v-on:click="clear_razer_all()">
-        <span class="icon">
-            <i class="far fa-times-circle"></i>
-        </span>
-        <span class="caption">Clear All</span>
-    </button>
-
-    <span class="title">&nbsp;</span>
 </div>
 
 

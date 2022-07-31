@@ -54,6 +54,23 @@ Object.assign(app_hotpot.vpp_methods, {
         }
     },
 
+    get_razer_rst_stat_by_err_type: function(err_type, err) {
+        var rr = this.get_razer_rst();
+        if (rr == null) {
+            return null;
+        }
+        if (!rr.err_stat.by_err.hasOwnProperty(err_type)) {
+            return null;
+        }
+
+        // err is FP or FN
+        if (typeof(err)=='undefined') {
+            return rr.err_stat.by_err[err_type].FP.length +
+                   rr.err_stat.by_err[err_type].FN.length;
+        }
+        return rr.err_stat.by_err[err_type][err].length;
+    },
+
     clear_razer_all: function() {
         this.razer_ann_list = [
             // the first one must be the GSC
@@ -121,6 +138,12 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     razer_analyze: function() {
+        // get the error def
+        var err_def = JSON.parse(JSON.stringify(error_analyzer.DEFAULT_ERROR_DEF));
+        
+        // add UNKNOWN
+        err_def[error_analyzer.UNK_ERR_CATE] = [error_analyzer.UNK_ERR_TYPE];
+
         // first, get the IAA result 
         var iaa_dict = iaa_calculator.evaluate_anns_on_dtd(
             this.dtd,
@@ -156,7 +179,8 @@ Object.assign(app_hotpot.vpp_methods, {
         ] = {
             iaa_dict: iaa_dict,
             err_dict: err_doc.err_dict,
-            err_stat: err_stat
+            err_stat: err_stat,
+            err_def: err_def
         };
     },
 

@@ -1,12 +1,14 @@
 <div v-if="section=='razer'" id="main_ui" 
-    class="main-ui container-fluid">
+    class="main-ui container-fluid"
+    style="height: calc(100% - 145px);">
 
 
 <div class="d-flex h-100 mr-1">
 
     <!-- first column for summary -->
     <div v-if="get_razer_rst() != null"
-        class="box">
+        class="box h-100"
+        style="overflow-x: hidden; overflow-y: auto;">
 
         <div class="box-header">
             <h4>
@@ -21,13 +23,12 @@
             </h5>
             <ul class="">
                 <li>
-                    FP Tags: 
+                    FP: 
                     <b>
                         {{ get_razer_rst().err_stat.by_iaa.n_FP }}
                     </b>
-                </li>
-                <li>
-                    FN Tags: 
+                    |
+                    FN: 
                     <b>
                         {{ get_razer_rst().err_stat.by_iaa.n_FN }}
                     </b>
@@ -72,7 +73,7 @@
             </h5>
             <div class="d-flex flex-column mt-2 mb-2">
                 <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
-                    class="d-flex flex-row razer-hbar">
+                    class="d-flex flex-row razer-hbar cursor-pointer">
                     <div class="razer-hbar-label">
                         {{ etag_name }}
                     </div>
@@ -97,20 +98,26 @@
                 Summary by Error Types
             </h5>
             <div class="d-flex flex-column mt-2 mb-2">
-                <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
-                    class="d-flex flex-row razer-hbar">
-                    <div class="razer-hbar-label">
-                        {{ etag_name }}
-                    </div>
-                    <div class="razer-hbar-bar-box">
-                        <div class="razer-hbar-bar razer-hbar-bar-FP"
-                            :style="{width: stat_value2width(stat.FP.length, get_razer_rst().err_stat.max_val) + 'px'}">
+                <div v-for="err_types, err_cate in get_razer_rst().err_def"
+                    class="razer-hbar-group mb-1">
+                    <h6>
+                        {{ err_cate}}
+                    </h6>
+                    <div v-for="err_type in err_types"
+                        class="d-flex flex-row razer-hbar cursor-pointer">
+                        <div class="razer-hbar-label">
+                            {{ err_type }}
                         </div>
-                        <div class="razer-hbar-bar razer-hbar-bar-FN"
-                            :style="{width: stat_value2width(stat.FN.length, get_razer_rst().err_stat.max_val) + 'px'}">
-                        </div>
-                        <div class="razer-hbar-bar-num">
-                            {{ stat.FP.length + stat.FN.length }}
+                        <div class="razer-hbar-bar-box">
+                            <div class="razer-hbar-bar razer-hbar-bar-FP"
+                                :style="{width: stat_value2width(get_razer_rst_stat_by_err_type(err_type, 'FP'), get_razer_rst().err_stat.max_val) + 'px'}">
+                            </div>
+                            <div class="razer-hbar-bar razer-hbar-bar-FN"
+                                :style="{width: stat_value2width(get_razer_rst_stat_by_err_type(err_type, 'FN'), get_razer_rst().err_stat.max_val) + 'px'}">
+                            </div>
+                            <div class="razer-hbar-bar-num">
+                                {{ to_comma(get_razer_rst_stat_by_err_type(err_type)) }}
+                            </div>
                         </div>
                     </div>
                 </div>
