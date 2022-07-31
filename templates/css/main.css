@@ -1554,6 +1554,7 @@ ol[class], ul[class] {
     min-width: 100px;
     height: 1.2em;
     line-height: 1.2em;
+    font-style: italic;
     text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1576,7 +1577,7 @@ ol[class], ul[class] {
 }
 .razer-hbar-bar-num {
     font-size: 0.8em;
-    line-height: 1.8em;
+    line-height: 1.5em;
     height: 1.3em;
     margin-left: 2px;
 }
