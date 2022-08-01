@@ -59,6 +59,9 @@ Object.assign(app_hotpot.vpp_data, {
     // the fig obj for sankey
     razer_fig_sankey: null,
 
+    // the fig obj for pie
+    razer_fig_donut: null,
+
     // the uids for checking
     razer_err_list_uids: null,
 
@@ -131,6 +134,62 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_err_def = null;
     },
 
+    on_drop_dropzone_razer: function(event, rid) {
+        // stop the download event
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+
+        // set loading status
+        this.razer_loading_status = rid;
+
+        // set loading rid
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            // only accept xml for iaa
+            function(fn) {
+                if (app_hotpot.is_file_ext_xml(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+        promise_files.then(function(files) {
+            app_hotpot.vpp.add_files_to_razer_anns(files, rid);
+        });
+    },
+
+    add_files_to_razer_anns: function(files, rid) {
+        console.log('* adding '+files.length+' files to razer anns ' + rid);
+        // it's possible that the `rid` slot is not ready
+        if (this.razer_ann_list.length <= rid) {
+            this.razer_ann_list.push({
+                anns: [],
+                name: 'Dataset ' + rid
+            });
+        }
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            var ann = app_hotpot.parse_file2ann(
+                file,
+                this.dtd
+            );
+
+            // it is possible that something wrong
+            if (ann == null) {
+                continue;
+            }
+
+            // save this ann
+            this.razer_ann_list[rid].anns[
+                this.razer_ann_list[rid].anns.length
+            ] = ann;
+        }
+
+        // done and set loading finished
+        this.razer_loading_status = null;
+    },
+
+
     on_drop_dropzone_razer_err_labels: function(event) {
         // stop the download event
         event.preventDefault();
@@ -172,79 +231,8 @@ Object.assign(app_hotpot.vpp_methods, {
 
     },
 
-    on_drop_dropzone_razer: function(event, rid) {
-        // stop the download event
-        event.preventDefault();
-        const items = event.dataTransfer.items;
-
-        // set loading status
-        this.razer_loading_status = rid;
-
-        // set loading rid
-        var promise_files = fs_get_file_texts_by_items(
-            items,
-            // only accept xml for iaa
-            function(fn) {
-                if (app_hotpot.is_file_ext_xml(fn)) {
-                    return true;
-                }
-                return false;
-            }
-        );
-        promise_files.then(function(files) {
-            app_hotpot.vpp.add_files_to_razer_anns(files, rid);
-        });
-    },
-
-    on_click_razer_sankey_node: function(event, d) {
-        console.log('* clicked node', event, d);
-        this.show_uids_in_razer_err_list(
-            d.uids,
-            null
-        );
-    },
-
-    on_click_razer_sankey_link: function(event, d) {
-        console.log('* clicked link', event, d);
-        this.show_uids_in_razer_err_list(
-            d.uids,
-            null
-        );
-    },
-
-    add_files_to_razer_anns: function(files, rid) {
-        console.log('* adding '+files.length+' files to razer anns ' + rid);
-        // it's possible that the `rid` slot is not ready
-        if (this.razer_ann_list.length <= rid) {
-            this.razer_ann_list.push({
-                anns: [],
-                name: 'Dataset ' + rid
-            });
-        }
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            var ann = app_hotpot.parse_file2ann(
-                file,
-                this.dtd
-            );
-
-            // it is possible that something wrong
-            if (ann == null) {
-                continue;
-            }
-
-            // save this ann
-            this.razer_ann_list[rid].anns[
-                this.razer_ann_list[rid].anns.length
-            ] = ann;
-        }
-
-        // done and set loading finished
-        this.razer_loading_status = null;
-    },
-
     parse_razer_files: function() {
-
+        var is_reparse = false;
         if (this.razer_dict != null) {
             // which means there is something analyzed
             var ret = app_hotpot.confirm(
@@ -253,6 +241,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
             if (ret) {
                 // OK, just re-parse everything
+                is_reparse = true;
             } else {
                 return;
             }
@@ -335,7 +324,12 @@ Object.assign(app_hotpot.vpp_methods, {
         };
 
         // draw?
-        this.razer_draw_sankey();
+        this.update_plots();
+
+        // force update if re-parse
+        if (is_reparse) {
+            this.$forceUpdate();
+        }
     },
 
     update_razer_dict_stats: function() {
@@ -352,9 +346,17 @@ Object.assign(app_hotpot.vpp_methods, {
         ].err_stat = err_stat;
 
         // draw?
+        this.update_plots();
+    },
+
+    update_plots: function() {
+        // this.razer_draw_donut();
         this.razer_draw_sankey();
     },
 
+    /////////////////////////////////////////////////////////////////
+    // Sankey related functions
+    /////////////////////////////////////////////////////////////////
     razer_draw_sankey: function() {
         var data_sankey = error_analyzer.get_sankey_data(
             this.get_razer_rst().err_stat.by_rel
@@ -382,8 +384,92 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_fig_sankey.draw(data_sankey);
     },
 
-    razer_export_report: function() {
+    on_click_razer_sankey_node: function(event, d) {
+        console.log('* clicked node', event, d);
+        this.show_uids_in_razer_err_list(
+            d.uids,
+            null
+        );
+    },
 
+    on_click_razer_sankey_link: function(event, d) {
+        console.log('* clicked link', event, d);
+        this.show_uids_in_razer_err_list(
+            d.uids,
+            null
+        );
+    },
+
+    razer_draw_donut: function() {
+        if (this.razer_fig_donut != null) {
+            // ??
+        }
+
+        // init the chart
+        this.razer_fig_donut = {
+            option: {
+                // grid: {
+                //     top: 10,
+                //     left: 10,
+                //     right: 10,
+                //     bottom: 10
+                // },
+                color: [
+                    '#EDC4B3',
+                    '#E6B8A2',
+                    '#DEAB90',
+                    '#D69F7E',
+                    '#CD9777',
+                    '#C38E70',
+                    '#B07D62',
+                    '#9D6B53',
+                    '#8A5A44',
+                    '#774936',
+                ],
+                tooltip: {
+                    trigger: 'item',
+                },
+                legend: {
+                    show: false,
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: ['60%', '95%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '14',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [
+                            { value: 1048, name: 'Search Engine' },
+                            { value: 735, name: 'Direct' },
+                            { value: 580, name: 'Email' },
+                            { value: 484, name: 'Union Ads' },
+                            { value: 300, name: 'Video Ads' }
+                        ]
+                    }
+                ]
+            },
+            chart: echarts.init(
+                // the default box_id starts with #
+                document.getElementById('razer_donut_chart')
+            )
+        };
+
+        // draw it
+        this.razer_fig_donut.chart.setOption(this.razer_fig_donut.option);
     },
 
     close_razer_pan_err_def: function() {
@@ -496,7 +582,7 @@ Object.assign(app_hotpot.vpp_methods, {
         this.$forceUpdate();
     },
 
-    save_razer_err_labels: function() {
+    download_razer_err_labels: function() {
         var obj = {
             tags: []
         };
@@ -557,5 +643,9 @@ Object.assign(app_hotpot.vpp_methods, {
                 }
             }
         );
+    },
+
+    razer_export_report: function() {
+
     }
 });

@@ -93,9 +93,12 @@ THIRD_PARTY_LIB_URL={
         'JS': './static/lib/d3/d3-v7.2.1.js',
         'JS_SANKEY': './static/lib/d3/d3-sankey-v0.12.3.min.js'
     },
+    'ECHARTS': {
+        'JS': './static/lib/echarts/echarts.5.3.3.min.js'
+    },
     'JS_YAML': {
         "JS": "./static/lib/js-yaml/js-yaml.4.1.0.min.js"
-    }
+    },
 },
 'cdn': {
     'METRO_UI': {
@@ -174,6 +177,9 @@ THIRD_PARTY_LIB_URL={
     'D3': {
         'JS': 'https://cdn.jsdelivr.net/npm/d3@7',
         'JS_SANKEY': 'https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js'
+    },
+    'ECHARTS': {
+        'JS': 'https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js'
     },
     'JS_YAML': {
         "JS": "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"

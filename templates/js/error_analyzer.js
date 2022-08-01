@@ -119,8 +119,10 @@ var error_analyzer = {
 
         // using basic number in iaa
         var stat_by_iaa = {
+            n_TP: iaa_dict.all.cm.tp,
             n_FP: iaa_dict.all.cm.fp,
             n_FN: iaa_dict.all.cm.fn,
+            n_F: iaa_dict.all.cm.fp + iaa_dict.all.cm.fn,
             error_rate: this.get_error_rate(
                 iaa_dict.all.cm.tp,
                 iaa_dict.all.cm.fp,
@@ -156,7 +158,7 @@ var error_analyzer = {
             }
         };
 
-        // stat by relations
+        // stat by relations for sankey
         var stat_by_rel = {
             // column 1: error 
             c_error: { FP: { 'UNK': [] }, FN: { 'UNK': [] } },
@@ -164,6 +166,25 @@ var error_analyzer = {
             c_category: { 'UNK': { 'UNKNOWN': [] }},
             // column 3: error type
             c_type: { 'UNKNOWN': {} }
+        };
+
+        // stat by something maybe useful
+        var stat_by_smu = {
+            total_err_labels: 0,
+            freq_n_err_labels: {
+                // 0 labels, which means not labeled
+                0: {FP: [], FN: []},
+                // I think 9 should be enough, isn't it?
+                1: {FP: [], FN: []},
+                2: {FP: [], FN: []},
+                3: {FP: [], FN: []},
+                4: {FP: [], FN: []},
+                5: {FP: [], FN: []},
+                6: {FP: [], FN: []},
+                7: {FP: [], FN: []},
+                8: {FP: [], FN: []},
+                9: {FP: [], FN: []},
+            }
         };
 
         // check each tag
@@ -176,7 +197,16 @@ var error_analyzer = {
             // update the error stat if it has
             if (err.hasOwnProperty('errors')) {
                 // ok, this has information
+                ////////////////////////////////////////
+                // stat by smu?
+                ////////////////////////////////////////
+                stat_by_smu.freq_n_err_labels[err.errors.length][err._judgement].push(uid);
+
                 for (let i = 0; i < err.errors.length; i++) {
+                    ////////////////////////////////////////
+                    // stat by smu?
+                    ////////////////////////////////////////
+                    stat_by_smu.total_err_labels += 1;
 
                     const e = err.errors[i];
                     ////////////////////////////////////////
@@ -234,6 +264,9 @@ var error_analyzer = {
 
                 }
             } else {
+                // the freq update
+                stat_by_smu.freq_n_err_labels[0][err._judgement].push(uid);
+
                 // oh, this err doesn't have any information
                 // just send to UNKNOWN
                 stat_by_err['UNKNOWN'][err._judgement].push(uid);
@@ -277,6 +310,7 @@ var error_analyzer = {
             by_dtd: stat_by_dtd,
             by_err: stat_by_err,
             by_rel: stat_by_rel,
+            by_smu: stat_by_smu,
             max_val: max_val
         };
 

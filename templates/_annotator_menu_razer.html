@@ -126,9 +126,10 @@ v-bind:class="{'active': section=='razer'}">
     <span class="title">
         Error Definition 
         <a href="javascript:void(0);"
+            v-on:click="show_help('razer_help_err_def')"
             title="What's 'Error Definition'?"
             class="link-btn">
-            <i class="fas fa-question-circle"></i>
+            <i class="far fa-question-circle"></i>
         </a>
     </span>
 
@@ -146,8 +147,9 @@ v-bind:class="{'active': section=='razer'}">
         <div v-if="razer_dict != null" 
             class="zone-text">
             
-            <b>{{ get_razer_rst().err_stat.by_iaa.n_FP }}</b> FP Tags<br>
-            <b>{{ get_razer_rst().err_stat.by_iaa.n_FN }}</b> FN Tags
+            <b>{{ get_razer_rst().err_stat.by_iaa.n_FP }}</b> FP and 
+            <b>{{ get_razer_rst().err_stat.by_iaa.n_FN }}</b> FN Tags <br>
+            <b>{{ get_razer_rst().err_stat.by_smu.total_err_labels }}</b> Error Labels
 
         </div>
         <div v-else-if="razer_err_labels_file != null" 
@@ -175,25 +177,26 @@ v-bind:class="{'active': section=='razer'}">
     </button> -->
 
 
-    <button class="ribbon-button" 
+    <!-- <button class="ribbon-button" 
         :disabled="dtd == null || razer_dict == null"
-        title="Save the current error analysis workspace"
-        v-on:click="save_razer_err_labels">
+        title="Save the current error labels"
+        v-on:click="download_razer_err_labels">
         <span class="icon">
             <i class="far fa-save"></i>
         </span>
         <span class="caption">
             Save 
         </span>
-    </button>
+    </button> -->
 
     <span class="title">
         Error Labels
 
         <a href="javascript:void(0);"
+            v-on:click="show_help('razer_help_err_labels')"
             title="What's 'Error Labels'?"
             class="link-btn">
-            <i class="fas fa-question-circle"></i>
+            <i class="far fa-question-circle"></i>
         </a>
     </span>
 
@@ -231,7 +234,7 @@ v-bind:class="{'active': section=='razer'}">
             <i class="fas fa-robot"></i>
         </span>
         <span class="caption">
-            Identify Error Type
+            Identify
         </span>
     </button>
 
@@ -246,6 +249,19 @@ v-bind:class="{'active': section=='razer'}">
 
 
 <div class="group">
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Save the current error labels"
+        v-on:click="download_razer_err_labels">
+        <span class="icon">
+            <i class="fas fa-file-download"></i>
+        </span>
+        <span class="caption">
+            Tag + Labels 
+        </span>
+    </button>
 
 
     <button class="ribbon-button" 

@@ -2,7 +2,7 @@
  * This is an extension for app_hotpot text contents
  */
 
-Object.assign(app_hotpot.vpp_data, {
+Object.assign(app_hotpot, {
 texts: {
     "sentence_splitting_algorithm": {
         title: 'Sentence Splitting Algorithm',
@@ -18,8 +18,26 @@ MedTator provides some options for selecting different methods.
 </ul>
 `
     },
+
     "linking_marks_selection": {
         title: 'Linking marks selection',
-        html: `The marks shown in the tag editor can be linked with the selection with the concept list.`
+        html: `The marks shown in the tag editor can be linked with the selection with the concept list.
+`
+    },
+
+    "razer_help_err_def": {
+        title: 'Error Definition',
+        html: `<p>Error definition describes how the error types are classified into categories. For exampel, 'Lexicon' and 'Syntactic' can be categorized as 'Liguistic'. </p>
+<p>MedTator's error analysis module comes with a default error definition. You can use it directly, or you can customize your own error definition. </p>
+<p>MedTator uses a simple format to organize error category, which is defined as a YAML format file. For more information about the error definition format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
+`
+    },
+
+    "razer_help_err_labels": {
+        title: 'Error Labels',
+        html: `<p>Error labels are assigned to each error tag (i.e., FP or FN tag) and MedTator will use this label information to visualize the error distribution.</p>
+        <p>You can upload the error tag list with error labels for visualization. Or you can download the error tag list with empty labels for further external labeling.</p>
+        <p>For more information about the error label format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
+`
     }
 }});

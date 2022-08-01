@@ -1152,6 +1152,9 @@ input[type=text].ipt-spinner-xs {
 .clr-black {
     color: black;
 }
+.clr-trans {
+    color: transparent;
+}
 .txt-sm {
     font-size: 0.8em;
 }
@@ -1682,9 +1685,12 @@ ol[class], ul[class] {
     background-color: white;
     width: 40px;
     text-align: center;
-    color: #555555;
+    color: #888888;
 }
-
+.btn-add-err-type:hover {
+    border: 1px dashed #888888;
+    color: #333333;
+}
 #err_sankey_box {
     width: 630px;
     height: 510px;

@@ -2277,17 +2277,17 @@ var app_hotpot = {
             }
 
             // find this token
-            if (this.texts.hasOwnProperty(token)) {
+            if (app_hotpot.texts.hasOwnProperty(token)) {
                 var html_content = '';
 
                 // add the title
                 html_content += 
                     "<h4>" + 
-                    this.texts[token].title + 
+                    app_hotpot.texts[token].title + 
                     "</h4>";
                 
                 // add the content
-                html_content += this.texts[token].html;
+                html_content += app_hotpot.texts[token].html;
 
                 // show the html content
                 Metro.infobox.create(html_content);
