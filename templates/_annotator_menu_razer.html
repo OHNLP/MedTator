@@ -115,14 +115,17 @@ v-bind:class="{'active': section=='razer'}">
         </span>
     </button>
 
+
     <button class="ribbon-button" 
         :disabled="dtd == null || razer_dict == null"
-        title="Download current analysis result report"
-        v-on:click="razer_export_report">
+        title="Identify the error tags automatically"
+        v-on:click="show_razer_eaws_panel">
         <span class="icon">
-            <i class="fa fa-clipboard-list"></i>
+            <i class="fas fa-robot"></i>
         </span>
-        <span class="caption">Report</span>
+        <span class="caption">
+            Identify Error Type
+        </span>
     </button>
 
     <span class="title">Error Analysis</span>
@@ -163,6 +166,18 @@ v-bind:class="{'active': section=='razer'}">
         <span class="caption">
             Save
         </span>
+    </button>
+
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Download current analysis result report"
+        v-on:click="razer_export_report">
+        <span class="icon">
+            <i class="fa fa-clipboard-list"></i>
+        </span>
+        <span class="caption">Export Report</span>
     </button>
 
     <span class="title">Workspace</span>

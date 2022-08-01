@@ -75,40 +75,42 @@ def fake_error_analysis(data):
 
     # save the ret
     ret = []
-    errors = []
-
-    # just for remove duplicates
-    error_set = []
-
-    # get a random count of errors, most of time only 1 error
-    n_errors = random.choice([
-        # very rare
-        3, 
-        # rare
-        2, 2, 2, 
-        # not rare
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-    ])
-
-    for i in range(n_errors):
-
-        # just for finding a non-used error
-        while(True):
-            err_cate = random.choice(list(err_cate_types.keys()))
-            err_type = random.choice(err_cate_types[err_cate])
-            err_str = err_cate + err_type
-            if err_str in error_set:
-                continue
-
-            error_set.append(err_str)
-            break
-
-        errors.append({
-            "category": err_cate,
-            "type": err_type,
-        })
-
+    
+    # ok, work on each tag
     for tag in tags:
+        errors = []
+
+        # just for remove duplicates
+        error_set = []
+
+        # get a random count of errors, most of time only 1 error
+        n_errors = random.choice([
+            # very rare
+            3, 
+            # rare
+            2, 2, 2, 
+            # not rare
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+        ])
+
+        for i in range(n_errors):
+
+            # just for finding a non-used error
+            while(True):
+                err_cate = random.choice(list(err_cate_types.keys()))
+                err_type = random.choice(err_cate_types[err_cate])
+                err_str = err_cate + err_type
+                if err_str in error_set:
+                    continue
+
+                error_set.append(err_str)
+                break
+
+            errors.append({
+                "category": err_cate,
+                "type": err_type,
+            })
+            
         r = {
             'uid': tag['uid'],
             "errors": errors

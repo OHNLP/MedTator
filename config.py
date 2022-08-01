@@ -26,7 +26,10 @@ THIRD_PARTY_LIB_URL={
         'CSS': "./static/lib/font-awesome/css/all.min.css"
     },
     'JQUERY': {
-        'JS': "./static/lib/jquery/jquery-3.4.1.min.js"
+        'JS': "./static/lib/jquery/jquery-3.4.1.min.js",
+    },
+    'JQUERY_AJAXQUEUE': {
+        'JS': "./static/lib/jquery-ajaxqueue/jquery.ajaxQueue-0.1.1.min.js",
     },
     'JQUERY_UI': {
         'CSS': "./static/lib/jqueryui/jquery-ui.min.css",
@@ -106,6 +109,9 @@ THIRD_PARTY_LIB_URL={
     },
     'JQUERY': {
         'JS': "https://code.jquery.com/jquery-3.4.1.min.js"
+    },
+    'JQUERY_AJAXQUEUE': {
+        'JS': "https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxQueue/0.1.1/jquery.ajaxQueue.min.js",
     },
     'JQUERY_UI': {
         'CSS': "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css",

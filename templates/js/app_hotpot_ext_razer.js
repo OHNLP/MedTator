@@ -54,7 +54,10 @@ Object.assign(app_hotpot.vpp_data, {
     razer_fig_sankey: null,
 
     // the uids for checking
-    razer_err_list_uids: null
+    razer_err_list_uids: null,
+
+    // the EA service url
+    razer_ea_ws_url: 'http://localhost:8808/eva_tags'
 });
 
 
@@ -261,6 +264,7 @@ Object.assign(app_hotpot.vpp_methods, {
         ] = {
             iaa_dict: iaa_dict,
             err_dict: err_doc.err_dict,
+            doc_dict: err_doc.doc_dict,
             err_stat: err_stat
         };
 
@@ -404,10 +408,26 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // update UI?
         this.update_razer_dict_stats();
-
         this.$forceUpdate();
 
         console.log('* removed error label for ' + uid);
+    },
+
+    set_razer_err_labels: function(uid, errors, is_update_ui) {
+        if (typeof(is_update_ui) == 'undefined') {
+            is_update_ui = false;
+        }
+        this.razer_dict[this.razer_idx].err_dict[uid]['errors'] = errors;
+
+        if (is_update_ui) {
+            this.update_razer_dict_stats();
+            this.$forceUpdate();
+        }
+    },
+
+    update_razer_ui: function() {
+        this.update_razer_dict_stats();
+        this.$forceUpdate();
     },
 
     save_razer_workspace: function() {
@@ -429,4 +449,45 @@ Object.assign(app_hotpot.vpp_methods, {
         var blob = new Blob([json_text], {type: "text/json;charset=utf-8"});
         saveAs(blob, fn);
     },
+
+    show_razer_eaws_panel: function() {
+        Metro.dialog.open('#dlg_razer_robot_iet');
+    },
+
+    start_razer_eaws: function() {
+        var tags = [];
+        var docs = {};
+        for (const uid in this.razer_dict[this.razer_idx].err_dict) {
+            var tag = this.razer_dict[this.razer_idx].err_dict[uid];
+            if (tag.hasOwnProperty('errors')) {
+                // what to do?
+                continue;
+            }
+
+            tags.push(tag);
+            docs[tag.file_name] = this.razer_dict[this.razer_idx].doc_dict[tag.file_name];
+        }
+
+        error_analyzer.use_eaws(
+            this.razer_ea_ws_url,
+            {
+                tags: tags,
+                docs: docs
+            },
+            function(data) {
+                console.log('* EAWS returns', data);
+
+                for (let i = 0; i < data.tags.length; i++) {
+                    const t = data.tags[i];
+                    
+                    app_hotpot.vpp.set_razer_err_labels(
+                        t.uid,
+                        t.errors
+                    );
+
+                    app_hotpot.vpp.update_razer_ui();
+                }
+            }
+        );
+    }
 });

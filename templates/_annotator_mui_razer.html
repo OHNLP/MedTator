@@ -327,5 +327,37 @@
 
 </div>
 
+
+<!-- for ML error identification -->
+<div class="dialog" data-role="dialog" id="dlg_razer_robot_iet">
+    <div class="dialog-title">
+        <i class="fas fa-robot"></i>
+        Use Error Analysis (EA) Web Service
+    </div>
+    <div class="dialog-content">
+        <p>
+            You can use an EA web service to identify the error types automatically. ATTENTION: the tags and their contextual information will be sent to the following URL, please ensure the network security and data privacy.
+        </p>
+        <p>
+            <label for="">EA Web Service URL: </label>
+            <input type="text" 
+                placeholder="http://"
+                v-model="razer_ea_ws_url">
+        </p>
+        <p>
+            <button class="button primary"
+                @click="start_razer_eaws">
+                Start Identification
+            </button>
+        </p>
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">
+            <i class="fa fa-times"></i>
+            Close this dialog
+        </button>
+    </div>
+</div>
+
     
 </div>
