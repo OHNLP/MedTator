@@ -30,14 +30,31 @@ Object.assign(app_hotpot.vpp_data, {
     //     // this is the result of dataset 1
     //     // it's a err_dict
     //     1: {
+    //         err_stat: {},
     //         err_dict: { uid: {} },
-    //         iaa_dict: { } // same iaa_dict
+    //         iaa_dict: { }, // same iaa_dict
     //     },
     //     2: {}
     // },
     // 
     // we don't want to save extra information here
-    razer_dict: null
+    razer_dict: null,
+
+    // the err def for analysis
+    razer_err_def: null,
+    razer_err_def_mapping: {},
+
+    // show panel?
+    is_shown_razer_pan_err_def: false,
+    razer_active_err_uid: null,
+    razer_pan_err_def_right: 0,
+    razer_pan_err_def_top: 0,
+
+    // the fig obj
+    razer_fig_sankey: null,
+
+    // the uids for checking
+    razer_err_list_uids: null
 });
 
 
@@ -54,7 +71,28 @@ Object.assign(app_hotpot.vpp_methods, {
         }
     },
 
-    get_razer_rst_stat_by_err_type: function(err_type, err) {
+    get_razer_err: function(uid) {
+        var rr = this.get_razer_rst();
+        if (rr == null) {
+            return null;
+        }
+        if (rr.err_dict.hasOwnProperty(uid)) {
+            return rr.err_dict[uid];
+        }
+        return null;
+    },
+
+    get_razer_n_stat_by_err_type: function(err_type, err) {
+        var stat = this.get_razer_stat_by_err_type(err_type, err);
+
+        if (stat == null) {
+            return null;
+        } else {
+            return stat.length;
+        }
+    },
+
+    get_razer_stat_by_err_type: function(err_type, err) {
         var rr = this.get_razer_rst();
         if (rr == null) {
             return null;
@@ -65,10 +103,11 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // err is FP or FN
         if (typeof(err)=='undefined') {
-            return rr.err_stat.by_err[err_type].FP.length +
-                   rr.err_stat.by_err[err_type].FN.length;
+            return rr.err_stat.by_err[err_type].FP.concat(
+                rr.err_stat.by_err[err_type].FN
+            );
         }
-        return rr.err_stat.by_err[err_type][err].length;
+        return rr.err_stat.by_err[err_type][err];
     },
 
     clear_razer_all: function() {
@@ -80,6 +119,7 @@ Object.assign(app_hotpot.vpp_methods, {
         ];
         this.razer_idx = 1;
         this.razer_dict = null;
+        this.razer_err_def = null;
     },
 
     on_drop_dropzone_razer: function(event, rid) {
@@ -138,11 +178,33 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     razer_analyze: function() {
-        // get the error def
-        var err_def = JSON.parse(JSON.stringify(error_analyzer.DEFAULT_ERROR_DEF));
-        
-        // add UNKNOWN
-        err_def[error_analyzer.UNK_ERR_CATE] = [error_analyzer.UNK_ERR_TYPE];
+
+        if (this.razer_dict != null) {
+            // which means there is something analyzed
+            var ret = app_hotpot.confirm(
+                'Re-Analyze will overwrite ALL of the existing error labels. You can save the current first before doing this. Are you sure to continue?'
+            );
+
+            if (ret) {
+
+            } else {
+                return;
+            }
+        }
+
+        if (this.razer_err_def == null) {
+            this.razer_err_def = JSON.parse(JSON.stringify(error_analyzer.DEFAULT_ERROR_DEF));
+
+            // add mapping
+            var shortcut = 1;
+            for (const err_cate in this.razer_err_def) {
+                this.razer_err_def_mapping[shortcut] = err_cate;
+                shortcut += 1;
+            }
+
+            // add UNKNOWN
+            this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+        }
 
         // first, get the IAA result 
         var iaa_dict = iaa_calculator.evaluate_anns_on_dtd(
@@ -179,12 +241,141 @@ Object.assign(app_hotpot.vpp_methods, {
         ] = {
             iaa_dict: iaa_dict,
             err_dict: err_doc.err_dict,
-            err_stat: err_stat,
-            err_def: err_def
+            err_stat: err_stat
         };
+
+        // draw?
+        this.razer_draw_sankey();
+    },
+
+    update_razer_dict_stats: function() {
+        // then, get the stat
+        var err_stat = error_analyzer.get_err_stat(
+            this.razer_dict[this.razer_idx].iaa_dict,
+            this.razer_dict[this.razer_idx].err_dict,
+            this.dtd
+        );
+
+        // just update stats
+        this.razer_dict[
+            this.razer_idx
+        ].err_stat = err_stat;
+
+        // draw?
+        this.razer_draw_sankey();
+    },
+
+    razer_draw_sankey: function() {
+        var data_sankey = error_analyzer.get_sankey_data(
+            this.get_razer_rst().err_stat.by_rel
+        );
+        console.log('* got data for sankey diagram', data_sankey);
+
+        if (this.razer_fig_sankey == null) {
+            // make a new sankey figure
+            this.razer_fig_sankey = figmker_sankey.make_fig(
+                '#razer_sankey_diagram'
+            );
+            this.razer_fig_sankey.headers = [
+                'Error',
+                'Error Category',
+                'Error Type',
+                'Concept'
+            ]
+            this.razer_fig_sankey.init();
+        }
+
+        this.razer_fig_sankey.draw(data_sankey);
     },
 
     razer_export_report: function() {
+
+    },
+
+    close_razer_pan_err_def: function() {
+        this.is_shown_razer_pan_err_def = false;
+        this.razer_active_err_uid = null;
+    },
+
+    show_razer_pan_err_def_for_uid: function(event, uid) {
+        // set the working uid
+        this.razer_active_err_uid = uid;
+
+        // get mouse position
+        var x = event.clientX;
+        var y = event.clientY;
+
+        this.razer_pan_err_def_right = 5;
+
+        var new_top = y - 110;
+        if (new_top + $('#razer_pan_err_def').height() > $('#main_ui').height()) {
+            new_top = $('#main_ui').height() - $('#razer_pan_err_def').height() - 1;
+        }
+        this.razer_pan_err_def_top = new_top;
+
+        // ok, show it
+        this.is_shown_razer_pan_err_def = true;
+    },
+
+    show_uids_in_razer_err_list: function(uids1, uids2) {
+        // empty the current list
+        // this.razer_err_list_uids = [];
+
+        if (uids1 == null) {
+            if (uids2 == null) {
+
+            } else {
+                this.razer_err_list_uids = uids2;
+            }
+        } else {
+            if (uids2 == null) {
+                this.razer_err_list_uids = uids1;
+
+            } else {
+                this.razer_err_list_uids = uids1.concat(uids2);
+            }
+        }
+    },
+
+    get_html_sentag_by_err: function(err) {
+        var tag = err.tag;
+        var txt = err.text;
+        var sen = err.sentence;
+
+        var colored_txt = '<span class="clr-black mark-tag-' + tag + '">' + 
+            txt + 
+            '</span>';
+
+        var html = sen.replace(txt, colored_txt);
+
+        return '<span>' + html + '</html>';
+    },
+
+    add_razer_err_label: function(err_cate, err_type, uid) {
+        var rr = this.get_razer_rst();
+        if (rr == null) {
+            return null;
+        }
+
+        // ok, let's check errors label
+        if (!rr.err_dict[uid].hasOwnProperty('errors')) {
+            rr.err_dict[uid]['errors'] = [];
+        }
+
+        // add this tag?
+        rr.err_dict[uid]['errors'].push({
+            category: err_cate,
+            type: err_type
+        });
+
+        // close?
+        this.close_razer_pan_err_def();
+
+        // update UI?
+        this.update_razer_dict_stats();
+    },
+
+    remove_razer_err_label: function(uid, e_idx) {
 
     }
 });

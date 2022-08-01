@@ -1,12 +1,17 @@
 /**
  * Sankey Diagram based on D3-sankey
  */
-var fig_sankey = {
+var figmker_sankey = {
+
+
+make_fig: function(box_id) {
+
+return {
     // settings for the sankey figure
-    width: 650,
-    height: 550,
+    width: 620,
+    height: 500,
     margin: {
-        top: 20, 
+        top: 15, 
         right: 10, 
         bottom: 10, 
         left: 10
@@ -15,7 +20,7 @@ var fig_sankey = {
     node_width: 15,
     lane_width: 150,
     n_lanes: 3,
-    padding: 6,
+    padding: 8,
 
     // variables for quick access
     svg: null,
@@ -36,31 +41,28 @@ var fig_sankey = {
     nodes: null,
 
     // DOM, please modify when init
-    fig_id: '#fig_sankey',
+    box_id: box_id,
 
     // Headers for each lane of node
     headers: [
         'A', 'B', 'C', 'D'
     ],
 
-    init: function(fig_id) {
-        if (typeof(fig_id) != 'undefined') {
-            // update the local fig_id
-            this.fig_id = fig_id;
-        }
+    // callbacks
+    on_click_node: function(d) {
+        console.log('* clicked node', d);
+    },
+    on_click_link: function(d) {
+        console.log('* clicked link', d);
+    },
 
+    init: function() {
         // get the svg
-        this.svg = d3.select("#sankey-diagram")
+        this.svg = d3.select(this.box_id)
             .append("svg")
-            .attr('id', 'sankey-diagram-svg')
+            .attr('id', this.box_id+'_svg')
             .attr("width", this.width + this.margin.left + this.margin.right)
             .attr("height", this.height + this.margin.top + this.margin.bottom);
-
-        // get the chart
-        this.chart = svg.append("g")
-            .attr("transform", 
-                "translate(" + margin.left + "," + margin.top + ")"
-            );
 
         // create the sankey
         this.sankey = d3.sankey()
@@ -69,7 +71,7 @@ var fig_sankey = {
                     this.n_lanes * (this.lane_width + this.node_width),
                 this.height
             ])
-            .nodeId(d => d.name)
+            .nodeId(d => d.id)
             .nodeWidth(this.node_width)
             .nodePadding(this.padding)
             .nodeSort(this.node_sort)
@@ -78,24 +80,47 @@ var fig_sankey = {
     },
 
     node_sort: function(a, b) {
-        return -1;
+        return b.value - a.value;
     },
 
     link_sort: function(a, b) {
         return b.value - a.value;
     },
 
+    clear: function() {
+        this.chart.remove();
+        this.chart = null;
+    },
+
     draw: function(data) {
         this.graph = this.sankey(data);
 
-        // draw nodes
-        this._draw_nodes();
+        if (this.chart != null) {
+            // this is not a new chart
+            this.clear();
+        }
+
+        // draw a blank chart for 
+        this._draw_blank_chart();
         
         // draw links
         this._draw_links();
 
+        // draw nodes
+        this._draw_nodes();
+
         // draw headers
         this._draw_headers();
+    },
+
+    _draw_blank_chart: function() {
+        // get the chart
+        this.chart = this.svg.append("g")
+            .attr('id', this.box_id + '_chart')
+            .attr("class", "sankey-chart")
+            .attr("transform", 
+                "translate(" + this.margin.left + "," + this.margin.top + ")"
+            );
     },
 
     _draw_links: function() {
@@ -108,6 +133,13 @@ var fig_sankey = {
             .append("path")
             .classed("link", true)
             .attr("d", d3.sankeyLinkHorizontal())
+            .attr("class", d=>{
+                if (d.hasOwnProperty('class_name')) {
+                    return 'sankey-link ' + d.class_name;
+                } else {
+                    return 'sankey-link'
+                }
+            })
             .attr("fill", "none")
             .attr("stroke", function(d) {
                 // if (d.layer == 2) {
@@ -115,10 +147,11 @@ var fig_sankey = {
                 // } else {
                 //     return d.source.color;
                 // }
-                return '#888888';
+                return '#cccccc';
             })
             .attr("stroke-width", d => d.width)
-            .attr("stroke-opacity", .2);
+            .attr("stroke-opacity", .5)
+            .on('click', this.on_click_link);
     },
 
     _draw_nodes: function() {
@@ -135,15 +168,23 @@ var fig_sankey = {
             .attr("y", d => d.y0)
             .attr("width", d => d.x1 - d.x0)
             .attr("height", d => d.y1 - d.y0)
-            .attr("fill", d => get_color(d.name))
-            .attr("opacity", 0.8);
+            .attr("class", d=>{
+                if (d.hasOwnProperty('class_name')) {
+                    return 'sankey-node ' + d.class_name;
+                } else {
+                    return 'sankey-node';
+                }
+            })
+            .attr("fill", '#999999')
+            .attr("opacity", 1)
+            .on('click', this.on_click_node);
 
         // add text
-        nodes.append("g")
+        this.nodes.append("g")
             .attr('class', 'node-label')
             .attr('transform', function(d) {
                 var offset = 0;
-                var dx = d.x0 + sankey.nodeWidth() + 5 + offset;
+                var dx = d.x0 + 20 + offset;
                 var dy = d.y0 + (d.y1 - d.y0) / 2;
                 return `translate(${dx}, ${dy})`;
             })
@@ -161,21 +202,23 @@ var fig_sankey = {
                     .attr("text-anchor", "start")
                     .attr("transform", null)
                     .attr('font-size', 8)
-                    .attr('y', 6)
-                    .text("N=" + d.value);
-            })
+                    .attr('y', 8)
+                    .text("" + d.value);
+            });
     },
 
     _draw_headers: function() {
         // add the header
-        this.svg.selectAll('text.header')
+        this.chart.selectAll('text.header')
             .data(this.headers)
             .enter()
             .append('text')
-            .attr('x', function(d, i) {
-                return (this.node_width + this.lane_width) * i + this.margin.left;
-            })
-            .attr('y', 15)
+            .attr('x', (function(fig) {
+                return function(d, i) {
+                    return (fig.node_width + fig.lane_width) * i;
+                }
+            })(this))
+            .attr('y', -5)
             .attr('font-size', 10)
             .attr("font-family", "Helvetica")
             .attr('font-weight', 'bold')
@@ -183,4 +226,8 @@ var fig_sankey = {
                 return d;
             });
     }
+}
+
+} // end of make_fig
+
 };

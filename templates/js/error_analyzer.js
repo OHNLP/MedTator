@@ -44,8 +44,38 @@ var error_analyzer = {
         ]
     },
 
-    UNK_ERR_TYPE: 'UNKNOWN',
-    UNK_ERR_CATE: 'UNKNOWN',
+    UNK_ERROR_TYPE: 'UNKNOWN',
+    UNK_ERROR_CATE: 'UNK',
+
+    ERROR_COLOR_SCHEMA: [{
+        // some kind of pink
+        c_cate: '#F72585',
+        c_type: ['#fa6bab', '#ad1b7f', '#f726a1', '#b709f6', '#b709f6', '', '']
+    }, {
+        // some kind of Byzantine
+        c_cate: '#B5179E',
+        c_type: ['', '', '', '', '', '', '']
+    }, {
+        // some kind of Purple
+        c_cate: '#7209B7',
+        c_type: ['#231942', '#5E548E', '#9F86C0', '#BE95C4', '#E0B1CB', '#E07A5F', '#F2CC8F']
+    }, {
+        // some kind of Trypan Blue
+        c_cate: '#560BAD',
+        c_type: ['', '', '', '', '', '', '']
+    }, {
+        // some kind of Persian blue
+        c_cate: '#480CA8',
+        c_type: ['', '', '', '', '', '', '']
+    }, {
+        // some kind of 
+        c_cate: '#320890',
+        c_type: ['', '', '', '', '', '', '']
+    }, {
+        // some kind of 
+        c_cate: '#003242',
+        c_type: ['', '', '', '', '', '', '']
+    }],
 
     /**
      * Get statistics on the given tags
@@ -129,9 +159,9 @@ var error_analyzer = {
         // stat by relations
         var stat_by_rel = {
             // column 1: error 
-            c_error: { FP: { 'UNKNOWN': [] }, FN: { 'UNKNOWN': [] } },
+            c_error: { FP: { 'UNK': [] }, FN: { 'UNK': [] } },
             // column 2: error category
-            c_category: { 'UNKNOWN': { 'UNKNOWN': [] }},
+            c_category: { 'UNK': { 'UNKNOWN': [] }},
             // column 3: error type
             c_type: { 'UNKNOWN': {} }
         };
@@ -147,48 +177,48 @@ var error_analyzer = {
             if (err.hasOwnProperty('errors')) {
                 // ok, this has information
                 for (let i = 0; i < err.errors.length; i++) {
-                    const err = err.errors[i];
-                    if (stat_by_err.hasOwnProperty(err.type)) {
+                    const e = err.errors[i];
+                    if (stat_by_err.hasOwnProperty(e.type)) {
                         // ok, no need to revise stat_by_err
                     } else {
                         // stat_by_err doesn't have this?
                         // just init it with an empty one
-                        stat_by_err[err.type] = {
+                        stat_by_err[e.type] = {
                             FP: [], 
                             FN: []
                         };
                     }
-                    stat_by_err[err.type][err._judgement].push(uid);
+                    stat_by_err[e.type][err._judgement].push(uid);
 
                     // update the relationship
                     // col 1-2
-                    if (!stat_by_rel.c_error[err._judgement].hasOwnProperty(err.category)) {
+                    if (!stat_by_rel.c_error[err._judgement].hasOwnProperty(e.category)) {
                         // init it as a list
-                        stat_by_rel.c_error[err._judgement][err.category] = {};
+                        stat_by_rel.c_error[err._judgement][e.category] = [];
                     }
-                    stat_by_rel.c_error[err._judgement][err.category].push(uid);
+                    stat_by_rel.c_error[err._judgement][e.category].push(uid);
 
                     // col 2-3
-                    if (!stat_by_rel.c_category.hasOwnProperty(err.category)) {
+                    if (!stat_by_rel.c_category.hasOwnProperty(e.category)) {
                         // init it as a obj
-                        stat_by_rel.c_category[err.category] = {};
+                        stat_by_rel.c_category[e.category] = {};
                     }
-                    if (!stat_by_rel.c_category[err.category].hasOwnProperty(err.type)) {
+                    if (!stat_by_rel.c_category[e.category].hasOwnProperty(e.type)) {
                         // init it as a list
-                        stat_by_rel.c_category[err.category][err.type] = [];
+                        stat_by_rel.c_category[e.category][e.type] = [];
                     }
-                    stat_by_rel.c_category[err.category][err.type].push(uid);
+                    stat_by_rel.c_category[e.category][e.type].push(uid);
 
                     // col 3-4
-                    if (!stat_by_rel.c_type.hasOwnProperty(err.type)) {
+                    if (!stat_by_rel.c_type.hasOwnProperty(e.type)) {
                         // init it as a obj
-                        stat_by_rel.c_type[err.type] = {};
+                        stat_by_rel.c_type[e.type] = {};
                     }
-                    if (!stat_by_rel.c_type[err.type].hasOwnProperty(err.tag)) {
+                    if (!stat_by_rel.c_type[e.type].hasOwnProperty(err.tag)) {
                         // init it as a list
-                        stat_by_rel.c_type[err.type][err.tag] = [];
+                        stat_by_rel.c_type[e.type][err.tag] = [];
                     }
-                    stat_by_rel.c_type[err.type][err.tag].push(uid);
+                    stat_by_rel.c_type[e.type][err.tag].push(uid);
 
                 }
             } else {
@@ -198,9 +228,9 @@ var error_analyzer = {
 
                 // update the relationship
                 // col 1
-                stat_by_rel.c_error[err._judgement].UNKNOWN.push(uid);
+                stat_by_rel.c_error[err._judgement].UNK.push(uid);
                 // col 2
-                stat_by_rel.c_category.UNKNOWN.UNKNOWN.push(uid);
+                stat_by_rel.c_category.UNK.UNKNOWN.push(uid);
                 // col 3
                 if (!stat_by_rel.c_type.UNKNOWN.hasOwnProperty(err.tag)) {
                     // init it as a list
@@ -258,15 +288,39 @@ var error_analyzer = {
             for (const nLeft in stat_by_rel[col]) {
                 for (const nRight in stat_by_rel[col][nLeft]) {
                     var uids = stat_by_rel[col][nLeft][nRight];
+                    var class_name = 'cursor-pointer';
+
+                    if (nLeft == this.UNK_ERROR_CATE) {
+                        if (uids.length == 0) {
+
+                            // no need to add UNK when there is no uid
+                            continue;
+                        }
+                    }
+                    
+                    // update the link
+                    links.push({
+                        source: nLeft,
+                        target: nRight,
+                        value: uids.length,
+                        column: i,
+                        class_name: class_name
+                    });
     
                     // update the left node
                     if (!nodes.hasOwnProperty(nLeft)) {
+                        var _cls = class_name;
+                        if (col == 'c_error') {
+                            _cls += ' razer-bg-' + nLeft;
+                        }
                         // add this node
                         nodes[nLeft] = {
                             id: nLeft,
                             name: nLeft,
                             value: 0,
                             layer: i,
+                            // style
+                            class_name: _cls
                         }
                     }
                     // update node value
@@ -275,23 +329,20 @@ var error_analyzer = {
                     // update the right node
                     if (!nodes.hasOwnProperty(nRight)) {
                         // add this node
+                        var _cls = class_name;
+                        if (col=='c_type') {
+                            _cls += ' svgmark-tag-' + nRight;
+                        }
                         nodes[nRight] = {
                             id: nRight,
                             name: nRight,
                             value: 0,
-                            layer: i + 1
+                            layer: i + 1,
+                            class_name: _cls
                         }
                     }
                     // update the right node
                     nodes[nRight].value += uids.length;
-                    
-                    // update the link
-                    links.push({
-                        source: nLeft,
-                        target: nRight,
-                        value: uids.length,
-                        column: i
-                    });
                 }
             }
         }

@@ -105,7 +105,14 @@ v-bind:class="{'active': section=='razer'}">
         <span class="icon">
             <i class="fas fa-cash-register"></i>
         </span>
-        <span class="caption">Analyze</span>
+        <span v-if="razer_dict == null"
+            class="caption">
+            Analyze
+        </span>
+        <span v-else
+            class="caption">
+            Re-Analyze
+        </span>
     </button>
 
     <button class="ribbon-button" 
