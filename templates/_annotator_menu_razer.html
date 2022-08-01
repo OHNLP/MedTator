@@ -41,8 +41,8 @@ v-bind:class="{'active': section=='razer'}">
         </div>
         <div v-else 
             class="zone-text">
-            {{ count_tags_in_anns(razer_ann_list[0].anns) }} Tags
-            <br>
+            Found <br>
+            {{ count_tags_in_anns(razer_ann_list[0].anns) }} Tags <br>
             in {{ razer_ann_list[0].anns.length }} Files
         </div>
 
@@ -79,8 +79,8 @@ v-bind:class="{'active': section=='razer'}">
         </div>
         <div v-else 
             class="zone-text">
-            {{ count_tags_in_anns(razer_ann_list[1].anns) }} Tags
-            <br>
+            Found <br>
+            {{ count_tags_in_anns(razer_ann_list[1].anns) }} Tags <br>
             in {{ razer_ann_list[1].anns.length }} Files
         </div>
 
