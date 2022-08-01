@@ -12,6 +12,7 @@ Object.assign(app_hotpot.vpp_data, {
     // any number: loading
     razer_loading_status: null,
 
+    // input data 1 and 2
     // for holding the uploaded anns
     razer_ann_list: [
         // the first one must be the GSC
@@ -20,9 +21,14 @@ Object.assign(app_hotpot.vpp_data, {
         { anns: [], name: 'Dataset 1' }
     ],
 
-    // by default, just use the first dataset
-    // the rid is this razer id or resource id
-    razer_idx: 1,
+    // input data 3 (optional)
+    // the err def for analysis
+    razer_err_def: null,
+    razer_err_def_mapping: {},
+
+    // input data 3 (optional)
+    // the err labels
+    razer_err_labels_file: null,
 
     // for all razer information
     // the structure looks like:
@@ -40,17 +46,17 @@ Object.assign(app_hotpot.vpp_data, {
     // we don't want to save extra information here
     razer_dict: null,
 
-    // the err def for analysis
-    razer_err_def: null,
-    razer_err_def_mapping: {},
+    // by default, just use the first dataset
+    // the rid is this razer id or resource id
+    razer_idx: 1,
 
-    // show panel?
+    // show panel for add label
     is_shown_razer_pan_err_def: false,
     razer_active_err_uid: null,
     razer_pan_err_def_right: 0,
     razer_pan_err_def_top: 0,
 
-    // the fig obj
+    // the fig obj for sankey
     razer_fig_sankey: null,
 
     // the uids for checking
@@ -125,7 +131,44 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_err_def = null;
     },
 
-    on_drop_dropzone_razer_workspace: function(event) {
+    on_drop_dropzone_razer_err_labels: function(event) {
+        // stop the download event
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+        
+        // set loading status
+        this.razer_loading_status = Math.random();
+
+        // set loading rid
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            // only accept xml for iaa
+            function(fn) {
+                if (app_hotpot.is_file_ext_json(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+        promise_files.then(function(files) {
+            // for error labels, just use one file?
+            app_hotpot.vpp.set_file_to_razer_err_labels(files[0]);
+        });
+    },
+
+    set_file_to_razer_err_labels: function(file) {
+        var obj = JSON.parse(file.text);
+
+        this.razer_err_labels_file = {
+            _fh: file.fh,
+            tags: obj.tags
+        };
+
+        // done and set loading finished
+        this.razer_loading_status = null;
+    },
+
+    on_click_razer_load_err_labels: function() {
 
     },
 
@@ -196,11 +239,11 @@ Object.assign(app_hotpot.vpp_methods, {
             ] = ann;
         }
 
-        // done
+        // done and set loading finished
         this.razer_loading_status = null;
     },
 
-    razer_analyze: function() {
+    parse_razer_files: function() {
 
         if (this.razer_dict != null) {
             // which means there is something analyzed
@@ -209,24 +252,10 @@ Object.assign(app_hotpot.vpp_methods, {
             );
 
             if (ret) {
-
+                // OK, just re-parse everything
             } else {
                 return;
             }
-        }
-
-        if (this.razer_err_def == null) {
-            this.razer_err_def = JSON.parse(JSON.stringify(error_analyzer.DEFAULT_ERROR_DEF));
-
-            // add mapping
-            var shortcut = 1;
-            for (const err_cate in this.razer_err_def) {
-                this.razer_err_def_mapping[shortcut] = err_cate;
-                shortcut += 1;
-            }
-
-            // add UNKNOWN
-            this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
         }
 
         // first, get the IAA result 
@@ -248,6 +277,42 @@ Object.assign(app_hotpot.vpp_methods, {
             this.dtd
         );
 
+
+        // then, check if the error definition
+        if (this.razer_err_def == null) {
+            this.razer_err_def = JSON.parse(JSON.stringify(
+                error_analyzer.DEFAULT_ERROR_DEF
+            ));
+
+            // add mapping for shortcut keys
+            var shortcut = 1;
+            for (const err_cate in this.razer_err_def) {
+                this.razer_err_def_mapping[shortcut] = err_cate;
+                shortcut += 1;
+            }
+
+            // add UNKNOWN
+            this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+        }
+
+        // then, check if there is tags
+        if (this.razer_err_labels_file != null) {
+            // ok, let's use the given labels to update err
+            for (let i = 0; i < this.razer_err_labels_file.tags.length; i++) {
+                const t = this.razer_err_labels_file.tags[i];
+                if (!t.hasOwnProperty('errors')) {
+                    // oh, this tag doesn't have error labels,
+                    // just skip it
+                    continue;
+                }
+                // now let's check if there is a same uid tag
+                if (err_doc.err_dict.hasOwnProperty(t.uid)) {
+                    // great! let's update this uid
+                    err_doc.err_dict[t.uid]['errors'] = t.errors;
+                }
+            }
+        }
+
         // then, get the stat
         var err_stat = error_analyzer.get_err_stat(
             iaa_dict,
@@ -259,6 +324,7 @@ Object.assign(app_hotpot.vpp_methods, {
         if (this.razer_dict == null) {
             this.razer_dict = {};
         }
+
         this.razer_dict[
             this.razer_idx
         ] = {
@@ -430,21 +496,23 @@ Object.assign(app_hotpot.vpp_methods, {
         this.$forceUpdate();
     },
 
-    save_razer_workspace: function() {
+    save_razer_err_labels: function() {
         var obj = {
-            // first, razer_dict, yes!
-            razer_dict: this.razer_dict,
-            // then, need to know where to get the 
-            razer_idx: this.razer_idx,
-
-            // dtd ???
-            dtd: this.dtd
+            tags: []
         };
 
+        // check all results
+        for (const uid in this.razer_dict[this.razer_idx].err_dict) {
+            var tag = this.razer_dict[this.razer_idx].err_dict[uid];
+            obj.tags.push(tag);
+        }
+
+        // let's save
         var fn = this.dtd.name + 
             '-error-analysis.' + 
             this.get_date_now() + 
             '.json';
+            
         var json_text = JSON.stringify(obj, null, 4);
         var blob = new Blob([json_text], {type: "text/json;charset=utf-8"});
         saveAs(blob, fn);

@@ -1679,7 +1679,8 @@ ol[class], ul[class] {
 }
 .btn-add-err-type {
     border: 1px dashed #cccccc;
-    width: 50px;
+    background-color: white;
+    width: 40px;
     text-align: center;
     color: #555555;
 }

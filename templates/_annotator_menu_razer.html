@@ -93,6 +93,113 @@ v-bind:class="{'active': section=='razer'}">
 </div>
 
 
+<div class="group">
+
+    <div id="dropzone_razer_err_def"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_razer_err_def($event)"
+        title="The error definition for error analysis"
+        class="dropzone-menu-box">
+        <div v-if="dtd == null" 
+            class="zone-text">
+            Load DTD file first<br>
+            in the Annotation Tab
+        </div>
+        <div v-else-if="razer_loading_status == 0" 
+            class="zone-text">
+            <i class="fas fa-spinner fa-spin"></i>
+            Reading File ...
+        </div>
+        <div v-else-if="razer_err_def == null" 
+            class="zone-text">
+            Drop <b>Error Definition</b> <br>
+            .yaml File Here <br>
+            (Optional)
+        </div>
+        <div v-else 
+            class="zone-text">
+            {{ Object.keys(razer_err_def).length }} Categories
+        </div>
+
+    </div>
+
+    <span class="title">
+        Error Definition 
+        <a href="javascript:void(0);"
+            title="What's 'Error Definition'?"
+            class="link-btn">
+            <i class="fas fa-question-circle"></i>
+        </a>
+    </span>
+
+</div>
+
+<div class="group">
+
+
+    <div id="dropzone_razer_err_labels" 
+        class="dropzone-menu-box"
+        title="Drop an error analysis workspace file (.json)"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:click="on_click_razer_load_err_labels"
+        v-on:drop="on_drop_dropzone_razer_err_labels">
+        <div v-if="razer_dict != null" 
+            class="zone-text">
+            
+            <b>{{ get_razer_rst().err_stat.by_iaa.n_FP }}</b> FP Tags<br>
+            <b>{{ get_razer_rst().err_stat.by_iaa.n_FN }}</b> FN Tags
+
+        </div>
+        <div v-else-if="razer_err_labels_file != null" 
+            class="zone-text">
+            Loaded Error Labels <br>
+            {{ razer_err_labels_file.tags.length }} Tags
+        </div>
+        <div v-else 
+            class="zone-text">
+            Drop <b>Error Labels</b> <br>
+            .json File Here<br>
+            (Optional)
+        </div>
+    </div>
+
+    <!-- <button class="ribbon-button" 
+        title="Save the current error analysis workspace"
+        v-on:click="on_click_razer_load_err_labels">
+        <span class="icon">
+            <i class="far fa-folder-open"></i>
+        </span>
+        <span class="caption">
+            Load 
+        </span>
+    </button> -->
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Save the current error analysis workspace"
+        v-on:click="save_razer_err_labels">
+        <span class="icon">
+            <i class="far fa-save"></i>
+        </span>
+        <span class="caption">
+            Save 
+        </span>
+    </button>
+
+    <span class="title">
+        Error Labels
+
+        <a href="javascript:void(0);"
+            title="What's 'Error Labels'?"
+            class="link-btn">
+            <i class="fas fa-question-circle"></i>
+        </a>
+    </span>
+
+</div>
+
+
 
 
 <div class="group">
@@ -101,17 +208,17 @@ v-bind:class="{'active': section=='razer'}">
     <button class="ribbon-button" 
         :disabled="dtd == null || razer_ann_list[0].anns.length == 0 || razer_ann_list[1].anns.length == 0"
         title="Analyze the given dataset"
-        v-on:click="razer_analyze">
+        v-on:click="parse_razer_files">
         <span class="icon">
             <i class="fas fa-cash-register"></i>
         </span>
         <span v-if="razer_dict == null"
             class="caption">
-            Analyze
+            Parse
         </span>
         <span v-else
             class="caption">
-            Re-Analyze
+            Re-Parse
         </span>
     </button>
 
@@ -128,46 +235,17 @@ v-bind:class="{'active': section=='razer'}">
         </span>
     </button>
 
+
     <span class="title">Error Analysis</span>
+
 
 
 </div>
 
 
 
+
 <div class="group">
-
-    <div id="dropzone_razer_workspace" 
-        class="dropzone"
-        title="Drop an error analysis workspace file (.json)"
-        v-on:dragover="on_dragover_prevent_default"
-        v-on:drop="on_drop_dropzone_razer_workspace">
-        <div v-if="razer_dict != null" class="zone-text">
-            <b>{{ dtd.name }}</b><br>
-            {{ dtd.etags.length }} Entity Tags<br>
-            {{ dtd.rtags.length }} Link Tags
-        </div>
-        <div v-else 
-            class="zone-text">
-            Drop an <b>Error Analysis</b> <br>
-            <b>Workspace</b> (.json)<br>
-            File Here
-        </div>
-    </div>
-
-
-    <button class="ribbon-button" 
-        :disabled="dtd == null || razer_dict == null"
-        title="Save the current error analysis workspace"
-        v-on:click="save_razer_workspace">
-        <span class="icon">
-            <i class="far fa-save"></i>
-        </span>
-        <span class="caption">
-            Save
-        </span>
-    </button>
-
 
 
     <button class="ribbon-button" 
@@ -177,11 +255,11 @@ v-bind:class="{'active': section=='razer'}">
         <span class="icon">
             <i class="fa fa-clipboard-list"></i>
         </span>
-        <span class="caption">Export Report</span>
+        <span class="caption">Report</span>
     </button>
 
-    <span class="title">Workspace</span>
 
+    <span class="title">Export</span>
 
 </div>
 

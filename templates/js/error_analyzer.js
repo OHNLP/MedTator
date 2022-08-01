@@ -302,7 +302,8 @@ var error_analyzer = {
                     var uids = stat_by_rel[col][nLeft][nRight];
                     var class_name = 'cursor-pointer';
 
-                    if (nLeft == this.UNK_ERROR_CATE) {
+                    if (nLeft == this.UNK_ERROR_CATE ||
+                        nRight == this.UNK_ERROR_CATE) {
                         if (uids.length == 0) {
 
                             // no need to add UNK when there is no uid

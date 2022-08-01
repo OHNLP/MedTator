@@ -3451,6 +3451,14 @@ var app_hotpot = {
         return app_hotpot.is_file_ext(fn, 'xml');
     },
 
+    is_file_ext_json: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'json');
+    },
+
+    is_file_ext_yaml: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'yaml');
+    },
+
     is_file_ext_ann: function(fn) {
         return app_hotpot.is_file_ext(fn, 'ann');
     },
