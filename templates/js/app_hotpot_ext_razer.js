@@ -645,7 +645,47 @@ Object.assign(app_hotpot.vpp_methods, {
         );
     },
 
-    razer_export_report: function() {
+    export_razer_report: function() {
+        // create each sheet
+        var ws_summary = error_analyzer.get_razer_report_summary(
+            this.razer_dict[this.razer_idx], 
+            'excelws'
+        );
+        var ws_stat_by_concept = error_analyzer.get_razer_report_stat_by_concept(
+            this.razer_dict[this.razer_idx], 
+            'excelws'
+        );
+        var ws_stat_by_err_type = error_analyzer.get_razer_report_stat_by_err_type(
+            this.razer_dict[this.razer_idx], 
+            this.razer_err_def,
+            'excelws'
+        );
+        var ws_tag_list = error_analyzer.get_razer_report_tag_list(
+            this.razer_dict[this.razer_idx], 
+            'excelws'
+        );
 
+        // create wb for download
+        var wb = {
+            SheetNames: [
+                "Summary",
+                "By Concept",
+                "By Error Types",
+                "Tags and Labels"
+            ],
+            Sheets: {
+                "Summary": ws_summary,
+                "By Concept": ws_stat_by_concept,
+                "By Error Types": ws_stat_by_err_type,
+                "Tags and Labels": ws_tag_list
+            }
+        };
+        console.log(wb);
+
+        // decide the file name for this export
+        var fn = this.dtd.name + '-error-analysis-report-' + this.get_date_now() + '.xlsx';
+
+        // download this wb
+        XLSX.writeFile(wb, fn);
     }
 });

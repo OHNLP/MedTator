@@ -92,7 +92,7 @@ var error_analyzer = {
         "sentence_spans": "6~11",  
         "tag": "AE",                
         "text": "faint",            
-        "_filename": "12345.txt",
+        "file_name": "12345.txt",
         "_annotator": "B",
         "_judgement": "FP",
         
@@ -133,8 +133,8 @@ var error_analyzer = {
                 iaa_dict.all.cm.fp,
                 iaa_dict.all.cm.fn
             ),
-            recall: iaa_dict.all.recall,
             precision: iaa_dict.all.precision,
+            recall: iaa_dict.all.recall,
             f1: iaa_dict.all.f1,
         };
 
@@ -455,5 +455,131 @@ var error_analyzer = {
             return NaN;
         }
         return tp / sum;
-    }
+    },
+
+    get_razer_report_summary: function(razer, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'json';
+        }
+        // FP, FN, ER, Acc, Pre, Rec, F1 ...
+        var js = [];
+
+        js.push({ 'item': 'TP', 'result': razer.err_stat.by_iaa.n_TP });
+        js.push({ 'item': 'FP', 'result': razer.err_stat.by_iaa.n_FP });
+        js.push({ 'item': 'FN', 'result': razer.err_stat.by_iaa.n_FN });
+        js.push({ 'item': 'Error Rate', 'result': razer.err_stat.by_iaa.error_rate });
+        js.push({ 'item': 'Accuracy', 'result': razer.err_stat.by_iaa.accuracy });
+        js.push({ 'item': 'Precision', 'result': razer.err_stat.by_iaa.precision });
+        js.push({ 'item': 'Recall', 'result': razer.err_stat.by_iaa.recall });
+        js.push({ 'item': 'F1-Score', 'result': razer.err_stat.by_iaa.f1 });
+
+        if (format == 'json' || format != 'excelws') {
+            return js;
+        }
+
+        // ok, let's parse for excel
+        var ws = XLSX.utils.json_to_sheet(js);
+        return ws;
+    },
+
+    get_razer_report_stat_by_concept: function(razer, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'json';
+        }
+
+        var js = [];
+        for (const etag_name in razer.err_stat.by_dtd) {
+            var stat = razer.err_stat.by_dtd[etag_name];
+            js.push({
+                'concept': etag_name,
+                'FP': stat.FP.length,
+                'FN': stat.FN.length,
+            });
+        }
+
+        if (format == 'json' || format != 'excelws') {
+            return js;
+        }
+
+        // ok, let's parse for excel
+        var ws = XLSX.utils.json_to_sheet(js);
+        return ws;
+    },
+
+    get_razer_report_stat_by_err_type: function(razer, razer_err_def, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'json';
+        }
+
+        var js = [];
+        for (const err_cate in razer_err_def) {
+            js.push({
+                'category': err_cate,
+                'type': '',
+                'FP': '',
+                'FN': ''
+            });
+            for (let i = 0; i < razer_err_def[err_cate].length; i++) {
+                const err_type = razer_err_def[err_cate][i];
+                var FP = 0;
+                var FN = 0;
+                if (razer.err_stat.by_err.hasOwnProperty(err_type)) {
+                    FP = razer.err_stat.by_err[err_type].FP.length;
+                    FN = razer.err_stat.by_err[err_type].FN.length;
+                }
+                js.push({
+                    'category': '',
+                    'type': err_type,
+                    'FP': FP,
+                    'FN': FN
+                });
+            }
+        }
+
+        if (format == 'json' || format != 'excelws') {
+            return js;
+        }
+
+        // ok, let's parse for excel
+        var ws = XLSX.utils.json_to_sheet(js);
+        return ws;
+    },
+
+    get_razer_report_tag_list: function(razer, format) {
+        if (typeof(format) == 'undefined') {
+            format = 'json';
+        }
+
+        var js = [];
+        for (const uid in razer.err_dict) {
+            var t = razer.err_dict[uid];
+
+            var j = {
+                uid: uid,
+                'id': t.id,
+                'spans': t.spans,
+                'tag': t.tag,
+                'text': t.text,
+                'error': t._judgement,
+                'file_name': t.file_name,
+                'sentence_spans': t.sentence_spans,
+                'sentence': t.sentence,
+            };
+
+            if (t.hasOwnProperty('errors')) {
+                for (let k = 0; k < t.errors.length; k++) {
+                    const e = t.errors[k];
+                    j['label_'+(k+1)] = e.type;
+                }
+            }
+            js.push(j);
+        }
+
+        if (format == 'json' || format != 'excelws') {
+            return js;
+        }
+
+        // ok, let's parse for excel
+        var ws = XLSX.utils.json_to_sheet(js);
+        return ws;}
 };

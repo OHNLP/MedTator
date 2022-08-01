@@ -267,7 +267,7 @@ v-bind:class="{'active': section=='razer'}">
     <button class="ribbon-button" 
         :disabled="dtd == null || razer_dict == null"
         title="Download current analysis result report"
-        v-on:click="razer_export_report">
+        v-on:click="export_razer_report">
         <span class="icon">
             <i class="fa fa-clipboard-list"></i>
         </span>
