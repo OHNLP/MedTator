@@ -581,5 +581,37 @@ var error_analyzer = {
 
         // ok, let's parse for excel
         var ws = XLSX.utils.json_to_sheet(js);
-        return ws;}
+        return ws;
+    },
+
+    get_stat_of_err_def: function(err_def) {
+        if (err_def == null) {
+            return {
+                short_title: 'NA',
+                n_cates: 0,
+                n_types: 0
+            };
+        }
+        var n_cates = Object.keys(err_def).length;
+        var n_types = 0;
+
+        var short_title = null;
+        for (const c in err_def) {
+            n_types += err_def[c].length;
+
+            if (short_title == null) {
+                short_title = c;
+            }
+        }
+        if (short_title == null) {
+            short_title = '';
+        } else {
+            short_title += ' and ' + (n_cates - 1) + ' more';
+        }
+        return {
+            short_title: short_title,
+            n_cates: n_cates,
+            n_types: n_types
+        };
+    }
 };

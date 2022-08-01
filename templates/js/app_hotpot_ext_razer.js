@@ -73,6 +73,14 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 // Error Analysis related functions
 /////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_computed, {
+    razer_err_def_info: function() {
+        return error_analyzer.get_stat_of_err_def(
+            this.razer_err_def
+        );
+    }
+});
+
 Object.assign(app_hotpot.vpp_methods, {
 
     get_razer_rst: function() {

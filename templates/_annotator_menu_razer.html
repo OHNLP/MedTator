@@ -118,7 +118,9 @@ v-bind:class="{'active': section=='razer'}">
         </div>
         <div v-else 
             class="zone-text">
-            {{ Object.keys(razer_err_def).length }} Categories
+            {{ razer_err_def_info.short_title }} <br>
+            <b>{{ razer_err_def_info.n_cates }}</b> categories with <br>
+            <b>{{ razer_err_def_info.n_types }}</b> error types
         </div>
 
     </div>

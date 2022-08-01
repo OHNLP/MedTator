@@ -314,8 +314,8 @@ input[type=range]:focus::-ms-fill-upper {
     opacity: .5;
 }
 .zone-text {
-    margin-top: 9px; 
-    line-height: 14px;
+    margin-top: 8px; 
+    line-height: 1.2em;
     padding-left: 5px;
     padding-right: 5px;
     overflow: hidden;
