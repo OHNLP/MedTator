@@ -130,4 +130,48 @@ v-bind:class="{'active': section=='razer'}">
 
 </div>
 
+
+
+<div class="group">
+
+    <div id="dropzone_razer_workspace" 
+        class="dropzone"
+        title="Drop an error analysis workspace file (.json)"
+        v-on:dragover="on_dragover_prevent_default"
+        v-on:drop="on_drop_dropzone_razer_workspace">
+        <div v-if="razer_dict != null" class="zone-text">
+            <b>{{ dtd.name }}</b><br>
+            {{ dtd.etags.length }} Entity Tags<br>
+            {{ dtd.rtags.length }} Link Tags
+        </div>
+        <div v-else 
+            class="zone-text">
+            Drop an <b>Error Analysis</b> <br>
+            <b>Workspace</b> (.json)<br>
+            File Here
+        </div>
+    </div>
+
+
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Save the current error analysis workspace"
+        v-on:click="save_razer_workspace">
+        <span class="icon">
+            <i class="far fa-save"></i>
+        </span>
+        <span class="caption">
+            Save
+        </span>
+    </button>
+
+    <span class="title">Workspace</span>
+
+
+</div>
+
+
+
+
+
 </div>

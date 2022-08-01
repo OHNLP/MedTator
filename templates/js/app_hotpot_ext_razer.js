@@ -122,6 +122,10 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_err_def = null;
     },
 
+    on_drop_dropzone_razer_workspace: function(event) {
+
+    },
+
     on_drop_dropzone_razer: function(event, rid) {
         // stop the download event
         event.preventDefault();
@@ -144,6 +148,22 @@ Object.assign(app_hotpot.vpp_methods, {
         promise_files.then(function(files) {
             app_hotpot.vpp.add_files_to_razer_anns(files, rid);
         });
+    },
+
+    on_click_razer_sankey_node: function(event, d) {
+        console.log('* clicked node', event, d);
+        this.show_uids_in_razer_err_list(
+            d.uids,
+            null
+        );
+    },
+
+    on_click_razer_sankey_link: function(event, d) {
+        console.log('* clicked link', event, d);
+        this.show_uids_in_razer_err_list(
+            d.uids,
+            null
+        );
     },
 
     add_files_to_razer_anns: function(files, rid) {
@@ -283,6 +303,10 @@ Object.assign(app_hotpot.vpp_methods, {
                 'Concept'
             ]
             this.razer_fig_sankey.init();
+
+            // bind click events
+            this.razer_fig_sankey.on_click_node = this.on_click_razer_sankey_node;
+            this.razer_fig_sankey.on_click_link = this.on_click_razer_sankey_link;
         }
 
         this.razer_fig_sankey.draw(data_sankey);
@@ -376,6 +400,33 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     remove_razer_err_label: function(uid, e_idx) {
+        this.razer_dict[this.razer_idx].err_dict[uid].errors.splice(e_idx, 1);
 
-    }
+        // update UI?
+        this.update_razer_dict_stats();
+
+        this.$forceUpdate();
+
+        console.log('* removed error label for ' + uid);
+    },
+
+    save_razer_workspace: function() {
+        var obj = {
+            // first, razer_dict, yes!
+            razer_dict: this.razer_dict,
+            // then, need to know where to get the 
+            razer_idx: this.razer_idx,
+
+            // dtd ???
+            dtd: this.dtd
+        };
+
+        var fn = this.dtd.name + 
+            '-error-analysis.' + 
+            this.get_date_now() + 
+            '.json';
+        var json_text = JSON.stringify(obj, null, 4);
+        var blob = new Blob([json_text], {type: "text/json;charset=utf-8"});
+        saveAs(blob, fn);
+    },
 });

@@ -297,6 +297,15 @@ input[type=range]:focus::-ms-fill-upper {
 #app_hotpot {
     margin-top: 2px;
 }
+.dropzone {
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 1em;
+    border: 1px dotted rgb(17, 61, 110);
+    border-radius: 4px;
+}
 .dropzone:hover {
     border-color: rgb(0, 89, 255);
     font-weight: bold;
@@ -1712,11 +1721,11 @@ ol[class], ul[class] {
 .err-label:hover .pan-close {
     display: inline;
 }
-.razer-col-1 {
+.razer-lane-1 {
     width: 240px;
     min-width: 240px;
 }
-.razer-col-3 {
+.razer-lane-3 {
     width: 640px;
     min-width: 640px;
 }

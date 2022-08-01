@@ -49,11 +49,11 @@ return {
     ],
 
     // callbacks
-    on_click_node: function(d) {
-        console.log('* clicked node', d);
+    on_click_node: function(event, d) {
+        console.log('* clicked node', event, d);
     },
-    on_click_link: function(d) {
-        console.log('* clicked link', d);
+    on_click_link: function(event, d) {
+        console.log('* clicked link', event, d);
     },
 
     init: function() {
@@ -162,7 +162,8 @@ return {
             .enter();
 
         // add the rect of each node
-        this.nodes.append("rect")
+        this.nodes
+            .append("rect")
             .classed("node", true)
             .attr("x", d => d.x0)
             .attr("y", d => d.y0)

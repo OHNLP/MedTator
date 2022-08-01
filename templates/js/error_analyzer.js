@@ -177,7 +177,11 @@ var error_analyzer = {
             if (err.hasOwnProperty('errors')) {
                 // ok, this has information
                 for (let i = 0; i < err.errors.length; i++) {
+
                     const e = err.errors[i];
+                    ////////////////////////////////////////
+                    // stat by err
+                    ////////////////////////////////////////
                     if (stat_by_err.hasOwnProperty(e.type)) {
                         // ok, no need to revise stat_by_err
                     } else {
@@ -190,6 +194,14 @@ var error_analyzer = {
                     }
                     stat_by_err[e.type][err._judgement].push(uid);
 
+                    ////////////////////////////////////////
+                    // stat by relation
+                    ////////////////////////////////////////
+                    if (i > 0) {
+                        // when counting the relationship
+                        // just use the first label
+                        continue;
+                    }
                     // update the relationship
                     // col 1-2
                     if (!stat_by_rel.c_error[err._judgement].hasOwnProperty(e.category)) {
@@ -303,6 +315,7 @@ var error_analyzer = {
                         source: nLeft,
                         target: nRight,
                         value: uids.length,
+                        uids: uids,
                         column: i,
                         class_name: class_name
                     });
@@ -318,13 +331,18 @@ var error_analyzer = {
                             id: nLeft,
                             name: nLeft,
                             value: 0,
+                            uids: [],
                             layer: i,
                             // style
                             class_name: _cls
                         }
                     }
                     // update node value
-                    nodes[nLeft].value += uids.length;
+                    if (i <= 0) {
+                        // no need to double add after first column
+                        nodes[nLeft].value += uids.length;
+                        nodes[nLeft].uids = nodes[nLeft].uids.concat(uids);
+                    }
     
                     // update the right node
                     if (!nodes.hasOwnProperty(nRight)) {
@@ -337,12 +355,14 @@ var error_analyzer = {
                             id: nRight,
                             name: nRight,
                             value: 0,
+                            uids: [],
                             layer: i + 1,
                             class_name: _cls
                         }
                     }
                     // update the right node
                     nodes[nRight].value += uids.length;
+                    nodes[nRight].uids = nodes[nRight].uids.concat(uids);
                 }
             }
         }
