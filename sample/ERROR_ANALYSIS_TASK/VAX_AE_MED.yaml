@@ -1,0 +1,149 @@
+# Annotation Schema: VAX_AE_MED
+# For more information schema design, you can check MedTator Wiki:
+# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema 
+name: VAX_AE_MED
+
+meta:
+  sentencize_exceptions:
+    - Pos.
+    - Neg.
+    - Psb.
+  error_definition:
+    Liguistic:
+      - Lexicon
+      - Orthographic
+      - Morphologic
+      - Syntactic
+      - Semantic
+    Contextual:
+      - Section
+      - Certainty
+      - Status
+      - Temporality
+      - Subject
+      - Absence of Context
+      - Exclusion
+    Logic:
+      - Pattern and Rule
+    Annotation:
+      - Missing Annotation
+      - Insufficent Context
+      - Extrapolation of Evidence
+      - Non-defined Concept
+    Concept Definition:
+      - Ambiguity
+      - Source Evidence
+      - Change of Status
+    
+etags:
+  - name: VAX
+    attrs:
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: HEADACHE
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: PAIN
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: PYREXIA
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: FATIGUE
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: DIZZINESS
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: NAUSEA
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: OTHER_AE
+    attrs:
+      - name: certainty
+        vtype: list
+        values:
+          - Positive
+          - Negated
+          - Hypothetic
+          - Possible
+        default_value: Positive
+      - name: comment
+        vtype: text
+        default_value: ''
+  - name: MEDICATION
+    attrs:
+      - name: comment
+        vtype: text
+        default_value: ''
+rtags:
+  - name: TREATMENT
+    attrs:
+      - name: link_AE
+        vtype: idref
+      - name: link_MED
+        vtype: idref
+      - name: comment
+        vtype: text
+        default_value: ''

@@ -2646,7 +2646,13 @@ var app_hotpot = {
 
     set_meta_from_dtd: function(dtd) {
         if (dtd.meta.hasOwnProperty('sentencize_exceptions')) {
+            // this is for the sentencizer
             this.set_meta_of_sentencize_exceptions(dtd.meta.sentencize_exceptions);
+        }
+
+        if (dtd.meta.hasOwnProperty('error_definition')) {
+            // this is for the error analysis
+            this.vpp.set_meta_of_error_definition(dtd.meta.error_definition);
         }
     },
 

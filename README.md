@@ -74,6 +74,12 @@ To update the static version for publication (e.g., GitHub Pages), run the follo
 python web.py --mode build
 ```
 
+Or you can build a dev version for public testing, run the following command:
+
+```bash
+python web.py --mode build --fn dev.html
+```
+
 Or you can build a standalone version for local use, run the following command:
 
 ```bash
@@ -102,6 +108,10 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ### 1.3.x (2022-08-04)
 
+- Added functions for error analysis
+- Added Math.js for statistics and matrix
+- Added ECharts for visualization
+- Added a sample dataset for error analysis
 - Updated the UI design for adjudication tab
 - Updated the packaged used to reduce loading time
 - Fixed open annotation files dialog bug

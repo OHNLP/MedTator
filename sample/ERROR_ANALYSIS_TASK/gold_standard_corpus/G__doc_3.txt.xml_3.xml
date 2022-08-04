@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<VAX_AE_MED>
+<TEXT><![CDATA[During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left. 2/23/21 - good, except left with mild diarrhea  Leary of taking anything for the diarrhea, as I tend to block up.  Through this whole ordeal, I consumed tons of water, almost drinking nonstop due to the thirst.]]></TEXT>
+<TAGS>
+<HEADACHE spans="129~137" text="headache" id="H0" comment="" certainty="Positive" _annotator="A"/>
+<HEADACHE spans="361~369" text="headache" id="H1" comment="" certainty="Positive" _annotator="B"/>
+<HEADACHE spans="341~349" text="headache" id="H2" comment="" certainty="Positive" _annotator="B"/>
+<PAIN spans="256~267" text="Body aching" id="P0" comment="" certainty="Positive" _annotator="A"/>
+<PAIN spans="371~381" text="Body aches" id="P1" comment="" certainty="Positive" _annotator="B"/>
+<PAIN spans="505~515" text="Body aches" id="P2" comment="" certainty="Positive" _annotator="B"/>
+<FATIGUE spans="552~559" text="fatigue" id="F0" comment="" certainty="Positive" _annotator="AB"/>
+<FATIGUE spans="383~390" text="fatigue" id="F1" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="566~574" text="diarrhea" id="O0" comment="" certainty="Positive" _annotator="AB"/>
+<OTHER_AE spans="576~587" text="dehydration" id="O1" comment="" certainty="Positive" _annotator="AB"/>
+<OTHER_AE spans="248~254" text="Nausea" id="O2" comment="should be another AE" certainty="Positive" _annotator="A"/>
+<OTHER_AE spans="405~413" text="diarrhea" id="O3" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="418~429" text="dehydration" id="O4" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="708~716" text="diarrhea" id="O5" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="655~663" text="diarrhea" id="O6" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="751~759" text="diarrhea" id="O7" comment="" certainty="Positive" _annotator="B"/>
+<OTHER_AE spans="873~879" text="thirst" id="O8" certainty="Positive" comment="Maybe not?" _annotator="B"/>
+<MEDICATION spans="318~325" text="Tylenol" id="M0" comment="" _annotator="B"/>
+<MEDICATION spans="306~311" text="Advil" id="M1" comment="" _annotator="B"/>
+<MEDICATION spans="479~484" text="Advil" id="M2" comment="" _annotator="B"/>
+</TAGS>
+<META/>
+</VAX_AE_MED>

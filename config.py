@@ -17,89 +17,6 @@ LIB_BASE='cdn'
 
 # third-party libraries
 THIRD_PARTY_LIB_URL={
-'local': {
-    'METRO_UI': {
-        'CSS': "./static/lib/metroui/css/metro-all.min.css",
-        'JS': "./static/lib/metroui/js/metro.min.js"
-    },
-    'FONT_AWESOME': {
-        'CSS': "./static/lib/font-awesome/css/all.min.css"
-    },
-    'JQUERY': {
-        'JS': "./static/lib/jquery/jquery-3.4.1.min.js",
-    },
-    'JQUERY_AJAXQUEUE': {
-        'JS': "./static/lib/jquery-ajaxqueue/jquery.ajaxQueue-0.1.1.min.js",
-    },
-    'JQUERY_UI': {
-        'CSS': "./static/lib/jqueryui/jquery-ui.min.css",
-        'JS': "./static/lib/jqueryui/jquery-ui.min.js"
-    },
-    'VUE': {
-        'JS': "./static/lib/vue/vue.min.js"
-    },
-    'JSZIP': {
-        'JS': './static/lib/jszip/jszip.min.js'
-    },
-    'FILESAVER': {
-        'JS': "./static/lib/filesaver/FileSaver.min.js"
-    },
-    'DAYJS': {
-        'JS': "./static/lib/dayjs/dayjs.min.js"
-    },
-    'CODE_MIRROR': {
-        'CSS': "./static/lib/codemirror/codemirror.css",
-        'CSS_ADDON_DIALOG': './static/lib/codemirror/addon/dialog/dialog.min.css',
-        'CSS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.css',
-        'JS': "./static/lib/codemirror/codemirror.js",
-        'JS_ADDON_ACTIVE_LINE': "./static/lib/codemirror/addon/selection/active-line.js",
-        'JS_ADDON_DIALOG': "./static/lib/codemirror/addon/dialog/dialog.min.js",
-        'JS_ADDON_SEARCH': "./static/lib/codemirror/addon/search/search.min.js",
-        'JS_ADDON_SEARCHCURSOR': './static/lib/codemirror/addon/search/searchcursor.min.js',
-        'JS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.js',
-        'JS_ADDON_JUMP_TO_LINE': './static/lib/codemirror/addon/search/jump-to-line.min.js',
-        'JS_ADDON_ANNOTATESCROLLBAR': './static/lib/codemirror/addon/scroll/annotatescrollbar.min.js',
-    },
-    'NUMJS': {
-        'JS': "./static/lib/numjs/numjs.min.js"
-    },
-    'COMPROMISE': {
-        'JS': "./static/lib/compromise/compromise-13.11.4.min.js"
-    },
-    'PAPAPARSE': {
-        'JS': "./static/lib/papaparse/papaparse.min.js"
-    },
-    'SHEPHERD': {
-        'CSS': "./static/lib/shepherd/shepherd.css",
-        'JS': "./static/lib/shepherd/shepherd.min.js"
-    },
-    'WINK_NLP': {
-        'JS': "./static/lib/wink-nlp/bundle-1.8.0.min.js"
-    },
-    'DS_SPLITER': {
-        'JS': "./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"
-    },
-    'XML_FORMATTER': {
-        'JS': "./static/lib/xml-formatter/xml-formatter.js"
-    },
-    'SHEETJS': {
-        'JS_MINI': "./static/lib/sheetjs/xlsx.mini.min.js",
-        'JS_SHIM': "./static/lib/sheetjs/shim.min.js"
-    },
-    'XLSX_JS_STYLE': {
-        'JS': './static/lib/xlsx-js-style/xlsx.bundle.js'
-    },
-    'D3': {
-        'JS': './static/lib/d3/d3-v7.2.1.js',
-        'JS_SANKEY': './static/lib/d3/d3-sankey-v0.12.3.min.js'
-    },
-    'ECHARTS': {
-        'JS': './static/lib/echarts/echarts.5.3.3.min.js'
-    },
-    'JS_YAML': {
-        "JS": "./static/lib/js-yaml/js-yaml.4.1.0.min.js"
-    },
-},
 'cdn': {
     'METRO_UI': {
         'CSS': "https://cdnjs.cloudflare.com/ajax/libs/metro/4.3.5/css/metro-all.min.css",
@@ -183,8 +100,98 @@ THIRD_PARTY_LIB_URL={
     },
     'JS_YAML': {
         "JS": "https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"
-    }
-}}
+    },
+    'MATHJS': {
+        "JS": "https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.0.1/math.min.js"
+    },
+},
+'local': {
+    'METRO_UI': {
+        'CSS': "./static/lib/metroui/css/metro-all.min.css",
+        'JS': "./static/lib/metroui/js/metro.min.js"
+    },
+    'FONT_AWESOME': {
+        'CSS': "./static/lib/font-awesome/css/all.min.css"
+    },
+    'JQUERY': {
+        'JS': "./static/lib/jquery/jquery-3.4.1.min.js",
+    },
+    'JQUERY_AJAXQUEUE': {
+        'JS': "./static/lib/jquery-ajaxqueue/jquery.ajaxQueue-0.1.1.min.js",
+    },
+    'JQUERY_UI': {
+        'CSS': "./static/lib/jqueryui/jquery-ui.min.css",
+        'JS': "./static/lib/jqueryui/jquery-ui.min.js"
+    },
+    'VUE': {
+        'JS': "./static/lib/vue/vue.min.js"
+    },
+    'JSZIP': {
+        'JS': './static/lib/jszip/jszip.min.js'
+    },
+    'FILESAVER': {
+        'JS': "./static/lib/filesaver/FileSaver.min.js"
+    },
+    'DAYJS': {
+        'JS': "./static/lib/dayjs/dayjs.min.js"
+    },
+    'CODE_MIRROR': {
+        'CSS': "./static/lib/codemirror/codemirror.css",
+        'CSS_ADDON_DIALOG': './static/lib/codemirror/addon/dialog/dialog.min.css',
+        'CSS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.css',
+        'JS': "./static/lib/codemirror/codemirror.js",
+        'JS_ADDON_ACTIVE_LINE': "./static/lib/codemirror/addon/selection/active-line.js",
+        'JS_ADDON_DIALOG': "./static/lib/codemirror/addon/dialog/dialog.min.js",
+        'JS_ADDON_SEARCH': "./static/lib/codemirror/addon/search/search.min.js",
+        'JS_ADDON_SEARCHCURSOR': './static/lib/codemirror/addon/search/searchcursor.min.js',
+        'JS_ADDON_MATCHESONSCROLLBAR': './static/lib/codemirror/addon/search/matchesonscrollbar.min.js',
+        'JS_ADDON_JUMP_TO_LINE': './static/lib/codemirror/addon/search/jump-to-line.min.js',
+        'JS_ADDON_ANNOTATESCROLLBAR': './static/lib/codemirror/addon/scroll/annotatescrollbar.min.js',
+    },
+    'NUMJS': {
+        'JS': "./static/lib/numjs/numjs.min.js"
+    },
+    'COMPROMISE': {
+        'JS': "./static/lib/compromise/compromise-13.11.4.min.js"
+    },
+    'PAPAPARSE': {
+        'JS': "./static/lib/papaparse/papaparse.min.js"
+    },
+    'SHEPHERD': {
+        'CSS': "./static/lib/shepherd/shepherd.css",
+        'JS': "./static/lib/shepherd/shepherd.min.js"
+    },
+    'WINK_NLP': {
+        'JS': "./static/lib/wink-nlp/bundle-1.8.0.min.js"
+    },
+    'DS_SPLITER': {
+        'JS': "./static/lib/ds-spliter/ds-spliter-1.0.0.min.js"
+    },
+    'XML_FORMATTER': {
+        'JS': "./static/lib/xml-formatter/xml-formatter.js"
+    },
+    'SHEETJS': {
+        'JS_MINI': "./static/lib/sheetjs/xlsx.mini.min.js",
+        'JS_SHIM': "./static/lib/sheetjs/shim.min.js"
+    },
+    'XLSX_JS_STYLE': {
+        'JS': './static/lib/xlsx-js-style/xlsx.bundle.js'
+    },
+    'D3': {
+        'JS': './static/lib/d3/d3-v7.2.1.js',
+        'JS_SANKEY': './static/lib/d3/d3-sankey-v0.12.3.min.js'
+    },
+    'ECHARTS': {
+        'JS': './static/lib/echarts/echarts.5.3.3.min.js'
+    },
+    'JS_YAML': {
+        "JS": "./static/lib/js-yaml/js-yaml.4.1.0.min.js"
+    },
+    'MATHJS': {
+        "JS": "./static/lib/mathjs/math.11.0.1.min.js"
+    },
+},
+}
 
 # Samples
 # Each record contains

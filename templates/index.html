@@ -439,6 +439,8 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <!-- <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['COMPROMISE']['JS'] ]]"></script> -->
 <!-- chart.js -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<!-- math.js for calcuation -->
+<script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['MATHJS']['JS'] ]]"></script>
 <!-- PapaParse -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['PAPAPARSE']['JS'] ]]"></script>
 <!-- Shepherd -->
@@ -695,6 +697,8 @@ jarvis.sample_dtd = [[ data['sample_dtd']|jsonify|safe ]];
 
 
 {% endif %}
+
+
 // init the whole document
 $(document).ready(function () {
     jarvis.init();

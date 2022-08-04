@@ -502,9 +502,9 @@ var iaa_calculator = {
         // file name
         var js = [];
 
-        for (const fnhash in iaa_dict.ann) {
-            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
-                const ann_rst = iaa_dict.ann[fnhash];
+        for (const doc_hash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, doc_hash)) {
+                const ann_rst = iaa_dict.ann[doc_hash];
                 
                 // create a j obj for this file
                 var j = {
@@ -595,9 +595,9 @@ var iaa_calculator = {
             cms = ['fp', 'fn'];
         }
 
-        for (const fnhash in iaa_dict.ann) {
-            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
-                const ann_rst = iaa_dict.ann[fnhash];
+        for (const doc_hash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, doc_hash)) {
+                const ann_rst = iaa_dict.ann[doc_hash];
 
                 // now need to check each tag in this ann_rst
                 for (let i = 0; i < dtd.etags.length; i++) {
@@ -750,9 +750,9 @@ var iaa_calculator = {
             cms = ['fp', 'fn'];
         }
 
-        for (const fnhash in iaa_dict.ann) {
-            if (Object.hasOwnProperty.call(iaa_dict.ann, fnhash)) {
-                const ann_rst = iaa_dict.ann[fnhash];
+        for (const doc_hash in iaa_dict.ann) {
+            if (Object.hasOwnProperty.call(iaa_dict.ann, doc_hash)) {
+                const ann_rst = iaa_dict.ann[doc_hash];
 
                 // now need to check each tag in this ann_rst
                 for (let i = 0; i < dtd.etags.length; i++) {
@@ -1815,8 +1815,8 @@ var iaa_calculator = {
         var cms = ['fp', 'fn'];
 
         // check each ann
-        for (const fnhash in iaa_dict.ann) {
-            var ann_rst = iaa_dict.ann[fnhash];
+        for (const doc_hash in iaa_dict.ann) {
+            var ann_rst = iaa_dict.ann[doc_hash];
 
             // now need to check each tag in this ann_rst
             for (let i = 0; i < dtd.etags.length; i++) {
@@ -1858,8 +1858,8 @@ var iaa_calculator = {
                             var uid = this.hash(uid_text);
 
                             // this ann may not have sentences
-                            iaa_dict.ann[fnhash].anns[idx] = this._update_ann_sentences(
-                                iaa_dict.ann[fnhash].anns[idx]
+                            iaa_dict.ann[doc_hash].anns[idx] = this._update_ann_sentences(
+                                iaa_dict.ann[doc_hash].anns[idx]
                             );
                             // get the sentence of this tag
                             // and calc the spans of this tags in this sentence
@@ -1883,6 +1883,11 @@ var iaa_calculator = {
                                     sen_spans[0].sen_span[1],
                                 'tag': etag.name,
                                 'text': cm_tag[anter_idx].text,
+                                // the issue related to the file_name is that,
+                                // the file name can be different for same doc.
+                                // so we put both information here.
+                                // but in the doc dictionary, use hash instead
+                                'file_hash': doc_hash,
                                 'file_name': ann_rst.anns[idx]._filename,
                                 '_annotator': src,
                                 '_judgement': cm.toUpperCase(),
@@ -1905,9 +1910,11 @@ var iaa_calculator = {
                             err_dict[json.uid] = json;
 
                             // put doc to docs
-                            if (!doc_dict.hasOwnProperty(ann_rst.anns[idx]._filename)) {
+                            // instead of using file name, use file_hash
+                            // if (!doc_dict.hasOwnProperty(ann_rst.anns[idx]._filename)) {
+                            if (!doc_dict.hasOwnProperty(doc_hash)) {
                                 // just put the text of this file in doc dictionary
-                                doc_dict[ann_rst.anns[idx]._filename] = ann_rst.anns[idx].text;
+                                doc_dict[doc_hash] = ann_rst.anns[idx].text;
                             }
                         }
                     }

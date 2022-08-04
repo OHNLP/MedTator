@@ -1607,6 +1607,9 @@ ol[class], ul[class] {
     padding: 0 0 0 3px;
     border-bottom: 1px dotted #cccccc;
 }
+.razer-hbar-group:last-child {
+    border-bottom: 0;
+}
 #razer_pan_err_def {
     position: absolute;
     top: 400px;

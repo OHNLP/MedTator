@@ -62,6 +62,9 @@ Object.assign(app_hotpot.vpp_data, {
     // the fig obj for pie
     razer_fig_donut: null,
 
+    // the fig obj for doc distribution
+    razer_fig_doc_scatter: null,
+
     // the uids for checking
     razer_err_list_uids: null,
 
@@ -82,6 +85,10 @@ Object.assign(app_hotpot.vpp_computed, {
 });
 
 Object.assign(app_hotpot.vpp_methods, {
+
+    set_meta_of_error_definition: function(err_def) {
+        this.razer_err_def = err_def;
+    },
 
     get_razer_rst: function() {
         if (this.razer_dict == null) {
@@ -131,15 +138,23 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     clear_razer_all: function() {
+        // clear input
         this.razer_ann_list = [
             // the first one must be the GSC
             { anns: [], name: 'Gold Standard Corpus' },
             // others follow the same structure
             { anns: [], name: 'Dataset 1' }
         ];
+        this.razer_err_labels_file = null;
+
+        // clear data
         this.razer_idx = 1;
         this.razer_dict = null;
         this.razer_err_def = null;
+        if (this.razer_fig_sankey != null) {
+            this.razer_fig_sankey.clear();
+            this.razer_fig_sankey = null;
+        }
     },
 
     on_drop_dropzone_razer: function(event, rid) {
@@ -359,13 +374,14 @@ Object.assign(app_hotpot.vpp_methods, {
 
     update_plots: function() {
         // this.razer_draw_donut();
-        this.razer_draw_sankey();
+        this.draw_razer_fig_sankey();
+        this.draw_razer_fig_doc_scatter();
     },
 
     /////////////////////////////////////////////////////////////////
     // Sankey related functions
     /////////////////////////////////////////////////////////////////
-    razer_draw_sankey: function() {
+    draw_razer_fig_sankey: function() {
         var data_sankey = error_analyzer.get_sankey_data(
             this.get_razer_rst().err_stat.by_rel
         );
@@ -478,6 +494,62 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // draw it
         this.razer_fig_donut.chart.setOption(this.razer_fig_donut.option);
+    },
+
+    draw_razer_fig_doc_scatter: function() {
+        // prepare data first
+
+        // then check figure status
+        if (this.razer_fig_doc_scatter != null) {
+            // ??
+        }
+
+        // init the chart
+        this.razer_fig_doc_scatter = {
+            option: {
+                grid: {
+                    top: 10,
+                    left: 25,
+                    right: 10,
+                    bottom: 25
+                },
+                xAxis: {
+                    type: 'value'
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                tooltip: {
+                    trigger: 'item',
+                },
+                legend: {
+                    show: false,
+                },
+                series: [{
+                    name: 'File',
+                    type: 'scatter',
+                    symbolSize: 5,
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        [1, 2, 'doc_hash 1'],
+                        [2, 3, 'doc_hash 2'],
+                        [4, 1, 'doc_hash 3'],
+                        [5, 4, 'doc_hash 4'],
+                    ]
+                }]
+            },
+            chart: echarts.init(
+                // the default box_id starts with #
+                document.getElementById('razer_fig_doc_scatter')
+            )
+        };
+
+        // draw it
+        this.razer_fig_doc_scatter.chart.setOption(
+            this.razer_fig_doc_scatter.option
+        );
     },
 
     close_razer_pan_err_def: function() {
@@ -603,7 +675,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // let's save
         var fn = this.dtd.name + 
-            '-error-analysis.' + 
+            '-error-labels.' + 
             this.get_date_now() + 
             '.json';
             

@@ -116,6 +116,7 @@ var error_analyzer = {
         // there are several things we want
         // 1. basic count by results and concept
         // 2. error type and cate stat
+        // 3. token and doc level
 
         // using basic number in iaa
         var stat_by_iaa = {
@@ -187,12 +188,30 @@ var error_analyzer = {
             }
         };
 
+        // stat by token
+        var stat_by_txt = {};
+
+        // stat by document
+        var stat_by_doc = {};
+
         // check each tag
         for (const uid in err_dict) {
             const err = err_dict[uid];
 
             // update dtd stat
             stat_by_dtd[err.tag][err._judgement].push(err.uid);
+
+            // update the token stat
+            if (!stat_by_txt.hasOwnProperty(err.text)) {
+                stat_by_txt[err.text] = { FP: [], FN: [] };
+            }
+            stat_by_txt[err.text][err._judgement].push(uid);
+
+            // update the doc stat
+            if (!stat_by_doc.hasOwnProperty(err.file_hash)) {
+                stat_by_doc[err.file_hash] = { FP: [], FN: [] };
+            }
+            stat_by_doc[err.file_hash][err._judgement].push(uid);
             
             // update the error stat if it has
             if (err.hasOwnProperty('errors')) {
@@ -303,15 +322,25 @@ var error_analyzer = {
                 max_val = _max_val;
             }
         }
+        // also put this max_val into smu
+        stat_by_smu['max_val'] = max_val;
 
+        // get average doc err
+        var doc_n_errs = Object.values(stat_by_doc).map(d=>d.FP.length + d.FN.length);
+        // make sure math.js is imported
+        var med_n_err_per_doc = math.median(doc_n_errs);
+        // also put this into smu
+        stat_by_smu['med_n_err_per_doc'] = med_n_err_per_doc;
+        
         // build a ret object
         var ret = {
             by_iaa: stat_by_iaa,
             by_dtd: stat_by_dtd,
             by_err: stat_by_err,
             by_rel: stat_by_rel,
+            by_txt: stat_by_txt,
+            by_doc: stat_by_doc,
             by_smu: stat_by_smu,
-            max_val: max_val
         };
 
         return ret;
