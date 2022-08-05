@@ -1709,6 +1709,10 @@ ol[class], ul[class] {
 .sankey-link:hover {
     filter: brightness(88%);
 }
+#razer_tag_scatter {
+    width: 630px;
+    height: 400px;
+}
 
 .err-label {
     padding: 0 11px;

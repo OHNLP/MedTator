@@ -377,5 +377,27 @@ var stat_helper = {
         }
 
         return max_val;
+    },
+
+    get_top_n: function(vals, n) {
+        // init the top n
+        var topn = new Array(n).fill([0, -1]);
+
+        // next, check it
+        for (let i = 0; i < vals.length; i++) {
+            const val = vals[i];
+
+            // this part can be optimized to O(log(N))
+            // but it's OK for now
+            for (let j = 0; j < topn.length; j++) {
+                const x = topn[j];
+                if (val > x[0]) {
+                    topn[j] = [val, i];
+                    break;
+                }
+            }
+        }
+
+        return topn;
     }
 };

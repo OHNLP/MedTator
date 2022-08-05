@@ -136,3 +136,6 @@ tmp/
 
 # the editor settings
 .vscode/
+
+# local test data
+vpp_data_DELI.json

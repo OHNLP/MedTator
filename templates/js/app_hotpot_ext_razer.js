@@ -65,11 +65,17 @@ Object.assign(app_hotpot.vpp_data, {
     // the fig obj for doc distribution
     razer_fig_doc_scatter: null,
 
+    // the fig obj for tag scatter
+    razer_fig_tag_scatter: null,
+
     // the uids for checking
     razer_err_list_uids: null,
 
     // the EA service url
-    razer_ea_ws_url: 'http://localhost:8808/eva_tags'
+    razer_ea_ws_url: 'http://localhost:8808/eva_tags',
+
+    // the TE service url
+    razer_te_ws_url: 'http://localhost:8809/embedding'
 });
 
 
@@ -80,6 +86,12 @@ Object.assign(app_hotpot.vpp_computed, {
     razer_err_def_info: function() {
         return error_analyzer.get_stat_of_err_def(
             this.razer_err_def
+        );
+    },
+
+    razer_err_tag_top_10: function() {
+        return error_analyzer.get_top_10_tokens(
+            this.razer_dict[this.razer_idx].err_stat.by_txt
         );
     }
 });
@@ -312,15 +324,22 @@ Object.assign(app_hotpot.vpp_methods, {
             // ok, let's use the given labels to update err
             for (let i = 0; i < this.razer_err_labels_file.tags.length; i++) {
                 const t = this.razer_err_labels_file.tags[i];
-                if (!t.hasOwnProperty('errors')) {
+                if (t.hasOwnProperty('errors')) {
                     // oh, this tag doesn't have error labels,
                     // just skip it
-                    continue;
+                    // now let's check if there is a same uid tag
+                    if (err_doc.err_dict.hasOwnProperty(t.uid)) {
+                        // great! let's update this uid
+                        err_doc.err_dict[t.uid]['errors'] = t.errors;
+                    }
                 }
-                // now let's check if there is a same uid tag
-                if (err_doc.err_dict.hasOwnProperty(t.uid)) {
-                    // great! let's update this uid
-                    err_doc.err_dict[t.uid]['errors'] = t.errors;
+
+                // add embedding if any
+                if (t.hasOwnProperty('embedding_tsne')) {
+                    if (err_doc.err_dict.hasOwnProperty(t.uid)) {
+                        // great! let's update this uid
+                        err_doc.err_dict[t.uid]['embedding_tsne'] = t.embedding_tsne;
+                    }
                 }
             }
         }
@@ -373,9 +392,10 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     update_plots: function() {
-        // this.razer_draw_donut();
+        // this.draw_razer_fig_donut();
         this.draw_razer_fig_sankey();
         this.draw_razer_fig_doc_scatter();
+        this.draw_razer_fig_tag_scatter();
     },
 
     /////////////////////////////////////////////////////////////////
@@ -424,7 +444,7 @@ Object.assign(app_hotpot.vpp_methods, {
         );
     },
 
-    razer_draw_donut: function() {
+    draw_razer_fig_donut: function() {
         if (this.razer_fig_donut != null) {
             // ??
         }
@@ -499,9 +519,28 @@ Object.assign(app_hotpot.vpp_methods, {
     draw_razer_fig_doc_scatter: function() {
         // prepare data first
 
+        // get data
+        var data = [];
+        var stat = this.razer_dict[this.razer_idx].err_stat.by_doc;
+        var max_xy = 5;
+        for (const file_hash in stat) {
+            var x = stat[file_hash].FP.length;
+            var y = stat[file_hash].FN.length;
+            if (x > max_xy) {max_xy = x;}
+            if (y > max_xy) {max_xy = y;}
+            data.push([
+                x, y, file_hash
+            ]);
+        }
+
         // then check figure status
         if (this.razer_fig_doc_scatter != null) {
             // ??
+            this.razer_fig_doc_scatter.option.series[0].data = data;
+            this.razer_fig_doc_scatter.chart.setOption(
+                this.razer_fig_doc_scatter.option
+            );
+            return;
         }
 
         // init the chart
@@ -509,18 +548,40 @@ Object.assign(app_hotpot.vpp_methods, {
             option: {
                 grid: {
                     top: 10,
-                    left: 25,
+                    left: 35,
                     right: 10,
-                    bottom: 25
+                    bottom: 35
                 },
                 xAxis: {
-                    type: 'value'
+                    type: 'value',
+                    max: max_xy,
+                    name: 'False Positive',
+                    nameLocation: 'center',
+                    nameGap: 20
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    max: max_xy,
+                    name: 'False Negative',
+                    nameLocation: 'center',
+                    nameGap: 20
                 },
                 tooltip: {
                     trigger: 'item',
+                    // to avoid CSS z-index overlay issue
+                    renderMode: 'richText',
+                    formatter: function(params) {
+                        // console.log('* hover at', params);
+                        var html = [
+                            // '<h6>' + params.data[2] + '</h6>',
+                            // '<p>- FP Tags: ' + params.data[0] + '<br>', 
+                            // '- FN Tags: ' + params.data[1] + '</p>'
+                            '' + params.data[2] + '\n',
+                            '- FP Tags: ' + params.data[0] + '\n', 
+                            '- FN Tags: ' + params.data[1]
+                        ].join('');
+                        return html;
+                    }
                 },
                 legend: {
                     show: false,
@@ -532,12 +593,7 @@ Object.assign(app_hotpot.vpp_methods, {
                     labelLine: {
                         show: false
                     },
-                    data: [
-                        [1, 2, 'doc_hash 1'],
-                        [2, 3, 'doc_hash 2'],
-                        [4, 1, 'doc_hash 3'],
-                        [5, 4, 'doc_hash 4'],
-                    ]
+                    data: data
                 }]
             },
             chart: echarts.init(
@@ -549,6 +605,88 @@ Object.assign(app_hotpot.vpp_methods, {
         // draw it
         this.razer_fig_doc_scatter.chart.setOption(
             this.razer_fig_doc_scatter.option
+        );
+    },
+
+    draw_razer_fig_tag_scatter: function() {
+        // prepare data first
+
+        // get data
+        var data = [];
+        var err_dict = this.razer_dict[this.razer_idx].err_dict;
+        for (const uid in err_dict) {
+            var x = err_dict[uid].embedding_tsne[0];
+            var y = err_dict[uid].embedding_tsne[1];
+            data.push([
+                x, y, uid, {FP: '#F98686', FN: '#56B3F6'}[err_dict[uid]._judgement]
+            ]);
+        }
+
+        // then check figure status
+        if (this.razer_fig_tag_scatter != null) {
+            this.razer_fig_tag_scatter.option.series[0].data = data;
+            this.razer_fig_tag_scatter.chart.setOption(
+                this.razer_fig_tag_scatter.option
+            );
+            return;
+        }
+
+        // init the chart
+        this.razer_fig_tag_scatter = {
+            option: {
+                grid: {
+                    top: 10,
+                    left: 35,
+                    right: 10,
+                    bottom: 35
+                },
+                xAxis: {
+                    type: 'value',
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                tooltip: {
+                    trigger: 'item',
+                    // to avoid CSS z-index overlay issue
+                    renderMode: 'richText',
+                    formatter: function(params) {
+                        // console.log('* hover at', params);
+                        var tag = app_hotpot.vpp.get_razer_err(params.data[2]);
+                        var html = [
+                            '' + tag.text + '\n',
+                            '* Concept: ' + tag.tag, 
+                        ].join('');
+                        return html;
+                    }
+                },
+                legend: {
+                    show: false,
+                },
+                series: [{
+                    name: 'Tag',
+                    type: 'scatter',
+                    symbolSize: 5,
+                    labelLine: {
+                        show: false
+                    },
+                    itemStyle: {
+                        color: function(params) {
+                            return params.data[3];
+                        }
+                    },
+                    data: data
+                }]
+            },
+            chart: echarts.init(
+                // the default box_id starts with #
+                document.getElementById('razer_tag_scatter')
+            )
+        };
+
+        // draw it
+        this.razer_fig_tag_scatter.chart.setOption(
+            this.razer_fig_tag_scatter.option
         );
     },
 
@@ -657,6 +795,18 @@ Object.assign(app_hotpot.vpp_methods, {
         }
     },
 
+    set_razer_err_embedding: function(uid, embedding, is_update_ui) {
+        if (typeof(is_update_ui) == 'undefined') {
+            is_update_ui = false;
+        }
+        this.razer_dict[this.razer_idx].err_dict[uid]['embedding_tsne'] = embedding
+
+        if (is_update_ui) {
+            this.update_razer_dict_stats();
+            this.$forceUpdate();
+        }
+    },
+
     update_razer_ui: function() {
         this.update_razer_dict_stats();
         this.$forceUpdate();
@@ -686,6 +836,10 @@ Object.assign(app_hotpot.vpp_methods, {
 
     show_razer_eaws_panel: function() {
         Metro.dialog.open('#dlg_razer_robot_iet');
+    },
+
+    show_razer_embedding_panel: function() {
+        Metro.dialog.open('#dlg_razer_embedding_srv');
     },
 
     start_razer_eaws: function() {
@@ -719,8 +873,43 @@ Object.assign(app_hotpot.vpp_methods, {
                         t.errors
                     );
 
-                    app_hotpot.vpp.update_razer_ui();
                 }
+                app_hotpot.vpp.update_razer_ui();
+            }
+        );
+    },
+
+    /**
+     * Text Embedding Web Service
+     */
+    start_razer_tews: function() {
+        var tags = [];
+        for (const uid in this.razer_dict[this.razer_idx].err_dict) {
+            var tag = this.razer_dict[this.razer_idx].err_dict[uid];
+            tags.push({
+                uid: tag.uid,
+                text: tag.text
+            });
+        }
+
+        error_analyzer.use_tews(
+            this.razer_te_ws_url,
+            {
+                tags: tags,
+                is_tsne: true
+            },
+            function(data) {
+                console.log('* TEWS returns', data);
+
+                for (let i = 0; i < data.tags.length; i++) {
+                    const t = data.tags[i];
+                    
+                    app_hotpot.vpp.set_razer_err_embedding(
+                        t.uid,
+                        t.embedding_tsne
+                    );
+                }
+                app_hotpot.vpp.update_razer_ui();
             }
         );
     },

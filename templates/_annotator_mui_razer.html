@@ -6,8 +6,7 @@
 <div class="d-flex h-100 mr-1">
 
     <!-- first column for summary -->
-    <div
-        class="box h-100 mr-1 razer-lane-1"
+    <div class="box h-100 mr-1 razer-lane-1"
         style="overflow-x: hidden; overflow-y: auto;">
 
         <div class="box-header">
@@ -71,71 +70,13 @@
         <div class="box-header">
             <h4>
                 <i class="far fa-chart-bar"></i>
-                Statistics by Concepts
-            </h4>
-        </div>
-
-        <div v-if="get_razer_rst() != null"
-            class="box-body border-bottom bd-gray">
-            <div class="d-flex flex-column mt-2 mb-2">
-                <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
-                    class="d-flex flex-row razer-hbar cursor-pointer"
-                    @click="show_uids_in_razer_err_list(stat.FP, stat.FN)">
-                    <div class="razer-hbar-label">
-                        {{ etag_name }}
-                    </div>
-                    <div class="razer-hbar-bar-box">
-                        <div class="razer-hbar-bar razer-hbar-bar-FP"
-                            :style="{width: stat_value2width(stat.FP.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
-                        </div>
-                        <div class="razer-hbar-bar razer-hbar-bar-FN"
-                            :style="{width: stat_value2width(stat.FN.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
-                        </div>
-                        <div class="razer-hbar-bar-num">
-                            {{ stat.FP.length + stat.FN.length }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="box-header">
-            <h4>
-                <i class="fas fa-braille"></i>
-                Statistics by Files
-            </h4>
-        </div>
-
-        <div v-show="get_razer_rst() != null"
-            class="box-body border-bottom bd-gray">
-            <div class="d-flex flex-column mt-2 mb-2">
-                <div id="razer_fig_doc_scatter"
-                    style="width: 220px; height: 220px;">
-
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
-
-    <!-- column for the stat by type  -->
-    <div v-if="get_razer_rst() != null"
-        class="box h-100 mr-1 razer-lane-1"
-        style="overflow-x: hidden; overflow-y: auto;">
-
-        <div class="box-header">
-            <h4>
-                <i class="far fa-chart-bar"></i>
                 Statistics by Error Types
             </h4>
         </div>
 
 
-        <div class="box-body border-bottom bd-gray">
+        <div v-if="get_razer_rst() != null"
+            class="box-body border-bottom bd-gray">
             <div class="d-flex flex-column mt-2 mb-2">
                 <div v-for="err_types, err_cate in razer_err_def"
                     class="razer-hbar-group mb-1">
@@ -167,12 +108,10 @@
 
 
 
-
-
         <div class="box-header">
             <h4>
                 <i class="far fa-chart-bar"></i>
-                Statistics by Error Labels
+                Statistics by Error Label Count
             </h4>
         </div>
 
@@ -208,6 +147,99 @@
             </div>
         </div>
 
+        
+
+
+    </div>
+
+
+    <!-- column for the stat by type  -->
+    <div class="box h-100 mr-1 razer-lane-1"
+        style="overflow-x: hidden; overflow-y: auto;">
+
+        <div class="box-header">
+            <h4>
+                <i class="far fa-chart-bar"></i>
+                Statistics by Concepts
+            </h4>
+        </div>
+
+        <div v-if="get_razer_rst() != null"
+            class="box-body border-bottom bd-gray">
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div v-for="stat, etag_name in get_razer_rst().err_stat.by_dtd"
+                    class="d-flex flex-row razer-hbar cursor-pointer"
+                    @click="show_uids_in_razer_err_list(stat.FP, stat.FN)">
+                    <div class="razer-hbar-label">
+                        {{ etag_name }}
+                    </div>
+                    <div class="razer-hbar-bar-box">
+                        <div class="razer-hbar-bar razer-hbar-bar-FP"
+                            :style="{width: stat_value2width(stat.FP.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar razer-hbar-bar-FN"
+                            :style="{width: stat_value2width(stat.FN.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar-num">
+                            {{ stat.FP.length + stat.FN.length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-braille"></i>
+                File Distribution by Error Count
+            </h4>
+        </div>
+
+        <div class="box-body border-bottom bd-gray">
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div id="razer_fig_doc_scatter"
+                    style="width: 220px; height: 220px;">
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-braille"></i>
+                Top 10 Error Tags
+            </h4>
+        </div>
+
+        <div v-if="get_razer_rst() != null"
+            class="box-body border-bottom bd-gray">
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div v-for="txt in razer_err_tag_top_10"
+                    class="d-flex flex-row razer-hbar cursor-pointer"
+                    @click="">
+                    <div class="razer-hbar-label">
+                        {{ txt }}
+                    </div>
+                    <div class="razer-hbar-bar-box">
+                        <div class="razer-hbar-bar razer-hbar-bar-FP"
+                            :style="{width: stat_value2width(get_razer_rst().err_stat.by_txt[txt].FP.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar razer-hbar-bar-FN"
+                            :style="{width: stat_value2width(get_razer_rst().err_stat.by_txt[txt].FN.length, get_razer_rst().err_stat.by_smu.max_val) + 'px'}">
+                        </div>
+                        <div class="razer-hbar-bar-num">
+                            {{ get_razer_rst().err_stat.by_txt[txt].FP.length + get_razer_rst().err_stat.by_txt[txt].FN.length }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
@@ -232,6 +264,25 @@
             </div>
         </div>
 
+
+
+
+        <div class="box-header">
+            <h4>
+                <i class="far fa-map"></i>
+                Tag Distribution
+            </h4>
+            <div class="">
+
+            </div>
+        </div>
+
+        <div class="box-body"
+            id="err_tagmap_box">
+            <div id="razer_tag_scatter">
+
+            </div>
+        </div>
         
     </div>
 
@@ -385,6 +436,43 @@
         </button>
     </div>
 </div>
+
+
+
+
+<!-- for embedding -->
+<div class="dialog" data-role="dialog" id="dlg_razer_embedding_srv">
+    <div class="dialog-title">
+        <i class="fas fa-robot"></i>
+        Use Text Embedding (TE) Web Service
+    </div>
+    <div class="dialog-content">
+        <p>
+            You can use an TE web service to project the text to 2-D panel for visualization. ATTENTION: the tags will be sent to the following URL, please ensure the network security and data privacy.
+        </p>
+        <p>
+            <label for="">TE Web Service URL: </label>
+            <input type="text" 
+                placeholder="http://"
+                v-model="razer_te_ws_url">
+        </p>
+        <p>
+            <button class="button primary"
+                @click="start_razer_tews">
+                Start Embedding
+            </button>
+        </p>
+    </div>
+    <div class="dialog-actions">
+        <button class="button js-dialog-close">
+            <i class="fa fa-times"></i>
+            Close this dialog
+        </button>
+    </div>
+</div>
+
+
+
 
     
 </div>

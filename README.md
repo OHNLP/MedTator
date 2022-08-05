@@ -106,7 +106,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-08-04)
+### 1.3.2 (2022-08-04)
 
 - Added functions for error analysis
 - Added Math.js for statistics and matrix

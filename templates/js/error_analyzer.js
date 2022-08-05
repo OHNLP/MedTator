@@ -442,6 +442,45 @@ var error_analyzer = {
         return ret;
     },
 
+    get_top_10_tokens: function(stat_by_txt) {
+        // first, get the list of all txt
+        var ns = [];
+        var ts = [];
+        for (const txt in stat_by_txt) {
+            var s = stat_by_txt[txt];
+            var n = s.FP.length + s.FN.length;
+            ns[ns.length] = n;
+            ts[ts.length] = txt;
+        }
+        // get top 10
+        var rs = stat_helper.get_top_n(ns, 10);
+        // export tokens
+        var tokens = [];
+        for (let i = 0; i < rs.length; i++) {
+            const r = rs[i];
+            // r is [val, index] format
+            tokens.push(
+                ts[r[1]]
+            );
+        }
+
+        return tokens;
+    },
+
+    use_tews: function(url, req, callback) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                data: JSON.stringify(req)
+            },
+            success: callback,
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error(textStatus, errorThrown);
+            }
+        });
+    },
+
     use_eaws: function(url, req, callback) {
         $.ajax({
             type: 'POST',

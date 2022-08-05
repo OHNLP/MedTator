@@ -1946,7 +1946,7 @@ var iaa_calculator = {
         ann._sentences = r.sentences;
         ann._sentences_text = r.sentences_text;
 
-        console.log('* updated sentences for ann', ann._filename);
+        // console.log('* updated sentences for ann', ann._filename);
         return ann;
     },
 

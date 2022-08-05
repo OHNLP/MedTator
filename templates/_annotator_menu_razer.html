@@ -241,6 +241,19 @@ v-bind:class="{'active': section=='razer'}">
     </button>
 
 
+    <button class="ribbon-button" 
+        :disabled="dtd == null || razer_dict == null"
+        title="Identify the error tags automatically"
+        v-on:click="show_razer_embedding_panel">
+        <span class="icon">
+            <i class="fas fa-border-none"></i>
+        </span>
+        <span class="caption">
+            Embedding
+        </span>
+    </button>
+
+
     <span class="title">Error Analysis</span>
 
 
@@ -261,7 +274,7 @@ v-bind:class="{'active': section=='razer'}">
             <i class="fas fa-file-download"></i>
         </span>
         <span class="caption">
-            Tag + Labels 
+            Error Labels 
         </span>
     </button>
 
