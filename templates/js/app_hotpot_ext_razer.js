@@ -24,7 +24,10 @@ Object.assign(app_hotpot.vpp_data, {
     // input data 3 (optional)
     // the err def for analysis
     razer_err_def: null,
-    razer_err_def_mapping: {},
+    razer_err_def_dict: {
+        shortcut: {},
+        adv_def: {}
+    },
 
     // input data 3 (optional)
     // the err labels
@@ -55,6 +58,9 @@ Object.assign(app_hotpot.vpp_data, {
     razer_active_err_uid: null,
     razer_pan_err_def_right: 0,
     razer_pan_err_def_top: 0,
+
+    // flag for showing tsne
+    razer_flag_has_embedding_tsne: false,
 
     // the fig obj for sankey
     razer_fig_sankey: null,
@@ -301,25 +307,66 @@ Object.assign(app_hotpot.vpp_methods, {
             this.dtd
         );
 
-
         // then, check if the error definition
         if (this.razer_err_def == null) {
             this.razer_err_def = JSON.parse(JSON.stringify(
                 error_analyzer.DEFAULT_ERROR_DEF
             ));
+        }
 
-            // add mapping for shortcut keys
-            var shortcut = 1;
-            for (const err_cate in this.razer_err_def) {
-                this.razer_err_def_mapping[shortcut] = err_cate;
-                shortcut += 1;
+        // add UNKNOWN for err_def
+        this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+
+        // add mapping for shortcut keys
+        var shortcut = 1;
+        for (const err_cate in this.razer_err_def) {
+            this.razer_err_def_dict.shortcut[shortcut] = err_cate;
+            shortcut += 1;
+        }
+
+        // add color mapping
+        var err_cate_clr_idx = 0;
+        for (const err_cate in this.razer_err_def) {
+            if (err_cate == 'UNK') {
+                this.razer_err_def_dict.adv_def[err_cate] = {
+                    level: 'category',
+                    category: null,
+                    types: ['UNKNOWN'],
+                    color: '#999999'
+                }
+            } else {
+                this.razer_err_def_dict.adv_def[err_cate] = {
+                    level: 'category',
+                    category: null,
+                    types: this.razer_err_def[err_cate],
+                    color: error_analyzer.ERROR_COLOR_SCHEMA[err_cate_clr_idx].c_cate
+                };
             }
-
-            // add UNKNOWN
-            this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+            // add color for each type
+            for (let i = 0; i < this.razer_err_def[err_cate].length; i++) {
+                var err_type = this.razer_err_def[err_cate][i];
+                if (err_type == 'UNKNOWN') {
+                    this.razer_err_def_dict.adv_def[err_type] = {
+                        level: 'type',
+                        category: 'UNK',
+                        types: null,
+                        color: '#999999'
+                    }
+                } else {
+                    this.razer_err_def_dict.adv_def[err_type] = {
+                        level: 'type',
+                        category: err_cate,
+                        types: null,
+                        color: error_analyzer.ERROR_COLOR_SCHEMA[err_cate_clr_idx].c_type[i]
+                    };
+                }
+            }
+            err_cate_clr_idx += 1;
         }
 
         // then, check if there is tags
+        // a flag for indicating if there is embedding for tsne?
+        var razer_flag_has_embedding_tsne = false;
         if (this.razer_err_labels_file != null) {
             // ok, let's use the given labels to update err
             for (let i = 0; i < this.razer_err_labels_file.tags.length; i++) {
@@ -336,6 +383,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
                 // add embedding if any
                 if (t.hasOwnProperty('embedding_tsne')) {
+                    razer_flag_has_embedding_tsne = true;
                     if (err_doc.err_dict.hasOwnProperty(t.uid)) {
                         // great! let's update this uid
                         err_doc.err_dict[t.uid]['embedding_tsne'] = t.embedding_tsne;
@@ -356,6 +404,7 @@ Object.assign(app_hotpot.vpp_methods, {
             this.razer_dict = {};
         }
 
+        // update the razer_dict for data
         this.razer_dict[
             this.razer_idx
         ] = {
@@ -364,6 +413,9 @@ Object.assign(app_hotpot.vpp_methods, {
             doc_dict: err_doc.doc_dict,
             err_stat: err_stat
         };
+
+        // update flag
+        this.razer_flag_has_embedding_tsne = razer_flag_has_embedding_tsne;
 
         // draw?
         this.update_plots();
@@ -403,7 +455,8 @@ Object.assign(app_hotpot.vpp_methods, {
     /////////////////////////////////////////////////////////////////
     draw_razer_fig_sankey: function() {
         var data_sankey = error_analyzer.get_sankey_data(
-            this.get_razer_rst().err_stat.by_rel
+            this.get_razer_rst().err_stat.by_rel,
+            this.razer_err_def_dict
         );
         console.log('* got data for sankey diagram', data_sankey);
 
@@ -610,6 +663,10 @@ Object.assign(app_hotpot.vpp_methods, {
 
     draw_razer_fig_tag_scatter: function() {
         // prepare data first
+        if (!this.razer_flag_has_embedding_tsne) {
+            // if no embedding data, just skip
+            return;
+        }
 
         // get data
         var data = [];
@@ -636,10 +693,19 @@ Object.assign(app_hotpot.vpp_methods, {
             option: {
                 grid: {
                     top: 10,
-                    left: 35,
+                    left: 25,
                     right: 10,
-                    bottom: 35
+                    bottom: 25
                 },
+                toolbox: {
+                    feature: {
+                        dataZoom: {},
+                        brush: {
+                            type: ['rect', 'polygon', 'clear']
+                        }
+                    }
+                },
+                brush: {},
                 xAxis: {
                     type: 'value',
                 },
@@ -681,13 +747,37 @@ Object.assign(app_hotpot.vpp_methods, {
             chart: echarts.init(
                 // the default box_id starts with #
                 document.getElementById('razer_tag_scatter')
-            )
+            ),
+
+            // for interaction
+            selected_indices: []
         };
 
         // draw it
         this.razer_fig_tag_scatter.chart.setOption(
             this.razer_fig_tag_scatter.option
         );
+
+        // bind event
+        this.razer_fig_tag_scatter.chart.on('brushSelected', function(params) {
+            var brushComponent = params.batch[0];
+            // console.log('* brush selected:', brushComponent);
+
+            // get all indices
+            var selected_indices = [];
+            for (var seriesIdx = 0; seriesIdx < brushComponent.selected.length; seriesIdx++) {
+                var dataIndices = brushComponent.selected[seriesIdx].dataIndex;
+                for (var i = 0; i < dataIndices.length; i++) {
+                    var dataIndex = dataIndices[i];
+                    selected_indices.push(dataIndex);
+                }
+            }
+
+            // bind to app_hotpot
+            app_hotpot.vpp.$data
+                .razer_fig_tag_scatter
+                .selected_indices = selected_indices;
+        });
     },
 
     close_razer_pan_err_def: function() {
@@ -842,6 +932,29 @@ Object.assign(app_hotpot.vpp_methods, {
         Metro.dialog.open('#dlg_razer_embedding_srv');
     },
 
+    show_razer_selected_tags_in_fig_tag_scatter: function() {
+        // get the uids
+        var uids = [];
+
+        for (let i = 0; i < this.razer_fig_tag_scatter.selected_indices.length; i++) {
+            const idx = this.razer_fig_tag_scatter.selected_indices[i];
+            // get the data item of this idx
+            var d = this.razer_fig_tag_scatter.option.series[0].data[idx];
+            // get the uid
+            var uid = d[2];
+            uids.push(uid);
+        }
+
+        // last, call the show function
+        this.show_uids_in_razer_err_list(uids, null);
+    },
+
+    show_razer_tag_full_text: function(event, uid) {
+        console.log('* showing full text for', 
+            this.razer_dict[this.razer_idx].err_dict[uid]
+        );
+    },
+
     start_razer_eaws: function() {
         var tags = [];
         var docs = {};
@@ -909,6 +1022,7 @@ Object.assign(app_hotpot.vpp_methods, {
                         t.embedding_tsne
                     );
                 }
+                app_hotpot.vpp.$data.razer_flag_has_embedding_tsne = true;
                 app_hotpot.vpp.update_razer_ui();
             }
         );

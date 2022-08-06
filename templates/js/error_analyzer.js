@@ -48,33 +48,26 @@ var error_analyzer = {
     UNK_ERROR_CATE: 'UNK',
 
     ERROR_COLOR_SCHEMA: [{
-        // some kind of pink
-        c_cate: '#F72585',
-        c_type: ['#fa6bab', '#ad1b7f', '#f726a1', '#b709f6', '#b709f6', '', '']
+        c_cate: '#890808',
+        c_type: ['#2a3366', '#4e315a', '#682f4f', '#7d2b43', '#912437', '#a4192b', '#b7001d']
     }, {
-        // some kind of Byzantine
-        c_cate: '#B5179E',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#3D348B',
+        c_type: ['#3d348b', '#3c3c9d', '#3a44b0', '#354cc3', '#2e54d7', '#215cea', '#0065fe']
     }, {
-        // some kind of Purple
-        c_cate: '#7209B7',
-        c_type: ['#231942', '#5E548E', '#9F86C0', '#BE95C4', '#E0B1CB', '#E07A5F', '#F2CC8F']
+        c_cate: '#7678ED',
+        c_type: ['#7678ed', '#7584d2', '#708fb6', '#67999b', '#59a37f', '#41ac62', '#00b541']
     }, {
-        // some kind of Trypan Blue
-        c_cate: '#560BAD',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F7B801',
+        c_type: ['#f7b801', '#f6c400', '#f5d000', '#f3dc00', '#f1e800', '#eef300', '#ebff00']
     }, {
-        // some kind of Persian blue
-        c_cate: '#480CA8',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F18701',
+        c_type: ['#f18701', '#e5752c', '#d96440', '#cc5150', '#bf3e5d', '#b1276a', '#a10076']
     }, {
-        // some kind of 
-        c_cate: '#320890',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F29218',
+        c_type: ['#f29218', '#dc8013', '#c56d0f', '#b05c0a', '#9a4a06', '#863903', '#712900']
     }, {
-        // some kind of 
-        c_cate: '#003242',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F39C2D',
+        c_type: ['#f39c2d', '#f78d55', '#f97c74', '#fa6a91', '#f855ad', '#f53bc9', '#ef00e4']
     }],
 
     /**
@@ -352,7 +345,7 @@ var error_analyzer = {
      * @param {Object} stat_by_rel statistics on the relationship
      * @returns sankey data object
      */
-    get_sankey_data: function(stat_by_rel) {
+    get_sankey_data: function(stat_by_rel, err_def_dict) {
         var nodes = {};
         var links = [];
 
@@ -398,7 +391,8 @@ var error_analyzer = {
                             uids: [],
                             layer: i,
                             // style
-                            class_name: _cls
+                            class_name: _cls,
+                            color: clr
                         }
                     }
                     // update node value
@@ -415,13 +409,18 @@ var error_analyzer = {
                         if (col=='c_type') {
                             _cls += ' svgmark-tag-' + nRight;
                         }
+                        var clr = '';
+                        if (col == 'c_error' || col == 'c_category') {
+                            clr = err_def_dict.adv_def[nRight].color;
+                        }
                         nodes[nRight] = {
                             id: nRight,
                             name: nRight,
                             value: 0,
                             uids: [],
                             layer: i + 1,
-                            class_name: _cls
+                            class_name: _cls,
+                            color: clr
                         }
                     }
                     // update the right node

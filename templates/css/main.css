@@ -1683,6 +1683,17 @@ ol[class], ul[class] {
     font-size: 0.95em;
     color: #535353;
 }
+.razer-err-list-seq-num {
+    position: absolute;
+    right: 5px;
+    top: -4px;
+    font-size: 1.5em;
+    color: #e1e1e1;
+}
+.err-list-row:hover .razer-err-list-seq-num {
+    color: #c0c0c0;
+    font-weight: bold;
+}
 .btn-add-err-type {
     border: 1px dashed #cccccc;
     background-color: white;

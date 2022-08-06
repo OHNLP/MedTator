@@ -50,6 +50,8 @@
 
 .box-header span {
     font-size: 1em;
+    height: 2em;
+    line-height: 2.4em;
 }
 
 .box-header-right {

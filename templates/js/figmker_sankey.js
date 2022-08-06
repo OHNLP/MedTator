@@ -176,7 +176,12 @@ return {
                     return 'sankey-node';
                 }
             })
-            .attr("fill", '#999999')
+            .attr("fill", function(d) {
+                if (d.color != '') {
+                    return d.color;
+                }
+                return '#999999';
+            })
             .attr("opacity", 1)
             .on('click', this.on_click_node);
 

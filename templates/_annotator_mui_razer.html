@@ -221,7 +221,7 @@
             <div class="d-flex flex-column mt-2 mb-2">
                 <div v-for="txt in razer_err_tag_top_10"
                     class="d-flex flex-row razer-hbar cursor-pointer"
-                    @click="">
+                    @click="show_uids_in_razer_err_list(get_razer_rst().err_stat.by_txt[txt].FP, get_razer_rst().err_stat.by_txt[txt].FN)">
                     <div class="razer-hbar-label">
                         {{ txt }}
                     </div>
@@ -272,8 +272,12 @@
                 <i class="far fa-map"></i>
                 Tag Distribution
             </h4>
-            <div class="">
+            <div v-if="razer_fig_tag_scatter != null && razer_fig_tag_scatter.selected_indices.length > 0">
 
+                <button class="btn btn-xs"
+                    @click="show_razer_selected_tags_in_fig_tag_scatter">
+                    Show Selected <b>{{ razer_fig_tag_scatter.selected_indices.length }}</b> Tags
+                </button>
             </div>
         </div>
 
@@ -297,8 +301,10 @@
                 <i class="fa fa-list-ul"></i>
                 Error List
             </h4>
-            <div class="">
-
+            <div v-if="razer_err_list_uids != null">
+                <span class="ml-2 mr-1">
+                    <b>{{ razer_err_list_uids.length }}</b> Tags
+                </span>
             </div>
         </div>
 
@@ -309,8 +315,14 @@
             
             <div v-if="razer_err_list_uids != null">
                 
-                <div v-for="uid in razer_err_list_uids"
+                <div v-for="uid, seq_num in razer_err_list_uids"
                     class="err-list-row d-flex flex-column">
+                    <!-- a sequence number -->
+                    <div class="razer-err-list-seq-num">
+                        {{ seq_num + 1 }}
+                    </div>
+
+                    <!-- basic information -->
                     <div>
                         <span class="pl-1 pr-1 mr-1"
                             :class="'razer-bg-' + get_razer_err(uid)._judgement">
@@ -328,9 +340,18 @@
                             {{ get_razer_err(uid).spans }}
                         </span>
                     </div>
-                    <div class="err-list-row-sentence"
-                        v-html="get_html_sentag_by_err(get_razer_err(uid))">
+
+                    <!-- the context sentence -->
+                    <div>
+                        <span class="err-list-row-sentence"
+                        v-html="get_html_sentag_by_err(get_razer_err(uid))"></span>
+                        <a href="javascript:void(0);"
+                            @click="show_razer_tag_full_text($event, uid)">
+                            full text &gt;
+                        </a>
                     </div>
+
+                    <!-- error labels -->
                     <div class="err-list-row-types d-flex">
 
                         <button @click="show_razer_pan_err_def_for_uid($event, uid)"

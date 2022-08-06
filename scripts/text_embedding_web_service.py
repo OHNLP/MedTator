@@ -41,7 +41,9 @@ from flask_cors import CORS
 from sentence_transformers import SentenceTransformer
 
 # load the clinicalBERT model
-model = SentenceTransformer('emilyalsentzer/Bio_ClinicalBERT')
+model_name = 'emilyalsentzer/Bio_ClinicalBERT'
+# model_name = 'multi-qa-MiniLM-L6-cos-v1'
+model = SentenceTransformer(model_name)
 
 def get_embedding(sentences):
     embedding = model.encode(sentences)
