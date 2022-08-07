@@ -73,6 +73,7 @@ Object.assign(app_hotpot.vpp_data, {
 
     // the fig obj for tag scatter
     razer_fig_tag_scatter: null,
+    razer_fig_tag_scatter_clr: 'by_err',
 
     // the uids for checking
     razer_err_list_uids: null,
@@ -674,8 +675,35 @@ Object.assign(app_hotpot.vpp_methods, {
         for (const uid in err_dict) {
             var x = err_dict[uid].embedding_tsne[0];
             var y = err_dict[uid].embedding_tsne[1];
+            var color = {FP: '#F98686', FN: '#56B3F6'}[err_dict[uid]._judgement];
+
+            if (this.razer_fig_tag_scatter_clr == 'by_err') {
+                // nothing
+            } else if (this.razer_fig_tag_scatter_clr == 'by_err_cate') {
+                if (err_dict[uid].hasOwnProperty('errors') && 
+                    err_dict[uid].errors.length > 0) {
+                    color = this.razer_err_def_dict.adv_def[
+                        err_dict[uid].errors[0].category
+                    ].color;
+                } else {
+                    color = this.razer_err_def_dict.adv_def.UNK.color;
+                }
+            } else if (this.razer_fig_tag_scatter_clr == 'by_err_type') {
+                if (err_dict[uid].hasOwnProperty('errors') && 
+                    err_dict[uid].errors.length > 0) {
+                    color = this.razer_err_def_dict.adv_def[
+                        err_dict[uid].errors[0].type
+                    ].color;
+                } else {
+                    color = this.razer_err_def_dict.adv_def.UNKNOWN.color;
+                }
+            } else if (this.razer_fig_tag_scatter_clr == 'by_concept') {
+                color = this.dtd.tag_dict[
+                    err_dict[uid].tag
+                ].style.color
+            } 
             data.push([
-                x, y, uid, {FP: '#F98686', FN: '#56B3F6'}[err_dict[uid]._judgement]
+                x, y, uid, color
             ]);
         }
 
@@ -778,6 +806,11 @@ Object.assign(app_hotpot.vpp_methods, {
                 .razer_fig_tag_scatter
                 .selected_indices = selected_indices;
         });
+    },
+
+    on_change_razer_fig_tag_scatter_color_encoding: function(event) {
+        // event.target.value
+        this.draw_razer_fig_tag_scatter();
     },
 
     close_razer_pan_err_def: function() {

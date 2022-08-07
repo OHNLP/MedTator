@@ -1712,7 +1712,7 @@ ol[class], ul[class] {
 }
 #razer_sankey_diagram {
     width: 630px;
-    height: 500px;
+    height: 420px;
 }
 .sankey-node:hover {
     filter: brightness(88%);

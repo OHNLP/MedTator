@@ -272,9 +272,26 @@
                 <i class="far fa-map"></i>
                 Tag Distribution
             </h4>
-            <div v-if="razer_fig_tag_scatter != null && razer_fig_tag_scatter.selected_indices.length > 0">
+            <div v-if="razer_fig_tag_scatter != null"
+                class="d-flex flex-row">
+                <div class="d-flex flex-row">
+                    <span class="ml-2" 
+                        style="width: 55px;">
+                        <i class="fas fa-paint-brush"></i>
+                        Color:
+                    </span>
+                    <select style="width: 100px;"
+                        v-model="razer_fig_tag_scatter_clr"
+                        @change="on_change_razer_fig_tag_scatter_color_encoding($event)">
+                        <option value="by_err">By FP / FN</option>
+                        <option value="by_err_cate">By Error Category</option>
+                        <option value="by_err_type">By Error Type</option>
+                        <option value="by_concept">By Concept</option>
+                    </select>
+                </div>
 
                 <button class="btn btn-xs"
+                    v-if="razer_fig_tag_scatter.selected_indices.length > 0"
                     @click="show_razer_selected_tags_in_fig_tag_scatter">
                     Show Selected <b>{{ razer_fig_tag_scatter.selected_indices.length }}</b> Tags
                 </button>

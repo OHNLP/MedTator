@@ -9,7 +9,7 @@ make_fig: function(box_id) {
 return {
     // settings for the sankey figure
     width: 620,
-    height: 500,
+    height: 400,
     margin: {
         top: 15, 
         right: 10, 
@@ -200,16 +200,24 @@ return {
                     .attr('class', 'nodel-name')
                     .attr("text-anchor", "start")
                     .attr("transform", null)
-                    .attr('font-size', 10)
-                    .attr('y', -1)
-                    .text(d.name);
-                node.append('text')
-                    .attr('class', 'nodel-value')
-                    .attr("text-anchor", "start")
-                    .attr("transform", null)
-                    .attr('font-size', 8)
-                    .attr('y', 8)
-                    .text("" + d.value);
+                    .attr('font-size', d=>d.value>10?10:8)
+                    .attr('y', 5)
+                    .text(d.name + ' (' + d.value + ')');
+
+                // node.append('text')
+                //     .attr('class', 'nodel-name')
+                //     .attr("text-anchor", "start")
+                //     .attr("transform", null)
+                //     .attr('font-size', 10)
+                //     .attr('y', -1)
+                //     .text(d.name);
+                // node.append('text')
+                //     .attr('class', 'nodel-value')
+                //     .attr("text-anchor", "start")
+                //     .attr("transform", null)
+                //     .attr('font-size', 8)
+                //     .attr('y', 8)
+                //     .text("" + d.value);
             });
     },
 
