@@ -904,20 +904,40 @@ var app_hotpot = {
             }
 
             // for web version, load JSON data through AJAX
-            $.get(
-                './static/data/vpp_data_'+ds_name+'.json', 
-                {
-                    rnd: Math.random()
-                }, 
-                function(data) {
+            // $.get(
+            //     './static/data/vpp_data_'+ds_name+'.json', 
+            //     {
+            //         rnd: Math.random()
+            //     }, 
+            //     function(data) {
+            //         Object.assign(app_hotpot.vpp.$data, data);
+            //         app_hotpot.set_dtd(
+            //             app_hotpot.vpp.$data.dtd
+            //         );
+            //         app_hotpot.vpp.set_ann_idx(0);
+            //     }, 
+            //     'json'
+            // );
+
+            $.ajax({
+                url: './static/data/vpp_data_'+ds_name+'.json', 
+                dataType: 'json',
+                success: function(data) {
                     Object.assign(app_hotpot.vpp.$data, data);
                     app_hotpot.set_dtd(
                         app_hotpot.vpp.$data.dtd
                     );
                     app_hotpot.vpp.set_ann_idx(0);
                 }, 
-                'json'
-            );
+                error: function (xhr, status, error) {
+                    // console.error(error);
+
+                    app_hotpot.toast(
+                        'Something wrong when loading the sample dataset, check the data availability and try later?',
+                        'alert'
+                    );
+                }
+            });
         },
 
         load_sample_ds_remote: function(ds_name) {
