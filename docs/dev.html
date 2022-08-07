@@ -81,6 +81,8 @@
 
 .box-header span {
     font-size: 1em;
+    height: 2em;
+    line-height: 2.4em;
 }
 
 .box-header-right {
@@ -1863,6 +1865,17 @@ ol[class], ul[class] {
     font-size: 0.95em;
     color: #535353;
 }
+.razer-err-list-seq-num {
+    position: absolute;
+    right: 5px;
+    top: -4px;
+    font-size: 1.5em;
+    color: #e1e1e1;
+}
+.err-list-row:hover .razer-err-list-seq-num {
+    color: #c0c0c0;
+    font-weight: bold;
+}
 .btn-add-err-type {
     border: 1px dashed #cccccc;
     background-color: white;
@@ -1881,7 +1894,7 @@ ol[class], ul[class] {
 }
 #razer_sankey_diagram {
     width: 630px;
-    height: 500px;
+    height: 420px;
 }
 .sankey-node:hover {
     filter: brightness(88%);
@@ -5513,7 +5526,7 @@ v-bind:class="{'active': section=='razer'}">
             <div class="d-flex flex-column mt-2 mb-2">
                 <div v-for="txt in razer_err_tag_top_10"
                     class="d-flex flex-row razer-hbar cursor-pointer"
-                    @click="">
+                    @click="show_uids_in_razer_err_list(get_razer_rst().err_stat.by_txt[txt].FP, get_razer_rst().err_stat.by_txt[txt].FN)">
                     <div class="razer-hbar-label">
                         {{ txt }}
                     </div>
@@ -5564,8 +5577,29 @@ v-bind:class="{'active': section=='razer'}">
                 <i class="far fa-map"></i>
                 Tag Distribution
             </h4>
-            <div class="">
+            <div v-if="razer_fig_tag_scatter != null"
+                class="d-flex flex-row">
+                <div class="d-flex flex-row">
+                    <span class="ml-2" 
+                        style="width: 55px;">
+                        <i class="fas fa-paint-brush"></i>
+                        Color:
+                    </span>
+                    <select style="width: 100px;"
+                        v-model="razer_fig_tag_scatter_clr"
+                        @change="on_change_razer_fig_tag_scatter_color_encoding($event)">
+                        <option value="by_err">By FP / FN</option>
+                        <option value="by_err_cate">By Error Category</option>
+                        <option value="by_err_type">By Error Type</option>
+                        <option value="by_concept">By Concept</option>
+                    </select>
+                </div>
 
+                <button class="btn btn-xs"
+                    v-if="razer_fig_tag_scatter.selected_indices.length > 0"
+                    @click="show_razer_selected_tags_in_fig_tag_scatter">
+                    Show Selected <b>{{ razer_fig_tag_scatter.selected_indices.length }}</b> Tags
+                </button>
             </div>
         </div>
 
@@ -5589,8 +5623,10 @@ v-bind:class="{'active': section=='razer'}">
                 <i class="fa fa-list-ul"></i>
                 Error List
             </h4>
-            <div class="">
-
+            <div v-if="razer_err_list_uids != null">
+                <span class="ml-2 mr-1">
+                    <b>{{ razer_err_list_uids.length }}</b> Tags
+                </span>
             </div>
         </div>
 
@@ -5601,8 +5637,14 @@ v-bind:class="{'active': section=='razer'}">
             
             <div v-if="razer_err_list_uids != null">
                 
-                <div v-for="uid in razer_err_list_uids"
+                <div v-for="uid, seq_num in razer_err_list_uids"
                     class="err-list-row d-flex flex-column">
+                    <!-- a sequence number -->
+                    <div class="razer-err-list-seq-num">
+                        {{ seq_num + 1 }}
+                    </div>
+
+                    <!-- basic information -->
                     <div>
                         <span class="pl-1 pr-1 mr-1"
                             :class="'razer-bg-' + get_razer_err(uid)._judgement">
@@ -5620,9 +5662,18 @@ v-bind:class="{'active': section=='razer'}">
                             {{ get_razer_err(uid).spans }}
                         </span>
                     </div>
-                    <div class="err-list-row-sentence"
-                        v-html="get_html_sentag_by_err(get_razer_err(uid))">
+
+                    <!-- the context sentence -->
+                    <div>
+                        <span class="err-list-row-sentence"
+                        v-html="get_html_sentag_by_err(get_razer_err(uid))"></span>
+                        <a href="javascript:void(0);"
+                            @click="show_razer_tag_full_text($event, uid)">
+                            full text &gt;
+                        </a>
                     </div>
+
+                    <!-- error labels -->
                     <div class="err-list-row-types d-flex">
 
                         <button @click="show_razer_pan_err_def_for_uid($event, uid)"
@@ -14482,33 +14533,26 @@ var error_analyzer = {
     UNK_ERROR_CATE: 'UNK',
 
     ERROR_COLOR_SCHEMA: [{
-        // some kind of pink
-        c_cate: '#F72585',
-        c_type: ['#fa6bab', '#ad1b7f', '#f726a1', '#b709f6', '#b709f6', '', '']
+        c_cate: '#890808',
+        c_type: ['#2a3366', '#4e315a', '#682f4f', '#7d2b43', '#912437', '#a4192b', '#b7001d']
     }, {
-        // some kind of Byzantine
-        c_cate: '#B5179E',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#3D348B',
+        c_type: ['#3d348b', '#3c3c9d', '#3a44b0', '#354cc3', '#2e54d7', '#215cea', '#0065fe']
     }, {
-        // some kind of Purple
-        c_cate: '#7209B7',
-        c_type: ['#231942', '#5E548E', '#9F86C0', '#BE95C4', '#E0B1CB', '#E07A5F', '#F2CC8F']
+        c_cate: '#7678ED',
+        c_type: ['#7678ed', '#7584d2', '#708fb6', '#67999b', '#59a37f', '#41ac62', '#00b541']
     }, {
-        // some kind of Trypan Blue
-        c_cate: '#560BAD',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F7B801',
+        c_type: ['#f7b801', '#f6c400', '#f5d000', '#f3dc00', '#f1e800', '#eef300', '#ebff00']
     }, {
-        // some kind of Persian blue
-        c_cate: '#480CA8',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F18701',
+        c_type: ['#f18701', '#e5752c', '#d96440', '#cc5150', '#bf3e5d', '#b1276a', '#a10076']
     }, {
-        // some kind of 
-        c_cate: '#320890',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F29218',
+        c_type: ['#f29218', '#dc8013', '#c56d0f', '#b05c0a', '#9a4a06', '#863903', '#712900']
     }, {
-        // some kind of 
-        c_cate: '#003242',
-        c_type: ['', '', '', '', '', '', '']
+        c_cate: '#F39C2D',
+        c_type: ['#f39c2d', '#f78d55', '#f97c74', '#fa6a91', '#f855ad', '#f53bc9', '#ef00e4']
     }],
 
     /**
@@ -14786,7 +14830,7 @@ var error_analyzer = {
      * @param {Object} stat_by_rel statistics on the relationship
      * @returns sankey data object
      */
-    get_sankey_data: function(stat_by_rel) {
+    get_sankey_data: function(stat_by_rel, err_def_dict) {
         var nodes = {};
         var links = [];
 
@@ -14832,7 +14876,8 @@ var error_analyzer = {
                             uids: [],
                             layer: i,
                             // style
-                            class_name: _cls
+                            class_name: _cls,
+                            color: clr
                         }
                     }
                     // update node value
@@ -14849,13 +14894,18 @@ var error_analyzer = {
                         if (col=='c_type') {
                             _cls += ' svgmark-tag-' + nRight;
                         }
+                        var clr = '';
+                        if (col == 'c_error' || col == 'c_category') {
+                            clr = err_def_dict.adv_def[nRight].color;
+                        }
                         nodes[nRight] = {
                             id: nRight,
                             name: nRight,
                             value: 0,
                             uids: [],
                             layer: i + 1,
-                            class_name: _cls
+                            class_name: _cls,
+                            color: clr
                         }
                     }
                     // update the right node
@@ -15130,7 +15180,7 @@ make_fig: function(box_id) {
 return {
     // settings for the sankey figure
     width: 620,
-    height: 500,
+    height: 400,
     margin: {
         top: 15, 
         right: 10, 
@@ -15297,7 +15347,12 @@ return {
                     return 'sankey-node';
                 }
             })
-            .attr("fill", '#999999')
+            .attr("fill", function(d) {
+                if (d.color != '') {
+                    return d.color;
+                }
+                return '#999999';
+            })
             .attr("opacity", 1)
             .on('click', this.on_click_node);
 
@@ -15316,16 +15371,24 @@ return {
                     .attr('class', 'nodel-name')
                     .attr("text-anchor", "start")
                     .attr("transform", null)
-                    .attr('font-size', 10)
-                    .attr('y', -1)
-                    .text(d.name);
-                node.append('text')
-                    .attr('class', 'nodel-value')
-                    .attr("text-anchor", "start")
-                    .attr("transform", null)
-                    .attr('font-size', 8)
-                    .attr('y', 8)
-                    .text("" + d.value);
+                    .attr('font-size', d=>d.value>10?10:8)
+                    .attr('y', 5)
+                    .text(d.name + ' (' + d.value + ')');
+
+                // node.append('text')
+                //     .attr('class', 'nodel-name')
+                //     .attr("text-anchor", "start")
+                //     .attr("transform", null)
+                //     .attr('font-size', 10)
+                //     .attr('y', -1)
+                //     .text(d.name);
+                // node.append('text')
+                //     .attr('class', 'nodel-value')
+                //     .attr("text-anchor", "start")
+                //     .attr("transform", null)
+                //     .attr('font-size', 8)
+                //     .attr('y', 8)
+                //     .text("" + d.value);
             });
     },
 
@@ -20983,7 +21046,10 @@ Object.assign(app_hotpot.vpp_data, {
     // input data 3 (optional)
     // the err def for analysis
     razer_err_def: null,
-    razer_err_def_mapping: {},
+    razer_err_def_dict: {
+        shortcut: {},
+        adv_def: {}
+    },
 
     // input data 3 (optional)
     // the err labels
@@ -21015,6 +21081,9 @@ Object.assign(app_hotpot.vpp_data, {
     razer_pan_err_def_right: 0,
     razer_pan_err_def_top: 0,
 
+    // flag for showing tsne
+    razer_flag_has_embedding_tsne: false,
+
     // the fig obj for sankey
     razer_fig_sankey: null,
 
@@ -21026,6 +21095,7 @@ Object.assign(app_hotpot.vpp_data, {
 
     // the fig obj for tag scatter
     razer_fig_tag_scatter: null,
+    razer_fig_tag_scatter_clr: 'by_err',
 
     // the uids for checking
     razer_err_list_uids: null,
@@ -21260,25 +21330,66 @@ Object.assign(app_hotpot.vpp_methods, {
             this.dtd
         );
 
-
         // then, check if the error definition
         if (this.razer_err_def == null) {
             this.razer_err_def = JSON.parse(JSON.stringify(
                 error_analyzer.DEFAULT_ERROR_DEF
             ));
+        }
 
-            // add mapping for shortcut keys
-            var shortcut = 1;
-            for (const err_cate in this.razer_err_def) {
-                this.razer_err_def_mapping[shortcut] = err_cate;
-                shortcut += 1;
+        // add UNKNOWN for err_def
+        this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+
+        // add mapping for shortcut keys
+        var shortcut = 1;
+        for (const err_cate in this.razer_err_def) {
+            this.razer_err_def_dict.shortcut[shortcut] = err_cate;
+            shortcut += 1;
+        }
+
+        // add color mapping
+        var err_cate_clr_idx = 0;
+        for (const err_cate in this.razer_err_def) {
+            if (err_cate == 'UNK') {
+                this.razer_err_def_dict.adv_def[err_cate] = {
+                    level: 'category',
+                    category: null,
+                    types: ['UNKNOWN'],
+                    color: '#999999'
+                }
+            } else {
+                this.razer_err_def_dict.adv_def[err_cate] = {
+                    level: 'category',
+                    category: null,
+                    types: this.razer_err_def[err_cate],
+                    color: error_analyzer.ERROR_COLOR_SCHEMA[err_cate_clr_idx].c_cate
+                };
             }
-
-            // add UNKNOWN
-            this.razer_err_def[error_analyzer.UNK_ERROR_CATE] = [error_analyzer.UNK_ERROR_TYPE];
+            // add color for each type
+            for (let i = 0; i < this.razer_err_def[err_cate].length; i++) {
+                var err_type = this.razer_err_def[err_cate][i];
+                if (err_type == 'UNKNOWN') {
+                    this.razer_err_def_dict.adv_def[err_type] = {
+                        level: 'type',
+                        category: 'UNK',
+                        types: null,
+                        color: '#999999'
+                    }
+                } else {
+                    this.razer_err_def_dict.adv_def[err_type] = {
+                        level: 'type',
+                        category: err_cate,
+                        types: null,
+                        color: error_analyzer.ERROR_COLOR_SCHEMA[err_cate_clr_idx].c_type[i]
+                    };
+                }
+            }
+            err_cate_clr_idx += 1;
         }
 
         // then, check if there is tags
+        // a flag for indicating if there is embedding for tsne?
+        var razer_flag_has_embedding_tsne = false;
         if (this.razer_err_labels_file != null) {
             // ok, let's use the given labels to update err
             for (let i = 0; i < this.razer_err_labels_file.tags.length; i++) {
@@ -21295,6 +21406,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
                 // add embedding if any
                 if (t.hasOwnProperty('embedding_tsne')) {
+                    razer_flag_has_embedding_tsne = true;
                     if (err_doc.err_dict.hasOwnProperty(t.uid)) {
                         // great! let's update this uid
                         err_doc.err_dict[t.uid]['embedding_tsne'] = t.embedding_tsne;
@@ -21315,6 +21427,7 @@ Object.assign(app_hotpot.vpp_methods, {
             this.razer_dict = {};
         }
 
+        // update the razer_dict for data
         this.razer_dict[
             this.razer_idx
         ] = {
@@ -21323,6 +21436,9 @@ Object.assign(app_hotpot.vpp_methods, {
             doc_dict: err_doc.doc_dict,
             err_stat: err_stat
         };
+
+        // update flag
+        this.razer_flag_has_embedding_tsne = razer_flag_has_embedding_tsne;
 
         // draw?
         this.update_plots();
@@ -21362,7 +21478,8 @@ Object.assign(app_hotpot.vpp_methods, {
     /////////////////////////////////////////////////////////////////
     draw_razer_fig_sankey: function() {
         var data_sankey = error_analyzer.get_sankey_data(
-            this.get_razer_rst().err_stat.by_rel
+            this.get_razer_rst().err_stat.by_rel,
+            this.razer_err_def_dict
         );
         console.log('* got data for sankey diagram', data_sankey);
 
@@ -21569,6 +21686,10 @@ Object.assign(app_hotpot.vpp_methods, {
 
     draw_razer_fig_tag_scatter: function() {
         // prepare data first
+        if (!this.razer_flag_has_embedding_tsne) {
+            // if no embedding data, just skip
+            return;
+        }
 
         // get data
         var data = [];
@@ -21576,8 +21697,35 @@ Object.assign(app_hotpot.vpp_methods, {
         for (const uid in err_dict) {
             var x = err_dict[uid].embedding_tsne[0];
             var y = err_dict[uid].embedding_tsne[1];
+            var color = {FP: '#F98686', FN: '#56B3F6'}[err_dict[uid]._judgement];
+
+            if (this.razer_fig_tag_scatter_clr == 'by_err') {
+                // nothing
+            } else if (this.razer_fig_tag_scatter_clr == 'by_err_cate') {
+                if (err_dict[uid].hasOwnProperty('errors') && 
+                    err_dict[uid].errors.length > 0) {
+                    color = this.razer_err_def_dict.adv_def[
+                        err_dict[uid].errors[0].category
+                    ].color;
+                } else {
+                    color = this.razer_err_def_dict.adv_def.UNK.color;
+                }
+            } else if (this.razer_fig_tag_scatter_clr == 'by_err_type') {
+                if (err_dict[uid].hasOwnProperty('errors') && 
+                    err_dict[uid].errors.length > 0) {
+                    color = this.razer_err_def_dict.adv_def[
+                        err_dict[uid].errors[0].type
+                    ].color;
+                } else {
+                    color = this.razer_err_def_dict.adv_def.UNKNOWN.color;
+                }
+            } else if (this.razer_fig_tag_scatter_clr == 'by_concept') {
+                color = this.dtd.tag_dict[
+                    err_dict[uid].tag
+                ].style.color
+            } 
             data.push([
-                x, y, uid, {FP: '#F98686', FN: '#56B3F6'}[err_dict[uid]._judgement]
+                x, y, uid, color
             ]);
         }
 
@@ -21595,10 +21743,19 @@ Object.assign(app_hotpot.vpp_methods, {
             option: {
                 grid: {
                     top: 10,
-                    left: 35,
+                    left: 25,
                     right: 10,
-                    bottom: 35
+                    bottom: 25
                 },
+                toolbox: {
+                    feature: {
+                        dataZoom: {},
+                        brush: {
+                            type: ['rect', 'polygon', 'clear']
+                        }
+                    }
+                },
+                brush: {},
                 xAxis: {
                     type: 'value',
                 },
@@ -21640,13 +21797,42 @@ Object.assign(app_hotpot.vpp_methods, {
             chart: echarts.init(
                 // the default box_id starts with #
                 document.getElementById('razer_tag_scatter')
-            )
+            ),
+
+            // for interaction
+            selected_indices: []
         };
 
         // draw it
         this.razer_fig_tag_scatter.chart.setOption(
             this.razer_fig_tag_scatter.option
         );
+
+        // bind event
+        this.razer_fig_tag_scatter.chart.on('brushSelected', function(params) {
+            var brushComponent = params.batch[0];
+            // console.log('* brush selected:', brushComponent);
+
+            // get all indices
+            var selected_indices = [];
+            for (var seriesIdx = 0; seriesIdx < brushComponent.selected.length; seriesIdx++) {
+                var dataIndices = brushComponent.selected[seriesIdx].dataIndex;
+                for (var i = 0; i < dataIndices.length; i++) {
+                    var dataIndex = dataIndices[i];
+                    selected_indices.push(dataIndex);
+                }
+            }
+
+            // bind to app_hotpot
+            app_hotpot.vpp.$data
+                .razer_fig_tag_scatter
+                .selected_indices = selected_indices;
+        });
+    },
+
+    on_change_razer_fig_tag_scatter_color_encoding: function(event) {
+        // event.target.value
+        this.draw_razer_fig_tag_scatter();
     },
 
     close_razer_pan_err_def: function() {
@@ -21801,6 +21987,29 @@ Object.assign(app_hotpot.vpp_methods, {
         Metro.dialog.open('#dlg_razer_embedding_srv');
     },
 
+    show_razer_selected_tags_in_fig_tag_scatter: function() {
+        // get the uids
+        var uids = [];
+
+        for (let i = 0; i < this.razer_fig_tag_scatter.selected_indices.length; i++) {
+            const idx = this.razer_fig_tag_scatter.selected_indices[i];
+            // get the data item of this idx
+            var d = this.razer_fig_tag_scatter.option.series[0].data[idx];
+            // get the uid
+            var uid = d[2];
+            uids.push(uid);
+        }
+
+        // last, call the show function
+        this.show_uids_in_razer_err_list(uids, null);
+    },
+
+    show_razer_tag_full_text: function(event, uid) {
+        console.log('* showing full text for', 
+            this.razer_dict[this.razer_idx].err_dict[uid]
+        );
+    },
+
     start_razer_eaws: function() {
         var tags = [];
         var docs = {};
@@ -21868,6 +22077,7 @@ Object.assign(app_hotpot.vpp_methods, {
                         t.embedding_tsne
                     );
                 }
+                app_hotpot.vpp.$data.razer_flag_has_embedding_tsne = true;
                 app_hotpot.vpp.update_razer_ui();
             }
         );
