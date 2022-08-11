@@ -1048,7 +1048,12 @@ var nlp_toolkit = {
 
         // check each tag
         for (let i = 0; i < anns.length; i++) {
-            const ann = anns[i];
+            var ann = anns[i];
+
+            // 2022-08-10: the sentence may not be not ready 
+            // when converting, fix the sentences
+            ann = app_hotpot.update_ann_sentences(ann);
+
             var sentence_tags = {};
             for (let j = 0; j < ann.tags.length; j++) {
                 const tag = ann.tags[j];

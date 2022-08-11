@@ -106,6 +106,13 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
+### 1.3.x (2022-08-18)
+
+- Fixed IOB2/BIO empty export bug
+- Fixed exporter window height bug
+- Fixed BioC format export annotation text encoding bug
+- Fixed BioC format export attribute text encoding bug
+
 ### 1.3.2 (2022-08-04)
 
 - Added functions for error analysis

@@ -48,7 +48,7 @@ var bioc_parser = {
             // add the text to this passage
             var elem_ptext = xmlDoc.createElement('text');
             elem_ptext.appendChild(
-                xmlDoc.createTextNode(ann.text)
+                xmlDoc.createCDATASection(ann.text)
             );
             elem_passage.appendChild(elem_ptext);
 
@@ -95,7 +95,7 @@ var bioc_parser = {
                         var elem_atext = xmlDoc.createElement('text');
                         var atext = ann.text.substring(loc[0], loc[1]);
                         elem_atext.appendChild(
-                            xmlDoc.createTextNode(atext)
+                            xmlDoc.createCDATASection(atext)
                         );
                         elem_ann.appendChild(elem_atext);
 
@@ -111,7 +111,10 @@ var bioc_parser = {
                                 // for other key, need to create a infon element
                                 var elem_infon = xmlDoc.createElement('infon');
                                 elem_infon.setAttribute('key', key);
-                                elem_infon.innerHTML = val;
+                                // elem_infon.innerHTML = val;
+                                elem_infon.appendChild(
+                                    xmlDoc.createTextNode(val)
+                                );
 
                                 // ok, add this infon to this annotation
                                 elem_ann.appendChild(elem_infon);
@@ -157,7 +160,10 @@ var bioc_parser = {
                                 // for other types, just create a infon
                                 var elem_infon = xmlDoc.createElement('infon');
                                 elem_infon.setAttribute('key', key);
-                                elem_infon.innerHTML = val;
+                                // elem_infon.innerHTML = val;
+                                elem_infon.appendChild(
+                                    xmlDoc.createTextNode(val)
+                                );
 
                                 // ok, add this infon to this annotation
                                 elem_rel.appendChild(elem_infon);

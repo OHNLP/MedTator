@@ -2960,7 +2960,7 @@ var app_hotpot = {
 
         if (ann._sentences_text != '') {
             if (skip_existed) {
-                return;
+                return ann;
             }
         }
         var r = nlp_toolkit.sent_tokenize(
