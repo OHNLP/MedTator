@@ -37,7 +37,7 @@ def fake_error_analysis(data):
     '''
     import random
     err_cate_types = {
-        "Liguistic": [
+        " Linguistic": [
             "Lexicon",
             "Orthographic",
             "Morphologic",

@@ -12,7 +12,7 @@
 var error_analyzer = {
     // default errors definition
     DEFAULT_ERROR_DEF: {
-        "Liguistic": [
+        "Linguistic": [
             "Lexicon",
             "Orthographic",
             "Morphologic",
@@ -95,7 +95,7 @@ var error_analyzer = {
 
         // the following may be provided by user or web service
         "errors": [
-            { "category": "Liguistic", "type": "Morphologic" },
+            { "category": " Linguistic", "type": "Morphologic" },
             { "category": "Annotation", "type": "Missing Annotation" },
             { "category": "Concept Definition", "type": "Ambiguity" }, 
         ]
