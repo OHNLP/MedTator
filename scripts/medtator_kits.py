@@ -8,11 +8,62 @@ import os
 import argparse
 from xml.dom.minidom import parse
 
+def parse_xml(full_fn):
+    '''
+    Parse a given XML file
+    '''
+    fn = os.path.basename(full_fn)
+
+    # create an ann for saving data
+    ann = {
+        # about the file itself
+        "_filename": fn,
+        # the text content of this annotation file
+        "text": '',
+        # the metadata
+        "meta": {},
+        # the tags
+        "tags": []
+    }
+
+    # read this file
+    dom = parse(full_fn)
+
+    # get text directly as there is only one TEXT tag
+    ann['text'] = dom.getElementsByTagName('TEXT')[0].childNodes[0].data
+
+    # now parse the meta
+
+    # now parse the tags
+    nodes = dom.getElementsByTagName('TAGS')[0].childNodes
+    for node in nodes:
+        if node.nodeType == node.TEXT_NODE:
+            # which mean it's a text such as \n or space
+            continue
+
+        # create a new tag
+        tag = {}
+
+        # get the tag_name
+        tag_name = node.nodeName
+        tag['tag'] = tag_name
+
+        # get all attrs
+        attrs = node.attributes.items()
+        for attr in attrs:
+            tag[attr[0]] = attr[1]
+
+        # save this tag
+        ann['tags'].append(tag)
+
+    return ann
+
+
 def parse_xmls(path):
     '''
     Parse the given path to get 
     '''
-    print('* checking path %s' % args.path)
+    print('* checking path %s' % path)
 
     # count files
     cnt_total = 0
@@ -21,68 +72,49 @@ def parse_xmls(path):
     cnt_tags = 0
 
     anns = []
-    for root, dirs, files in os.walk(args.path):
-        for fn in files:
-            cnt_total += 1
-            # check file
-            if not fn.lower().endswith('.xml'): 
-                cnt_other += 1
-                continue
 
-            # ok, this is a XML
+    if os.path.isfile(path):
+        cnt_total += 1
+        if path.lower().endswith('.xml'): 
             cnt_xml += 1
-            
-            # create an ann for saving data
-            ann = {
-                # about the file itself
-                "_filename": fn,
-                # the text content of this annotation file
-                "text": '',
-                # the metadata
-                "meta": {},
-                # the tags
-                "tags": []
-            }
 
-            # ok, this is a XML file
-            full_fn = os.path.join(root, fn)
+            # parse this ann
+            ann = parse_xml(path)
 
-            # read this file
-            dom = parse(full_fn)
+            # update stats
+            cnt_tags += len(ann['tags'])
 
-            # get text directly as there is only one TEXT tag
-            ann['text'] = dom.getElementsByTagName('TEXT')[0].childNodes[0].data
+            # save this
+            anns.append(ann)
+            print('* parsed XML file %s' % path)
 
-            # now parse the meta
-
-            # now parse the tags
-            nodes = dom.getElementsByTagName('TAGS')[0].childNodes
-            for node in nodes:
-                if node.nodeType == node.TEXT_NODE:
-                    # which mean it's a text such as \n or space
+        else:
+            cnt_other += 1
+        
+    else:
+        for root, dirs, files in os.walk(path):
+            for fn in files:
+                cnt_total += 1
+                # check file
+                if not fn.lower().endswith('.xml'): 
+                    cnt_other += 1
                     continue
 
-                # create a new tag
-                tag = {}
+                # ok, this is a XML
+                cnt_xml += 1
+                
+                # ok, this is a XML file
+                full_fn = os.path.join(root, fn)
 
-                # get the tag_name
-                tag_name = node.nodeName
-                tag['tag'] = tag_name
+                # parse this ann
+                ann = parse_xml(full_fn)
 
-                # get all attrs
-                attrs = node.attributes.items()
-                for attr in attrs:
-                    tag[attr[0]] = attr[1]
-
-                # save this tag
-                ann['tags'].append(tag)
-
-                # update the stat
-                cnt_tags += 1
-            
-            # finally, save this ann
-            anns.append(ann)
-            print('* parsed XML file %s' % full_fn)
+                # update the number of tags
+                cnt_tags += ann['tags'].length
+                
+                # finally, save this ann
+                anns.append(ann)
+                print('* parsed XML file %s' % full_fn)
 
     print('* checked %s files' % cnt_total)
     print('* found %s XML files' % cnt_xml)

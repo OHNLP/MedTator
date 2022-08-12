@@ -190,24 +190,6 @@
 
 
 
-        <div class="box-header">
-            <h4>
-                <i class="fas fa-braille"></i>
-                File Distribution by Error Count
-            </h4>
-        </div>
-
-        <div class="box-body border-bottom bd-gray">
-            <div class="d-flex flex-column mt-2 mb-2">
-                <div id="razer_fig_doc_scatter"
-                    style="width: 220px; height: 220px;">
-
-                </div>
-            </div>
-        </div>
-
-
-
 
         <div class="box-header">
             <h4>
@@ -236,6 +218,26 @@
                             {{ get_razer_rst().err_stat.by_txt[txt].FP.length + get_razer_rst().err_stat.by_txt[txt].FN.length }}
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-braille"></i>
+                File Distribution by Error Count
+            </h4>
+        </div>
+
+        <div class="box-body border-bottom bd-gray">
+            <div class="d-flex flex-column mt-2 mb-2">
+                <div id="razer_fig_doc_scatter"
+                    style="width: 220px; height: 220px;">
+
                 </div>
             </div>
         </div>
