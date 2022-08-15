@@ -9,7 +9,7 @@ meta:
     - Neg.
     - Psb.
   error_definition:
-     Linguistic:
+    Linguistic:
       - Lexicon
       - Orthographic
       - Morphologic

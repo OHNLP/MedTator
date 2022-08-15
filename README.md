@@ -108,6 +108,12 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ### 1.3.x (2022-08-18)
 
+- Added label panel for error labeling
+- Added error sankey diagram for error analysis
+- Added token scatter for error analysis
+- Added heatmap of error distribution for error analysis
+- Added bar charts of error statistics for error analysis
+- Updated scripts for text embedding web services
 - Fixed IOB2/BIO empty export bug
 - Fixed exporter window height bug
 - Fixed BioC format export annotation text encoding bug

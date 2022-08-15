@@ -27,7 +27,7 @@ MedTator provides some options for selecting different methods.
 
     "razer_help_err_def": {
         title: 'Error Definition',
-        html: `<p>Error definition describes how the error types are classified into categories. For exampel, 'Lexicon' and 'Syntactic' can be categorized as ' Linguistic'. </p>
+        html: `<p>Error definition describes how the error types are classified into categories. For exampel, 'Lexicon' and 'Syntactic' can be categorized as 'Linguistic'. </p>
 <p>MedTator's error analysis module comes with a default error definition. You can use it directly, or you can customize your own error definition. </p>
 <p>MedTator uses a simple format to organize error category, which is defined as a YAML format in the annotation schema or a seperate YAML file. For more information about the error definition format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
 `

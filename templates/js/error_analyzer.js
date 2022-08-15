@@ -95,7 +95,7 @@ var error_analyzer = {
 
         // the following may be provided by user or web service
         "errors": [
-            { "category": " Linguistic", "type": "Morphologic" },
+            { "category": "Linguistic", "type": "Morphologic" },
             { "category": "Annotation", "type": "Missing Annotation" },
             { "category": "Concept Definition", "type": "Ambiguity" }, 
         ]

@@ -71,6 +71,9 @@ Object.assign(app_hotpot.vpp_data, {
     // the fig obj for doc distribution
     razer_fig_doc_scatter: null,
 
+    // the fig obj for doc heatmap
+    razer_fig_doc_heatmap: null,
+
     // the fig obj for tag scatter
     razer_fig_tag_scatter: null,
     razer_fig_tag_scatter_clr: 'by_err',
@@ -447,7 +450,8 @@ Object.assign(app_hotpot.vpp_methods, {
     update_plots: function() {
         // this.draw_razer_fig_donut();
         this.draw_razer_fig_sankey();
-        this.draw_razer_fig_doc_scatter();
+        // this.draw_razer_fig_doc_scatter();
+        this.draw_razer_fig_doc_heatmap();
         this.draw_razer_fig_tag_scatter();
     },
 
@@ -662,6 +666,163 @@ Object.assign(app_hotpot.vpp_methods, {
         );
     },
 
+    draw_razer_fig_doc_heatmap: function() {
+        // prepare data first
+
+        // get data 
+        // please ensure Math.js is imported
+        var vals = {};
+        var stat = this.razer_dict[this.razer_idx].err_stat.by_doc;
+        for (const file_hash in stat) {
+            var x = stat[file_hash].FP.length;
+            var y = stat[file_hash].FN.length;
+            
+            // resize to 10x10
+            var _x = x;
+            var _y = y;
+            if (_x > 10) { _x = 10; };
+            if (_y > 10) { _y = 10; };
+            
+            if (!vals.hasOwnProperty(_x)) {
+                vals[_x] = {};
+            }
+            if (!vals[_x].hasOwnProperty(_y)) {
+                vals[_x][_y] = [];
+            }
+            vals[_x][_y].push(file_hash);
+        }
+        console.log(vals);
+        // get all values
+        var data = [];
+        var max_n = 10;
+        for (let i = 0; i < 11; i++) {
+            for (let j = 0; j < 11; j++) {
+                if (vals.hasOwnProperty(i) && vals[i].hasOwnProperty(j)) {
+                    data.push([
+                        i,
+                        j,
+                        vals[i][j].length
+                    ]);
+                    if (vals[i][j].length > max_n) {
+                        max_n = vals[i][j].length;
+                    }
+                } else {
+                    data.push([
+                        i,
+                        j,
+                        '-'
+                    ]);
+                }
+            }
+        }
+
+        // then check figure status
+        if (this.razer_fig_doc_heatmap != null) {
+            // ??
+            this.razer_fig_doc_heatmap.option.series[0].data = data;
+            this.razer_fig_doc_heatmap.chart.setOption(
+                this.razer_fig_doc_heatmap.option
+            );
+            return;
+        }
+        
+        var axis_labels = Array.from(Array(11).keys()).map(v=>''+v);
+        axis_labels[10] = '10+';
+        // init the chart
+        this.razer_fig_doc_heatmap = {
+            data: data,
+            option: {
+                grid: {
+                    top: 0,
+                    left: 35,
+                    right: 0,
+                    bottom: 80
+                },
+                visualMap: {
+                    min: 0,
+                    max: max_n,
+                    calculable: true,
+                    itemWidth: 15,
+                    itemHeight: 180,
+                    orient: 'horizontal',
+                    left: 30,
+                    bottom: 0
+                },
+                xAxis: {
+                    type: 'category',
+                    data: axis_labels,
+                    name: 'False Positive',
+                    nameLocation: 'center',
+                    nameGap: 20,
+                    axisLabel: {
+                        interval: 0,
+                    },
+                    splitArea: {
+                        show: true
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: axis_labels,
+                    name: 'False Negative',
+                    nameLocation: 'center',
+                    nameGap: 20,
+                    axisLabel: {
+                        interval: 0,
+                    },
+                    splitArea: {
+                        show: true
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    // to avoid CSS z-index overlay issue
+                    renderMode: 'richText',
+                    formatter: function(params) {
+                        // console.log('* hover at', params);
+                        var html = [
+                            // '<h6>' + params.data[2] + '</h6>',
+                            // '<p>- FP Tags: ' + params.data[0] + '<br>', 
+                            // '- FN Tags: ' + params.data[1] + '</p>'
+                            '' + params.data[2] + ' file(s) have:\n',
+                            '- FP Tags: ' + params.data[0] + '\n', 
+                            '- FN Tags: ' + params.data[1]
+                        ].join('');
+                        return html;
+                    }
+                },
+                legend: {
+                    show: false,
+                },
+                series: [{
+                    name: 'File',
+                    type: 'heatmap',
+                    label: {
+                        show: true
+                    },
+                    data: data,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            },
+            chart: echarts.init(
+                // the default box_id starts with #
+                document.getElementById('razer_fig_doc_heatmap')
+            )
+        };
+
+        // draw it
+        this.razer_fig_doc_heatmap.chart.setOption(
+            this.razer_fig_doc_heatmap.option
+        );
+    },
+
+    
+
     draw_razer_fig_tag_scatter: function() {
         // prepare data first
         if (!this.razer_flag_has_embedding_tsne) {
@@ -718,6 +879,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // init the chart
         this.razer_fig_tag_scatter = {
+            data: data,
             option: {
                 grid: {
                     top: 10,
