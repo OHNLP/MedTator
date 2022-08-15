@@ -158,8 +158,8 @@ PAGE_EVA_TAGS = """<html>
 <br>
 <br>
 <button>Submit the Above JSON object and check the output</button>
-</fieldset>
 </form>
+</fieldset>
 </body>
 </html>"""
 

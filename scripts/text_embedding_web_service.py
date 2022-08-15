@@ -66,7 +66,18 @@ app = Flask(__name__)
 CORS(app)
 
 HTML_EMBEDDING = """<html>
+<head><title>Text Embedding | Tag</title></head>
 <body>
+<fieldset>
+<legend>Get Embeddings</legend>
+<p>
+    POST request
+    <br>
+    - Parameter: <b>data</b>. a JSON object contains tags and docs for error analysis</label>
+    <br>
+    <br>
+    Returns: a JSON object which contains the analysis results for all input tags.
+</p>
 <form method="POST" action="/embedding">
 <p>Here's an example of embedding paramter for /embedding web service:</p>
 <textarea name="data" cols="50" rows="11">{
@@ -80,8 +91,9 @@ HTML_EMBEDDING = """<html>
     ]
 }</textarea>
 <br>
-<button>Submit</button>
+<button>Submit the Above JSON object and check the output</button>
 </form>
+</fieldset>
 </body>
 </html>
 """
@@ -133,4 +145,7 @@ def embedding():
 
 
 if __name__=='__main__':
-    app.run(debug=True, port=8809)
+    app.run(
+        debug=True, 
+        port=8809
+    )
