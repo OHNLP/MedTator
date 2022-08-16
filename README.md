@@ -113,6 +113,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Added token scatter for error analysis
 - Added heatmap of error distribution for error analysis
 - Added bar charts of error statistics for error analysis
+- Added tag list and menu items for error analysis
 - Updated scripts for text embedding web services
 - Fixed IOB2/BIO empty export bug
 - Fixed exporter window height bug

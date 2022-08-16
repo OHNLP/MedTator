@@ -62,6 +62,12 @@ Object.assign(app_hotpot.vpp_data, {
     // flag for showing tsne
     razer_flag_has_embedding_tsne: false,
 
+    // flag for showing the details in tag list
+    razer_flag_show_taglist_context: true,
+
+    // flag for showing the labels in tag list
+    razer_flag_show_taglist_labels: true,
+
     // the fig obj for sankey
     razer_fig_sankey: null,
 

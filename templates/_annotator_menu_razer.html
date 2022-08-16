@@ -261,6 +261,28 @@ v-bind:class="{'active': section=='razer'}">
 </div>
 
 
+<div class="group">
+    <div title="Display the tag context information">
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Context"
+            title="Show the context information of error tags"
+            v-model="razer_flag_show_taglist_context">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Labels"
+            title="Show the error labels of tags"
+            v-model="razer_flag_show_taglist_labels">
+    </div>
+
+    <span class="title">Tag List</span>
+</div>
+
+
 
 
 <div class="group">

@@ -1672,8 +1672,9 @@ ol[class], ul[class] {
 }
 
 .err-list-row {
-    padding: 3px 0;
+    padding: 3px 16px 3px 0;
     margin: 3px 0;
+    min-width: 200px;
     border-bottom: 1px dotted #b3b3b3;
 }
 .err-list-row:hover {

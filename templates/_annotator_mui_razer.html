@@ -359,13 +359,14 @@
                                 {{ get_razer_err(uid).text }}
                             </b>
                         </span>
-                        <span class="pl-1 pr-1 mr-1 clr-grey">
+                        <span v-if="razer_flag_show_taglist_context"
+                            class="pl-1 pr-1 mr-1 clr-grey">
                             {{ get_razer_err(uid).spans }}
                         </span>
                     </div>
 
                     <!-- the context sentence -->
-                    <div>
+                    <div v-if="razer_flag_show_taglist_context">
                         <span class="err-list-row-sentence"
                         v-html="get_html_sentag_by_err(get_razer_err(uid))"></span>
                         <a href="javascript:void(0);"
@@ -375,8 +376,8 @@
                     </div>
 
                     <!-- error labels -->
-                    <div class="err-list-row-types d-flex">
-
+                    <div v-if="razer_flag_show_taglist_labels"
+                        class="err-list-row-types d-flex">
                         <button @click="show_razer_pan_err_def_for_uid($event, uid)"
                             class="btn btn-xs btn-primary btn-add-err-type"
                             title="Add a new error type label for this tag">
