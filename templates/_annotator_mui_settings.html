@@ -17,18 +17,19 @@
     </div>
     <div class="box-body">
         <div class="d-flex flex-row">
-            <div class="px-2 setting-tab"
-                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                v-on:click="switch_setting_tab('import')">
-                <i class="far fa-file"></i>
-                Import
-            </div>
 
             <div class="px-2 setting-tab"
                 v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='gui'}"
                 v-on:click="switch_setting_tab('gui')">
                 <i class="fa fa-table"></i>
                 GUI
+            </div>
+
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
+                v-on:click="switch_setting_tab('import')">
+                <i class="far fa-file"></i>
+                Import
             </div>
         </div>
 
@@ -67,6 +68,32 @@
 
         <!-- data setting tab -->
         <div v-else-if="cfg.active_setting_tab == 'gui'">
+            <div class="box-body-item">
+                <p>
+                    New UI for Error Analysis (Development)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_ea')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uiea_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_ea">
+                        <label for="cfg_uiea_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uiea_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_ea">
+                        <label for="cfg_uiea_v2">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
             <div class="box-body-item">
                 <p>
                     Linking marks selection between editor and concept list 

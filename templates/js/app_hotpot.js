@@ -166,13 +166,16 @@ var app_hotpot = {
             enable_display_menu_dropzone_ann: false,
 
             // active tab
-            active_setting_tab: 'import',
+            active_setting_tab: 'gui',
 
             // which algorithm to use as default
             sentence_splitting_algorithm: 'simpledot',
 
             // render all marks or only the selected marks
-            linking_marks_selection: 'all_concepts'
+            linking_marks_selection: 'all_concepts',
+
+            // show the new UI for ea
+            new_ui_for_ea: 'disable',
         },
 
         // for statistics
@@ -2327,6 +2330,18 @@ var app_hotpot = {
             }
 
             return false;
+        },
+
+        /**
+         * Show UI for error analysis
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.new_ui_for_ea`.
+         * 
+         * @returns true/false
+         */
+        is_show_new_ui_for_ea: function() {
+            return this.cfg.new_ui_for_ea == 'enable';
         },
 
         /**

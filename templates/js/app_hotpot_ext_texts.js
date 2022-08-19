@@ -19,6 +19,11 @@ MedTator provides some options for selecting different methods.
 `
     },
 
+    "new_ui_for_ea": {
+        title: "Enable new UI for Error Analysis",
+        html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
+    },
+
     "linking_marks_selection": {
         title: 'Linking marks selection',
         html: `The marks shown in the tag editor can be linked with the selection with the concept list.
