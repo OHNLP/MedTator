@@ -106,7 +106,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-08-18)
+### 1.3.5 (2022-08-18)
 
 - Added label panel for error labeling
 - Added error sankey diagram for error analysis

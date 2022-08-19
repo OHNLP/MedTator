@@ -1854,8 +1854,9 @@ ol[class], ul[class] {
 }
 
 .err-list-row {
-    padding: 3px 0;
+    padding: 3px 16px 3px 0;
     margin: 3px 0;
+    min-width: 200px;
     border-bottom: 1px dotted #b3b3b3;
 }
 .err-list-row:hover {
@@ -1889,7 +1890,7 @@ ol[class], ul[class] {
 }
 #err_sankey_box {
     width: 630px;
-    height: 510px;
+    height: 420px;
     padding: 5px;
 }
 #razer_sankey_diagram {
@@ -1989,7 +1990,8 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('razer')"
+            <li v-if="is_show_new_ui_for_ea()"
+                v-on:click="switch_mui('razer')"
                 v-bind:class="{'active': section=='razer'}">
                 <a href="#section-1-3">
                     <i class="fas fa-car-crash"></i>
@@ -3593,6 +3595,28 @@ v-bind:class="{'active': section=='razer'}">
 </div>
 
 
+<div class="group">
+    <div title="Display the tag context information">
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Context"
+            title="Show the context information of error tags"
+            v-model="razer_flag_show_taglist_context">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Labels"
+            title="Show the error labels of tags"
+            v-model="razer_flag_show_taglist_labels">
+    </div>
+
+    <span class="title">Tag List</span>
+</div>
+
+
 
 
 <div class="group">
@@ -3635,7 +3659,7 @@ v-bind:class="{'active': section=='razer'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.3.2 | 
+            MedTator 1.3.5 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.enable_show_settings = true">
@@ -3677,18 +3701,19 @@ v-bind:class="{'active': section=='razer'}">
     </div>
     <div class="box-body">
         <div class="d-flex flex-row">
-            <div class="px-2 setting-tab"
-                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                v-on:click="switch_setting_tab('import')">
-                <i class="far fa-file"></i>
-                Import
-            </div>
 
             <div class="px-2 setting-tab"
                 v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='gui'}"
                 v-on:click="switch_setting_tab('gui')">
                 <i class="fa fa-table"></i>
                 GUI
+            </div>
+
+            <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
+                v-on:click="switch_setting_tab('import')">
+                <i class="far fa-file"></i>
+                Import
             </div>
         </div>
 
@@ -3727,6 +3752,32 @@ v-bind:class="{'active': section=='razer'}">
 
         <!-- data setting tab -->
         <div v-else-if="cfg.active_setting_tab == 'gui'">
+            <div class="box-body-item">
+                <p>
+                    New UI for Error Analysis (Development)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_ea')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uiea_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_ea">
+                        <label for="cfg_uiea_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uiea_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_ea">
+                        <label for="cfg_uiea_v2">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
             <div class="box-body-item">
                 <p>
                     Linking marks selection between editor and concept list 
@@ -4577,7 +4628,7 @@ v-bind:class="{'active': section=='razer'}">
 </div>
 
     <!-- the ui for ruleset / export -->
-    <div v-if="section=='ruleset'" id="main_ui"
+    <div v-show="section=='ruleset'" id="main_ui"
     class="main-ui container-fluid">
     <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
         <div id="mui_ruleset_result" class="d-flex w-100 h-100">
@@ -5495,24 +5546,6 @@ v-bind:class="{'active': section=='razer'}">
 
 
 
-        <div class="box-header">
-            <h4>
-                <i class="fas fa-braille"></i>
-                File Distribution by Error Count
-            </h4>
-        </div>
-
-        <div class="box-body border-bottom bd-gray">
-            <div class="d-flex flex-column mt-2 mb-2">
-                <div id="razer_fig_doc_scatter"
-                    style="width: 220px; height: 220px;">
-
-                </div>
-            </div>
-        </div>
-
-
-
 
         <div class="box-header">
             <h4>
@@ -5541,6 +5574,30 @@ v-bind:class="{'active': section=='razer'}">
                             {{ get_razer_rst().err_stat.by_txt[txt].FP.length + get_razer_rst().err_stat.by_txt[txt].FN.length }}
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-braille"></i>
+                File Distribution by Error Count
+            </h4>
+        </div>
+
+        <div class="box-body border-bottom bd-gray">
+            <div class="d-flex flex-column mt-2 mb-2">
+                <!-- <div id="razer_fig_doc_scatter"
+                    style="width: 220px; height: 220px;">
+
+                </div> -->
+                <div id="razer_fig_doc_heatmap"
+                    style="width: 230px; height: 260px;">
+
                 </div>
             </div>
         </div>
@@ -5658,13 +5715,14 @@ v-bind:class="{'active': section=='razer'}">
                                 {{ get_razer_err(uid).text }}
                             </b>
                         </span>
-                        <span class="pl-1 pr-1 mr-1 clr-grey">
+                        <span v-if="razer_flag_show_taglist_context"
+                            class="pl-1 pr-1 mr-1 clr-grey">
                             {{ get_razer_err(uid).spans }}
                         </span>
                     </div>
 
                     <!-- the context sentence -->
-                    <div>
+                    <div v-if="razer_flag_show_taglist_context">
                         <span class="err-list-row-sentence"
                         v-html="get_html_sentag_by_err(get_razer_err(uid))"></span>
                         <a href="javascript:void(0);"
@@ -5674,8 +5732,8 @@ v-bind:class="{'active': section=='razer'}">
                     </div>
 
                     <!-- error labels -->
-                    <div class="err-list-row-types d-flex">
-
+                    <div v-if="razer_flag_show_taglist_labels"
+                        class="err-list-row-types d-flex">
                         <button @click="show_razer_pan_err_def_for_uid($event, uid)"
                             class="btn btn-xs btn-primary btn-add-err-type"
                             title="Add a new error type label for this tag">
@@ -9706,7 +9764,7 @@ var bioc_parser = {
             // add the text to this passage
             var elem_ptext = xmlDoc.createElement('text');
             elem_ptext.appendChild(
-                xmlDoc.createTextNode(ann.text)
+                xmlDoc.createCDATASection(ann.text)
             );
             elem_passage.appendChild(elem_ptext);
 
@@ -9753,7 +9811,7 @@ var bioc_parser = {
                         var elem_atext = xmlDoc.createElement('text');
                         var atext = ann.text.substring(loc[0], loc[1]);
                         elem_atext.appendChild(
-                            xmlDoc.createTextNode(atext)
+                            xmlDoc.createCDATASection(atext)
                         );
                         elem_ann.appendChild(elem_atext);
 
@@ -9769,7 +9827,10 @@ var bioc_parser = {
                                 // for other key, need to create a infon element
                                 var elem_infon = xmlDoc.createElement('infon');
                                 elem_infon.setAttribute('key', key);
-                                elem_infon.innerHTML = val;
+                                // elem_infon.innerHTML = val;
+                                elem_infon.appendChild(
+                                    xmlDoc.createTextNode(val)
+                                );
 
                                 // ok, add this infon to this annotation
                                 elem_ann.appendChild(elem_infon);
@@ -9815,7 +9876,10 @@ var bioc_parser = {
                                 // for other types, just create a infon
                                 var elem_infon = xmlDoc.createElement('infon');
                                 elem_infon.setAttribute('key', key);
-                                elem_infon.innerHTML = val;
+                                // elem_infon.innerHTML = val;
+                                elem_infon.appendChild(
+                                    xmlDoc.createTextNode(val)
+                                );
 
                                 // ok, add this infon to this annotation
                                 elem_rel.appendChild(elem_infon);
@@ -14058,7 +14122,12 @@ var nlp_toolkit = {
 
         // check each tag
         for (let i = 0; i < anns.length; i++) {
-            const ann = anns[i];
+            var ann = anns[i];
+
+            // 2022-08-10: the sentence may not be not ready 
+            // when converting, fix the sentences
+            ann = app_hotpot.update_ann_sentences(ann);
+
             var sentence_tags = {};
             for (let j = 0; j < ann.tags.length; j++) {
                 const tag = ann.tags[j];
@@ -15586,13 +15655,16 @@ var app_hotpot = {
             enable_display_menu_dropzone_ann: false,
 
             // active tab
-            active_setting_tab: 'import',
+            active_setting_tab: 'gui',
 
             // which algorithm to use as default
             sentence_splitting_algorithm: 'simpledot',
 
             // render all marks or only the selected marks
-            linking_marks_selection: 'all_concepts'
+            linking_marks_selection: 'all_concepts',
+
+            // show the new UI for ea
+            new_ui_for_ea: 'enable',
         },
 
         // for statistics
@@ -16324,20 +16396,40 @@ var app_hotpot = {
             }
 
             // for web version, load JSON data through AJAX
-            $.get(
-                './static/data/vpp_data_'+ds_name+'.json', 
-                {
-                    rnd: Math.random()
-                }, 
-                function(data) {
+            // $.get(
+            //     './static/data/vpp_data_'+ds_name+'.json', 
+            //     {
+            //         rnd: Math.random()
+            //     }, 
+            //     function(data) {
+            //         Object.assign(app_hotpot.vpp.$data, data);
+            //         app_hotpot.set_dtd(
+            //             app_hotpot.vpp.$data.dtd
+            //         );
+            //         app_hotpot.vpp.set_ann_idx(0);
+            //     }, 
+            //     'json'
+            // );
+
+            $.ajax({
+                url: './static/data/vpp_data_'+ds_name+'.json', 
+                dataType: 'json',
+                success: function(data) {
                     Object.assign(app_hotpot.vpp.$data, data);
                     app_hotpot.set_dtd(
                         app_hotpot.vpp.$data.dtd
                     );
                     app_hotpot.vpp.set_ann_idx(0);
                 }, 
-                'json'
-            );
+                error: function (xhr, status, error) {
+                    // console.error(error);
+
+                    app_hotpot.toast(
+                        'Something wrong when loading the sample dataset, check the data availability and try later?',
+                        'alert'
+                    );
+                }
+            });
         },
 
         load_sample_ds_remote: function(ds_name) {
@@ -17730,6 +17822,18 @@ var app_hotpot = {
         },
 
         /**
+         * Show UI for error analysis
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.new_ui_for_ea`.
+         * 
+         * @returns true/false
+         */
+        is_show_new_ui_for_ea: function() {
+            return this.cfg.new_ui_for_ea == 'enable';
+        },
+
+        /**
          * Render all tags of all concepts or not
          * 
          * The UI workflow could be changed by the setting
@@ -18360,7 +18464,7 @@ var app_hotpot = {
 
         if (ann._sentences_text != '') {
             if (skip_existed) {
-                return;
+                return ann;
             }
         }
         var r = nlp_toolkit.sent_tokenize(
@@ -19038,6 +19142,11 @@ MedTator provides some options for selecting different methods.
     <li>The <b>Wink NLP</b> method is based on <a target="_blank" href="https://winkjs.org/">WinkJS NLP library</a>.</li>
 </ul>
 `
+    },
+
+    "new_ui_for_ea": {
+        title: "Enable new UI for Error Analysis",
+        html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
     },
 
     "linking_marks_selection": {
@@ -21084,6 +21193,12 @@ Object.assign(app_hotpot.vpp_data, {
     // flag for showing tsne
     razer_flag_has_embedding_tsne: false,
 
+    // flag for showing the details in tag list
+    razer_flag_show_taglist_context: true,
+
+    // flag for showing the labels in tag list
+    razer_flag_show_taglist_labels: true,
+
     // the fig obj for sankey
     razer_fig_sankey: null,
 
@@ -21092,6 +21207,9 @@ Object.assign(app_hotpot.vpp_data, {
 
     // the fig obj for doc distribution
     razer_fig_doc_scatter: null,
+
+    // the fig obj for doc heatmap
+    razer_fig_doc_heatmap: null,
 
     // the fig obj for tag scatter
     razer_fig_tag_scatter: null,
@@ -21469,7 +21587,8 @@ Object.assign(app_hotpot.vpp_methods, {
     update_plots: function() {
         // this.draw_razer_fig_donut();
         this.draw_razer_fig_sankey();
-        this.draw_razer_fig_doc_scatter();
+        // this.draw_razer_fig_doc_scatter();
+        this.draw_razer_fig_doc_heatmap();
         this.draw_razer_fig_tag_scatter();
     },
 
@@ -21684,6 +21803,163 @@ Object.assign(app_hotpot.vpp_methods, {
         );
     },
 
+    draw_razer_fig_doc_heatmap: function() {
+        // prepare data first
+
+        // get data 
+        // please ensure Math.js is imported
+        var vals = {};
+        var stat = this.razer_dict[this.razer_idx].err_stat.by_doc;
+        for (const file_hash in stat) {
+            var x = stat[file_hash].FP.length;
+            var y = stat[file_hash].FN.length;
+            
+            // resize to 10x10
+            var _x = x;
+            var _y = y;
+            if (_x > 10) { _x = 10; };
+            if (_y > 10) { _y = 10; };
+            
+            if (!vals.hasOwnProperty(_x)) {
+                vals[_x] = {};
+            }
+            if (!vals[_x].hasOwnProperty(_y)) {
+                vals[_x][_y] = [];
+            }
+            vals[_x][_y].push(file_hash);
+        }
+        console.log(vals);
+        // get all values
+        var data = [];
+        var max_n = 10;
+        for (let i = 0; i < 11; i++) {
+            for (let j = 0; j < 11; j++) {
+                if (vals.hasOwnProperty(i) && vals[i].hasOwnProperty(j)) {
+                    data.push([
+                        i,
+                        j,
+                        vals[i][j].length
+                    ]);
+                    if (vals[i][j].length > max_n) {
+                        max_n = vals[i][j].length;
+                    }
+                } else {
+                    data.push([
+                        i,
+                        j,
+                        '-'
+                    ]);
+                }
+            }
+        }
+
+        // then check figure status
+        if (this.razer_fig_doc_heatmap != null) {
+            // ??
+            this.razer_fig_doc_heatmap.option.series[0].data = data;
+            this.razer_fig_doc_heatmap.chart.setOption(
+                this.razer_fig_doc_heatmap.option
+            );
+            return;
+        }
+        
+        var axis_labels = Array.from(Array(11).keys()).map(v=>''+v);
+        axis_labels[10] = '10+';
+        // init the chart
+        this.razer_fig_doc_heatmap = {
+            data: data,
+            option: {
+                grid: {
+                    top: 0,
+                    left: 35,
+                    right: 0,
+                    bottom: 80
+                },
+                visualMap: {
+                    min: 0,
+                    max: max_n,
+                    calculable: true,
+                    itemWidth: 15,
+                    itemHeight: 180,
+                    orient: 'horizontal',
+                    left: 30,
+                    bottom: 0
+                },
+                xAxis: {
+                    type: 'category',
+                    data: axis_labels,
+                    name: 'False Positive',
+                    nameLocation: 'center',
+                    nameGap: 20,
+                    axisLabel: {
+                        interval: 0,
+                    },
+                    splitArea: {
+                        show: true
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: axis_labels,
+                    name: 'False Negative',
+                    nameLocation: 'center',
+                    nameGap: 20,
+                    axisLabel: {
+                        interval: 0,
+                    },
+                    splitArea: {
+                        show: true
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    // to avoid CSS z-index overlay issue
+                    renderMode: 'richText',
+                    formatter: function(params) {
+                        // console.log('* hover at', params);
+                        var html = [
+                            // '<h6>' + params.data[2] + '</h6>',
+                            // '<p>- FP Tags: ' + params.data[0] + '<br>', 
+                            // '- FN Tags: ' + params.data[1] + '</p>'
+                            '' + params.data[2] + ' file(s) have:\n',
+                            '- FP Tags: ' + params.data[0] + '\n', 
+                            '- FN Tags: ' + params.data[1]
+                        ].join('');
+                        return html;
+                    }
+                },
+                legend: {
+                    show: false,
+                },
+                series: [{
+                    name: 'File',
+                    type: 'heatmap',
+                    label: {
+                        show: true
+                    },
+                    data: data,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            },
+            chart: echarts.init(
+                // the default box_id starts with #
+                document.getElementById('razer_fig_doc_heatmap')
+            )
+        };
+
+        // draw it
+        this.razer_fig_doc_heatmap.chart.setOption(
+            this.razer_fig_doc_heatmap.option
+        );
+    },
+
+    
+
     draw_razer_fig_tag_scatter: function() {
         // prepare data first
         if (!this.razer_flag_has_embedding_tsne) {
@@ -21740,6 +22016,7 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // init the chart
         this.razer_fig_tag_scatter = {
+            data: data,
             option: {
                 grid: {
                     top: 10,
@@ -23392,7 +23669,7 @@ var jarvis = {
 jarvis.sample_text = {
     'covid_vax': `Positive COVID-19 test with symptoms; 
 
-The patient had MS and was immune compromised; 
+The patient had MS & ache (UoL < 2.4 & T'x > 5.5, with "AoE" found) was immune compromised; 
 
 This is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  
 
@@ -23407,16 +23684,19 @@ As she was in D.C. on Wed. to attend Mr. LASTNAME's wedding at 9 A.M. to 14 P.M.
 };
 
 jarvis.changelog_latest = `
-1.3.2 (2022-08-04)
+1.3.5 (2022-08-18)
 
-- Added functions for error analysis
-- Added Math.js for statistics and matrix
-- Added ECharts for visualization
-- Added a sample dataset for error analysis
-- Updated the UI design for adjudication tab
-- Updated the packaged used to reduce loading time
-- Fixed open annotation files dialog bug
-- Fixed IAA download bug
+- Added label panel for error labeling
+- Added error sankey diagram for error analysis
+- Added token scatter for error analysis
+- Added heatmap of error distribution for error analysis
+- Added bar charts of error statistics for error analysis
+- Added tag list and menu items for error analysis
+- Updated scripts for text embedding web services
+- Fixed IOB2/BIO empty export bug
+- Fixed exporter window height bug
+- Fixed BioC format export annotation text encoding bug
+- Fixed BioC format export attribute text encoding bug
 
 
 `;
