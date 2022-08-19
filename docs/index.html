@@ -5720,16 +5720,10 @@ v-bind:class="{'active': section=='razer'}">
                             {{ get_razer_err(uid).spans }}
                         </span>
                     </div>
-
-                    <!-- the context sentence -->
-                    <div v-if="razer_flag_show_taglist_context">
-                        <span class="err-list-row-sentence"
-                        v-html="get_html_sentag_by_err(get_razer_err(uid))"></span>
-                        <a href="javascript:void(0);"
-                            @click="show_razer_tag_full_text($event, uid)">
-                            full text &gt;
-                        </a>
+                    <div class="err-list-row-sentence"
+                        v-html="get_html_sentag_by_err(get_razer_err(uid))">
                     </div>
+                    <div class="err-list-row-types d-flex">
 
                     <!-- error labels -->
                     <div v-if="razer_flag_show_taglist_labels"
@@ -21189,15 +21183,6 @@ Object.assign(app_hotpot.vpp_data, {
     razer_active_err_uid: null,
     razer_pan_err_def_right: 0,
     razer_pan_err_def_top: 0,
-
-    // flag for showing tsne
-    razer_flag_has_embedding_tsne: false,
-
-    // flag for showing the details in tag list
-    razer_flag_show_taglist_context: true,
-
-    // flag for showing the labels in tag list
-    razer_flag_show_taglist_labels: true,
 
     // the fig obj for sankey
     razer_fig_sankey: null,
