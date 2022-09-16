@@ -106,7 +106,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-09-15)
+### 1.3.x (2022-09-29)
 
 - Research on IOB2/BIO format editing
 - Add sample dataset for error analysis
@@ -114,6 +114,11 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Update documents for error analysis
 - Update documents for new schema
 - Update UI for error analysis
+
+
+### 1.3.6 (2022-09-15)
+
+- Updated a data sample for error analysis
 
 ### 1.3.5 (2022-08-18)
 
