@@ -2458,6 +2458,13 @@ v-bind:class="{'active': section=='annotation'}">
                     VAERS Adverse Event Annotation Task
                 </a>
             </li>
+            <li title="A sample of error analysis task"
+                v-on:click="load_sample_ds('SIMPLE_EA')">
+                <a href="javascript:void(0);">
+                    <i class="fab fa-github"></i>
+                    Error Analysis of NLP System Results
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -2936,9 +2943,7 @@ v-bind:class="{'active': section=='ruleset'}">
 <div class="group">
 
     <button class="ribbon-button" 
-        data-role="popover"
-        data-popover-position="right"
-        data-popover-text="Examples of how to use the exported ruleset files."
+        title="Examples of how to use the exported ruleset files."
         v-on:click="show_howtouse">
         <span class="icon">
             <i class="fa fa-terminal"></i>
@@ -3659,7 +3664,7 @@ v-bind:class="{'active': section=='razer'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.3.5 | 
+            MedTator 1.3.6 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.enable_show_settings = true">
@@ -23684,19 +23689,9 @@ As she was in D.C. on Wed. to attend Mr. LASTNAME's wedding at 9 A.M. to 14 P.M.
 };
 
 jarvis.changelog_latest = `
-1.3.5 (2022-08-18)
+1.3.6 (2022-09-15)
 
-- Added label panel for error labeling
-- Added error sankey diagram for error analysis
-- Added token scatter for error analysis
-- Added heatmap of error distribution for error analysis
-- Added bar charts of error statistics for error analysis
-- Added tag list and menu items for error analysis
-- Updated scripts for text embedding web services
-- Fixed IOB2/BIO empty export bug
-- Fixed exporter window height bug
-- Fixed BioC format export annotation text encoding bug
-- Fixed BioC format export attribute text encoding bug
+- Updated a data sample for error analysis
 
 
 `;
