@@ -3755,7 +3755,7 @@ v-bind:class="{'active': section=='razer'}">
             </div>
         </div>
 
-        <!-- data setting tab -->
+        <!-- GUI setting tab -->
         <div v-else-if="cfg.active_setting_tab == 'gui'">
             <div class="box-body-item">
                 <p>
@@ -3777,6 +3777,31 @@ v-bind:class="{'active': section=='razer'}">
                             value="enable" 
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v2">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+            <div class="box-body-item">
+                <p>
+                    Cohen's Kappa (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_ck')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uick_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_ck">
+                        <label for="cfg_uick_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uick_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_ck">
+                        <label for="cfg_uick_v2">Enable</label>
                     </li>
                 </ul>
                 
@@ -4674,7 +4699,8 @@ v-bind:class="{'active': section=='razer'}">
                 F1 Score
             </a>
         </li>
-        <li v-on:click="iaa_display_measure = 'cohen_kappa'"
+        <li v-if="cfg.new_ui_for_ck == 'enable'"
+            v-on:click="iaa_display_measure = 'cohen_kappa'"
             :class="{active: iaa_display_measure == 'cohen_kappa'}">
             <a href="javascript:void(0);">
                 <i class="fas fa-bezier-curve mr-1"></i>
@@ -15670,6 +15696,10 @@ var app_hotpot = {
 
             // show the new UI for ea
             new_ui_for_ea: 'disable',
+
+            // show the new UI for cohen's kappa
+            // due to the 
+            new_ui_for_ck: 'disable',
         },
 
         // for statistics
@@ -19147,6 +19177,11 @@ MedTator provides some options for selecting different methods.
     <li>The <b>Wink NLP</b> method is based on <a target="_blank" href="https://winkjs.org/">WinkJS NLP library</a>.</li>
 </ul>
 `
+    },
+
+    "new_ui_for_ck": {
+        title: "Enable showing Cohen's Kappa result",
+        html: `This is a new module and it's under development. You can enable this for test.`
     },
 
     "new_ui_for_ea": {

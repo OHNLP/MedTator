@@ -176,6 +176,10 @@ var app_hotpot = {
 
             // show the new UI for ea
             new_ui_for_ea: 'disable',
+
+            // show the new UI for cohen's kappa
+            // due to the 
+            new_ui_for_ck: 'disable',
         },
 
         // for statistics

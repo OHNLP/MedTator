@@ -19,6 +19,11 @@ MedTator provides some options for selecting different methods.
 `
     },
 
+    "new_ui_for_ck": {
+        title: "Enable showing Cohen's Kappa result",
+        html: `This is a new module and it's under development. You can enable this for test.`
+    },
+
     "new_ui_for_ea": {
         title: "Enable new UI for Error Analysis",
         html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`

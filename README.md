@@ -106,15 +106,19 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-09-29)
+### 1.3.x (2022-10-27)
 
 - Research on IOB2/BIO format editing
 - Add sample dataset for error analysis
+- Update Cohen's Kappa calculation
 - Update README for new features
 - Update documents for error analysis
 - Update documents for new schema
 - Update UI for error analysis
 
+### 1.3.7 (2022-09-29)
+
+- Update the UI for IAA
 
 ### 1.3.6 (2022-09-15)
 

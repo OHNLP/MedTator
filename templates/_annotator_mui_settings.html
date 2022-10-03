@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <!-- data setting tab -->
+        <!-- GUI setting tab -->
         <div v-else-if="cfg.active_setting_tab == 'gui'">
             <div class="box-body-item">
                 <p>
@@ -88,6 +88,31 @@
                             value="enable" 
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v2">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+            <div class="box-body-item">
+                <p>
+                    Cohen's Kappa (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_ck')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uick_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_ck">
+                        <label for="cfg_uick_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uick_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_ck">
+                        <label for="cfg_uick_v2">Enable</label>
                     </li>
                 </ul>
                 
