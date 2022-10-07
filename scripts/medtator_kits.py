@@ -1,7 +1,8 @@
 '''
-Annotation XML Kits
+Annotation XML Toolkits
 
-This is for operating the annotation files
+This is for operating the annotation files in the JSON format.
+You can use this module to create JSON format annotation files.
 '''
 
 import os
@@ -51,7 +52,14 @@ def parse_xml(full_fn):
         # get all attrs
         attrs = node.attributes.items()
         for attr in attrs:
-            tag[attr[0]] = attr[1]
+            if attr[0] == 'spans':
+                # OK, we can convert the spans to int number
+                # the spans can be 1~2,3~4,5~6 format
+                # so need to split by "," first, then split by "~"
+                spans = list(map(lambda x: list(map(lambda v: int(v), x.split('~'))), attr[1].split(',')))
+                tag['spans'] = spans
+            else:
+                tag[attr[0]] = attr[1]
 
         # save this tag
         ann['tags'].append(tag)
@@ -132,6 +140,8 @@ def parse_xmls(path):
         }
     }
     return ret
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Annotation XML Kits')
