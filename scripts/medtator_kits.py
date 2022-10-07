@@ -110,7 +110,7 @@ def parse_xmls(path):
                 ann = parse_xml(full_fn)
 
                 # update the number of tags
-                cnt_tags += ann['tags'].length
+                cnt_tags += len(ann['tags'])
                 
                 # finally, save this ann
                 anns.append(ann)

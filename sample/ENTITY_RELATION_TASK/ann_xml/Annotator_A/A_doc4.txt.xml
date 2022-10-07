@@ -54,6 +54,8 @@ I did place phone call to patient to discuss and give their advice. They had jus
 <AE spans="2575~2579" text="pain" id="A22" certainty="positive" comment="NA"/>
 <AE spans="5166~5170" text="pain" id="A23" certainty="positive" comment="NA"/>
 <SVRT spans="5083~5087" text="mild" id="S2" severity="NA" comment="NA"/>
+<LK_AE_SVRT id="L0" link_AEID="A9" link_AEText="headache" link_SVRTID="S0" link_SVRTText="mild" comment="NA"/>
+<LK_AE_SVRT id="L1" link_AEID="A10" link_AEText="headache" link_SVRTID="S1" link_SVRTText="severe" comment="NA"/>
 </TAGS>
 <META>
 <label color="green"/>
