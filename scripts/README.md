@@ -9,3 +9,5 @@ The function of each script is described as follows:
 - `text_embedding_web_service.py`: a sample web service for text embedding based on sentence-transformer with Bio_ClinicalBERT.
 - `make_files.py`: generate sample text files for annotation.
 - `medtator_kits.py`: toolkits for read / write MedTator's XML files.
+- `sentence_kits.py`: toolkits for converting XML to sentence-based JSON format
+- `xml2sentence_demo.ipynb`: showing how to use the `sentence_kits.py` for converting.

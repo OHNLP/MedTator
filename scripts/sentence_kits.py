@@ -63,44 +63,43 @@ def find_matched_tags(sent_spans, tags):
     '''
     Find the tags matched the given sent_spans by spans
     '''
-    # all matched entities
-    ents = []
-    # all IDs of the matched entities
-    ent_ids = []
-    # all matched relations
-    rels = []
+    # all matched entities in a dictionary
+    # tag id -> ent
+    ents = {}
+    # all matched relations in a dictionary
+    # tag id -> rel
+    rels = {}
 
     # first round, check all node/entities
     for tag in tags:
-        if 'spans' in tag:
-            # which means it is an entity tag
-            spans = tag['spans']
-            if True in [is_overlapped(sent_spans, span) for span in spans]:
-                # if any of spans overlapped, then this tag should be matched
-                ents.append(tag)
-                ent_ids.append(tag['id'])
+        if 'spans' not in tag: continue
+        # which means it is an entity tag
+        spans = tag['spans']
+        if True in [is_overlapped(sent_spans, span) for span in spans]:
+            # if any of spans overlapped, then this tag should be matched
+            ents[tag['id']] = tag 
 
     # second round, check all links
     for tag in tags:
-        if 'spans' not in tag:
-            # which means it is a relation tag
-            # get all ID tags
-            ids = []
-            for prop_name in tag:
-                if prop_name.endswith('ID'):
-                    # ok, this is an ID attr, save this entity ID
-                    if tag[prop_name]!= '':
-                        # the value can be empty sometimes, so need to exclude
-                        ids.append(tag[prop_name])
+        if 'spans' in tag: continue
+        # which means it is a relation tag
+        # get all ID tags
+        ids = []
+        for prop_name in tag:
+            if prop_name.endswith('ID'):
+                # ok, this is an ID attr, save this entity ID
+                if tag[prop_name]!= '':
+                    # the value can be empty sometimes, so need to exclude
+                    ids.append(tag[prop_name])
 
-            # now let's match the ids with the entities in this sentence
-            # which means we found one of the entities in this relation
-            # shows in the given sentence, then, just save this and check next
-            # TODO it's possible that not all of the entities in a sentence can match
-            # so need to deal with this case in future
-            if all([_id in ent_ids for _id in ids]):
-                # ok, all entities in this relation are shown in this sentence
-                rels.append(tag)
+        # now let's match the ids with the entities in this sentence
+        # which means we found one of the entities in this relation
+        # shows in the given sentence, then, just save this and check next
+        # TODO it's possible that not all of the entities in a sentence can match
+        # so need to deal with this case in future
+        if all([_id in ents for _id in ids]):
+            # ok, all entities in this relation are shown in this sentence
+            rels[tag['id']] = tag
 
     return ents, rels
 
@@ -121,7 +120,8 @@ def update_ents_token_index(sentence_spans, tokens, ents):
         sentence_token_spans.append(token_spans)
 
     # now compare each entity
-    for i, ent in enumerate(ents):
+    for i, ent in enumerate(ents.values()):
+        # ent_idxes saves the token index of all relavant tokens
         ent_idxes = []
         ent_spans = ent['spans']
         for token_index, token_spans in enumerate(sentence_token_spans):
@@ -139,7 +139,7 @@ def update_ents_token_index(sentence_spans, tokens, ents):
             ent_token_idx = []
         
         # put the token index back to entity
-        ents[i]['token_index'] = ent_token_idx
+        ents[ent['id']]['token_index'] = ent_token_idx
 
     # return the updated entities
     return ents
@@ -226,8 +226,6 @@ def convert_anns_to_sentags(anns, is_exclude_no_entity_sentence = True):
     return rs
 
 
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Sentence Processing Toolkits')
     parser.add_argument('path',
@@ -239,5 +237,8 @@ if __name__ == '__main__':
     # get the files 
     import medtator_kits as mtk
     ret = mtk.parse_xmls(args.path)
+
+    # get sents
+    ann_sents = convert_anns_to_sentags(ret['anns'])
 
     print(ret)

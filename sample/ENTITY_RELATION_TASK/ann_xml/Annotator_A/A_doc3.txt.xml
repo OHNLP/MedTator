@@ -9,6 +9,7 @@ The patient stated that he thought the swelling was due to accumulation of the v
 <AE spans="1211~1232" text="sore, red and bruised" id="A2" certainty="positive" comment="NA"/>
 <SVRT spans="1206~1210" text="very" id="S0" severity="NA" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A2" link_AEText="sore, red and bruised" link_SVRTID="S0" link_SVRTText="very" comment="NA"/>
+<AE spans="1500~1507" text="painful" id="A3" certainty="positive" comment="NA"/>
 </TAGS>
 <META>
 <label color="blue"/>

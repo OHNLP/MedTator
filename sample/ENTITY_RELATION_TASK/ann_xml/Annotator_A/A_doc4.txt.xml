@@ -56,6 +56,13 @@ I did place phone call to patient to discuss and give their advice. They had jus
 <SVRT spans="5083~5087" text="mild" id="S2" severity="NA" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A9" link_AEText="headache" link_SVRTID="S0" link_SVRTText="mild" comment="NA"/>
 <LK_AE_SVRT id="L1" link_AEID="A10" link_AEText="headache" link_SVRTID="S1" link_SVRTText="severe" comment="NA"/>
+<SVRT spans="118~127" text="different" id="S3" severity="NA" comment="NA"/>
+<SVRT spans="2209~2220" text="very slight" id="S4" severity="NA" comment="NA"/>
+<SVRT spans="3706~3712" text="slight" id="S5" severity="NA" comment="NA"/>
+<LK_AE_SVRT id="L2" link_AEID="A20" link_AEText="headache" link_SVRTID="S5" link_SVRTText="slight" comment="NA"/>
+<SVRT spans="4296~4308" text="a lot better" id="S6" severity="NA" comment="NA"/>
+<AE spans="4352~4360" text="swelling" id="A24" certainty="positive" comment="NA"/>
+<SVRT spans="4381~4400" text="completely resolved" id="S7" severity="NA" comment="NA"/>
 </TAGS>
 <META>
 <label color="green"/>

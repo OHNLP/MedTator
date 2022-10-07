@@ -1,5 +1,5 @@
 '''
-Annotation XML Toolkits
+MedTator Annotation XML Toolkits
 
 This is for operating the annotation files in the JSON format.
 You can use this module to create JSON format annotation files.
@@ -11,7 +11,7 @@ from xml.dom.minidom import parse
 
 def parse_xml(full_fn):
     '''
-    Parse a given XML file
+    Parse a given MedTator XML file
     '''
     fn = os.path.basename(full_fn)
 
@@ -69,7 +69,7 @@ def parse_xml(full_fn):
 
 def parse_xmls(path):
     '''
-    Parse the given path to get 
+    Parse the given path which contains the MedTator XML files.
     '''
     print('* checking path %s' % path)
 
