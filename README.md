@@ -17,6 +17,7 @@ If you're having trouble using MedTator, you can use [Issues](https://github.com
 * Effective strategies for annotating? Check this [Annotation best practices](https://github.com/OHNLP/MedTator/wiki/Annotation-Best-Practices)
 * Design annotation schema? Check this [Annotation Schema Design](https://github.com/OHNLP/MedTator/wiki/Annotation-Schema).
 * Parse annotation data? Here is the [Annotation File Format](https://github.com/OHNLP/MedTator/wiki/Annotation-Data).
+* Use annotation for machine learning? We have some [Sample Scripts](https://github.com/OHNLP/MedTator/tree/main/scripts).
 * Having issues? Check the [Issues](https://github.com/OHNLP/MedTator/issues).
 * More details about MedTator? We have a [Manual](https://github.com/OHNLP/MedTator/wiki/Manual).
 * And more contents in the [Wiki](https://github.com/OHNLP/MedTator/wiki/)

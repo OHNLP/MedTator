@@ -11,3 +11,11 @@ The function of each script is described as follows:
 - `medtator_kits.py`: toolkits for read / write MedTator's XML files.
 - `sentence_kits.py`: toolkits for converting XML to sentence-based JSON format
 - `xml2sentence_demo.ipynb`: showing how to use the `sentence_kits.py` for converting.
+
+## Machine learning (ML)
+
+The annotated corpus can be used for a varity of machine learning tasks, such as Named Entity Recognition (NER) and Relation Extraction (RE).
+To faciliate this process, we developed some toolkits for showing how to use the annotated XML files for these task.
+
+For RE task, we create a Jupyter notebook for showing how to use the annotated entities and relations to build a ML model: [xml2sentence_demo.ipynb
+](https://github.com/OHNLP/MedTator/blob/main/scripts/xml2sentence_demo.ipynb).
