@@ -148,6 +148,8 @@ async function fs_get_file_texts_by_items(items, filter) {
 async function fs_read_file_system_handle(fh) {
     // get the file obj
     const file = await fh.getFile();
+
+    console.log('* read fsh', file);
     
     // get the text content
     const text = await file.text();
@@ -156,6 +158,7 @@ async function fs_read_file_system_handle(fh) {
     return {
         fh: fh,
         fn: fh.name,
+        timestamp: file.lastModified,
         text: text
     };
 }

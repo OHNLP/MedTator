@@ -44,12 +44,12 @@ var ann_parser = {
         return ann;
     },
 
-    xml2ann: function(text, dtd) {
+    xml2ann: function(xml_text, dtd) {
         // create a new DOM parser
         var parser = new DOMParser();
 
         // parse the given text
-        var xmlDoc = parser.parseFromString(text, "text/xml");
+        var xmlDoc = parser.parseFromString(xml_text, "text/xml");
 
         // create an empty ann
         var ann = {
