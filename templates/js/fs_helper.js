@@ -177,6 +177,8 @@ async function fs_read_dtd_file_handle(fh) {
         format = 'json';
     } else if (fh.name.toLowerCase().endsWith('.yaml')) {
         format = 'yaml'
+    } else if (fh.name.toLowerCase().endsWith('.yml')) {
+        format = 'yaml'
     } else {
         // ??? what can it be?
     }

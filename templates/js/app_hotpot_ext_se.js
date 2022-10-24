@@ -60,7 +60,7 @@ Object.assign(app_hotpot.vpp_methods, {
                 {
                     description: 'Annotation Schema File',
                     accept: {
-                        'text/dtd': ['.dtd', '.json', 'yaml']
+                        'text/dtd': ['.dtd', '.json', '.yaml', '.yml']
                     }
                 },
             ],
