@@ -70,6 +70,32 @@
         <div v-else-if="cfg.active_setting_tab == 'gui'">
             <div class="box-body-item">
                 <p>
+                    Auto-save annotation (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('auto_save_current_ann')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_disable" 
+                            value="disable" 
+                            v-model="cfg.auto_save_current_ann">
+                        <label for="cfg_ui_autosave_disable">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_enable" 
+                            value="enable" 
+                            v-model="cfg.auto_save_current_ann">
+                        <label for="cfg_ui_autosave_enable">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+            <div class="box-body-item">
+                <p>
                     New UI for Error Analysis (Development)
                     <a href="javascript:void(0);"
                         v-on:click="show_help('new_ui_for_ea')">

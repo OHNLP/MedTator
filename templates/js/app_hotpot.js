@@ -165,6 +165,9 @@ var app_hotpot = {
             // display the old menu dropzone
             enable_display_menu_dropzone_ann: false,
 
+            // auto save the current ann
+            auto_save_current_ann: 'disable',
+
             // active tab
             active_setting_tab: 'gui',
 
@@ -204,6 +207,10 @@ var app_hotpot = {
 
         is_adjudication_working_mode: function() {
             return this.annotation_tab_working_mode == 'adjudication';
+        },
+
+        is_auto_save: function() {
+            return this.cfg.auto_save_current_ann == 'enable';
         },
 
         get_metator_mem: function() {
@@ -1575,6 +1582,12 @@ var app_hotpot = {
             ann._has_saved = false;
             // notify the virutal anns to be refreshed
             this.refresh_v_anns();
+
+            // it's still under test
+            if (this.is_auto_save()) {
+                // wow, auto save is enabled?
+                this.save_xml();
+            }
         },
 
         set_current_ann_unsaved: function() {
@@ -1596,7 +1609,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // add this new tag to hint_dict
             app_hotpot.update_hint_dict_by_tag(this.anns[this.ann_idx], tag);
@@ -1623,7 +1638,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // ok, that's all?
             app_hotpot.toast('Added a new document-leve tag [' + etag.id + ']');
@@ -1643,7 +1660,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
             // ok, that's all?
             app_hotpot.toast('Added a new entity tag [' + etag.id + ']');
         },
@@ -1663,7 +1682,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // ok, that's all?
             app_hotpot.toast('Added a new relation tag [' + rtag.id + ']');
@@ -1699,7 +1720,9 @@ var app_hotpot = {
 
             // mark this file is changed and needs to be saved
             // ann._has_saved = false;
-            this.set_ann_unsaved(ann);
+            this.set_ann_unsaved(
+                ann
+            );
 
             console.log('* set annotator to tag: ', 
                 tag_id + '._annotator = ' + annotator);
@@ -1868,7 +1891,9 @@ var app_hotpot = {
 
                 // mark _has_saved
                 // this.anns[this.ann_idx]._has_saved = false;
-                this.set_ann_unsaved(this.anns[this.ann_idx]);
+                this.set_ann_unsaved(
+                    this.anns[this.ann_idx]
+                );
 
                 // then, we could show this new link in cm
                 app_hotpot.cm_draw_rtag(
@@ -1898,7 +1923,9 @@ var app_hotpot = {
 
             // mark unsaved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // then, we could show this new link in cm
             app_hotpot.cm_draw_rtag(

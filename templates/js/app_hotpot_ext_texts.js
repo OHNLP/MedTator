@@ -29,6 +29,11 @@ MedTator provides some options for selecting different methods.
         html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
     },
 
+    "auto_save_current_ann": {
+        title: "Enable auto-save function",
+        html: "By enabling this feature, the annotation will be automatically saved while annotating. Everytime when users add/update/delete any tags in the current annotation file, MedTator will try to save the changes to local disk.<br>If the user doesn't grant the file permission yet, a dialog will be shown and no more dialog after the first one."
+    },
+
     "linking_marks_selection": {
         title: 'Linking marks selection',
         html: `The marks shown in the tag editor can be linked with the selection with the concept list.

@@ -107,10 +107,15 @@ v-bind:class="{'active': section=='annotation'}">
                 <i class="far fa-copy"></i>
             </span>
         </button>
-        <span class="ribbon-split dropdown-toggle">Save as</span>
+        <span class="ribbon-split dropdown-toggle">
+            Save as
+        </span>
         <ul class="ribbon-dropdown text-left" 
             data-role="dropdown" 
             data-duration="100">
+
+            <li class="divider"></li>
+
             <li title="Download a copy of the current annotation as MedTator XML format"
                 v-on:click="download_copy_as_xml">
                 <a href="javascript:void(0);">Download a copy</a>
