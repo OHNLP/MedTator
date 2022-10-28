@@ -16,9 +16,44 @@ def parse_ann(full_fn):
     ann = {
         # about the file itself
         "_filename": fn,
+        # for MedTagger output, there is no text
+        "text": "",
+        # meta information
+        "meta": {},
+        # the tags
+        "tags": []
     }
 
+    # read the content first
+    lines = open(full_fn).readlines()
+
+    # then parse each line
+    for line in lines:
+        # first remove the blanks
+        ln = line.strip()
+
+        # skip empty line
+        if ln == '': 
+            continue
+
+        # skip comment line??
+        if ln.startswith('#'):
+            continue
+
+
+
     return ann
+
+
+def _parse_line(ln):
+    '''
+    Parse each line in an ANN file
+
+    Each line in an ANN file is a tab-seperated 
+    '''
+
+    # then split into parts by tab
+    parts = ln.split('\t')
 
 
 def parse_anns(path):
@@ -37,7 +72,7 @@ def parse_anns(path):
 
     if os.path.isfile(path):
         cnt_total += 1
-        if path.lower().endswith('.xml'): 
+        if path.lower().endswith('.ann'): 
             cnt_ann += 1
 
             # parse this ann

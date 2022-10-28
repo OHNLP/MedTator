@@ -107,15 +107,22 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-10-27)
+### 1.3.x (2022-11-11)
 
 - Research on IOB2/BIO format editing
+- Add local setting cache
 - Add sample dataset for error analysis
 - Update Cohen's Kappa calculation
 - Update README for new features
 - Update documents for error analysis
 - Update documents for new schema
 - Update UI for error analysis
+
+### 1.3.8 (2022-10-27)
+
+- Added schema of .yml extension support
+- Added auto-save (experimental) feature
+- Fixed scheme editor open bug
 
 ### 1.3.7 (2022-09-29)
 

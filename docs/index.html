@@ -2119,10 +2119,15 @@ v-bind:class="{'active': section=='annotation'}">
                 <i class="far fa-copy"></i>
             </span>
         </button>
-        <span class="ribbon-split dropdown-toggle">Save as</span>
+        <span class="ribbon-split dropdown-toggle">
+            Save as
+        </span>
         <ul class="ribbon-dropdown text-left" 
             data-role="dropdown" 
             data-duration="100">
+
+            <li class="divider"></li>
+
             <li title="Download a copy of the current annotation as MedTator XML format"
                 v-on:click="download_copy_as_xml">
                 <a href="javascript:void(0);">Download a copy</a>
@@ -3664,7 +3669,7 @@ v-bind:class="{'active': section=='razer'}">
         </div>
 
         <div id="app_info">
-            MedTator 1.3.6 | 
+            MedTator 1.3.8 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.enable_show_settings = true">
@@ -3757,6 +3762,32 @@ v-bind:class="{'active': section=='razer'}">
 
         <!-- GUI setting tab -->
         <div v-else-if="cfg.active_setting_tab == 'gui'">
+            <div class="box-body-item">
+                <p>
+                    Auto-save annotation (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('auto_save_current_ann')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_disable" 
+                            value="disable" 
+                            v-model="cfg.auto_save_current_ann">
+                        <label for="cfg_ui_autosave_disable">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_enable" 
+                            value="enable" 
+                            v-model="cfg.auto_save_current_ann">
+                        <label for="cfg_ui_autosave_enable">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
             <div class="box-body-item">
                 <p>
                     New UI for Error Analysis (Development)
@@ -3868,12 +3899,12 @@ v-bind:class="{'active': section=='razer'}">
 
                         <li title="Sort the file list by the number of annotated tags"
                             v-on:click="sort_filelist_by('tags')">
-                            <a href="javascript:void(0);">By annotated tags (0->N)</a>
+                            <a href="javascript:void(0);">By number of tags (0->N)</a>
                         </li>
 
                         <li title="Sort the file list by the number of annotated tags"
                             v-on:click="sort_filelist_by('tags_r')">
-                            <a href="javascript:void(0);">By annotated tags (N->0)</a>
+                            <a href="javascript:void(0);">By number of tags (N->0)</a>
                         </li>
 
                         <li title="Sort the file list by the color of labels"
@@ -7053,6 +7084,8 @@ async function fs_get_file_texts_by_items(items, filter) {
 async function fs_read_file_system_handle(fh) {
     // get the file obj
     const file = await fh.getFile();
+
+    console.log('* read fsh', file);
     
     // get the text content
     const text = await file.text();
@@ -7061,6 +7094,7 @@ async function fs_read_file_system_handle(fh) {
     return {
         fh: fh,
         fn: fh.name,
+        timestamp: file.lastModified,
         text: text
     };
 }
@@ -7081,6 +7115,8 @@ async function fs_read_dtd_file_handle(fh) {
     } else if (fh.name.toLowerCase().endsWith('.json')) {
         format = 'json';
     } else if (fh.name.toLowerCase().endsWith('.yaml')) {
+        format = 'yaml'
+    } else if (fh.name.toLowerCase().endsWith('.yml')) {
         format = 'yaml'
     } else {
         // ??? what can it be?
@@ -8429,12 +8465,12 @@ var ann_parser = {
         return ann;
     },
 
-    xml2ann: function(text, dtd) {
+    xml2ann: function(xml_text, dtd) {
         // create a new DOM parser
         var parser = new DOMParser();
 
         // parse the given text
-        var xmlDoc = parser.parseFromString(text, "text/xml");
+        var xmlDoc = parser.parseFromString(xml_text, "text/xml");
 
         // create an empty ann
         var ann = {
@@ -15685,6 +15721,9 @@ var app_hotpot = {
             // display the old menu dropzone
             enable_display_menu_dropzone_ann: false,
 
+            // auto save the current ann
+            auto_save_current_ann: 'disable',
+
             // active tab
             active_setting_tab: 'gui',
 
@@ -15724,6 +15763,10 @@ var app_hotpot = {
 
         is_adjudication_working_mode: function() {
             return this.annotation_tab_working_mode == 'adjudication';
+        },
+
+        is_auto_save: function() {
+            return this.cfg.auto_save_current_ann == 'enable';
         },
 
         get_metator_mem: function() {
@@ -17095,6 +17138,12 @@ var app_hotpot = {
             ann._has_saved = false;
             // notify the virutal anns to be refreshed
             this.refresh_v_anns();
+
+            // it's still under test
+            if (this.is_auto_save()) {
+                // wow, auto save is enabled?
+                this.save_xml();
+            }
         },
 
         set_current_ann_unsaved: function() {
@@ -17116,7 +17165,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // add this new tag to hint_dict
             app_hotpot.update_hint_dict_by_tag(this.anns[this.ann_idx], tag);
@@ -17143,7 +17194,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // ok, that's all?
             app_hotpot.toast('Added a new document-leve tag [' + etag.id + ']');
@@ -17163,7 +17216,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
             // ok, that's all?
             app_hotpot.toast('Added a new entity tag [' + etag.id + ']');
         },
@@ -17183,7 +17238,9 @@ var app_hotpot = {
 
             // mark _has_saved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // ok, that's all?
             app_hotpot.toast('Added a new relation tag [' + rtag.id + ']');
@@ -17219,7 +17276,9 @@ var app_hotpot = {
 
             // mark this file is changed and needs to be saved
             // ann._has_saved = false;
-            this.set_ann_unsaved(ann);
+            this.set_ann_unsaved(
+                ann
+            );
 
             console.log('* set annotator to tag: ', 
                 tag_id + '._annotator = ' + annotator);
@@ -17388,7 +17447,9 @@ var app_hotpot = {
 
                 // mark _has_saved
                 // this.anns[this.ann_idx]._has_saved = false;
-                this.set_ann_unsaved(this.anns[this.ann_idx]);
+                this.set_ann_unsaved(
+                    this.anns[this.ann_idx]
+                );
 
                 // then, we could show this new link in cm
                 app_hotpot.cm_draw_rtag(
@@ -17418,7 +17479,9 @@ var app_hotpot = {
 
             // mark unsaved
             // this.anns[this.ann_idx]._has_saved = false;
-            this.set_ann_unsaved(this.anns[this.ann_idx]);
+            this.set_ann_unsaved(
+                this.anns[this.ann_idx]
+            );
 
             // then, we could show this new link in cm
             app_hotpot.cm_draw_rtag(
@@ -19187,6 +19250,11 @@ MedTator provides some options for selecting different methods.
     "new_ui_for_ea": {
         title: "Enable new UI for Error Analysis",
         html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
+    },
+
+    "auto_save_current_ann": {
+        title: "Enable auto-save function",
+        html: "By enabling this feature, the annotation will be automatically saved while annotating. Everytime when users add/update/delete any tags in the current annotation file, MedTator will try to save the changes to local disk.<br>If the user doesn't grant the file permission yet, a dialog will be shown and no more dialog after the first one."
     },
 
     "linking_marks_selection": {
@@ -22929,7 +22997,7 @@ Object.assign(app_hotpot.vpp_methods, {
                 {
                     description: 'Annotation Schema File',
                     accept: {
-                        'text/dtd': ['.dtd', '.json', 'yaml']
+                        'text/dtd': ['.dtd', '.json', '.yaml', '.yml']
                     }
                 },
             ],
@@ -23724,9 +23792,11 @@ As she was in D.C. on Wed. to attend Mr. LASTNAME's wedding at 9 A.M. to 14 P.M.
 };
 
 jarvis.changelog_latest = `
-1.3.6 (2022-09-15)
+1.3.8 (2022-10-27)
 
-- Updated a data sample for error analysis
+- Added schema of .yml extension support
+- Added auto-save (experimental) feature
+- Fixed scheme editor open bug
 
 
 `;
