@@ -107,7 +107,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-11-11)
+### 1.3.x (2022-11-18)
 
 - Research on IOB2/BIO format editing
 - Add local setting cache
@@ -396,3 +396,4 @@ Release Highlights
 
 # Acknowledgements
 
+We thank all of our team members for their insights and contributions. 
