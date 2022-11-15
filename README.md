@@ -110,8 +110,11 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 ### 1.3.x (2022-11-18)
 
 - Research on IOB2/BIO format editing
+- Add brat visualization
 - Add local setting cache
 - Add sample dataset for error analysis
+- Update design for .ann conversion
+- Update icon for error analysis
 - Update Cohen's Kappa calculation
 - Update README for new features
 - Update documents for error analysis
