@@ -1,6 +1,6 @@
 // -*- Mode: JavaScript; tab-width: 2; indent-tabs-mode: nil; -*-
 // vim:set ft=javascript ts=2 sw=2 sts=2 cindent:
-var Util = (function(window, undefined) {
+var BratUtil = (function(window, undefined) {
 
     var fontLoadTimeout = 5000; // 5 seconds
 
@@ -551,9 +551,9 @@ var Util = (function(window, undefined) {
     var embed = function(container, collData, docData, webFontURLs,
                          dispatcher) {
       if (dispatcher === undefined) {
-          dispatcher = new Dispatcher();
+          dispatcher = new BratDispatcher();
       }
-      var visualizer = new Visualizer(dispatcher, container, webFontURLs);
+      var visualizer = new BratVisualizer(dispatcher, container, webFontURLs);
       docData.collection = null;
       dispatcher.post('collectionLoaded', [collData]);
       dispatcher.post('requestRenderData', [docData]);

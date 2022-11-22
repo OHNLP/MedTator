@@ -1,8 +1,8 @@
 // -*- Mode: JavaScript; tab-width: 2; indent-tabs-mode: nil; -*-
 // vim:set ft=javascript ts=2 sw=2 sts=2 cindent:
 
-var Dispatcher = (function($, window, undefined) {
-    var Dispatcher = function() {
+var BratDispatcher = (function($, window, undefined) {
+    var BratDispatcher = function() {
       var dispatcher;
 
       var table = {};
@@ -114,16 +114,16 @@ var Dispatcher = (function($, window, undefined) {
         post: post,
         proxy: proxy,
       };
-      Dispatcher.dispatchers.push(dispatcher);
+      BratDispatcher.dispatchers.push(dispatcher);
       return dispatcher;
     };
 
-    Dispatcher.dispatchers = [];
-    Dispatcher.post = function(asynch, message, args, returnType) {
-      $.each(Dispatcher.dispatchers, function(dispatcherNo, dispatcher) {
+    BratDispatcher.dispatchers = [];
+    BratDispatcher.post = function(asynch, message, args, returnType) {
+      $.each(BratDispatcher.dispatchers, function(dispatcherNo, dispatcher) {
         dispatcher.post(asynch, message, args, returnType);
       });
     };
 
-    return Dispatcher;
+    return BratDispatcher;
 })(jQuery, window);

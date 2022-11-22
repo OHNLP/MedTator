@@ -1,7 +1,7 @@
 // -*- Mode: JavaScript; tab-width: 2; indent-tabs-mode: nil; -*-
 // vim:set ft=javascript ts=2 sw=2 sts=2 cindent:
-var URLMonitor = (function($, window, undefined) {
-    var URLMonitor = function(dispatcher) {
+var BratURLMonitor = (function($, window, undefined) {
+    var BratURLMonitor = function(dispatcher) {
       var that = this;
 
       var reloadData = true;
@@ -29,7 +29,7 @@ var URLMonitor = (function($, window, undefined) {
         var oldArgs = that.url_hash.arguments;
         var argSplit = URLHash.splitArgs(args);
 
-        if (!Util.isEqual(that.url_hash.extArguments, argSplit[1])) {
+        if (!BratUtil.isEqual(that.url_hash.extArguments, argSplit[1])) {
           changed = true;
           that.url_hash.setArguments(args);
           dispatcher.post('argsChanged', [args, oldArgs]);
@@ -38,7 +38,7 @@ var URLMonitor = (function($, window, undefined) {
           // hashchange event will trigger
           newIntArgs = argSplit[0];
           updateURL();
-        } else if (force || !Util.isEqual(that.url_hash.intArguments, argSplit[0])) {
+        } else if (force || !BratUtil.isEqual(that.url_hash.intArguments, argSplit[0])) {
           // hash is same, but internal arguments differ
           that.url_hash.setArguments(args);
           // hashchange event won't trigger, but internal args have
@@ -123,7 +123,7 @@ var URLMonitor = (function($, window, undefined) {
           on('init', init);
     };
 
-    return URLMonitor;
+    return BratURLMonitor;
 })(jQuery, window);
 
 var URLHash = (function($, window, undefined) {
@@ -173,7 +173,7 @@ var URLHash = (function($, window, undefined) {
       getHash: function() {
         var url_hash = this.collection + this.document;
 
-        var url_args = Util.param(this.extArguments);
+        var url_args = BratUtil.param(this.extArguments);
 
         if (url_args.length) {
           url_hash += '?' + url_args;
@@ -226,7 +226,7 @@ var URLHash = (function($, window, undefined) {
         }
       }
       var doc = path.substr(slashPos + 1);
-      var args = Util.deparam(argsStr);
+      var args = BratUtil.deparam(argsStr);
       return new URLHash(coll, doc, args);
     };
 

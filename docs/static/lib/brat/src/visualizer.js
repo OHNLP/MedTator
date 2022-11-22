@@ -1,6 +1,6 @@
 // vim:set ft=javascript ts=2 sw=2 sts=2 cindent:
 
-var Visualizer = (function($, window, undefined) {
+var BratVisualizer = (function($, window, undefined) {
     var DocumentData = function(text) {
       this.text = text;
       this.chunks = [];
@@ -294,7 +294,7 @@ var Visualizer = (function($, window, undefined) {
       });
     };
 
-    var Visualizer = function(dispatcher, svgId, webFontURLs) {
+    var BratVisualizer = function(dispatcher, svgId, webFontURLs) {
       var $svgDiv = $('#' + svgId);
       if (!$svgDiv.length) {
         throw Error('Could not find container with id="' + svgId + '"');
@@ -467,7 +467,7 @@ var Visualizer = (function($, window, undefined) {
         for (var i = fromIndex; i <= toIndex; i++) {
           if (fragmentHeights[i] > height) height = fragmentHeights[i];
         }
-        height += Configuration.visual.arcSpacing;
+        height += BratConfiguration.visual.arcSpacing;
         return height;
       }
 
@@ -528,9 +528,9 @@ var Visualizer = (function($, window, undefined) {
 
 
       var outOfPage = function(sentenceNo) {
-        if (!Configuration.pagingSize) return 0;
+        if (!BratConfiguration.pagingSize) return 0;
         if (sentenceNo < pagingOffset) return -1;
-        if (sentenceNo >= pagingOffset + Configuration.pagingSize) return 1;
+        if (sentenceNo >= pagingOffset + BratConfiguration.pagingSize) return 1;
         return 0;
       };
 
@@ -691,7 +691,7 @@ var Visualizer = (function($, window, undefined) {
           chunk.outOfPage = pos;
         });
         while (chunkNo < numChunks) {
-          data.chunks[chunkNo++].outOfPage = Configuration.pagingSize ? pos : 0;
+          data.chunks[chunkNo++].outOfPage = BratConfiguration.pagingSize ? pos : 0;
         }
 
         // assign fragments to appropriate chunks
@@ -1021,10 +1021,10 @@ var Visualizer = (function($, window, undefined) {
             }
             chunk.lastFragmentIndex = fragment.towerId;
 
-            var spanLabels = Util.getSpanLabels(spanTypes, fragment.span.type);
-            fragment.labelText = Util.spanDisplayForm(spanTypes, fragment.span.type);
+            var spanLabels = BratUtil.getSpanLabels(spanTypes, fragment.span.type);
+            fragment.labelText = BratUtil.spanDisplayForm(spanTypes, fragment.span.type);
             // Find the most appropriate label according to text width
-            if (Configuration.abbrevsOn && spanLabels) {
+            if (BratConfiguration.abbrevsOn && spanLabels) {
               var labelIdx = 1; // first abbrev
               var maxLength = (fragment.to - fragment.from) / 0.8;
               while (fragment.labelText.length > maxLength &&
@@ -1111,7 +1111,7 @@ var Visualizer = (function($, window, undefined) {
         // sort by "from"; we don't need to sort by "to" as well,
         // because unlike spans, chunks are disjunct
         markedText.sort(function(a, b) {
-          return Util.cmp(a[0], b[0]);
+          return BratUtil.cmp(a[0], b[0]);
         });
         $.each(markedText, function(textNo, textPos) {
           var from = textPos[0];
@@ -1167,7 +1167,7 @@ var Visualizer = (function($, window, undefined) {
         if (data.mtime) {
             // we're getting seconds and need milliseconds
             //$('#document_ctime').text("Created: " + Annotator.formatTime(1000 * data.ctime)).css("display", "inline");
-            $('#document_mtime').text("Last modified: " + Util.formatTimeAgo(1000 * data.mtime)).css("display", "inline");
+            $('#document_mtime').text("Last modified: " + BratUtil.formatTimeAgo(1000 * data.mtime)).css("display", "inline");
         } else {
             //$('#document_ctime').css("display", "none");
             $('#document_mtime').css("display", "none");
@@ -1320,7 +1320,7 @@ var Visualizer = (function($, window, undefined) {
         // get the arc annotation text sizes (for all labels)
         var arcTexts = {};
         $.each(data.arcs, function(arcNo, arc) {
-          var labels = Util.getArcLabels(spanTypes, data.spans[arc.origin].type, arc.type, relationTypesHash);
+          var labels = BratUtil.getArcLabels(spanTypes, data.spans[arc.origin].type, arc.type, relationTypesHash);
           if (!labels.length) labels = [arc.type];
           $.each(labels, function(labelNo, label) {
             arcTexts[label] = true;
@@ -1426,9 +1426,9 @@ var Visualizer = (function($, window, undefined) {
       var redraw = false;
 
       var renderDataReal = function(sourceData) {
-Util.profileEnd('before render');
-Util.profileStart('render');
-Util.profileStart('init');
+BratUtil.profileEnd('before render');
+BratUtil.profileStart('render');
+BratUtil.profileStart('init');
 
         if (!sourceData && !data) {
           dispatcher.post('doneRendering', [coll, doc, args]);
@@ -1460,8 +1460,8 @@ Util.profileStart('init');
         highlightGroup = svg.group({ 'class': 'highlight' });
         var textGroup = svg.group({ 'class': 'text' });
 
-Util.profileEnd('init');
-Util.profileStart('measures');
+BratUtil.profileEnd('init');
+BratUtil.profileStart('measures');
 
         var sizes = getTextAndSpanTextMeasurements();
         data.sizes = sizes;
@@ -1477,15 +1477,15 @@ Util.profileStart('measures');
           }
         }
 
-Util.profileEnd('measures');
-Util.profileStart('chunks');
+BratUtil.profileEnd('measures');
+BratUtil.profileStart('chunks');
 
-        // var currentX = Configuration.visual.margin.x + sentNumMargin + rowPadding;
+        // var currentX = BratConfiguration.visual.margin.x + sentNumMargin + rowPadding;
         var currentX;
         if (rtlmode) {
-          currentX = canvasWidth - (Configuration.visual.margin.x + sentNumMargin + rowPadding);
+          currentX = canvasWidth - (BratConfiguration.visual.margin.x + sentNumMargin + rowPadding);
         } else {
-          currentX = Configuration.visual.margin.x + sentNumMargin + rowPadding;
+          currentX = BratConfiguration.visual.margin.x + sentNumMargin + rowPadding;
         }
 
         var rows = [];
@@ -1525,11 +1525,11 @@ Util.profileStart('chunks');
           var f1 = span.firstFragment, f2 = span.lastFragment;
 
           var x1 = (f1.curly.from + f1.curly.to - f1.width) / 2 -
-              Configuration.visual.margin.x;
+              BratConfiguration.visual.margin.x;
           var i1 = f1.chunk.index;
 
           var x2 = (f2.curly.from + f2.curly.to + f2.width) / 2 +
-              Configuration.visual.margin.x;
+              BratConfiguration.visual.margin.x;
           var i2 = f2.chunk.index;
 
           // Start from the ground level, going up floor by floor.
@@ -1549,9 +1549,9 @@ Util.profileStart('chunks');
           // actual positions of curlies
           var carpet = 0;
           var outside = true;
-          var thisCurlyHeight = span.drawCurly ? Configuration.visual.curlyHeight : 0;
-          var height = sizes.fragments.height + thisCurlyHeight + Configuration.visual.boxSpacing +
-              2 * Configuration.visual.margin.y - 3;
+          var thisCurlyHeight = span.drawCurly ? BratConfiguration.visual.curlyHeight : 0;
+          var height = sizes.fragments.height + thisCurlyHeight + BratConfiguration.visual.boxSpacing +
+              2 * BratConfiguration.visual.margin.y - 3;
           $.each(floors, function(floorNo, floor) {
             var floorAvailable = true;
             for (var i = i1; i <= i2; i++) {
@@ -1582,7 +1582,7 @@ Util.profileStart('chunks');
             var floorNo = $.inArray(floor, floors);
             if (floorNo == -1) {
               floors.push(floor);
-              floors.sort(Util.cmp);
+              floors.sort(BratUtil.cmp);
               floorNo = $.inArray(floor, floors);
               if (floorNo != 0) {
                 // copy reservations from the floor below
@@ -1705,7 +1705,7 @@ Util.profileStart('chunks');
             // special case: if the border 'color' value is 'darken',
             // then just darken the BG color a bit for the border.
             if (borderColor == 'darken') {
-                borderColor = Util.adjustColorLightness(bgColor, -0.6);
+                borderColor = BratUtil.adjustColorLightness(bgColor, -0.6);
             }
 
             fragment.group = svg.group(chunk.group, {
@@ -1732,10 +1732,10 @@ Util.profileStart('chunks');
 
             // attach e.g. "False_positive" into the type
             if (span.comment && span.comment.type) { rectClass += ' '+span.comment.type; }
-            var bx = xx - Configuration.visual.margin.x - boxTextMargin.x;
-            var by = yy - Configuration.visual.margin.y;
-            var bw = ww + 2 * Configuration.visual.margin.x;
-            var bh = hh + 2 * Configuration.visual.margin.y;
+            var bx = xx - BratConfiguration.visual.margin.x - boxTextMargin.x;
+            var by = yy - BratConfiguration.visual.margin.y;
+            var bw = ww + 2 * BratConfiguration.visual.margin.x;
+            var bh = hh + 2 * BratConfiguration.visual.margin.y;
 
             if (roundCoordinates) {
               x  = (x|0)+0.5;
@@ -1790,8 +1790,8 @@ Util.profileStart('chunks');
                 'class': rectClass,
                 fill: bgColor,
                 stroke: borderColor,
-                rx: Configuration.visual.margin.x,
-                ry: Configuration.visual.margin.y,
+                rx: BratConfiguration.visual.margin.x,
+                ry: BratConfiguration.visual.margin.y,
                 'data-span-id': span.id,
                 'data-fragment-id': span.segmentedOffsetsMap[fragment.id],
                 'strokeDashArray': span.attributeMerge.dashArray,
@@ -1812,27 +1812,27 @@ Util.profileStart('chunks');
             }
 
             fragment.rectBox = { x: bx, y: by - span.floor, width: bw, height: bh };
-            fragment.height = span.floor + hh + 3 * Configuration.visual.margin.y + Configuration.visual.curlyHeight + Configuration.visual.arcSpacing;
+            fragment.height = span.floor + hh + 3 * BratConfiguration.visual.margin.y + BratConfiguration.visual.curlyHeight + BratConfiguration.visual.arcSpacing;
             var spacedTowerId = fragment.towerId * 2;
             if (!fragmentHeights[spacedTowerId] || fragmentHeights[spacedTowerId] < fragment.height) {
               fragmentHeights[spacedTowerId] = fragment.height;
             }
-            $(fragment.rect).attr('y', yy - Configuration.visual.margin.y - span.floor);
+            $(fragment.rect).attr('y', yy - BratConfiguration.visual.margin.y - span.floor);
             if (shadowRect) {
-              $(shadowRect).attr('y', yy - rectShadowSize - Configuration.visual.margin.y - span.floor);
+              $(shadowRect).attr('y', yy - rectShadowSize - BratConfiguration.visual.margin.y - span.floor);
             }
             if (markedRect) {
-              $(markedRect).attr('y', yy - markedSpanSize - Configuration.visual.margin.y - span.floor);
+              $(markedRect).attr('y', yy - markedSpanSize - BratConfiguration.visual.margin.y - span.floor);
             }
             if (span.attributeMerge.box === "crossed") {
               svg.path(fragment.group, svg.createPath().
-                  move(xx, yy - Configuration.visual.margin.y - span.floor).
+                  move(xx, yy - BratConfiguration.visual.margin.y - span.floor).
                   line(xx + fragment.width,
-                    yy + hh + Configuration.visual.margin.y - span.floor),
+                    yy + hh + BratConfiguration.visual.margin.y - span.floor),
                   { 'class': 'boxcross' });
               svg.path(fragment.group, svg.createPath().
-                  move(xx + fragment.width, yy - Configuration.visual.margin.y - span.floor).
-                  line(xx, yy + hh + Configuration.visual.margin.y - span.floor),
+                  move(xx + fragment.width, yy - BratConfiguration.visual.margin.y - span.floor).
+                  line(xx, yy + hh + BratConfiguration.visual.margin.y - span.floor),
                   { 'class': 'boxcross' });
             }
             svg.text(fragment.group, x, y - span.floor, data.spanAnnTexts[fragment.glyphedLabelText], { fill: fgColor });
@@ -1846,25 +1846,25 @@ Util.profileStart('chunks');
                                (spanTypes.SPAN_DEFAULT &&
                                 spanTypes.SPAN_DEFAULT.fgColor) ||
                                '#000000');
-                curlyColor = Util.adjustColorLightness(bgColor, -0.6);
+                curlyColor = BratUtil.adjustColorLightness(bgColor, -0.6);
               }
 
-              var bottom = yy + hh + Configuration.visual.margin.y - span.floor + 1;
+              var bottom = yy + hh + BratConfiguration.visual.margin.y - span.floor + 1;
               svg.path(fragment.group, svg.createPath()
-                  .move(fragment.curly.from, bottom + Configuration.visual.curlyHeight)
+                  .move(fragment.curly.from, bottom + BratConfiguration.visual.curlyHeight)
                   .curveC(fragment.curly.from, bottom,
-                    x, bottom + Configuration.visual.curlyHeight,
+                    x, bottom + BratConfiguration.visual.curlyHeight,
                     x, bottom)
-                  .curveC(x, bottom + Configuration.visual.curlyHeight,
+                  .curveC(x, bottom + BratConfiguration.visual.curlyHeight,
                     fragment.curly.to, bottom,
-                    fragment.curly.to, bottom + Configuration.visual.curlyHeight),
+                    fragment.curly.to, bottom + BratConfiguration.visual.curlyHeight),
                 {
                   'class': 'curly',
                   'stroke': curlyColor,
                 });
               chunkFrom = Math.min(fragment.curly.from, chunkFrom);
               chunkTo = Math.max(fragment.curly.to, chunkTo);
-              fragmentHeight = Math.max(Configuration.visual.curlyHeight, fragmentHeight);
+              fragmentHeight = Math.max(BratConfiguration.visual.curlyHeight, fragmentHeight);
             }
 
             if (fragment == span.headFragment) {
@@ -1878,7 +1878,7 @@ Util.profileStart('chunks');
                   hasInternalArcs = true;
                 }
                 if (origin.row) {
-                  var labels = Util.getArcLabels(spanTypes, leftSpan.type, arc.type, relationTypesHash);
+                  var labels = BratUtil.getArcLabels(spanTypes, leftSpan.type, arc.type, relationTypesHash);
                   if (!labels.length) labels = [arc.type];
                   if (origin.row.index == rowIndex) {
                     // same row, but before this
@@ -1886,9 +1886,9 @@ Util.profileStart('chunks');
                   } else if (rtlmode) {
                     border = 0;
                   } else {
-                    border = Configuration.visual.margin.x + sentNumMargin + rowPadding;
+                    border = BratConfiguration.visual.margin.x + sentNumMargin + rowPadding;
                   }
-                  var labelNo = Configuration.abbrevsOn ? labels.length - 1 : 0;
+                  var labelNo = BratConfiguration.abbrevsOn ? labels.length - 1 : 0;
                   var smallestLabelWidth = sizes.arcs.widths[labels[labelNo]] + 2 * minArcSlant;
                   var gap = Math.abs(currentX + (rtlmode ? -bx : bx) - border);
                   var arcSpacing = smallestLabelWidth - gap;
@@ -1910,7 +1910,7 @@ Util.profileStart('chunks');
                 var target = leftSpan.headFragment.chunk;
                 var border;
                 if (target.row) {
-                  var labels = Util.getArcLabels(spanTypes, span.type, arc.type, relationTypesHash);
+                  var labels = BratUtil.getArcLabels(spanTypes, span.type, arc.type, relationTypesHash);
                   if (!labels.length) labels = [arc.type];
                   if (target.row.index == rowIndex) {
                     // same row, but before this
@@ -1918,9 +1918,9 @@ Util.profileStart('chunks');
                   } else if (rtlmode) {
                     border = 0;
                   } else {
-                    border = Configuration.visual.margin.x + sentNumMargin + rowPadding;
+                    border = BratConfiguration.visual.margin.x + sentNumMargin + rowPadding;
                   }
-                  var labelNo = Configuration.abbrevsOn ? labels.length - 1 : 0;
+                  var labelNo = BratConfiguration.abbrevsOn ? labels.length - 1 : 0;
                   var smallestLabelWidth = sizes.arcs.widths[labels[labelNo]] + 2 * minArcSlant;
                   var gap = Math.abs(currentX + (rtlmode ? -bx : bx) - border);
                   var arcSpacing = smallestLabelWidth - gap;
@@ -1938,7 +1938,7 @@ Util.profileStart('chunks');
                 }
               });
             }
-            fragmentHeight += span.floor || Configuration.visual.curlyHeight;
+            fragmentHeight += span.floor || BratConfiguration.visual.curlyHeight;
             if (fragmentHeight > chunkHeight) chunkHeight = fragmentHeight;
             hasAnnotations = true;
           }); // fragments
@@ -1983,9 +1983,9 @@ Util.profileStart('chunks');
 
           var chunkDoesNotFit;
           if (rtlmode) {
-            chunkDoesNotFit = currentX - boxWidth - leftBorderForArcs <= 2 * Configuration.visual.margin.x;
+            chunkDoesNotFit = currentX - boxWidth - leftBorderForArcs <= 2 * BratConfiguration.visual.margin.x;
           } else {
-            chunkDoesNotFit = currentX + boxWidth + rightBorderForArcs >= canvasWidth - 2 * Configuration.visual.margin.x
+            chunkDoesNotFit = currentX + boxWidth + rightBorderForArcs >= canvasWidth - 2 * BratConfiguration.visual.margin.x
           }
 
           if (chunk.sentence || chunkDoesNotFit) {
@@ -1995,10 +1995,10 @@ Util.profileStart('chunks');
 
             // XXX RTL spaceWidth?
             if (rtlmode) {
-              currentX = canvasWidth - (Configuration.visual.margin.x + sentNumMargin + rowPadding +
+              currentX = canvasWidth - (BratConfiguration.visual.margin.x + sentNumMargin + rowPadding +
                   (hasRightArcs ? arcHorizontalSpacing : (hasInternalArcs ? arcSlant : 0))/* + spaceWidth */ );
             } else {
-              currentX = Configuration.visual.margin.x + sentNumMargin + rowPadding +
+              currentX = BratConfiguration.visual.margin.x + sentNumMargin + rowPadding +
                   (hasLeftArcs ? arcHorizontalSpacing : (hasInternalArcs ? arcSlant : 0)) /* + spaceWidth */ ;
             }
 
@@ -2102,8 +2102,8 @@ Util.profileStart('chunks');
         row.arcs = svg.group(row.group, { 'class': 'arcs' });
         rows.push(row);
 
-Util.profileEnd('chunks');
-Util.profileStart('arcsPrep');
+BratUtil.profileEnd('chunks');
+BratUtil.profileStart('arcsPrep');
 
         var arrows = {};
         var arrow = makeArrow(defs, 'none');
@@ -2111,8 +2111,8 @@ Util.profileStart('arcsPrep');
 
         var len = lastChunk.index * 2 + 1;
         for (var i = 0; i < len; i++) {
-          if (!fragmentHeights[i] || fragmentHeights[i] < Configuration.visual.arcStartHeight) {
-            fragmentHeights[i] = Configuration.visual.arcStartHeight;
+          if (!fragmentHeights[i] || fragmentHeights[i] < BratConfiguration.visual.arcStartHeight) {
+            fragmentHeights[i] = BratConfiguration.visual.arcStartHeight;
           }
         }
 
@@ -2180,7 +2180,7 @@ Util.profileStart('arcsPrep');
               }
             }
           });
-          fragmentHeights.splice(row.heightsStart, 0, Configuration.visual.arcStartHeight);
+          fragmentHeights.splice(row.heightsStart, 0, BratConfiguration.visual.arcStartHeight);
           heightsRowsAdded++;
 
           row.heightsAdjust = heightsRowsAdded;
@@ -2206,8 +2206,8 @@ Util.profileStart('arcsPrep');
         });
         dispatcher.post('arcDragArcDrawn', [arcDragArc]);
 
-Util.profileEnd('arcsPrep');
-Util.profileStart('arcs');
+BratUtil.profileEnd('arcsPrep');
+BratUtil.profileStart('arcs');
 
         var arcCache = {};
         // add the arcs
@@ -2382,7 +2382,7 @@ Util.profileStart('arcs');
                   from = leftBox.x + (chunkReverse ? 0 : leftBox.width);
                 }
               } else {
-                from = rtlmode ? canvasWidth - 2 * Configuration.visual.margin.y - sentNumMargin : sentNumMargin;
+                from = rtlmode ? canvasWidth - 2 * BratConfiguration.visual.margin.y - sentNumMargin : sentNumMargin;
               }
 
               if (rightBox && rowIndex == rightRow) {
@@ -2392,7 +2392,7 @@ Util.profileStart('arcs');
                   to = rightBox.x + (chunkReverse ? rightBox.width : 0);
                 }
               } else {
-                to = rtlmode ? 0 : canvasWidth - 2 * Configuration.visual.margin.y;
+                to = rtlmode ? 0 : canvasWidth - 2 * BratConfiguration.visual.margin.y;
               }
 
               if (collapseArcs) {
@@ -2418,10 +2418,10 @@ Util.profileStart('arcs');
               }
 
               var originType = data.spans[arc.origin].type;
-              var arcLabels = Util.getArcLabels(spanTypes, originType, arc.type, relationTypesHash);
-              var labelText = Util.arcDisplayForm(spanTypes, originType, arc.type, relationTypesHash);
-              // if (Configuration.abbrevsOn && !ufoCatcher && arcLabels) {
-              if (Configuration.abbrevsOn && arcLabels) {
+              var arcLabels = BratUtil.getArcLabels(spanTypes, originType, arc.type, relationTypesHash);
+              var labelText = BratUtil.arcDisplayForm(spanTypes, originType, arc.type, relationTypesHash);
+              // if (BratConfiguration.abbrevsOn && !ufoCatcher && arcLabels) {
+              if (BratConfiguration.abbrevsOn && arcLabels) {
                 var labelIdx = 1; // first abbreviation
                 // strictly speaking 2*arcSlant would be needed to allow for
                 // the full-width arcs to fit, but judged unabbreviated text
@@ -2526,8 +2526,8 @@ Util.profileStart('arcs');
               var textEnd = textBox.x + textBox.width;
 
               // adjust by margin for arc drawing
-              textStart -= Configuration.visual.arcTextMargin;
-              textEnd += Configuration.visual.arcTextMargin;
+              textStart -= BratConfiguration.visual.arcTextMargin;
+              textEnd += BratConfiguration.visual.arcTextMargin;
 
               if (from > to) {
                 var tmp = textStart; textStart = textEnd; textEnd = tmp;
@@ -2577,14 +2577,14 @@ Util.profileStart('arcs');
                 }
                 if (smoothArcCurves) {
                   //XXX var controlx = ufoCatcher ? cornerx + 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*from+(1-smoothArcSteepness)*cornerx;
-                  //XXX var endy = leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : Configuration.visual.margin.y);
+                  //XXX var endy = leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : BratConfiguration.visual.margin.y);
                   var controlx, endy;
                   if (rtlmode) {
                     controlx = ufoCatcher ? cornerx - 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*from+(1-smoothArcSteepness)*cornerx;
-                    endy = leftBox.y + (leftToRight && !arc.equiv ? Configuration.visual.margin.y : leftBox.height / 2);
+                    endy = leftBox.y + (leftToRight && !arc.equiv ? BratConfiguration.visual.margin.y : leftBox.height / 2);
                   } else {
                     controlx = ufoCatcher ? cornerx + 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*from+(1-smoothArcSteepness)*cornerx;
-                    endy = leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : Configuration.visual.margin.y);
+                    endy = leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : BratConfiguration.visual.margin.y);
                   }
                   // no curving for short lines covering short vertical
                   // distances, the arrowheads can go off (#925)
@@ -2596,7 +2596,7 @@ Util.profileStart('arcs');
                       curveQ(controlx, -height, from, endy);
                 } else {
                   path.line(cornerx, -height).
-                      line(from, leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : Configuration.visual.margin.y));
+                      line(from, leftBox.y + (leftToRight || arc.equiv ? leftBox.height / 2 : BratConfiguration.visual.margin.y));
                 }
               } else {
                 path.line(from, -height);
@@ -2667,14 +2667,14 @@ Util.profileStart('arcs');
                 }
                 if (smoothArcCurves) {
                   // XXX var controlx = ufoCatcher ? cornerx - 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*to+(1-smoothArcSteepness)*cornerx;
-                  // XXX var endy = rightBox.y + (leftToRight && !arc.equiv ? Configuration.visual.margin.y : rightBox.height / 2);
+                  // XXX var endy = rightBox.y + (leftToRight && !arc.equiv ? BratConfiguration.visual.margin.y : rightBox.height / 2);
                   var controlx, endy;
                   if (rtlmode) {
                     controlx = ufoCatcher ? cornerx - 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*to+(1-smoothArcSteepness)*cornerx;
-                    endy = rightBox.y + (leftToRight && !arc.equiv ? Configuration.visual.margin.y : rightBox.height / 2);
+                    endy = rightBox.y + (leftToRight && !arc.equiv ? BratConfiguration.visual.margin.y : rightBox.height / 2);
                   } else {
                     controlx = ufoCatcher ? cornerx - 2*ufoCatcherMod*reverseArcControlx : smoothArcSteepness*to+(1-smoothArcSteepness)*cornerx;
-                    endy = rightBox.y + (leftToRight && !arc.equiv ? Configuration.visual.margin.y : rightBox.height / 2);
+                    endy = rightBox.y + (leftToRight && !arc.equiv ? BratConfiguration.visual.margin.y : rightBox.height / 2);
                   }
                   // no curving for short lines covering short vertical
                   // distances, the arrowheads can go off (#925)
@@ -2686,7 +2686,7 @@ Util.profileStart('arcs');
                       curveQ(controlx, -height, to, endy);
                 } else {
                   path.line(cornerx, -height).
-                      line(to, rightBox.y + (leftToRight && !arc.equiv ? Configuration.visual.margin.y : rightBox.height / 2));
+                      line(to, rightBox.y + (leftToRight && !arc.equiv ? BratConfiguration.visual.margin.y : rightBox.height / 2));
                 }
               } else {
                 path.line(to, -height);
@@ -2715,8 +2715,8 @@ Util.profileStart('arcs');
           } // arc rows
         }); // arcs
 
-Util.profileEnd('arcs');
-Util.profileStart('fragmentConnectors');
+BratUtil.profileEnd('arcs');
+BratUtil.profileStart('fragmentConnectors');
 
         $.each(data.spans, function(spanNo, span) {
           var numConnectors = span.fragments.length - 1;
@@ -2741,16 +2741,16 @@ Util.profileStart('fragmentConnectors');
                 if (leftBox && rowIndex == leftRow) {
                   from = rtlmode ? leftBox.x : leftBox.x + leftBox.width;
                 } else {
-                  from = rtlmode ? canvasWidth - 2 * Configuration.visual.margin.y - sentNumMargin : sentNumMargin;
+                  from = rtlmode ? canvasWidth - 2 * BratConfiguration.visual.margin.y - sentNumMargin : sentNumMargin;
                 }
 
                 if (rightBox && rowIndex == rightRow) {
                   to = rtlmode ? rightBox.x + rightBox.width : rightBox.x;
                 } else {
-                  to = rtlmode ? 0 : canvasWidth - 2 * Configuration.visual.margin.y;
+                  to = rtlmode ? 0 : canvasWidth - 2 * BratConfiguration.visual.margin.y;
                 }
 
-                var height = box.y + box.height - Configuration.visual.margin.y;
+                var height = box.y + box.height - BratConfiguration.visual.margin.y;
                 if (roundCoordinates) {
                   // don't ask
                   height = (height|0)+0.5;
@@ -2766,11 +2766,11 @@ Util.profileStart('fragmentConnectors');
           } // connectorNo
         }); // spans
 
-Util.profileEnd('fragmentConnectors');
-Util.profileStart('rows');
+BratUtil.profileEnd('fragmentConnectors');
+BratUtil.profileStart('rows');
 
         // position the rows
-        var y = Configuration.visual.margin.y;
+        var y = BratConfiguration.visual.margin.y;
         var sentNumGroup = svg.group({'class': 'sentnum'});
         var currentSent;
         $.each(rows, function(rowId, row) {
@@ -2808,7 +2808,7 @@ Util.profileStart('rows');
           if (data.markedSent[currentSent]) {
             // specifically highlighted
             bgClass = 'backgroundHighlight';
-          } else if (Configuration.textBackgrounds == "striped") {
+          } else if (BratConfiguration.textBackgrounds == "striped") {
             // give every other sentence a different bg class
             bgClass = 'background'+ row.backgroundIndex;
           } else {
@@ -2830,10 +2830,10 @@ Util.profileStart('rows');
             // Render sentence number as a link
             var text;
             if (rtlmode) {
-              text = svg.text(link, canvasWidth - sentNumMargin + Configuration.visual.margin.x, y - rowPadding,
+              text = svg.text(link, canvasWidth - sentNumMargin + BratConfiguration.visual.margin.x, y - rowPadding,
                   '' + row.sentence, { 'data-sent': row.sentence });
             } else {
-              text = svg.text(link, sentNumMargin - Configuration.visual.margin.x, y - rowPadding,
+              text = svg.text(link, sentNumMargin - BratConfiguration.visual.margin.x, y - rowPadding,
                   '' + row.sentence, { 'data-sent': row.sentence });
             }
 
@@ -2857,10 +2857,10 @@ Util.profileStart('rows');
               // Render sentence comment
               var text;
               if (rtlmode) {
-                text = svg.text(link, canvasWidth - sentNumMargin + Configuration.visual.margin.x, y - rowPadding,
+                text = svg.text(link, canvasWidth - sentNumMargin + BratConfiguration.visual.margin.x, y - rowPadding,
                     '' + row.sentence, { 'data-sent': row.sentence }); 
               } else {
-                text = svg.text(link, sentNumMargin - Configuration.visual.margin.x, y - rowPadding,
+                text = svg.text(link, sentNumMargin - BratConfiguration.visual.margin.x, y - rowPadding,
                     '' + row.sentence, { 'data-sent': row.sentence });
               }
             }
@@ -2871,12 +2871,12 @@ Util.profileStart('rows');
             rowY = rowY|0;
           }
           translate(row, 0, rowY);
-          y += Configuration.visual.margin.y;
+          y += BratConfiguration.visual.margin.y;
         });
-        y += Configuration.visual.margin.y;
+        y += BratConfiguration.visual.margin.y;
 
-Util.profileEnd('rows');
-Util.profileStart('chunkFinish');
+BratUtil.profileEnd('rows');
+BratUtil.profileStart('chunkFinish');
 
         // chunk index sort functions for overlapping fragment drawing
         // algorithm; first for left-to-right pass, sorting primarily
@@ -2886,14 +2886,14 @@ Util.profileStart('chunkFinish');
         var lrChunkComp = function(a,b) {
           var ac = currentChunk.fragments[a];
           var bc = currentChunk.fragments[b]
-          var startDiff = Util.cmp(ac.from, bc.from);
-          return startDiff != 0 ? startDiff : Util.cmp(bc.to-bc.from, ac.to-ac.from);
+          var startDiff = BratUtil.cmp(ac.from, bc.from);
+          return startDiff != 0 ? startDiff : BratUtil.cmp(bc.to-bc.from, ac.to-ac.from);
         }
         var rlChunkComp = function(a,b) {
           var ac = currentChunk.fragments[a];
           var bc = currentChunk.fragments[b]
-          var endDiff = Util.cmp(bc.to, ac.to);
-          return endDiff != 0 ? endDiff : Util.cmp(bc.to-bc.from, ac.to-ac.from);
+          var endDiff = BratUtil.cmp(bc.to, ac.to);
+          return endDiff != 0 ? endDiff : BratUtil.cmp(bc.to-bc.from, ac.to-ac.from);
         }
 
         var sentenceText = null;
@@ -2991,7 +2991,7 @@ Util.profileStart('chunkFinish');
             }
 
             // Re-order by nesting height and draw in order
-            orderedIdx.sort(function(a,b) { return Util.cmp(chunk.fragments[b].nestingHeight, chunk.fragments[a].nestingHeight) });
+            orderedIdx.sort(function(a,b) { return BratUtil.cmp(chunk.fragments[b].nestingHeight, chunk.fragments[a].nestingHeight) });
 
             for(var i=0; i<chunk.fragments.length; i++) {
               var fragment = chunk.fragments[orderedIdx[i]];
@@ -3015,7 +3015,7 @@ Util.profileStart('chunkFinish');
               var yShrink = shrink * nestingAdjustYStepSize;
               var xShrink = shrink * nestingAdjustXStepSize;
               // bit lighter
-              var lightBgColor = Util.adjustColorLightness(bgColor, 0.8);
+              var lightBgColor = BratUtil.adjustColorLightness(bgColor, 0.8);
               // tweak for Y start offset (and corresponding height
               // reduction): text rarely hits font max height, so this
               // tends to look better
@@ -3065,8 +3065,8 @@ Util.profileStart('chunkFinish');
         });
 
 
-Util.profileEnd('chunkFinish');
-Util.profileStart('finish');
+BratUtil.profileEnd('chunkFinish');
+BratUtil.profileStart('finish');
 
         if (rtlmode) {
           svg.path(sentNumGroup, svg.createPath().
@@ -3079,7 +3079,7 @@ Util.profileStart('finish');
         }
 
         // resize the SVG
-        var width = maxTextWidth + sentNumMargin + 2 * Configuration.visual.margin.x + 1;
+        var width = maxTextWidth + sentNumMargin + 2 * BratConfiguration.visual.margin.x + 1;
         if (width > canvasWidth) canvasWidth = width;
 
         $svg.width(canvasWidth);
@@ -3090,9 +3090,9 @@ Util.profileStart('finish');
         }
         $svgDiv.height(y);
 
-Util.profileEnd('finish');
-Util.profileEnd('render');
-Util.profileReport();
+BratUtil.profileEnd('finish');
+BratUtil.profileEnd('render');
+BratUtil.profileReport();
 
 
         drawing = false;
@@ -3114,7 +3114,7 @@ Util.profileReport();
         isDirectoryError: true
       };
       var renderData = function(sourceData) {
-        Util.profileEnd('invoke getDocument');
+        BratUtil.profileEnd('invoke getDocument');
         if (sourceData && sourceData.exception) {
           if (renderErrors[sourceData.exception]) {
             dispatcher.post('renderError:' + sourceData.exception, [sourceData]);
@@ -3124,7 +3124,7 @@ Util.profileReport();
         } else {
           // Fill in default values that don't necessarily go over the protocol
           if (sourceData) {
-            sourceData.text = Util.unicodeString(sourceData.text);
+            sourceData.text = BratUtil.unicodeString(sourceData.text);
             setSourceDataDefaults(sourceData);
           }
 
@@ -3146,7 +3146,7 @@ Util.profileReport();
       };
 
       var renderDocument = function() {
-        Util.profileStart('invoke getDocument');
+        BratUtil.profileStart('invoke getDocument');
         dispatcher.post('ajax', [{
             action: 'getDocument',
             collection: coll,
@@ -3158,18 +3158,18 @@ Util.profileReport();
       };
 
       var triggerRender = function() {
-        if (svg && ((isRenderRequested && isCollectionLoaded) || requestedData) && Util.areFontsLoaded()) {
+        if (svg && ((isRenderRequested && isCollectionLoaded) || requestedData) && BratUtil.areFontsLoaded()) {
           isRenderRequested = false;
           if (requestedData) {
 
-Util.profileClear();
-Util.profileStart('before render');
+BratUtil.profileClear();
+BratUtil.profileStart('before render');
 
             renderData(requestedData);
           } else if (doc.length) {
 
-Util.profileClear();
-Util.profileStart('before render');
+BratUtil.profileClear();
+BratUtil.profileStart('before render');
 
             renderDocument();
           } else {
@@ -3346,12 +3346,12 @@ Util.profileStart('before render');
 
       var setAbbrevs = function(_abbrevsOn) {
         // TODO: this is a slightly weird place to tweak the configuration
-        Configuration.abbrevsOn = _abbrevsOn;
+        BratConfiguration.abbrevsOn = _abbrevsOn;
         dispatcher.post('configurationChanged');
       }
 
       var setTextBackgrounds = function(_textBackgrounds) {
-        Configuration.textBackgrounds = _textBackgrounds;
+        BratConfiguration.textBackgrounds = _textBackgrounds;
         dispatcher.post('configurationChanged');
       }
 
@@ -3361,33 +3361,33 @@ Util.profileStart('before render');
         // them here (again)
         if (_density < 2) {
           // dense
-          Configuration.visual.margin = { x: 1, y: 0 };
-          Configuration.visual.boxSpacing = 1;
-          Configuration.visual.curlyHeight = 1;
-          Configuration.visual.arcSpacing = 7;
-          Configuration.visual.arcStartHeight = 18
+          BratConfiguration.visual.margin = { x: 1, y: 0 };
+          BratConfiguration.visual.boxSpacing = 1;
+          BratConfiguration.visual.curlyHeight = 1;
+          BratConfiguration.visual.arcSpacing = 7;
+          BratConfiguration.visual.arcStartHeight = 18
         } else if(_density > 2) {
           // spacious
-          Configuration.visual.margin = { x: 2, y: 1 };
-          Configuration.visual.boxSpacing = 3;
-          Configuration.visual.curlyHeight = 6;
-          Configuration.visual.arcSpacing = 12;
-          Configuration.visual.arcStartHeight = 23;
+          BratConfiguration.visual.margin = { x: 2, y: 1 };
+          BratConfiguration.visual.boxSpacing = 3;
+          BratConfiguration.visual.curlyHeight = 6;
+          BratConfiguration.visual.arcSpacing = 12;
+          BratConfiguration.visual.arcStartHeight = 23;
         } else {
           // standard
-          Configuration.visual.margin = { x: 2, y: 1 };
-          Configuration.visual.boxSpacing = 1;
-          Configuration.visual.curlyHeight = 4;
-          Configuration.visual.arcSpacing = 9;
-          Configuration.visual.arcStartHeight = 19;
+          BratConfiguration.visual.margin = { x: 2, y: 1 };
+          BratConfiguration.visual.boxSpacing = 1;
+          BratConfiguration.visual.curlyHeight = 4;
+          BratConfiguration.visual.arcSpacing = 9;
+          BratConfiguration.visual.arcStartHeight = 19;
         }
         dispatcher.post('configurationChanged');
       }
 
       var setSvgWidth = function(_width) {
         $svgDiv.width(_width);
-        if (Configuration.svgWidth != _width) {
-          Configuration.svgWidth = _width;
+        if (BratConfiguration.svgWidth != _width) {
+          BratConfiguration.svgWidth = _width;
           dispatcher.post('configurationChanged');
         }
       }
@@ -3538,7 +3538,7 @@ Util.profileStart('before render');
         return !drawing;
       };
 
-      Util.loadFonts(webFontURLs, dispatcher);
+      BratUtil.loadFonts(webFontURLs, dispatcher);
 
       dispatcher.
           on('collectionChanged', collectionChanged).
@@ -3559,5 +3559,5 @@ Util.profileStart('before render');
           on('mouseout', onMouseOut);
     };
 
-    return Visualizer;
+    return BratVisualizer;
 })(jQuery, window);

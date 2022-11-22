@@ -1,8 +1,8 @@
 // -*- Mode: JavaScript; tab-width: 2; indent-tabs-mode: nil; -*-
 // vim:set ft=javascript ts=2 sw=2 sts=2 cindent:
 
-var AnnotationLog = (function(window, undefined) {
-    var AnnotationLog = function(dispatcher) {
+var BratAnnotationLog = (function(window, undefined) {
+    var BratAnnotationLog = function(dispatcher) {
       var annotationLoggingOn = false;
       var currentCollection = null;
       var currentDocument = null;
@@ -38,5 +38,5 @@ var AnnotationLog = (function(window, undefined) {
           on('logAction', logAction);
     }
 
-    return AnnotationLog;
+    return BratAnnotationLog;
 })(window);
