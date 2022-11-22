@@ -226,6 +226,40 @@ v-bind:class="{'active': section=='annotation'}">
             @change="on_change_display_mode">
     </div>
 
+
+
+    <div class="ribbon-split-button">
+        <button class="ribbon-main"
+            title="Visualize this document and annotated tags"
+            v-on:click="show_wiki">
+            <span class="icon">
+                <i class="fas fa-igloo"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Vis</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+
+            <li title="MedTator wiki that includes quick start, manual, and technical details."
+                v-on:click="show_wiki">
+                <a href="javascript:void(0);">MedTator Wiki</a>
+            </li>
+
+            <li title="The best practices for corpus annotation."
+                v-on:click="show_best_practice">
+                <a href="javascript:void(0);">Annotation Best Practice</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li title="Found anything not working? Report an issue or send feedback"
+                v-on:click="report_an_issue">
+                <a href="javascript:void(0);">Report an Issue</a>
+            </li>
+        </ul>
+    </div>
+
     <span class="title">Display Mode</span>
 </div>
 

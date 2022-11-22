@@ -912,7 +912,6 @@ var nlp_toolkit = {
                     continue;
                 }
                 // there maybe multiple spans
-                // var spans = tag.spans.split(',');
                 var locs = ann_parser.spans2locs(tag.spans);
 
                 for (let k = 0; k < locs.length; k++) {
