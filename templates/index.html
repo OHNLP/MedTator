@@ -332,8 +332,12 @@
         </div>
     </div>
 
+    <!-- Schema Editor -->
     {% include '_annotator_mui_annotation_schema_editor.html' %}
-    
+
+    <!-- Annotation Viewer based on brat -->
+    {% include '_annotator_mui_annotation_annviewer_bratvis.html' %}
+
 </div>
 
 <script>
@@ -530,6 +534,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // extend the App with schema editor
 {% include 'js/app_hotpot_ext_se.js' %}
+
+// extend the App with annviewer-bratvis
+{% include 'js/app_hotpot_ext_avbrat.js' %}
 
 // extend the App with text quick viewer
 {% include 'js/app_hotpot_ext_tqv.js' %}

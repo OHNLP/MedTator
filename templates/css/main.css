@@ -1337,20 +1337,26 @@ ol[class], ul[class] {
     font-size: 0.9em;
     color: #eeeeee;
 }
-/* schema_editor */
-.schema-editor {
+/* annotation viewer */
+#annviewer_bratvis {
+    width: 100%;
+    height: 100%;
+    z-index: 110;
+    top: 5px;
+}
+/* schema editor */
+.pop-window {
     min-width: 600px !important;
     max-width: 80% !important;
     z-index: 99;
     display: none;
     top: 5px;
 }
-.schema-editor .window-content {
-
+.pop-window .window-content {
     overflow-y: auto;
     overflow-x: hidden;
 }
-#schema_editor_menu {
+.window-menu {
     position: sticky;
     background: white;
     top: 0;

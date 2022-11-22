@@ -1,0 +1,59 @@
+<div id="annviewer_bratvis"
+    data-cls-window="annviewer-bratvis pop-window"
+    class="p-2" 
+    data-draggable="true"
+    data-btn-min="false"
+    data-btn-max="false"
+    data-btn-close="false"
+    data-shadow="true"
+    data-height="600px"
+    data-top="10px"
+    data-left="55px"
+    data-title="&nbsp;&nbsp;<i class='fas fa-igloo'></i> Annotation Viewer"
+    data-cls-caption="bg-light fg-black"
+    data-role="window">
+
+    <div id="annviewer_bratvis_menu"
+        class="window-menu pb-2 mb-2 d-flex flex-row">
+        
+        <ul class="h-menu horizontal">
+            <li class="mr-1">
+                <button class="button se-button"
+                    title="Create a new annotation schema"
+                    v-on:click="show_avbrat_help">
+                    <i class="far fa-file-image"></i>
+                    Export Figure as PNG
+                </button>
+            </li>
+
+            <li class="mr-1">
+                <button class="button se-button"
+                    title="Show how to use annotation viewer"
+                    v-on:click="show_avbrat_help">
+                    <i class="far fa-question-circle"></i>
+                    Help
+                </button>
+            </li>
+            
+            <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
+            
+            <li class="mr-1"
+                title="Close annotation viewer"
+                v-on:click="close_avbrat">
+                <a href="javascript:void(0);">
+                    <span class="mif-cross icon"></span>
+                    <span class="caption">Close</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="w-100">
+        <p>
+            <i class="fas fa-spinner fa-spin"></i>
+            Visualizing the annotations ...
+        </p>
+    </div>
+        
+</div>

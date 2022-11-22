@@ -1,5 +1,5 @@
 <div id="schema_editor"
-    data-cls-window="schema-editor"
+    data-cls-window="schema-editor pop-window"
     class="p-2" 
     data-draggable="true"
     data-btn-min="false"
@@ -15,7 +15,7 @@
 
     <div>
         <div id="schema_editor_menu"
-            class="pt-2 pb-2 mb-2 d-flex flex-row">
+            class="window-menu pb-2 mb-2 d-flex flex-row">
 
             <div v-if="se_dtd != null"
                 class="mr-1">
@@ -147,7 +147,6 @@
 
             </ul>
         </div>
-
 
         <div v-if="se_dtd != null"
             class="w-100">
