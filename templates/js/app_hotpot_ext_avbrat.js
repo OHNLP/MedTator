@@ -16,6 +16,8 @@ Object.assign(app_hotpot.vpp_data, {
 Object.assign(app_hotpot.vpp_methods, {
 
     show_avbrat: function() {
+        // init the brat if not
+        fig_bratvis.init();
         $('.annviewer-bratvis').show();
     },
 
