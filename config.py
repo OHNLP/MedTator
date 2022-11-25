@@ -104,6 +104,9 @@ THIRD_PARTY_LIB_URL={
     'MATHJS': {
         "JS": "https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.0.1/math.min.js"
     },
+    'HEADJS': {
+        "JS_LOAD": "https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.load.min.js"
+    }
 },
 'local': {
     'METRO_UI': {
@@ -190,6 +193,9 @@ THIRD_PARTY_LIB_URL={
     'MATHJS': {
         "JS": "./static/lib/mathjs/math.11.0.1.min.js"
     },
+    'HEADJS': {
+        "JS_LOAD": "./static/lib/headjs/head.load.1.0.3.min.js"
+    }
 },
 }
 
