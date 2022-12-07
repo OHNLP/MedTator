@@ -15,24 +15,47 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot.vpp_methods, {
 
-    show_avbrat: function() {
+    show_avbrat: function(flag_enable_selection_vis) {
+        if (typeof(flag_enable_selection_vis) == 'undefined') {
+            flag_enable_selection_vis = true;
+        }
         // init the brat if not
         // fig_bratvis.init();
         $('.annviewer-bratvis').show();
-
-        // first, get the selection
-        var cms = app_hotpot.cm_get_selection();
 
         // get default conversion
         var text = this.anns[this.ann_idx].text;
         var tags = this.anns[this.ann_idx].tags;
 
-        if (cms.sel_txts[0] == '') {
-            // which means it's empty
-            // nothing to do, just use the whole document for visualization
-            // still need to do sentence split
-        } else {
-            // need to convert to sentence
+        // first, get the selection
+        if (flag_enable_selection_vis) {
+            
+        var cms = app_hotpot.cm_get_selection();
+
+            if (cms.sel_txts[0] == '') {
+                // which means the selection is empty
+                // nothing to do, just use the whole document for visualization
+                // still need to do sentence split? no
+
+            } else {
+                // need to convert to sentence
+                var spans = app_hotpot.cm_range2spans(
+                    cms.sel_locs[0],
+                    this.anns[this.ann_idx]
+                );
+                // update the text
+                text = ann_parser.get_text_by_spans(
+                    spans,
+                    this.anns[this.ann_idx].text
+                );
+                // update the tags
+                tags = ann_parser.get_subtags_of_substr_in_ann(
+                    spans,
+                    this.anns[this.ann_idx],
+                    this.dtd,
+                    true, // update the offset of tags to the substring
+                );
+            }
         }
 
         // for brat vis:
@@ -60,7 +83,7 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     export_avbrat_figure: function() {
-        
+
     },
 
     show_avbrat_help: function() {

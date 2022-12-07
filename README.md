@@ -107,10 +107,9 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-11-18)
+### 1.3.x (2022-12)
 
 - Research on IOB2/BIO format editing
-- Add brat visualization
 - Add local setting cache
 - Add sample dataset for error analysis
 - Update design for .ann conversion
@@ -120,6 +119,15 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Update documents for error analysis
 - Update documents for new schema
 - Update UI for error analysis
+
+### 1.3.11 (2022-12-08)
+
+- Added annotation visualization based on brat
+- Added Python scripts for read/parse MedTator XML format
+- Added Jupyter notebook for demonstration of downstream tasks with MedTator XML files.
+- Developed functions for brat vis format conversion
+- Developed tag extraction based offset spans
+- Updated style for link/relation display
 
 ### 1.3.8 (2022-10-27)
 

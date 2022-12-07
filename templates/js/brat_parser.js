@@ -90,8 +90,12 @@ var brat_parser = {
      * 
      * The sample is from: https://brat.nlplab.org/embed.html
      * @param {object} dtd an annotation object from MedTator
+     * @param {string} relation_creation_mode 'all_combos', 'first_others' (default)
      */
-    make_collection_data_by_dtd: function(dtd) {
+    make_collection_data_by_dtd: function(dtd, relation_creation_mode) {
+        if (typeof(relation_creation_mode) == 'undefined') {
+            relation_creation_mode = 'first_others';
+        }
         var collData = {
             // all the entities
             entity_types: [],
@@ -112,26 +116,48 @@ var brat_parser = {
         }
 
         // second, convert all relations
+        // due the complixity of the schema, we will convert all combos
         for (let i = 0; i < dtd.rtags.length; i++) {
             const tag = dtd.rtags[i];
-            let rel_type = {
-                type: tag.name,
-                labels : [tag.name],
-                color: tag.style.color,
-                args: []
-            };
-            // put all idref as args' role
-            for (let j = 0; j < tag.attrs.length; j++) {
-                const attr = tag.attrs[j];
-                if (attr.vtype == 'idref') {
-                    // just use the attribute name as the role
-                    rel_type.args.push({
-                        role: attr.name
-                    });
+
+            // depends on which mode
+            if (relation_creation_mode == 'all_combos') {
+
+            } else if (relation_creation_mode == 'first_others') {
+
+                // find the first attr
+                for (let j = 0; j < tag.attrs.length; j++) {
+                    const attr_j = tag.attrs[j];
+                    if (attr_j.vtype == 'idref') {
+                        // just use the attribute name as the role
+                        
+                        // ok, find others from next
+                        for (let k = j+1; k < tag.attrs.length; k++) {
+                            const attr_k = tag.attrs[k];
+                            if (attr_k.vtype == 'idref') {
+                                let rel_type = {
+                                    // create a subtype for this relation
+                                    type: tag.name + '.' + attr_j.name + '-' + attr_j.name,
+                                    // the label should be the relation name
+                                    labels : [tag.name],
+                                    color: tag.style.color,
+                                    // the arch is from j to k
+                                    args: [
+                                        { role: attr_j.name },
+                                        { role: attr_k.name }
+                                    ]
+                                };
+                                // save this relation
+                                collData.relation_types.push(rel_type);
+                            }
+                        }
+                        // ok, all first - others are found
+                        break;
+                    }
+                    // if this attr is not idref, just check next one
+                    continue;
                 }
             }
-            // then save this rel_type
-            collData.relation_types.push(rel_type);
         }
 
         return collData;

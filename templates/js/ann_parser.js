@@ -782,12 +782,134 @@ var ann_parser = {
     ///////////////////////////////////////////////////////
     // Utils
     ///////////////////////////////////////////////////////
+
+    get_subtags_of_substr_in_ann: function(span, ann, dtd, flag_update_tag_offset) {
+        if (typeof(flag_update_tag_offset) == 'undefined') {
+            flag_update_tag_offset = true;
+        }
+        // convert the span to loc
+        var loc_substr = this.span2loc(span);
+        // the return object
+        var subtags = [];
+        // for search by tag id
+        var subtag_dict = {};
+
+        // first, get all etags
+        for (let i = 0; i < ann.tags.length; i++) {
+            // make a copy of this tag
+            let tag = ann.tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'etag') {
+                // skip relation in the first round
+                continue;
+            }
+
+            // detect overlap
+            // convert string spans to locs
+            var locs = this.spans2locs(tag.spans);
+            
+            // a flag for not 
+            var flag_is_sub = true;
+            for (let j = 0; j < locs.length; j++) {
+                const loc_tag = locs[j];
+                
+                flag_is_sub = flag_is_sub && nlp_toolkit.is_sub(
+                    loc_substr,
+                    loc_tag
+                );
+            }
+
+            if (!flag_is_sub) {
+                // oh, this tag is out of the area of this substring
+                continue;
+            }
+
+            // we need to update the information
+            // so make a copy
+            tag = JSON.parse(JSON.stringify(ann.tags[i]));
+
+            if (flag_update_tag_offset) {
+                var new_locs = nlp_toolkit.update_tag_locs_offset(
+                    locs, 
+                    // remove the offset of the current span
+                    loc_substr[0]
+                );
+                tag.spans = this.locs2spans(new_locs);
+            }
+
+            // then, this tag is within the substring
+            // save it
+            subtags.push(tag);
+            // for further use
+            subtag_dict[tag.id] = tag;
+        }
+
+        // second, get all rtags
+        for (let i = 0; i < ann.tags.length; i++) {
+            const tag = ann.tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'rtag') {
+                // skip entity in the second round
+                continue;
+            }
+
+            // find the entities in this relationship
+            // we need to ensure the number of entities
+            var n_ents = 0;
+            for (const attr_name in tag) {
+                if (!tag_def.attr_dict.hasOwnProperty(attr_name)) {
+                    // which means this attr_name is just id or tag or other
+                    continue;
+                }
+                // find the attr def
+                let attr_def = tag_def.attr_dict[attr_name];
+                // let's see what's this attr?
+                if (attr_def.vtype != 'idref') {
+                    // this is just a text or other type
+                    continue;
+                }
+                
+                // now check if this entity is in substring
+                if (!subtag_dict.hasOwnProperty(tag[attr_name])) {
+                    // oh, this entity is not in the substring
+                    // need to skip this 
+                    continue;
+                }
+
+                // ok, the entity of this attr should work!
+                n_ents += 1;
+            }
+
+            // we need at least two entities within this substr
+            // otherwise we cannot visualize the link
+            if (n_ents < 2) {
+                // if less than 2, just skip this tag
+                continue;
+            }
+
+            // ok, for those with at least two entites within
+            // save it
+            subtags.push(tag);
+        }
+
+        return subtags;
+    },
+    
+    /**
+     * Get the locations of a substring in text
+     * 
+     * @param {string} str a potential substring
+     * @param {string} text full-text
+     * @returns locations
+     */
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
         try {
             var regex = new RegExp('\\b' + str + '\\b', 'gmi');
-        
-
             var m;
             var locs = [];
             while ((m = regex.exec(text)) !== null) {
@@ -809,6 +931,13 @@ var ann_parser = {
         }
     },
 
+    /**
+     * Get the text of the specific spans in text
+     * 
+     * @param {string} spans string-format spans (e.g., 4~5,9~12)
+     * @param {string} full_text full text
+     * @returns the specific substring
+     */
     get_text_by_spans: function(spans, full_text) {
         var locs = this.spans2locs(spans);
         var text = [];

@@ -833,6 +833,14 @@ var nlp_toolkit = {
         return null;
     },
 
+    is_sub: function(loc_area, loc_sub) {
+        if (loc_area[0] <= loc_sub[0] &&
+            loc_area[1] >= loc_sub[1]) {
+            return true;
+        }
+        return false;
+    },
+
     is_overlapped: function(a, b) {
         if (a[0] >= b[0] && a[0] < b[1]) {
             return true;
@@ -844,6 +852,24 @@ var nlp_toolkit = {
             return true;
         }
         return false;
+    },
+
+    is_overlapped_in_list: function(loc_x, loc_list) {
+        for (let i = 0; i < loc_list.length; i++) {
+            const loc = loc_list[i];
+            if (this.is_overlapped(loc_x, loc)) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    update_tag_locs_offset: function(locs, offset) {
+        for (let i = 0; i < locs.length; i++) {
+            locs[i][0] -= offset;
+            locs[i][1] -= offset;
+        }
+        return locs;
     },
 
     download_text_tsv: function(anns, dtd, hint_dict, fn) {

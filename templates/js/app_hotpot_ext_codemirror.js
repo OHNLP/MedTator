@@ -728,10 +728,10 @@ Object.assign(app_hotpot, {
         console.log('* found ' + etags.length + ' etags available for this link');
 
         // first, draw dots
-        for (let i = 0; i < etags.length; i++) {
-            const etag = etags[i];
-            this.cm_draw_rtag_id(rtag, etag, ann);
-        }
+        // for (let i = 0; i < etags.length; i++) {
+        //     const etag = etags[i];
+        //     this.cm_draw_rtag_on_etag(rtag, etag, ann);
+        // }
 
         if (!this.vpp.$data.cm.enabled_link_complex) {
             return;
@@ -801,7 +801,7 @@ Object.assign(app_hotpot, {
         );
     },
 
-    cm_draw_rtag_id: function(rtag, tag, ann) {
+    cm_draw_rtag_on_etag: function(rtag, tag, ann) {
         // then get the coords
         var coords = this.cm_spans2coords(tag.spans, ann);
         // console.log('* found etag coords:', coords);
