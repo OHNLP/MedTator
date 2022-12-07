@@ -91,7 +91,7 @@ var brat_parser = {
      * The sample is from: https://brat.nlplab.org/embed.html
      * @param {object} dtd an annotation object from MedTator
      */
-    dtd2collection_data: function(dtd) {
+    make_collection_data_by_dtd: function(dtd) {
         var collData = {
             // all the entities
             entity_types: [],
@@ -141,11 +141,13 @@ var brat_parser = {
     /**
      * Convert an annotation object to a brat document data for brat vis
      * 
+     * For most of time, you can use this directly
+     * 
      * @param {object} ann the annotation data object containing text and tags
      * @param {object} dtd the annotation schema object
      */
-    ann2document_data: function(ann, dtd) {
-
+    make_document_data_by_ann: function(ann, dtd) {
+        return this.make_document_data
     },
 
     /**
@@ -156,7 +158,7 @@ var brat_parser = {
      * @param {object} dtd the annotation schema object
      * @returns brat document data object for vis
      */
-    mk_document_data: function(text, tags, dtd) {
+     make_document_data: function(text, tags, dtd) {
         var doc_data = {
             // text it self
             text: text,
@@ -197,6 +199,54 @@ var brat_parser = {
                 // 3. locs
                 locs
             ]);
+        }
+
+        // second, check all relations
+        for (let i = 0; i < tags.length; i++) {
+            const tag = tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'rtag') {
+                // skip entity in the second round
+                continue;
+            }
+
+            let arcs = [];
+            // find the arcs in this relationship
+            for (const attr_name in tag) {
+                if (!tag_def.attr_dict.hasOwnProperty(attr_name)) {
+                    // which means this attr_name is just id or tag or other
+                    continue;
+                }
+                // find the attr def
+                let attr_def = tag_def.attr_dict[attr_name];
+                // let's see what's this attr?
+                if (attr_def.vtype != 'idref') {
+                    // this is just a text or other type
+                    continue;
+                }
+                // then let's put this attr to arcs
+                arcs.push([
+                    // the attr name is used as the role in brat
+                    attr_name,
+                    // the attr value is the entity id
+                    tag[attr_name]
+                ]);
+            }
+
+            // create a new relation obj
+            let rel = [
+                // 1. id
+                tag.id,
+                // 2. type, which is the tag name
+                tag.tag,
+                // 3. two entities
+                arcs
+            ];
+
+            // ok, save this relation
+            doc_data.relations.push(rel);
         }
 
         return doc_data;

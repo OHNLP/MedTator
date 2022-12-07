@@ -231,6 +231,7 @@ v-bind:class="{'active': section=='annotation'}">
     <div class="ribbon-split-button">
         <button class="ribbon-main"
             title="Visualize this document and annotated tags"
+            v-bind:disabled="dtd == null || anns.length == 0 || ann_idx == null"
             v-on:click="show_avbrat">
             <span class="icon">
                 <i class="fas fa-igloo"></i>

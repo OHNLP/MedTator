@@ -106,6 +106,9 @@ THIRD_PARTY_LIB_URL={
     },
     'HEADJS': {
         "JS_LOAD": "https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.load.min.js"
+    },
+    'SAVE_SVG_AS_PNG': {
+        "JS": "https://cdnjs.cloudflare.com/ajax/libs/save-svg-as-png/1.4.17/saveSvgAsPng.min.js"
     }
 },
 'local': {
@@ -195,6 +198,9 @@ THIRD_PARTY_LIB_URL={
     },
     'HEADJS': {
         "JS_LOAD": "./static/lib/headjs/head.load.1.0.3.min.js"
+    },
+    'SAVE_SVG_AS_PNG': {
+        "JS": "./static/lib/saveSvgAsPng/saveSvgAsPng.min.js"
     }
 },
 }

@@ -9,7 +9,7 @@
     data-height="600px"
     data-top="10px"
     data-left="55px"
-    data-title="&nbsp;&nbsp;<i class='fas fa-igloo'></i> Annotation Viewer"
+    data-title="&nbsp;&nbsp;<i class='fas fa-igloo'></i> Annotation Viewer (Powered by <a target='_blank' href='https://brat.nlplab.org/'>brat</a>)"
     data-cls-caption="bg-light fg-black"
     data-role="window">
 
@@ -17,14 +17,26 @@
         class="window-menu pb-2 mb-2 d-flex flex-row">
         
         <ul class="h-menu horizontal">
+
             <li class="mr-1">
                 <button class="button se-button"
+                    title="Refresh the figure"
+                    v-on:click="show_avbrat()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh Figure
+                </button>
+            </li>
+
+            <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
+
+            <!-- <li class="mr-1">
+                <button class="button se-button"
                     title="Create a new annotation schema"
-                    v-on:click="show_avbrat_help">
+                    v-on:click="export_avbrat_figure()">
                     <i class="far fa-file-image"></i>
                     Export Figure as PNG
                 </button>
-            </li>
+            </li> -->
 
             <li class="mr-1">
                 <button class="button se-button"
@@ -50,10 +62,14 @@
     </div>
 
     <div class="w-100">
-        <p>
+        <p v-if="avbrat_is_rendering">
             <i class="fas fa-spinner fa-spin"></i>
             Visualizing the annotations ...
         </p>
+
+        <div id="fig_bratvis">
+
+        </div>
     </div>
         
 </div>

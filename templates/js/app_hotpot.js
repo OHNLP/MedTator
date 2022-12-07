@@ -2674,6 +2674,9 @@ var app_hotpot = {
 
         // set the resize
         this.resize();
+
+        // init brat
+        fig_bratvis.init();
     },
 
     /**

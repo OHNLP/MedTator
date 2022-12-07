@@ -472,6 +472,10 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['JS_YAML']['JS'] ]]"></script>
 <!-- head.js for brat -->
 <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['HEADJS']['JS_LOAD'] ]]"></script>
+<!-- style for brat visualization -->
+<link rel="stylesheet" href="./static/lib/brat/css/style-vis.css">
+<!-- save svg as png for downloading figure -->
+<!-- <script src="[[ config.THIRD_PARTY_LIB_URL[config.LIB_BASE]['SAVE_SVG_AS_PNG']['JS'] ]]"></script> -->
 <script>
 
 // The file helper 
@@ -551,6 +555,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // The Tag Info Vue Module for Gold Standard
 {% include 'js/vpp_iaa_tag_info_gs.js' %}
+
+// The helper for brat toolkits
+{% include 'js/brat_parser.js' %}
 
 // The helper for brat visualization
 {% include 'js/fig_bratvis.js' %}
