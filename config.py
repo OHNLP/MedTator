@@ -10,7 +10,7 @@ DEV_PORT=8086
 STATIC_PAGE_ROOT_PATH='docs'
 
 # the MedTator version
-MEDTATOR_VERSION='1.3.8'
+MEDTATOR_VERSION='1.3.11'
 
 # library base
 LIB_BASE='cdn'

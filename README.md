@@ -124,7 +124,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 - Added annotation visualization based on brat
 - Added Python scripts for read/parse MedTator XML format
-- Added Jupyter notebook for demonstration of downstream tasks with MedTator XML files.
+- Added Jupyter notebook for downstream tasks with MedTator XML files.
 - Developed functions for brat vis format conversion
 - Developed tag extraction based offset spans
 - Updated style for link/relation display

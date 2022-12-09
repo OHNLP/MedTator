@@ -96,6 +96,32 @@
 
             <div class="box-body-item">
                 <p>
+                    New UI for Toolkit (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_tk')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uitk_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_tk">
+                        <label for="cfg_uitk_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uitk_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_tk">
+                        <label for="cfg_uitk_v2">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+            <div class="box-body-item">
+                <p>
                     New UI for Error Analysis (Development)
                     <a href="javascript:void(0);"
                         v-on:click="show_help('new_ui_for_ea')">

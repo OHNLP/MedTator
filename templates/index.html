@@ -52,7 +52,8 @@
 
     <nav data-role="ribbonmenu">
         <ul class="tabs-holder">
-            <li v-on:click="switch_mui('annotation')"
+            <li title="Text annotation of entities and relations in multiple documents"
+                v-on:click="switch_mui('annotation')"
                 v-bind:class="{'active': section=='annotation'}">
                 <a id="tab_link_annotation" href="#section-1-1">
                     <i class="fa fa-highlighter"></i>
@@ -60,7 +61,8 @@
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('statistics')"
+            <li title="Real-time statistics on the annotated corpus"
+                v-on:click="switch_mui('statistics')"
                 v-bind:class="{'active': section=='statistics'}">
                 <a href="#section-1-5">
                     <i class="fa fa-chart-bar"></i>
@@ -68,7 +70,8 @@
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('ruleset')"
+            <li title="Export the annotated corpus to other formats for downstream tasks" 
+                v-on:click="switch_mui('ruleset')"
                 v-bind:class="{'active': section=='ruleset'}">
                 <a href="#section-1-4">
                     <i class="fa fa-file-export"></i>
@@ -76,7 +79,8 @@
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('iaa')"
+            <li title="Adjudicate the annotations from two annotators"
+                v-on:click="switch_mui('iaa')"
                 v-bind:class="{'active': section=='iaa'}">
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
@@ -84,7 +88,17 @@
                 </a>
             </li>
 
-            <li v-if="is_show_new_ui_for_ea()"
+            <li title="Convert the files to MedTator XML format"
+                v-on:click="switch_mui('corpus')"
+                v-bind:class="{'active': section=='corpus'}">
+                <a href="#section-1-2">
+                    <i class="fas fa-mortar-pestle"></i>
+                    Converter
+                </a>
+            </li>
+
+            <li title="Analyze the errors by NLP systems with gold standard corpus made by MedTator"
+                v-if="is_show_new_ui_for_ea()"
                 v-on:click="switch_mui('razer')"
                 v-bind:class="{'active': section=='razer'}">
                 <a href="#section-1-3">
@@ -93,11 +107,13 @@
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('corpus')"
-                v-bind:class="{'active': section=='corpus'}">
-                <a href="#section-1-2">
-                    <i class="fas fa-mortar-pestle"></i>
-                    Converter
+            <li title="A set of tools for various NLP related tasks" 
+                v-if="is_show_new_ui_for_tk()"
+                v-on:click="switch_mui('toolkit')"
+                v-bind:class="{'active': section=='toolkit'}">
+                <a href="#section-1-7">
+                    <i class="fas fa-toolbox"></i>
+                    Toolkit
                 </a>
             </li>
         </ul>
@@ -115,6 +131,8 @@
             {% include '_annotator_menu_iaa.html' %}
 
             {% include '_annotator_menu_razer.html' %}
+
+            {% include '_annotator_menu_toolkit.html' %}
 
         </div>
 
@@ -161,6 +179,9 @@
     
     <!-- the ui for statistics -->
     {% include '_annotator_mui_statistics.html' %}
+    
+    <!-- the ui for toolkit -->
+    {% include '_annotator_mui_toolkit.html' %}
     
 
     <!-- the context menu -->
@@ -549,6 +570,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 
 // extend the App with tour
 {% include 'js/app_hotpot_ext_tour.js' %}
+
+// extend the App with toolkits
+{% include 'js/app_hotpot_ext_toolkit.js' %}
 
 // The Tag Info Vue Module
 {% include 'js/vpp_iaa_tag_info.js' %}

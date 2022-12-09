@@ -29,6 +29,11 @@ MedTator provides some options for selecting different methods.
         html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
     },
 
+    "new_ui_for_tk": {
+        title: "Enable new UI for Toolkit",
+        html: `This is a new module and it's under development. You can enable this new UI for test.`
+    },
+
     "auto_save_current_ann": {
         title: "Enable auto-save function",
         html: "By enabling this feature, the annotation will be automatically saved while annotating. Everytime when users add/update/delete any tags in the current annotation file, MedTator will try to save the changes to local disk.<br>If the user doesn't grant the file permission yet, a dialog will be shown and no more dialog after the first one."
@@ -54,5 +59,14 @@ MedTator provides some options for selecting different methods.
         <p>You can upload the error tag list with error labels for visualization. Or you can download the error tag list with empty labels for further external labeling.</p>
         <p>For more information about the error label format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
 `
+    },
+    "avbrat_help_how_to_use": {
+        title: 'How to use?',
+        html: `<p>The <b><i class="fas fa-igloo"></i> Visualize</b> is designed to show the annotated tags and the context text of the current document. It supports the following features:</p>
+        <ul>
+            <li><b>Document visualization</b>: You can click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Whole Document" button to show the entire document and all of the annotated tags in the document.</li>
+            <li><b>Selection visualization</b>: You can highlight a sentence or a paragraph, and then click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Selection" button to visualize the tags within the highlighted text.</li>
+        </ul>
+        <p>The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. For more information, please visit <a target='_blank' href="https://github.com/OHNLP/MedTator/wiki">MedTator Wiki</a></p>`
     }
 }});

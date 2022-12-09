@@ -1,7 +1,58 @@
 <div v-if="section=='corpus'" id="main_ui" 
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+    
+    <div class="w-100 d-flex flex-row" 
+        style="height: calc(100% + 10px);">
 
+        <div>
+            <div class="box-header">
+                <h4>
+                    <i class="fa fa-file"></i>
+                    Annotation Schema
+                </h4>
+            </div>
+
+            <div class="box-body mr-2" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    You need to prepare the annotation schema. 
+                </p>
+                <div class="converter-dropzone">
+                    <p v-if="dtd == null">
+                        Annotation schema is needed to parse and format the given input files to XML files. <br>
+                        Please load the annotation schema file first in <br>
+                        the 
+                        <b class="cursor-pointer"
+                            v-on:click="switch_mui('annotation')">
+                            <i class="fa fa-highlighter"></i> Annotation Tab
+                        </b>
+                    </p>
+                    <p v-else>
+                        <i>Schema:</i>
+                        <b>{{ dtd.name }}</b><br>
+                        - <b>{{ dtd.etags.length }}</b> Entity Tags<br>
+                        <span style="padding: 5px;">
+                            <span v-for="tag in dtd.etags"
+                                v-bind:class="'mark-tag-'+tag.name"
+                                style="padding: 0 2px; margin-right: 3px;">
+                                {{ tag.name }}
+                            </span>
+                        </span>
+
+                        <br>
+                        - <b>{{ dtd.rtags.length }}</b> Link Tags
+                        <span style="padding: 5px;">
+                            <span v-for="tag in dtd.rtags"
+                                v-bind:class="'mark-tag-'+tag.name"
+                                style="padding: 0 2px; margin-right: 3px;">
+                                {{ tag.name }}
+                            </span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
 
         <div v-if="converter_corpus_task == 'raw'">
             <div class="box-header">
@@ -14,7 +65,7 @@
             <div class="box-body" 
                 style="overflow-y: auto; height: 100%;">
                 <p>
-                    You only need to prepare the .txt files. 
+                    You need to prepare the .txt files. 
                 </p>
 
                 <div class="d-flex flex-row">
@@ -234,4 +285,5 @@
         <!-- /div for results -->
         
     </div>
+    
 </div>

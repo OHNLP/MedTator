@@ -16,6 +16,17 @@ Object.assign(app_hotpot.vpp_data, {
 Object.assign(app_hotpot.vpp_methods, {
 
     show_avbrat: function(flag_enable_selection_vis) {
+        if (this.dtd == null || 
+            this.anns.length == 0 || 
+            this.ann_idx == null) {
+            // when no schema, not ann, or no selected
+            // just skip
+            app_hotpot.toast(
+                'Please ensure the annotation schema is loaded and a document is selected for visualization.',
+                'warning'
+            );
+            return;
+        }
         if (typeof(flag_enable_selection_vis) == 'undefined') {
             flag_enable_selection_vis = true;
         }
@@ -87,7 +98,7 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     show_avbrat_help: function() {
-
+        this.show_help('avbrat_help_how_to_use');
     },
 
     close_avbrat: function() {

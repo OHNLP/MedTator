@@ -1181,7 +1181,8 @@ input[type=text].ipt-spinner-xs {
     height: 30px;
 }
 .ribbon-menu {
-    min-width: 1380px;
+    /* to meet the needs of long item list */
+    min-width: 1450px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;

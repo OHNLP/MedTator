@@ -180,6 +180,9 @@ var app_hotpot = {
             // show the new UI for ea
             new_ui_for_ea: 'disable',
 
+            // show the new UI for toolkit
+            new_ui_for_tk: 'disable',
+
             // show the new UI for cohen's kappa
             // due to the 
             new_ui_for_ck: 'disable',
@@ -2373,6 +2376,18 @@ var app_hotpot = {
          */
         is_show_new_ui_for_ea: function() {
             return this.cfg.new_ui_for_ea == 'enable';
+        },
+
+        /**
+         * Show UI for toolkit
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.new_ui_for_tk`.
+         * 
+         * @returns true/false
+         */
+        is_show_new_ui_for_tk: function() {
+            return this.cfg.new_ui_for_tk == 'enable';
         },
 
         /**

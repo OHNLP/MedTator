@@ -252,10 +252,12 @@ v-bind:class="{'active': section=='annotation'}">
                 <a href="javascript:void(0);">Visualize Whole Document</a>
             </li>
 
-            <!-- <li title="The best practices for corpus annotation."
-                v-on:click="show_best_practice">
-                <a href="javascript:void(0);">Annotation Best Practice</a>
-            </li> -->
+            <li class="divider"></li>
+
+            <li title="The best practices for corpus annotation."
+                v-on:click="show_avbrat_help()">
+                <a href="javascript:void(0);">How to use?</a>
+            </li>
         </ul>
     </div>
 
