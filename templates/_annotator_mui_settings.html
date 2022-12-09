@@ -26,6 +26,13 @@
             </div>
 
             <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='system'}"
+                v-on:click="switch_setting_tab('system')">
+                <i class="fas fa-sliders-h"></i>
+                System
+            </div>
+
+            <div class="px-2 setting-tab"
                 v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
                 v-on:click="switch_setting_tab('import')">
                 <i class="far fa-file"></i>
@@ -47,6 +54,7 @@
                     <li>
                         <input type="radio" id="cfg_ssa_v1" 
                             value="simpledot" 
+                            v-on:change="on_change_setting('sentence_splitting_algorithm')"
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v1">Simple Method (Default)</label>
                     </li>
@@ -59,6 +67,7 @@
                     <li>
                         <input type="radio" id="cfg_ssa_v3" 
                             value="wink_nlp" 
+                            v-on:change="on_change_setting('sentence_splitting_algorithm')"
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
                     </li>
@@ -66,8 +75,8 @@
             </div>
         </div>
 
-        <!-- GUI setting tab -->
-        <div v-else-if="cfg.active_setting_tab == 'gui'">
+        <!-- system setting tab -->
+        <div v-if="cfg.active_setting_tab == 'system'">
             <div class="box-body-item">
                 <p>
                     Auto-save annotation (Experimental)
@@ -80,12 +89,14 @@
                     <li>
                         <input type="radio" id="cfg_ui_autosave_disable" 
                             value="disable" 
+                            v-on:change="on_change_setting('auto_save_current_ann')"
                             v-model="cfg.auto_save_current_ann">
                         <label for="cfg_ui_autosave_disable">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_ui_autosave_enable" 
                             value="enable" 
+                            v-on:change="on_change_setting('auto_save_current_ann')"
                             v-model="cfg.auto_save_current_ann">
                         <label for="cfg_ui_autosave_enable">Enable</label>
                     </li>
@@ -93,6 +104,39 @@
                 
             </div>
 
+
+            <div class="box-body-item">
+                <p>
+                    Auto-S/L configuration locally (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('auto_sl_current_cfg')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_cfg_disable" 
+                            value="disable" 
+                            v-on:change="on_change_setting('auto_sl_current_cfg')"
+                            v-model="cfg.auto_sl_current_cfg">
+                        <label for="cfg_ui_autosave_cfg_disable">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_cfg_enable" 
+                            value="enable" 
+                            v-on:change="on_change_setting('auto_sl_current_cfg')"
+                            v-model="cfg.auto_sl_current_cfg">
+                        <label for="cfg_ui_autosave_cfg_enable">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+        </div>
+
+        <!-- GUI setting tab -->
+        <div v-else-if="cfg.active_setting_tab == 'gui'">
 
             <div class="box-body-item">
                 <p>
@@ -106,12 +150,14 @@
                     <li>
                         <input type="radio" id="cfg_uitk_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_tk')"
                             v-model="cfg.new_ui_for_tk">
                         <label for="cfg_uitk_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uitk_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_tk')"
                             v-model="cfg.new_ui_for_tk">
                         <label for="cfg_uitk_v2">Enable</label>
                     </li>
@@ -132,12 +178,14 @@
                     <li>
                         <input type="radio" id="cfg_uiea_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_ea')"
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uiea_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_ea')"
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v2">Enable</label>
                     </li>
@@ -157,12 +205,14 @@
                     <li>
                         <input type="radio" id="cfg_uick_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_ck')"
                             v-model="cfg.new_ui_for_ck">
                         <label for="cfg_uick_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uick_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_ck')"
                             v-model="cfg.new_ui_for_ck">
                         <label for="cfg_uick_v2">Enable</label>
                     </li>
@@ -183,12 +233,14 @@
                     <li>
                         <input type="radio" id="cfg_lms_v1" 
                             value="all_concepts" 
+                            v-on:change="on_change_setting('linking_marks_selection')"
                             v-model="cfg.linking_marks_selection">
                         <label for="cfg_lms_v1">Render all marks (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_lms_v2" 
                             value="selected_concepts" 
+                            v-on:change="on_change_setting('linking_marks_selection')"
                             v-model="cfg.linking_marks_selection">
                         <label for="cfg_lms_v2">Render marks of selected concept</label>
                     </li>

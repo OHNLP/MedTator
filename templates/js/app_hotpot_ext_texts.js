@@ -60,6 +60,7 @@ MedTator provides some options for selecting different methods.
         <p>For more information about the error label format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
 `
     },
+
     "avbrat_help_how_to_use": {
         title: 'How to use?',
         html: `<p>The <b><i class="fas fa-igloo"></i> Visualize</b> is designed to show the annotated tags and the context text of the current document. It supports the following features:</p>
@@ -68,5 +69,12 @@ MedTator provides some options for selecting different methods.
             <li><b>Selection visualization</b>: You can highlight a sentence or a paragraph, and then click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Selection" button to visualize the tags within the highlighted text.</li>
         </ul>
         <p>The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. For more information, please visit <a target='_blank' href="https://github.com/OHNLP/MedTator/wiki">MedTator Wiki</a></p>`
+    },
+
+    "auto_sl_current_cfg": {
+        title: "Auto Save/Load Configs",
+        html: `<p>By enable this feature, MedTator can save some settings in <a href="">localStorage</a> while the user makes changes to default settings. When the user open MedTator next time, the settings will be automatically loaded from localStorage.</p>
+        <p>Attention. At present, we only add those configs in "Settings" panel to this auto save/load feature. Other settings in tabs may be added in future.</p>
+        <p>Due to the technical reasons, when loading samples, the settings would be overwritten by the configs in sample dataset.</p>`
     }
 }});

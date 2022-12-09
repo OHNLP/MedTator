@@ -158,35 +158,8 @@ var app_hotpot = {
         },
 
         // general cfg
-        cfg: {
-            // display the setting panel or not
-            enable_show_settings: false,
-
-            // display the old menu dropzone
-            enable_display_menu_dropzone_ann: false,
-
-            // auto save the current ann
-            auto_save_current_ann: 'disable',
-
-            // active tab
-            active_setting_tab: 'gui',
-
-            // which algorithm to use as default
-            sentence_splitting_algorithm: 'simpledot',
-
-            // render all marks or only the selected marks
-            linking_marks_selection: 'all_concepts',
-
-            // show the new UI for ea
-            new_ui_for_ea: 'disable',
-
-            // show the new UI for toolkit
-            new_ui_for_tk: 'disable',
-
-            // show the new UI for cohen's kappa
-            // due to the 
-            new_ui_for_ck: 'disable',
-        },
+        // this has been move to the extension
+        cfg: {},
 
         // for statistics
 
@@ -204,29 +177,7 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Settings related functions
         /////////////////////////////////////////////////////////////////
-        switch_setting_tab: function(tab) {
-            this.cfg.active_setting_tab = tab;
-        },
-
-        is_adjudication_working_mode: function() {
-            return this.annotation_tab_working_mode == 'adjudication';
-        },
-
-        is_auto_save: function() {
-            return this.cfg.auto_save_current_ann == 'enable';
-        },
-
-        get_metator_mem: function() {
-            // return Math.floor(window.performance.memory.totalJSHeapSize / 1024 / 1024);
-            if (window.hasOwnProperty('performance')) {
-                if (window.performance.hasOwnProperty('memory')) {
-                    return Math.floor(window.performance.memory.usedJSHeapSize / 1024 / 1024);
-                }
-            } else {
-                return 'NA';
-            }
-            return 'NA';
-        },
+        // moved to app_hotpot_ext_settings.js
 
         /////////////////////////////////////////////////////////////////
         // Loading files related functions
@@ -1587,7 +1538,7 @@ var app_hotpot = {
             this.refresh_v_anns();
 
             // it's still under test
-            if (this.is_auto_save()) {
+            if (this.is_auto_save_ann()) {
                 // wow, auto save is enabled?
                 this.save_xml();
             }
@@ -2681,6 +2632,9 @@ var app_hotpot = {
             }
         });
 
+        // init the setting panel 
+        this.init_settings();
+
         // the code mirror
         this.cm_init();
 
@@ -2692,22 +2646,6 @@ var app_hotpot = {
 
         // init brat
         fig_bratvis.init();
-    },
-
-    load_local_settings: function() {
-        for (const key in this.cfg) {
-            if (Object.hasOwnProperty.call(this.cfg, key)) {
-                const val = this.cfg[key];
-                var local_val = localStorage.getItem(key);
-
-                if (local_val == null) {
-                    // no setting yet
-                } else {
-                    this.cfg[key] = local_val;
-                    console.log('* updated setting cfg.' + key + '=' + local_val);
-                }
-            }
-        }
     },
 
     /**
