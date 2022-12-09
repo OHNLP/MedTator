@@ -1363,7 +1363,8 @@ input[type=text].ipt-spinner-xs {
     height: 30px;
 }
 .ribbon-menu {
-    min-width: 1380px;
+    /* to meet the needs of long item list */
+    min-width: 1450px;
 }
 .ribbon-toggle-group .ribbon-icon-button {
     height: 20px;
@@ -1519,20 +1520,26 @@ ol[class], ul[class] {
     font-size: 0.9em;
     color: #eeeeee;
 }
-/* schema_editor */
-.schema-editor {
+/* annotation viewer */
+#annviewer_bratvis {
+    width: 100%;
+    height: 100%;
+    z-index: 110;
+    top: 5px;
+}
+/* schema editor */
+.pop-window {
     min-width: 600px !important;
     max-width: 80% !important;
     z-index: 99;
     display: none;
     top: 5px;
 }
-.schema-editor .window-content {
-
+.pop-window .window-content {
     overflow-y: auto;
     overflow-x: hidden;
 }
-#schema_editor_menu {
+.window-menu {
     position: sticky;
     background: white;
     top: 0;
@@ -1958,7 +1965,8 @@ ol[class], ul[class] {
 
     <nav data-role="ribbonmenu">
         <ul class="tabs-holder">
-            <li v-on:click="switch_mui('annotation')"
+            <li title="Text annotation of entities and relations in multiple documents"
+                v-on:click="switch_mui('annotation')"
                 v-bind:class="{'active': section=='annotation'}">
                 <a id="tab_link_annotation" href="#section-1-1">
                     <i class="fa fa-highlighter"></i>
@@ -1966,7 +1974,8 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('statistics')"
+            <li title="Real-time statistics on the annotated corpus"
+                v-on:click="switch_mui('statistics')"
                 v-bind:class="{'active': section=='statistics'}">
                 <a href="#section-1-5">
                     <i class="fa fa-chart-bar"></i>
@@ -1974,7 +1983,8 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('ruleset')"
+            <li title="Export the annotated corpus to other formats for downstream tasks" 
+                v-on:click="switch_mui('ruleset')"
                 v-bind:class="{'active': section=='ruleset'}">
                 <a href="#section-1-4">
                     <i class="fa fa-file-export"></i>
@@ -1982,7 +1992,8 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('iaa')"
+            <li title="Adjudicate the annotations from two annotators"
+                v-on:click="switch_mui('iaa')"
                 v-bind:class="{'active': section=='iaa'}">
                 <a href="#section-1-6">
                     <i class="fa fa-people-arrows"></i>
@@ -1990,7 +2001,17 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-if="is_show_new_ui_for_ea()"
+            <li title="Convert the files to MedTator XML format"
+                v-on:click="switch_mui('corpus')"
+                v-bind:class="{'active': section=='corpus'}">
+                <a href="#section-1-2">
+                    <i class="fas fa-mortar-pestle"></i>
+                    Converter
+                </a>
+            </li>
+
+            <li title="Analyze the errors by NLP systems with gold standard corpus made by MedTator"
+                v-if="is_show_new_ui_for_ea()"
                 v-on:click="switch_mui('razer')"
                 v-bind:class="{'active': section=='razer'}">
                 <a href="#section-1-3">
@@ -1999,11 +2020,13 @@ ol[class], ul[class] {
                 </a>
             </li>
 
-            <li v-on:click="switch_mui('corpus')"
-                v-bind:class="{'active': section=='corpus'}">
-                <a href="#section-1-2">
-                    <i class="fas fa-mortar-pestle"></i>
-                    Converter
+            <li title="A set of tools for various NLP related tasks" 
+                v-if="is_show_new_ui_for_tk()"
+                v-on:click="switch_mui('toolkit')"
+                v-bind:class="{'active': section=='toolkit'}">
+                <a href="#section-1-7">
+                    <i class="fas fa-toolbox"></i>
+                    Toolkit
                 </a>
             </li>
         </ul>
@@ -2236,6 +2259,41 @@ v-bind:class="{'active': section=='annotation'}">
             title="Display the current annotation file sentence by sentence. The sentence tokenization algorithm could be changed in settings."
             v-model="cm.display_mode"
             @change="on_change_display_mode">
+    </div>
+
+
+
+    <div class="ribbon-split-button">
+        <button class="ribbon-main"
+            title="Visualize the text and annotated tags of the selected text or the whole document."
+            v-bind:disabled="dtd == null || anns.length == 0 || ann_idx == null"
+            v-on:click="show_avbrat(true)">
+            <span class="icon">
+                <i class="fas fa-igloo"></i>
+            </span>
+        </button>
+        <span class="ribbon-split dropdown-toggle">Visualize</span>
+        <ul class="ribbon-dropdown text-left" 
+            data-role="dropdown" 
+            data-duration="100">
+
+            <li title="Visualize the selected text and annotated tags."
+                v-on:click="show_avbrat(true)">
+                <a href="javascript:void(0);">Visualize Selection</a>
+            </li>
+
+            <li title="Visualize the whole document and annotated tags."
+                v-on:click="show_avbrat(false)">
+                <a href="javascript:void(0);">Visualize Whole Document</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li title="The best practices for corpus annotation."
+                v-on:click="show_avbrat_help()">
+                <a href="javascript:void(0);">How to use?</a>
+            </li>
+        </ul>
     </div>
 
     <span class="title">Display Mode</span>
@@ -3666,10 +3724,32 @@ v-bind:class="{'active': section=='razer'}">
 
 </div>
 
+            <!-- the section for toolkit -->
+<div class="section" id="section-1-7"
+v-bind:class="{'active': section=='toolkit'}">
+
+<div class="group">
+    <button class="ribbon-button"
+        title="Show the visualization tool for MedTagger"
+        v-on:click="tk_show_medtaggervis">
+        <span class="icon">
+            <i class="fas fa-suitcase-rolling"></i>
+        </span>
+        <span class="caption">
+            MedTaggerVis
+        </span>
+    </button>
+
+    <span class="title">MedTagger</span>
+</div>
+
+
+</div>
+
         </div>
 
         <div id="app_info">
-            MedTator 1.3.8 | 
+            MedTator 1.3.11 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.enable_show_settings = true">
@@ -3782,6 +3862,32 @@ v-bind:class="{'active': section=='razer'}">
                             value="enable" 
                             v-model="cfg.auto_save_current_ann">
                         <label for="cfg_ui_autosave_enable">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+            <div class="box-body-item">
+                <p>
+                    New UI for Toolkit (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('new_ui_for_tk')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_uitk_v1" 
+                            value="disable" 
+                            v-model="cfg.new_ui_for_tk">
+                        <label for="cfg_uitk_v1">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_uitk_v2" 
+                            value="enable" 
+                            v-model="cfg.new_ui_for_tk">
+                        <label for="cfg_uitk_v2">Enable</label>
                     </li>
                 </ul>
                 
@@ -4452,8 +4558,59 @@ v-bind:class="{'active': section=='razer'}">
     <!-- the ui for corpus -->
     <div v-if="section=='corpus'" id="main_ui" 
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+    
+    <div class="w-100 d-flex flex-row" 
+        style="height: calc(100% + 10px);">
 
+        <div>
+            <div class="box-header">
+                <h4>
+                    <i class="fa fa-file"></i>
+                    Annotation Schema
+                </h4>
+            </div>
+
+            <div class="box-body mr-2" 
+                style="overflow-y: auto; height: 100%;">
+                <p>
+                    You need to prepare the annotation schema. 
+                </p>
+                <div class="converter-dropzone">
+                    <p v-if="dtd == null">
+                        Annotation schema is needed to parse and format the given input files to XML files. <br>
+                        Please load the annotation schema file first in <br>
+                        the 
+                        <b class="cursor-pointer"
+                            v-on:click="switch_mui('annotation')">
+                            <i class="fa fa-highlighter"></i> Annotation Tab
+                        </b>
+                    </p>
+                    <p v-else>
+                        <i>Schema:</i>
+                        <b>{{ dtd.name }}</b><br>
+                        - <b>{{ dtd.etags.length }}</b> Entity Tags<br>
+                        <span style="padding: 5px;">
+                            <span v-for="tag in dtd.etags"
+                                v-bind:class="'mark-tag-'+tag.name"
+                                style="padding: 0 2px; margin-right: 3px;">
+                                {{ tag.name }}
+                            </span>
+                        </span>
+
+                        <br>
+                        - <b>{{ dtd.rtags.length }}</b> Link Tags
+                        <span style="padding: 5px;">
+                            <span v-for="tag in dtd.rtags"
+                                v-bind:class="'mark-tag-'+tag.name"
+                                style="padding: 0 2px; margin-right: 3px;">
+                                {{ tag.name }}
+                            </span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
 
         <div v-if="converter_corpus_task == 'raw'">
             <div class="box-header">
@@ -4466,7 +4623,7 @@ v-bind:class="{'active': section=='razer'}">
             <div class="box-body" 
                 style="overflow-y: auto; height: 100%;">
                 <p>
-                    You only need to prepare the .txt files. 
+                    You need to prepare the .txt files. 
                 </p>
 
                 <div class="d-flex flex-row">
@@ -4686,6 +4843,7 @@ v-bind:class="{'active': section=='razer'}">
         <!-- /div for results -->
         
     </div>
+    
 </div>
 
     <!-- the ui for ruleset / export -->
@@ -5701,7 +5859,7 @@ v-bind:class="{'active': section=='razer'}">
                 <div class="d-flex flex-row">
                     <span class="ml-2" 
                         style="width: 55px;">
-                        <i class="fas fa-paint-brush"></i>
+                        <i class="fas fa-palette"></i>
                         Color:
                     </span>
                     <select style="width: 100px;"
@@ -6295,6 +6453,33 @@ v-bind:class="{'active': section=='razer'}">
 </div>
 <!-- /#main_ui -->
     
+    <!-- the ui for toolkit -->
+    <div v-show="section=='toolkit'" id="main_ui"
+    class="main-ui container-fluid">
+    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+
+        <!-- Tool #1: MedTaggerVis -->
+        <div id="mui_ruleset_result" class="d-flex w-100 h-100">
+            <div class="box w-100 h-100">
+                <div class="box-header">
+                    <h4>
+                        <i class="far fa-file-alt"></i>
+                        MedTaggerVis
+                    </h4>
+                </div>
+
+                <div v-if="export_text != null"
+                    class="box-body h-100">
+
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+
+
+    </div>
+</div>
+    
 
     <!-- the context menu -->
     <div v-if="dtd != null"
@@ -6465,8 +6650,9 @@ v-bind:class="{'active': section=='razer'}">
         </div>
     </div>
 
+    <!-- Schema Editor -->
     <div id="schema_editor"
-    data-cls-window="schema-editor"
+    data-cls-window="schema-editor pop-window"
     class="p-2" 
     data-draggable="true"
     data-btn-min="false"
@@ -6482,7 +6668,7 @@ v-bind:class="{'active': section=='razer'}">
 
     <div>
         <div id="schema_editor_menu"
-            class="pt-2 pb-2 mb-2 d-flex flex-row">
+            class="window-menu pb-2 mb-2 d-flex flex-row">
 
             <div v-if="se_dtd != null"
                 class="mr-1">
@@ -6614,7 +6800,6 @@ v-bind:class="{'active': section=='razer'}">
 
             </ul>
         </div>
-
 
         <div v-if="se_dtd != null"
             class="w-100">
@@ -6798,7 +6983,84 @@ v-bind:class="{'active': section=='razer'}">
     </div>
     
 </div>
-    
+
+    <!-- Annotation Viewer based on brat -->
+    <div id="annviewer_bratvis"
+    data-cls-window="annviewer-bratvis pop-window"
+    class="p-2" 
+    data-draggable="true"
+    data-btn-min="false"
+    data-btn-max="false"
+    data-btn-close="false"
+    data-shadow="true"
+    data-height="600px"
+    data-top="10px"
+    data-left="55px"
+    data-title="&nbsp;&nbsp;<i class='fas fa-igloo'></i> Annotation Viewer (Powered by <a target='_blank' href='https://brat.nlplab.org/'>brat</a>)"
+    data-cls-caption="bg-light fg-black"
+    data-role="window">
+
+    <div id="annviewer_bratvis_menu"
+        class="window-menu pb-2 mb-2 d-flex flex-row">
+        
+        <ul class="h-menu horizontal">
+
+            <li class="mr-1">
+                <button class="button se-button"
+                    title="Refresh the figure"
+                    v-on:click="show_avbrat()">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh Figure
+                </button>
+            </li>
+
+            <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
+
+            <!-- <li class="mr-1">
+                <button class="button se-button"
+                    title="Create a new annotation schema"
+                    v-on:click="export_avbrat_figure()">
+                    <i class="far fa-file-image"></i>
+                    Export Figure as PNG
+                </button>
+            </li> -->
+
+            <li class="mr-1">
+                <button class="button se-button"
+                    title="Show how to use annotation viewer"
+                    v-on:click="show_avbrat_help">
+                    <i class="far fa-question-circle"></i>
+                    Help
+                </button>
+            </li>
+            
+            <li class="mr-1 se-menu-sep-line border-right bd-gray">&nbsp;</li>
+            
+            <li class="mr-1"
+                title="Close annotation viewer"
+                v-on:click="close_avbrat">
+                <a href="javascript:void(0);">
+                    <span class="mif-cross icon"></span>
+                    <span class="caption">Close</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="w-100">
+        <p v-if="avbrat_is_rendering">
+            <i class="fas fa-spinner fa-spin"></i>
+            Visualizing the annotations ...
+        </p>
+
+        <div id="fig_bratvis">
+
+        </div>
+    </div>
+        
+</div>
+
 </div>
 
 <script>
@@ -6931,6 +7193,12 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
 <!-- dump/parse YAML library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<!-- head.js for brat -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.load.min.js"></script>
+<!-- style for brat visualization -->
+<link rel="stylesheet" href="./static/lib/brat/css/style-vis.css">
+<!-- save svg as png for downloading figure -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/save-svg-as-png/1.4.17/saveSvgAsPng.min.js"></script> -->
 <script>
 
 // The file helper 
@@ -9203,12 +9471,134 @@ var ann_parser = {
     ///////////////////////////////////////////////////////
     // Utils
     ///////////////////////////////////////////////////////
+
+    get_subtags_of_substr_in_ann: function(span, ann, dtd, flag_update_tag_offset) {
+        if (typeof(flag_update_tag_offset) == 'undefined') {
+            flag_update_tag_offset = true;
+        }
+        // convert the span to loc
+        var loc_substr = this.span2loc(span);
+        // the return object
+        var subtags = [];
+        // for search by tag id
+        var subtag_dict = {};
+
+        // first, get all etags
+        for (let i = 0; i < ann.tags.length; i++) {
+            // make a copy of this tag
+            let tag = ann.tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'etag') {
+                // skip relation in the first round
+                continue;
+            }
+
+            // detect overlap
+            // convert string spans to locs
+            var locs = this.spans2locs(tag.spans);
+            
+            // a flag for not 
+            var flag_is_sub = true;
+            for (let j = 0; j < locs.length; j++) {
+                const loc_tag = locs[j];
+                
+                flag_is_sub = flag_is_sub && nlp_toolkit.is_sub(
+                    loc_substr,
+                    loc_tag
+                );
+            }
+
+            if (!flag_is_sub) {
+                // oh, this tag is out of the area of this substring
+                continue;
+            }
+
+            // we need to update the information
+            // so make a copy
+            tag = JSON.parse(JSON.stringify(ann.tags[i]));
+
+            if (flag_update_tag_offset) {
+                var new_locs = nlp_toolkit.update_tag_locs_offset(
+                    locs, 
+                    // remove the offset of the current span
+                    loc_substr[0]
+                );
+                tag.spans = this.locs2spans(new_locs);
+            }
+
+            // then, this tag is within the substring
+            // save it
+            subtags.push(tag);
+            // for further use
+            subtag_dict[tag.id] = tag;
+        }
+
+        // second, get all rtags
+        for (let i = 0; i < ann.tags.length; i++) {
+            const tag = ann.tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'rtag') {
+                // skip entity in the second round
+                continue;
+            }
+
+            // find the entities in this relationship
+            // we need to ensure the number of entities
+            var n_ents = 0;
+            for (const attr_name in tag) {
+                if (!tag_def.attr_dict.hasOwnProperty(attr_name)) {
+                    // which means this attr_name is just id or tag or other
+                    continue;
+                }
+                // find the attr def
+                let attr_def = tag_def.attr_dict[attr_name];
+                // let's see what's this attr?
+                if (attr_def.vtype != 'idref') {
+                    // this is just a text or other type
+                    continue;
+                }
+                
+                // now check if this entity is in substring
+                if (!subtag_dict.hasOwnProperty(tag[attr_name])) {
+                    // oh, this entity is not in the substring
+                    // need to skip this 
+                    continue;
+                }
+
+                // ok, the entity of this attr should work!
+                n_ents += 1;
+            }
+
+            // we need at least two entities within this substr
+            // otherwise we cannot visualize the link
+            if (n_ents < 2) {
+                // if less than 2, just skip this tag
+                continue;
+            }
+
+            // ok, for those with at least two entites within
+            // save it
+            subtags.push(tag);
+        }
+
+        return subtags;
+    },
+    
+    /**
+     * Get the locations of a substring in text
+     * 
+     * @param {string} str a potential substring
+     * @param {string} text full-text
+     * @returns locations
+     */
     get_locs: function(str, text) {
         // convert str to lower for ignore case?
         try {
             var regex = new RegExp('\\b' + str + '\\b', 'gmi');
-        
-
             var m;
             var locs = [];
             while ((m = regex.exec(text)) !== null) {
@@ -9230,6 +9620,13 @@ var ann_parser = {
         }
     },
 
+    /**
+     * Get the text of the specific spans in text
+     * 
+     * @param {string} spans string-format spans (e.g., 4~5,9~12)
+     * @param {string} full_text full text
+     * @returns the specific substring
+     */
     get_text_by_spans: function(spans, full_text) {
         var locs = this.spans2locs(spans);
         var text = [];
@@ -13974,6 +14371,14 @@ var nlp_toolkit = {
         return null;
     },
 
+    is_sub: function(loc_area, loc_sub) {
+        if (loc_area[0] <= loc_sub[0] &&
+            loc_area[1] >= loc_sub[1]) {
+            return true;
+        }
+        return false;
+    },
+
     is_overlapped: function(a, b) {
         if (a[0] >= b[0] && a[0] < b[1]) {
             return true;
@@ -13985,6 +14390,24 @@ var nlp_toolkit = {
             return true;
         }
         return false;
+    },
+
+    is_overlapped_in_list: function(loc_x, loc_list) {
+        for (let i = 0; i < loc_list.length; i++) {
+            const loc = loc_list[i];
+            if (this.is_overlapped(loc_x, loc)) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    update_tag_locs_offset: function(locs, offset) {
+        for (let i = 0; i < locs.length; i++) {
+            locs[i][0] -= offset;
+            locs[i][1] -= offset;
+        }
+        return locs;
     },
 
     download_text_tsv: function(anns, dtd, hint_dict, fn) {
@@ -14053,7 +14476,6 @@ var nlp_toolkit = {
                     continue;
                 }
                 // there maybe multiple spans
-                // var spans = tag.spans.split(',');
                 var locs = ann_parser.spans2locs(tag.spans);
 
                 for (let k = 0; k < locs.length; k++) {
@@ -15735,6 +16157,9 @@ var app_hotpot = {
 
             // show the new UI for ea
             new_ui_for_ea: 'disable',
+
+            // show the new UI for toolkit
+            new_ui_for_tk: 'disable',
 
             // show the new UI for cohen's kappa
             // due to the 
@@ -17932,6 +18357,18 @@ var app_hotpot = {
         },
 
         /**
+         * Show UI for toolkit
+         * 
+         * The UI workflow could be changed by the setting
+         * `cfg.new_ui_for_tk`.
+         * 
+         * @returns true/false
+         */
+        is_show_new_ui_for_tk: function() {
+            return this.cfg.new_ui_for_tk == 'enable';
+        },
+
+        /**
          * Render all tags of all concepts or not
          * 
          * The UI workflow could be changed by the setting
@@ -18230,6 +18667,9 @@ var app_hotpot = {
 
         // set the resize
         this.resize();
+
+        // init brat
+        fig_bratvis.init();
     },
 
     /**
@@ -19252,6 +19692,11 @@ MedTator provides some options for selecting different methods.
         html: `This is a new UI module error analysis and it's under development. You can enable this new UI for test.`
     },
 
+    "new_ui_for_tk": {
+        title: "Enable new UI for Toolkit",
+        html: `This is a new module and it's under development. You can enable this new UI for test.`
+    },
+
     "auto_save_current_ann": {
         title: "Enable auto-save function",
         html: "By enabling this feature, the annotation will be automatically saved while annotating. Everytime when users add/update/delete any tags in the current annotation file, MedTator will try to save the changes to local disk.<br>If the user doesn't grant the file permission yet, a dialog will be shown and no more dialog after the first one."
@@ -19277,6 +19722,15 @@ MedTator provides some options for selecting different methods.
         <p>You can upload the error tag list with error labels for visualization. Or you can download the error tag list with empty labels for further external labeling.</p>
         <p>For more information about the error label format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
 `
+    },
+    "avbrat_help_how_to_use": {
+        title: 'How to use?',
+        html: `<p>The <b><i class="fas fa-igloo"></i> Visualize</b> is designed to show the annotated tags and the context text of the current document. It supports the following features:</p>
+        <ul>
+            <li><b>Document visualization</b>: You can click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Whole Document" button to show the entire document and all of the annotated tags in the document.</li>
+            <li><b>Selection visualization</b>: You can highlight a sentence or a paragraph, and then click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Selection" button to visualize the tags within the highlighted text.</li>
+        </ul>
+        <p>The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. For more information, please visit <a target='_blank' href="https://github.com/OHNLP/MedTator/wiki">MedTator Wiki</a></p>`
     }
 }});
 
@@ -20011,10 +20465,10 @@ Object.assign(app_hotpot, {
         console.log('* found ' + etags.length + ' etags available for this link');
 
         // first, draw dots
-        for (let i = 0; i < etags.length; i++) {
-            const etag = etags[i];
-            this.cm_draw_rtag_id(rtag, etag, ann);
-        }
+        // for (let i = 0; i < etags.length; i++) {
+        //     const etag = etags[i];
+        //     this.cm_draw_rtag_on_etag(rtag, etag, ann);
+        // }
 
         if (!this.vpp.$data.cm.enabled_link_complex) {
             return;
@@ -20084,7 +20538,7 @@ Object.assign(app_hotpot, {
         );
     },
 
-    cm_draw_rtag_id: function(rtag, tag, ann) {
+    cm_draw_rtag_on_etag: function(rtag, tag, ann) {
         // then get the coords
         var coords = this.cm_spans2coords(tag.spans, ann);
         // console.log('* found etag coords:', coords);
@@ -23316,6 +23770,116 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 });
 
+// extend the App with annviewer-bratvis
+/**
+ * This is an extension for annviewer brat vis
+ */
+
+/////////////////////////////////////////////////////////////////
+// annviewer-bratvis related variables
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_data, {
+    avbrat_is_rendering: true
+});
+
+
+/////////////////////////////////////////////////////////////////
+// annviewer-bratvis related functions
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_methods, {
+
+    show_avbrat: function(flag_enable_selection_vis) {
+        if (this.dtd == null || 
+            this.anns.length == 0 || 
+            this.ann_idx == null) {
+            // when no schema, not ann, or no selected
+            // just skip
+            app_hotpot.toast(
+                'Please ensure the annotation schema is loaded and a document is selected for visualization.',
+                'warning'
+            );
+            return;
+        }
+        if (typeof(flag_enable_selection_vis) == 'undefined') {
+            flag_enable_selection_vis = true;
+        }
+        // init the brat if not
+        // fig_bratvis.init();
+        $('.annviewer-bratvis').show();
+
+        // get default conversion
+        var text = this.anns[this.ann_idx].text;
+        var tags = this.anns[this.ann_idx].tags;
+
+        // first, get the selection
+        if (flag_enable_selection_vis) {
+            
+        var cms = app_hotpot.cm_get_selection();
+
+            if (cms.sel_txts[0] == '') {
+                // which means the selection is empty
+                // nothing to do, just use the whole document for visualization
+                // still need to do sentence split? no
+
+            } else {
+                // need to convert to sentence
+                var spans = app_hotpot.cm_range2spans(
+                    cms.sel_locs[0],
+                    this.anns[this.ann_idx]
+                );
+                // update the text
+                text = ann_parser.get_text_by_spans(
+                    spans,
+                    this.anns[this.ann_idx].text
+                );
+                // update the tags
+                tags = ann_parser.get_subtags_of_substr_in_ann(
+                    spans,
+                    this.anns[this.ann_idx],
+                    this.dtd,
+                    true, // update the offset of tags to the substring
+                );
+            }
+        }
+
+        // for brat vis:
+        // 1. get coll data
+        var collData = brat_parser.make_collection_data_by_dtd(
+            this.dtd
+        );
+        console.log('* get brat collData:', collData);
+
+        // 2. get doc data
+        var docData = brat_parser.make_document_data(
+            text,
+            tags,
+            this.dtd
+        );
+        console.log('* get brat docData:', docData);
+
+        // 3. vis!
+        fig_bratvis.visualize(
+            collData,
+            docData
+        );
+
+        this.avbrat_is_rendering = false;
+    },
+
+    export_avbrat_figure: function() {
+
+    },
+
+    show_avbrat_help: function() {
+        this.show_help('avbrat_help_how_to_use');
+    },
+
+    close_avbrat: function() {
+        $('.annviewer-bratvis').hide();
+    },
+
+});
+
 // extend the App with text quick viewer
 /**
  * This is an extension for text quick viewer 
@@ -23461,6 +24025,25 @@ Object.assign(app_hotpot.vpp_methods, {
         this.tour.annotation.start();
     }
  });
+
+// extend the App with toolkits
+Object.assign(app_hotpot.vpp_data, {
+    // toolkit
+    // 1. medtaggervis
+    // 2. POS
+    toolkit_section: null
+});
+
+
+Object.assign(app_hotpot.vpp_methods, {
+    tk_show_medtaggervis: function() {
+        this.tk_show_section('medtagg');
+    },
+
+    tk_show_section: function(sec_name) {
+        this.toolkit_section = sec_name;
+    }
+});
 
 // The Tag Info Vue Module
 Vue.component('iaa-tag-info', {
@@ -23659,6 +24242,372 @@ Vue.component('iaa-tag-info-gs', {
 `
 });
 
+// The helper for brat toolkits
+/**
+ * brat standoff format annotation file parser
+ * 
+ * The format details can be found at:
+ * http://brat.nlplab.org/standoff.html
+ * 
+ * At present, only two types of annotation are supported:
+ * 
+ * - T: text-bound annotation
+ * - R: relation
+ * - A: the attribure for annotations
+ * 
+ * We are using v1.3 which supports discontinuous text-bound annotations, 
+ * where the annotation involves more than one continuous span of characters.
+ */
+var brat_parser = {
+
+    /**
+     * Convert an annotation data file to a brat format string
+     * 
+     * @param {object} ann an annotation object from MedTator
+     * @param {object} dtd the dtd schema
+     */
+    ann2brat: function(ann, dtd) {
+        // the global count for 
+        var cnt = {
+            // the text annotation
+            T: 0,
+            // the relation annotation
+            R: 0,
+            // the attribute
+            A: 0
+        };
+        // we need to record the mapping from tag.id to brat ID
+        var id_mapping = {}
+
+        // hold all records
+        // each recrod contains one row of the format required by brat
+        var rs = [];
+        for (let i = 0; i < ann.tags.length; i++) {
+            // for each tag, there may be more than one record
+            // the first record is the tag itself
+            const tag = ann.tags[i];
+
+            // ok, let's output this tag
+            // first of all, create a new ID as the first column
+            var new_ID = null;
+            if (dtd.tag_dict[tag.tag].type == 'etag') {
+                cnt.T++;
+                new_ID = 'T'+cnt.T;
+
+            } else if (dtd.tag_dict[tag.tag].type == 'rtag') {
+                cnt.R++;
+                new_ID = 'R'+cnt.R;
+            }
+            // update the mapping
+            id_mapping[tag.id] = new_ID;
+
+            // now, put the text for the second column if etag
+
+            // now, put the attributes for more rows
+        }
+
+        return rs;
+    },
+
+    /**
+     * Convert an annotation schema file to a brat collection data
+     * 
+     * The sample collData is like the following:
+     * 
+     * var collData = {
+          entity_types: [ {
+            type   : 'Person',
+            // The labels are used when displaying the annotion, in this case
+            // we also provide a short-hand "Per" for cases where
+            // abbreviations are preferable 
+            labels : ['Person', 'Per'],
+
+            // Blue is a nice colour for a person?
+            bgColor: '#7fa2ff',
+
+            // Use a slightly darker version of the bgColor for the border
+            borderColor: 'darken'
+          }],
+          relation_types: [{
+
+          }]
+     * };
+     * 
+     * The sample is from: https://brat.nlplab.org/embed.html
+     * @param {object} dtd an annotation object from MedTator
+     * @param {string} relation_creation_mode 'all_combos', 'first_others' (default)
+     */
+    make_collection_data_by_dtd: function(dtd, relation_creation_mode) {
+        if (typeof(relation_creation_mode) == 'undefined') {
+            relation_creation_mode = 'first_others';
+        }
+        var collData = {
+            // all the entities
+            entity_types: [],
+
+            // all the relations
+            relation_types: []
+        };
+
+        // first, convert all entities
+        for (let i = 0; i < dtd.etags.length; i++) {
+            const tag = dtd.etags[i];
+            collData.entity_types.push({
+                type: tag.name,
+                labels : [tag.name],
+                bgColor: tag.style.color,
+                borderColor: 'darken'
+            });
+        }
+
+        // second, convert all relations
+        // due the complixity of the schema, we will convert all combos
+        for (let i = 0; i < dtd.rtags.length; i++) {
+            const tag = dtd.rtags[i];
+
+            // depends on which mode
+            if (relation_creation_mode == 'all_combos') {
+
+            } else if (relation_creation_mode == 'first_others') {
+
+                // find the first attr
+                for (let j = 0; j < tag.attrs.length; j++) {
+                    const attr_j = tag.attrs[j];
+                    if (attr_j.vtype == 'idref') {
+                        // just use the attribute name as the role
+                        
+                        // ok, find others from next
+                        for (let k = j+1; k < tag.attrs.length; k++) {
+                            const attr_k = tag.attrs[k];
+                            if (attr_k.vtype == 'idref') {
+                                let rel_type = {
+                                    // create a subtype for this relation
+                                    type: tag.name + '.' + attr_j.name + '-' + attr_j.name,
+                                    // the label should be the relation name
+                                    labels : [tag.name],
+                                    color: tag.style.color,
+                                    // the arch is from j to k
+                                    args: [
+                                        { role: attr_j.name },
+                                        { role: attr_k.name }
+                                    ]
+                                };
+                                // save this relation
+                                collData.relation_types.push(rel_type);
+                            }
+                        }
+                        // ok, all first - others are found
+                        break;
+                    }
+                    // if this attr is not idref, just check next one
+                    continue;
+                }
+            }
+        }
+
+        return collData;
+    },
+
+
+    /**
+     * Convert an annotation object to a brat document data for brat vis
+     * 
+     * For most of time, you can use this directly
+     * 
+     * @param {object} ann the annotation data object containing text and tags
+     * @param {object} dtd the annotation schema object
+     */
+    make_document_data_by_ann: function(ann, dtd) {
+        return this.make_document_data
+    },
+
+    /**
+     * Converting a text and related annotated tags to brat document data for vis
+     * 
+     * @param {string} text the text string containing the annotated tags
+     * @param {list} tags a list of annotated tags, including etags and rtags
+     * @param {object} dtd the annotation schema object
+     * @returns brat document data object for vis
+     */
+     make_document_data: function(text, tags, dtd) {
+        var doc_data = {
+            // text it self
+            text: text,
+            
+            // all entities
+            entities: [],
+
+            // all relations
+            relations: []
+
+            // no triggers and events
+        };
+
+        // create a dict for accessing etags later
+        let etag_dict = {};
+
+        // first check all entities
+        for (let i = 0; i < tags.length; i++) {
+            const tag = tags[i];
+
+            if (dtd.tag_dict[tag.tag].type != 'etag') {
+                // skip relation in the first round
+                continue;
+            }
+
+            // ok, save this etag
+            etag_dict[tag.id] = tag;
+            
+            // get locs
+            let locs = ann_parser.spans2locs(tag.spans);
+
+            // put this tag into entities
+            doc_data.entities.push([
+                // 1. id
+                tag.id,
+                // 2. tag name
+                tag.tag,
+                // 3. locs
+                locs
+            ]);
+        }
+
+        // second, check all relations
+        for (let i = 0; i < tags.length; i++) {
+            const tag = tags[i];
+
+            // get the tag defination
+            let tag_def = dtd.tag_dict[tag.tag];
+            if (tag_def.type != 'rtag') {
+                // skip entity in the second round
+                continue;
+            }
+
+            let arcs = [];
+            // find the arcs in this relationship
+            for (const attr_name in tag) {
+                if (!tag_def.attr_dict.hasOwnProperty(attr_name)) {
+                    // which means this attr_name is just id or tag or other
+                    continue;
+                }
+                // find the attr def
+                let attr_def = tag_def.attr_dict[attr_name];
+                // let's see what's this attr?
+                if (attr_def.vtype != 'idref') {
+                    // this is just a text or other type
+                    continue;
+                }
+                // then let's put this attr to arcs
+                arcs.push([
+                    // the attr name is used as the role in brat
+                    attr_name,
+                    // the attr value is the entity id
+                    tag[attr_name]
+                ]);
+            }
+
+            // create a new relation obj
+            let rel = [
+                // 1. id
+                tag.id,
+                // 2. type, which is the tag name
+                tag.tag,
+                // 3. two entities
+                arcs
+            ];
+
+            // ok, save this relation
+            doc_data.relations.push(rel);
+        }
+
+        return doc_data;
+    }
+};
+
+// The helper for brat visualization
+var fig_bratvis = {
+    plot_id: 'fig_bratvis',
+
+    // as we revised the brat code,
+    // we need to use local version.
+    brat_location: './static/lib/brat',
+
+    // the brat_util obj
+    util: null,
+
+    init: function () {
+        if (this.util != null) {
+            return;
+        }
+
+        // init if util is null
+        head.js(
+            // External libraries
+            this.brat_location + '/lib/jquery.svg.min.js',
+            this.brat_location + '/lib/jquery.svgdom.min.js',
+
+            // brat helper modules
+            this.brat_location + '/src/util.js',
+            this.brat_location + '/src/configuration.js',
+            this.brat_location + '/src/annotation_log.js',
+            this.brat_location + '/lib/webfont.js',
+
+            // brat modules
+            this.brat_location + '/src/dispatcher.js',
+            this.brat_location + '/src/url_monitor.js',
+            this.brat_location + '/src/visualizer.js'
+        );
+
+        head.ready(function () {
+            // bind to local variable
+            fig_bratvis.util = BratUtil;
+        });
+    },
+
+    /**
+     * Visualize the annotation data in a SVG image
+     * 
+     * @param {object} col_data collection data for brat
+     * @param {object} doc_date document data for brat
+     * @param {string} plot_id optional DOM ID for the plot
+     * @returns None
+     */
+    visualize: function (col_data, doc_date, plot_id) {
+        if (this.util == null) {
+            return;
+        }
+
+        if (typeof(plot_id) == 'undefined') {
+            plot_id = this.plot_id
+        }
+
+        // update data
+        this.col_data = col_data;
+        this.doc_date = doc_date;
+
+        // clear the old one
+        $('#' + plot_id).html('');
+
+        // create a new div id
+        var new_div_id = plot_id + '_' + (Math.random() * 100000).toFixed(0);
+        $('#' + plot_id).html(
+            `<div id="${new_div_id}" class="brat-vis" style="width:100%;"></div>`
+        );
+
+        // use brat to render
+        this.util.embed(
+            new_div_id,
+            $.extend({}, col_data),
+            $.extend({}, doc_date),
+            [
+                this.brat_location + '/css/fonts/Astloch-Bold.ttf',
+                this.brat_location + '/css/fonts/PT_Sans-Caption-Web-Regular.ttf',
+                this.brat_location + '/css/fonts/Liberation_Sans-Regular.ttf'
+            ]
+        )
+    }
+};
+
 var jarvis = {
     init: function() {
         // too bad ...
@@ -23792,11 +24741,14 @@ As she was in D.C. on Wed. to attend Mr. LASTNAME's wedding at 9 A.M. to 14 P.M.
 };
 
 jarvis.changelog_latest = `
-1.3.8 (2022-10-27)
+1.3.11 (2022-12-08)
 
-- Added schema of .yml extension support
-- Added auto-save (experimental) feature
-- Fixed scheme editor open bug
+- Added annotation visualization based on brat
+- Added Python scripts for read/parse MedTator XML format
+- Added Jupyter notebook for downstream tasks with MedTator XML files.
+- Developed functions for brat vis format conversion
+- Developed tag extraction based offset spans
+- Updated style for link/relation display
 
 
 `;
