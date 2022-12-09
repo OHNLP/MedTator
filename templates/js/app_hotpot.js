@@ -2694,6 +2694,22 @@ var app_hotpot = {
         fig_bratvis.init();
     },
 
+    load_local_settings: function() {
+        for (const key in this.cfg) {
+            if (Object.hasOwnProperty.call(this.cfg, key)) {
+                const val = this.cfg[key];
+                var local_val = localStorage.getItem(key);
+
+                if (local_val == null) {
+                    // no setting yet
+                } else {
+                    this.cfg[key] = local_val;
+                    console.log('* updated setting cfg.' + key + '=' + local_val);
+                }
+            }
+        }
+    },
+
     /**
      * Set the DTD for this annotation project
      * 
