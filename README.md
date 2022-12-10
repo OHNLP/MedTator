@@ -110,7 +110,7 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 ### 1.3.x (2022-12)
 
 - Research on IOB2/BIO format editing
-- Add local setting cache
+- Added local setting cache for auto save/load
 - Add sample dataset for error analysis
 - Update design for .ann conversion
 - Update icon for error analysis

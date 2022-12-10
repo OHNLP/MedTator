@@ -5,7 +5,8 @@ v-bind:class="{'active': section=='toolkit'}">
 <div class="group">
     <button class="ribbon-button"
         title="Show the visualization tool for MedTagger"
-        v-on:click="tk_show_medtaggervis">
+        v-on:click="tk_show_section('medtaggervis')"
+        v-bind:class="{'active': toolkit_section=='medtaggervis'}">
         <span class="icon">
             <i class="fas fa-suitcase-rolling"></i>
         </span>
