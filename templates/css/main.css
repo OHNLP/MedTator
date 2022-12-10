@@ -1762,3 +1762,25 @@ ol[class], ul[class] {
     width: 640px;
     min-width: 640px;
 }
+/* for the vpp simple file list */
+.simple-file-list {
+    width: 100%;
+    height: 100%;
+}
+.simple-file-list-header {
+    margin-bottom: 3px;
+    border-bottom: 1px solid #DFDFDF;
+}
+.simple-file-list-body {
+    max-height: calc(100% - 90px); 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+.simple-file-list-footer {
+    width: 100%;
+}
+.dropfile-box {
+    border-radius: 8px;
+    border: 1px dotted #bcbcbc;
+    text-align: center;
+}

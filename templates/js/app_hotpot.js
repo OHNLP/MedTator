@@ -2460,8 +2460,10 @@ var app_hotpot = {
         virtual_anns: function() {
             if (this.section == 'annotation' && 
                 this.mn4anns>0) {
+
                 if (this.anns.length > 0) {
                     var v_anns = this.get_sorted_v_anns();
+                    
                     var v_anns_paged = v_anns;
                     // get the page of current
                     if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {

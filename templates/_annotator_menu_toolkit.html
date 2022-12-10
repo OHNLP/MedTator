@@ -3,20 +3,70 @@
 v-bind:class="{'active': section=='toolkit'}">
 
 <div class="group">
+
+    <div class="d-flex flex-column">
+
+        <button class="ribbon-icon-button"
+            title="Show the visualization tool for MedTagger"
+            v-on:click="tk_show_section('medtaggervis')"
+            v-bind:class="{'active': toolkit_section=='medtaggervis'}">
+            <span class="icon">
+                <i class="fas fa-suitcase-rolling"></i>
+            </span>
+            <span class="caption">
+                MedTaggerVis
+            </span>
+        </button>
+
+
+        <button class="ribbon-icon-button"
+            title="Editor for IOB2/BIO format"
+            v-on:click="tk_show_section('iob2editor')"
+            v-bind:class="{'active': toolkit_section=='iob2editor'}">
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+            <span class="caption">
+                IOB2/BIO Editor
+            </span>
+        </button>
+
+    </div>
+
+    <span class="title">Tools</span>
+</div>
+
+
+<div v-if="toolkit_section == 'medtaggervis'"
+    class="group">
+
     <button class="ribbon-button"
-        title="Show the visualization tool for MedTagger"
-        v-on:click="tk_show_section('medtaggervis')"
-        v-bind:class="{'active': toolkit_section=='medtaggervis'}">
+        title="Clear all files for conversion"
+        v-on:click="tk_medtaggervis_clear_all()">
         <span class="icon">
-            <i class="fas fa-suitcase-rolling"></i>
+            <i class="far fa-times-circle"></i>
         </span>
-        <span class="caption">
-            MedTaggerVis
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <button class="ribbon-button" 
+        :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
+        title="Link and analyze the MedTagger outputs with raw texts"
+        v-on:click="tk_medtaggervis_parse_files()">
+        <span class="icon">
+            <i class="fas fa-cash-register"></i>
+        </span>
+        <span v-if="razer_dict == null"
+            class="caption">
+            Link and Parse
         </span>
     </button>
 
-    <span class="title">MedTagger</span>
-</div>
+    <span class="title">
+        <b>MedTaggerVis</b>
+    </span>
 
+</div>
 
 </div>

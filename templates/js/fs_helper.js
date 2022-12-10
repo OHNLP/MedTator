@@ -149,7 +149,7 @@ async function fs_read_file_system_handle(fh) {
     // get the file obj
     const file = await fh.getFile();
 
-    console.log('* read fsh', file);
+    // console.log('* read fsh', file);
     
     // get the text content
     const text = await file.text();
