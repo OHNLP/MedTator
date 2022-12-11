@@ -668,7 +668,7 @@ var app_hotpot = {
                     // first, update the fh
                     
                     // save this xmlStr with the given fh
-                    let p_done = fs_write_ann_file(
+                    let p_done = fs_write_file_system_handle(
                         fh,
                         xmlStr
                     );
@@ -2463,7 +2463,7 @@ var app_hotpot = {
 
                 if (this.anns.length > 0) {
                     var v_anns = this.get_sorted_v_anns();
-                    
+
                     var v_anns_paged = v_anns;
                     // get the page of current
                     if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {

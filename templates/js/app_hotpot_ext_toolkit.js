@@ -225,7 +225,10 @@ Object.assign(app_hotpot.vpp_methods, {
     tk_iob2editor_add_iob_files: function(files) {
         console.log('* adding '+files.length+' iob files to iob2editor');
         for (let i = 0; i < files.length; i++) {
-            const file = files[i];
+            var file = files[i];
+
+            // add status
+            file.has_saved = false;
             
             // save this file
             this.tk_iob2editor_iob_files[

@@ -158,10 +158,41 @@ async function fs_read_file_system_handle(fh) {
     return {
         fh: fh,
         fn: fh.name,
+        has_saved: true,
         timestamp: file.lastModified,
         text: text
     };
 }
+
+async function fs_write_file_system_handle(fh, content) {
+    const writable = await fh.createWritable();
+    
+    // write the contents
+    await writable.write(content);
+
+    // close the file
+    await writable.close();
+
+    return fh;
+}
+
+/**
+ * Save the given customized file
+ * 
+ * @param {Object} file the customized file object with text
+ * @returns updated file object
+ */
+async function fs_save_file(file) {
+
+    // write to fh!
+    await fs_write_file_system_handle(file.fh, file.text);
+
+    // done!
+    file.has_saved = true
+
+    return file;
+}
+
 
 ///////////////////////////////////////////////////////////
 // Customized functions of read/write for annotation
@@ -190,18 +221,6 @@ async function fs_read_dtd_file_handle(fh) {
     var dtd = dtd_parser.parse(text, format);
 
     return dtd;
-}
-
-async function fs_write_ann_file(fh, content) {
-    const writable = await fh.createWritable();
-    
-    // write the contents
-    await writable.write(content);
-
-    // close the file
-    await writable.close();
-
-    return fh;
 }
 
 async function fs_get_new_ann_file_handle(fn) {
@@ -233,7 +252,7 @@ async function fs_save_new_ann_file(ann, dtd) {
     const content = ann_parser.xml2str(xmlDoc, false);
 
     // write to fh!
-    await fs_write_ann_file(ann._fh, content);
+    await fs_write_file_system_handle(ann._fh, content);
 
     // done!
     ann._has_saved = true
@@ -247,7 +266,7 @@ async function fs_save_ann_file(ann, dtd) {
     const content = ann_parser.xml2str(xmlDoc, false);
 
     // write to fh!
-    await fs_write_ann_file(ann._fh, content);
+    await fs_write_file_system_handle(ann._fh, content);
 
     // done!
     ann._has_saved = true

@@ -27,6 +27,13 @@ Vue.component('simple-file-list', {
             } else {
                 this.current_fn = vf.file.fn;
             }
+        },
+
+        on_click_save_file: function(vf) {
+            vf.file.has_saved = true;
+            console.log('* saved', vf);
+            // just for update
+            this.force_module_update = Math.random();
         }
     },
 
@@ -51,14 +58,14 @@ Vue.component('simple-file-list', {
                     // for perf issue, use this instead of push
                     // this is the virtual file that contains more info
                     v_filtered_files[v_filtered_files.length] = {
+                        // the original file index
+                        idx: i,
+
                         // the link to the original file object
                         file: this.files[i],
 
-                        // a status for
-                        has_changed: false,
-
                         // a status for show different style
-                        css_class: css_class
+                        css_class: css_class,
                     };
                 }
             }
@@ -132,7 +139,22 @@ Vue.component('simple-file-list', {
                 v-bind:class="vf.css_class"
                 v-on:click="on_click_file(vf)"
                 class="file-list-item">
-                {{ vf.file.fn }}
+                <div class="d-flex flex-row flex-justify-between">
+                    <div class="file-list-item-name"
+                        v-bind:class="{'file-list-item-name-unsaved': !vf.file.has_saved}">
+
+                        <span v-if="!vf.file.has_saved" 
+                            v-on:click="on_click_save_file(vf)"
+                            title="Save this file"
+                            class="icon-fg-unsaved mr-1">
+                            <i class="fa fa-save"></i>
+                        </span>
+
+                        <span>
+                        {{ vf.file.fn }}
+                        </span>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
