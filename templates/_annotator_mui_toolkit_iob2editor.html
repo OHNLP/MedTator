@@ -34,12 +34,13 @@
                 </span>
             </div>
             <div v-else class="w-100 h-100">
-                <simple-file-list
-                    v-bind:files="tk_iob2editor_iob_files"
-                    v-bind:readonly="true"
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="true"
+                    v-bind:items="tk_iob2editor_iob_files"
                     v-bind:force_module_update="tk_iob2editor_force_module_update"
-                    v-bind:callback_on_click_file="tk_iob2editor_on_click_iob_file">
-                </simple-file-list>
+                    v-bind:callback_on_click_item="tk_iob2editor_on_click_iob_file">
+                </simple-item-list>
             </div>
         </div>
     </div>

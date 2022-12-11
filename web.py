@@ -298,6 +298,10 @@ if __name__=='__main__':
         choices=['build', 'run', 'release'], default='run',
         help="What do you want to do? `run` for starting the development server. `build` for generating a static HTML page for public release or local release.")
 
+    parser.add_argument("--ssl", type=str, 
+        choices=['yes', 'no'], default='no',
+        help="Enable SSL for development environment?")
+
     parser.add_argument("--lib", type=str, 
         choices=['local', 'cdn'], default='cdn',
         help="Where to get third party libs in the HTML page? If choose local, please make sure to copy the `static` folder after generated the HTML file.")
@@ -311,11 +315,18 @@ if __name__=='__main__':
     args = parser.parse_args()
 
     if args.mode == 'run':
-        app.run(
-            host=app.config['DEV_LISTEN'],
-            port=app.config['DEV_PORT'],
-            # ssl_context='adhoc'
-        )
+        if args.ssl == 'yes':
+            app.run(
+                host=app.config['DEV_LISTEN'],
+                port=app.config['DEV_PORT'],
+                ssl_context='adhoc'
+            )
+
+        else:
+            app.run(
+                host=app.config['DEV_LISTEN'],
+                port=app.config['DEV_PORT'],
+            )
 
     elif args.mode == 'build':
         build(args.path, args.fn, args.lib)

@@ -34,12 +34,13 @@
                 </span>
             </div>
             <div v-else class="w-100 h-100">
-                <simple-file-list
-                    v-bind:files="tk_medtaggervis_txt_files"
-                    v-bind:readonly="true"
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="true"
+                    v-bind:items="tk_medtaggervis_txt_files"
                     v-bind:force_module_update="tk_medtaggervis_force_module_update"
-                    v-bind:callback_on_click_file="tk_medtaggervis_on_click_txt_file">
-                </simple-file-list>
+                    v-bind:callback_on_click_item="tk_medtaggervis_on_click_txt_file">
+                </simple-item-list>
             </div>
         </div>
     </div>
@@ -79,12 +80,13 @@
                 </span>
             </div>
             <div v-else class="w-100 h-100">
-                <simple-file-list
-                    v-bind:files="tk_medtaggervis_ann_files"
-                    v-bind:readonly="false"
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="false"
+                    v-bind:items="tk_medtaggervis_ann_files"
                     v-bind:force_module_update="tk_medtaggervis_force_module_update"
-                    v-bind:callback_on_click_file="tk_medtaggervis_on_click_ann_file">
-                </simple-file-list>
+                    v-bind:callback_on_click_item="tk_medtaggervis_on_click_ann_file">
+                </simple-item-list>
             </div>
         </div>
     </div>

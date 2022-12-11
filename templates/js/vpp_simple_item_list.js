@@ -1,13 +1,11 @@
-Vue.component('simple-file-list', {
+Vue.component('simple-item-list', {
     data: function () {
         return {
-            update: 0,
             page_num: 1,
-            page_size: 50,
             keyword: '',
 
             // which file is clicked
-            current_fn: null,
+            current_item: null,
         }
     },
     methods: {
@@ -19,19 +17,20 @@ Vue.component('simple-file-list', {
             this.keyword = '';
         },
 
-        on_click_file: function(vf) {
-            this.callback_on_click_file(vf.file);
+        on_click_item: function(vi) {
+            // send the back the item itself
+            this.callback_on_click_item(vi.item);
 
             if (this.readonly) {
 
             } else {
-                this.current_fn = vf.file.fn;
+                this.current_item = vi;
             }
         },
 
-        on_click_save_file: function(vf) {
-            vf.file.has_saved = true;
-            console.log('* saved', vf);
+        on_click_save_item: function(vi) {
+            // vi.file.has_saved = true;
+            console.log('* saved item', vi);
             // just for update
             this.force_module_update = Math.random();
         }
@@ -40,29 +39,30 @@ Vue.component('simple-file-list', {
     computed: {
         page_count: function() {
             this.force_module_update;
-            return Math.ceil(this.v_filtered_files.length / this.page_size);
+            return Math.ceil(this.v_filtered_items.length / this.page_size);
         },
 
-        v_filtered_files: function() {
+        v_filtered_items: function() {
             // just for update
             this.force_module_update;
 
-            var v_filtered_files = [];
+            var v_filtered_items = [];
 
-            for (let i = 0; i < this.files.length; i++) {
+            for (let i = 0; i < this.items.length; i++) {
                 var css_class = '';
-                if (this.files[i].fn == this.current_fn) {
+                if (this.current_item != null &&
+                    this.items[i][this.name_attr] == this.current_item.item[this.name_attr]) {
                     css_class = 'file-selected';
                 }
-                if (this.keyword == '' || this.files[i].fn.indexOf(this.keyword) >= 0) {
+                if (this.keyword == '' || this.items[i][this.name_attr].indexOf(this.keyword) >= 0) {
                     // for perf issue, use this instead of push
-                    // this is the virtual file that contains more info
-                    v_filtered_files[v_filtered_files.length] = {
-                        // the original file index
+                    // this is the virtual item that contains more info
+                    v_filtered_items[v_filtered_items.length] = {
+                        // the original item index
                         idx: i,
 
-                        // the link to the original file object
-                        file: this.files[i],
+                        // the link to the original item object
+                        item: this.items[i],
 
                         // a status for show different style
                         css_class: css_class,
@@ -70,55 +70,55 @@ Vue.component('simple-file-list', {
                 }
             }
 
-            return v_filtered_files;
+            return v_filtered_items;
         },
 
-        v_paged_files: function() {
+        v_paged_items: function() {
             // just for update
             this.force_module_update;
 
-            if (this.files.length == 0) {
+            if (this.items.length == 0) {
                 return [];
             }
 
             // ok, let's do paging
-            var pfiles = this.v_filtered_files;
+            var pitems = this.v_filtered_items;
 
             if (this.page_count > 1) {
-                pfiles = this.v_filtered_files.slice(
+                pitems = this.v_filtered_items.slice(
                     (this.page_num - 1) * this.page_size,
                     this.page_num * this.page_size
                 );
             }
 
-            return pfiles;
+            return pitems;
         },
     },
 
-    // props: [
-    //     'files',
-    //     'readonly',
-    //     'force_module_update',
-    //     'callback_on_click_file'
-    // ],
     props: {
-        files: {
+        items: {
             default: [],
+        },
+        name_attr: {
+            default: 'fn'
         },
         readonly: {
             default: false,
         },
+        page_size: {
+            default: 50
+        },
         force_module_update: {},
-        callback_on_click_file: {}
+        callback_on_click_item: {}
     },
 
     template: `
 <div :force_module_update="force_module_update"
-    class="simple-file-list">
+    class="simple-item-list">
 
-    <div class="simple-file-list-header">
+    <div class="simple-item-list-header">
         <span class="mr-1"
-            title="Filter the files by file name">
+            title="Filter by keyword">
             Filter: 
         </span>
         <input type="text" 
@@ -132,26 +132,26 @@ Vue.component('simple-file-list', {
         </button>
     </div>
 
-    <div class="simple-file-list-body"
+    <div class="simple-item-list-body"
         style="">
-        <ul class="w-100 file-list">
-            <li v-for="vf in v_paged_files"
-                v-bind:class="vf.css_class"
-                v-on:click="on_click_file(vf)"
-                class="file-list-item">
+        <ul class="w-100 item-list">
+            <li v-for="vi in v_paged_items"
+                v-bind:class="vi.css_class"
+                v-on:click="on_click_item(vi)"
+                class="item-list-row">
                 <div class="d-flex flex-row flex-justify-between">
-                    <div class="file-list-item-name"
-                        v-bind:class="{'file-list-item-name-unsaved': !vf.file.has_saved}">
+                    <div class="item-list-row-name"
+                        v-bind:class="{'item-list-row-name-unsaved': !vi.item.has_saved}">
 
-                        <span v-if="!vf.file.has_saved" 
-                            v-on:click="on_click_save_file(vf)"
-                            title="Save this file"
+                        <span v-if="!vi.item.has_saved" 
+                            v-on:click="on_click_save_item(vi)"
+                            title="Save the changes"
                             class="icon-fg-unsaved mr-1">
                             <i class="fa fa-save"></i>
                         </span>
 
                         <span>
-                        {{ vf.file.fn }}
+                        {{ vi.item[name_attr] }}
                         </span>
                     </div>
                 </div>
@@ -159,10 +159,10 @@ Vue.component('simple-file-list', {
         </ul>
     </div>
 
-    <div class="simple-file-list-footer" 
+    <div class="simple-item-list-footer" 
         style="text-align: center;">
 
-        {{ v_filtered_files.length }} files
+        {{ v_filtered_items.length }}
 
         <button class="btn btn-xs"
             v-on:click="page_num = 1">

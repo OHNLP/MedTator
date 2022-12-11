@@ -1762,22 +1762,51 @@ ol[class], ul[class] {
     width: 640px;
     min-width: 640px;
 }
-/* for the vpp simple file list */
-.simple-file-list {
+/* for the vpp simple item list */
+.simple-item-list {
     width: 100%;
     height: 100%;
 }
-.simple-file-list-header {
+.simple-item-list-header {
     margin-bottom: 3px;
     border-bottom: 1px solid #DFDFDF;
 }
-.simple-file-list-body {
+.simple-item-list-body {
     max-height: calc(100% - 90px); 
     overflow-x: hidden; 
     overflow-y: auto;
 }
-.simple-file-list-footer {
+.simple-item-list-footer {
     width: 100%;
+}
+
+.item-list {
+    font-size: .9em;
+    padding: 2px;
+}
+.item-list li {
+    border-bottom: 1px dotted #eeeeee;
+}
+.item-list li.file-selected {
+    font-weight: bold;
+    background-color: #EFEFEF;
+    border-left: 3px solid #1ba1e2;
+    padding-left: 5px;
+}
+.item-list-row {
+    margin-bottom: 1px;
+}
+.item-list-row:hover {
+    background-color: #e9e8e8;
+}
+.item-list-row-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.item-list-row-name-unsaved {
+    font-style: italic;
 }
 .dropfile-box {
     border-radius: 8px;

@@ -174,6 +174,10 @@ Object.assign(app_hotpot.vpp_methods, {
         console.log('* got brat vis obj', brat_vis_obj);
 
         // Now let's create the visualization?
+        // clear figure if any
+        fig_bratvis.clear('tk_medtaggervis_brat_fig');
+
+        // then draw a new one
         fig_bratvis.visualize(
             brat_vis_obj.col_data,
             brat_vis_obj.doc_data,
