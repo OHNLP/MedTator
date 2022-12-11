@@ -78,5 +78,20 @@ var fig_bratvis = {
                 this.brat_location + '/css/fonts/Liberation_Sans-Regular.ttf'
             ]
         )
+    },
+
+    /**
+     * Clear the brat visualization
+     * 
+     * @param {string} plot_id optional DOM ID for the plot
+     */
+    clear: function(plot_id) {
+
+        if (typeof(plot_id) == 'undefined') {
+            plot_id = this.plot_id
+        }
+
+        // clear the old one
+        $('#' + plot_id).html('');
     }
 };

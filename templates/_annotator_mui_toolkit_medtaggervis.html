@@ -1,0 +1,111 @@
+<div v-if="toolkit_section == 'medtaggervis'"
+    class="d-flex w-100 h-100">
+
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Raw .txt Files
+            </h4>
+        </div>
+
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_medtaggervis_on_drop_txt_files">
+            <p v-if="tk_medtaggervis_is_loading_txt_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_medtaggervis_txt_files.length == 0">
+                Drag and drop the <b>.txt</b> files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_medtaggervis_txt_files.length }} </b> text files (.txt).
+            </p>
+            
+            <div v-if="tk_medtaggervis_txt_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>.txt</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-file-list
+                    v-bind:files="tk_medtaggervis_txt_files"
+                    v-bind:readonly="true"
+                    v-bind:force_module_update="tk_medtaggervis_force_module_update"
+                    v-bind:callback_on_click_file="tk_medtaggervis_on_click_txt_file">
+                </simple-file-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    
+
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Output .ann Files
+            </h4>
+        </div>
+
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_medtaggervis_on_drop_ann_files">
+            <p v-if="tk_medtaggervis_is_loading_ann_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_medtaggervis_ann_files.length == 0">
+                Drag and drop the <b>.ann</b> files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_medtaggervis_ann_files.length }} </b> annotation files.
+            </p>
+            
+            <div v-if="tk_medtaggervis_ann_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>.ann</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-file-list
+                    v-bind:files="tk_medtaggervis_ann_files"
+                    v-bind:readonly="false"
+                    v-bind:force_module_update="tk_medtaggervis_force_module_update"
+                    v-bind:callback_on_click_file="tk_medtaggervis_on_click_ann_file">
+                </simple-file-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+
+    <div class="box h-100 p-1"
+        style="width: calc(100% - 500px);">
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-poll-h"></i>
+                Visualization of Document and Tags
+            </h4>
+        </div>
+
+        <div class="box-body w-100 h-100"
+            style="overflow-x: hidden; overflow-y: auto;">
+            <div id="tk_medtaggervis_brat_fig"
+                style="width: calc(100% - 10px);">
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+
+</div>

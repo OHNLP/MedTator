@@ -76,5 +76,27 @@ MedTator provides some options for selecting different methods.
         html: `<p>By enable this feature, MedTator can save some settings in <a href="">localStorage</a> while the user makes changes to default settings. When the user open MedTator next time, the settings will be automatically loaded from localStorage.</p>
         <p>Attention. At present, we only add those configs in "Settings" panel to this auto save/load feature. Other settings in tabs may be added in future.</p>
         <p>Due to the technical reasons, when loading samples, the settings would be overwritten by the configs in sample dataset.</p>`
+    },
+
+    "tk_medtaggervis_help": {
+        title: "How to use MedTaggerVis",
+        html: `
+        <p>MedTaggerVis can help you to show the MedTagger output files (.ann) with the context text to explore the output results. You can visualize your MedTagger output as follows:
+        </p>
+        <ol>
+            <li><b>Load raw text files</b>: Drop the folder containing .txt files to the first box.</li>
+            <li><b>Load MedTagger output files</b>: Drop the folder containing .ann files to the second box. Please ensure the file names in the output folder match the file name in the raw text file folder. For example, an output file name "doc1.txt.ann" should have a raw text file named "doc1.txt" in the raw text folder.</li>
+            <li><b>Visualize the result</b>: Click the file name in the output file list to show the visualized results.</li>
+        </ol>
+        <p>Known issues:</p>
+        <ul>
+            <li>Web Browser: due to the limitation of FileSystemAccess API in web browser, MedTaggerVis can only run on Chromium-based modern browsers.</li>
+            <li>The number of files: the implementation of reading local files is different on different operating systems (e.g., Linux, MacOS, Windows, etc.). You may load a folder with up to 10,000 files to browse. </li>
+            <li>The loading time: loading files depends on many factors, such as the file size and disk I/O speed, so the loading time varies from a few seconds to a few minutes.</li>
+        </ul>
+        <p>
+            The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. If you have any issues when using this function, please feel free to leave an issue report in <a target="_blank" href="https://github.com/OHNLP/MedTator/issues">MedTator Github Repo Issues</a> or contact our developers.
+        </p>
+`
     }
 }});

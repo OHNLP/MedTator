@@ -19,13 +19,13 @@ Vue.component('simple-file-list', {
             this.keyword = '';
         },
 
-        on_click_file: function(f) {
-            this.callback_on_click_file(f.fn);
+        on_click_file: function(vf) {
+            this.callback_on_click_file(vf.file);
 
             if (this.readonly) {
 
             } else {
-                this.current_fn = f.fn;
+                this.current_fn = vf.file.fn;
             }
         }
     },
@@ -49,8 +49,15 @@ Vue.component('simple-file-list', {
                 }
                 if (this.keyword == '' || this.files[i].fn.indexOf(this.keyword) >= 0) {
                     // for perf issue, use this instead of push
+                    // this is the virtual file that contains more info
                     v_filtered_files[v_filtered_files.length] = {
-                        fn: this.files[i].fn,
+                        // the link to the original file object
+                        file: this.files[i],
+
+                        // a status for
+                        has_changed: false,
+
+                        // a status for show different style
                         css_class: css_class
                     };
                 }
@@ -121,11 +128,11 @@ Vue.component('simple-file-list', {
     <div class="simple-file-list-body"
         style="">
         <ul class="w-100 file-list">
-            <li v-for="f in v_paged_files"
-                v-bind:class="f.css_class"
-                v-on:click="on_click_file(f)"
+            <li v-for="vf in v_paged_files"
+                v-bind:class="vf.css_class"
+                v-on:click="on_click_file(vf)"
                 class="file-list-item">
-                {{ f.fn }}
+                {{ vf.file.fn }}
             </li>
         </ul>
     </div>

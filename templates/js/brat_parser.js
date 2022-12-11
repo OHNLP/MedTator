@@ -15,6 +15,62 @@
  */
 var brat_parser = {
 
+    // for managing colors
+    colors: [
+        "#a6cee3",
+        "#1f78b4",
+        "#b2df8a",
+        "#33a02c",
+        "#fb9a99",
+        "#e31a1c",
+        "#fdbf6f",
+        "#ff7f00",
+        "#cab2d6",
+        "#6a3d9a",
+        "#ffff99",
+        "#b15928",
+        "#8dd3c7",
+        "#ffffb3",
+        "#bebada",
+        "#fb8072",
+        "#80b1d3",
+        "#fdb462",
+        "#b3de69",
+        "#fccde5",
+        "#d9d9d9",
+        "#bc80bd",
+        "#ccebc5",
+        "#ffed6f",
+    ],
+    // for holding temp color info
+    color_mapping: {},
+
+    reset_color_mapping: function() {
+        this.color_mapping = {};
+    },
+
+    get_color: function(name) {
+        if (this.color_mapping.hasOwnProperty(name)) {
+            // good, we already have this color
+        } else {
+            // need to get a new color
+            var n_assigned = Object.keys(this.color_mapping).length;
+            // need to check whether is available color
+            if (n_assigned < this.colors.length) {
+                // yes! there is available color
+                // assign an pre-defined color
+                this.color_mapping[name] = this.colors[n_assigned];
+            } else {
+                // no ... just generate a random color
+                // but we prefer a lighter, but not too bright
+                var clr = '#' + Math.floor(Math.random()*8388608 + 4388607).toString(16);
+
+                this.color_mapping[name] = clr;
+            }
+        }
+        return this.color_mapping[name];
+    },
+
     /**
      * Convert an annotation data file to a brat format string
      * 
@@ -65,11 +121,80 @@ var brat_parser = {
     },
 
     /**
+     * Convert the MedTagger output to brat format
+     * 
+     * @param {string} text the text content
+     * @param {list} ann_rs a list of k-v pairs of MedTagger format
+     * @returns {object} {col_data: col_data, doc_data: doc_data}
+     */
+    medtagger2brat: function(text, ann_rs) {
+        var col_data = {
+            // all the entities
+            entity_types: [],
+        };
+
+        var doc_data = {
+            text: text,
+
+            // all entities
+            entities: [],
+        };
+
+        // for creating new entity
+        // we need to track all the 
+        var norm_dict = {};
+
+        // prepare the document data
+        // MedTagger only contains the entities
+        for (let i = 0; i < ann_rs.length; i++) {
+            const r = ann_rs[i];
+
+            // update the collection
+            if (!norm_dict.hasOwnProperty(r.norm)) {                
+                // get a color for this entity
+                var bgColor = this.get_color(r.norm);
+                
+                // create a new item for collection
+                var ent_def = {
+                    type: r.norm,
+                    labels: [ r.norm ],
+                    bgColor: bgColor,
+                    borderColor: 'darken'
+                }
+
+                // save to collection
+                col_data.entity_types.push(ent_def);
+
+                // save to dict
+                norm_dict[r.norm] = ent_def;
+            }
+            
+            // update the document
+            doc_data.entities.push([
+                // 1. id just use the sequence number
+                'E' + i,
+                // 2. use norm as the tag name 
+                r.norm,
+                // 3. locs are the MedTagger offset
+                [ [
+                    parseInt(r.start),
+                    parseInt(r.end),
+                ] ]
+            ]);
+        }
+
+        return {
+            col_data: col_data,
+            doc_data: doc_data
+        }
+    },
+
+    /**
      * Convert an annotation schema file to a brat collection data
      * 
-     * The sample collData is like the following:
+     * The sample col_data is like the following:
      * 
-     * var collData = {
+     * var col_data = {
           entity_types: [ {
             type   : 'Person',
             // The labels are used when displaying the annotion, in this case
@@ -96,7 +221,7 @@ var brat_parser = {
         if (typeof(relation_creation_mode) == 'undefined') {
             relation_creation_mode = 'first_others';
         }
-        var collData = {
+        var col_data = {
             // all the entities
             entity_types: [],
 
@@ -107,7 +232,7 @@ var brat_parser = {
         // first, convert all entities
         for (let i = 0; i < dtd.etags.length; i++) {
             const tag = dtd.etags[i];
-            collData.entity_types.push({
+            col_data.entity_types.push({
                 type: tag.name,
                 labels : [tag.name],
                 bgColor: tag.style.color,
@@ -148,7 +273,7 @@ var brat_parser = {
                                     ]
                                 };
                                 // save this relation
-                                collData.relation_types.push(rel_type);
+                                col_data.relation_types.push(rel_type);
                             }
                         }
                         // ok, all first - others are found
@@ -160,7 +285,7 @@ var brat_parser = {
             }
         }
 
-        return collData;
+        return col_data;
     },
 
 

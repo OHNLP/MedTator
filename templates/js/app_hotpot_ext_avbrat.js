@@ -71,23 +71,23 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // for brat vis:
         // 1. get coll data
-        var collData = brat_parser.make_collection_data_by_dtd(
+        var col_data = brat_parser.make_collection_data_by_dtd(
             this.dtd
         );
-        console.log('* get brat collData:', collData);
+        console.log('* get brat col_data:', col_data);
 
         // 2. get doc data
-        var docData = brat_parser.make_document_data(
+        var doc_data = brat_parser.make_document_data(
             text,
             tags,
             this.dtd
         );
-        console.log('* get brat docData:', docData);
+        console.log('* get brat doc_data:', doc_data);
 
         // 3. vis!
         fig_bratvis.visualize(
-            collData,
-            docData
+            col_data,
+            doc_data
         );
 
         this.avbrat_is_rendering = false;

@@ -50,7 +50,7 @@ v-bind:class="{'active': section=='toolkit'}">
     </button>
 
 
-    <button class="ribbon-button" 
+    <!-- <button class="ribbon-button" 
         :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
         title="Link and analyze the MedTagger outputs with raw texts"
         v-on:click="tk_medtaggervis_parse_files()">
@@ -61,6 +61,61 @@ v-bind:class="{'active': section=='toolkit'}">
             class="caption">
             Link and Parse
         </span>
+    </button> -->
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTaggerVis"
+        v-on:click="tk_medtaggervis_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">
+        <b>MedTaggerVis</b>
+    </span>
+
+</div>
+
+
+
+
+<div v-if="toolkit_section == 'iob2editor'"
+    class="group">
+
+    <button class="ribbon-button"
+        title="Clear all files for conversion"
+        v-on:click="tk_medtaggervis_clear_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <!-- <button class="ribbon-button" 
+        :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
+        title="Link and analyze the MedTagger outputs with raw texts"
+        v-on:click="tk_medtaggervis_parse_files()">
+        <span class="icon">
+            <i class="fas fa-cash-register"></i>
+        </span>
+        <span v-if="razer_dict == null"
+            class="caption">
+            Link and Parse
+        </span>
+    </button> -->
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTaggerVis"
+        v-on:click="tk_medtaggervis_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
     </button>
 
     <span class="title">

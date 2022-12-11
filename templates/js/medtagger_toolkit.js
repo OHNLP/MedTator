@@ -33,7 +33,7 @@
             var ann = ann_dict[ann_fn];
 
             // ok, we found the matched ann!
-            var ann_rs = this.parse_ann_content(
+            var ann_rs = this.parse_ann_file(
                 ann
             );
 
@@ -126,18 +126,24 @@
     },
 
     /**
-     * Parse the ann file
+     * Parse the MedTagger output ann file
      * 
-     * @param {Object} ann the ann 
+     * @param {Object} ann a MedTagger ann file object
+     * @returns a list of key-value dict format
      */
-    parse_ann_content: function(ann) {
+    parse_ann_file: function(ann_file) {
 
         // first, make a ret
         var rs = [];
 
+        // lines may be not available
+        if (!ann_file.hasOwnProperty('lines')) {
+            ann_file.lines = ann_file.text.split('\n');
+        }
+
         // second, split the ann lines
-        for (let i = 0; i < ann.lines.length; i++) {
-            const ann_line = ann.lines[i];
+        for (let i = 0; i < ann_file.lines.length; i++) {
+            const ann_line = ann_file.lines[i];
             var kvs = this.parse_ann_line(ann_line);
 
             if (kvs == null) {
@@ -153,6 +159,12 @@
         return rs;
     },
 
+    /**
+     * Parse a single line of MedTagger output 
+     * 
+     * @param {string} ann_line a single line in the MedTagger output file
+     * @returns a key-value dict format object
+     */
     parse_ann_line: function(ann_line) {
         if (ann_line == '') {
             return null;

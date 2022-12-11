@@ -1,0 +1,65 @@
+<div v-if="toolkit_section == 'iob2editor'"
+    class="d-flex w-100 h-100">
+
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                IOB2/BIO Files
+            </h4>
+        </div>
+
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_iob2editor_on_drop_iob_files">
+            <p v-if="tk_iob2editor_is_loading_iob_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_iob2editor_iob_files.length == 0">
+                Drag and drop the IOB2/BIO files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_iob2editor_iob_files.length }} </b> files.
+            </p>
+            
+            <div v-if="tk_iob2editor_iob_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>IOB2/BIO</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-file-list
+                    v-bind:files="tk_iob2editor_iob_files"
+                    v-bind:readonly="true"
+                    v-bind:force_module_update="tk_iob2editor_force_module_update"
+                    v-bind:callback_on_click_file="tk_iob2editor_on_click_iob_file">
+                </simple-file-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    
+
+    <div class="box h-100 p-1"
+        style="width: calc(100% - 500px);">
+        <div class="box-header">
+            <h4>
+                <i class="far fa-newspaper"></i>
+                IOB2/BIO File Editor
+            </h4>
+        </div>
+
+        <div class="box-body w-100 h-100"
+            style="overflow-x: hidden; overflow-y: auto;">
+            
+        </div>
+    </div>
+    <!-- /.box -->
+
+</div>
