@@ -1944,6 +1944,57 @@ ol[class], ul[class] {
     width: 640px;
     min-width: 640px;
 }
+/* for the vpp simple item list */
+.simple-item-list {
+    width: 100%;
+    height: 100%;
+}
+.simple-item-list-header {
+    margin-bottom: 3px;
+    border-bottom: 1px solid #DFDFDF;
+}
+.simple-item-list-body {
+    max-height: calc(100% - 90px); 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+.simple-item-list-footer {
+    width: 100%;
+}
+
+.item-list {
+    font-size: .9em;
+    padding: 2px;
+}
+.item-list li {
+    border-bottom: 1px dotted #eeeeee;
+}
+.item-list li.file-selected {
+    font-weight: bold;
+    background-color: #EFEFEF;
+    border-left: 3px solid #1ba1e2;
+    padding-left: 5px;
+}
+.item-list-row {
+    margin-bottom: 1px;
+}
+.item-list-row:hover {
+    background-color: #e9e8e8;
+}
+.item-list-row-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.item-list-row-name-unsaved {
+    font-style: italic;
+}
+.dropfile-box {
+    border-radius: 8px;
+    border: 1px dotted #bcbcbc;
+    text-align: center;
+}
 </style>
 
 <style id="dtd_style">
@@ -3729,20 +3780,126 @@ v-bind:class="{'active': section=='razer'}">
 v-bind:class="{'active': section=='toolkit'}">
 
 <div class="group">
-    <button class="ribbon-button"
-        title="Show the visualization tool for MedTagger"
-        v-on:click="tk_show_medtaggervis">
-        <span class="icon">
-            <i class="fas fa-suitcase-rolling"></i>
-        </span>
-        <span class="caption">
-            MedTaggerVis
-        </span>
-    </button>
 
-    <span class="title">MedTagger</span>
+    <div class="d-flex flex-column">
+
+        <button class="ribbon-icon-button"
+            title="Show the visualization tool for MedTagger"
+            v-on:click="tk_show_section('medtaggervis')"
+            v-bind:class="{'active': toolkit_section=='medtaggervis'}">
+            <span class="icon">
+                <i class="fas fa-poll-h"></i>
+            </span>
+            <span class="caption">
+                MedTaggerVis
+            </span>
+        </button>
+
+
+        <!-- <button class="ribbon-icon-button"
+            title="Editor for IOB2/BIO format"
+            v-on:click="tk_show_section('iob2editor')"
+            v-bind:class="{'active': toolkit_section=='iob2editor'}">
+            <span class="icon">
+                <i class="far fa-newspaper"></i>
+            </span>
+            <span class="caption">
+                IOB2/BIO Editor
+            </span>
+        </button> -->
+
+    </div>
+
+    <span class="title">Tools</span>
 </div>
 
+
+<div v-if="toolkit_section == 'medtaggervis'"
+    class="group">
+
+    <button class="ribbon-button"
+        title="Clear all files for conversion"
+        v-on:click="tk_medtaggervis_clear_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <!-- <button class="ribbon-button" 
+        :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
+        title="Link and analyze the MedTagger outputs with raw texts"
+        v-on:click="tk_medtaggervis_parse_files()">
+        <span class="icon">
+            <i class="fas fa-cash-register"></i>
+        </span>
+        <span v-if="razer_dict == null"
+            class="caption">
+            Link and Parse
+        </span>
+    </button> -->
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTaggerVis"
+        v-on:click="tk_medtaggervis_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">
+        <b>MedTaggerVis</b>
+    </span>
+
+</div>
+
+
+
+
+<div v-if="toolkit_section == 'iob2editor'"
+    class="group">
+
+    <button class="ribbon-button"
+        title="Clear all files for conversion"
+        v-on:click="tk_medtaggervis_clear_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <!-- <button class="ribbon-button" 
+        :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
+        title="Link and analyze the MedTagger outputs with raw texts"
+        v-on:click="tk_medtaggervis_parse_files()">
+        <span class="icon">
+            <i class="fas fa-cash-register"></i>
+        </span>
+        <span v-if="razer_dict == null"
+            class="caption">
+            Link and Parse
+        </span>
+    </button> -->
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTaggerVis"
+        v-on:click="tk_medtaggervis_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">
+        <b>MedTaggerVis</b>
+    </span>
+
+</div>
 
 </div>
 
@@ -3800,6 +3957,13 @@ v-bind:class="{'active': section=='toolkit'}">
             </div>
 
             <div class="px-2 setting-tab"
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='system'}"
+                v-on:click="switch_setting_tab('system')">
+                <i class="fas fa-sliders-h"></i>
+                System
+            </div>
+
+            <div class="px-2 setting-tab"
                 v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
                 v-on:click="switch_setting_tab('import')">
                 <i class="far fa-file"></i>
@@ -3821,6 +3985,7 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_ssa_v1" 
                             value="simpledot" 
+                            v-on:change="on_change_setting('sentence_splitting_algorithm')"
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v1">Simple Method (Default)</label>
                     </li>
@@ -3833,6 +3998,7 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_ssa_v3" 
                             value="wink_nlp" 
+                            v-on:change="on_change_setting('sentence_splitting_algorithm')"
                             v-model="cfg.sentence_splitting_algorithm">
                         <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
                     </li>
@@ -3840,8 +4006,8 @@ v-bind:class="{'active': section=='toolkit'}">
             </div>
         </div>
 
-        <!-- GUI setting tab -->
-        <div v-else-if="cfg.active_setting_tab == 'gui'">
+        <!-- system setting tab -->
+        <div v-if="cfg.active_setting_tab == 'system'">
             <div class="box-body-item">
                 <p>
                     Auto-save annotation (Experimental)
@@ -3854,12 +4020,14 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_ui_autosave_disable" 
                             value="disable" 
+                            v-on:change="on_change_setting('auto_save_current_ann')"
                             v-model="cfg.auto_save_current_ann">
                         <label for="cfg_ui_autosave_disable">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_ui_autosave_enable" 
                             value="enable" 
+                            v-on:change="on_change_setting('auto_save_current_ann')"
                             v-model="cfg.auto_save_current_ann">
                         <label for="cfg_ui_autosave_enable">Enable</label>
                     </li>
@@ -3867,6 +4035,39 @@ v-bind:class="{'active': section=='toolkit'}">
                 
             </div>
 
+
+            <div class="box-body-item">
+                <p>
+                    Auto save/load configuration locally (Experimental)
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('auto_sl_current_cfg')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <ul class="box">
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_cfg_disable" 
+                            value="disable" 
+                            v-on:change="on_change_setting('auto_sl_current_cfg')"
+                            v-model="cfg.auto_sl_current_cfg">
+                        <label for="cfg_ui_autosave_cfg_disable">Disable (Default)</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="cfg_ui_autosave_cfg_enable" 
+                            value="enable" 
+                            v-on:change="on_change_setting('auto_sl_current_cfg')"
+                            v-model="cfg.auto_sl_current_cfg">
+                        <label for="cfg_ui_autosave_cfg_enable">Enable</label>
+                    </li>
+                </ul>
+                
+            </div>
+
+
+        </div>
+
+        <!-- GUI setting tab -->
+        <div v-else-if="cfg.active_setting_tab == 'gui'">
 
             <div class="box-body-item">
                 <p>
@@ -3880,12 +4081,14 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_uitk_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_tk')"
                             v-model="cfg.new_ui_for_tk">
                         <label for="cfg_uitk_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uitk_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_tk')"
                             v-model="cfg.new_ui_for_tk">
                         <label for="cfg_uitk_v2">Enable</label>
                     </li>
@@ -3906,12 +4109,14 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_uiea_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_ea')"
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uiea_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_ea')"
                             v-model="cfg.new_ui_for_ea">
                         <label for="cfg_uiea_v2">Enable</label>
                     </li>
@@ -3931,12 +4136,14 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_uick_v1" 
                             value="disable" 
+                            v-on:change="on_change_setting('new_ui_for_ck')"
                             v-model="cfg.new_ui_for_ck">
                         <label for="cfg_uick_v1">Disable (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_uick_v2" 
                             value="enable" 
+                            v-on:change="on_change_setting('new_ui_for_ck')"
                             v-model="cfg.new_ui_for_ck">
                         <label for="cfg_uick_v2">Enable</label>
                     </li>
@@ -3957,12 +4164,14 @@ v-bind:class="{'active': section=='toolkit'}">
                     <li>
                         <input type="radio" id="cfg_lms_v1" 
                             value="all_concepts" 
+                            v-on:change="on_change_setting('linking_marks_selection')"
                             v-model="cfg.linking_marks_selection">
                         <label for="cfg_lms_v1">Render all marks (Default)</label>
                     </li>
                     <li>
                         <input type="radio" id="cfg_lms_v2" 
                             value="selected_concepts" 
+                            v-on:change="on_change_setting('linking_marks_selection')"
                             v-model="cfg.linking_marks_selection">
                         <label for="cfg_lms_v2">Render marks of selected concept</label>
                     </li>
@@ -6456,27 +6665,192 @@ v-bind:class="{'active': section=='toolkit'}">
     <!-- the ui for toolkit -->
     <div v-show="section=='toolkit'" id="main_ui"
     class="main-ui container-fluid">
-    <div class="w-100 d-flex flex-row" style="height: calc(100% + 10px);">
+    <div class="w-100 d-flex flex-row p-1" 
+        style="height: calc(100% + 10px);">
 
         <!-- Tool #1: MedTaggerVis -->
-        <div id="mui_ruleset_result" class="d-flex w-100 h-100">
-            <div class="box w-100 h-100">
-                <div class="box-header">
-                    <h4>
-                        <i class="far fa-file-alt"></i>
-                        MedTaggerVis
-                    </h4>
-                </div>
+        <div v-if="toolkit_section == 'medtaggervis'"
+    class="d-flex w-100 h-100">
 
-                <div v-if="export_text != null"
-                    class="box-body h-100">
-
-                </div>
-            </div>
-            <!-- /.box -->
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Raw .txt Files
+            </h4>
         </div>
 
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_medtaggervis_on_drop_txt_files">
+            <p v-if="tk_medtaggervis_is_loading_txt_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_medtaggervis_txt_files.length == 0">
+                Drag and drop the <b>.txt</b> files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_medtaggervis_txt_files.length }} </b> text files (.txt).
+            </p>
+            
+            <div v-if="tk_medtaggervis_txt_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>.txt</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="true"
+                    v-bind:items="tk_medtaggervis_txt_files"
+                    v-bind:force_module_update="tk_medtaggervis_force_module_update"
+                    v-bind:callback_on_click_item="tk_medtaggervis_on_click_txt_file">
+                </simple-item-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    
 
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                Output .ann Files
+            </h4>
+        </div>
+
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_medtaggervis_on_drop_ann_files">
+            <p v-if="tk_medtaggervis_is_loading_ann_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_medtaggervis_ann_files.length == 0">
+                Drag and drop the <b>.ann</b> files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_medtaggervis_ann_files.length }} </b> annotation files.
+            </p>
+            
+            <div v-if="tk_medtaggervis_ann_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>.ann</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="false"
+                    v-bind:items="tk_medtaggervis_ann_files"
+                    v-bind:force_module_update="tk_medtaggervis_force_module_update"
+                    v-bind:callback_on_click_item="tk_medtaggervis_on_click_ann_file">
+                </simple-item-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+
+    <div class="box h-100 p-1"
+        style="width: calc(100% - 500px);">
+        <div class="box-header">
+            <h4>
+                <i class="fas fa-poll-h"></i>
+                Visualization of Document and Tags
+            </h4>
+        </div>
+
+        <div class="box-body w-100 h-100"
+            style="overflow-x: hidden; overflow-y: auto;">
+            <div id="tk_medtaggervis_brat_fig"
+                style="width: calc(100% - 10px);">
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+
+</div>
+
+
+        <!-- Tool #2: IOB2Editor -->
+        <div v-if="toolkit_section == 'iob2editor'"
+    class="d-flex w-100 h-100">
+
+    <div class="box h-100 border-rightx bd-gray mr-1 p-1"
+        style="width: 250px;">
+        <div class="box-header">
+            <h4>
+                <i class="fa fa-list-ul"></i>
+                IOB2/BIO Files
+            </h4>
+        </div>
+
+        <div class="box-body h-100"
+            v-on:dragover="on_dragover_prevent_default"
+            v-on:drop="tk_iob2editor_on_drop_iob_files">
+            <p v-if="tk_iob2editor_is_loading_iob_files">
+                Loading files ... <br>
+                Please wait for a little while. <br>
+                <i class="fas fa-spinner fa-spin"></i>
+            </p>
+            <p v-else-if="tk_iob2editor_iob_files.length == 0">
+                Drag and drop the IOB2/BIO files or the folder in the following box
+            </p>
+            <p v-else>
+                Loaded <b>{{ tk_iob2editor_iob_files.length }} </b> files.
+            </p>
+            
+            <div v-if="tk_iob2editor_iob_files.length == 0"
+                class="dropfile-box w-100 d-flex flex-align-center flex-justify-center"
+                style="height: calc(100% - 40px);">
+                <span style="font-size: 1.2em;">
+                    <b>IOB2/BIO</b>
+                    files / folder
+                </span>
+            </div>
+            <div v-else class="w-100 h-100">
+                <simple-item-list
+                    name_attr="fn"
+                    readonly="true"
+                    v-bind:items="tk_iob2editor_iob_files"
+                    v-bind:force_module_update="tk_iob2editor_force_module_update"
+                    v-bind:callback_on_click_item="tk_iob2editor_on_click_iob_file">
+                </simple-item-list>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+    
+
+    <div class="box h-100 p-1"
+        style="width: calc(100% - 500px);">
+        <div class="box-header">
+            <h4>
+                <i class="far fa-newspaper"></i>
+                IOB2/BIO File Editor
+            </h4>
+        </div>
+
+        <div class="box-body w-100 h-100"
+            style="overflow-x: hidden; overflow-y: auto;">
+            
+        </div>
+    </div>
+    <!-- /.box -->
+
+</div>
     </div>
 </div>
     
@@ -7353,7 +7727,7 @@ async function fs_read_file_system_handle(fh) {
     // get the file obj
     const file = await fh.getFile();
 
-    console.log('* read fsh', file);
+    // console.log('* read fsh', file);
     
     // get the text content
     const text = await file.text();
@@ -7362,10 +7736,41 @@ async function fs_read_file_system_handle(fh) {
     return {
         fh: fh,
         fn: fh.name,
+        has_saved: true,
         timestamp: file.lastModified,
         text: text
     };
 }
+
+async function fs_write_file_system_handle(fh, content) {
+    const writable = await fh.createWritable();
+    
+    // write the contents
+    await writable.write(content);
+
+    // close the file
+    await writable.close();
+
+    return fh;
+}
+
+/**
+ * Save the given customized file
+ * 
+ * @param {Object} file the customized file object with text
+ * @returns updated file object
+ */
+async function fs_save_file(file) {
+
+    // write to fh!
+    await fs_write_file_system_handle(file.fh, file.text);
+
+    // done!
+    file.has_saved = true
+
+    return file;
+}
+
 
 ///////////////////////////////////////////////////////////
 // Customized functions of read/write for annotation
@@ -7394,18 +7799,6 @@ async function fs_read_dtd_file_handle(fh) {
     var dtd = dtd_parser.parse(text, format);
 
     return dtd;
-}
-
-async function fs_write_ann_file(fh, content) {
-    const writable = await fh.createWritable();
-    
-    // write the contents
-    await writable.write(content);
-
-    // close the file
-    await writable.close();
-
-    return fh;
 }
 
 async function fs_get_new_ann_file_handle(fn) {
@@ -7437,7 +7830,7 @@ async function fs_save_new_ann_file(ann, dtd) {
     const content = ann_parser.xml2str(xmlDoc, false);
 
     // write to fh!
-    await fs_write_ann_file(ann._fh, content);
+    await fs_write_file_system_handle(ann._fh, content);
 
     // done!
     ann._has_saved = true
@@ -7451,7 +7844,7 @@ async function fs_save_ann_file(ann, dtd) {
     const content = ann_parser.xml2str(xmlDoc, false);
 
     // write to fh!
-    await fs_write_ann_file(ann._fh, content);
+    await fs_write_file_system_handle(ann._fh, content);
 
     // done!
     ann._has_saved = true
@@ -14854,7 +15247,7 @@ var nlp_toolkit = {
             var ann = ann_dict[ann_fn];
 
             // ok, we found the matched ann!
-            var ann_rs = this.parse_ann_content(
+            var ann_rs = this.parse_ann_file(
                 ann
             );
 
@@ -14947,18 +15340,24 @@ var nlp_toolkit = {
     },
 
     /**
-     * Parse the ann file
+     * Parse the MedTagger output ann file
      * 
-     * @param {Object} ann the ann 
+     * @param {Object} ann a MedTagger ann file object
+     * @returns a list of key-value dict format
      */
-    parse_ann_content: function(ann) {
+    parse_ann_file: function(ann_file) {
 
         // first, make a ret
         var rs = [];
 
+        // lines may be not available
+        if (!ann_file.hasOwnProperty('lines')) {
+            ann_file.lines = ann_file.text.split('\n');
+        }
+
         // second, split the ann lines
-        for (let i = 0; i < ann.lines.length; i++) {
-            const ann_line = ann.lines[i];
+        for (let i = 0; i < ann_file.lines.length; i++) {
+            const ann_line = ann_file.lines[i];
             var kvs = this.parse_ann_line(ann_line);
 
             if (kvs == null) {
@@ -14974,6 +15373,12 @@ var nlp_toolkit = {
         return rs;
     },
 
+    /**
+     * Parse a single line of MedTagger output 
+     * 
+     * @param {string} ann_line a single line in the MedTagger output file
+     * @returns a key-value dict format object
+     */
     parse_ann_line: function(ann_line) {
         if (ann_line == '') {
             return null;
@@ -16136,35 +16541,8 @@ var app_hotpot = {
         },
 
         // general cfg
-        cfg: {
-            // display the setting panel or not
-            enable_show_settings: false,
-
-            // display the old menu dropzone
-            enable_display_menu_dropzone_ann: false,
-
-            // auto save the current ann
-            auto_save_current_ann: 'disable',
-
-            // active tab
-            active_setting_tab: 'gui',
-
-            // which algorithm to use as default
-            sentence_splitting_algorithm: 'simpledot',
-
-            // render all marks or only the selected marks
-            linking_marks_selection: 'all_concepts',
-
-            // show the new UI for ea
-            new_ui_for_ea: 'disable',
-
-            // show the new UI for toolkit
-            new_ui_for_tk: 'disable',
-
-            // show the new UI for cohen's kappa
-            // due to the 
-            new_ui_for_ck: 'disable',
-        },
+        // this has been move to the extension
+        cfg: {},
 
         // for statistics
 
@@ -16182,29 +16560,7 @@ var app_hotpot = {
         /////////////////////////////////////////////////////////////////
         // Settings related functions
         /////////////////////////////////////////////////////////////////
-        switch_setting_tab: function(tab) {
-            this.cfg.active_setting_tab = tab;
-        },
-
-        is_adjudication_working_mode: function() {
-            return this.annotation_tab_working_mode == 'adjudication';
-        },
-
-        is_auto_save: function() {
-            return this.cfg.auto_save_current_ann == 'enable';
-        },
-
-        get_metator_mem: function() {
-            // return Math.floor(window.performance.memory.totalJSHeapSize / 1024 / 1024);
-            if (window.hasOwnProperty('performance')) {
-                if (window.performance.hasOwnProperty('memory')) {
-                    return Math.floor(window.performance.memory.usedJSHeapSize / 1024 / 1024);
-                }
-            } else {
-                return 'NA';
-            }
-            return 'NA';
-        },
+        // moved to app_hotpot_ext_settings.js
 
         /////////////////////////////////////////////////////////////////
         // Loading files related functions
@@ -16695,7 +17051,7 @@ var app_hotpot = {
                     // first, update the fh
                     
                     // save this xmlStr with the given fh
-                    let p_done = fs_write_ann_file(
+                    let p_done = fs_write_file_system_handle(
                         fh,
                         xmlStr
                     );
@@ -17565,7 +17921,7 @@ var app_hotpot = {
             this.refresh_v_anns();
 
             // it's still under test
-            if (this.is_auto_save()) {
+            if (this.is_auto_save_ann()) {
                 // wow, auto save is enabled?
                 this.save_xml();
             }
@@ -18487,8 +18843,10 @@ var app_hotpot = {
         virtual_anns: function() {
             if (this.section == 'annotation' && 
                 this.mn4anns>0) {
+
                 if (this.anns.length > 0) {
                     var v_anns = this.get_sorted_v_anns();
+
                     var v_anns_paged = v_anns;
                     // get the page of current
                     if (Math.ceil(v_anns.length / this.pg_numpp) > 1) {
@@ -18658,6 +19016,9 @@ var app_hotpot = {
                 });
             }
         });
+
+        // init the setting panel 
+        this.init_settings();
 
         // the code mirror
         this.cm_init();
@@ -19660,7 +20021,157 @@ var app_hotpot = {
 
 };
 
-// extend the App
+// extend the App with settings
+/**
+ * This is an extension for setting management
+ */
+
+/////////////////////////////////////////////////////////////////
+// setting management related variables
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_data, {
+    // for enable the auto save/load config feature
+    auto_sl_cfg_names: [],
+
+    // configurations
+    cfg: {
+        // display the setting panel or not
+        enable_show_settings: false,
+
+        // display the old menu dropzone
+        enable_display_menu_dropzone_ann: false,
+
+        // auto save the current ann
+        auto_save_current_ann: 'disable',
+
+        // auto save the current configs
+        auto_sl_current_cfg: 'disable',
+
+        // active tab
+        active_setting_tab: 'gui',
+
+        // which algorithm to use as default
+        sentence_splitting_algorithm: 'simpledot',
+
+        // render all marks or only the selected marks
+        linking_marks_selection: 'all_concepts',
+
+        // show the new UI for ea
+        new_ui_for_ea: 'disable',
+
+        // show the new UI for toolkit
+        new_ui_for_tk: 'disable',
+
+        // show the new UI for cohen's kappa
+        // due to the 
+        new_ui_for_ck: 'disable',
+    },
+});
+
+
+/////////////////////////////////////////////////////////////////
+// setting management related functions
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot, {
+    init_settings: function() {
+        this.vpp.init_auto_sl_cfg_names();
+
+        // load settings?
+        let local_is_auto_sl_cfg = localStorage.getItem('auto_sl_current_cfg');
+
+        if (local_is_auto_sl_cfg == 'enable') {
+            this.vpp.load_local_settings();
+        } else {
+            // which means it is null or disable
+            // just skip
+        }
+    },
+});
+
+/////////////////////////////////////////////////////////////////
+// setting management related functions
+/////////////////////////////////////////////////////////////////
+Object.assign(app_hotpot.vpp_methods, {
+    /**
+     * Init the list for auto save/load
+     */
+    init_auto_sl_cfg_names: function() {
+        this.auto_sl_cfg_names = [];
+        for (const key in this.cfg) {
+            if (Object.hasOwnProperty.call(this.cfg, key)) {
+                this.auto_sl_cfg_names.push(key);
+            }
+        }
+        console.log('* found ' + this.auto_sl_cfg_names.length + ' config names for auto S/L');
+    },
+
+    switch_setting_tab: function(tab) {
+        this.cfg.active_setting_tab = tab;
+    },
+
+    is_adjudication_working_mode: function() {
+        return this.annotation_tab_working_mode == 'adjudication';
+    },
+
+    is_auto_save_ann: function() {
+        return this.cfg.auto_save_current_ann == 'enable';
+    },
+
+    is_auto_sl_cfg: function() {
+        return this.cfg.auto_sl_current_cfg == 'enable';
+    },
+
+    get_metator_mem: function() {
+        // return Math.floor(window.performance.memory.totalJSHeapSize / 1024 / 1024);
+        if (window.hasOwnProperty('performance')) {
+            if (window.performance.hasOwnProperty('memory')) {
+                return Math.floor(window.performance.memory.usedJSHeapSize / 1024 / 1024);
+            }
+        } else {
+            return 'NA';
+        }
+        return 'NA';
+    },
+
+    on_change_setting: function(key) {
+        if (this.is_auto_sl_cfg()) {
+            this.save_local_setting(key);
+        }
+    },
+
+    save_local_settings: function() {
+        // need to specify which to be saved
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            this.save_local_setting(cfg_name);
+        }
+    },
+
+    save_local_setting: function(cfg_name) {
+        let cfg_val = this.cfg[cfg_name];
+        localStorage.setItem(
+            cfg_name,
+            cfg_val
+        );
+        console.log('* saved setting['+cfg_name+'='+cfg_val+'] to localStorage');
+    },
+
+    load_local_settings: function() {
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            const val = this.cfg[cfg_name];
+            var local_val = localStorage.getItem(cfg_name);
+            if (local_val == null) {
+                // no setting yet
+            } else {
+                this.cfg[cfg_name] = local_val;
+                console.log('* loaded local setting[cfg.' + cfg_name + '=' + local_val + ']');
+            }
+        }
+    },
+});
+
+// extend the App with texts
 /**
  * This is an extension for app_hotpot text contents
  */
@@ -19723,6 +20234,7 @@ MedTator provides some options for selecting different methods.
         <p>For more information about the error label format, please check our <a target='_blank' href='https://github.com/OHNLP/MedTator/wiki'>Wiki Page</a>.</p>
 `
     },
+
     "avbrat_help_how_to_use": {
         title: 'How to use?',
         html: `<p>The <b><i class="fas fa-igloo"></i> Visualize</b> is designed to show the annotated tags and the context text of the current document. It supports the following features:</p>
@@ -19731,6 +20243,35 @@ MedTator provides some options for selecting different methods.
             <li><b>Selection visualization</b>: You can highlight a sentence or a paragraph, and then click the "<i class="fas fa-igloo"></i> Visualize" button or the "Visualize Selection" button to visualize the tags within the highlighted text.</li>
         </ul>
         <p>The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. For more information, please visit <a target='_blank' href="https://github.com/OHNLP/MedTator/wiki">MedTator Wiki</a></p>`
+    },
+
+    "auto_sl_current_cfg": {
+        title: "Auto Save/Load Configs",
+        html: `<p>By enable this feature, MedTator can save some settings in <a href="">localStorage</a> while the user makes changes to default settings. When the user open MedTator next time, the settings will be automatically loaded from localStorage.</p>
+        <p>Attention. At present, we only add those configs in "Settings" panel to this auto save/load feature. Other settings in tabs may be added in future.</p>
+        <p>Due to the technical reasons, when loading samples, the settings would be overwritten by the configs in sample dataset.</p>`
+    },
+
+    "tk_medtaggervis_help": {
+        title: "How to use MedTaggerVis",
+        html: `
+        <p>MedTaggerVis can help you to show the MedTagger output files (.ann) with the context text to explore the output results. You can visualize your MedTagger output as follows:
+        </p>
+        <ol>
+            <li><b>Load raw text files</b>: Drop the folder containing .txt files to the first box.</li>
+            <li><b>Load MedTagger output files</b>: Drop the folder containing .ann files to the second box. Please ensure the file names in the output folder match the file name in the raw text file folder. For example, an output file name "doc1.txt.ann" should have a raw text file named "doc1.txt" in the raw text folder.</li>
+            <li><b>Visualize the result</b>: Click the file name in the output file list to show the visualized results.</li>
+        </ol>
+        <p>Known issues:</p>
+        <ul>
+            <li>Web Browser: due to the limitation of FileSystemAccess API in web browser, MedTaggerVis can only run on Chromium-based modern browsers.</li>
+            <li>The number of files: the implementation of reading local files is different on different operating systems (e.g., Linux, MacOS, Windows, etc.). You may load a folder with up to 10,000 files to browse. </li>
+            <li>The loading time: loading files depends on many factors, such as the file size and disk I/O speed, so the loading time varies from a few seconds to a few minutes.</li>
+        </ul>
+        <p>
+            The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. If you have any issues when using this function, please feel free to leave an issue report in <a target="_blank" href="https://github.com/OHNLP/MedTator/issues">MedTator Github Repo Issues</a> or contact our developers.
+        </p>
+`
     }
 }});
 
@@ -23844,23 +24385,23 @@ Object.assign(app_hotpot.vpp_methods, {
 
         // for brat vis:
         // 1. get coll data
-        var collData = brat_parser.make_collection_data_by_dtd(
+        var col_data = brat_parser.make_collection_data_by_dtd(
             this.dtd
         );
-        console.log('* get brat collData:', collData);
+        console.log('* get brat col_data:', col_data);
 
         // 2. get doc data
-        var docData = brat_parser.make_document_data(
+        var doc_data = brat_parser.make_document_data(
             text,
             tags,
             this.dtd
         );
-        console.log('* get brat docData:', docData);
+        console.log('* get brat doc_data:', doc_data);
 
         // 3. vis!
         fig_bratvis.visualize(
-            collData,
-            docData
+            col_data,
+            doc_data
         );
 
         this.avbrat_is_rendering = false;
@@ -24030,18 +24571,262 @@ Object.assign(app_hotpot.vpp_methods, {
 Object.assign(app_hotpot.vpp_data, {
     // toolkit
     // 1. medtaggervis
-    // 2. POS
-    toolkit_section: null
+    // 2. iob2editor
+    toolkit_section: 'medtaggervis',
+
+    // for medtaggervis
+    tk_medtaggervis_is_loading_txt_files: false,
+    tk_medtaggervis_is_loading_ann_files: false,
+    tk_medtaggervis_txt_files: [],
+    tk_medtaggervis_ann_files: [],
+    tk_medtaggervis_force_module_update: 0,
+
+    // for iob2editor
+    tk_iob2editor_is_loading_iob_files: false,
+    tk_iob2editor_iob_files: [],
+    tk_iob2editor_force_module_update: 0,
+
 });
 
 
 Object.assign(app_hotpot.vpp_methods, {
-    tk_show_medtaggervis: function() {
-        this.tk_show_section('medtagg');
-    },
 
     tk_show_section: function(sec_name) {
         this.toolkit_section = sec_name;
+    },
+
+
+    /////////////////////////////////////////////////////////////////
+    // MedTaggerVis related functions
+    /////////////////////////////////////////////////////////////////
+
+    tk_medtaggervis_on_drop_txt_files: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        // get items
+        const items = event.dataTransfer.items;
+        console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+        // first, set to loading status and init the values
+        this.tk_medtaggervis_is_loading_txt_files = true;
+
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            function(fn) {
+                if (app_hotpot.is_file_ext_txt(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        // call back
+        promise_files.then(function(files) {
+            app_hotpot.vpp.tk_medtaggervis_add_txt_files(files);
+        });
+    },
+
+    tk_medtaggervis_add_txt_files: function(files) {
+        console.log('* adding '+files.length+' txt files to medtaggervis');
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // save this file
+            this.tk_medtaggervis_txt_files[
+                this.tk_medtaggervis_txt_files.length
+            ] = file;
+        }
+
+        // reset loading status
+        this.tk_medtaggervis_is_loading_txt_files = false;
+
+        // force update
+        this.force_module_update = Math.random();
+    },
+    
+
+    tk_medtaggervis_on_drop_ann_files: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        // get items
+        const items = event.dataTransfer.items;
+        console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+        // first, set to loading status and init the values
+        this.tk_medtaggervis_is_loading_ann_files = true;
+
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            function(fn) {
+                if (app_hotpot.is_file_ext_ann(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        // call back
+        promise_files.then(function(files) {
+            app_hotpot.vpp.tk_medtaggervis_add_ann_files(files);
+        });
+    },
+
+    tk_medtaggervis_add_ann_files: function(files) {
+        console.log('* adding '+files.length+' ann files to medtaggervis');
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            
+            // save this file
+            this.tk_medtaggervis_ann_files[
+                this.tk_medtaggervis_ann_files.length
+            ] = file;
+        }
+
+        // reset loading status
+        this.tk_medtaggervis_is_loading_ann_files = false;
+
+        // force update
+        this.tk_medtaggervis_force_module_update = Math.random();
+    },
+
+    tk_medtaggervis_clear_all: function() {
+        // clear data
+        this.tk_medtaggervis_txt_files = [];
+        this.tk_medtaggervis_ann_files = [];
+
+        // clear figure
+        fig_bratvis.clear('tk_medtaggervis_brat_fig');
+
+        // force update
+        this.tk_medtaggervis_force_module_update = Math.random();
+    },
+
+    tk_medtaggervis_on_click_txt_file: function(file) {
+        console.log('* clicked tk medtaggervis txt file', file);
+    },
+
+    tk_medtaggervis_on_click_ann_file: function(file) {
+        var fn_ann = file.fn;
+
+        // OK, next need to search 
+        var fn_txt = fn_ann.substring(0, fn_ann.length-4);
+
+        // get this file
+        function _ff(fn, list) {
+            for (let i = 0; i < list.length; i++) {
+                var file = list[i];
+                if (file.fn == fn) {
+                    return file
+                }
+            }
+            return null;
+        }
+        var f_ann = _ff(fn_ann, this.tk_medtaggervis_ann_files);
+        var f_txt = _ff(fn_txt, this.tk_medtaggervis_txt_files);
+        if (f_txt == null) {
+            app_hotpot.toast(
+                '[' + fn_txt + '] is not found in your uploaded files, please ensure the file is uploaded or the file name is correct.',
+                'warning'
+            );
+            return;
+        }
+        console.log('* found ann file', f_ann, ' and txt file', f_txt);
+
+        // get the collection and document data
+        var text = f_txt.text;
+        var ann_rs = medtagger_toolkit.parse_ann_file(f_ann);
+        var brat_vis_obj = brat_parser.medtagger2brat(
+            text,
+            ann_rs
+        );
+        console.log('* got brat vis obj', brat_vis_obj);
+
+        // Now let's create the visualization?
+        // clear figure if any
+        fig_bratvis.clear('tk_medtaggervis_brat_fig');
+
+        // then draw a new one
+        fig_bratvis.visualize(
+            brat_vis_obj.col_data,
+            brat_vis_obj.doc_data,
+            'tk_medtaggervis_brat_fig'
+        );
+    },
+
+    tk_medtaggervis_parse_files: function() {
+
+    },
+
+    tk_medtaggervis_how_to_use: function() {
+        this.show_help('tk_medtaggervis_help');
+    },
+
+
+
+
+    /////////////////////////////////////////////////////////////////
+    // IOB2Editor related functions
+    /////////////////////////////////////////////////////////////////
+
+
+    tk_iob2editor_on_drop_iob_files: function(event) {
+        // prevent the default download event
+        event.preventDefault();
+
+        // get items
+        const items = event.dataTransfer.items;
+        console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+        // first, set to loading status and init the values
+        this.tk_iob2editor_is_loading_iob_files = true;
+
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            function(fn) {
+                // no file name extension requirement for iob2/bio
+                return true;
+            }
+        );
+
+        // call back
+        promise_files.then(function(files) {
+            app_hotpot.vpp.tk_iob2editor_add_iob_files(files);
+        });
+    },
+
+    tk_iob2editor_add_iob_files: function(files) {
+        console.log('* adding '+files.length+' iob files to iob2editor');
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+
+            // add status
+            file.has_saved = false;
+            
+            // save this file
+            this.tk_iob2editor_iob_files[
+                this.tk_iob2editor_iob_files.length
+            ] = file;
+        }
+
+        // reset loading status
+        this.tk_iob2editor_is_loading_iob_files = false;
+
+        // force update
+        this.tk_iob2editor_force_module_update = Math.random();
+    },
+
+    tk_iob2editor_clear_all: function() {
+        // clear data
+        this.tk_iob2editor_iob_files = [];
+
+        // force update
+        this.tk_iob2editor_force_module_update = Math.random();
+    },
+
+    tk_iob2editor_on_click_iob_file: function(file) {
+
     }
 });
 
@@ -24242,6 +25027,210 @@ Vue.component('iaa-tag-info-gs', {
 `
 });
 
+// The Vue.js module for showing item list
+Vue.component('simple-item-list', {
+    data: function () {
+        return {
+            page_num: 1,
+            keyword: '',
+
+            // which file is clicked
+            current_item: null,
+        }
+    },
+    methods: {
+        upper: function(v) {
+            return v.toLocaleUpperCase();
+        },
+
+        clear_keyword: function() {
+            this.keyword = '';
+        },
+
+        on_click_item: function(vi) {
+            // send the back the item itself
+            this.callback_on_click_item(vi.item);
+
+            if (this.readonly) {
+
+            } else {
+                this.current_item = vi;
+            }
+        },
+
+        on_click_save_item: function(vi) {
+            // vi.file.has_saved = true;
+            console.log('* saved item', vi);
+            // just for update
+            this.force_module_update = Math.random();
+        }
+    },
+
+    computed: {
+        page_count: function() {
+            this.force_module_update;
+            return Math.ceil(this.v_filtered_items.length / this.page_size);
+        },
+
+        v_filtered_items: function() {
+            // just for update
+            this.force_module_update;
+
+            var v_filtered_items = [];
+
+            for (let i = 0; i < this.items.length; i++) {
+                var css_class = '';
+                if (this.current_item != null &&
+                    this.items[i][this.name_attr] == this.current_item.item[this.name_attr]) {
+                    css_class = 'file-selected';
+                }
+                if (this.keyword == '' || this.items[i][this.name_attr].indexOf(this.keyword) >= 0) {
+                    // for perf issue, use this instead of push
+                    // this is the virtual item that contains more info
+                    v_filtered_items[v_filtered_items.length] = {
+                        // the original item index
+                        idx: i,
+
+                        // the link to the original item object
+                        item: this.items[i],
+
+                        // a status for show different style
+                        css_class: css_class,
+                    };
+                }
+            }
+
+            return v_filtered_items;
+        },
+
+        v_paged_items: function() {
+            // just for update
+            this.force_module_update;
+
+            if (this.items.length == 0) {
+                return [];
+            }
+
+            // ok, let's do paging
+            var pitems = this.v_filtered_items;
+
+            if (this.page_count > 1) {
+                pitems = this.v_filtered_items.slice(
+                    (this.page_num - 1) * this.page_size,
+                    this.page_num * this.page_size
+                );
+            }
+
+            return pitems;
+        },
+    },
+
+    props: {
+        items: {
+            default: [],
+        },
+        name_attr: {
+            default: 'fn'
+        },
+        readonly: {
+            default: false,
+        },
+        page_size: {
+            default: 50
+        },
+        force_module_update: {},
+        callback_on_click_item: {}
+    },
+
+    template: `
+<div :force_module_update="force_module_update"
+    class="simple-item-list">
+
+    <div class="simple-item-list-header">
+        <span class="mr-1"
+            title="Filter by keyword">
+            Filter: 
+        </span>
+        <input type="text" 
+            class="ipt-xs"
+            style="width: 55px;"
+            v-model="keyword">
+
+        <button class="btn btn-xs"
+            v-on:click="clear_keyword()">
+            <i class="fa fa-times"></i>
+        </button>
+    </div>
+
+    <div class="simple-item-list-body"
+        style="">
+        <ul class="w-100 item-list">
+            <li v-for="vi in v_paged_items"
+                v-bind:class="vi.css_class"
+                v-on:click="on_click_item(vi)"
+                class="item-list-row">
+                <div class="d-flex flex-row flex-justify-between">
+                    <div class="item-list-row-name"
+                        v-bind:class="{'item-list-row-name-unsaved': !vi.item.has_saved}">
+
+                        <span v-if="!vi.item.has_saved" 
+                            v-on:click="on_click_save_item(vi)"
+                            title="Save the changes"
+                            class="icon-fg-unsaved mr-1">
+                            <i class="fa fa-save"></i>
+                        </span>
+
+                        <span>
+                        {{ vi.item[name_attr] }}
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="simple-item-list-footer" 
+        style="text-align: center;">
+
+        {{ v_filtered_items.length }}
+
+        <button class="btn btn-xs"
+            v-on:click="page_num = 1">
+            <i class="fas fa-step-backward"></i>
+        </button>
+
+        <button class="btn btn-xs"
+            v-bind:disabled="page_num == 1"
+            v-on:click="page_num -= 1">
+            <i class="fas fa-caret-left"></i>
+        </button>
+
+        <select v-model="page_num"
+            class="select-xs"
+            style="width: 40px;">
+            <option v-for="pn in page_count"
+                v-bind:value="pn">
+                {{ pn }}
+            </option>
+        </select>
+        / {{ page_count }}
+
+        <button class="btn btn-xs"
+            v-bind:disabled="page_num == page_count"
+            v-on:click="page_num += 1">
+            <i class="fas fa-caret-right"></i>
+        </button>
+        
+        <button class="btn btn-xs"
+            v-on:click="page_num = page_count">
+            <i class="fas fa-step-forward"></i>
+        </button>
+
+    </div>
+</div>
+    `
+});
+
 // The helper for brat toolkits
 /**
  * brat standoff format annotation file parser
@@ -24259,6 +25248,62 @@ Vue.component('iaa-tag-info-gs', {
  * where the annotation involves more than one continuous span of characters.
  */
 var brat_parser = {
+
+    // for managing colors
+    colors: [
+        "#a6cee3",
+        "#1f78b4",
+        "#b2df8a",
+        "#33a02c",
+        "#fb9a99",
+        "#e31a1c",
+        "#fdbf6f",
+        "#ff7f00",
+        "#cab2d6",
+        "#6a3d9a",
+        "#ffff99",
+        "#b15928",
+        "#8dd3c7",
+        "#ffffb3",
+        "#bebada",
+        "#fb8072",
+        "#80b1d3",
+        "#fdb462",
+        "#b3de69",
+        "#fccde5",
+        "#d9d9d9",
+        "#bc80bd",
+        "#ccebc5",
+        "#ffed6f",
+    ],
+    // for holding temp color info
+    color_mapping: {},
+
+    reset_color_mapping: function() {
+        this.color_mapping = {};
+    },
+
+    get_color: function(name) {
+        if (this.color_mapping.hasOwnProperty(name)) {
+            // good, we already have this color
+        } else {
+            // need to get a new color
+            var n_assigned = Object.keys(this.color_mapping).length;
+            // need to check whether is available color
+            if (n_assigned < this.colors.length) {
+                // yes! there is available color
+                // assign an pre-defined color
+                this.color_mapping[name] = this.colors[n_assigned];
+            } else {
+                // no ... just generate a random color
+                // but we prefer a lighter, but not too bright
+                var clr = '#' + Math.floor(Math.random()*8388608 + 4388607).toString(16);
+
+                this.color_mapping[name] = clr;
+            }
+        }
+        return this.color_mapping[name];
+    },
 
     /**
      * Convert an annotation data file to a brat format string
@@ -24310,11 +25355,80 @@ var brat_parser = {
     },
 
     /**
+     * Convert the MedTagger output to brat format
+     * 
+     * @param {string} text the text content
+     * @param {list} ann_rs a list of k-v pairs of MedTagger format
+     * @returns {object} {col_data: col_data, doc_data: doc_data}
+     */
+    medtagger2brat: function(text, ann_rs) {
+        var col_data = {
+            // all the entities
+            entity_types: [],
+        };
+
+        var doc_data = {
+            text: text,
+
+            // all entities
+            entities: [],
+        };
+
+        // for creating new entity
+        // we need to track all the 
+        var norm_dict = {};
+
+        // prepare the document data
+        // MedTagger only contains the entities
+        for (let i = 0; i < ann_rs.length; i++) {
+            const r = ann_rs[i];
+
+            // update the collection
+            if (!norm_dict.hasOwnProperty(r.norm)) {                
+                // get a color for this entity
+                var bgColor = this.get_color(r.norm);
+                
+                // create a new item for collection
+                var ent_def = {
+                    type: r.norm,
+                    labels: [ r.norm ],
+                    bgColor: bgColor,
+                    borderColor: 'darken'
+                }
+
+                // save to collection
+                col_data.entity_types.push(ent_def);
+
+                // save to dict
+                norm_dict[r.norm] = ent_def;
+            }
+            
+            // update the document
+            doc_data.entities.push([
+                // 1. id just use the sequence number
+                'E' + i,
+                // 2. use norm as the tag name 
+                r.norm,
+                // 3. locs are the MedTagger offset
+                [ [
+                    parseInt(r.start),
+                    parseInt(r.end),
+                ] ]
+            ]);
+        }
+
+        return {
+            col_data: col_data,
+            doc_data: doc_data
+        }
+    },
+
+    /**
      * Convert an annotation schema file to a brat collection data
      * 
-     * The sample collData is like the following:
+     * The sample col_data is like the following:
      * 
-     * var collData = {
+     * var col_data = {
           entity_types: [ {
             type   : 'Person',
             // The labels are used when displaying the annotion, in this case
@@ -24341,7 +25455,7 @@ var brat_parser = {
         if (typeof(relation_creation_mode) == 'undefined') {
             relation_creation_mode = 'first_others';
         }
-        var collData = {
+        var col_data = {
             // all the entities
             entity_types: [],
 
@@ -24352,7 +25466,7 @@ var brat_parser = {
         // first, convert all entities
         for (let i = 0; i < dtd.etags.length; i++) {
             const tag = dtd.etags[i];
-            collData.entity_types.push({
+            col_data.entity_types.push({
                 type: tag.name,
                 labels : [tag.name],
                 bgColor: tag.style.color,
@@ -24393,7 +25507,7 @@ var brat_parser = {
                                     ]
                                 };
                                 // save this relation
-                                collData.relation_types.push(rel_type);
+                                col_data.relation_types.push(rel_type);
                             }
                         }
                         // ok, all first - others are found
@@ -24405,7 +25519,7 @@ var brat_parser = {
             }
         }
 
-        return collData;
+        return col_data;
     },
 
 
@@ -24605,6 +25719,21 @@ var fig_bratvis = {
                 this.brat_location + '/css/fonts/Liberation_Sans-Regular.ttf'
             ]
         )
+    },
+
+    /**
+     * Clear the brat visualization
+     * 
+     * @param {string} plot_id optional DOM ID for the plot
+     */
+    clear: function(plot_id) {
+
+        if (typeof(plot_id) == 'undefined') {
+            plot_id = this.plot_id
+        }
+
+        // clear the old one
+        $('#' + plot_id).html('');
     }
 };
 
