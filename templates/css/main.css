@@ -1813,3 +1813,9 @@ ol[class], ul[class] {
     border: 1px dotted #bcbcbc;
     text-align: center;
 }
+.ribbon-menu-divider {
+    height: calc(100% - 7px);
+    width: 1px;
+    margin: 4px !important;
+    border-right: 1px solid #dadbdc;
+}

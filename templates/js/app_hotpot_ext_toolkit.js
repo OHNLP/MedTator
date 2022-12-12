@@ -10,6 +10,8 @@ Object.assign(app_hotpot.vpp_data, {
     tk_medtaggervis_txt_files: [],
     tk_medtaggervis_ann_files: [],
     tk_medtaggervis_force_module_update: 0,
+    tk_medtaggervis_show_attr_certainty: true,
+    tk_medtaggervis_show_attr_status: true,
 
     // for iob2editor
     tk_iob2editor_is_loading_iob_files: false,
@@ -193,8 +195,9 @@ Object.assign(app_hotpot.vpp_methods, {
         this.show_help('tk_medtaggervis_help');
     },
 
+    tk_medtaggervis_on_change_settings: function() {
 
-
+    },
 
     /////////////////////////////////////////////////////////////////
     // IOB2Editor related functions

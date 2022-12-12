@@ -127,9 +127,12 @@ var brat_parser = {
      * @param {list} ann_rs a list of k-v pairs of MedTagger format
      * @returns {object} {col_data: col_data, doc_data: doc_data}
      */
-    medtagger2brat: function(text, ann_rs, flag_enable_attributes) {
-        if (typeof(flag_enable_attributes)=='undefined') {
-            flag_enable_attributes = false;
+    medtagger2brat: function(text, ann_rs, flag_attrs) {
+        if (typeof(flag_attrs)=='undefined') {
+            flag_attrs = {
+                certainty: true,
+                status: true
+            }
         }
         var col_data = {
             // all the entities

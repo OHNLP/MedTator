@@ -49,6 +49,7 @@ v-bind:class="{'active': section=='toolkit'}">
         <span class="caption">Clear All Files</span>
     </button>
 
+    <div class="ribbon-menu-divider"></div>
 
     <!-- <button class="ribbon-button" 
         :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
@@ -63,6 +64,25 @@ v-bind:class="{'active': section=='toolkit'}">
         </span>
     </button> -->
 
+
+    <div title="Display the link tags and lines">
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Certainty"
+            title="Visualize the 'Certainty' attribute in output"
+            v-model="tk_medtaggervis_show_attr_certainty"
+            @change="tk_medtaggervis_on_change_settings">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Status"
+            title="Visualize the status attribute in output"
+            v-model="tk_medtaggervis_show_attr_status"
+            @change="tk_medtaggervis_on_change_settings">
+    </div>
 
     <button class="ribbon-button"
         title="Show how to use MedTaggerVis"
