@@ -127,7 +127,10 @@ var brat_parser = {
      * @param {list} ann_rs a list of k-v pairs of MedTagger format
      * @returns {object} {col_data: col_data, doc_data: doc_data}
      */
-    medtagger2brat: function(text, ann_rs) {
+    medtagger2brat: function(text, ann_rs, flag_enable_attributes) {
+        if (typeof(flag_enable_attributes)=='undefined') {
+            flag_enable_attributes = false;
+        }
         var col_data = {
             // all the entities
             entity_types: [],
@@ -153,7 +156,7 @@ var brat_parser = {
             if (!norm_dict.hasOwnProperty(r.norm)) {                
                 // get a color for this entity
                 var bgColor = this.get_color(r.norm);
-                
+
                 // create a new item for collection
                 var ent_def = {
                     type: r.norm,
