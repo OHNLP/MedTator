@@ -18,6 +18,7 @@ Vue.component('simple-item-list', {
         },
 
         on_click_item: function(vi) {
+            console.log('* clicked vi', vi);
             // send the back the item itself
             this.callback_on_click_item(vi.item);
 
@@ -52,7 +53,7 @@ Vue.component('simple-item-list', {
                 var css_class = '';
                 if (this.current_item != null &&
                     this.items[i][this.name_attr] == this.current_item.item[this.name_attr]) {
-                    css_class = 'file-selected';
+                    css_class = 'item-selected';
                 }
                 if (this.keyword == '' || this.items[i][this.name_attr].indexOf(this.keyword) >= 0) {
                     // for perf issue, use this instead of push
@@ -103,6 +104,7 @@ Vue.component('simple-item-list', {
             default: 'fn'
         },
         readonly: {
+            type: Boolean,
             default: false,
         },
         page_size: {

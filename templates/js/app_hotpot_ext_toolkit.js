@@ -171,7 +171,11 @@ Object.assign(app_hotpot.vpp_methods, {
         var ann_rs = medtagger_toolkit.parse_ann_file(f_ann);
         var brat_vis_obj = brat_parser.medtagger2brat(
             text,
-            ann_rs
+            ann_rs,
+            {
+                'certainty': this.tk_medtaggervis_show_attr_certainty,
+                'status': this.tk_medtaggervis_show_attr_status,
+            }
         );
         console.log('* got brat vis obj', brat_vis_obj);
 

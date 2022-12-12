@@ -1787,7 +1787,7 @@ ol[class], ul[class] {
 .item-list li {
     border-bottom: 1px dotted #eeeeee;
 }
-.item-list li.file-selected {
+.item-list li.item-selected {
     font-weight: bold;
     background-color: #EFEFEF;
     border-left: 3px solid #1ba1e2;

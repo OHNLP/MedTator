@@ -137,13 +137,57 @@ var brat_parser = {
         var col_data = {
             // all the entities
             entity_types: [],
+
+            // all attributes for entities
+            entity_attribute_types: []
         };
+
+        if (flag_attrs.certainty) {
+            col_data.entity_attribute_types.push({
+                type: 'Certainty',
+                values: {
+                    'Positive': {
+                        glyph: '➕',
+                        glyphColor: 'red',
+                    },
+                    'Negated': {
+                        glyph: '➖',
+                        glyphColor: 'green',
+                    },
+                    'Hypothetical': {
+                        glyph: '❓',
+                        glyphColor: 'orange',
+                    },
+                    'Possible': {
+                        glyph: '%',
+                        glyphColor: 'yellow'
+                    }
+                }
+            });
+        }
+
+        if (flag_attrs.status) {
+            col_data.entity_attribute_types.push({
+                type: 'Status',
+                values: {
+                    'Present': {
+                        glyph: 'Ⓟ',
+                    },
+                    'HistoryOf': {
+                        glyph: 'Ⓗ'
+                    }
+                }
+            });
+        }
 
         var doc_data = {
             text: text,
 
             // all entities
             entities: [],
+
+            // all attributes
+            attributes: []
         };
 
         // for creating new entity
@@ -175,10 +219,12 @@ var brat_parser = {
                 norm_dict[r.norm] = ent_def;
             }
             
+            let entity_id = 'E' + i;
+
             // update the document
             doc_data.entities.push([
                 // 1. id just use the sequence number
-                'E' + i,
+                entity_id,
                 // 2. use norm as the tag name 
                 r.norm,
                 // 3. locs are the MedTagger offset
@@ -187,6 +233,27 @@ var brat_parser = {
                     parseInt(r.end),
                 ] ]
             ]);
+
+            // update attributes
+            // update the certainty
+            if (flag_attrs.certainty) {
+                doc_data.attributes.push([
+                    'A'+doc_data.attributes.length, 
+                    'Certainty', 
+                    entity_id, 
+                    r.certainty,
+                ]);
+            }
+
+            // update the status
+            if (flag_attrs.status) {
+                doc_data.attributes.push([
+                    'A'+doc_data.attributes.length, 
+                    'Status', 
+                    entity_id, 
+                    r.status,
+                ]);
+            }
         }
 
         return {
