@@ -15,6 +15,89 @@
  */
 var brat_parser = {
 
+    /**
+     * Parse the brat ann format
+     * 
+     * @param {string} ann_text the text content of a given ann
+     * @returns document_data object
+     */
+    parse_ann: function(ann_text) {
+        var doc_data = {
+            text: '',
+            entities: [],
+            relations: [],
+            attributes: [],
+            events: [],
+            triggers: []
+        };
+
+        let lines = ann_text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            line = line.trim();
+
+            if (line == '') {
+                // it's empty
+                continue;
+            }
+            
+            if (line.startsWith('#')) {
+                // it's a note
+                continue;
+            }
+
+            // the first letter must be the line code
+            let annotation_type_id = line[0];
+            
+            if (annotation_type_id == 'T') {
+                var r = this._parse_ann_line_type_text(line);
+                doc_data.entities.push(r);
+            }
+        }
+
+        return doc_data;
+    },
+
+    _parse_ann_line_type_text: function(line) {
+        var ps = line.split('\t');
+
+        // first must be the ID
+        var id = ps[0];
+
+        // third must be the token
+        var token = ps[2];
+        
+        // now parse the type and span
+        var first_space_idx = ps[1].indexOf(' ');
+
+        // the type is the first char to first space
+        var type = ps[1].substring(0, first_space_idx);
+
+        // the rest are spans
+        var spans_txt = ps[1].substring(first_space_idx + 1, );
+
+        // for brat v1.3 and later, it can be a multi-part text
+        var spans_ps = spans_txt.split(';');
+
+        var locs = [];
+        for (let i = 0; i < spans_ps.length; i++) {
+            const spans_p = spans_ps[i];
+            var sps = spans_p.split(' ');
+            
+            var a = parseInt(sps[0]);
+            var b = parseInt(sps[1]);
+
+            locs.push([a, b]);
+        }
+
+        return [
+            id,
+            type,
+            locs,
+            token, // which is not required, but I just leave it here
+        ]
+    },
+
     // for managing colors
     colors: [
         "#a6cee3",
