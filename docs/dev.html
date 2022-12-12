@@ -1969,7 +1969,7 @@ ol[class], ul[class] {
 .item-list li {
     border-bottom: 1px dotted #eeeeee;
 }
-.item-list li.file-selected {
+.item-list li.item-selected {
     font-weight: bold;
     background-color: #EFEFEF;
     border-left: 3px solid #1ba1e2;
@@ -1994,6 +1994,12 @@ ol[class], ul[class] {
     border-radius: 8px;
     border: 1px dotted #bcbcbc;
     text-align: center;
+}
+.ribbon-menu-divider {
+    height: calc(100% - 7px);
+    width: 1px;
+    margin: 4px !important;
+    border-right: 1px solid #dadbdc;
 }
 </style>
 
@@ -3826,6 +3832,7 @@ v-bind:class="{'active': section=='toolkit'}">
         <span class="caption">Clear All Files</span>
     </button>
 
+    <div class="ribbon-menu-divider"></div>
 
     <!-- <button class="ribbon-button" 
         :disabled="tk_medtaggervis_txt_files.length == 0 || tk_medtaggervis_ann_files.length == 0"
@@ -3840,6 +3847,25 @@ v-bind:class="{'active': section=='toolkit'}">
         </span>
     </button> -->
 
+
+    <div title="Display the link tags and lines">
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Certainty"
+            title="Visualize the 'Certainty' attribute in output"
+            v-model="tk_medtaggervis_show_attr_certainty"
+            @change="tk_medtaggervis_on_change_settings">
+        <br>
+        
+        <input type="checkbox" 
+            class="check"
+            data-role="switch" 
+            data-caption="Show Status"
+            title="Visualize the status attribute in output"
+            v-model="tk_medtaggervis_show_attr_status"
+            @change="tk_medtaggervis_on_change_settings">
+    </div>
 
     <button class="ribbon-button"
         title="Show how to use MedTaggerVis"
@@ -6707,7 +6733,7 @@ v-bind:class="{'active': section=='toolkit'}">
             <div v-else class="w-100 h-100">
                 <simple-item-list
                     name_attr="fn"
-                    readonly="true"
+                    v-bind:readonly="true"
                     v-bind:items="tk_medtaggervis_txt_files"
                     v-bind:force_module_update="tk_medtaggervis_force_module_update"
                     v-bind:callback_on_click_item="tk_medtaggervis_on_click_txt_file">
@@ -6753,7 +6779,7 @@ v-bind:class="{'active': section=='toolkit'}">
             <div v-else class="w-100 h-100">
                 <simple-item-list
                     name_attr="fn"
-                    readonly="false"
+                    v-bind:readonly="false"
                     v-bind:items="tk_medtaggervis_ann_files"
                     v-bind:force_module_update="tk_medtaggervis_force_module_update"
                     v-bind:callback_on_click_item="tk_medtaggervis_on_click_ann_file">
@@ -6823,7 +6849,7 @@ v-bind:class="{'active': section=='toolkit'}">
             <div v-else class="w-100 h-100">
                 <simple-item-list
                     name_attr="fn"
-                    readonly="true"
+                    v-bind:readonly="true"
                     v-bind:items="tk_iob2editor_iob_files"
                     v-bind:force_module_update="tk_iob2editor_force_module_update"
                     v-bind:callback_on_click_item="tk_iob2editor_on_click_iob_file">
@@ -24580,6 +24606,8 @@ Object.assign(app_hotpot.vpp_data, {
     tk_medtaggervis_txt_files: [],
     tk_medtaggervis_ann_files: [],
     tk_medtaggervis_force_module_update: 0,
+    tk_medtaggervis_show_attr_certainty: true,
+    tk_medtaggervis_show_attr_status: true,
 
     // for iob2editor
     tk_iob2editor_is_loading_iob_files: false,
@@ -24739,7 +24767,11 @@ Object.assign(app_hotpot.vpp_methods, {
         var ann_rs = medtagger_toolkit.parse_ann_file(f_ann);
         var brat_vis_obj = brat_parser.medtagger2brat(
             text,
-            ann_rs
+            ann_rs,
+            {
+                'certainty': this.tk_medtaggervis_show_attr_certainty,
+                'status': this.tk_medtaggervis_show_attr_status,
+            }
         );
         console.log('* got brat vis obj', brat_vis_obj);
 
@@ -24763,8 +24795,9 @@ Object.assign(app_hotpot.vpp_methods, {
         this.show_help('tk_medtaggervis_help');
     },
 
+    tk_medtaggervis_on_change_settings: function() {
 
-
+    },
 
     /////////////////////////////////////////////////////////////////
     // IOB2Editor related functions
@@ -25048,6 +25081,7 @@ Vue.component('simple-item-list', {
         },
 
         on_click_item: function(vi) {
+            console.log('* clicked vi', vi);
             // send the back the item itself
             this.callback_on_click_item(vi.item);
 
@@ -25082,7 +25116,7 @@ Vue.component('simple-item-list', {
                 var css_class = '';
                 if (this.current_item != null &&
                     this.items[i][this.name_attr] == this.current_item.item[this.name_attr]) {
-                    css_class = 'file-selected';
+                    css_class = 'item-selected';
                 }
                 if (this.keyword == '' || this.items[i][this.name_attr].indexOf(this.keyword) >= 0) {
                     // for perf issue, use this instead of push
@@ -25133,6 +25167,7 @@ Vue.component('simple-item-list', {
             default: 'fn'
         },
         readonly: {
+            type: Boolean,
             default: false,
         },
         page_size: {
@@ -25361,17 +25396,67 @@ var brat_parser = {
      * @param {list} ann_rs a list of k-v pairs of MedTagger format
      * @returns {object} {col_data: col_data, doc_data: doc_data}
      */
-    medtagger2brat: function(text, ann_rs) {
+    medtagger2brat: function(text, ann_rs, flag_attrs) {
+        if (typeof(flag_attrs)=='undefined') {
+            flag_attrs = {
+                certainty: true,
+                status: true
+            }
+        }
         var col_data = {
             // all the entities
             entity_types: [],
+
+            // all attributes for entities
+            entity_attribute_types: []
         };
+
+        if (flag_attrs.certainty) {
+            col_data.entity_attribute_types.push({
+                type: 'Certainty',
+                values: {
+                    'Positive': {
+                        glyph: '➕',
+                        glyphColor: 'red',
+                    },
+                    'Negated': {
+                        glyph: '➖',
+                        glyphColor: 'green',
+                    },
+                    'Hypothetical': {
+                        glyph: '❓',
+                        glyphColor: 'orange',
+                    },
+                    'Possible': {
+                        glyph: '%',
+                        glyphColor: 'yellow'
+                    }
+                }
+            });
+        }
+
+        if (flag_attrs.status) {
+            col_data.entity_attribute_types.push({
+                type: 'Status',
+                values: {
+                    'Present': {
+                        glyph: 'Ⓟ',
+                    },
+                    'HistoryOf': {
+                        glyph: 'Ⓗ'
+                    }
+                }
+            });
+        }
 
         var doc_data = {
             text: text,
 
             // all entities
             entities: [],
+
+            // all attributes
+            attributes: []
         };
 
         // for creating new entity
@@ -25387,7 +25472,7 @@ var brat_parser = {
             if (!norm_dict.hasOwnProperty(r.norm)) {                
                 // get a color for this entity
                 var bgColor = this.get_color(r.norm);
-                
+
                 // create a new item for collection
                 var ent_def = {
                     type: r.norm,
@@ -25403,10 +25488,12 @@ var brat_parser = {
                 norm_dict[r.norm] = ent_def;
             }
             
+            let entity_id = 'E' + i;
+
             // update the document
             doc_data.entities.push([
                 // 1. id just use the sequence number
-                'E' + i,
+                entity_id,
                 // 2. use norm as the tag name 
                 r.norm,
                 // 3. locs are the MedTagger offset
@@ -25415,6 +25502,27 @@ var brat_parser = {
                     parseInt(r.end),
                 ] ]
             ]);
+
+            // update attributes
+            // update the certainty
+            if (flag_attrs.certainty) {
+                doc_data.attributes.push([
+                    'A'+doc_data.attributes.length, 
+                    'Certainty', 
+                    entity_id, 
+                    r.certainty,
+                ]);
+            }
+
+            // update the status
+            if (flag_attrs.status) {
+                doc_data.attributes.push([
+                    'A'+doc_data.attributes.length, 
+                    'Status', 
+                    entity_id, 
+                    r.status,
+                ]);
+            }
         }
 
         return {
