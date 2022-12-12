@@ -254,10 +254,10 @@ var brat_parser = {
                 type: 'Status',
                 values: {
                     'Present': {
-                        glyph: 'Ⓟ',
+                        glyph: 'P',
                     },
                     'HistoryOf': {
-                        glyph: 'Ⓗ'
+                        glyph: 'H'
                     }
                 }
             });
