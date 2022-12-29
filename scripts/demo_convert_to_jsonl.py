@@ -57,6 +57,13 @@ path = '../sample/ENTITY_RELATION_TASK/ann_xml/Annotator_A/'
 output_path = '../../dataset.json'
 
 # parse the XML files in the given path.
+# it's just the raw XML files with basic conversion
+# all annotation files are saved in the rst['anns']
+rst = mtk.parse_xmls(path)
+print(rst['stat'])
+
+# for the target format, we don't need to use the raw XML files,
+# so we convert the the annotation files to a sentence-baed format
 # and the parsed result of each annotation file looks like the follwoing
 # {
 #     "text": "The full text of the file",
@@ -69,14 +76,14 @@ output_path = '../../dataset.json'
 #                 "id": "A1",
 #                 "tag": "PRON",
 #                 "text": "this",
-#                 "token_index": [0, 0]
+#                 "token_index": [0, 0], // it's the token index in the sentence
 #                 // other properties
 #             },
 #             "A2": {
 #                 "id": "A2",
 #                 "tag": "NOUN",
 #                 "text": "a sentence",
-#                 "token_index": [2, 3]
+#                 "token_index": [2, 3], // it's the token index in the sentence
 #                 // other properties
 #             }
 #         },
@@ -90,10 +97,6 @@ output_path = '../../dataset.json'
 #         }
 #     }]
 # }
-rst = mtk.parse_xmls(path)
-print(rst['stat'])
-
-# convert the the annotation files to a sentence-baed format
 ann_sents = stk.convert_anns_to_sentags(
     rst['anns'],
     # by default, this tool will skip those sentence without entities,
@@ -105,6 +108,7 @@ print("* got %s ann_sents" % (len(ann_sents)))
 
 # first, let's prepare a list for the output 
 # it will be filled with all the JSONL format annotation files
+# we save it on disk at last
 output_anns = []
 
 # now need to check each annotation file.
@@ -115,8 +119,10 @@ for ann_idx, (ann, ann_sent) in enumerate(zip(rst['anns'], ann_sents)):
     print('* converting', ann['_filename'], len(ann_sent['sentence_tags']), 'sent(s)')
 
     # create an object to hold the output JSONL for this annotation file
+    # the format just follows the requirements in the PURE model document
     out_ann = {
         # the filename
+        # we just use the annotation file name here
         'doc_key': ann['_filename'],
         # sentences in the document, each sentence is a list of tokens
         "sentences": [],
@@ -128,12 +134,15 @@ for ann_idx, (ann, ann_sent) in enumerate(zip(rst['anns'], ann_sents)):
         "relations": []
     }
 
-    # create a tag_id-based dictionary for quick search in this annotation
-    # later we can use the tag id to search this tag in the current annotation
+    # create a tag_id-based dictionary for quick search in this annotation.
+    # later we can use the tag id to search this tag in the current annotation.
+    # it can also be helpful to support cross-sentence relation converting if needed.
     tag_dict = {}
-    # unlike other formats, this format needs to use a document-level index for the 
+    # unlike other formats, this format needs to use a document-level index,
+    # so we need to count the offset of each sentences here
     sent_base_idx = 0
-    # to implement this function, we need to walk through the whole annotation file
+    # to implement the tag_dict and sentence base index counting,
+    # we need to walk through the whole annotation file
     for sent_idx, sentag in enumerate(ann_sent['sentence_tags']):
         # check each sentence
         for ent_idx in sentag['entities']:
