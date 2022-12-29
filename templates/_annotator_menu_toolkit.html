@@ -18,6 +18,18 @@ v-bind:class="{'active': section=='toolkit'}">
             </span>
         </button>
 
+        <!-- <button class="ribbon-icon-button"
+            title="Edit ruleset for MedTagger"
+            v-on:click="tk_show_section('ruleseteditor')"
+            v-bind:class="{'active': toolkit_section=='ruleseteditor'}">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+            <span class="caption">
+                MedTagger Rule
+            </span>
+        </button> -->
+
 
         <!-- <button class="ribbon-icon-button"
             title="Editor for IOB2/BIO format"
@@ -140,6 +152,37 @@ v-bind:class="{'active': section=='toolkit'}">
 
     <span class="title">
         <b>MedTaggerVis</b>
+    </span>
+
+</div>
+
+
+
+
+<div v-if="toolkit_section == 'ruleseteditor'"
+    class="group">
+
+    <button class="ribbon-button"
+        title="Clear all files for conversion"
+        v-on:click="tk_ruleseteditor_clear_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTagger Ruleset Editor"
+        v-on:click="tk_ruleseteditor_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">
+        <b>MedTagger Ruleset Editor</b>
     </span>
 
 </div>

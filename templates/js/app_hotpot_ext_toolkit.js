@@ -2,6 +2,8 @@ Object.assign(app_hotpot.vpp_data, {
     // toolkit
     // 1. medtaggervis
     // 2. iob2editor
+    // 3. ruleseteditor
+    // 4. 
     toolkit_section: 'medtaggervis',
 
     // for medtaggervis
@@ -18,6 +20,7 @@ Object.assign(app_hotpot.vpp_data, {
     tk_iob2editor_iob_files: [],
     tk_iob2editor_force_module_update: 0,
 
+    // for ruleseteditor
 });
 
 
@@ -264,5 +267,17 @@ Object.assign(app_hotpot.vpp_methods, {
 
     tk_iob2editor_on_click_iob_file: function(file) {
 
+    },
+
+
+    /////////////////////////////////////////////////////////////////
+    // Rule editor related functions
+    /////////////////////////////////////////////////////////////////
+    tk_ruleseteditor_clear_all: function() {
+
+    },
+
+    tk_ruleseteditor_how_to_use: function() {
+        
     }
 });
