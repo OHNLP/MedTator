@@ -10,7 +10,8 @@ The function of each script is described as follows:
 - `make_files.py`: generate sample text files for annotation.
 - `medtator_kits.py`: toolkits for read / write MedTator's XML files.
 - `sentence_kits.py`: toolkits for converting XML to sentence-based JSON format
-- `xml2sentence_demo.ipynb`: showing how to use the `sentence_kits.py` for converting.
+- `xml2sentence_demo.ipynb`: showing how to use the `sentence_kits.py` for converting XML annotation files for building a machine learning model.
+- `demo_convert_to_jsonl.py`: showing how to use the `medtator_kits.py` and `sentence_kits.py` to a JSONL format for training relation extraction models by [Princeton PURE NLP](https://github.com/princeton-nlp/PURE).
 
 ## Machine learning (ML)
 
