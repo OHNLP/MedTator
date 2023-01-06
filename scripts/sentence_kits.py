@@ -68,6 +68,7 @@ def is_overlapped(a, b):
 
 
 def find_matched_tags(
+    sent_idx,
     sent_spans, 
     all_tags, 
     matched_tag_dict={},
@@ -117,6 +118,10 @@ def find_matched_tags(
         if all(flags_appear_in_sent):
             # ok, all entities in this relation are shown in this sentence
             rels[tag['id']] = tag
+            dprint('* added relation [%s] to sentence [%s] as all entities are in the same sentence' % (
+                tag['id'],
+                sent_idx
+            ))
 
         elif any(flags_appear_in_sent):
             # which means at least one entity shows in current sentence
@@ -128,8 +133,9 @@ def find_matched_tags(
                     # we just skip
                     if tag['id'] in matched_tag_dict:
                         # ok, this relation has already been added to other sentences
-                        dprint('* skipped relation [%s] as it has been added to sentence [%s]' % (
+                        dprint('* skipped relation [%s] for sentence [%s] as it has been added to sentence [%s]' % (
                             tag['id'],
+                            sent_idx,
                             matched_tag_dict[tag['id']]
                         ))
                         
@@ -137,11 +143,19 @@ def find_matched_tags(
                         # good, this relation has NOT been added
                         # now let's just add to this sentence's rel
                         rels[tag['id']] = tag
+                        dprint('* added relation [%s] to sentence [%s] as it is first sentence partially matched entities' % (
+                            tag['id'],
+                            sent_idx
+                        ))
                 else:
                     # OK, as the flag is False
                     # we will just include this relation 
                     # no matter how many times it is added to other sentences
                     rels[tag['id']] = tag
+                    dprint('* added relation [%s] to sentence [%s] as include relation in all related sentences' % (
+                        tag['id'],
+                        sent_idx
+                    ))
             else:
                 # Oh, although this relation is partially matched
                 # (one or more entities, but not all)
@@ -239,6 +253,7 @@ def convert_ann_to_sentag(
 
         # get all matched tags in this sentence
         ents, rels = find_matched_tags(
+            sent_idx,
             sentence_spans,
             ann['tags'],
             matched_tag_dict,
