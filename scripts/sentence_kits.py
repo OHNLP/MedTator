@@ -22,6 +22,14 @@ from spacy.lang.en import English
 nlp = English()
 tokenizer = nlp.tokenizer
 
+# flag
+DEBUG = True
+def dprint(*args, **kwargs):
+    if DEBUG:
+        print(*args, **kwargs)
+    else:
+        pass
+
 def get_sentences(text):
     '''
     Get sentences from a text by pySBD
@@ -62,14 +70,14 @@ def is_overlapped(a, b):
 def find_matched_tags(
     sent_spans, 
     all_tags, 
-    matched_tagid_set=set([]),
+    matched_tag_dict={},
     flag_include_partial_matched_relation = True,
     flag_include_relation_in_first_sentence_only = True
 ):
     '''
     Find the tags matched the given sent_spans by spans
 
-    skip_tagids is used for excluding relation tags
+    matched_tag_dict is used for excluding relation tags
     '''
     # all matched entities in a dictionary
     # tag id -> ent
@@ -103,8 +111,8 @@ def find_matched_tags(
         # now let's match the ids with the entities in this sentence
         # which means we found one of the entities in this relation
         # shows in the given sentence, then, just save this and check next
-        # TODO it's possible that not all of the entities in a sentence can match
-        # so need to deal with this case in future
+        # it's possible that not all of the entities in a sentence can match
+        # so need to deal with this case.
         flags_appear_in_sent = [_id in ents for _id in ids]
         if all(flags_appear_in_sent):
             # ok, all entities in this relation are shown in this sentence
@@ -118,9 +126,13 @@ def find_matched_tags(
                     # if this relation has been included
                     # then in this condition,
                     # we just skip
-                    if tag['id'] in matched_tagid_set:
+                    if tag['id'] in matched_tag_dict:
                         # ok, this relation has already been added to other sentences
-                        pass
+                        dprint('* skipped relation [%s] as it has been added to sentence [%s]' % (
+                            tag['id'],
+                            matched_tag_dict[tag['id']]
+                        ))
+                        
                     else:
                         # good, this relation has NOT been added
                         # now let's just add to this sentence's rel
@@ -194,6 +206,9 @@ def convert_ann_to_sentag(
     '''
     Convert an ann to a sentence-based tag collection
     '''
+    dprint('* mapping tags to sentences for %s' % (
+        ann['_filename']
+    ))
     # first, create a record
     r = {
         "text": ann['text'],
@@ -205,10 +220,10 @@ def convert_ann_to_sentag(
 
     # a list for counting matched tags.
     # this can be used for checking which relation tag has been assigned
-    matched_tagid_set = set([])
+    matched_tag_dict = {}
 
     # for each sentence
-    for sent in sents:
+    for sent_idx, sent in enumerate(sents):
         # get the spans of this sentence in the whole doc
         sentence_spans = [
             sent.start,
@@ -226,15 +241,15 @@ def convert_ann_to_sentag(
         ents, rels = find_matched_tags(
             sentence_spans,
             ann['tags'],
-            matched_tagid_set,
+            matched_tag_dict,
             flag_include_partial_matched_relation,
             flag_include_relation_in_first_sentence_only
         )
 
         # add all tag_id of entities
-        for tag_id in ents: matched_tagid_set.add(tag_id)
+        for tag_id in ents: matched_tag_dict[tag_id] = sent_idx
         # add all tag_id of relations
-        for tag_id in rels: matched_tagid_set.add(tag_id)
+        for tag_id in rels: matched_tag_dict[tag_id] = sent_idx
 
         # we can check if any entity found in this sentence
         if is_exclude_no_entity_sentence and len(ents) == 0:
