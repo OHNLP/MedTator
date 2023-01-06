@@ -59,9 +59,17 @@ def is_overlapped(a, b):
     return False
 
 
-def find_matched_tags(sent_spans, tags):
+def find_matched_tags(
+    sent_spans, 
+    all_tags, 
+    matched_tagid_set=set([]),
+    flag_include_partial_matched_relation = True,
+    flag_include_relation_in_first_sentence_only = True
+):
     '''
     Find the tags matched the given sent_spans by spans
+
+    skip_tagids is used for excluding relation tags
     '''
     # all matched entities in a dictionary
     # tag id -> ent
@@ -71,7 +79,7 @@ def find_matched_tags(sent_spans, tags):
     rels = {}
 
     # first round, check all node/entities
-    for tag in tags:
+    for tag in all_tags:
         if 'spans' not in tag: continue
         # which means it is an entity tag
         spans = tag['spans']
@@ -80,7 +88,7 @@ def find_matched_tags(sent_spans, tags):
             ents[tag['id']] = tag 
 
     # second round, check all links
-    for tag in tags:
+    for tag in all_tags:
         if 'spans' in tag: continue
         # which means it is a relation tag
         # get all ID tags
@@ -97,9 +105,41 @@ def find_matched_tags(sent_spans, tags):
         # shows in the given sentence, then, just save this and check next
         # TODO it's possible that not all of the entities in a sentence can match
         # so need to deal with this case in future
-        if all([_id in ents for _id in ids]):
+        flags_appear_in_sent = [_id in ents for _id in ids]
+        if all(flags_appear_in_sent):
             # ok, all entities in this relation are shown in this sentence
             rels[tag['id']] = tag
+
+        elif any(flags_appear_in_sent):
+            # which means at least one entity shows in current sentence
+            if flag_include_partial_matched_relation:
+                # now need to check whether include
+                if flag_include_relation_in_first_sentence_only:
+                    # if this relation has been included
+                    # then in this condition,
+                    # we just skip
+                    if tag['id'] in matched_tagid_set:
+                        # ok, this relation has already been added to other sentences
+                        pass
+                    else:
+                        # good, this relation has NOT been added
+                        # now let's just add to this sentence's rel
+                        rels[tag['id']] = tag
+                else:
+                    # OK, as the flag is False
+                    # we will just include this relation 
+                    # no matter how many times it is added to other sentences
+                    rels[tag['id']] = tag
+            else:
+                # Oh, although this relation is partially matched
+                # (one or more entities, but not all)
+                # we don't want to include it, just pass
+                pass
+        else:
+            # this condition means that:
+            # this relation has NONE entity in current sentence
+            # just pass
+            pass
 
     return ents, rels
 
@@ -145,7 +185,12 @@ def update_ents_token_index(sentence_spans, tokens, ents):
     return ents
 
 
-def convert_ann_to_sentag(ann, is_exclude_no_entity_sentence = True):
+def convert_ann_to_sentag(
+    ann, 
+    is_exclude_no_entity_sentence = True,
+    flag_include_partial_matched_relation = True,
+    flag_include_relation_in_first_sentence_only = True
+):
     '''
     Convert an ann to a sentence-based tag collection
     '''
@@ -157,6 +202,10 @@ def convert_ann_to_sentag(ann, is_exclude_no_entity_sentence = True):
 
     # get the sentences
     sents = get_sentences(ann['text'])
+
+    # a list for counting matched tags.
+    # this can be used for checking which relation tag has been assigned
+    matched_tagid_set = set([])
 
     # for each sentence
     for sent in sents:
@@ -176,9 +225,18 @@ def convert_ann_to_sentag(ann, is_exclude_no_entity_sentence = True):
         # get all matched tags in this sentence
         ents, rels = find_matched_tags(
             sentence_spans,
-            ann['tags']
+            ann['tags'],
+            matched_tagid_set,
+            flag_include_partial_matched_relation,
+            flag_include_relation_in_first_sentence_only
         )
 
+        # add all tag_id of entities
+        for tag_id in ents: matched_tagid_set.add(tag_id)
+        # add all tag_id of relations
+        for tag_id in rels: matched_tagid_set.add(tag_id)
+
+        # we can check if any entity found in this sentence
         if is_exclude_no_entity_sentence and len(ents) == 0:
             # OK, no need to save this sentence
             continue
@@ -206,7 +264,12 @@ def convert_ann_to_sentag(ann, is_exclude_no_entity_sentence = True):
     return r
 
 
-def convert_anns_to_sentags(anns, is_exclude_no_entity_sentence = True):
+def convert_anns_to_sentags(
+    anns, 
+    is_exclude_no_entity_sentence = True,
+    flag_include_partial_matched_relation = True,
+    flag_include_relation_in_first_sentence_only = True
+):
     '''
     Convert many anns to sentence tags
 
@@ -219,7 +282,9 @@ def convert_anns_to_sentags(anns, is_exclude_no_entity_sentence = True):
     for ann in anns:
         r = convert_ann_to_sentag(
             ann,
-            is_exclude_no_entity_sentence
+            is_exclude_no_entity_sentence,
+            flag_include_partial_matched_relation,
+            flag_include_relation_in_first_sentence_only
         )
         rs.append(r)
 
