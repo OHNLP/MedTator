@@ -174,6 +174,10 @@ var app_hotpot = {
 
     vpp_methods: {
 
+        show_quick_help: function() {
+
+        },
+
         /////////////////////////////////////////////////////////////////
         // Settings related functions
         /////////////////////////////////////////////////////////////////
@@ -1203,10 +1207,24 @@ var app_hotpot = {
             }
         },
 
-        set_ann_idx_by_ann: function(ann) {
+        set_ann_idx_to_next: function() {
+            if (this.anns.length > 0 && 
+                this.ann_idx < this.anns.length - 1) {
+                this.set_ann_idx(this.ann_idx + 1);
+            }
+        },
+
+        set_ann_idx_to_prev: function() {
+            if (this.anns.length > 0 && 
+                this.ann_idx > 0) {
+                this.set_ann_idx(this.ann_idx - 1);
+            }
+        },
+
+        set_ann_idx_by_ann: function(v_ann) {
             // find the idx
             var idx = this.find_included(
-                ann._filename,
+                v_ann._filename,
                 this.anns
             );
 
@@ -2837,9 +2855,25 @@ var app_hotpot = {
 
     bind_keypress_event: function() {
         document.addEventListener(
-            "keypress",
+            // "keypress",
+            "keydown",
             function(event) {
-                // console.log('* pressed on', event);
+                console.log('* pressed on', event);
+
+                if (event.key.toLocaleLowerCase() == 'h') {
+                    app_hotpot.vpp.show_quick_help();
+                    return;
+                }
+
+                if (event.altKey) {
+                    if (event.key == 'ArrowUp') {
+                        app_hotpot.vpp.set_ann_idx_to_prev();
+                    } else if (event.key == 'ArrowDown') {
+                        app_hotpot.vpp.set_ann_idx_to_next();
+                    }
+
+                    return;
+                }
 
                 // first, check if there is any selection
                 app_hotpot.vpp.add_etag_by_shortcut_key(
