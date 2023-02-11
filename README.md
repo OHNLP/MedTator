@@ -107,18 +107,26 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 
 ## Change log
 
-### 1.3.x (2022-12)
+### 1.3.x (2023-03)
 
 - Research on IOB2/BIO format editing
-- Added local setting cache for auto save/load
 - Add sample dataset for error analysis
-- Update design for .ann conversion
 - Update icon for error analysis
 - Update Cohen's Kappa calculation
 - Update README for new features
 - Update documents for error analysis
 - Update documents for new schema
 - Update UI for error analysis
+
+### 1.3.13 (2023-02-16)
+
+- Added shortcut ALT +	&uarr; / &darr; to move to prev / next file
+- Added Toolkit/MedTaggerVis for checking .ann files (experimental)
+- Added local setting cache for auto save/load (experimental)
+- Fixed error analysis Sankey link bug
+- Fixed error analysis SVG height bug
+- Updated design for .ann/.txt conversion
+- Updated FAQ in MedTator Wiki 
 
 ### 1.3.11 (2022-12-08)
 

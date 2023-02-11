@@ -474,7 +474,7 @@ Object.assign(app_hotpot.vpp_methods, {
         if (this.razer_fig_sankey == null) {
             // make a new sankey figure
             this.razer_fig_sankey = figmker_sankey.make_fig(
-                '#razer_sankey_diagram'
+                'razer_sankey_diagram'
             );
             this.razer_fig_sankey.headers = [
                 'Error',
@@ -482,11 +482,13 @@ Object.assign(app_hotpot.vpp_methods, {
                 'Error Type',
                 'Concept'
             ]
-            this.razer_fig_sankey.init();
 
             // bind click events
             this.razer_fig_sankey.on_click_node = this.on_click_razer_sankey_node;
             this.razer_fig_sankey.on_click_link = this.on_click_razer_sankey_link;
+
+            // init!
+            this.razer_fig_sankey.init();
         }
 
         this.razer_fig_sankey.draw(data_sankey);

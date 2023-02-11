@@ -18,7 +18,7 @@ return {
     },
 
     node_width: 15,
-    lane_width: 150,
+    lane_width: 140,
     n_lanes: 3,
     padding: 8,
 
@@ -58,7 +58,7 @@ return {
 
     init: function() {
         // get the svg
-        this.svg = d3.select(this.box_id)
+        this.svg = d3.select("#"+this.box_id)
             .append("svg")
             .attr('id', this.box_id+'_svg')
             .attr("width", this.width + this.margin.left + this.margin.right)

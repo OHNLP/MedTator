@@ -1725,6 +1725,10 @@ ol[class], ul[class] {
 .sankey-node:hover {
     filter: brightness(88%);
 }
+.sankey-link {
+    fill: none;
+    pointer-events: all;
+}
 .sankey-link:hover {
     filter: brightness(88%);
 }
