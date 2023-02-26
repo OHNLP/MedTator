@@ -185,6 +185,16 @@ Object.assign(app_hotpot.vpp_methods, {
     },
 
     reset_local_settings_to_default: function() {
+        // first, set values to default
+        this.cfg = JSON.parse(JSON.stringify(
+            this.cfg_default_vals
+        ));
 
+        // second, apply the setting
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            this.on_change_setting(cfg_name);
+        }
+        console.log('* reset cfg settings to default');
     }
 });

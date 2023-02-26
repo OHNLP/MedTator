@@ -2857,7 +2857,7 @@ var app_hotpot = {
             // "keypress",
             "keydown",
             function(event) {
-                console.log('* pressed on', event);
+                // console.log('* pressed on', event);
 
                 if (event.key.toLocaleLowerCase() == 'h') {
                     app_hotpot.vpp.show_quick_help();

@@ -231,7 +231,7 @@ v-bind:class="{'active': section=='razer'}">
     <button class="ribbon-button" 
         :disabled="dtd == null || razer_dict == null"
         title="Identify the error tags automatically"
-        v-on:click="show_razer_eaws_panel">
+        v-on:click="show_razer_eaws_panel()">
         <span class="icon">
             <i class="fas fa-robot"></i>
         </span>

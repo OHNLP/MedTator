@@ -326,7 +326,7 @@ rect.shadow_EditHighlight {
 }
 
 
-.dialog {
+.brat-dialog {
   display: none;
 }
 #span_free_div, #arc_free_div {
