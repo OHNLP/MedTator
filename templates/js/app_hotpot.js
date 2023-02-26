@@ -159,9 +159,8 @@ var app_hotpot = {
 
         // general cfg
         // this has been move to the extension
+        // app_hotpot_ext_settings.js
         cfg: {},
-
-        // for statistics
 
         // for export
         export_text: '',

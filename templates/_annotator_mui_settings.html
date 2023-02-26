@@ -15,6 +15,7 @@
             </button>
         </div>
     </div>
+
     <div class="box-body">
         <div class="d-flex flex-row">
 
@@ -33,15 +34,15 @@
             </div>
 
             <div class="px-2 setting-tab"
-                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                v-on:click="switch_setting_tab('import')">
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='other'}"
+                v-on:click="switch_setting_tab('other')">
                 <i class="far fa-file"></i>
-                Import
+                Other
             </div>
         </div>
 
-        <!-- import setting tab -->
-        <div v-if="cfg.active_setting_tab == 'import'">
+        <!-- other setting tab -->
+        <div v-if="cfg.active_setting_tab == 'other'">
             <div class="box-body-item">
                 <p>
                     Sentence Splitting Algorithm
@@ -72,6 +73,22 @@
                         <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
                     </li>
                 </ul>
+            </div>
+
+            <div class="box-body-item">
+                <p>
+                    Reset to Default Settings
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('reset_to_default_settings')">
+                        <i class="far fa-question-circle"></i>
+                    </a>:
+                </p>
+                <div>
+                    <button v-on:click="on_click_reset_to_default_settings()">
+                        <i class="fas fa-redo"></i>
+                        Reset Settings
+                    </button>
+                </div>
             </div>
         </div>
 

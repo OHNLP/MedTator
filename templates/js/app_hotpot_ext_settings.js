@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot.vpp_data, {
     // for enable the auto save/load config feature
+    // this list will contain all the setting names in cfg
     auto_sl_cfg_names: [],
 
     // configurations
@@ -36,12 +37,15 @@ Object.assign(app_hotpot.vpp_data, {
         new_ui_for_ea: 'disable',
 
         // show the new UI for toolkit
-        new_ui_for_tk: 'disable',
+        new_ui_for_tk: 'enable',
 
         // show the new UI for cohen's kappa
         // due to the 
         new_ui_for_ck: 'disable',
     },
+
+    // default cfg for reset
+    cfg_default_vals: {}
 });
 
 
@@ -50,6 +54,12 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot, {
     init_settings: function() {
+        // get the default vals from code
+        this.vpp.cfg_default_vals = JSON.parse(JSON.stringify(
+            this.vpp.cfg
+        ));
+
+        // init 
         this.vpp.init_auto_sl_cfg_names();
 
         // load settings?
@@ -112,6 +122,10 @@ Object.assign(app_hotpot.vpp_methods, {
     on_change_setting: function(key) {
         if (this.is_auto_sl_cfg()) {
             this.save_local_setting(key);
+        } else {
+            // ok, when this feature is disabled,
+            // the saved settings should be cleared
+            this.clear_local_settings();
         }
     },
 
@@ -121,6 +135,16 @@ Object.assign(app_hotpot.vpp_methods, {
             const cfg_name = this.auto_sl_cfg_names[i];
             this.save_local_setting(cfg_name);
         }
+    },
+
+    clear_local_settings: function() {
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            localStorage.removeItem(
+                cfg_name
+            );
+        }
+        console.log("* cleared all local settings");
     },
 
     save_local_setting: function(cfg_name) {
@@ -145,4 +169,22 @@ Object.assign(app_hotpot.vpp_methods, {
             }
         }
     },
+
+    on_click_reset_to_default_settings: function() {
+        var ret = window.confirm('Attention! If you click the "Reset Settings" button, all settings will be reset to their default values. This action may affect your current annotation work, so please save your work before proceeding with the reset.\nOnce you click the button, the page will NOT refresh automatically. You will need to refresh the page.\nTo avoid losing your current annotation work, please save your progress before resetting the settings. We recommend to reset settings when not annotating.\n\nAre you sure to reset?');
+
+        if (ret) {
+
+        } else {
+            return;
+        }
+
+        this.reset_local_settings_to_default();
+
+        window.alert("The settings have been reset! Please refresh the page to enable the new settings.");
+    },
+
+    reset_local_settings_to_default: function() {
+
+    }
 });

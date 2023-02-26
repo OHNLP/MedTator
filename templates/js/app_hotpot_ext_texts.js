@@ -98,5 +98,13 @@ MedTator provides some options for selecting different methods.
             The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. If you have any issues when using this function, please feel free to leave an issue report in <a target="_blank" href="https://github.com/OHNLP/MedTator/issues">MedTator Github Repo Issues</a> or contact our developers.
         </p>
 `
+    },
+
+    "reset_to_default_settings": {
+        title: "Reset to Default Settings",
+        html: `
+        <p>By clicking the 'Reset' button, MedTator will reset all settings to the default options.</p>
+        <p>After reset, please reload/refresh the page to enable the default settings. Otherwise the current annotation may be affected.</p>
+        `
     }
 }});
