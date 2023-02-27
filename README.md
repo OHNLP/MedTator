@@ -70,6 +70,8 @@ optional arguments:
 ## Build the static version
 
 To update the static version for publication (e.g., GitHub Pages), run the following command. It will generate a static HTML file in the docs/ folder and copy other files.
+In addition, as the default filename is `index.html`, the build script will automatically create a `index.VERSION.html` in the build path for backup.
+So that the user can access the old version for comparison or checking old functions.
 
 ```bash
 python web.py --mode build

@@ -195,7 +195,17 @@ def build(path=None, filename='index.html', lib_base='cdn'):
                 filename
             )
 
-    
+            if filename == 'index.html':
+                # which means it is a public release
+                # we need to make a version index automatically
+                version_index_fn = "index.%s.html" % app.config['MEDTATOR_VERSION']
+                make_page(
+                    client, 
+                    "/index.html", 
+                    path,
+                    version_index_fn
+                )
+                print('* made the version index: %s' % version_index_fn)
 
     print('* done building static MedTator %s!' % (
         app.config['MEDTATOR_VERSION']
@@ -227,7 +237,7 @@ def create_release():
         p_src, 
         p_dst,
         # skip the public version
-        ignore=shutil.ignore_patterns('index.html')
+        ignore=shutil.ignore_patterns('index.*', "dev.html")
     )
     print('* copied code files to %s' % p_dst)
 
