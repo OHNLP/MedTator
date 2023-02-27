@@ -106,5 +106,14 @@ MedTator provides some options for selecting different methods.
         <p>By clicking the 'Reset' button, MedTator will reset all settings to the default options.</p>
         <p>After reset, please reload/refresh the page to enable the default settings. Otherwise the current annotation may be affected.</p>
         `
+    },
+
+    "save_workspace_as_json": {
+        title: "Save Workspace in JSON File",
+        html: `
+        <p><b>ALL</b> the data and settings in MedTator can be saved in a single JSON file for debug and share purpose. However, due to the limitation of HTML File System Access API, the loaded files in any tab (e.g., annotation tab, adjudication tab, error analysis, etc.) are NOT linked to their original location.</p>
+        <p>The saved workspace JSON file is named as <b>vpp_data_XXXX.json</b>, where the XXXX is user-specified or the schema name. It can be loaded through the file list in annotation tab. </p>
+        <p>You can drop the saved workspace JSON file in to the file list. MedTator will automatically detect the content and load the workspace.</p>
+        `
     }
 }});

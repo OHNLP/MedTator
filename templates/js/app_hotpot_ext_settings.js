@@ -196,5 +196,28 @@ Object.assign(app_hotpot.vpp_methods, {
             this.on_change_setting(cfg_name);
         }
         console.log('* reset cfg settings to default');
-    }
+    },
+
+    on_click_save_workspace_as_json: function() {
+        // first, clear the setting panel
+        this.cfg.enable_show_settings = false;
+
+        // second, ask for file name
+        var ret = window.prompt('Please specify the workspace name for saving. The output JSON file will be named as vpp_data_WORKSPACE.json. If the workspace name is not given, MedTator will use the schema name as the workspace name.');
+
+        var ws_name = '';
+        if (ret == '') {
+            if (this.dtd == null) {
+                app_hotpot.toast('No schema found for the current workspace.', 'warning');
+                return;
+            } else {
+                ws_name = this.dtd.name;
+            }
+        } else {
+            ws_name = ret;
+        }
+
+        jarvis.save_vpp_as(ws_name);
+        app_hotpot.toast('Successfully saved workspace as ['+ws_name+']!');
+    },
 });

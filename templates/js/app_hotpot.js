@@ -28,6 +28,9 @@ var app_hotpot = {
     vpp_id: '#app_hotpot',
 
     vpp_data: {
+        // system version
+        // this will be overwritten in index.html
+        version: '',
 
         // for the section control
         section: 'annotation',
@@ -335,16 +338,29 @@ var app_hotpot = {
             // prevent the default download event
             event.preventDefault();
 
-            if (this.dtd == null) {
-                app_hotpot.msg(
-                    "Please load the annotation schema first.",
-                    "warning"
-                );
-                return;
-            }
-
             const items = event.dataTransfer.items;
             console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+            if (items.length == 0) {
+                // ???
+                return;
+
+            } else if (items.length == 1) {
+                // hmmm ... it's interesting ...
+                // this can be the schema or workspace?
+                // let item = items[0].getAsFileSystemHandle();
+                // console.log('* drop one item', item);
+
+            } else if (items.length > 1) {
+                // which means it is usually the annotation files
+                if (this.dtd == null) {
+                    app_hotpot.msg(
+                        "Please load the annotation schema first.",
+                        "warning"
+                    );
+                    return;
+                }
+            }
 
             // first, set to loading status and init the values
             this.reset_loading_anns_status();
@@ -355,20 +371,81 @@ var app_hotpot = {
                 items,
                 function(fn) {
                     if (app_hotpot.is_file_ext_txt(fn)) {
+                        // which means it is raw text file
                         return true;
                     }
                     if (app_hotpot.is_file_ext_xml(fn)) {
+                        // which means it is annotation file
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_json(fn)) {
+                        // which means it can a json workspace or schema
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_dtd(fn)) {
+                        // which means it can a schema
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_yaml(fn)) {
+                        // which means it can a schema
                         return true;
                     }
                     return false;
                 }
             );
             promise_files.then(function(files) {
-                app_hotpot.vpp.add_files_to_anns(files);
+                if (files.length == 1 && app_hotpot.is_file_ext_json(files[0].fn)) {
+                    // ok, this file[0] can be a schema or workspace
+                    var j = JSON.parse(files[0].text);
+                    if (app_hotpot.is_vpp_data_json(j)) {
+                        // which means it is a vpp_data!
+                        // just load it
+                        app_hotpot.set_vpp_data_json(j);
+                        // app_hotpot.toast('Successfully loaded workspace!');
+                        console.log('* loaded workspace!');
+
+                    } else {
+                        app_hotpot.msg(
+                            "The given JSON file is not a valid schema or workspace file. Please check the file format and try later.",
+                            "warning"
+                        );
+                        console.log('* skipped the unknown json file', j);
+                    }
+                    app_hotpot.vpp.reset_loading_anns_status();
+
+                } else if (files.length == 1 && (
+                    app_hotpot.is_file_ext_yaml(files[0].fn) || 
+                    app_hotpot.is_file_ext_dtd(files[0].fn) )) {
+
+                    // this means it's a schema file!
+                    var format = app_hotpot.get_file_ext(files[0].fn);
+                    var dtd = dtd_parser.parse(files[0].text, format);
+                    if (dtd == null) {
+                        // must be something wrong
+                        app_hotpot.msg(
+                            'Something wrong with the given schema file, please check the schema format and try again later.', 
+                            'warning'
+                        );
+                        return;
+                    }
+                    // just set the dtd
+                    app_hotpot.set_dtd(dtd);
+                    app_hotpot.vpp.reset_loading_anns_status();
+
+                } else {
+                    app_hotpot.vpp.add_files_to_anns(files);
+                }
             });
         },
 
         add_files_to_anns: function(files) {
+            if (this.dtd == null) {
+                app_hotpot.msg(
+                    "Please load the annotation schema first.",
+                    "warning"
+                );
+                return;
+            }
             // now we know how many files are droped
             this.n_anns_droped = files.length;
 
@@ -2668,6 +2745,28 @@ var app_hotpot = {
     },
 
     /**
+     * Set the whole vpp_data JSON to restore workspace
+     * for debug/demo purpose
+     * 
+     * @param {Object} vpp_data_json the saved workspace
+     */
+    set_vpp_data_json: function(vpp_data_json) {
+        Object.assign(this.vpp.$data, vpp_data_json);
+        app_hotpot.set_dtd(
+            app_hotpot.vpp.$data.dtd
+        );
+        if (app_hotpot.vpp.$data.anns.length != 0) {
+            if (app_hotpot.vpp.$data.ann_idx == null) {
+                app_hotpot.vpp.set_ann_idx(0);
+            } else {
+                app_hotpot.vpp.set_ann_idx(
+                    app_hotpot.vpp.$data.ann_idx
+                );
+            }
+        }
+    },
+
+    /**
      * Set the DTD for this annotation project
      * 
      * @param {Object} dtd An object of dtd
@@ -2709,7 +2808,7 @@ var app_hotpot = {
 
         if (dtd.meta.hasOwnProperty('error_definition')) {
             // this is for the error analysis
-            this.vpp.set_meta_of_error_definition(dtd.meta.error_definition);
+            this.vpp.set_razer_err_def(dtd.meta.error_definition);
         }
     },
 
@@ -3538,8 +3637,18 @@ var app_hotpot = {
         return app_hotpot.is_file_ext(fn, 'yaml');
     },
 
+    is_file_ext_dtd: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'dtd');
+    },
+
     is_file_ext_ann: function(fn) {
         return app_hotpot.is_file_ext(fn, 'ann');
+    },
+
+    get_file_ext: function(filename) {
+        var ext = filename.split('.').pop();
+        ext = ext.toLocaleLowerCase();
+        return ext;
     },
 
     toast: function(msg, cls, timeout) {
@@ -3657,6 +3766,21 @@ var app_hotpot = {
         return b;
     },
 
+    is_vpp_data_json: function(j) {
+        if (
+            j.hasOwnProperty('cfg') && 
+            j.hasOwnProperty('dtd') && 
+            j.hasOwnProperty('anns') &&
+            j.hasOwnProperty('hints') &&
+            j.hasOwnProperty('version')
+        ) {
+            // we use a VERY simple rule to detect vpp_data json
+            // just by the keys
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /////////////////////////////////////////////////////////////////
     // Code Mirror Related

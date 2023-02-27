@@ -1,0 +1,825 @@
+{
+    "tags": [
+        {
+            "uid": 1195301653849469,
+            "id": "V2",
+            "spans": "206~212",
+            "sentence": " A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE;",
+            "sentence_spans": "47~53",
+            "tag": "VAX",
+            "text": "PFIZER",
+            "file_hash": "6676480733325162",
+            "file_name": "sys_doc_1.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -3.246098518371582,
+                -4.38959264755249
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 7098277568935812,
+            "id": "V3",
+            "spans": "265~271",
+            "sentence": " second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization.",
+            "sentence_spans": "26~32",
+            "tag": "VAX",
+            "text": "EL1284",
+            "file_hash": "6676480733325162",
+            "file_name": "sys_doc_1.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -2.689652681350708,
+                -4.2380547523498535
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 8286988337674369,
+            "id": "O6",
+            "spans": "589~594",
+            "sentence": " Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.",
+            "sentence_spans": "43~48",
+            "tag": "OTHER_AE",
+            "text": "Sulfa",
+            "file_hash": "6676480733325162",
+            "file_name": "G__doc_1.txt.xml_1.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.1892876625061035,
+                -4.589839935302734
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 5292463452825214,
+            "id": "O7",
+            "spans": "596~607",
+            "sentence": " Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.",
+            "sentence_spans": "50~61",
+            "tag": "OTHER_AE",
+            "text": "Hypothyroid",
+            "file_hash": "6676480733325162",
+            "file_name": "G__doc_1.txt.xml_1.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.3197765350341797,
+                -5.08512020111084
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 5084503421139450,
+            "id": "O8",
+            "spans": "609~615",
+            "sentence": " Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.",
+            "sentence_spans": "63~69",
+            "tag": "OTHER_AE",
+            "text": "Asthma",
+            "file_hash": "6676480733325162",
+            "file_name": "G__doc_1.txt.xml_1.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.511356830596924,
+                -5.037929058074951
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 8888747509917469,
+            "id": "O9",
+            "spans": "617~631",
+            "sentence": " Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.",
+            "sentence_spans": "71~85",
+            "tag": "OTHER_AE",
+            "text": "Hi Cholesterol",
+            "file_hash": "6676480733325162",
+            "file_name": "G__doc_1.txt.xml_1.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -2.7566139698028564,
+                -5.1146745681762695
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 7280863368101702,
+            "id": "M3",
+            "spans": "692~698",
+            "sentence": "  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine.",
+            "sentence_spans": "60~66",
+            "tag": "MEDICATION",
+            "text": "ZYRTEC",
+            "file_hash": "6676480733325162",
+            "file_name": "sys_doc_1.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -2.9650943279266357,
+                -4.500053405761719
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        },
+        {
+            "uid": 7045468694303417,
+            "id": "M3",
+            "spans": "666~690",
+            "sentence": "  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine.",
+            "sentence_spans": "34~58",
+            "tag": "MEDICATION",
+            "text": "cetirizine hydrochloride",
+            "file_hash": "6676480733325162",
+            "file_name": "G__doc_1.txt.xml_1.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "comment": "",
+            "embedding_tsne": [
+                -2.972036123275757,
+                -4.900034427642822
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Absence of Context"
+                }
+            ]
+        },
+        {
+            "uid": 3342219800390560,
+            "id": "V0",
+            "spans": "168~176",
+            "sentence": " A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization.",
+            "sentence_spans": "75~83",
+            "tag": "VAX",
+            "text": "BNT162B2",
+            "file_hash": "6672132460866538",
+            "file_name": "G__doc_2.txt.xml_2.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "comment": "",
+            "embedding_tsne": [
+                -2.795098304748535,
+                -4.338395595550537
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Incorrect Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 5011022424749721,
+            "id": "V1",
+            "spans": "251~257",
+            "sentence": " A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization.",
+            "sentence_spans": "158~164",
+            "tag": "VAX",
+            "text": "expiry",
+            "file_hash": "6672132460866538",
+            "file_name": "G__doc_2.txt.xml_2.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "comment": "",
+            "embedding_tsne": [
+                -3.333724021911621,
+                -4.540832042694092
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Incorrect Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 3694834644643220,
+            "id": "PY1",
+            "spans": "10~15",
+            "sentence": "running a fever;",
+            "sentence_spans": "10~15",
+            "tag": "PYREXIA",
+            "text": "fever",
+            "file_hash": "6672132460866538",
+            "file_name": "G__doc_2.txt.xml_2.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.187554836273193,
+                -4.1356024742126465
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Certainty"
+                }
+            ]
+        },
+        {
+            "uid": 6129367222587950,
+            "id": "M6",
+            "spans": "334~345",
+            "sentence": " A female patient of an unspecified age (age: 19, units: unknown) received BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection, lot number and expiry date unknown), via an unspecified route of administration, on 09Jan2021, at single dose, for covid-19 immunization.",
+            "sentence_spans": "241~252",
+            "tag": "MEDICATION",
+            "text": "single dose",
+            "file_hash": "6672132460866538",
+            "file_name": "sys_doc_2.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -3.3451647758483887,
+                -4.262908935546875
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Absence of Context"
+                }
+            ]
+        },
+        {
+            "uid": 7374224729312838,
+            "id": "M7",
+            "spans": "1161~1173",
+            "sentence": " The mother asked for herself if she can use antipyretics before or after vaccination with the Pfizer-BioNTech COVID-19 vaccine.",
+            "sentence_spans": "45~57",
+            "tag": "MEDICATION",
+            "text": "antipyretics",
+            "file_hash": "6672132460866538",
+            "file_name": "sys_doc_2.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -3.2503607273101807,
+                -4.732180118560791
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Certainty"
+                }
+            ]
+        },
+        {
+            "uid": 856728431683785,
+            "id": "P2",
+            "spans": "182~194",
+            "sentence": " The muscle aches resolved with the fever, so a time course for that would also be 32 h.",
+            "sentence_spans": "5~17",
+            "tag": "PAIN",
+            "text": "muscle aches",
+            "file_hash": "6975203628781989",
+            "file_name": "G__doc_5.txt.xml_5.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Negated",
+            "comment": "",
+            "embedding_tsne": [
+                -3.9949586391448975,
+                -4.932231903076172
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Subject"
+                }
+            ]
+        },
+        {
+            "uid": 1357790311464307,
+            "id": "PY2",
+            "spans": "213~218",
+            "sentence": " The muscle aches resolved with the fever, so a time course for that would also be 32 h.",
+            "sentence_spans": "36~41",
+            "tag": "PYREXIA",
+            "text": "fever",
+            "file_hash": "6975203628781989",
+            "file_name": "sys_doc_5.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.192205905914307,
+                -4.141566753387451
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Certainty"
+                }
+            ]
+        },
+        {
+            "uid": 1876236209367116,
+            "id": "N0",
+            "spans": "163~176",
+            "sentence": " The headache still persists, albeit milder.",
+            "sentence_spans": "30~43",
+            "tag": "NAUSEA",
+            "text": "albeit milder",
+            "file_hash": "6975203628781989",
+            "file_name": "sys_doc_5.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.8234000205993652,
+                -4.971235752105713
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Subject"
+                }
+            ]
+        },
+        {
+            "uid": 8637964067543325,
+            "id": "O0",
+            "spans": "292~301",
+            "sentence": "  I recently had a COVID19 infection (symptom onset was 12/25/20), but had cleared my isolation date of 1/4/21.",
+            "sentence_spans": "27~36",
+            "tag": "OTHER_AE",
+            "text": "infection",
+            "file_hash": "6975203628781989",
+            "file_name": "sys_doc_5.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.103817939758301,
+                -4.098171234130859
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Status"
+                }
+            ]
+        },
+        {
+            "uid": 8822772727956379,
+            "id": "M0",
+            "spans": "119~132",
+            "sentence": " The fever was also reduced with acetaminophen.",
+            "sentence_spans": "33~46",
+            "tag": "MEDICATION",
+            "text": "acetaminophen",
+            "file_hash": "6975203628781989",
+            "file_name": "sys_doc_5.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -3.0459938049316406,
+                -4.922942161560059
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Certainty"
+                }
+            ]
+        },
+        {
+            "uid": 1515797329988881,
+            "id": "H2",
+            "spans": "237~245",
+            "sentence": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+            "sentence_spans": "237~245",
+            "tag": "HEADACHE",
+            "text": "Migraine",
+            "file_hash": "5700441356947516",
+            "file_name": "sys_doc_3.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.674987554550171,
+                -5.050283908843994
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Subject"
+                }
+            ]
+        },
+        {
+            "uid": 3876979640032912,
+            "id": "H0",
+            "spans": "129~137",
+            "sentence": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+            "sentence_spans": "129~137",
+            "tag": "HEADACHE",
+            "text": "headache",
+            "file_hash": "5700441356947516",
+            "file_name": "G__doc_3.txt.xml_3.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.493939399719238,
+                -4.734828472137451
+            ]
+        },
+        {
+            "uid": 4619194855132206,
+            "id": "P0",
+            "spans": "256~267",
+            "sentence": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+            "sentence_spans": "256~267",
+            "tag": "PAIN",
+            "text": "Body aching",
+            "file_hash": "5700441356947516",
+            "file_name": "G__doc_3.txt.xml_3.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.285119533538818,
+                -4.908207416534424
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Subject"
+                }
+            ]
+        },
+        {
+            "uid": 6926923682588897,
+            "id": "O8",
+            "spans": "176~185",
+            "sentence": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+            "sentence_spans": "176~185",
+            "tag": "OTHER_AE",
+            "text": "shivering",
+            "file_hash": "5700441356947516",
+            "file_name": "sys_doc_3.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.177587509155273,
+                -4.080842971801758
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Missing Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 3130318438840551,
+            "id": "O9",
+            "spans": "392~398",
+            "sentence": "  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.",
+            "sentence_spans": "42~48",
+            "tag": "OTHER_AE",
+            "text": "chills",
+            "file_hash": "5700441356947516",
+            "file_name": "sys_doc_3.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -4.323944568634033,
+                -4.827599048614502
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Missing Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 6028417766951822,
+            "id": "O2",
+            "spans": "248~254",
+            "sentence": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night.",
+            "sentence_spans": "248~254",
+            "tag": "OTHER_AE",
+            "text": "Nausea",
+            "file_hash": "5700441356947516",
+            "file_name": "G__doc_3.txt.xml_3.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "should be another AE",
+            "embedding_tsne": [
+                -4.516508102416992,
+                -4.602743148803711
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Temporality"
+                }
+            ]
+        },
+        {
+            "uid": 3303059102686959,
+            "id": "F0",
+            "spans": "852~863",
+            "sentence": " When I came back, the patient was still seated but had a blank stare and her mouth was slightly open.",
+            "sentence_spans": "58~69",
+            "tag": "FATIGUE",
+            "text": "blank stare",
+            "file_hash": "2195438294481648",
+            "file_name": "sys_doc_4.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.8594555854797363,
+                -4.8286004066467285
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Missing Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 7977970205756125,
+            "id": "D2",
+            "spans": "872~895",
+            "sentence": " When I came back, the patient was still seated but had a blank stare and her mouth was slightly open.",
+            "sentence_spans": "78~101",
+            "tag": "DIZZINESS",
+            "text": "mouth was slightly open",
+            "file_hash": "2195438294481648",
+            "file_name": "sys_doc_4.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.431251049041748,
+                -5.442340850830078
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Missing Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 1261613417241382,
+            "id": "O2",
+            "spans": "543~551",
+            "sentence": " I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety).",
+            "sentence_spans": "131~139",
+            "tag": "OTHER_AE",
+            "text": "vigilant",
+            "file_hash": "2195438294481648",
+            "file_name": "sys_doc_4.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "certainty": "Positive",
+            "comment": "",
+            "embedding_tsne": [
+                -3.349996328353882,
+                -4.4503703117370605
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Missing Annotation"
+                }
+            ]
+        },
+        {
+            "uid": 8190214193249888,
+            "id": "O0",
+            "spans": "86~93",
+            "sentence": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine.",
+            "sentence_spans": "86~93",
+            "tag": "OTHER_AE",
+            "text": "anxiety",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "It may not relate to adverse event, check later",
+            "embedding_tsne": [
+                -4.18533992767334,
+                -4.129672527313232
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Non-defined Concept"
+                }
+            ]
+        },
+        {
+            "uid": 6618328334981923,
+            "id": "O1",
+            "spans": "94~105",
+            "sentence": "Prior to receiving her COVID-19 vaccine, the patient was already having symptoms from anxiety/nervousness about the vaccine.",
+            "sentence_spans": "94~105",
+            "tag": "OTHER_AE",
+            "text": "nervousness",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "Not sure",
+            "embedding_tsne": [
+                -4.036805629730225,
+                -4.862290859222412
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Non-defined Concept"
+                }
+            ]
+        },
+        {
+            "uid": 700396961230899,
+            "id": "O2",
+            "spans": "306~322",
+            "sentence": " The vaccine administrator came to me (pharmacist on duty) to notify me that she was not feeling well.",
+            "sentence_spans": "85~101",
+            "tag": "OTHER_AE",
+            "text": "not feeling well",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "Not sure",
+            "embedding_tsne": [
+                -4.189845561981201,
+                -5.283036231994629
+            ],
+            "errors": [
+                {
+                    "category": "Annotation",
+                    "type": "Non-defined Concept"
+                }
+            ]
+        },
+        {
+            "uid": 152780573701650,
+            "id": "O3",
+            "spans": "989~1012",
+            "sentence": " I repeated her name out loud and nudged her shoulder several times, however the patient was unresponsive completely.",
+            "sentence_spans": "93~116",
+            "tag": "OTHER_AE",
+            "text": "unresponsive completely",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "check later",
+            "embedding_tsne": [
+                -3.1417152881622314,
+                -5.4934306144714355
+            ]
+        },
+        {
+            "uid": 4691877414681676,
+            "id": "O4",
+            "spans": "406~411",
+            "sentence": " I went to go check on her and she stated that she felt as though she was going to faint.",
+            "sentence_spans": "83~88",
+            "tag": "OTHER_AE",
+            "text": "faint",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "certainty": "Positive",
+            "comment": "may merge to dizzy",
+            "embedding_tsne": [
+                -3.632521152496338,
+                -3.6832733154296875
+            ]
+        },
+        {
+            "uid": 43754853373851,
+            "id": "M4",
+            "spans": "780~785",
+            "sentence": " After about a minute I stepped out again to ask a technician to get a water for her.",
+            "sentence_spans": "71~76",
+            "tag": "MEDICATION",
+            "text": "water",
+            "file_hash": "2195438294481648",
+            "file_name": "sys_doc_4.txt.xml",
+            "_annotator": "A",
+            "_judgement": "FP",
+            "comment": "",
+            "embedding_tsne": [
+                -3.7862119674682617,
+                -3.8132495880126953
+            ],
+            "errors": [
+                {
+                    "category": "Concept Definition",
+                    "type": "Ambiguity"
+                }
+            ]
+        },
+        {
+            "uid": 5729588970954798,
+            "id": "M2",
+            "spans": "470~488",
+            "sentence": " I advised her to stay seated, asked if she would like an ice pack and water, and stepped out to get those for her while remaining vigilant (because I wanted to be in the same room as her for observation/safety).",
+            "sentence_spans": "58~76",
+            "tag": "MEDICATION",
+            "text": "ice pack and water",
+            "file_hash": "2195438294481648",
+            "file_name": "G__doc_4.txt.xml_4.xml",
+            "_annotator": "B",
+            "_judgement": "FN",
+            "comment": "",
+            "embedding_tsne": [
+                -3.30161452293396,
+                -4.556138515472412
+            ],
+            "errors": [
+                {
+                    "category": "Contextual",
+                    "type": "Exclusion"
+                }
+            ]
+        }
+    ]
+}

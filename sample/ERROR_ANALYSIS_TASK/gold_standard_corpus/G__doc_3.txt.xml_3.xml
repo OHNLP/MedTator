@@ -22,6 +22,7 @@
 <MEDICATION spans="318~325" text="Tylenol" id="M0" comment="" _annotator="B"/>
 <MEDICATION spans="306~311" text="Advil" id="M1" comment="" _annotator="B"/>
 <MEDICATION spans="479~484" text="Advil" id="M2" comment="" _annotator="B"/>
+<OTHER_AE spans="590~602" text="Night sweats" id="O9" certainty="Positive" comment=""/>
 </TAGS>
 <META/>
 </VAX_AE_MED>

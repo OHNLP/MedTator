@@ -169,6 +169,7 @@ def find_matched_tags(
 
     return ents, rels
 
+
 def update_ents_token_index(sentence_spans, tokens, ents):
     '''
     Update entities' token index in a token list of sentence

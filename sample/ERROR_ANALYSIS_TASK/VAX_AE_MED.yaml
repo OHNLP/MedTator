@@ -23,13 +23,12 @@ meta:
       - Subject
       - Absence of Context
       - Exclusion
-    Logic:
-      - Pattern and Rule
     Annotation:
       - Missing Annotation
       - Insufficent Context
       - Extrapolation of Evidence
       - Non-defined Concept
+      - Incorrect Annotation
     Concept Definition:
       - Ambiguity
       - Source Evidence

@@ -114,7 +114,7 @@ Object.assign(app_hotpot.vpp_computed, {
 
 Object.assign(app_hotpot.vpp_methods, {
 
-    set_meta_of_error_definition: function(err_def) {
+    set_razer_err_def: function(err_def) {
         this.razer_err_def = err_def;
     },
 
@@ -240,6 +240,44 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_loading_status = null;
     },
 
+    on_drop_dropzone_razer_err_def: function(event) {
+        // stop the download event
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+        
+        // set loading status
+        this.razer_loading_status = Math.random();
+
+        // set loading rid
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            // only accept xml for iaa
+            function(fn) {
+                if (app_hotpot.is_file_ext_yaml(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+        promise_files.then(function(files) {
+            // for error labels, just use one file?
+            app_hotpot.vpp.set_file_to_razer_err_def(files[0]);
+        });
+    },
+
+    set_file_to_razer_err_def: function(file) {
+        var tmp = null;
+        try {
+            tmp = jsyaml.load(file.text);
+
+        } catch (error) {
+            console.log('* invalid YAML content');
+            return null;
+        }
+
+        this.set_razer_err_def(tmp);
+        this.razer_loading_status = null;
+    },
 
     on_drop_dropzone_razer_err_labels: function(event) {
         // stop the download event

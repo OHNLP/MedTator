@@ -19,6 +19,10 @@
 <MEDICATION spans="666~690" text="cetirizine hydrochloride" id="M3" comment="" _annotator="A"/>
 <MEDICATION spans="701~713" text="atorvastatin" id="M4" comment="" _annotator="A"/>
 <MEDICATION spans="715~728" text="levothyroxine" id="M5" comment="" _annotator="A"/>
+<OTHER_AE spans="589~594" text="Sulfa" id="O6" certainty="Positive" comment=""/>
+<OTHER_AE spans="596~607" text="Hypothyroid" id="O7" certainty="Positive" comment=""/>
+<OTHER_AE spans="609~615" text="Asthma" id="O8" certainty="Positive" comment=""/>
+<OTHER_AE spans="617~631" text="Hi Cholesterol" id="O9" certainty="Positive" comment=""/>
 </TAGS>
 <META/>
 </VAX_AE_MED>

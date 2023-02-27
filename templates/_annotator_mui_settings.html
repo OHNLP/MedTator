@@ -77,11 +77,27 @@
 
             <div class="box-body-item">
                 <p>
+                    Save workspace in JSON file
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('save_workspace_as_json')">
+                        <i class="far fa-question-circle"></i>
+                    </a>
+                </p>
+                <div>
+                    <button v-on:click="on_click_save_workspace_as_json()">
+                        <i class="fas fa-sd-card"></i>
+                        Save Workspace
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body-item">
+                <p>
                     Reset to Default Settings
                     <a href="javascript:void(0);"
                         v-on:click="show_help('reset_to_default_settings')">
                         <i class="far fa-question-circle"></i>
-                    </a>:
+                    </a>
                 </p>
                 <div>
                     <button v-on:click="on_click_reset_to_default_settings()">

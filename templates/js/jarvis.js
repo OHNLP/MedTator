@@ -101,6 +101,7 @@ var jarvis = {
     save_vpp_as: function(name) {
         if (app_hotpot.vpp.$data.dtd == null) {
             console.log('* no dtd yet');
+            return;
         }
         var dtd_name = app_hotpot.vpp.$data.dtd.name;
 

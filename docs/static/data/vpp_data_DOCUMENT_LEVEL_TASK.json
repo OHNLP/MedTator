@@ -1,4 +1,5 @@
 {
+    "version": "1.3.11",
     "section": "annotation",
     "dtd": {
         "name": "VAX_SYMPTOM",
@@ -1200,7 +1201,7 @@
             "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.9442731039828896,
+    "mn4anns": 0.2016136152728416,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -1316,7 +1317,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.22030947657888955,
+    "force_module_update": 0.2708116560181457,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -1331,20 +1332,40 @@
     "cfg": {
         "enable_show_settings": false,
         "enable_display_menu_dropzone_ann": false,
-        "active_setting_tab": "import",
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "other",
         "sentence_splitting_algorithm": "simpledot",
-        "linking_marks_selection": "all_concepts"
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
-    "export_text": null,
-    "texts": {
-        "sentence_splitting_algorithm": {
-            "title": "Sentence Splitting Algorithm",
-            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
-        },
-        "linking_marks_selection": {
-            "title": "Linking marks selection",
-            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
-        }
+    "export_text": "",
+    "texts": {},
+    "auto_sl_cfg_names": [
+        "enable_show_settings",
+        "enable_display_menu_dropzone_ann",
+        "auto_save_current_ann",
+        "auto_sl_current_cfg",
+        "active_setting_tab",
+        "sentence_splitting_algorithm",
+        "linking_marks_selection",
+        "new_ui_for_ea",
+        "new_ui_for_tk",
+        "new_ui_for_ck"
+    ],
+    "cfg_default_vals": {
+        "enable_show_settings": false,
+        "enable_display_menu_dropzone_ann": false,
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "gui",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
     "iaa_ann_list": [
         {
@@ -4565,6 +4586,41 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
+    "razer_loading_status": null,
+    "razer_ann_list": [
+        {
+            "anns": [],
+            "name": "Gold Standard Corpus"
+        },
+        {
+            "anns": [],
+            "name": "Dataset 1"
+        }
+    ],
+    "razer_err_def": null,
+    "razer_err_def_dict": {
+        "shortcut": {},
+        "adv_def": {}
+    },
+    "razer_err_labels_file": null,
+    "razer_dict": null,
+    "razer_idx": 1,
+    "is_shown_razer_pan_err_def": false,
+    "razer_active_err_uid": null,
+    "razer_pan_err_def_right": 0,
+    "razer_pan_err_def_top": 0,
+    "razer_flag_has_embedding_tsne": false,
+    "razer_flag_show_taglist_context": true,
+    "razer_flag_show_taglist_labels": true,
+    "razer_fig_sankey": null,
+    "razer_fig_donut": null,
+    "razer_fig_doc_scatter": null,
+    "razer_fig_doc_heatmap": null,
+    "razer_fig_tag_scatter": null,
+    "razer_fig_tag_scatter_clr": "by_err",
+    "razer_err_list_uids": null,
+    "razer_ea_ws_url": "http://localhost:8808/eva_tags",
+    "razer_te_ws_url": "http://localhost:8809/embedding",
     "converter_corpus_task": "raw",
     "max_converter_display_files": 100,
     "is_converter_loading_medtagger_txt_files": false,
@@ -4580,10 +4636,22 @@
     "converter_results": [],
     "se_dtd": null,
     "se_dtd_tpl_id": null,
+    "avbrat_is_rendering": true,
     "show_text_quick_viewer": false,
     "tqv_header": "",
     "tqv_content": "",
     "tqv_footer": "",
     "tqv_pos_x": -999,
-    "tqv_pos_y": -999
+    "tqv_pos_y": -999,
+    "toolkit_section": "medtaggervis",
+    "tk_medtaggervis_is_loading_txt_files": false,
+    "tk_medtaggervis_is_loading_ann_files": false,
+    "tk_medtaggervis_txt_files": [],
+    "tk_medtaggervis_ann_files": [],
+    "tk_medtaggervis_force_module_update": 0,
+    "tk_medtaggervis_show_attr_certainty": true,
+    "tk_medtaggervis_show_attr_status": true,
+    "tk_iob2editor_is_loading_iob_files": false,
+    "tk_iob2editor_iob_files": [],
+    "tk_iob2editor_force_module_update": 0
 }

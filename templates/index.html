@@ -539,6 +539,10 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 // The Vue App
 {% include 'js/app_hotpot.js' %}
 
+// update the version information
+// so this will be used in the following programs
+app_hotpot.vpp_data.version = "[[ config.MEDTATOR_VERSION ]]";
+
 // extend the App with settings
 {% include 'js/app_hotpot_ext_settings.js' %}
 

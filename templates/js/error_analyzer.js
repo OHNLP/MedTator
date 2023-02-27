@@ -28,19 +28,18 @@ var error_analyzer = {
             "Absence of Context",
             "Exclusion",
         ], 
-        "Logic": [
-            "Pattern and Rule",
-        ], 
         "Annotation": [
             "Missing Annotation",
             "Insufficent Context",
             "Extrapolation of Evidence",
-            "Non-defined Concept",
+            "Incorrect Annotation",
+            "Pattern and Rule",
         ],
         "Concept Definition": [
             "Ambiguity",
             "Source Evidence",
             "Change of Status",
+            "Non-defined Concept",
         ]
     },
 

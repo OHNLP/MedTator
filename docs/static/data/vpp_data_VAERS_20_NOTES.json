@@ -1,4 +1,5 @@
 {
+    "version": "1.3.11",
     "section": "statistics",
     "dtd": {
         "name": "COVID-19",
@@ -3074,85 +3075,125 @@
     "ann_idx": 0,
     "anns": [
         {
-            "text": "Both legs from knees down got swollen and were painful to touch, walk on, etc.; Both legs from knees down got swollen and were painful to touch, walk on, etc.; This is a spontaneous report from a contactable consumer (patient). A 66-years-old male patient received BNT162B2 Pfizer-BioNTech COVID-19 mRNA Vaccine, Lot number EX923, in hospital, via an unspecified route of administration in left arm from 19Jan2021 at 20:45 (at age of 66 years) at single dose for COVID-19 immunization. Medical history included spinal stenosis, arthritis and allergy to penicillin, all from an unknown date. The patient was not diagnosed with COVID-19 prior to vaccination and has not been tested for COVID-19 since the vaccination. Concomitant medication included gabapentin, meloxicam (MOBIC), zinc, ascorbic acid (VIT C), magnesium and cinnamomum verum stem bark/elettaria cardamomum fruit/syzygium aromaticum (CINNAMOL). On 24Jan2021 at 16:00 both patient's legs from knees down got swollen and were painful to touch, walk on, etc. The event resulted in doctor or other healthcare professional office/clinic visit. The patient was treated with steroids. The reported events were resolving at the time of the report.",
+            "text": "Feb 25th afternoon I started feeling pretty yucky. As the evening progressed I had chills, body aches, and fever. I thought I had covid. On the 26th I was worse. on the 27th I went to the ER, and the diagnosis was \"unknown virus\" I continued to get worse. On March 3rd I called the nurse and she said \"I need to go to the ER, don't go to the  ER, go to the closest ER to you\". I received the same diagnosis. I thought maybe my CPAP machine had bacteria and they tested for bacteria and it was negative. I went home. On march 8th I was really bad off, I had 103.7 fever still and O2 was 70-80. I was admitted to the hospital. they tested me again and I had bacterial pneumonia. 3 days later they were going to send me home but when I woke up that morning I felt like I had been kicked in the ribs on my right side. I sat in a chair and if I coughed, hiccuped or anything It felt like a knife through my chest. a CT scan showed a massive blood clot in my lung. I was put on medications and I was discharged on March 17th. My left lung had 100% pneumonia and the blood clot was in the right lung and my lungs were unable to help each other. With any exertion, my heart rate jumps and my O2 drops. I can only sit. The theory they had at the hospital is that the Moderna vaccine had the full attention of my immune system which allowed other infections to come into my body unchecked. Since the pandemic started I have left my house on my bicycle to the store and that is it. I have had almost no exposure.",
             "dtd_name": "COVID-19",
             "tags": [
                 {
-                    "tag": "Myalgia",
-                    "spans": "30~37",
-                    "text": "swollen",
-                    "id": "M0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "110~117",
-                    "text": "swollen",
-                    "id": "M1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "970~977",
-                    "text": "swollen",
-                    "id": "M2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
                     "tag": "Other",
-                    "spans": "542~549",
-                    "text": "allergy",
+                    "spans": "215~228",
+                    "text": "unknown virus",
                     "id": "O0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
+                    "tag": "Other",
+                    "spans": "444~452",
+                    "text": "bacteria",
+                    "id": "O1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "656~675",
+                    "text": "bacterial pneumonia",
+                    "id": "O2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Cough",
+                    "spans": "840~847",
+                    "text": "coughed",
+                    "id": "Co0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Delirium",
+                    "spans": "883~907",
+                    "text": "a knife through my chest",
+                    "id": "De0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "928~946",
+                    "text": "massive blood clot",
+                    "id": "O3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "1042~1051",
+                    "text": "pneumonia",
+                    "id": "O4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
                     "tag": "Vaccine",
-                    "spans": "265~273",
-                    "text": "BNT162B2",
+                    "spans": "1258~1265",
+                    "text": "Moderna",
                     "id": "V0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Vaccine",
-                    "spans": "274~289",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V1",
+                    "tag": "Fever",
+                    "spans": "107~112",
+                    "text": "fever",
+                    "id": "F0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "563~568",
+                    "text": "fever",
+                    "id": "F1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Chill",
+                    "spans": "83~89",
+                    "text": "chills",
+                    "id": "C0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "473~481",
+                    "text": "bacteria",
+                    "id": "O5",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Pain",
-                    "spans": "47~54",
-                    "text": "painful",
+                    "spans": "91~101",
+                    "text": "Body Aches",
                     "id": "P0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Pain",
-                    "spans": "127~134",
-                    "text": "painful",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "987~994",
-                    "text": "painful",
-                    "id": "P2",
+                    "tag": "Other",
+                    "spans": "1060~1070",
+                    "text": "Blood clot",
+                    "id": "O6",
                     "certainty": "positive",
                     "comment": ""
                 }
             ],
             "meta": {},
             "_fh": {},
-            "_filename": "059823.txt.xml",
+            "_filename": "498221.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -3269,130 +3310,6 @@
             "meta": {},
             "_fh": {},
             "_filename": "080831.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "fever/low grade fever; Headache; This is a spontaneous report from a Pfizer Sponsored Program  via a contactable nurse (patient). A 44-years-old female patient received the second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) (lot number: EV1685) via an unspecified route of administration in right deltoid on 13Jan2021 14:30 at single dose for COVID-19 immunisation. She received her first dose of BNT162B2 on 23Dec2020 13:30 (at age of 44 years old) for COVID-19 immunisation. There was no medical history. The patient's concomitant medications were not reported. The patient received the second dose of her Pfizer vaccine on 13Jan2021. She has a headache and fever (on Jan2021), which lasted a whole week. She still had a headache and a low grade fever and today is day 8th. Inquiring if that is a normal side effect, with the vaccine is it common or how long should she expect this. She received Advil and Tylenol as treatment. She had COVID test yesterday (20Jan2021) it was negative. Relatedness of drug to events headache and fever was reported as related by reporter because she had them since the second dose. Events outcome was not recovered.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Fever",
-                    "spans": "746~761",
-                    "text": "low grade fever",
-                    "id": "F0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "188~196",
-                    "text": "BNT162B2",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "405~413",
-                    "text": "BNT162B2",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "198~213",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "69~75",
-                    "text": "Pfizer",
-                    "id": "V3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "616~622",
-                    "text": "Pfizer",
-                    "id": "V4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "0~5",
-                    "text": "fever",
-                    "id": "F1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "16~21",
-                    "text": "fever",
-                    "id": "F2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "668~673",
-                    "text": "fever",
-                    "id": "F3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "1039~1044",
-                    "text": "fever",
-                    "id": "F4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "23~31",
-                    "text": "headache",
-                    "id": "H0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "655~663",
-                    "text": "headache",
-                    "id": "H1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "731~739",
-                    "text": "headache",
-                    "id": "H2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "1026~1034",
-                    "text": "headache",
-                    "id": "H3",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "113293.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -3525,6 +3442,686 @@
             "meta": {},
             "_fh": {},
             "_filename": "266074.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "Positive COVID-19 test with symptoms; \n\nThe patient had MS and was immune compromised; \n\nThis is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  \n\nInformation on the batch/lot number has been requested.\n\nSender's Comments: \n\nBased on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "446~456",
+                    "text": "runny nose",
+                    "id": "N0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Hypersomnia",
+                    "spans": "458~464",
+                    "text": "groggy",
+                    "id": "Hy0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "231~239",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "241~256",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "469~481",
+                    "text": "muscle aches",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "436~444",
+                    "text": "headache",
+                    "id": "H0",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "587301.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "swollen injection site; red injection site; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; This is a spontaneous report from a contactable healthcare professional (patient). A 21-year-old female patient received second dose of bnt162b2 (Pfizer-BioNTech COVID-19 mRNA vaccine), via an unspecified route of administration in the right arm on 15Jan2021 15:45 at a single dose for covid-19 immunization. The patient medical history was not reported. Concomitant medication included ethinylestradiol, ferrous fumarate, norethisterone acetate (LARIN FE). The patient received first dose of BNT162B2 on 28Dec2020 03:15 for covid-19 immunization. On 15Jan2021 08:15, the patient experienced swollen injection site and red injection site. The patient added that swollen area underneath armpit area feels like someone is pulling on a stitch type of pain. The patient has taken Benadryl and Tylenol Friday, Saturday, and Sunday as treatment for the events. The patient is not pregnant. The patient has not tested positive for covid post vaccination. The outcome of the events was unknown.  Information on the lot/batch number has been requested.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Myalgia",
+                    "spans": "0~7",
+                    "text": "swollen",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "44~51",
+                    "text": "swollen",
+                    "id": "M1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "136~143",
+                    "text": "swollen",
+                    "id": "M2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "820~827",
+                    "text": "swollen",
+                    "id": "M3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "890~897",
+                    "text": "swollen",
+                    "id": "M4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "364~372",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "721~729",
+                    "text": "BNT162B2",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "374~389",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "130~134",
+                    "text": "pain",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "222~226",
+                    "text": "pain",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "976~980",
+                    "text": "pain",
+                    "id": "P2",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "899183.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "Both legs from knees down got swollen and were painful to touch, walk on, etc.; Both legs from knees down got swollen and were painful to touch, walk on, etc.; This is a spontaneous report from a contactable consumer (patient). A 66-years-old male patient received BNT162B2 Pfizer-BioNTech COVID-19 mRNA Vaccine, Lot number EX923, in hospital, via an unspecified route of administration in left arm from 19Jan2021 at 20:45 (at age of 66 years) at single dose for COVID-19 immunization. Medical history included spinal stenosis, arthritis and allergy to penicillin, all from an unknown date. The patient was not diagnosed with COVID-19 prior to vaccination and has not been tested for COVID-19 since the vaccination. Concomitant medication included gabapentin, meloxicam (MOBIC), zinc, ascorbic acid (VIT C), magnesium and cinnamomum verum stem bark/elettaria cardamomum fruit/syzygium aromaticum (CINNAMOL). On 24Jan2021 at 16:00 both patient's legs from knees down got swollen and were painful to touch, walk on, etc. The event resulted in doctor or other healthcare professional office/clinic visit. The patient was treated with steroids. The reported events were resolving at the time of the report.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Myalgia",
+                    "spans": "30~37",
+                    "text": "swollen",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "110~117",
+                    "text": "swollen",
+                    "id": "M1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "970~977",
+                    "text": "swollen",
+                    "id": "M2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "542~549",
+                    "text": "allergy",
+                    "id": "O0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "265~273",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "274~289",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "47~54",
+                    "text": "painful",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "127~134",
+                    "text": "painful",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "987~994",
+                    "text": "painful",
+                    "id": "P2",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "059823.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "right ear was aching; head was ache; jaw was also aching/throbbing; swelling of bottom lip and it was hot/bottom of the lip (underneath) was swollen; felt sick similar to a sinus infection/pressure in front of head, jaw, right ear/sinus pressure/pressure in nose/bad sinus infection in whole head/bad sinuses/took an antibiotic for sinus and pressure; dizzy on and off/Dizziness; \n\nThis is a spontaneous report from a contactable consumer (patient). A 59-year-old female patient received first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE; Solution for injection, unknown lot number and expiration), via an unspecified route of administration in right arm on 19Jan2021 at a single dose for COVID-19 immunization.  Medical history included sinus problems, allergy, allergy to cow's milk, TMJ (she had her wisdom teeth she was having issues on the right side; after they pulled it out she was fine), and wisdom teeth pulled out at the age of 57 or 58.  \n\nConcomitant medication included ascorbic acid, biotin, folic acid, iron, manganese, nicotinic acid, pantothenic acid, pyridoxine hydrochloride, retinol, riboflavin, selenium, thiamine, vitamin b12 nos, vitamin d nos, vitamin e nos, zinc (CENTRUM FRUITY CHEWABLES).  The patient previously took keflex and was allergic to it. The patient received her first dose of COVID-19 vaccine on 19Jan2021. She was okay from Tuesday to Thursday. \n\nOn Friday (22Jan2021), the patient reported to have felt sick similar to a sinus infection, there were pressure in front of head, jaw, and right ear and was dizzy on and off for a long period. She had a sinus pressure/pressure in her nose and felt like she had a bad sinus infection in whole head. She is not saying she had a sinus infection, but that's what she experienced after receiving the shot. \n\nHer right ear was aching, head was ache, and jaw was also aching/throbbing on unspecified dates. The patient mentioned that she had swelling of bottom lip and it was hot/bottom of the lip (underneath) was swollen on 07Feb2021 but it went away today (08Feb2021). It was actually her neighbor that noticed the swelling and said it was on the bottom of lip chin area, it also felt hard when touching it. She called her primary care doctor following the events. At first, she did not want to provide these to her primary care, she did not have high blood pressure, high cholesterol or anything, but she did have bad sinuses. She took an antibiotic for sinus and pressure and her doctor told her that these could be side effects of the COVID vaccine as it causes dizziness and pressure. \n\nThe dizziness must have been from the pressure since it was in her ear, cheek bones, and right ear was throbbing. It took her one month to come back to her normal self. The patient is scheduled to receive the next shot on 09Feb2021 and asked if she need to get the next shot or should she wait another week. \n\nThe patient recovered from events \"felt sick similar to a sinus infection/pressure in front of head, jaw, and right ear/sinus pressure/pressure in her nose/bad sinus infection in whole head/bad sinuses/took an antibiotic for sinus and pressure\" and dizzy on and off/dizziness on 06Feb2021; recovered from event swelling of bottom lip on 08Feb2021; while unknown outcome for the remaining events.   Information on the lot/batch number has been requested.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Pain",
+                    "spans": "14~20",
+                    "text": "aching",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "22~35",
+                    "text": "head was ache",
+                    "id": "H0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "173~188",
+                    "text": "sinus infection",
+                    "id": "N0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Dyspnea",
+                    "spans": "231~245",
+                    "text": "sinus pressure",
+                    "id": "Dy0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "352~357",
+                    "text": "dizzy",
+                    "id": "H1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "369~378",
+                    "text": "Dizziness",
+                    "id": "H2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "761~768",
+                    "text": "allergy",
+                    "id": "O0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "502~510",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "512~527",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "1824~1837",
+                    "text": "head was ache",
+                    "id": "H3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "1552~1557",
+                    "text": "dizzy",
+                    "id": "H4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "3141~3146",
+                    "text": "dizzy",
+                    "id": "H5",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "2556~2565",
+                    "text": "Dizziness",
+                    "id": "H6",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "2586~2595",
+                    "text": "Dizziness",
+                    "id": "H7",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Headache",
+                    "spans": "3158~3167",
+                    "text": "Dizziness",
+                    "id": "H8",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "267~282",
+                    "text": "sinus infection",
+                    "id": "N1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "1470~1485",
+                    "text": "sinus infection",
+                    "id": "N2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "1662~1677",
+                    "text": "sinus infection",
+                    "id": "N3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "1721~1736",
+                    "text": "sinus infection",
+                    "id": "N4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "2950~2965",
+                    "text": "sinus infection",
+                    "id": "N5",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Nasal_obstruction",
+                    "spans": "3052~3067",
+                    "text": "sinus infection",
+                    "id": "N6",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "770~777",
+                    "text": "allergy",
+                    "id": "O1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "50~56",
+                    "text": "aching",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1816~1822",
+                    "text": "aching",
+                    "id": "P2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1856~1862",
+                    "text": "aching",
+                    "id": "P3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Dyspnea",
+                    "spans": "1598~1612",
+                    "text": "sinus pressure",
+                    "id": "Dy1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Dyspnea",
+                    "spans": "3012~3026",
+                    "text": "sinus pressure",
+                    "id": "Dy2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "141~148",
+                    "text": "swollen",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "57~66",
+                    "text": "throbbing",
+                    "id": "P4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1863~1872",
+                    "text": "throbbing",
+                    "id": "P5",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "2685~2694",
+                    "text": "throbbing",
+                    "id": "P6",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "2003~2010",
+                    "text": "swollen",
+                    "id": "M1",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "838459.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "17 year old received their first dose of the Moderna vaccine; Aches; A spontaneous report was received from a pharmacist concerning a 17-year-old patient who received their first dose of Moderna's COVID-19 vaccine (mRNA-1273)/ product administered to patient of inappropriate age and developed aches/myalgia.  The patient's medical history was not provided. Concomitant product use was not provided.  The patient received their first of two planned doses of mRNA-1273 (Batch number: 011L20A) between 11 Jan 2021 and 21 Jan 2021 (date not specified) intramuscularly for prophylaxis of COVID-19 infection.  Treatment information was not provided.  The patient was scheduled to receive the second dose in Feb 2021. Action taken with mRNA-1273 in response to the events was not provided.  The event, 17-year-old received their first dose of the Moderna vaccine, was considered resolved on the same day of vaccine administration (date not specified). The outcome of the event, aches, was not reported.; Reporter's Comments: This case report concerns a 17-year-old female patient who was administered mRNA-1273 vaccine Lot# 011L20A (inappropriate age at vaccine administration) and experienced aches. The event of aches is temporarily associated with the product use and a causal association cannot be excluded. The event of inappropriate age at vaccine administration is assessed as not applicable.; Sender's Comments:  US-MODERNATX, INC.-MOD-2021-011594:",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Vaccine",
+                    "spans": "215~224",
+                    "text": "mRNA-1273",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "458~467",
+                    "text": "mRNA-1273",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "730~739",
+                    "text": "mRNA-1273",
+                    "id": "V2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "1095~1104",
+                    "text": "mRNA-1273",
+                    "id": "V3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "45~52",
+                    "text": "Moderna",
+                    "id": "V4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "187~194",
+                    "text": "Moderna",
+                    "id": "V5",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "841~848",
+                    "text": "Moderna",
+                    "id": "V6",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "972~977",
+                    "text": "aches",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "62~67",
+                    "text": "aches",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "294~299",
+                    "text": "aches",
+                    "id": "P2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1188~1193",
+                    "text": "aches",
+                    "id": "P3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1208~1213",
+                    "text": "aches",
+                    "id": "P4",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "933997.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "Slight muscle ache in arm; Other vaccine same date vaccine; Other vaccine same date vaccine; This is a spontaneous report from a contactable consumer (patient). This non-pregnant 73-year-old female patient received BNT162B2 (PFIZER-BIONTECH COVID-19 MRNA VACCINE; lot number EN9581) via unspecified route of administration in the left arm on 05Feb2021 at 15:45 (at the age of 73-years-old) as a single dose for COVID-19 immunization. Medical history included sulfa allergy from an unknown date and unknown if ongoing. The patient did not have COVID prior to vaccination. Concomitant medications included ascorbic acid (VITA C), ergocalciferol (VITA D), biotin, fexofenadine hydrochloride (ALLERFEX), magnesium, and glucosamine hydrochloride (GLOCOSAMIN), all from unknown dates for unknown indications. The patient did not receive any other vaccines in the four weeks prior to the COVID vaccine. On 05Feb2021 at 22:00 the patient experienced slight muscle ache in arm during the first night; and on 05Feb2021 the patient experienced other vaccine same date vaccine. No treatment was provided for the events. The clinical outcome of slight muscle ache in arm was recovered in Feb2021; the clinical outcomes of other vaccine same date vaccine were recovered on 05Feb2021. It was also reported the patient was not COVID tested post vaccination.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Myalgia",
+                    "spans": "7~18",
+                    "text": "muscle ache",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "949~960",
+                    "text": "muscle ache",
+                    "id": "M1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "1139~1150",
+                    "text": "muscle ache",
+                    "id": "M2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "465~472",
+                    "text": "allergy",
+                    "id": "O0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "215~223",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "225~240",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "840502.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -4094,6 +4691,274 @@
             "_sentences_text": ""
         },
         {
+            "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Fever",
+                    "spans": "7~15",
+                    "text": "feverish",
+                    "id": "F0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "1132~1142",
+                    "text": "tenderness",
+                    "id": "M0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "39~47",
+                    "text": "soreness",
+                    "id": "M1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "1119~1127",
+                    "text": "soreness",
+                    "id": "M2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "1308~1316",
+                    "text": "soreness",
+                    "id": "M3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "52~62",
+                    "text": "tenderness",
+                    "id": "M4",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Myalgia",
+                    "spans": "1321~1331",
+                    "text": "tenderness",
+                    "id": "M5",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "196~204",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "423~431",
+                    "text": "BNT162B2",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "206~221",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "1087~1095",
+                    "text": "feverish",
+                    "id": "F1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "1276~1284",
+                    "text": "feverish",
+                    "id": "F2",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "455140.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "I already have some muscle pain and tummy upset; This is a spontaneous report from a contactable consumer (patient). A 77-year-old female patient received the first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Batch/lot number: EL0142, expiry date not reported), via an unspecified route of administration on 07Jan2021 09:30 at single dose on right arm for COVID-19 immunization. Medical history included none. There were no concomitant medications. \n\nThe patient reported that she received the first dose of the vaccine yesterday (Thursday, 07Jan2021) and is scheduled to have the 2nd dose on 28Jan2021. She is asking if she should delay her Aerobics class the next day after the 28th because she knows that there are flu like symptoms that are associated with the 2nd dose of the vaccine. The patient stated, \"What are the side effects after the 2nd dose? I already have some muscle pain and tummy upset.\" \n\nThe patient also denied having any problems or symptoms after yesterday's shot (as reported, pending clarification). No other vaccine received that day and none in the 4 weeks prior. Not had any problems with the vaccines in past. When looking for name of vaccine states it was the one from Pfizer that was frozen, 170 degrees below zero. Mentions she is not a flu vaccine person and did not know if that matters. The adverse event did not require a visit to the Emergency Room or Physician Office. No relevant tests done. The outcome of the event was unknown.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Diarrhea",
+                    "spans": "36~47",
+                    "text": "tummy upset",
+                    "id": "D0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "173~181",
+                    "text": "BNT162B2",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "183~198",
+                    "text": "PFIZER-BIONTECH",
+                    "id": "V1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Vaccine",
+                    "spans": "1208~1214",
+                    "text": "Pfizer",
+                    "id": "V2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "27~31",
+                    "text": "pain",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "892~896",
+                    "text": "pain",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Diarrhea",
+                    "spans": "901~912",
+                    "text": "tummy upset",
+                    "id": "D1",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "953550.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "Around 06:00 pm, which was about 9 hours after having received the J&J vaccine, I began having a slight fever and chills.  The most pain I had was in the back of my legs.  Both of my calves felt as if they had both been kicked and were badly bruised.  It was painful to walk for about 48 hours/2 days (Sunday - Monday).  That was the first time in my life that I had that kind of pain in my back calves.  Never had before from running or walking.  Then around 09:00 pm on Tuesday, a reddish dot appeared on the left side of my cheek.  I thought it was just a big zit.  But the following day, the dot got bigger, and looked like a scratch.  On Wednesday, it was definitely a scratch-like shape (2 lines, less than an inch long) and had begun to feel itchy.  That was when I had realized that it had the same pus-like dotted features of a cold sore.  But oddly, it's not right next to either side of my lips.  Instead, it is further down, towards the left side of my chin.  It is very rare for me to get cold sores.  I can't remember when my last one was, as it was years ago.  So I am wondering if this cold sore is due to having received the vaccine.  The fever, chills, and leg pain have not returned after those first 2 days.",
+            "dtd_name": "COVID-19",
+            "tags": [
+                {
+                    "tag": "Vaccine",
+                    "spans": "67~78",
+                    "text": "J&J vaccine",
+                    "id": "V0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "97~109",
+                    "text": "slight fever",
+                    "id": "F0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Chill",
+                    "spans": "114~120",
+                    "text": "chills",
+                    "id": "C0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "132~136",
+                    "text": "pain",
+                    "id": "P0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "259~266",
+                    "text": "painful",
+                    "id": "P1",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Other",
+                    "spans": "242~249",
+                    "text": "bruised",
+                    "id": "O0",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "1156~1161",
+                    "text": "fever",
+                    "id": "F1",
+                    "certainty": "negated",
+                    "comment": ""
+                },
+                {
+                    "tag": "Chill",
+                    "spans": "1163~1169",
+                    "text": "chills",
+                    "id": "C1",
+                    "certainty": "negated",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "1179~1183",
+                    "text": "pain",
+                    "id": "P2",
+                    "certainty": "negated",
+                    "comment": ""
+                },
+                {
+                    "tag": "Pain",
+                    "spans": "380~384",
+                    "text": "pain",
+                    "id": "P3",
+                    "certainty": "positive",
+                    "comment": ""
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "728117.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
             "text": "headache; tiredness; muscle pain; fever; nausea; feeling unwell; Injection site pain; This is a spontaneous report from a contactable consumer. An 83-year-old female patient received second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, Solution for injection; Batch/lot number: EL9262;) via an unspecified route of administration on 26Jan2021 at single dose for covid-19 immunisation. Medical history included parkinson's disease ongoing. Concomitant medication included carbidopa monohydrate, levodopa (CARBIDOPA + LEVODOPA) for Parkinsons disease, clonazepam. The patient previously received first single dose of bnt162b2 for Covid-19 immunization (she had no side effects after the first dose of the vaccine). Patient had Parkinsons disease received the second dose of the Pfizer COVID-19 vaccine yesterday, 26Jan2021, and today she was experiencing most of the symptoms listed including: injection site pain in Jan2021, on 26Jan2021, had tiredness, headache (Had a headache, headache for the most part gone but still lingering), muscles pain, fever, nausea and feeling unwell. The caller states that she had no side effects after the first dose of the vaccine. The caller wants to know how long her symptoms are going to last. The outcome of the event Injection site pain was unknown, rest of the events was not recovered.",
             "dtd_name": "COVID-19",
             "tags": [
@@ -4298,68 +5163,36 @@
             "_sentences_text": ""
         },
         {
-            "text": "Mildly feverish evening after vaccine; Soreness and tenderness at left arm injection site; This is a spontaneous report from a contactable physician (patient). A 61-year-old male patient received bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; second dose (lot number: EL1284, expiry date: unknown) via an unspecified route of administration on 07Jan2021 07:00 at single dose (Left arm) for COVID-19 immunization. Patient took bnt162b2 first dose (lot number: EK5730, expiry date: unknown) on 17Dec2020  07:00 am (Left arm) for COVID-19 immunization. Medical history included known allergies: Sulfa, Hypothyroid, Asthma, Hi Cholesterol.  Concomitant medication included cetirizine hydrochloride (ZYRTEC), atorvastatin, levothyroxine. The patient previously took tamiflu and experienced allergies.  Facility type vaccine was hospital. The patient did not receive any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. Since the vaccination, the patient has not been tested for COVID-19. The patient experienced Mildly feverish evening after vaccine, Soreness and tenderness at left arm injection site on 07Jan2021. The patient took Motrin as treatment. Therapeutic measures were taken as a result of mildly feverish evening after vaccine, soreness and tenderness at left arm injection site. The outcome of the events was recovered on an unspecified date. The events were reported as non-serious.",
+            "text": "Throbbing at the injection site; muscle aches over whole body; This is a spontaneous report from a non-contactable other healthcare professional. A 37-year-old female patient received the second dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Lot number: Unknown), intramuscular at the right arm on 07Jan2021 11:30 at a single dose for COVID-19 immunization. Medical history included allergies: Penicillin, alcohol, salicylates. The patient's concomitant medications were not reported. The patient was not pregnant when she received the vaccination. The patient previously received the first dose of bnt162b2 for COVID-19 immunization. On 07Jan2021 at 10pm, the patient experienced throbbing at the injection site and muscle aches over whole body. The events were assessed as non-serious, did not result in death, not life threatening, did not cause/prolonged hospitalization, not disabling/incapacitating, did not cause congenital anomaly/birth defect. Treatment was not received for the adverse events. The patient has not received any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. The patient has not been tested for COVID-19 post vaccination. The outcome of the events was recovering.  No follow-up attempts are possible. Information about Lot/Batch number cannot be obtained. No further information is expected.",
             "dtd_name": "COVID-19",
             "tags": [
                 {
-                    "tag": "Fever",
-                    "spans": "7~15",
-                    "text": "feverish",
-                    "id": "F0",
+                    "tag": "Pain",
+                    "spans": "686~695",
+                    "text": "throbbing",
+                    "id": "P0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Myalgia",
-                    "spans": "1132~1142",
-                    "text": "tenderness",
+                    "spans": "33~45",
+                    "text": "muscle aches",
                     "id": "M0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Myalgia",
-                    "spans": "39~47",
-                    "text": "soreness",
+                    "spans": "722~734",
+                    "text": "muscle aches",
                     "id": "M1",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Myalgia",
-                    "spans": "1119~1127",
-                    "text": "soreness",
-                    "id": "M2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "1308~1316",
-                    "text": "soreness",
-                    "id": "M3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "52~62",
-                    "text": "tenderness",
-                    "id": "M4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "1321~1331",
-                    "text": "tenderness",
-                    "id": "M5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
                     "tag": "Vaccine",
-                    "spans": "196~204",
+                    "spans": "203~211",
                     "text": "BNT162B2",
                     "id": "V0",
                     "certainty": "positive",
@@ -4367,7 +5200,7 @@
                 },
                 {
                     "tag": "Vaccine",
-                    "spans": "423~431",
+                    "spans": "604~612",
                     "text": "BNT162B2",
                     "id": "V1",
                     "certainty": "positive",
@@ -4375,32 +5208,24 @@
                 },
                 {
                     "tag": "Vaccine",
-                    "spans": "206~221",
+                    "spans": "213~228",
                     "text": "PFIZER-BIONTECH",
                     "id": "V2",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Fever",
-                    "spans": "1087~1095",
-                    "text": "feverish",
-                    "id": "F1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "1276~1284",
-                    "text": "feverish",
-                    "id": "F2",
+                    "tag": "Pain",
+                    "spans": "0~9",
+                    "text": "throbbing",
+                    "id": "P1",
                     "certainty": "positive",
                     "comment": ""
                 }
             ],
             "meta": {},
             "_fh": {},
-            "_filename": "455140.txt.xml",
+            "_filename": "536553.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -4490,160 +5315,20 @@
             "_sentences_text": ""
         },
         {
-            "text": "Feb 25th afternoon I started feeling pretty yucky. As the evening progressed I had chills, body aches, and fever. I thought I had covid. On the 26th I was worse. on the 27th I went to the ER, and the diagnosis was \"unknown virus\" I continued to get worse. On March 3rd I called the nurse and she said \"I need to go to the ER, don't go to the  ER, go to the closest ER to you\". I received the same diagnosis. I thought maybe my CPAP machine had bacteria and they tested for bacteria and it was negative. I went home. On march 8th I was really bad off, I had 103.7 fever still and O2 was 70-80. I was admitted to the hospital. they tested me again and I had bacterial pneumonia. 3 days later they were going to send me home but when I woke up that morning I felt like I had been kicked in the ribs on my right side. I sat in a chair and if I coughed, hiccuped or anything It felt like a knife through my chest. a CT scan showed a massive blood clot in my lung. I was put on medications and I was discharged on March 17th. My left lung had 100% pneumonia and the blood clot was in the right lung and my lungs were unable to help each other. With any exertion, my heart rate jumps and my O2 drops. I can only sit. The theory they had at the hospital is that the Moderna vaccine had the full attention of my immune system which allowed other infections to come into my body unchecked. Since the pandemic started I have left my house on my bicycle to the store and that is it. I have had almost no exposure.",
+            "text": "fever/low grade fever; Headache; This is a spontaneous report from a Pfizer Sponsored Program  via a contactable nurse (patient). A 44-years-old female patient received the second dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) (lot number: EV1685) via an unspecified route of administration in right deltoid on 13Jan2021 14:30 at single dose for COVID-19 immunisation. She received her first dose of BNT162B2 on 23Dec2020 13:30 (at age of 44 years old) for COVID-19 immunisation. There was no medical history. The patient's concomitant medications were not reported. The patient received the second dose of her Pfizer vaccine on 13Jan2021. She has a headache and fever (on Jan2021), which lasted a whole week. She still had a headache and a low grade fever and today is day 8th. Inquiring if that is a normal side effect, with the vaccine is it common or how long should she expect this. She received Advil and Tylenol as treatment. She had COVID test yesterday (20Jan2021) it was negative. Relatedness of drug to events headache and fever was reported as related by reporter because she had them since the second dose. Events outcome was not recovered.",
             "dtd_name": "COVID-19",
             "tags": [
                 {
-                    "tag": "Other",
-                    "spans": "215~228",
-                    "text": "unknown virus",
-                    "id": "O0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "444~452",
-                    "text": "bacteria",
-                    "id": "O1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "656~675",
-                    "text": "bacterial pneumonia",
-                    "id": "O2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Cough",
-                    "spans": "840~847",
-                    "text": "coughed",
-                    "id": "Co0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Delirium",
-                    "spans": "883~907",
-                    "text": "a knife through my chest",
-                    "id": "De0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "928~946",
-                    "text": "massive blood clot",
-                    "id": "O3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "1042~1051",
-                    "text": "pneumonia",
-                    "id": "O4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "1258~1265",
-                    "text": "Moderna",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
                     "tag": "Fever",
-                    "spans": "107~112",
-                    "text": "fever",
+                    "spans": "746~761",
+                    "text": "low grade fever",
                     "id": "F0",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Fever",
-                    "spans": "563~568",
-                    "text": "fever",
-                    "id": "F1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Chill",
-                    "spans": "83~89",
-                    "text": "chills",
-                    "id": "C0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "473~481",
-                    "text": "bacteria",
-                    "id": "O5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "91~101",
-                    "text": "Body Aches",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "1060~1070",
-                    "text": "Blood clot",
-                    "id": "O6",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "498221.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Throbbing at the injection site; muscle aches over whole body; This is a spontaneous report from a non-contactable other healthcare professional. A 37-year-old female patient received the second dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Lot number: Unknown), intramuscular at the right arm on 07Jan2021 11:30 at a single dose for COVID-19 immunization. Medical history included allergies: Penicillin, alcohol, salicylates. The patient's concomitant medications were not reported. The patient was not pregnant when she received the vaccination. The patient previously received the first dose of bnt162b2 for COVID-19 immunization. On 07Jan2021 at 10pm, the patient experienced throbbing at the injection site and muscle aches over whole body. The events were assessed as non-serious, did not result in death, not life threatening, did not cause/prolonged hospitalization, not disabling/incapacitating, did not cause congenital anomaly/birth defect. Treatment was not received for the adverse events. The patient has not received any other vaccines within 4 weeks prior to the COVID vaccine. Prior to vaccination, the patient was not diagnosed with COVID-19. The patient has not been tested for COVID-19 post vaccination. The outcome of the events was recovering.  No follow-up attempts are possible. Information about Lot/Batch number cannot be obtained. No further information is expected.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Pain",
-                    "spans": "686~695",
-                    "text": "throbbing",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "33~45",
-                    "text": "muscle aches",
-                    "id": "M0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "722~734",
-                    "text": "muscle aches",
-                    "id": "M1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
                     "tag": "Vaccine",
-                    "spans": "203~211",
+                    "spans": "188~196",
                     "text": "BNT162B2",
                     "id": "V0",
                     "certainty": "positive",
@@ -4651,7 +5336,7 @@
                 },
                 {
                     "tag": "Vaccine",
-                    "spans": "604~612",
+                    "spans": "405~413",
                     "text": "BNT162B2",
                     "id": "V1",
                     "certainty": "positive",
@@ -4659,504 +5344,96 @@
                 },
                 {
                     "tag": "Vaccine",
-                    "spans": "213~228",
+                    "spans": "198~213",
                     "text": "PFIZER-BIONTECH",
                     "id": "V2",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Pain",
-                    "spans": "0~9",
-                    "text": "throbbing",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "536553.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Positive COVID-19 test with symptoms; \n\nThe patient had MS and was immune compromised; \n\nThis is a spontaneous report from a contactable consumer (patient). This female consumer of unspecified age received the first single dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE) on 04Jan2021, for COVID-19 immunization. She had MS and was immune compromised. Concomitant medications were not reported. On 07Jan2021 the patient woke up with headache, runny nose, groggy and muscle aches. She went to pharmacy and got a rapid COVID test that resulted positive. She was asking if the 1st dose could have caused her to be positive on the test. Events outcome was unknown.  \n\nInformation on the batch/lot number has been requested.\n\nSender's Comments: \n\nBased on the information available, a possible contributory role of the suspect products cannot be excluded for the reported event of positive for corona virus infection for the lack of efficacy of the vaccine. However, based on the mechanism of action of the vaccine, it is unlikely the patient would have fully developed immunity for the vaccine to be effective, due to the number of days passed since the vaccine is given. Case will be reevaluated based on follow-up information",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "446~456",
-                    "text": "runny nose",
-                    "id": "N0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Hypersomnia",
-                    "spans": "458~464",
-                    "text": "groggy",
-                    "id": "Hy0",
+                    "tag": "Vaccine",
+                    "spans": "69~75",
+                    "text": "Pfizer",
+                    "id": "V3",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Vaccine",
-                    "spans": "231~239",
-                    "text": "BNT162B2",
-                    "id": "V0",
+                    "spans": "616~622",
+                    "text": "Pfizer",
+                    "id": "V4",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Vaccine",
-                    "spans": "241~256",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V1",
+                    "tag": "Fever",
+                    "spans": "0~5",
+                    "text": "fever",
+                    "id": "F1",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Myalgia",
-                    "spans": "469~481",
-                    "text": "muscle aches",
-                    "id": "M0",
+                    "tag": "Fever",
+                    "spans": "16~21",
+                    "text": "fever",
+                    "id": "F2",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "668~673",
+                    "text": "fever",
+                    "id": "F3",
+                    "certainty": "positive",
+                    "comment": ""
+                },
+                {
+                    "tag": "Fever",
+                    "spans": "1039~1044",
+                    "text": "fever",
+                    "id": "F4",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Headache",
-                    "spans": "436~444",
+                    "spans": "23~31",
                     "text": "headache",
                     "id": "H0",
                     "certainty": "positive",
                     "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "587301.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Around 06:00 pm, which was about 9 hours after having received the J&J vaccine, I began having a slight fever and chills.  The most pain I had was in the back of my legs.  Both of my calves felt as if they had both been kicked and were badly bruised.  It was painful to walk for about 48 hours/2 days (Sunday - Monday).  That was the first time in my life that I had that kind of pain in my back calves.  Never had before from running or walking.  Then around 09:00 pm on Tuesday, a reddish dot appeared on the left side of my cheek.  I thought it was just a big zit.  But the following day, the dot got bigger, and looked like a scratch.  On Wednesday, it was definitely a scratch-like shape (2 lines, less than an inch long) and had begun to feel itchy.  That was when I had realized that it had the same pus-like dotted features of a cold sore.  But oddly, it's not right next to either side of my lips.  Instead, it is further down, towards the left side of my chin.  It is very rare for me to get cold sores.  I can't remember when my last one was, as it was years ago.  So I am wondering if this cold sore is due to having received the vaccine.  The fever, chills, and leg pain have not returned after those first 2 days.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Vaccine",
-                    "spans": "67~78",
-                    "text": "J&J vaccine",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "97~109",
-                    "text": "slight fever",
-                    "id": "F0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Chill",
-                    "spans": "114~120",
-                    "text": "chills",
-                    "id": "C0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "132~136",
-                    "text": "pain",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "259~266",
-                    "text": "painful",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "242~249",
-                    "text": "bruised",
-                    "id": "O0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Fever",
-                    "spans": "1156~1161",
-                    "text": "fever",
-                    "id": "F1",
-                    "certainty": "negated",
-                    "comment": ""
-                },
-                {
-                    "tag": "Chill",
-                    "spans": "1163~1169",
-                    "text": "chills",
-                    "id": "C1",
-                    "certainty": "negated",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1179~1183",
-                    "text": "pain",
-                    "id": "P2",
-                    "certainty": "negated",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "380~384",
-                    "text": "pain",
-                    "id": "P3",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "728117.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "right ear was aching; head was ache; jaw was also aching/throbbing; swelling of bottom lip and it was hot/bottom of the lip (underneath) was swollen; felt sick similar to a sinus infection/pressure in front of head, jaw, right ear/sinus pressure/pressure in nose/bad sinus infection in whole head/bad sinuses/took an antibiotic for sinus and pressure; dizzy on and off/Dizziness; \n\nThis is a spontaneous report from a contactable consumer (patient). A 59-year-old female patient received first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE; Solution for injection, unknown lot number and expiration), via an unspecified route of administration in right arm on 19Jan2021 at a single dose for COVID-19 immunization.  Medical history included sinus problems, allergy, allergy to cow's milk, TMJ (she had her wisdom teeth she was having issues on the right side; after they pulled it out she was fine), and wisdom teeth pulled out at the age of 57 or 58.  \n\nConcomitant medication included ascorbic acid, biotin, folic acid, iron, manganese, nicotinic acid, pantothenic acid, pyridoxine hydrochloride, retinol, riboflavin, selenium, thiamine, vitamin b12 nos, vitamin d nos, vitamin e nos, zinc (CENTRUM FRUITY CHEWABLES).  The patient previously took keflex and was allergic to it. The patient received her first dose of COVID-19 vaccine on 19Jan2021. She was okay from Tuesday to Thursday. \n\nOn Friday (22Jan2021), the patient reported to have felt sick similar to a sinus infection, there were pressure in front of head, jaw, and right ear and was dizzy on and off for a long period. She had a sinus pressure/pressure in her nose and felt like she had a bad sinus infection in whole head. She is not saying she had a sinus infection, but that's what she experienced after receiving the shot. \n\nHer right ear was aching, head was ache, and jaw was also aching/throbbing on unspecified dates. The patient mentioned that she had swelling of bottom lip and it was hot/bottom of the lip (underneath) was swollen on 07Feb2021 but it went away today (08Feb2021). It was actually her neighbor that noticed the swelling and said it was on the bottom of lip chin area, it also felt hard when touching it. She called her primary care doctor following the events. At first, she did not want to provide these to her primary care, she did not have high blood pressure, high cholesterol or anything, but she did have bad sinuses. She took an antibiotic for sinus and pressure and her doctor told her that these could be side effects of the COVID vaccine as it causes dizziness and pressure. \n\nThe dizziness must have been from the pressure since it was in her ear, cheek bones, and right ear was throbbing. It took her one month to come back to her normal self. The patient is scheduled to receive the next shot on 09Feb2021 and asked if she need to get the next shot or should she wait another week. \n\nThe patient recovered from events \"felt sick similar to a sinus infection/pressure in front of head, jaw, and right ear/sinus pressure/pressure in her nose/bad sinus infection in whole head/bad sinuses/took an antibiotic for sinus and pressure\" and dizzy on and off/dizziness on 06Feb2021; recovered from event swelling of bottom lip on 08Feb2021; while unknown outcome for the remaining events.   Information on the lot/batch number has been requested.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Pain",
-                    "spans": "14~20",
-                    "text": "aching",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
                 },
                 {
                     "tag": "Headache",
-                    "spans": "22~35",
-                    "text": "head was ache",
-                    "id": "H0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "173~188",
-                    "text": "sinus infection",
-                    "id": "N0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Dyspnea",
-                    "spans": "231~245",
-                    "text": "sinus pressure",
-                    "id": "Dy0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "352~357",
-                    "text": "dizzy",
+                    "spans": "655~663",
+                    "text": "headache",
                     "id": "H1",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
                     "tag": "Headache",
-                    "spans": "369~378",
-                    "text": "Dizziness",
+                    "spans": "731~739",
+                    "text": "headache",
                     "id": "H2",
                     "certainty": "positive",
                     "comment": ""
                 },
                 {
-                    "tag": "Other",
-                    "spans": "761~768",
-                    "text": "allergy",
-                    "id": "O0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "502~510",
-                    "text": "BNT162B2",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "512~527",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
                     "tag": "Headache",
-                    "spans": "1824~1837",
-                    "text": "head was ache",
+                    "spans": "1026~1034",
+                    "text": "headache",
                     "id": "H3",
                     "certainty": "positive",
                     "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "1552~1557",
-                    "text": "dizzy",
-                    "id": "H4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "3141~3146",
-                    "text": "dizzy",
-                    "id": "H5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "2556~2565",
-                    "text": "Dizziness",
-                    "id": "H6",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "2586~2595",
-                    "text": "Dizziness",
-                    "id": "H7",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Headache",
-                    "spans": "3158~3167",
-                    "text": "Dizziness",
-                    "id": "H8",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "267~282",
-                    "text": "sinus infection",
-                    "id": "N1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "1470~1485",
-                    "text": "sinus infection",
-                    "id": "N2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "1662~1677",
-                    "text": "sinus infection",
-                    "id": "N3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "1721~1736",
-                    "text": "sinus infection",
-                    "id": "N4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "2950~2965",
-                    "text": "sinus infection",
-                    "id": "N5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Nasal_obstruction",
-                    "spans": "3052~3067",
-                    "text": "sinus infection",
-                    "id": "N6",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "770~777",
-                    "text": "allergy",
-                    "id": "O1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "50~56",
-                    "text": "aching",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1816~1822",
-                    "text": "aching",
-                    "id": "P2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1856~1862",
-                    "text": "aching",
-                    "id": "P3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Dyspnea",
-                    "spans": "1598~1612",
-                    "text": "sinus pressure",
-                    "id": "Dy1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Dyspnea",
-                    "spans": "3012~3026",
-                    "text": "sinus pressure",
-                    "id": "Dy2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "141~148",
-                    "text": "swollen",
-                    "id": "M0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "57~66",
-                    "text": "throbbing",
-                    "id": "P4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1863~1872",
-                    "text": "throbbing",
-                    "id": "P5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "2685~2694",
-                    "text": "throbbing",
-                    "id": "P6",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "2003~2010",
-                    "text": "swollen",
-                    "id": "M1",
-                    "certainty": "positive",
-                    "comment": ""
                 }
             ],
             "meta": {},
             "_fh": {},
-            "_filename": "838459.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Slight muscle ache in arm; Other vaccine same date vaccine; Other vaccine same date vaccine; This is a spontaneous report from a contactable consumer (patient). This non-pregnant 73-year-old female patient received BNT162B2 (PFIZER-BIONTECH COVID-19 MRNA VACCINE; lot number EN9581) via unspecified route of administration in the left arm on 05Feb2021 at 15:45 (at the age of 73-years-old) as a single dose for COVID-19 immunization. Medical history included sulfa allergy from an unknown date and unknown if ongoing. The patient did not have COVID prior to vaccination. Concomitant medications included ascorbic acid (VITA C), ergocalciferol (VITA D), biotin, fexofenadine hydrochloride (ALLERFEX), magnesium, and glucosamine hydrochloride (GLOCOSAMIN), all from unknown dates for unknown indications. The patient did not receive any other vaccines in the four weeks prior to the COVID vaccine. On 05Feb2021 at 22:00 the patient experienced slight muscle ache in arm during the first night; and on 05Feb2021 the patient experienced other vaccine same date vaccine. No treatment was provided for the events. The clinical outcome of slight muscle ache in arm was recovered in Feb2021; the clinical outcomes of other vaccine same date vaccine were recovered on 05Feb2021. It was also reported the patient was not COVID tested post vaccination.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Myalgia",
-                    "spans": "7~18",
-                    "text": "muscle ache",
-                    "id": "M0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "949~960",
-                    "text": "muscle ache",
-                    "id": "M1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "1139~1150",
-                    "text": "muscle ache",
-                    "id": "M2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Other",
-                    "spans": "465~472",
-                    "text": "allergy",
-                    "id": "O0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "215~223",
-                    "text": "BNT162B2",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "225~240",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "840502.txt.xml",
+            "_filename": "113293.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -5284,285 +5561,9 @@
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
-        },
-        {
-            "text": "swollen injection site; red injection site; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; swollen area underneath armpit area feels like someone is pulling on a stitch type of pain; This is a spontaneous report from a contactable healthcare professional (patient). A 21-year-old female patient received second dose of bnt162b2 (Pfizer-BioNTech COVID-19 mRNA vaccine), via an unspecified route of administration in the right arm on 15Jan2021 15:45 at a single dose for covid-19 immunization. The patient medical history was not reported. Concomitant medication included ethinylestradiol, ferrous fumarate, norethisterone acetate (LARIN FE). The patient received first dose of BNT162B2 on 28Dec2020 03:15 for covid-19 immunization. On 15Jan2021 08:15, the patient experienced swollen injection site and red injection site. The patient added that swollen area underneath armpit area feels like someone is pulling on a stitch type of pain. The patient has taken Benadryl and Tylenol Friday, Saturday, and Sunday as treatment for the events. The patient is not pregnant. The patient has not tested positive for covid post vaccination. The outcome of the events was unknown.  Information on the lot/batch number has been requested.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Myalgia",
-                    "spans": "0~7",
-                    "text": "swollen",
-                    "id": "M0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "44~51",
-                    "text": "swollen",
-                    "id": "M1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "136~143",
-                    "text": "swollen",
-                    "id": "M2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "820~827",
-                    "text": "swollen",
-                    "id": "M3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Myalgia",
-                    "spans": "890~897",
-                    "text": "swollen",
-                    "id": "M4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "364~372",
-                    "text": "BNT162B2",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "721~729",
-                    "text": "BNT162B2",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "374~389",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "130~134",
-                    "text": "pain",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "222~226",
-                    "text": "pain",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "976~980",
-                    "text": "pain",
-                    "id": "P2",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "899183.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "17 year old received their first dose of the Moderna vaccine; Aches; A spontaneous report was received from a pharmacist concerning a 17-year-old patient who received their first dose of Moderna's COVID-19 vaccine (mRNA-1273)/ product administered to patient of inappropriate age and developed aches/myalgia.  The patient's medical history was not provided. Concomitant product use was not provided.  The patient received their first of two planned doses of mRNA-1273 (Batch number: 011L20A) between 11 Jan 2021 and 21 Jan 2021 (date not specified) intramuscularly for prophylaxis of COVID-19 infection.  Treatment information was not provided.  The patient was scheduled to receive the second dose in Feb 2021. Action taken with mRNA-1273 in response to the events was not provided.  The event, 17-year-old received their first dose of the Moderna vaccine, was considered resolved on the same day of vaccine administration (date not specified). The outcome of the event, aches, was not reported.; Reporter's Comments: This case report concerns a 17-year-old female patient who was administered mRNA-1273 vaccine Lot# 011L20A (inappropriate age at vaccine administration) and experienced aches. The event of aches is temporarily associated with the product use and a causal association cannot be excluded. The event of inappropriate age at vaccine administration is assessed as not applicable.; Sender's Comments:  US-MODERNATX, INC.-MOD-2021-011594:",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Vaccine",
-                    "spans": "215~224",
-                    "text": "mRNA-1273",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "458~467",
-                    "text": "mRNA-1273",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "730~739",
-                    "text": "mRNA-1273",
-                    "id": "V2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "1095~1104",
-                    "text": "mRNA-1273",
-                    "id": "V3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "45~52",
-                    "text": "Moderna",
-                    "id": "V4",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "187~194",
-                    "text": "Moderna",
-                    "id": "V5",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "841~848",
-                    "text": "Moderna",
-                    "id": "V6",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "972~977",
-                    "text": "aches",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "62~67",
-                    "text": "aches",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "294~299",
-                    "text": "aches",
-                    "id": "P2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1188~1193",
-                    "text": "aches",
-                    "id": "P3",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "1208~1213",
-                    "text": "aches",
-                    "id": "P4",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "933997.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "I already have some muscle pain and tummy upset; This is a spontaneous report from a contactable consumer (patient). A 77-year-old female patient received the first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE, Batch/lot number: EL0142, expiry date not reported), via an unspecified route of administration on 07Jan2021 09:30 at single dose on right arm for COVID-19 immunization. Medical history included none. There were no concomitant medications. \n\nThe patient reported that she received the first dose of the vaccine yesterday (Thursday, 07Jan2021) and is scheduled to have the 2nd dose on 28Jan2021. She is asking if she should delay her Aerobics class the next day after the 28th because she knows that there are flu like symptoms that are associated with the 2nd dose of the vaccine. The patient stated, \"What are the side effects after the 2nd dose? I already have some muscle pain and tummy upset.\" \n\nThe patient also denied having any problems or symptoms after yesterday's shot (as reported, pending clarification). No other vaccine received that day and none in the 4 weeks prior. Not had any problems with the vaccines in past. When looking for name of vaccine states it was the one from Pfizer that was frozen, 170 degrees below zero. Mentions she is not a flu vaccine person and did not know if that matters. The adverse event did not require a visit to the Emergency Room or Physician Office. No relevant tests done. The outcome of the event was unknown.",
-            "dtd_name": "COVID-19",
-            "tags": [
-                {
-                    "tag": "Diarrhea",
-                    "spans": "36~47",
-                    "text": "tummy upset",
-                    "id": "D0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "173~181",
-                    "text": "BNT162B2",
-                    "id": "V0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "183~198",
-                    "text": "PFIZER-BIONTECH",
-                    "id": "V1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Vaccine",
-                    "spans": "1208~1214",
-                    "text": "Pfizer",
-                    "id": "V2",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "27~31",
-                    "text": "pain",
-                    "id": "P0",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Pain",
-                    "spans": "892~896",
-                    "text": "pain",
-                    "id": "P1",
-                    "certainty": "positive",
-                    "comment": ""
-                },
-                {
-                    "tag": "Diarrhea",
-                    "spans": "901~912",
-                    "text": "tummy upset",
-                    "id": "D1",
-                    "certainty": "positive",
-                    "comment": ""
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "953550.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.3426495741401647,
+    "mn4anns": 0.5617574196201316,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -5575,179 +5576,13 @@
     "sort_anns_by": "default",
     "annotation_tab_working_mode": "annotation",
     "display_tag_name": "__all__",
-    "display_stat_doc_sum_selected": {
-        "file_name": "059823.txt.xml",
-        "tag_name": "Vaccine"
-    },
+    "display_stat_doc_sum_selected": null,
     "stat_filter_min_tokens": 0,
     "stat_filter_token_text": true,
     "hints": [],
     "hint_dict": {
-        "Myalgia": {
-            "text_dict": {
-                "swollen": {
-                    "count": 10,
-                    "ann_fn_dict": {
-                        "059823.txt.xml": 3,
-                        "838459.txt.xml": 2,
-                        "899183.txt.xml": 5
-                    },
-                    "_is_shown": false
-                },
-                "Sore arm": {
-                    "count": 6,
-                    "ann_fn_dict": {
-                        "266074.txt.xml": 3,
-                        "466451.txt.xml": 3
-                    },
-                    "_is_shown": false
-                },
-                "Trouble lifting her arm": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "267375.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "tenderness": {
-                    "count": 3,
-                    "ann_fn_dict": {
-                        "455140.txt.xml": 3
-                    },
-                    "_is_shown": false
-                },
-                "soreness": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "455140.txt.xml": 3,
-                        "876628.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "muscle aches": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "536553.txt.xml": 2,
-                        "587301.txt.xml": 1,
-                        "876628.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "muscle ache": {
-                    "count": 3,
-                    "ann_fn_dict": {
-                        "840502.txt.xml": 3
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "swollen",
-                "Sore arm",
-                "Trouble lifting her arm",
-                "tenderness",
-                "soreness",
-                "muscle aches",
-                "muscle ache"
-            ]
-        },
         "Other": {
             "text_dict": {
-                "allergy": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "059823.txt.xml": 1,
-                        "466451.txt.xml": 1,
-                        "838459.txt.xml": 2,
-                        "840502.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Blood clot": {
-                    "count": 6,
-                    "ann_fn_dict": {
-                        "080831.txt.xml": 3,
-                        "266074.txt.xml": 2,
-                        "498221.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Blood clots": {
-                    "count": 4,
-                    "ann_fn_dict": {
-                        "080831.txt.xml": 2,
-                        "266074.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "thrombosis": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "266074.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "trouble sleeping": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "267375.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "sepsis": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "345840.txt.xml": 5
-                    },
-                    "_is_shown": false
-                },
-                "sudden death": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "345840.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "died": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "345840.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "parkinson's disease": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "416262.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Parkinsons disease": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "416262.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "stroke history": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "466451.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "lactose intolerance": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "466451.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
                 "unknown virus": {
                     "count": 1,
                     "ann_fn_dict": {
@@ -5783,10 +5618,100 @@
                     },
                     "_is_shown": false
                 },
+                "Blood clot": {
+                    "count": 6,
+                    "ann_fn_dict": {
+                        "498221.txt.xml": 1,
+                        "080831.txt.xml": 3,
+                        "266074.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "Blood clots": {
+                    "count": 4,
+                    "ann_fn_dict": {
+                        "080831.txt.xml": 2,
+                        "266074.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "thrombosis": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "266074.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "allergy": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "059823.txt.xml": 1,
+                        "838459.txt.xml": 2,
+                        "840502.txt.xml": 1,
+                        "466451.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "trouble sleeping": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "267375.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "sepsis": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "345840.txt.xml": 5
+                    },
+                    "_is_shown": false
+                },
+                "sudden death": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "345840.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "died": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "345840.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
                 "bruised": {
                     "count": 1,
                     "ann_fn_dict": {
                         "728117.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "parkinson's disease": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "416262.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Parkinsons disease": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "416262.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "stroke history": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "466451.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "lactose intolerance": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "466451.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -5804,62 +5729,76 @@
                 "_is_shown": false
             },
             "texts": [
-                "allergy",
-                "Blood clot",
-                "Blood clots",
-                "thrombosis",
-                "trouble sleeping",
-                "sepsis",
-                "sudden death",
-                "died",
-                "parkinson's disease",
-                "Parkinsons disease",
-                "stroke history",
-                "lactose intolerance",
                 "unknown virus",
                 "bacteria",
                 "bacterial pneumonia",
                 "massive blood clot",
                 "pneumonia",
+                "Blood clot",
+                "Blood clots",
+                "thrombosis",
+                "allergy",
+                "trouble sleeping",
+                "sepsis",
+                "sudden death",
+                "died",
                 "bruised",
+                "parkinson's disease",
+                "Parkinsons disease",
+                "stroke history",
+                "lactose intolerance",
                 "syncopal episodes"
+            ]
+        },
+        "Cough": {
+            "text_dict": {
+                "coughed": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "498221.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "coughed"
+            ]
+        },
+        "Delirium": {
+            "text_dict": {
+                "a knife through my chest": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "498221.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "a knife through my chest"
             ]
         },
         "Vaccine": {
             "text_dict": {
-                "BNT162B2": {
-                    "count": 20,
+                "Moderna": {
+                    "count": 9,
                     "ann_fn_dict": {
-                        "059823.txt.xml": 1,
-                        "113293.txt.xml": 2,
-                        "416262.txt.xml": 2,
-                        "455140.txt.xml": 2,
-                        "466451.txt.xml": 2,
-                        "536553.txt.xml": 2,
-                        "587301.txt.xml": 1,
-                        "838459.txt.xml": 1,
-                        "840502.txt.xml": 1,
-                        "876628.txt.xml": 3,
-                        "899183.txt.xml": 2,
-                        "953550.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "PFIZER-BIONTECH": {
-                    "count": 12,
-                    "ann_fn_dict": {
-                        "059823.txt.xml": 1,
-                        "113293.txt.xml": 1,
-                        "416262.txt.xml": 1,
-                        "455140.txt.xml": 1,
-                        "466451.txt.xml": 1,
-                        "536553.txt.xml": 1,
-                        "587301.txt.xml": 1,
-                        "838459.txt.xml": 1,
-                        "840502.txt.xml": 1,
-                        "876628.txt.xml": 1,
-                        "899183.txt.xml": 1,
-                        "953550.txt.xml": 1
+                        "498221.txt.xml": 1,
+                        "080831.txt.xml": 1,
+                        "266074.txt.xml": 1,
+                        "933997.txt.xml": 3,
+                        "267375.txt.xml": 1,
+                        "345840.txt.xml": 2
                     },
                     "_is_shown": false
                 },
@@ -5868,32 +5807,56 @@
                     "ann_fn_dict": {
                         "080831.txt.xml": 4,
                         "266074.txt.xml": 3,
+                        "933997.txt.xml": 4,
                         "267375.txt.xml": 3,
-                        "345840.txt.xml": 4,
-                        "933997.txt.xml": 4
+                        "345840.txt.xml": 4
                     },
                     "_is_shown": false
                 },
-                "Moderna": {
-                    "count": 9,
+                "BNT162B2": {
+                    "count": 20,
                     "ann_fn_dict": {
-                        "080831.txt.xml": 1,
-                        "266074.txt.xml": 1,
-                        "267375.txt.xml": 1,
-                        "345840.txt.xml": 2,
-                        "498221.txt.xml": 1,
-                        "933997.txt.xml": 3
+                        "587301.txt.xml": 1,
+                        "899183.txt.xml": 2,
+                        "059823.txt.xml": 1,
+                        "838459.txt.xml": 1,
+                        "840502.txt.xml": 1,
+                        "455140.txt.xml": 2,
+                        "953550.txt.xml": 1,
+                        "416262.txt.xml": 2,
+                        "536553.txt.xml": 2,
+                        "466451.txt.xml": 2,
+                        "113293.txt.xml": 2,
+                        "876628.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "PFIZER-BIONTECH": {
+                    "count": 12,
+                    "ann_fn_dict": {
+                        "587301.txt.xml": 1,
+                        "899183.txt.xml": 1,
+                        "059823.txt.xml": 1,
+                        "838459.txt.xml": 1,
+                        "840502.txt.xml": 1,
+                        "455140.txt.xml": 1,
+                        "953550.txt.xml": 1,
+                        "416262.txt.xml": 1,
+                        "536553.txt.xml": 1,
+                        "466451.txt.xml": 1,
+                        "113293.txt.xml": 1,
+                        "876628.txt.xml": 1
                     },
                     "_is_shown": false
                 },
                 "Pfizer": {
                     "count": 7,
                     "ann_fn_dict": {
-                        "113293.txt.xml": 2,
                         "345840.txt.xml": 1,
+                        "953550.txt.xml": 1,
                         "416262.txt.xml": 1,
-                        "876628.txt.xml": 2,
-                        "953550.txt.xml": 1
+                        "113293.txt.xml": 2,
+                        "876628.txt.xml": 2
                     },
                     "_is_shown": false
                 },
@@ -5911,108 +5874,24 @@
                 "_is_shown": false
             },
             "texts": [
+                "Moderna",
+                "mRNA-1273",
                 "BNT162B2",
                 "PFIZER-BIONTECH",
-                "mRNA-1273",
-                "Moderna",
                 "Pfizer",
                 "J&J vaccine"
             ]
         },
-        "Pain": {
-            "text_dict": {
-                "painful": {
-                    "count": 4,
-                    "ann_fn_dict": {
-                        "059823.txt.xml": 3,
-                        "728117.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "pain": {
-                    "count": 20,
-                    "ann_fn_dict": {
-                        "080831.txt.xml": 3,
-                        "266074.txt.xml": 2,
-                        "267375.txt.xml": 3,
-                        "416262.txt.xml": 4,
-                        "728117.txt.xml": 3,
-                        "899183.txt.xml": 3,
-                        "953550.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "Body Aches": {
-                    "count": 3,
-                    "ann_fn_dict": {
-                        "289727.txt.xml": 2,
-                        "498221.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "aching": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "289727.txt.xml": 1,
-                        "838459.txt.xml": 4
-                    },
-                    "_is_shown": false
-                },
-                "muscles pain": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "416262.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "throbbing": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "536553.txt.xml": 2,
-                        "838459.txt.xml": 3
-                    },
-                    "_is_shown": false
-                },
-                "aches": {
-                    "count": 5,
-                    "ann_fn_dict": {
-                        "933997.txt.xml": 5
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "painful",
-                "pain",
-                "Body Aches",
-                "aching",
-                "muscles pain",
-                "throbbing",
-                "aches"
-            ]
-        },
         "Fever": {
             "text_dict": {
-                "low grade fever": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "113293.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
                 "fever": {
                     "count": 13,
                     "ann_fn_dict": {
-                        "113293.txt.xml": 4,
-                        "345840.txt.xml": 4,
-                        "416262.txt.xml": 2,
                         "498221.txt.xml": 2,
-                        "728117.txt.xml": 1
+                        "345840.txt.xml": 4,
+                        "728117.txt.xml": 1,
+                        "416262.txt.xml": 2,
+                        "113293.txt.xml": 4
                     },
                     "_is_shown": false
                 },
@@ -6029,6 +5908,13 @@
                         "728117.txt.xml": 1
                     },
                     "_is_shown": false
+                },
+                "low grade fever": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "113293.txt.xml": 1
+                    },
+                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -6037,10 +5923,236 @@
                 "_is_shown": false
             },
             "texts": [
-                "low grade fever",
                 "fever",
                 "feverish",
-                "slight fever"
+                "slight fever",
+                "low grade fever"
+            ]
+        },
+        "Chill": {
+            "text_dict": {
+                "chills": {
+                    "count": 6,
+                    "ann_fn_dict": {
+                        "498221.txt.xml": 1,
+                        "289727.txt.xml": 1,
+                        "728117.txt.xml": 2,
+                        "876628.txt.xml": 2
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "chills"
+            ]
+        },
+        "Pain": {
+            "text_dict": {
+                "Body Aches": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "498221.txt.xml": 1,
+                        "289727.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "pain": {
+                    "count": 20,
+                    "ann_fn_dict": {
+                        "080831.txt.xml": 3,
+                        "266074.txt.xml": 2,
+                        "899183.txt.xml": 3,
+                        "267375.txt.xml": 3,
+                        "953550.txt.xml": 2,
+                        "728117.txt.xml": 3,
+                        "416262.txt.xml": 4
+                    },
+                    "_is_shown": false
+                },
+                "painful": {
+                    "count": 4,
+                    "ann_fn_dict": {
+                        "059823.txt.xml": 3,
+                        "728117.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "aching": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "838459.txt.xml": 4,
+                        "289727.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "throbbing": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "838459.txt.xml": 3,
+                        "536553.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "aches": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "933997.txt.xml": 5
+                    },
+                    "_is_shown": false
+                },
+                "muscles pain": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "416262.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "Body Aches",
+                "pain",
+                "painful",
+                "aching",
+                "throbbing",
+                "aches",
+                "muscles pain"
+            ]
+        },
+        "Myalgia": {
+            "text_dict": {
+                "Sore arm": {
+                    "count": 6,
+                    "ann_fn_dict": {
+                        "266074.txt.xml": 3,
+                        "466451.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "muscle aches": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "587301.txt.xml": 1,
+                        "536553.txt.xml": 2,
+                        "876628.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "swollen": {
+                    "count": 10,
+                    "ann_fn_dict": {
+                        "899183.txt.xml": 5,
+                        "059823.txt.xml": 3,
+                        "838459.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "muscle ache": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "840502.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "Trouble lifting her arm": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "267375.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "tenderness": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "455140.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "soreness": {
+                    "count": 5,
+                    "ann_fn_dict": {
+                        "455140.txt.xml": 3,
+                        "876628.txt.xml": 2
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "Sore arm",
+                "muscle aches",
+                "swollen",
+                "muscle ache",
+                "Trouble lifting her arm",
+                "tenderness",
+                "soreness"
+            ]
+        },
+        "Nasal_obstruction": {
+            "text_dict": {
+                "runny nose": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "587301.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "sinus infection": {
+                    "count": 7,
+                    "ann_fn_dict": {
+                        "838459.txt.xml": 7
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "runny nose",
+                "sinus infection"
+            ]
+        },
+        "Hypersomnia": {
+            "text_dict": {
+                "groggy": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "587301.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Night sweats": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "289727.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "groggy",
+                "Night sweats"
             ]
         },
         "Headache": {
@@ -6048,17 +6160,10 @@
                 "headache": {
                     "count": 14,
                     "ann_fn_dict": {
-                        "113293.txt.xml": 4,
+                        "587301.txt.xml": 1,
                         "289727.txt.xml": 5,
                         "416262.txt.xml": 4,
-                        "587301.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Migraine": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "289727.txt.xml": 1
+                        "113293.txt.xml": 4
                     },
                     "_is_shown": false
                 },
@@ -6082,6 +6187,13 @@
                         "838459.txt.xml": 4
                     },
                     "_is_shown": false
+                },
+                "Migraine": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "289727.txt.xml": 1
+                    },
+                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -6091,10 +6203,45 @@
             },
             "texts": [
                 "headache",
-                "Migraine",
                 "head was ache",
                 "dizzy",
-                "Dizziness"
+                "Dizziness",
+                "Migraine"
+            ]
+        },
+        "Dyspnea": {
+            "text_dict": {
+                "sinus pressure": {
+                    "count": 3,
+                    "ann_fn_dict": {
+                        "838459.txt.xml": 3
+                    },
+                    "_is_shown": false
+                },
+                "respiratory failure": {
+                    "count": 4,
+                    "ann_fn_dict": {
+                        "345840.txt.xml": 4
+                    },
+                    "_is_shown": false
+                },
+                "Respirtory Failure": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "345840.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "sinus pressure",
+                "respiratory failure",
+                "Respirtory Failure"
             ]
         },
         "Fatigue": {
@@ -6205,33 +6352,6 @@
                 "tummy upset"
             ]
         },
-        "Hypersomnia": {
-            "text_dict": {
-                "Night sweats": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "289727.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "groggy": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "587301.txt.xml": 1
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "Night sweats",
-                "groggy"
-            ]
-        },
         "Sore_throat": {
             "text_dict": {
                 "thirst": {
@@ -6249,63 +6369,6 @@
             },
             "texts": [
                 "thirst"
-            ]
-        },
-        "Chill": {
-            "text_dict": {
-                "chills": {
-                    "count": 6,
-                    "ann_fn_dict": {
-                        "289727.txt.xml": 1,
-                        "498221.txt.xml": 1,
-                        "728117.txt.xml": 2,
-                        "876628.txt.xml": 2
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "chills"
-            ]
-        },
-        "Dyspnea": {
-            "text_dict": {
-                "respiratory failure": {
-                    "count": 4,
-                    "ann_fn_dict": {
-                        "345840.txt.xml": 4
-                    },
-                    "_is_shown": false
-                },
-                "Respirtory Failure": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "345840.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "sinus pressure": {
-                    "count": 3,
-                    "ann_fn_dict": {
-                        "838459.txt.xml": 3
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "respiratory failure",
-                "Respirtory Failure",
-                "sinus pressure"
             ]
         },
         "Vomiting": {
@@ -6326,71 +6389,6 @@
             "texts": [
                 "feeling unwell"
             ]
-        },
-        "Cough": {
-            "text_dict": {
-                "coughed": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "498221.txt.xml": 1
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "coughed"
-            ]
-        },
-        "Delirium": {
-            "text_dict": {
-                "a knife through my chest": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "498221.txt.xml": 1
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "a knife through my chest"
-            ]
-        },
-        "Nasal_obstruction": {
-            "text_dict": {
-                "runny nose": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "587301.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "sinus infection": {
-                    "count": 7,
-                    "ann_fn_dict": {
-                        "838459.txt.xml": 7
-                    },
-                    "_is_shown": false
-                }
-            },
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": [
-                "runny nose",
-                "sinus infection"
-            ]
         }
     },
     "clicked_tag_id": null,
@@ -6410,7 +6408,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.9326696298946799,
+    "force_module_update": 0.29336019613698405,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -6425,20 +6423,40 @@
     "cfg": {
         "enable_show_settings": false,
         "enable_display_menu_dropzone_ann": false,
-        "active_setting_tab": "import",
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "other",
         "sentence_splitting_algorithm": "simpledot",
-        "linking_marks_selection": "all_concepts"
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
-    "export_text": null,
-    "texts": {
-        "sentence_splitting_algorithm": {
-            "title": "Sentence Splitting Algorithm",
-            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
-        },
-        "linking_marks_selection": {
-            "title": "Linking marks selection",
-            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
-        }
+    "export_text": "",
+    "texts": {},
+    "auto_sl_cfg_names": [
+        "enable_show_settings",
+        "enable_display_menu_dropzone_ann",
+        "auto_save_current_ann",
+        "auto_sl_current_cfg",
+        "active_setting_tab",
+        "sentence_splitting_algorithm",
+        "linking_marks_selection",
+        "new_ui_for_ea",
+        "new_ui_for_tk",
+        "new_ui_for_ck"
+    ],
+    "cfg_default_vals": {
+        "enable_show_settings": false,
+        "enable_display_menu_dropzone_ann": false,
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "gui",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
     "iaa_ann_list": [
         {
@@ -6467,6 +6485,41 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
+    "razer_loading_status": null,
+    "razer_ann_list": [
+        {
+            "anns": [],
+            "name": "Gold Standard Corpus"
+        },
+        {
+            "anns": [],
+            "name": "Dataset 1"
+        }
+    ],
+    "razer_err_def": null,
+    "razer_err_def_dict": {
+        "shortcut": {},
+        "adv_def": {}
+    },
+    "razer_err_labels_file": null,
+    "razer_dict": null,
+    "razer_idx": 1,
+    "is_shown_razer_pan_err_def": false,
+    "razer_active_err_uid": null,
+    "razer_pan_err_def_right": 0,
+    "razer_pan_err_def_top": 0,
+    "razer_flag_has_embedding_tsne": false,
+    "razer_flag_show_taglist_context": true,
+    "razer_flag_show_taglist_labels": true,
+    "razer_fig_sankey": null,
+    "razer_fig_donut": null,
+    "razer_fig_doc_scatter": null,
+    "razer_fig_doc_heatmap": null,
+    "razer_fig_tag_scatter": null,
+    "razer_fig_tag_scatter_clr": "by_err",
+    "razer_err_list_uids": null,
+    "razer_ea_ws_url": "http://localhost:8808/eva_tags",
+    "razer_te_ws_url": "http://localhost:8809/embedding",
     "converter_corpus_task": "raw",
     "max_converter_display_files": 100,
     "is_converter_loading_medtagger_txt_files": false,
@@ -6482,10 +6535,22 @@
     "converter_results": [],
     "se_dtd": null,
     "se_dtd_tpl_id": null,
+    "avbrat_is_rendering": true,
     "show_text_quick_viewer": false,
     "tqv_header": "",
     "tqv_content": "",
     "tqv_footer": "",
     "tqv_pos_x": -999,
-    "tqv_pos_y": -999
+    "tqv_pos_y": -999,
+    "toolkit_section": "medtaggervis",
+    "tk_medtaggervis_is_loading_txt_files": false,
+    "tk_medtaggervis_is_loading_ann_files": false,
+    "tk_medtaggervis_txt_files": [],
+    "tk_medtaggervis_ann_files": [],
+    "tk_medtaggervis_force_module_update": 0,
+    "tk_medtaggervis_show_attr_certainty": true,
+    "tk_medtaggervis_show_attr_status": true,
+    "tk_iob2editor_is_loading_iob_files": false,
+    "tk_iob2editor_iob_files": [],
+    "tk_iob2editor_force_module_update": 0
 }

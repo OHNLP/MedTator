@@ -100,7 +100,7 @@ Apache-2.0 License
 
 ## Citation
 
-If you use MedTator in scientific work or want to learn more about it, please have a look at
+If you use MedTator in scientific work or want to learn more about it, please take a look at our paper:
 
 > He H, Fu S, Wang L, Liu S, Wen A, Liu H. MedTator: a serverless annotation tool for corpus development. Bioinformatics, Volume 38, Issue 6, 15 March 2022, Pages 1776–1778, DOI: [10.1093/bioinformatics/btab880](https://doi.org/10.1093/bioinformatics/btab880), PMID: [34983060](https://pubmed.ncbi.nlm.nih.gov/34983060/)
 
@@ -110,6 +110,8 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 ### 1.3.x (2023-03)
 
 - Research on IOB2/BIO format editing
+- Research on UMAP algorithm
+- Research on in-browser text embedding
 - Add sample dataset for error analysis
 - Update icon for error analysis
 - Update Cohen's Kappa calculation
@@ -118,15 +120,22 @@ If you use MedTator in scientific work or want to learn more about it, please ha
 - Update documents for new schema
 - Update UI for error analysis
 
-### 1.3.13 (2023-02-16)
+### 1.3.15 (2023-02-26)
 
+- Added workspace JSON drag and drop on file list
+- Added workspace saving function
+- Added workspace loading function
+- Added schema drag and drop on file list
 - Added shortcut ALT +	&uarr; / &darr; to move to prev / next file
 - Added Toolkit/MedTaggerVis for checking .ann files (experimental)
 - Added local setting cache for auto save/load (experimental)
 - Fixed error analysis Sankey link bug
 - Fixed error analysis SVG height bug
+- Fixed error analysis popup box bug
 - Updated design for .ann/.txt conversion
 - Updated FAQ in MedTator Wiki 
+- Updated scripts for downstream tasks
+- Updated sample datasets for new settings
 
 ### 1.3.11 (2022-12-08)
 

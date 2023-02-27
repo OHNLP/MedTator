@@ -1,0 +1,27 @@
+# The error definition can be saved with the annotation schema
+# Or in this single YAML file.
+# We recommend to use the schema file to manage the error definition
+Linguistic:
+  - Lexicon
+  - Orthographic
+  - Morphologic
+  - Syntactic
+  - Semantic
+Contextual:
+  - Section
+  - Certainty
+  - Status
+  - Temporality
+  - Subject
+  - Absence of Context
+  - Exclusion
+Annotation:
+  - Missing Annotation
+  - Insufficent Context
+  - Extrapolation of Evidence
+  - Non-defined Concept
+  - Incorrect Annotation
+Concept Definition:
+  - Ambiguity
+  - Source Evidence
+  - Change of Status

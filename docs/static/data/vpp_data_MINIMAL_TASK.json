@@ -1,4 +1,5 @@
 {
+    "version": "1.3.11",
     "section": "annotation",
     "dtd": {
         "name": "COVID_VAX_SYMP",
@@ -192,8 +193,110 @@
             ]
         }
     },
-    "ann_idx": 1,
+    "ann_idx": 2,
     "anns": [
+        {
+            "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)",
+            "dtd_name": "COVID_VAX_SYMP",
+            "tags": [
+                {
+                    "tag": "SYMP",
+                    "spans": "49~56",
+                    "text": "Fatigue",
+                    "id": "S0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "158~164",
+                    "text": "Nausea",
+                    "id": "S1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                }
+            ],
+            "meta": {
+                "label": [
+                    {
+                        "color": "yellow"
+                    }
+                ]
+            },
+            "_fh": {},
+            "_filename": "doc_03.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.",
+            "dtd_name": "COVID_VAX_SYMP",
+            "tags": [
+                {
+                    "tag": "SYMP",
+                    "spans": "110~116",
+                    "text": "Nausea",
+                    "id": "S0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "383~390",
+                    "text": "Fatigue",
+                    "id": "S1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "392~398",
+                    "text": "chills",
+                    "id": "S2",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "405~413",
+                    "text": "diarrhea",
+                    "id": "S3",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "418~429",
+                    "text": "dehydration",
+                    "id": "S4",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "496~515",
+                    "text": "head and body aches",
+                    "id": "S5",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SYMP",
+                    "spans": "590~602",
+                    "text": "Night sweats",
+                    "id": "S6",
+                    "certainty": "positive",
+                    "comment": "NA"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "doc_02.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
         {
             "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.",
             "dtd_name": "COVID_VAX_SYMP",
@@ -269,111 +372,9 @@
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
-        },
-        {
-            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.",
-            "dtd_name": "COVID_VAX_SYMP",
-            "tags": [
-                {
-                    "tag": "SYMP",
-                    "spans": "110~116",
-                    "text": "Nausea",
-                    "id": "S0",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "383~390",
-                    "text": "Fatigue",
-                    "id": "S1",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "392~398",
-                    "text": "chills",
-                    "id": "S2",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "405~413",
-                    "text": "diarrhea",
-                    "id": "S3",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "418~429",
-                    "text": "dehydration",
-                    "id": "S4",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "496~515",
-                    "text": "head and body aches",
-                    "id": "S5",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "590~602",
-                    "text": "Night sweats",
-                    "id": "S6",
-                    "certainty": "positive",
-                    "comment": "NA"
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "doc_02.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)",
-            "dtd_name": "COVID_VAX_SYMP",
-            "tags": [
-                {
-                    "tag": "SYMP",
-                    "spans": "49~56",
-                    "text": "Fatigue",
-                    "id": "S0",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SYMP",
-                    "spans": "158~164",
-                    "text": "Nausea",
-                    "id": "S1",
-                    "certainty": "positive",
-                    "comment": "NA"
-                }
-            ],
-            "meta": {
-                "label": [
-                    {
-                        "color": "yellow"
-                    }
-                ]
-            },
-            "_fh": {},
-            "_filename": "doc_03.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.5973467564593147,
+    "mn4anns": 0.1390127460466437,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -389,71 +390,61 @@
     "display_stat_doc_sum_selected": null,
     "stat_filter_min_tokens": 0,
     "stat_filter_token_text": true,
-    "hints": [
-        {
-            "id": "hint-SYMP-1-0",
-            "tag": "SYMP",
-            "text": "headache",
-            "spans": "129~137"
-        },
-        {
-            "id": "hint-SYMP-1-1",
-            "tag": "SYMP",
-            "text": "headache",
-            "spans": "190~198"
-        },
-        {
-            "id": "hint-SYMP-1-2",
-            "tag": "SYMP",
-            "text": "headache",
-            "spans": "222~230"
-        },
-        {
-            "id": "hint-SYMP-1-3",
-            "tag": "SYMP",
-            "text": "headache",
-            "spans": "341~349"
-        },
-        {
-            "id": "hint-SYMP-1-4",
-            "tag": "SYMP",
-            "text": "headache",
-            "spans": "361~369"
-        },
-        {
-            "id": "hint-SYMP-8-1",
-            "tag": "SYMP",
-            "text": "Nausea",
-            "spans": "248~254"
-        },
-        {
-            "id": "hint-SYMP-9-1",
-            "tag": "SYMP",
-            "text": "Fatigue",
-            "spans": "552~559"
-        },
-        {
-            "id": "hint-SYMP-11-1",
-            "tag": "SYMP",
-            "text": "diarrhea",
-            "spans": "566~574"
-        },
-        {
-            "id": "hint-SYMP-11-2",
-            "tag": "SYMP",
-            "text": "diarrhea",
-            "spans": "655~663"
-        },
-        {
-            "id": "hint-SYMP-12-1",
-            "tag": "SYMP",
-            "text": "dehydration",
-            "spans": "576~587"
-        }
-    ],
+    "hints": [],
     "hint_dict": {
         "SYMP": {
             "text_dict": {
+                "Fatigue": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_03.txt.xml": 1,
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Nausea": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "doc_03.txt.xml": 1,
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "chills": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "diarrhea": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "dehydration": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "head and body aches": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "Night sweats": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "doc_02.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
                 "lightheadedness": {
                     "count": 1,
                     "ann_fn_dict": {
@@ -509,57 +500,6 @@
                         "doc_01.txt.xml": 1
                     },
                     "_is_shown": false
-                },
-                "Nausea": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1,
-                        "doc_03.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Fatigue": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1,
-                        "doc_03.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "chills": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "diarrhea": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "dehydration": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "head and body aches": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "Night sweats": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "doc_02.txt.xml": 1
-                    },
-                    "_is_shown": false
                 }
             },
             "nc_dict": {
@@ -568,6 +508,13 @@
                 "_is_shown": false
             },
             "texts": [
+                "Fatigue",
+                "Nausea",
+                "chills",
+                "diarrhea",
+                "dehydration",
+                "head and body aches",
+                "Night sweats",
                 "lightheadedness",
                 "headache",
                 "neck pain",
@@ -575,14 +522,7 @@
                 "no loss of consciousness",
                 "bladder",
                 "bowel incontinence",
-                "dizziness",
-                "Nausea",
-                "Fatigue",
-                "chills",
-                "diarrhea",
-                "dehydration",
-                "head and body aches",
-                "Night sweats"
+                "dizziness"
             ]
         }
     },
@@ -603,7 +543,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.39934680615913853,
+    "force_module_update": 0.894029095772136,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -618,20 +558,40 @@
     "cfg": {
         "enable_show_settings": false,
         "enable_display_menu_dropzone_ann": false,
-        "active_setting_tab": "import",
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "other",
         "sentence_splitting_algorithm": "simpledot",
-        "linking_marks_selection": "all_concepts"
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
-    "export_text": null,
-    "texts": {
-        "sentence_splitting_algorithm": {
-            "title": "Sentence Splitting Algorithm",
-            "html": "MedTator can display text content in different ways, which include a sentence-mode display.\nTo display the split sentences correctly, the original content must be tokenized in sentence level.\nThere are several different methods / algorithms for sentence tokenization, and these methods are implemented in different packages / libraries.\nMedTator provides some options for selecting different methods.\n\n<ul>\n    <li>The default method is a simple splitting algorithm based on symbol detection. This algorithm will check each character in the given text and compare it with pre-defined schema. The result of this algorithm works for most of cases, and has great performance. </li>\n    <li>The <b>Compromise NLP</b> method is implemented based on <a target=\"_blank\" href=\"https://github.com/spencermountain/compromise\">Compromise NLP library</a>. It provides APIs for sentence spliting and formating. For more information, its <a target=\"_blank\" href=\"https://observablehq.com/@spencermountain/compromise-sentences\"></a> provides more technical details.</li>\n    <li>The <b>Wink NLP</b> method is based on <a target=\"_blank\" href=\"https://winkjs.org/\">WinkJS NLP library</a>.</li>\n</ul>\n"
-        },
-        "linking_marks_selection": {
-            "title": "Linking marks selection",
-            "html": "The marks shown in the tag editor can be linked with the selection with the concept list."
-        }
+    "export_text": "",
+    "texts": {},
+    "auto_sl_cfg_names": [
+        "enable_show_settings",
+        "enable_display_menu_dropzone_ann",
+        "auto_save_current_ann",
+        "auto_sl_current_cfg",
+        "active_setting_tab",
+        "sentence_splitting_algorithm",
+        "linking_marks_selection",
+        "new_ui_for_ea",
+        "new_ui_for_tk",
+        "new_ui_for_ck"
+    ],
+    "cfg_default_vals": {
+        "enable_show_settings": false,
+        "enable_display_menu_dropzone_ann": false,
+        "auto_save_current_ann": "disable",
+        "auto_sl_current_cfg": "disable",
+        "active_setting_tab": "gui",
+        "sentence_splitting_algorithm": "simpledot",
+        "linking_marks_selection": "all_concepts",
+        "new_ui_for_ea": "disable",
+        "new_ui_for_tk": "enable",
+        "new_ui_for_ck": "disable"
     },
     "iaa_ann_list": [
         {
@@ -660,6 +620,41 @@
     "iaa_remove_tag_b_when_low_overlap": true,
     "iaa_use_tag_attrs": {},
     "iaa_display_measure": "f1",
+    "razer_loading_status": null,
+    "razer_ann_list": [
+        {
+            "anns": [],
+            "name": "Gold Standard Corpus"
+        },
+        {
+            "anns": [],
+            "name": "Dataset 1"
+        }
+    ],
+    "razer_err_def": null,
+    "razer_err_def_dict": {
+        "shortcut": {},
+        "adv_def": {}
+    },
+    "razer_err_labels_file": null,
+    "razer_dict": null,
+    "razer_idx": 1,
+    "is_shown_razer_pan_err_def": false,
+    "razer_active_err_uid": null,
+    "razer_pan_err_def_right": 0,
+    "razer_pan_err_def_top": 0,
+    "razer_flag_has_embedding_tsne": false,
+    "razer_flag_show_taglist_context": true,
+    "razer_flag_show_taglist_labels": true,
+    "razer_fig_sankey": null,
+    "razer_fig_donut": null,
+    "razer_fig_doc_scatter": null,
+    "razer_fig_doc_heatmap": null,
+    "razer_fig_tag_scatter": null,
+    "razer_fig_tag_scatter_clr": "by_err",
+    "razer_err_list_uids": null,
+    "razer_ea_ws_url": "http://localhost:8808/eva_tags",
+    "razer_te_ws_url": "http://localhost:8809/embedding",
     "converter_corpus_task": "raw",
     "max_converter_display_files": 100,
     "is_converter_loading_medtagger_txt_files": false,
@@ -669,66 +664,28 @@
     "converter_corpus_medtagger_txt_files": [],
     "converter_corpus_medtagger_ann_files": [],
     "is_converter_loading_raw_txt_files": false,
-    "n_converter_corpus_raw_txt_files": 3,
-    "converter_corpus_raw_txt_files": [
-        {
-            "fh": {},
-            "fn": "doc_01.txt",
-            "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications."
-        },
-        {
-            "fh": {},
-            "fn": "doc_02.txt",
-            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left."
-        },
-        {
-            "fh": {},
-            "fn": "doc_03.txt",
-            "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)"
-        }
-    ],
-    "n_converter_results": 3,
-    "converter_results": [
-        {
-            "text": "The patient also endorses dizziness and some lightheadedness. She denies current headache, but states that she gets headaches 3-4x/wk that are associated with photophobia. She denies vision changes and neck pain. The patient has a history of seizures, but denies any seizure like activity at this time with no loss of consciousness, no convulsions, and no bladder or bowel incontinence. Of note, the patient is on 35 units of lantus qHS and missed her dose the night prior to admission. She reports having some difficulty remembering to take her home medications.",
-            "dtd_name": "COVID_VAX_SYMP",
-            "tags": [],
-            "meta": {},
-            "_fh": null,
-            "_filename": "doc_01.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "During the next 60 hours I had the following reactions, though not all at the same time:   02/19/21:  10:00PM Nausea and extreme headache, 11:00 PM - 2 hours of uncontrollable shivering and headache 2/20/21:  2:AM Extreme headache (like Migraine), Nausea, Body aching for the remainder of the night. Tried Advil, then tylenol - didn't tough headache.  7:00AM - Headache, Body Aches, Fatigue, chills, mild diarrhea and dehydration throughout the day.  Slept, finally that night.  Advil helped the head and body aches finally.   2/21/21 - Left with body fatigue, mild diarrhea, dehydration.  Night sweats for most of that night. 2/22/21 - energy back, mild diarrhea left.",
-            "dtd_name": "COVID_VAX_SYMP",
-            "tags": [],
-            "meta": {},
-            "_fh": null,
-            "_filename": "doc_02.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Patient took Janssen COVID-19 Vaccine EUA (3/6). Fatigue began 4 hours after vaccine. (3/6) Severe headache, severe fatigue, moderate fever, mild aches, mild nausea beginning the next day (3/7) and lasting until (3/8). Mild headache and mild fatigue all day (3/8)",
-            "dtd_name": "COVID_VAX_SYMP",
-            "tags": [],
-            "meta": {},
-            "_fh": null,
-            "_filename": "doc_03.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        }
-    ],
+    "n_converter_corpus_raw_txt_files": 0,
+    "converter_corpus_raw_txt_files": [],
+    "n_converter_results": 0,
+    "converter_results": [],
     "se_dtd": null,
     "se_dtd_tpl_id": null,
+    "avbrat_is_rendering": true,
     "show_text_quick_viewer": false,
     "tqv_header": "",
     "tqv_content": "",
     "tqv_footer": "",
     "tqv_pos_x": -999,
-    "tqv_pos_y": -999
+    "tqv_pos_y": -999,
+    "toolkit_section": "medtaggervis",
+    "tk_medtaggervis_is_loading_txt_files": false,
+    "tk_medtaggervis_is_loading_ann_files": false,
+    "tk_medtaggervis_txt_files": [],
+    "tk_medtaggervis_ann_files": [],
+    "tk_medtaggervis_force_module_update": 0,
+    "tk_medtaggervis_show_attr_certainty": true,
+    "tk_medtaggervis_show_attr_status": true,
+    "tk_iob2editor_is_loading_iob_files": false,
+    "tk_iob2editor_iob_files": [],
+    "tk_iob2editor_force_module_update": 0
 }
