@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<COVID_VAX_AE>
+<TEXT><![CDATA[Patient presented to Urgent Care with mild arm pain yesterday.
+He said he took the vaccine two days ago, and it was very slight.
+But today it's different, very painful and tingly.]]></TEXT>
+<TAGS>
+<AE spans="47~51" text="pain" id="A0" certainty="positive" comment="NA"/>
+<SVRT spans="38~42" text="mild" id="S0" severity="NA" comment="NA"/>
+<SVRT spans="121~127" text="slight" id="S1" severity="NA" comment="NA"/>
+<SVRT spans="172~178" text="tingly" id="S2" severity="NA" comment="NA"/>
+<LK_AE_SVRT id="L0" link_AEID="A0" link_AEText="pain" link_SVRTID="S0" link_SVRTText="mild" comment="NA"/>
+<LK_AE_SVRT id="L1" link_AEID="A0" link_AEText="pain" link_SVRTID="S1" link_SVRTText="slight" comment="NA"/>
+<LK_AE_SVRT id="L2" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="tingly" comment="NA"/>
+</TAGS>
+<META/>
+</COVID_VAX_AE>

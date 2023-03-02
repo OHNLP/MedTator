@@ -1,5 +1,5 @@
 {
-    "version": "1.3.11",
+    "version": "1.3.15",
     "section": "annotation",
     "dtd": {
         "name": "COVID_VAX_AE",
@@ -656,66 +656,66 @@
             "_sentences_text": ""
         },
         {
-            "text": "The patient received his first of two planned doses of mRNA-1273 (Lot 011L20A) on 08 Jan 2021 intramuscularly in the left upper arm. On 05 Feb 2021, prior to the onset of the events, the patient received his second of two planned doses of mRNA-1273 (Lot number: 031L20A) intramuscularly in the left upper arm for prophylaxis of Covid-19 infection.   The patient stated that when he received the first vaccine on 08 Jan 2021, it was a wonderful experience, and he did not feel the injection and did not experience any side effect. But, when he received the second dose on 05 Feb 2021, the injection itself was not well administered. Injector was distracted or not fully trained, and the patient felt pain with the needle and pain while the liquid of the vaccine was entering to the arm. After that, injector put a bandage but caller states that it was not placed where he receives the vaccine. While he was leaving the facility, the arm immediately started to swell up.\nThe patient stated that he thought the swelling was due to accumulation of the vaccine in the place where the vaccine was really administered, a few inches away from the site the first vaccine was administered. The day after the arm was very sore, red and bruised, but he thought it is because the administration of the needle, not a side effect of the vaccine. Both vaccines where administered in the upper left arm, but caller does not known if the second was in target. Unfortunately, had an incompetent injector who gave him a painful experience with the injection and the realize of the vaccine. Wanted to find out if should be concern that may have injected in an improper location and weather if gave him in other location, if should be concern that he may have not full effect of the vaccine. \n",
+            "text": "Patient presented to Urgent Care with mild arm pain yesterday.\nHe said he took the vaccine two days ago, and it was very slight.\nBut today it's different, very painful and tingly.",
             "dtd_name": "COVID_VAX_AE",
             "tags": [
                 {
                     "tag": "AE",
-                    "spans": "699~719",
-                    "text": "pain with the needle",
+                    "spans": "47~51",
+                    "text": "pain",
                     "id": "A0",
                     "certainty": "positive",
                     "comment": "NA"
                 },
                 {
-                    "tag": "AE",
-                    "spans": "724~728",
-                    "text": "pain",
-                    "id": "A1",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "AE",
-                    "spans": "1211~1232",
-                    "text": "sore, red and bruised",
-                    "id": "A2",
-                    "certainty": "positive",
+                    "tag": "SVRT",
+                    "spans": "38~42",
+                    "text": "mild",
+                    "id": "S0",
+                    "severity": "NA",
                     "comment": "NA"
                 },
                 {
                     "tag": "SVRT",
-                    "spans": "1206~1210",
-                    "text": "very",
-                    "id": "S0",
+                    "spans": "121~127",
+                    "text": "slight",
+                    "id": "S1",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "172~178",
+                    "text": "tingly",
+                    "id": "S2",
                     "severity": "NA",
                     "comment": "NA"
                 },
                 {
                     "tag": "LK_AE_SVRT",
                     "id": "L0",
-                    "link_AE": "A2",
+                    "link_AE": "A0",
                     "link_SVRT": "S0",
                     "comment": "NA"
                 },
                 {
-                    "tag": "AE",
-                    "spans": "1500~1507",
-                    "text": "painful",
-                    "id": "A3",
-                    "certainty": "positive",
+                    "tag": "LK_AE_SVRT",
+                    "id": "L1",
+                    "link_AE": "A0",
+                    "link_SVRT": "S1",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L2",
+                    "link_AE": "A0",
+                    "link_SVRT": "S2",
                     "comment": "NA"
                 }
             ],
-            "meta": {
-                "label": [
-                    {
-                        "color": "blue"
-                    }
-                ]
-            },
+            "meta": {},
             "_fh": {},
-            "_filename": "A_doc3.txt.xml",
+            "_filename": "A_doc5.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -843,6 +843,71 @@
             },
             "_fh": {},
             "_filename": "A_doc1.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "The patient received his first of two planned doses of mRNA-1273 (Lot 011L20A) on 08 Jan 2021 intramuscularly in the left upper arm. On 05 Feb 2021, prior to the onset of the events, the patient received his second of two planned doses of mRNA-1273 (Lot number: 031L20A) intramuscularly in the left upper arm for prophylaxis of Covid-19 infection.   The patient stated that when he received the first vaccine on 08 Jan 2021, it was a wonderful experience, and he did not feel the injection and did not experience any side effect. But, when he received the second dose on 05 Feb 2021, the injection itself was not well administered. Injector was distracted or not fully trained, and the patient felt pain with the needle and pain while the liquid of the vaccine was entering to the arm. After that, injector put a bandage but caller states that it was not placed where he receives the vaccine. While he was leaving the facility, the arm immediately started to swell up.\nThe patient stated that he thought the swelling was due to accumulation of the vaccine in the place where the vaccine was really administered, a few inches away from the site the first vaccine was administered. The day after the arm was very sore, red and bruised, but he thought it is because the administration of the needle, not a side effect of the vaccine. Both vaccines where administered in the upper left arm, but caller does not known if the second was in target. Unfortunately, had an incompetent injector who gave him a painful experience with the injection and the realize of the vaccine. Wanted to find out if should be concern that may have injected in an improper location and weather if gave him in other location, if should be concern that he may have not full effect of the vaccine. \n",
+            "dtd_name": "COVID_VAX_AE",
+            "tags": [
+                {
+                    "tag": "AE",
+                    "spans": "699~719",
+                    "text": "pain with the needle",
+                    "id": "A0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "724~728",
+                    "text": "pain",
+                    "id": "A1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "1211~1232",
+                    "text": "sore, red and bruised",
+                    "id": "A2",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "1206~1210",
+                    "text": "very",
+                    "id": "S0",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L0",
+                    "link_AE": "A2",
+                    "link_SVRT": "S0",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "1500~1507",
+                    "text": "painful",
+                    "id": "A3",
+                    "certainty": "positive",
+                    "comment": "NA"
+                }
+            ],
+            "meta": {
+                "label": [
+                    {
+                        "color": "blue"
+                    }
+                ]
+            },
+            "_fh": {},
+            "_filename": "A_doc3.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -1151,7 +1216,7 @@
             "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.8431462682563657,
+    "mn4anns": 0.4493810078109566,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -1193,33 +1258,13 @@
                     "_is_shown": false
                 },
                 "pain": {
-                    "count": 9,
+                    "count": 10,
                     "ann_fn_dict": {
                         "A_doc2.txt.xml": 1,
-                        "A_doc3.txt.xml": 1,
+                        "A_doc5.txt.xml": 1,
                         "A_doc1.txt.xml": 3,
+                        "A_doc3.txt.xml": 1,
                         "A_doc4.txt.xml": 4
-                    },
-                    "_is_shown": false
-                },
-                "pain with the needle": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc3.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "sore, red and bruised": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc3.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "painful": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1242,6 +1287,27 @@
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "pain with the needle": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "sore, red and bruised": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc3.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "painful": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1361,12 +1427,12 @@
                 "asthma",
                 "nausea",
                 "pain",
-                "pain with the needle",
-                "sore, red and bruised",
-                "painful",
                 "headache",
                 "fever",
                 "sore arm",
+                "pain with the needle",
+                "sore, red and bruised",
+                "painful",
                 "Arm Pain",
                 "left arm painful",
                 "tender nodule",
@@ -1387,18 +1453,27 @@
         "SVRT": {
             "text_dict": {
                 "mild": {
-                    "count": 6,
+                    "count": 7,
                     "ann_fn_dict": {
                         "A_doc2.txt.xml": 2,
+                        "A_doc5.txt.xml": 1,
                         "A_doc1.txt.xml": 2,
                         "A_doc4.txt.xml": 2
                     },
                     "_is_shown": false
                 },
-                "very": {
+                "slight": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc5.txt.xml": 1,
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "tingly": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc3.txt.xml": 1
+                        "A_doc5.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1413,6 +1488,13 @@
                     "count": 2,
                     "ann_fn_dict": {
                         "A_doc1.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "very": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1431,13 +1513,6 @@
                     "_is_shown": false
                 },
                 "very slight": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc4.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "slight": {
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc4.txt.xml": 1
@@ -1466,13 +1541,14 @@
             },
             "texts": [
                 "mild",
-                "very",
+                "slight",
+                "tingly",
                 "similar",
                 "react more",
+                "very",
                 "severe",
                 "different",
                 "very slight",
-                "slight",
                 "a lot better",
                 "completely resolved"
             ]
@@ -1504,7 +1580,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.3934268681841262,
+    "force_module_update": 0.7622040740062415,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -1520,13 +1596,13 @@
         "enable_show_settings": false,
         "enable_display_menu_dropzone_ann": false,
         "auto_save_current_ann": "disable",
-        "auto_sl_current_cfg": "disable",
+        "auto_sl_current_cfg": "enable",
         "active_setting_tab": "other",
         "sentence_splitting_algorithm": "simpledot",
         "linking_marks_selection": "all_concepts",
-        "new_ui_for_ea": "disable",
+        "new_ui_for_ea": "enable",
         "new_ui_for_tk": "enable",
-        "new_ui_for_ck": "disable"
+        "new_ui_for_ck": "enable"
     },
     "export_text": "",
     "texts": {},

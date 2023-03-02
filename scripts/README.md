@@ -26,6 +26,8 @@ To faciliate this process, we developed some toolkits for showing how to use the
 ](https://github.com/OHNLP/MedTator/blob/main/scripts/demo_xml2sentence.ipynb).
 
 
+- `demo_inter-sentence.ipynb`: showing how to use the `sentence_kits.py` to generate sentence-based tags with different strategies for inter-sentence relations. You can exclude all inter-sentence relations, include inter-sentence relations in the first sentence, or include inter-sentence relations in all related sentences. 
+
 - `demo_convert_to_jsonl.py`: showing how to use the `medtator_kits.py` and `sentence_kits.py` to a JSONL format for training relation extraction models by [Princeton PURE NLP](https://github.com/princeton-nlp/PURE).
 
 
