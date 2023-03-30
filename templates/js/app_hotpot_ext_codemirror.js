@@ -258,7 +258,11 @@ Object.assign(app_hotpot, {
             var tag = working_ann.tags[i];
             var tag_def = this.vpp.get_tag_def(tag.tag);
             if (tag_def.type == 'etag') {
-                var ret = this.cm_mark_ann_etag_in_text(tag, tag_def, working_ann);
+                var ret = this.cm_mark_ann_etag_in_text(
+                    tag, 
+                    tag_def, 
+                    working_ann
+                );
                 // console.log('* finished rendering', ret, tag);
             }
         }
@@ -653,7 +657,12 @@ Object.assign(app_hotpot, {
 
         // calculate the char location
         var ch0 = span_pos_0;
-        for (let i = 1; i < span_pos_0; i++) {
+        
+        // 2023-03-30: thanks to Riea's feedback!
+        // when a file contains one and only one newline at the begining,
+        // the ch0 cannot be calculated as the i==span_pos_0 is not reached
+        // so need to set the loop end condition to i<=span_pos_0
+        for (let i = 1; i <= span_pos_0; i++) {
             if (full_text[span_pos_0 - i] == '\n') {
                 ch0 = i - 1;
                 break;

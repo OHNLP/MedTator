@@ -122,6 +122,7 @@ If you use MedTator in scientific work or want to learn more about it, please ta
 - Update documents for new schema
 - Update UI for error analysis
 - Update demo script for inter-sentence
+- Fixed one-offset bug in first-line newline sign
 
 ### 1.3.15 (2023-02-26)
 

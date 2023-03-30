@@ -1907,6 +1907,10 @@ ol[class], ul[class] {
 .sankey-node:hover {
     filter: brightness(88%);
 }
+.sankey-link {
+    fill: none;
+    pointer-events: all;
+}
 .sankey-link:hover {
     filter: brightness(88%);
 }
@@ -3690,7 +3694,7 @@ v-bind:class="{'active': section=='razer'}">
     <button class="ribbon-button" 
         :disabled="dtd == null || razer_dict == null"
         title="Identify the error tags automatically"
-        v-on:click="show_razer_eaws_panel">
+        v-on:click="show_razer_eaws_panel()">
         <span class="icon">
             <i class="fas fa-robot"></i>
         </span>
@@ -3800,6 +3804,18 @@ v-bind:class="{'active': section=='toolkit'}">
                 MedTaggerVis
             </span>
         </button>
+
+        <!-- <button class="ribbon-icon-button"
+            title="Edit ruleset for MedTagger"
+            v-on:click="tk_show_section('ruleseteditor')"
+            v-bind:class="{'active': toolkit_section=='ruleseteditor'}">
+            <span class="icon">
+                <i class="far fa-edit"></i>
+            </span>
+            <span class="caption">
+                MedTagger Rule
+            </span>
+        </button> -->
 
 
         <!-- <button class="ribbon-icon-button"
@@ -3927,12 +3943,43 @@ v-bind:class="{'active': section=='toolkit'}">
 
 </div>
 
+
+
+
+<div v-if="toolkit_section == 'ruleseteditor'"
+    class="group">
+
+    <button class="ribbon-button"
+        title="Clear all files for conversion"
+        v-on:click="tk_ruleseteditor_clear_all()">
+        <span class="icon">
+            <i class="far fa-times-circle"></i>
+        </span>
+        <span class="caption">Clear All Files</span>
+    </button>
+
+
+    <button class="ribbon-button"
+        title="Show how to use MedTagger Ruleset Editor"
+        v-on:click="tk_ruleseteditor_how_to_use">
+        <span class="icon">
+            <i class="fas fa-question"></i>
+        </span>
+        <span class="caption">How to use</span>
+    </button>
+
+    <span class="title">
+        <b>MedTagger Ruleset Editor</b>
+    </span>
+
+</div>
+
 </div>
 
         </div>
 
         <div id="app_info">
-            MedTator 1.3.11 | 
+            MedTator 1.3.15 | 
             <a title="MedTator Settings"
                 href="javascript:void(0);"
                 v-on:click="cfg.enable_show_settings = true">
@@ -3972,6 +4019,7 @@ v-bind:class="{'active': section=='toolkit'}">
             </button>
         </div>
     </div>
+
     <div class="box-body">
         <div class="d-flex flex-row">
 
@@ -3990,15 +4038,15 @@ v-bind:class="{'active': section=='toolkit'}">
             </div>
 
             <div class="px-2 setting-tab"
-                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='import'}"
-                v-on:click="switch_setting_tab('import')">
+                v-bind:class="{'active-setting-tab':cfg.active_setting_tab=='other'}"
+                v-on:click="switch_setting_tab('other')">
                 <i class="far fa-file"></i>
-                Import
+                Other
             </div>
         </div>
 
-        <!-- import setting tab -->
-        <div v-if="cfg.active_setting_tab == 'import'">
+        <!-- other setting tab -->
+        <div v-if="cfg.active_setting_tab == 'other'">
             <div class="box-body-item">
                 <p>
                     Sentence Splitting Algorithm
@@ -4029,6 +4077,38 @@ v-bind:class="{'active': section=='toolkit'}">
                         <label for="cfg_ssa_v3">Wink NLP Sentence Tokenization</label>
                     </li>
                 </ul>
+            </div>
+
+            <div class="box-body-item">
+                <p>
+                    Save workspace in JSON file
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('save_workspace_as_json')">
+                        <i class="far fa-question-circle"></i>
+                    </a>
+                </p>
+                <div>
+                    <button v-on:click="on_click_save_workspace_as_json()">
+                        <i class="fas fa-sd-card"></i>
+                        Save Workspace
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body-item">
+                <p>
+                    Reset to Default Settings
+                    <a href="javascript:void(0);"
+                        v-on:click="show_help('reset_to_default_settings')">
+                        <i class="far fa-question-circle"></i>
+                    </a>
+                </p>
+                <div>
+                    <button v-on:click="on_click_reset_to_default_settings()">
+                        <i class="fas fa-redo"></i>
+                        Reset Settings
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -4418,8 +4498,10 @@ v-bind:class="{'active': section=='toolkit'}">
                     
                 <p v-if="dtd == null"
                     class="clr-grey">
-                    <i class="fa fa-arrow-up"></i>
+                    <i class="far fa-file-code"></i>
                     Load schema file first
+                    <br>
+                    Drop a .yaml or .dtd File Here
                 </p>
                 <p v-else
                     title="Drop the file(s) for annotation (.xml or .txt) or folder(s) containing annotation files"
@@ -6263,7 +6345,9 @@ v-bind:class="{'active': section=='toolkit'}">
 
 
 <!-- for ML error identification -->
-<div class="dialog" data-role="dialog" id="dlg_razer_robot_iet">
+<div class="dialog" 
+    data-role="dialog"
+    id="dlg_razer_robot_iet">
     <div class="dialog-title">
         <i class="fas fa-robot"></i>
         Use Error Analysis (EA) Web Service
@@ -7599,8 +7683,9 @@ var _SEC_LMT_MSG = 'The <a target="_blank" href="https://developer.mozilla.org/e
 <link rel="stylesheet" href="./static/lib/brat/css/style-vis.css">
 <!-- save svg as png for downloading figure -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/save-svg-as-png/1.4.17/saveSvgAsPng.min.js"></script> -->
-<script>
 
+
+<script>
 // The file helper 
 ///////////////////////////////////////////////////////////
 // General purpose fs functions
@@ -15502,19 +15587,18 @@ var error_analyzer = {
             "Absence of Context",
             "Exclusion",
         ], 
-        "Logic": [
-            "Pattern and Rule",
-        ], 
         "Annotation": [
             "Missing Annotation",
             "Insufficent Context",
             "Extrapolation of Evidence",
-            "Non-defined Concept",
+            "Incorrect Annotation",
+            "Pattern and Rule",
         ],
         "Concept Definition": [
             "Ambiguity",
             "Source Evidence",
             "Change of Status",
+            "Non-defined Concept",
         ]
     },
 
@@ -16178,7 +16262,7 @@ return {
     },
 
     node_width: 15,
-    lane_width: 150,
+    lane_width: 140,
     n_lanes: 3,
     padding: 8,
 
@@ -16218,7 +16302,7 @@ return {
 
     init: function() {
         // get the svg
-        this.svg = d3.select(this.box_id)
+        this.svg = d3.select("#"+this.box_id)
             .append("svg")
             .attr('id', this.box_id+'_svg')
             .attr("width", this.width + this.margin.left + this.margin.right)
@@ -16437,6 +16521,9 @@ var app_hotpot = {
     vpp_id: '#app_hotpot',
 
     vpp_data: {
+        // system version
+        // this will be overwritten in index.html
+        version: '',
 
         // for the section control
         section: 'annotation',
@@ -16568,9 +16655,8 @@ var app_hotpot = {
 
         // general cfg
         // this has been move to the extension
+        // app_hotpot_ext_settings.js
         cfg: {},
-
-        // for statistics
 
         // for export
         export_text: '',
@@ -16582,6 +16668,10 @@ var app_hotpot = {
     },
 
     vpp_methods: {
+
+        show_quick_help: function() {
+
+        },
 
         /////////////////////////////////////////////////////////////////
         // Settings related functions
@@ -16741,16 +16831,29 @@ var app_hotpot = {
             // prevent the default download event
             event.preventDefault();
 
-            if (this.dtd == null) {
-                app_hotpot.msg(
-                    "Please load the annotation schema first.",
-                    "warning"
-                );
-                return;
-            }
-
             const items = event.dataTransfer.items;
             console.log('* dropped ' + items.length + ' items but maybe not all are acceptable.');
+
+            if (items.length == 0) {
+                // ???
+                return;
+
+            } else if (items.length == 1) {
+                // hmmm ... it's interesting ...
+                // this can be the schema or workspace?
+                // let item = items[0].getAsFileSystemHandle();
+                // console.log('* drop one item', item);
+
+            } else if (items.length > 1) {
+                // which means it is usually the annotation files
+                if (this.dtd == null) {
+                    app_hotpot.msg(
+                        "Please load the annotation schema first.",
+                        "warning"
+                    );
+                    return;
+                }
+            }
 
             // first, set to loading status and init the values
             this.reset_loading_anns_status();
@@ -16761,20 +16864,81 @@ var app_hotpot = {
                 items,
                 function(fn) {
                     if (app_hotpot.is_file_ext_txt(fn)) {
+                        // which means it is raw text file
                         return true;
                     }
                     if (app_hotpot.is_file_ext_xml(fn)) {
+                        // which means it is annotation file
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_json(fn)) {
+                        // which means it can a json workspace or schema
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_dtd(fn)) {
+                        // which means it can a schema
+                        return true;
+                    }
+                    if (app_hotpot.is_file_ext_yaml(fn)) {
+                        // which means it can a schema
                         return true;
                     }
                     return false;
                 }
             );
             promise_files.then(function(files) {
-                app_hotpot.vpp.add_files_to_anns(files);
+                if (files.length == 1 && app_hotpot.is_file_ext_json(files[0].fn)) {
+                    // ok, this file[0] can be a schema or workspace
+                    var j = JSON.parse(files[0].text);
+                    if (app_hotpot.is_vpp_data_json(j)) {
+                        // which means it is a vpp_data!
+                        // just load it
+                        app_hotpot.set_vpp_data_json(j);
+                        // app_hotpot.toast('Successfully loaded workspace!');
+                        console.log('* loaded workspace!');
+
+                    } else {
+                        app_hotpot.msg(
+                            "The given JSON file is not a valid schema or workspace file. Please check the file format and try later.",
+                            "warning"
+                        );
+                        console.log('* skipped the unknown json file', j);
+                    }
+                    app_hotpot.vpp.reset_loading_anns_status();
+
+                } else if (files.length == 1 && (
+                    app_hotpot.is_file_ext_yaml(files[0].fn) || 
+                    app_hotpot.is_file_ext_dtd(files[0].fn) )) {
+
+                    // this means it's a schema file!
+                    var format = app_hotpot.get_file_ext(files[0].fn);
+                    var dtd = dtd_parser.parse(files[0].text, format);
+                    if (dtd == null) {
+                        // must be something wrong
+                        app_hotpot.msg(
+                            'Something wrong with the given schema file, please check the schema format and try again later.', 
+                            'warning'
+                        );
+                        return;
+                    }
+                    // just set the dtd
+                    app_hotpot.set_dtd(dtd);
+                    app_hotpot.vpp.reset_loading_anns_status();
+
+                } else {
+                    app_hotpot.vpp.add_files_to_anns(files);
+                }
             });
         },
 
         add_files_to_anns: function(files) {
+            if (this.dtd == null) {
+                app_hotpot.msg(
+                    "Please load the annotation schema first.",
+                    "warning"
+                );
+                return;
+            }
             // now we know how many files are droped
             this.n_anns_droped = files.length;
 
@@ -17612,10 +17776,24 @@ var app_hotpot = {
             }
         },
 
-        set_ann_idx_by_ann: function(ann) {
+        set_ann_idx_to_next: function() {
+            if (this.anns.length > 0 && 
+                this.ann_idx < this.anns.length - 1) {
+                this.set_ann_idx(this.ann_idx + 1);
+            }
+        },
+
+        set_ann_idx_to_prev: function() {
+            if (this.anns.length > 0 && 
+                this.ann_idx > 0) {
+                this.set_ann_idx(this.ann_idx - 1);
+            }
+        },
+
+        set_ann_idx_by_ann: function(v_ann) {
             // find the idx
             var idx = this.find_included(
-                ann._filename,
+                v_ann._filename,
                 this.anns
             );
 
@@ -19060,6 +19238,28 @@ var app_hotpot = {
     },
 
     /**
+     * Set the whole vpp_data JSON to restore workspace
+     * for debug/demo purpose
+     * 
+     * @param {Object} vpp_data_json the saved workspace
+     */
+    set_vpp_data_json: function(vpp_data_json) {
+        Object.assign(this.vpp.$data, vpp_data_json);
+        app_hotpot.set_dtd(
+            app_hotpot.vpp.$data.dtd
+        );
+        if (app_hotpot.vpp.$data.anns.length != 0) {
+            if (app_hotpot.vpp.$data.ann_idx == null) {
+                app_hotpot.vpp.set_ann_idx(0);
+            } else {
+                app_hotpot.vpp.set_ann_idx(
+                    app_hotpot.vpp.$data.ann_idx
+                );
+            }
+        }
+    },
+
+    /**
      * Set the DTD for this annotation project
      * 
      * @param {Object} dtd An object of dtd
@@ -19101,7 +19301,7 @@ var app_hotpot = {
 
         if (dtd.meta.hasOwnProperty('error_definition')) {
             // this is for the error analysis
-            this.vpp.set_meta_of_error_definition(dtd.meta.error_definition);
+            this.vpp.set_razer_err_def(dtd.meta.error_definition);
         }
     },
 
@@ -19246,9 +19446,25 @@ var app_hotpot = {
 
     bind_keypress_event: function() {
         document.addEventListener(
-            "keypress",
+            // "keypress",
+            "keydown",
             function(event) {
                 // console.log('* pressed on', event);
+
+                if (event.key.toLocaleLowerCase() == 'h') {
+                    app_hotpot.vpp.show_quick_help();
+                    return;
+                }
+
+                if (event.altKey) {
+                    if (event.key == 'ArrowUp') {
+                        app_hotpot.vpp.set_ann_idx_to_prev();
+                    } else if (event.key == 'ArrowDown') {
+                        app_hotpot.vpp.set_ann_idx_to_next();
+                    }
+
+                    return;
+                }
 
                 // first, check if there is any selection
                 app_hotpot.vpp.add_etag_by_shortcut_key(
@@ -19914,8 +20130,18 @@ var app_hotpot = {
         return app_hotpot.is_file_ext(fn, 'yaml');
     },
 
+    is_file_ext_dtd: function(fn) {
+        return app_hotpot.is_file_ext(fn, 'dtd');
+    },
+
     is_file_ext_ann: function(fn) {
         return app_hotpot.is_file_ext(fn, 'ann');
+    },
+
+    get_file_ext: function(filename) {
+        var ext = filename.split('.').pop();
+        ext = ext.toLocaleLowerCase();
+        return ext;
     },
 
     toast: function(msg, cls, timeout) {
@@ -20033,6 +20259,21 @@ var app_hotpot = {
         return b;
     },
 
+    is_vpp_data_json: function(j) {
+        if (
+            j.hasOwnProperty('cfg') && 
+            j.hasOwnProperty('dtd') && 
+            j.hasOwnProperty('anns') &&
+            j.hasOwnProperty('hints') &&
+            j.hasOwnProperty('version')
+        ) {
+            // we use a VERY simple rule to detect vpp_data json
+            // just by the keys
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /////////////////////////////////////////////////////////////////
     // Code Mirror Related
@@ -20047,6 +20288,10 @@ var app_hotpot = {
 
 };
 
+// update the version information
+// so this will be used in the following programs
+app_hotpot.vpp_data.version = "1.3.15";
+
 // extend the App with settings
 /**
  * This is an extension for setting management
@@ -20057,6 +20302,7 @@ var app_hotpot = {
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot.vpp_data, {
     // for enable the auto save/load config feature
+    // this list will contain all the setting names in cfg
     auto_sl_cfg_names: [],
 
     // configurations
@@ -20086,12 +20332,15 @@ Object.assign(app_hotpot.vpp_data, {
         new_ui_for_ea: 'disable',
 
         // show the new UI for toolkit
-        new_ui_for_tk: 'disable',
+        new_ui_for_tk: 'enable',
 
         // show the new UI for cohen's kappa
         // due to the 
         new_ui_for_ck: 'disable',
     },
+
+    // default cfg for reset
+    cfg_default_vals: {}
 });
 
 
@@ -20100,6 +20349,12 @@ Object.assign(app_hotpot.vpp_data, {
 /////////////////////////////////////////////////////////////////
 Object.assign(app_hotpot, {
     init_settings: function() {
+        // get the default vals from code
+        this.vpp.cfg_default_vals = JSON.parse(JSON.stringify(
+            this.vpp.cfg
+        ));
+
+        // init 
         this.vpp.init_auto_sl_cfg_names();
 
         // load settings?
@@ -20162,6 +20417,10 @@ Object.assign(app_hotpot.vpp_methods, {
     on_change_setting: function(key) {
         if (this.is_auto_sl_cfg()) {
             this.save_local_setting(key);
+        } else {
+            // ok, when this feature is disabled,
+            // the saved settings should be cleared
+            this.clear_local_settings();
         }
     },
 
@@ -20171,6 +20430,16 @@ Object.assign(app_hotpot.vpp_methods, {
             const cfg_name = this.auto_sl_cfg_names[i];
             this.save_local_setting(cfg_name);
         }
+    },
+
+    clear_local_settings: function() {
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            localStorage.removeItem(
+                cfg_name
+            );
+        }
+        console.log("* cleared all local settings");
     },
 
     save_local_setting: function(cfg_name) {
@@ -20194,6 +20463,57 @@ Object.assign(app_hotpot.vpp_methods, {
                 console.log('* loaded local setting[cfg.' + cfg_name + '=' + local_val + ']');
             }
         }
+    },
+
+    on_click_reset_to_default_settings: function() {
+        var ret = window.confirm('Attention! If you click the "Reset Settings" button, all settings will be reset to their default values. This action may affect your current annotation work, so please save your work before proceeding with the reset.\nOnce you click the button, the page will NOT refresh automatically. You will need to refresh the page.\nTo avoid losing your current annotation work, please save your progress before resetting the settings. We recommend to reset settings when not annotating.\n\nAre you sure to reset?');
+
+        if (ret) {
+
+        } else {
+            return;
+        }
+
+        this.reset_local_settings_to_default();
+
+        window.alert("The settings have been reset! Please refresh the page to enable the new settings.");
+    },
+
+    reset_local_settings_to_default: function() {
+        // first, set values to default
+        this.cfg = JSON.parse(JSON.stringify(
+            this.cfg_default_vals
+        ));
+
+        // second, apply the setting
+        for (let i = 0; i < this.auto_sl_cfg_names.length; i++) {
+            const cfg_name = this.auto_sl_cfg_names[i];
+            this.on_change_setting(cfg_name);
+        }
+        console.log('* reset cfg settings to default');
+    },
+
+    on_click_save_workspace_as_json: function() {
+        // first, clear the setting panel
+        this.cfg.enable_show_settings = false;
+
+        // second, ask for file name
+        var ret = window.prompt('Please specify the workspace name for saving. The output JSON file will be named as vpp_data_WORKSPACE.json. If the workspace name is not given, MedTator will use the schema name as the workspace name.');
+
+        var ws_name = '';
+        if (ret == '') {
+            if (this.dtd == null) {
+                app_hotpot.toast('No schema found for the current workspace.', 'warning');
+                return;
+            } else {
+                ws_name = this.dtd.name;
+            }
+        } else {
+            ws_name = ret;
+        }
+
+        jarvis.save_vpp_as(ws_name);
+        app_hotpot.toast('Successfully saved workspace as ['+ws_name+']!');
     },
 });
 
@@ -20298,6 +20618,23 @@ MedTator provides some options for selecting different methods.
             The visualization is implemented based on <a target='_blank' href='https://brat.nlplab.org/'>brat</a> visualization module. If you have any issues when using this function, please feel free to leave an issue report in <a target="_blank" href="https://github.com/OHNLP/MedTator/issues">MedTator Github Repo Issues</a> or contact our developers.
         </p>
 `
+    },
+
+    "reset_to_default_settings": {
+        title: "Reset to Default Settings",
+        html: `
+        <p>By clicking the 'Reset' button, MedTator will reset all settings to the default options.</p>
+        <p>After reset, please reload/refresh the page to enable the default settings. Otherwise the current annotation may be affected.</p>
+        `
+    },
+
+    "save_workspace_as_json": {
+        title: "Save Workspace in JSON File",
+        html: `
+        <p><b>ALL</b> the data and settings in MedTator can be saved in a single JSON file for debug and share purpose. However, due to the limitation of HTML File System Access API, the loaded files in any tab (e.g., annotation tab, adjudication tab, error analysis, etc.) are NOT linked to their original location.</p>
+        <p>The saved workspace JSON file is named as <b>vpp_data_XXXX.json</b>, where the XXXX is user-specified or the schema name. It can be loaded through the file list in annotation tab. </p>
+        <p>You can drop the saved workspace JSON file in to the file list. MedTator will automatically detect the content and load the workspace.</p>
+        `
     }
 }});
 
@@ -20562,7 +20899,11 @@ Object.assign(app_hotpot, {
             var tag = working_ann.tags[i];
             var tag_def = this.vpp.get_tag_def(tag.tag);
             if (tag_def.type == 'etag') {
-                var ret = this.cm_mark_ann_etag_in_text(tag, tag_def, working_ann);
+                var ret = this.cm_mark_ann_etag_in_text(
+                    tag, 
+                    tag_def, 
+                    working_ann
+                );
                 // console.log('* finished rendering', ret, tag);
             }
         }
@@ -20957,7 +21298,12 @@ Object.assign(app_hotpot, {
 
         // calculate the char location
         var ch0 = span_pos_0;
-        for (let i = 1; i < span_pos_0; i++) {
+        
+        // 2023-03-30: thanks to Riea's feedback!
+        // when a file contains one and only one newline at the begining,
+        // the ch0 cannot be calculated as the i==span_pos_0 is not reached
+        // so need to set the loop end condition to i<=span_pos_0
+        for (let i = 1; i <= span_pos_0; i++) {
             if (full_text[span_pos_0 - i] == '\n') {
                 ch0 = i - 1;
                 break;
@@ -22374,7 +22720,7 @@ Object.assign(app_hotpot.vpp_computed, {
 
 Object.assign(app_hotpot.vpp_methods, {
 
-    set_meta_of_error_definition: function(err_def) {
+    set_razer_err_def: function(err_def) {
         this.razer_err_def = err_def;
     },
 
@@ -22500,6 +22846,44 @@ Object.assign(app_hotpot.vpp_methods, {
         this.razer_loading_status = null;
     },
 
+    on_drop_dropzone_razer_err_def: function(event) {
+        // stop the download event
+        event.preventDefault();
+        const items = event.dataTransfer.items;
+        
+        // set loading status
+        this.razer_loading_status = Math.random();
+
+        // set loading rid
+        var promise_files = fs_get_file_texts_by_items(
+            items,
+            // only accept xml for iaa
+            function(fn) {
+                if (app_hotpot.is_file_ext_yaml(fn)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+        promise_files.then(function(files) {
+            // for error labels, just use one file?
+            app_hotpot.vpp.set_file_to_razer_err_def(files[0]);
+        });
+    },
+
+    set_file_to_razer_err_def: function(file) {
+        var tmp = null;
+        try {
+            tmp = jsyaml.load(file.text);
+
+        } catch (error) {
+            console.log('* invalid YAML content');
+            return null;
+        }
+
+        this.set_razer_err_def(tmp);
+        this.razer_loading_status = null;
+    },
 
     on_drop_dropzone_razer_err_labels: function(event) {
         // stop the download event
@@ -22734,7 +23118,7 @@ Object.assign(app_hotpot.vpp_methods, {
         if (this.razer_fig_sankey == null) {
             // make a new sankey figure
             this.razer_fig_sankey = figmker_sankey.make_fig(
-                '#razer_sankey_diagram'
+                'razer_sankey_diagram'
             );
             this.razer_fig_sankey.headers = [
                 'Error',
@@ -22742,11 +23126,13 @@ Object.assign(app_hotpot.vpp_methods, {
                 'Error Type',
                 'Concept'
             ]
-            this.razer_fig_sankey.init();
 
             // bind click events
             this.razer_fig_sankey.on_click_node = this.on_click_razer_sankey_node;
             this.razer_fig_sankey.on_click_link = this.on_click_razer_sankey_link;
+
+            // init!
+            this.razer_fig_sankey.init();
         }
 
         this.razer_fig_sankey.draw(data_sankey);
@@ -24598,6 +24984,8 @@ Object.assign(app_hotpot.vpp_data, {
     // toolkit
     // 1. medtaggervis
     // 2. iob2editor
+    // 3. ruleseteditor
+    // 4. 
     toolkit_section: 'medtaggervis',
 
     // for medtaggervis
@@ -24614,6 +25002,7 @@ Object.assign(app_hotpot.vpp_data, {
     tk_iob2editor_iob_files: [],
     tk_iob2editor_force_module_update: 0,
 
+    // for ruleseteditor
 });
 
 
@@ -24860,6 +25249,18 @@ Object.assign(app_hotpot.vpp_methods, {
 
     tk_iob2editor_on_click_iob_file: function(file) {
 
+    },
+
+
+    /////////////////////////////////////////////////////////////////
+    // Rule editor related functions
+    /////////////////////////////////////////////////////////////////
+    tk_ruleseteditor_clear_all: function() {
+
+    },
+
+    tk_ruleseteditor_how_to_use: function() {
+        
     }
 });
 
@@ -25284,6 +25685,89 @@ Vue.component('simple-item-list', {
  */
 var brat_parser = {
 
+    /**
+     * Parse the brat ann format
+     * 
+     * @param {string} ann_text the text content of a given ann
+     * @returns document_data object
+     */
+    parse_ann: function(ann_text) {
+        var doc_data = {
+            text: '',
+            entities: [],
+            relations: [],
+            attributes: [],
+            events: [],
+            triggers: []
+        };
+
+        let lines = ann_text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            line = line.trim();
+
+            if (line == '') {
+                // it's empty
+                continue;
+            }
+            
+            if (line.startsWith('#')) {
+                // it's a note
+                continue;
+            }
+
+            // the first letter must be the line code
+            let annotation_type_id = line[0];
+            
+            if (annotation_type_id == 'T') {
+                var r = this._parse_ann_line_type_text(line);
+                doc_data.entities.push(r);
+            }
+        }
+
+        return doc_data;
+    },
+
+    _parse_ann_line_type_text: function(line) {
+        var ps = line.split('\t');
+
+        // first must be the ID
+        var id = ps[0];
+
+        // third must be the token
+        var token = ps[2];
+        
+        // now parse the type and span
+        var first_space_idx = ps[1].indexOf(' ');
+
+        // the type is the first char to first space
+        var type = ps[1].substring(0, first_space_idx);
+
+        // the rest are spans
+        var spans_txt = ps[1].substring(first_space_idx + 1, );
+
+        // for brat v1.3 and later, it can be a multi-part text
+        var spans_ps = spans_txt.split(';');
+
+        var locs = [];
+        for (let i = 0; i < spans_ps.length; i++) {
+            const spans_p = spans_ps[i];
+            var sps = spans_p.split(' ');
+            
+            var a = parseInt(sps[0]);
+            var b = parseInt(sps[1]);
+
+            locs.push([a, b]);
+        }
+
+        return [
+            id,
+            type,
+            locs,
+            token, // which is not required, but I just leave it here
+        ]
+    },
+
     // for managing colors
     colors: [
         "#a6cee3",
@@ -25440,10 +25924,10 @@ var brat_parser = {
                 type: 'Status',
                 values: {
                     'Present': {
-                        glyph: 'Ⓟ',
+                        glyph: 'P',
                     },
                     'HistoryOf': {
-                        glyph: 'Ⓗ'
+                        glyph: 'H'
                     }
                 }
             });
@@ -25845,7 +26329,14 @@ var fig_bratvis = {
     }
 };
 
+// The Jarvis for init
 var jarvis = {
+    // for annotating test
+    sample_text: {},
+
+    // for log
+    changelog_latest: '',
+
     init: function() {
         // too bad ...
         if (isIE) { 
@@ -25942,6 +26433,7 @@ var jarvis = {
     save_vpp_as: function(name) {
         if (app_hotpot.vpp.$data.dtd == null) {
             console.log('* no dtd yet');
+            return;
         }
         var dtd_name = app_hotpot.vpp.$data.dtd.name;
 
@@ -25960,7 +26452,15 @@ var jarvis = {
     }
 }
 
-jarvis.sample_text = {
+// The Jarvis extension for samples
+/**
+ * This is an extension for jarvis
+ */
+
+/////////////////////////////////////////////////////////////////
+// Sample Texts for annotation test
+/////////////////////////////////////////////////////////////////
+Object.assign(jarvis.sample_text, {
     'covid_vax': `Positive COVID-19 test with symptoms; 
 
 The patient had MS & ache (UoL < 2.4 & T'x > 5.5, with "AoE" found) was immune compromised; 
@@ -25975,21 +26475,29 @@ Based on the information available, a possible contributory role of the suspect 
 
 As she was in D.C. on Wed. to attend Mr. LASTNAME's wedding at 9 A.M. to 14 P.M. with Ms. LASTNAME from Wash., Dr. LASTNAME updated the No. C8's comments and re-scheduled a virtual visit on Mon. of next week (Jul. 19th). 
     `
-};
+});
 
+// update the log
 jarvis.changelog_latest = `
-1.3.11 (2022-12-08)
+1.3.15 (2023-02-26)
 
-- Added annotation visualization based on brat
-- Added Python scripts for read/parse MedTator XML format
-- Added Jupyter notebook for downstream tasks with MedTator XML files.
-- Developed functions for brat vis format conversion
-- Developed tag extraction based offset spans
-- Updated style for link/relation display
+- Added workspace JSON drag and drop on file list
+- Added workspace saving function
+- Added workspace loading function
+- Added schema drag and drop on file list
+- Added shortcut ALT +	&amp;uarr; / &amp;darr; to move to prev / next file
+- Added Toolkit/MedTaggerVis for checking .ann files (experimental)
+- Added local setting cache for auto save/load (experimental)
+- Fixed error analysis Sankey link bug
+- Fixed error analysis SVG height bug
+- Fixed error analysis popup box bug
+- Updated design for .ann/.txt conversion
+- Updated FAQ in MedTator Wiki 
+- Updated scripts for downstream tasks
+- Updated sample datasets for new settings
 
 
 `;
-
 
 // extend the App with data if needed
 
