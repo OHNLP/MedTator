@@ -3,20 +3,39 @@ A demo script for showing how to mask entities in MedTator XML
 
 For example, for a given XML
 
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <VAX_AE_MED>
 <TEXT><![CDATA[The fever broke about 102 F this morning (1/10/21) so a rough estimate of the time course is 32 h.]]></TEXT>
 <TAGS>
+<META/>
 <AE spans="4~9" text="fever" id="A0"/>
 <SVRT spans="22~27" text="102 F" id="S1"/>
 <DATE spans="42~46" text="1/10" id="D1"/>
 </TAGS>
 </VAX_AE_MED>
+```
 
-We want to mask the `fever` (replace with ##AE##) and keep other entities in the annotation for downstream tasks, such as question answering.
+We want to mask the `fever` (replace with ##AE##) and date information, while keeping other entities in the annotation for downstream tasks, such as question answering.
 As the spans of the replaced tokens may cause the length of text changed, we need to tracking the changes and apply the offset to other affected tokens of entities.
-
 This script show an example of how this can be done.
+
+After masking, the output XML looks like:
+
+```xml
+<?xml version='1.0' encoding='UTF8'?>
+<VAX_AE_MED>
+<META/>
+<TEXT><![CDATA[The ##AE## broke about 102 F this morning (##DT##/21) so a rough estimate of the time course is 32 h.]]></TEXT>
+<TAGS>
+<SVRT spans="23~28" text="102 F" id="S1"/>
+</TAGS>
+</VAX_AE_MED>
+```
+
+As you can see, the `fever` and `1/10` are masked. As the text changes, the offset of SVRT `102 F` is changed from 22~27 to 23~28. All the masked entites are removed from the <TAGS> element.
+
+You can check more technical details in this script.
 '''
 
 import os
