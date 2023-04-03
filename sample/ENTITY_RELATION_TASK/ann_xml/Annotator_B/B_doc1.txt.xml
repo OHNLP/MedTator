@@ -13,5 +13,7 @@
 <LK_AE_SVRT id="L0" link_AEID="A4" link_AEText="pain" link_SVRTID="S3" link_SVRTText="mild" comment="NA"/>
 <LK_AE_SVRT id="L1" link_AEID="A0" link_AEText="pain" link_SVRTID="S2" link_SVRTText="mild" comment="NA"/>
 <AE spans="775~779" text="pain" id="A5" certainty="positive" comment="NA"/>
+<DATE spans="183~190" text="Jan2021" id="D0" comment="NA"/>
 </TAGS>
+<META/>
 </COVID_VAX_AE>

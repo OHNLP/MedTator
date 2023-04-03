@@ -15,6 +15,8 @@ On 28Jan2021 18:30, the patient experienced mild nausea. Treatment was not recei
 <AE spans="1033~1037" text="pain" id="A4" certainty="positive" comment="NA"/>
 <SVRT spans="1153~1157" text="mild" id="S1" severity="NA" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A4" link_AEText="pain" link_SVRTID="S1" link_SVRTText="mild" comment="NA"/>
+<DATE spans="188~197" text="28Jan2021" id="D0" comment="NA"/>
+<DATE spans="647~656" text="28Jan2021" id="D1" comment="NA"/>
 </TAGS>
 <META/>
 </COVID_VAX_AE>

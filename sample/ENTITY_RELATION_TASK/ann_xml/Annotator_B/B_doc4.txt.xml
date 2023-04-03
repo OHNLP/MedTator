@@ -52,5 +52,13 @@ I did place phone call to patient to discuss and give their advice. They had jus
 <AE spans="56~83" text="left arm painful and tingly" id="A16" certainty="positive" comment="NA"/>
 <AE spans="110~127" text="pain is different" id="A17" certainty="positive" comment="NA"/>
 <SVRT spans="5076~5087" text="a very mild" id="S4" severity="NA" comment="NA"/>
+<DATE spans="0~7" text="4/10/21" id="D0" comment="NA"/>
+<DATE spans="181~188" text="4/13/21" id="D1" comment="NA"/>
+<DATE spans="293~300" text="4/14/21" id="D2" comment="NA"/>
+<DATE spans="1251~1258" text="4/15/21" id="D3" comment="NA"/>
+<DATE spans="1609~1616" text="4/16/21" id="D4" comment="NA"/>
+<DATE spans="3484~3491" text="4/20/21" id="D5" comment="NA"/>
+<DATE spans="5625~5632" text="4/20/21" id="D6" comment="NA"/>
 </TAGS>
+<META/>
 </COVID_VAX_AE>

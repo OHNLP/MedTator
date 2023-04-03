@@ -3,8 +3,16 @@ MedTator Annotation XML Toolkits
 
 This is for operating the annotation files in the JSON format.
 You can use this module to create JSON format annotation files.
+
+The saving XML function `save_xml` requires lxml.
+Please install lxml first
+
+```bash
+pip install lxml
+```
 '''
 
+from copy import deepcopy
 import os
 import argparse
 from xml.dom.minidom import parse
@@ -19,6 +27,8 @@ def parse_xml(full_fn):
     ann = {
         # about the file itself
         "_filename": fn,
+        # the root tag
+        "root": '', 
         # the text content of this annotation file
         "text": '',
         # the metadata
@@ -33,7 +43,32 @@ def parse_xml(full_fn):
     # get text directly as there is only one TEXT tag
     ann['text'] = dom.getElementsByTagName('TEXT')[0].childNodes[0].data
 
-    # now parse the meta
+    # get the root name
+    ann['root'] = dom.firstChild.nodeName
+
+    # TODO: now parse the meta
+    if len(dom.getElementsByTagName('META')) == 0:
+        # no <META>, just skip
+        pass
+    else:
+        meta_nodes = dom.getElementsByTagName('META')[0].childNodes
+        for mt_node in meta_nodes:
+            if mt_node.nodeType == mt_node.TEXT_NODE:
+                # which mean it's a text such as \n or space
+                continue
+
+            # use the node name as tag name
+            if mt_node.nodeName not in ann['meta']:
+                # create a list of new items
+                ann['meta'][mt_node.nodeName] = []
+
+            mt_tag = {}
+            attrs = mt_node.attributes.items()
+            for attr in attrs:
+                mt_tag[attr[0]] = attr[1]
+
+            # save this meta
+            ann['meta'][mt_node.nodeName].append(mt_tag)
 
     # now parse the tags
     nodes = dom.getElementsByTagName('TAGS')[0].childNodes
@@ -142,6 +177,60 @@ def parse_xmls(path):
     return ret
 
 
+def save_xml(ann, full_path):
+    '''
+    Save the given ann as a XML file to specific path
+    '''
+    from lxml import etree as ET
+
+    # create root element
+    root = ET.Element(ann['root'])
+
+    # create sub elements
+    meta = ET.SubElement(root, "META")
+    text = ET.SubElement(root, "TEXT")
+    tags = ET.SubElement(root, "TAGS")
+
+    # add text
+    text.text = ET.CDATA(ann['text'])
+
+    # add meta
+    for mt_key in ann['meta']:
+        for mt_val_dict in ann['meta'][mt_key]:
+            elem = ET.SubElement(
+                meta,
+                mt_key,
+                attrib=mt_val_dict
+            )
+
+    # add tags
+    for tag in ann['tags']:
+        # get all attrs
+        attrs = deepcopy(tag)
+        # remove the tag attr
+        del attrs['tag']
+        # convert spans
+        spans = []
+        for sp in attrs['spans']:
+            spans.append('%s~%s' % (sp[0], sp[1]))
+        attrs['spans'] = ','.join(spans)
+
+        # create a new node
+        elem = ET.SubElement(
+            tags, 
+            tag['tag'],
+            attrib=attrs
+        )
+
+    # save the xml file
+    # No indent saving
+    tree = ET.ElementTree(root)
+    ET.indent(tree, space='', level=0)
+    tree.write(
+        full_path,
+        encoding='utf8',
+        xml_declaration=True
+    )
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Annotation XML Kits')

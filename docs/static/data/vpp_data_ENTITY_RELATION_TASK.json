@@ -121,6 +121,38 @@
                 "style": {
                     "color": "#51a1d7"
                 }
+            },
+            {
+                "name": "DATE",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "3",
+                "style": {
+                    "color": "#b2df8a"
+                }
             }
         ],
         "rtags": [
@@ -189,7 +221,7 @@
                 "id_prefix": "L",
                 "shortcut": null,
                 "style": {
-                    "color": "#b2df8a"
+                    "color": "#33a02c"
                 }
             }
         ],
@@ -312,6 +344,38 @@
                     "color": "#51a1d7"
                 }
             },
+            "D": {
+                "name": "DATE",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "3",
+                "style": {
+                    "color": "#b2df8a"
+                }
+            },
             "L": {
                 "name": "LK_AE_SVRT",
                 "type": "rtag",
@@ -377,7 +441,7 @@
                 "id_prefix": "L",
                 "shortcut": null,
                 "style": {
-                    "color": "#b2df8a"
+                    "color": "#33a02c"
                 }
             }
         },
@@ -500,6 +564,38 @@
                     "color": "#51a1d7"
                 }
             },
+            "DATE": {
+                "name": "DATE",
+                "type": "etag",
+                "is_non_consuming": false,
+                "attrs": [
+                    {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                ],
+                "attr_dict": {
+                    "comment": {
+                        "name": "comment",
+                        "vtype": "text",
+                        "require": "",
+                        "values": [],
+                        "default_value": "NA",
+                        "element": "DATE",
+                        "type": "attr"
+                    }
+                },
+                "id_prefix": "D",
+                "shortcut": "3",
+                "style": {
+                    "color": "#b2df8a"
+                }
+            },
             "LK_AE_SVRT": {
                 "name": "LK_AE_SVRT",
                 "type": "rtag",
@@ -565,11 +661,11 @@
                 "id_prefix": "L",
                 "shortcut": null,
                 "style": {
-                    "color": "#b2df8a"
+                    "color": "#33a02c"
                 }
             }
         },
-        "text": "# Annotation Schema: COVID_VAX_AE\n# For more information schema design, you can check MedTator Wiki:\n# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema \nname: COVID_VAX_AE\netags:\n  - name: AE\n    attrs:\n      - name: certainty\n        vtype: list\n        values:\n          - positive\n          - negated\n          - possible\n        default_value: positive\n      - name: comment\n        vtype: text\n        default_value: NA\n\n  - name: SVRT\n    attrs:\n      - name: severity\n        vtype: list\n        values:\n          - mild\n          - moderate\n          - severe\n          - NA\n        default_value: NA\n      - name: comment\n        vtype: text\n        default_value: NA\nrtags:\n  - name: LK_AE_SVRT\n    attrs:\n      - name: link_AE\n        vtype: idref\n      - name: link_SVRT\n        vtype: idref\n      - name: comment\n        vtype: text\n        default_value: NA\nmeta:\n  sentencize_exceptions:\n    - Pos.\n    - Neg.\n    - Psb.\n",
+        "text": "# Annotation Schema: COVID_VAX_AE\n# For more information schema design, you can check MedTator Wiki:\n# https://github.com/OHNLP/MedTator/wiki/Annotation-Schema \nname: COVID_VAX_AE\netags:\n  - name: AE\n    attrs:\n      - name: certainty\n        vtype: list\n        values:\n          - positive\n          - negated\n          - possible\n        default_value: positive\n      - name: comment\n        vtype: text\n        default_value: NA\n\n  - name: SVRT\n    attrs:\n      - name: severity\n        vtype: list\n        values:\n          - mild\n          - moderate\n          - severe\n          - NA\n        default_value: NA\n      - name: comment\n        vtype: text\n        default_value: NA\n\n  - name: DATE\n    attrs:\n      - name: comment\n        vtype: text\n        default_value: NA\nrtags:\n  - name: LK_AE_SVRT\n    attrs:\n      - name: link_AE\n        vtype: idref\n      - name: link_SVRT\n        vtype: idref\n      - name: comment\n        vtype: text\n        default_value: NA\nmeta:\n  sentencize_exceptions:\n    - Pos.\n    - Neg.\n    - Psb.\n",
         "meta": {
             "sentencize_exceptions": [
                 "Pos.",
@@ -580,146 +676,6 @@
     },
     "ann_idx": 0,
     "anns": [
-        {
-            "text": "A 73-years-old female patient received first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; lot number and expiration date unspecified), via an unspecified route of administration on 28Jan2021 18:30 at single dose (right arm) for covid-19 immunization. Medical history included allergies, asthma and Clostridium difficile (c.dif). \n\nPatient had allergies to medications, food or other products. The patient was not pregnant. Concomitant medication included rosuvastatin within 2 weeks of vaccination. The patient received other vaccine within 4 weeks prior to Covid vaccine included 1 dose of pneumonia vaccine on 07Jan2021 at a clinic. \n\nOn 28Jan2021 18:30, the patient experienced mild nausea. Treatment was not received for the event. Prior to vaccination, patient was not diagnosed with COVID-19 and since the vaccination, patient has not patient been tested for covid-19. Outcome of event was recovered on an unspecified date.  Information on the lot/batch number has been requested. She had no side effects except for the pain at the site of injection. She wanted to know if it needs to be monitored more. But the next day she said it's just mild and not big deal.\n",
-            "dtd_name": "COVID_VAX_AE",
-            "tags": [
-                {
-                    "tag": "AE",
-                    "spans": "283~292",
-                    "text": "allergies",
-                    "id": "A0",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "AE",
-                    "spans": "294~300",
-                    "text": "asthma",
-                    "id": "A1",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "AE",
-                    "spans": "350~359",
-                    "text": "allergies",
-                    "id": "A2",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SVRT",
-                    "spans": "688~692",
-                    "text": "mild",
-                    "id": "S0",
-                    "severity": "NA",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "AE",
-                    "spans": "693~699",
-                    "text": "nausea",
-                    "id": "A3",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "AE",
-                    "spans": "1033~1037",
-                    "text": "pain",
-                    "id": "A4",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SVRT",
-                    "spans": "1153~1157",
-                    "text": "mild",
-                    "id": "S1",
-                    "severity": "NA",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "LK_AE_SVRT",
-                    "id": "L0",
-                    "link_AE": "A4",
-                    "link_SVRT": "S1",
-                    "comment": "NA"
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "A_doc2.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
-        {
-            "text": "Patient presented to Urgent Care with mild arm pain yesterday.\nHe said he took the vaccine two days ago, and it was very slight.\nBut today it's different, very painful and tingly.",
-            "dtd_name": "COVID_VAX_AE",
-            "tags": [
-                {
-                    "tag": "AE",
-                    "spans": "47~51",
-                    "text": "pain",
-                    "id": "A0",
-                    "certainty": "positive",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SVRT",
-                    "spans": "38~42",
-                    "text": "mild",
-                    "id": "S0",
-                    "severity": "NA",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SVRT",
-                    "spans": "121~127",
-                    "text": "slight",
-                    "id": "S1",
-                    "severity": "NA",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "SVRT",
-                    "spans": "172~178",
-                    "text": "tingly",
-                    "id": "S2",
-                    "severity": "NA",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "LK_AE_SVRT",
-                    "id": "L0",
-                    "link_AE": "A0",
-                    "link_SVRT": "S0",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "LK_AE_SVRT",
-                    "id": "L1",
-                    "link_AE": "A0",
-                    "link_SVRT": "S1",
-                    "comment": "NA"
-                },
-                {
-                    "tag": "LK_AE_SVRT",
-                    "id": "L2",
-                    "link_AE": "A0",
-                    "link_SVRT": "S2",
-                    "comment": "NA"
-                }
-            ],
-            "meta": {},
-            "_fh": {},
-            "_filename": "A_doc5.txt.xml",
-            "_has_saved": true,
-            "_sentences": [],
-            "_sentences_text": ""
-        },
         {
             "text": "A 70-year-old female patient received the first dose of BNT162B2 (PFIZER-BIONTECH COVID-19 VACCINE, lot number and expiry date unknown), via an unspecified route of administration on Jan2021 at a SINGLE DOSE for covid-19 immunisation. The patient's medical history and concomitant medications were not reported. The patient previously had a flu and shingles shot. The patient asked the side effects after the second shot compared to the first in older people. She wanted to known if they need to be monitored more after the second shot. The consumer reported receiving her first injection of the Pfizer BioNTech COVID-19 vaccine 2 weeks ago and the only side effect she experienced was some mild pain at the site of injection that lasted only a day. The consumer reports the pain was similar to what she experienced in the past after a flu shot and a shingles shot. The consumer reported when she was told by people where she received her injection that people react more to the second shot compared to the first, and younger people react more to the injections that older people for side effects like headache and fever. The consumer also stated, \"Here is the question, my mother who is going to be 97 and I, who is going to be 70 received the first Pfizer Shot a couple (Covid-19 Vaccine) of weeks ago, we are due for the second shot for next Thursday actually and I was told we had no side effects at all thank goodness just the sore arm. Now I was told for the second shot that you usually do get some kind of side effects, so my question is my mother and I taking a shot at the same time, I live along with her and should I have somebody with me just what are the odds we are going to have side effects from the second shot, I guess that's my question.\" The outcome of the event mild pain at the site of injection was recovered while other event was unknown.  Information on the Lot/Batch Number has been requested.\r\n",
             "dtd_name": "COVID_VAX_AE",
@@ -832,6 +788,13 @@
                     "id": "S6",
                     "severity": "NA",
                     "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "183~190",
+                    "text": "Jan2021",
+                    "id": "D0",
+                    "comment": "NA"
                 }
             ],
             "meta": {
@@ -843,6 +806,95 @@
             },
             "_fh": {},
             "_filename": "A_doc1.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
+        },
+        {
+            "text": "A 73-years-old female patient received first dose of bnt162b2 (PFIZER-BIONTECH COVID-19 VACCINE; lot number and expiration date unspecified), via an unspecified route of administration on 28Jan2021 18:30 at single dose (right arm) for covid-19 immunization. Medical history included allergies, asthma and Clostridium difficile (c.dif). \n\nPatient had allergies to medications, food or other products. The patient was not pregnant. Concomitant medication included rosuvastatin within 2 weeks of vaccination. The patient received other vaccine within 4 weeks prior to Covid vaccine included 1 dose of pneumonia vaccine on 07Jan2021 at a clinic. \n\nOn 28Jan2021 18:30, the patient experienced mild nausea. Treatment was not received for the event. Prior to vaccination, patient was not diagnosed with COVID-19 and since the vaccination, patient has not patient been tested for covid-19. Outcome of event was recovered on an unspecified date.  Information on the lot/batch number has been requested. She had no side effects except for the pain at the site of injection. She wanted to know if it needs to be monitored more. But the next day she said it's just mild and not big deal.\n",
+            "dtd_name": "COVID_VAX_AE",
+            "tags": [
+                {
+                    "tag": "AE",
+                    "spans": "283~292",
+                    "text": "allergies",
+                    "id": "A0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "294~300",
+                    "text": "asthma",
+                    "id": "A1",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "350~359",
+                    "text": "allergies",
+                    "id": "A2",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "688~692",
+                    "text": "mild",
+                    "id": "S0",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "693~699",
+                    "text": "nausea",
+                    "id": "A3",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "AE",
+                    "spans": "1033~1037",
+                    "text": "pain",
+                    "id": "A4",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "1153~1157",
+                    "text": "mild",
+                    "id": "S1",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L0",
+                    "link_AE": "A4",
+                    "link_SVRT": "S1",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "188~197",
+                    "text": "28Jan2021",
+                    "id": "D0",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "647~656",
+                    "text": "28Jan2021",
+                    "id": "D1",
+                    "comment": "NA"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "A_doc2.txt.xml",
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
@@ -896,6 +948,34 @@
                     "text": "painful",
                     "id": "A3",
                     "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "412~423",
+                    "text": "08 Jan 2021",
+                    "id": "D0",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "136~147",
+                    "text": "05 Feb 2021",
+                    "id": "D1",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "82~93",
+                    "text": "08 Jan 2021",
+                    "id": "D2",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "571~582",
+                    "text": "05 Feb 2021",
+                    "id": "D3",
                     "comment": "NA"
                 }
             ],
@@ -1200,6 +1280,62 @@
                     "id": "S7",
                     "severity": "NA",
                     "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "0~7",
+                    "text": "4/10/21",
+                    "id": "D0",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "181~188",
+                    "text": "4/13/21",
+                    "id": "D1",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "293~300",
+                    "text": "4/14/21",
+                    "id": "D2",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "101~104",
+                    "text": "4/8",
+                    "id": "D3",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "1251~1258",
+                    "text": "4/15/21",
+                    "id": "D4",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "1609~1616",
+                    "text": "4/16/21",
+                    "id": "D5",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "3484~3491",
+                    "text": "4/20/21",
+                    "id": "D6",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "DATE",
+                    "spans": "5625~5632",
+                    "text": "4/20/21",
+                    "id": "D7",
+                    "comment": "NA"
                 }
             ],
             "meta": {
@@ -1214,9 +1350,74 @@
             "_has_saved": true,
             "_sentences": [],
             "_sentences_text": ""
+        },
+        {
+            "text": "Patient presented to Urgent Care with mild arm pain yesterday.\nHe said he took the vaccine two days ago, and it was very slight.\nBut today it's different, very painful and tingly.",
+            "dtd_name": "COVID_VAX_AE",
+            "tags": [
+                {
+                    "tag": "AE",
+                    "spans": "47~51",
+                    "text": "pain",
+                    "id": "A0",
+                    "certainty": "positive",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "38~42",
+                    "text": "mild",
+                    "id": "S0",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "121~127",
+                    "text": "slight",
+                    "id": "S1",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "SVRT",
+                    "spans": "172~178",
+                    "text": "tingly",
+                    "id": "S2",
+                    "severity": "NA",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L0",
+                    "link_AE": "A0",
+                    "link_SVRT": "S0",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L1",
+                    "link_AE": "A0",
+                    "link_SVRT": "S1",
+                    "comment": "NA"
+                },
+                {
+                    "tag": "LK_AE_SVRT",
+                    "id": "L2",
+                    "link_AE": "A0",
+                    "link_SVRT": "S2",
+                    "comment": "NA"
+                }
+            ],
+            "meta": {},
+            "_fh": {},
+            "_filename": "A_doc5.txt.xml",
+            "_has_saved": true,
+            "_sentences": [],
+            "_sentences_text": ""
         }
     ],
-    "mn4anns": 0.4493810078109566,
+    "mn4anns": 0.7588657872865072,
     "pg_index": 0,
     "pg_total": 1,
     "pg_numpp": 100,
@@ -1234,37 +1435,119 @@
     "stat_filter_token_text": true,
     "hints": [],
     "hint_dict": {
-        "AE": {
+        "SVRT": {
             "text_dict": {
-                "allergies": {
+                "mild": {
+                    "count": 7,
+                    "ann_fn_dict": {
+                        "A_doc1.txt.xml": 2,
+                        "A_doc2.txt.xml": 2,
+                        "A_doc4.txt.xml": 2,
+                        "A_doc5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "similar": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "react more": {
                     "count": 2,
                     "ann_fn_dict": {
-                        "A_doc2.txt.xml": 2
+                        "A_doc1.txt.xml": 2
                     },
                     "_is_shown": false
                 },
-                "asthma": {
+                "very": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc2.txt.xml": 1
+                        "A_doc3.txt.xml": 1
                     },
                     "_is_shown": false
                 },
-                "nausea": {
+                "severe": {
                     "count": 1,
                     "ann_fn_dict": {
-                        "A_doc2.txt.xml": 1
+                        "A_doc4.txt.xml": 1
                     },
                     "_is_shown": false
                 },
+                "different": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "very slight": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "slight": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1,
+                        "A_doc5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "a lot better": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "completely resolved": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "tingly": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc5.txt.xml": 1
+                    },
+                    "_is_shown": false
+                }
+            },
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": [
+                "mild",
+                "similar",
+                "react more",
+                "very",
+                "severe",
+                "different",
+                "very slight",
+                "slight",
+                "a lot better",
+                "completely resolved",
+                "tingly"
+            ]
+        },
+        "AE": {
+            "text_dict": {
                 "pain": {
                     "count": 10,
                     "ann_fn_dict": {
-                        "A_doc2.txt.xml": 1,
-                        "A_doc5.txt.xml": 1,
                         "A_doc1.txt.xml": 3,
+                        "A_doc2.txt.xml": 1,
                         "A_doc3.txt.xml": 1,
-                        "A_doc4.txt.xml": 4
+                        "A_doc4.txt.xml": 4,
+                        "A_doc5.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1287,6 +1570,27 @@
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc1.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "allergies": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc2.txt.xml": 2
+                    },
+                    "_is_shown": false
+                },
+                "asthma": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc2.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "nausea": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc2.txt.xml": 1
                     },
                     "_is_shown": false
                 },
@@ -1423,13 +1727,13 @@
                 "_is_shown": false
             },
             "texts": [
-                "allergies",
-                "asthma",
-                "nausea",
                 "pain",
                 "headache",
                 "fever",
                 "sore arm",
+                "allergies",
+                "asthma",
+                "nausea",
                 "pain with the needle",
                 "sore, red and bruised",
                 "painful",
@@ -1450,86 +1754,91 @@
                 "swelling"
             ]
         },
-        "SVRT": {
+        "LK_AE_SVRT": {
+            "text_dict": {},
+            "nc_dict": {
+                "count": 0,
+                "ann_fn_dict": {},
+                "_is_shown": false
+            },
+            "texts": []
+        },
+        "DATE": {
             "text_dict": {
-                "mild": {
-                    "count": 7,
-                    "ann_fn_dict": {
-                        "A_doc2.txt.xml": 2,
-                        "A_doc5.txt.xml": 1,
-                        "A_doc1.txt.xml": 2,
-                        "A_doc4.txt.xml": 2
-                    },
-                    "_is_shown": false
-                },
-                "slight": {
-                    "count": 2,
-                    "ann_fn_dict": {
-                        "A_doc5.txt.xml": 1,
-                        "A_doc4.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "tingly": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc5.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "similar": {
+                "Jan2021": {
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc1.txt.xml": 1
                     },
                     "_is_shown": false
                 },
-                "react more": {
+                "28Jan2021": {
                     "count": 2,
                     "ann_fn_dict": {
-                        "A_doc1.txt.xml": 2
+                        "A_doc2.txt.xml": 2
                     },
                     "_is_shown": false
                 },
-                "very": {
-                    "count": 1,
+                "08 Jan 2021": {
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc3.txt.xml": 1
+                        "A_doc3.txt.xml": 2
                     },
                     "_is_shown": false
                 },
-                "severe": {
-                    "count": 1,
+                "05 Feb 2021": {
+                    "count": 2,
                     "ann_fn_dict": {
-                        "A_doc4.txt.xml": 1
+                        "A_doc3.txt.xml": 2
                     },
                     "_is_shown": false
                 },
-                "different": {
-                    "count": 1,
-                    "ann_fn_dict": {
-                        "A_doc4.txt.xml": 1
-                    },
-                    "_is_shown": false
-                },
-                "very slight": {
+                "4/10/21": {
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc4.txt.xml": 1
                     },
                     "_is_shown": false
                 },
-                "a lot better": {
+                "4/13/21": {
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc4.txt.xml": 1
                     },
                     "_is_shown": false
                 },
-                "completely resolved": {
+                "4/14/21": {
                     "count": 1,
                     "ann_fn_dict": {
                         "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "4/8": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "4/15/21": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "4/16/21": {
+                    "count": 1,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 1
+                    },
+                    "_is_shown": false
+                },
+                "4/20/21": {
+                    "count": 2,
+                    "ann_fn_dict": {
+                        "A_doc4.txt.xml": 2
                     },
                     "_is_shown": false
                 }
@@ -1540,27 +1849,18 @@
                 "_is_shown": false
             },
             "texts": [
-                "mild",
-                "slight",
-                "tingly",
-                "similar",
-                "react more",
-                "very",
-                "severe",
-                "different",
-                "very slight",
-                "a lot better",
-                "completely resolved"
+                "Jan2021",
+                "28Jan2021",
+                "08 Jan 2021",
+                "05 Feb 2021",
+                "4/10/21",
+                "4/13/21",
+                "4/14/21",
+                "4/8",
+                "4/15/21",
+                "4/16/21",
+                "4/20/21"
             ]
-        },
-        "LK_AE_SVRT": {
-            "text_dict": {},
-            "nc_dict": {
-                "count": 0,
-                "ann_fn_dict": {},
-                "_is_shown": false
-            },
-            "texts": []
         }
     },
     "clicked_tag_id": null,
@@ -1580,7 +1880,7 @@
     "txt_xml_prefix": "",
     "txt_xml_suffix": "",
     "fn_pattern": "",
-    "force_module_update": 0.7622040740062415,
+    "force_module_update": 0.6911332711816285,
     "cm": {
         "display_mode": "document",
         "mark_mode": "node",
@@ -1596,13 +1896,13 @@
         "enable_show_settings": false,
         "enable_display_menu_dropzone_ann": false,
         "auto_save_current_ann": "disable",
-        "auto_sl_current_cfg": "enable",
+        "auto_sl_current_cfg": "disable",
         "active_setting_tab": "other",
         "sentence_splitting_algorithm": "simpledot",
         "linking_marks_selection": "all_concepts",
-        "new_ui_for_ea": "enable",
+        "new_ui_for_ea": "disable",
         "new_ui_for_tk": "enable",
-        "new_ui_for_ck": "enable"
+        "new_ui_for_ck": "disable"
     },
     "export_text": "",
     "texts": {},

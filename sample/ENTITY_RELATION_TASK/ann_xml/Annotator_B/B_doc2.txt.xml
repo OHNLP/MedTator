@@ -14,6 +14,8 @@ On 28Jan2021 18:30, the patient experienced mild nausea. Treatment was not recei
 <AE spans="283~292" text="allergies" id="A2" certainty="positive" comment="NA"/>
 <AE spans="350~359" text="allergies" id="A3" certainty="positive" comment="NA"/>
 <AE spans="294~300" text="asthma" id="A4" certainty="positive" comment="NA"/>
+<DATE spans="647~656" text="28Jan2021" id="D0" comment="NA"/>
+<DATE spans="188~197" text="28Jan2021" id="D1" comment="NA"/>
 </TAGS>
 <META/>
 </COVID_VAX_AE>

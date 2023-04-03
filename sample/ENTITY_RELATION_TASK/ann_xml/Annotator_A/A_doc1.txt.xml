@@ -17,6 +17,7 @@
 <LK_AE_SVRT id="L3" link_AEID="A1" link_AEText="pain" link_SVRTID="S4" link_SVRTText="similar" comment="NA"/>
 <SVRT spans="1033~1043" text="react more" id="S5" severity="NA" comment="NA"/>
 <SVRT spans="961~971" text="react more" id="S6" severity="NA" comment="NA"/>
+<DATE spans="183~190" text="Jan2021" id="D0" comment="NA"/>
 </TAGS>
 <META>
 <label color="yellow"/>

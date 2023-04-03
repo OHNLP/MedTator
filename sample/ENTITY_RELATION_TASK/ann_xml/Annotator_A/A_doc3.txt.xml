@@ -10,6 +10,10 @@ The patient stated that he thought the swelling was due to accumulation of the v
 <SVRT spans="1206~1210" text="very" id="S0" severity="NA" comment="NA"/>
 <LK_AE_SVRT id="L0" link_AEID="A2" link_AEText="sore, red and bruised" link_SVRTID="S0" link_SVRTText="very" comment="NA"/>
 <AE spans="1500~1507" text="painful" id="A3" certainty="positive" comment="NA"/>
+<DATE spans="412~423" text="08 Jan 2021" id="D0" comment="NA"/>
+<DATE spans="136~147" text="05 Feb 2021" id="D1" comment="NA"/>
+<DATE spans="82~93" text="08 Jan 2021" id="D2" comment="NA"/>
+<DATE spans="571~582" text="05 Feb 2021" id="D3" comment="NA"/>
 </TAGS>
 <META>
 <label color="blue"/>

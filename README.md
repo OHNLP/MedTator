@@ -109,7 +109,7 @@ If you use MedTator in scientific work or want to learn more about it, please ta
 
 ## Change log
 
-### 1.3.x (2023-03)
+### 1.3.x (2023-05)
 
 - Research on IOB2/BIO format editing
 - Research on UMAP algorithm
@@ -122,7 +122,14 @@ If you use MedTator in scientific work or want to learn more about it, please ta
 - Update documents for new schema
 - Update UI for error analysis
 - Update demo script for inter-sentence
+
+### 1.3.16 (2023-04-03)
+
+- Added example Python script for masking entities
+- Updated medtator_kits.py for saving xml
+- Updated relation annotation example schema and data
 - Fixed one-offset bug in first-line newline sign
+- Fixed cross-line entity render bug
 
 ### 1.3.15 (2023-02-26)
 

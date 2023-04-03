@@ -63,6 +63,14 @@ I did place phone call to patient to discuss and give their advice. They had jus
 <SVRT spans="4296~4308" text="a lot better" id="S6" severity="NA" comment="NA"/>
 <AE spans="4352~4360" text="swelling" id="A24" certainty="positive" comment="NA"/>
 <SVRT spans="4381~4400" text="completely resolved" id="S7" severity="NA" comment="NA"/>
+<DATE spans="0~7" text="4/10/21" id="D0" comment="NA"/>
+<DATE spans="181~188" text="4/13/21" id="D1" comment="NA"/>
+<DATE spans="293~300" text="4/14/21" id="D2" comment="NA"/>
+<DATE spans="101~104" text="4/8" id="D3" comment="NA"/>
+<DATE spans="1251~1258" text="4/15/21" id="D4" comment="NA"/>
+<DATE spans="1609~1616" text="4/16/21" id="D5" comment="NA"/>
+<DATE spans="3484~3491" text="4/20/21" id="D6" comment="NA"/>
+<DATE spans="5625~5632" text="4/20/21" id="D7" comment="NA"/>
 </TAGS>
 <META>
 <label color="green"/>

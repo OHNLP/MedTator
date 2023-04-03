@@ -41,6 +41,16 @@
             "default_value": "NA"
           }
         ]
+      },
+      {
+        "name": "DATE",
+        "attrs": [
+          {
+            "name": "comment",
+            "vtype": "text",
+            "default_value": "NA"
+          }
+        ]
       }
     ],
     "rtags": [

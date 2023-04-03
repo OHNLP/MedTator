@@ -669,8 +669,20 @@ Object.assign(app_hotpot, {
             }
         }
 
-        // TODO fix the potential cross lines bug
+        // Default ch1 is just next to the ch0
         var ch1 = ch0 + (span_pos_1 - span_pos_0);
+
+        // 2023-03-31: if there are one ore more newline(s)
+        // the ch1 is not at the same line of ln0.
+        // so we need to check the characters between token,
+        // to ensure there is no rendering bug caused by wrong location
+        for (let i = 1; i<= (span_pos_1 - span_pos_0); i++) {
+            if (full_text[span_pos_1 - i] == '\n') {
+                // which means this is a cross line 
+                ch1 = i - 1;
+                break;
+            }
+        }
 
         // return [ [ln0, ch0], [ln1, ch1] ];
         return {

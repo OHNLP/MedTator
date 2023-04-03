@@ -10,5 +10,10 @@ The patient stated that he thought the swelling was due to accumulation of the v
 <AE spans="1008~1016" text="swelling" id="A3" certainty="positive" comment="NA"/>
 <AE spans="1217~1220" text="red" id="A4" certainty="positive" comment="NA"/>
 <AE spans="1225~1232" text="bruised" id="A5" certainty="positive" comment="NA"/>
+<DATE spans="136~147" text="05 Feb 2021" id="D0" comment="NA"/>
+<DATE spans="412~423" text="08 Jan 2021" id="D1" comment="NA"/>
+<DATE spans="571~582" text="05 Feb 2021" id="D2" comment="NA"/>
+<DATE spans="82~93" text="08 Jan 2021" id="D3" comment="NA"/>
 </TAGS>
+<META/>
 </COVID_VAX_AE>
