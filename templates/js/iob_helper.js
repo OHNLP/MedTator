@@ -1,7 +1,7 @@
 /**
  * IOB2/BIO format helper
  * 
- * This is a helper for parse, analyze, and save IOB2/BIO format files.
+ * This is a helper to parse, analyze, and save IOB2/BIO format files.
  */
 var iob2_helper = {
     /**

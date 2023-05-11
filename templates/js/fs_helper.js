@@ -1,6 +1,12 @@
-///////////////////////////////////////////////////////////
-// General purpose fs functions
-///////////////////////////////////////////////////////////
+/**
+ * Helper functions for reading and writing file system
+ * 
+ * These functions are based on HTML5 File System Access API
+ * Please ensure your target browser supports it.
+ * 
+ * For more information, please visit:
+ * https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
+ */
 
 async function fs_open_files(pickerOpts) {
     const fhs = await window.showOpenFilePicker(pickerOpts);

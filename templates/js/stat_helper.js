@@ -1,5 +1,5 @@
 /**
- * A helper object for the statistics related functions
+ * A helper for the statistics related functions
  */
 var stat_helper = {
     /**

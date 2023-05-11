@@ -1,3 +1,8 @@
+/**
+ * A manager for all kinds of tasks that we don't want core app to do
+ * 
+ * Hey Jarvis! It's not a voice command assistant.
+ */
 var jarvis = {
     // for annotating test
     sample_text: {},

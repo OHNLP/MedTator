@@ -1,5 +1,8 @@
 /**
  * BioC format annotation file parser
+ * 
+ * For more information about this format,
+ * You can visit https://bioc.sourceforge.net/
  */
 var bioc_parser = {
 

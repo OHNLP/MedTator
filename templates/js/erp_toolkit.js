@@ -1,5 +1,12 @@
 /**
  * Easy Rule Pack Toolkit
+ * 
+ * For more information about the ruleset,
+ * Please visit MedTagger website: 
+ * https://github.com/OHNLP/MedTagger
+ * 
+ * And there are also some example rulesets:
+ * https://github.com/OHNLP/covid19ruleset
  */
 var erp_toolkit = {
     rp: {

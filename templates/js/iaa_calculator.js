@@ -1,3 +1,7 @@
+/**
+ * IAA calculator for comparing corpus
+ */
+
 var iaa_calculator = {
     colors: {
         decision_agreed: '94d2bd',

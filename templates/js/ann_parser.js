@@ -1,6 +1,8 @@
 /**
  * Annotation file parser
  * 
+ * This module is designed to read/write MedTator XML files.
+ * 
  * The ann used in this tool is an object following this format:
  * {
  *  _fh: FileSystemHandle,

@@ -1,3 +1,7 @@
+/**
+ * A toolkit for NLP related tasks
+ */
+
 var nlp_toolkit = {
     sent_tlb_syms: ' `!@#$%^&*()_+-=[]{}|\\:";\'<>?,/',
     sentencize_exceptions: new Set([

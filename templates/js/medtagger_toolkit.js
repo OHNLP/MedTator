@@ -1,6 +1,9 @@
 /**
  * MedTagger format annotation file parser
  * 
+ * For more information about the MedTagger,
+ * Please visit MedTagger website: 
+ * https://github.com/OHNLP/MedTagger
  */
  var medtagger_toolkit = {
      regex: {

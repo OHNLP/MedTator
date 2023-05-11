@@ -1,5 +1,9 @@
 /**
  * Annotation schema file parser
+ * 
+ * For more information about the annotation schema,
+ * Please check our wiki page: 
+ * https://github.com/OHNLP/MedTator/wiki/Annotation-Schema
  */
 var dtd_parser = {
     regex: {

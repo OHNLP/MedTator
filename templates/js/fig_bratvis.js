@@ -1,3 +1,10 @@
+/**
+ * A helper for visualization based on Brat
+ * 
+ * This helper is designed to show entities and relations
+ * in a brat-style, whcih is easier to view complex 
+ * connections between many entities.
+ */
 var fig_bratvis = {
     plot_id: 'fig_bratvis',
 

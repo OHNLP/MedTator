@@ -1,3 +1,6 @@
+/**
+ * A SpaCy toolkit for format conversion
+ */
 var spacy_toolkit = {
 
     download_anns_as_jsonl: function(anns, dtd, fn) {
