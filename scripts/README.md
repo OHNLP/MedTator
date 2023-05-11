@@ -6,7 +6,7 @@ The function of each script is described as follows.
 
 ## Reading annotation files
 
-The following two files are designed to read 
+The following two files are designed to read MedTator XML files and convert them into other formats for ease of use.
 
 - `medtator_kits.py`: toolkits for parse MedTator's XML files.
 - `sentence_kits.py`: toolkits for converting XML to sentence-based JSON format
@@ -19,8 +19,8 @@ The following two files are designed to read
 
 ## Demo of parsing annotation XML files for training machine learning models
 
-The annotated corpus can be used for a varity of machine learning tasks, such as Named Entity Recognition (NER) and Relation Extraction (RE).
-To faciliate this process, we developed some toolkits for showing how to use the annotated XML files for these task.
+The annotated corpus can be used for a variety of machine learning tasks, such as Named Entity Recognition (NER) and Relation Extraction (RE). 
+To facilitate this process, we developed some toolkits for showing how to use the annotated XML files for these tasks.
 
 - `demo_xml2sentence.ipynb`: showing how to use the `medtator_kits.py` and `sentence_kits.py` for converting XML annotation files to build a machine learning model for the RE task, we create this Jupyter notebook for showing how to use the annotated entities and relations to build a ML model: [demo_xml2sentence.ipynb
 ](https://github.com/OHNLP/MedTator/blob/main/scripts/demo_xml2sentence.ipynb).
