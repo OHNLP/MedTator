@@ -222,7 +222,7 @@ Object.assign(app_hotpot, {
         console.log('* found hints', hints);
 
         hints = this.cm_filter_hints(hints, ['.']);
-\
+
         // bind the hints to vpp
         this.vpp.$data.hints = hints;
 
