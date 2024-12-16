@@ -221,10 +221,24 @@ Object.assign(app_hotpot, {
         );
         console.log('* found hints', hints);
 
+        hints = this.cm_filter_hints(hints, ['.']);
+\
         // bind the hints to vpp
         this.vpp.$data.hints = hints;
 
         this.cm_mark_hints(hints);
+    },
+
+    cm_filter_hints: function(hints, text_arr) {
+        // Ensure unwantedTexts is an array; if not, convert it to an array with a single element
+        if (!Array.isArray(text_arr)) {
+            text_arr = [text_arr];
+        }
+
+        // Filter out hints with text matching any value in the unwantedTexts array
+        // Return a new array with hints that don't match any of the unwanted texts
+        filtered_hints = hints.filter(hint => !text_arr.includes(hint.text));
+        return filtered_hints;
     },
 
     cm_update_tag_marks: function() {
