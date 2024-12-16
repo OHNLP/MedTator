@@ -143,3 +143,6 @@ vpp_data_DELI.json
 
 # macOS
 .DS_Store
+
+# IDE
+.idea/
