@@ -82,7 +82,7 @@ def index():
     # get the changelog
     try:
         medtator_ver = app.config['MEDTATOR_VERSION']
-        medtator_ver = medtator_ver.replace('.', '\.')
+        medtator_ver = medtator_ver.replace('.', r'\.')
         ptn_latest_changelog = r"### (%s [\s\S]+?)###" % medtator_ver
         full_readme = open('./README.md').read()
         matches = re.finditer(
